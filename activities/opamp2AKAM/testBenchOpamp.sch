@@ -23,6 +23,15 @@ N -230 -220 -230 -180 {lab=VSS}
 N -320 -220 -320 -180 {lab=VDD}
 N 370 -160 400 -160 {lab=VDD}
 N 370 -120 400 -120 {lab=VSS}
+N 140 110 140 140 {lab=GND}
+N 270 110 270 140 {lab=GND}
+N 140 0 140 50 {lab=vinn}
+N 270 0 270 50 {lab=vinp}
+N 30 -120 80 -120 {lab=vinn}
+N 20 -100 70 -100 {lab=vinp}
+N 370 -140 400 -140 {lab=VSS}
+N 400 -140 470 -140 {lab=VSS}
+N 470 -80 470 -50 {lab=GND}
 C {vsource.sym} -410 90 0 0 {name=V1 value=PAR_bias1 savecurrent=false}
 C {vsource.sym} -260 90 0 0 {name=V2 value=PAR_bias2 savecurrent=false}
 C {vsource.sym} -140 90 0 0 {name=V3 value=PAR_bias3 savecurrent=false}
@@ -39,7 +48,7 @@ C {gnd.sym} -410 150 0 0 {name=l1 lab=GND}
 C {gnd.sym} -260 150 0 0 {name=l2 lab=GND}
 C {gnd.sym} -140 150 0 0 {name=l3 lab=GND}
 C {gnd.sym} -10 150 0 0 {name=l4 lab=GND}
-C {vsource.sym} -320 -150 0 0 {name=V5 value=2.5V savecurrent=false}
+C {vsource.sym} -320 -150 0 0 {name=V5 value=5V savecurrent=false}
 C {vsource.sym} -230 -150 0 0 {name=V6 value=0V savecurrent=false}
 C {lab_pin.sym} 400 -160 2 0 {name=p9 sig_type=std_logic lab=VDD}
 C {vsource.sym} -410 90 0 0 {name=V7 value=3 savecurrent=false}
@@ -49,3 +58,18 @@ C {gnd.sym} -320 -90 0 0 {name=l6 lab=GND}
 C {lab_pin.sym} -230 -210 2 0 {name=p11 sig_type=std_logic lab=VSS}
 C {lab_pin.sym} -320 -210 2 0 {name=p12 sig_type=std_logic lab=VDD}
 C {/foss/designs/sscs-2026-zotnetic/activities/opamp2AKAM/opamp.sym} 220 -110 0 0 {name=x1}
+C {vsource.sym} 140 80 0 0 {name=V8 value=PAR_vinn savecurrent=false}
+C {vsource.sym} 270 80 0 0 {name=V9 value=PAR_vinp savecurrent=false}
+C {gnd.sym} 140 140 0 0 {name=l7 lab=GND}
+C {gnd.sym} 270 140 0 0 {name=l8 lab=GND}
+C {lab_pin.sym} 140 10 0 0 {name=p13 sig_type=std_logic lab=vinn}
+C {lab_pin.sym} 270 10 0 0 {name=p14 sig_type=std_logic lab=vinp}
+C {lab_pin.sym} 30 -120 0 0 {name=p15 sig_type=std_logic lab=vinn}
+C {lab_pin.sym} 20 -100 0 0 {name=p16 sig_type=std_logic lab=vinp}
+C {lab_pin.sym} 470 -140 2 0 {name=p17 sig_type=std_logic lab=VSS}
+C {capa.sym} 470 -110 0 0 {name=C1
+m=1
+value=500f
+footprint=1206
+device="ceramic capacitor"}
+C {gnd.sym} 470 -50 0 0 {name=l9 lab=GND}
