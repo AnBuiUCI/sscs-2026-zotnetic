@@ -1,9 +1,8 @@
-v {xschem version=3.4.8RC file_version=1.3}
+v {xschem version=3.4.7 file_version=1.2}
 G {}
 K {}
 V {}
 S {}
-F {}
 E {}
 T {opamp for general purpose} 1180 0 2 0 0.4 0.4 {}
 N 750 -390 770 -390 {
@@ -15,7 +14,7 @@ lab=vdd}
 N 750 -550 770 -550 {
 lab=vdd}
 N 710 -590 710 -550 {
-lab=#net1}
+lab=bias1}
 N 1470 -130 1470 -80 {
 lab=vss}
 N 1470 -130 1490 -130 {
@@ -47,33 +46,33 @@ lab=vss}
 N 1140 -130 1160 -130 {
 lab=vss}
 N 1140 -200 1140 -160 {
-lab=#net2}
+lab=#net1}
 N 1140 -100 1140 -80 {
 lab=vss}
 N 1100 -130 1100 -90 {
-lab=#net3}
+lab=bias4}
 N 1100 -230 1100 -170 {
-lab=#net4}
+lab=bias3}
 N 750 -450 770 -450 {
 lab=vdd}
 N 750 -520 750 -480 {
-lab=#net5}
+lab=#net2}
 N 710 -510 710 -450 {
-lab=#net6}
+lab=bias2}
 N 1470 -550 1470 -450 {
 lab=vdd}
 N 1470 -450 1490 -450 {
 lab=vdd}
 N 1490 -490 1490 -480 {
-lab=#net7}
+lab=#net3}
 N 1470 -230 1490 -230 {
 lab=vss}
 N 1470 -230 1470 -130 {
 lab=vss}
 N 1490 -190 1490 -160 {
-lab=#net8}
+lab=#net4}
 N 1730 -180 1730 -160 {
-lab=#net9}
+lab=#net5}
 N 1730 -230 1750 -230 {
 lab=vss}
 N 990 -390 1380 -390 {
@@ -83,31 +82,31 @@ lab=vinn}
 N 1730 -450 1750 -450 {
 lab=vdd}
 N 1730 -500 1730 -480 {
-lab=#net10}
+lab=#net6}
 N 750 -420 950 -420 {
-lab=#net11}
+lab=#net7}
 N 710 -290 1100 -290 {
 lab=vinp}
 N 1140 -260 1340 -260 {
-lab=#net12}
+lab=#net8}
 N 1490 -420 1490 -410 {
-lab=#net13}
+lab=#net9}
 N 1470 -380 1490 -380 {
 lab=vdd}
 N 1470 -450 1470 -380 {
 lab=vdd}
 N 1550 -130 1690 -130 {
-lab=#net14}
+lab=#net10}
 N 1750 -130 1750 -80 {
 lab=vss}
 N 1590 -300 1630 -300 {
-lab=#net15}
+lab=#net11}
 N 1730 -380 1750 -380 {
 lab=vdd}
 N 1750 -450 1750 -380 {
 lab=vdd}
 N 1730 -420 1730 -410 {
-lab=#net16}
+lab=#net12}
 N 1670 -300 1750 -300 {
 lab=vss}
 N 1750 -300 1750 -230 {
@@ -135,13 +134,13 @@ lab=vdd}
 N 1900 -600 1900 -580 {
 lab=vdd}
 N 1900 -520 1900 -480 {
-lab=#net17}
+lab=#net13}
 N 1880 -450 1900 -450 {
 lab=vdd}
 N 1880 -550 1880 -450 {
 lab=vdd}
 N 1900 -420 1900 -410 {
-lab=#net18}
+lab=#net14}
 N 1880 -380 1900 -380 {
 lab=vdd}
 N 1880 -450 1880 -380 {
@@ -153,13 +152,13 @@ lab=vss}
 N 1880 -130 1900 -130 {
 lab=vss}
 N 1900 -200 1900 -160 {
-lab=#net19}
+lab=#net15}
 N 1900 -100 1900 -80 {
 lab=vss}
 N 1940 -130 1940 -90 {
-lab=#net3}
+lab=bias4}
 N 1940 -230 1940 -170 {
-lab=#net4}
+lab=bias3}
 N 2030 -550 2050 -550 {
 lab=vdd}
 N 2030 -600 2030 -550 {
@@ -167,7 +166,7 @@ lab=vdd}
 N 2050 -600 2050 -580 {
 lab=vdd}
 N 2050 -520 2050 -480 {
-lab=#net20}
+lab=#net16}
 N 2030 -450 2050 -450 {
 lab=vdd}
 N 2030 -550 2030 -450 {
@@ -179,11 +178,11 @@ lab=vss}
 N 2030 -130 2050 -130 {
 lab=vss}
 N 2050 -200 2050 -160 {
-lab=#net21}
+lab=#net17}
 N 2050 -100 2050 -80 {
 lab=vss}
 N 2050 -270 2050 -260 {
-lab=#net22}
+lab=#net18}
 N 2030 -300 2050 -300 {
 lab=vss}
 N 2030 -300 2030 -230 {
@@ -195,157 +194,157 @@ lab=vdd}
 N 930 -550 950 -550 {
 lab=vdd}
 N 990 -590 990 -550 {
-lab=#net1}
+lab=bias1}
 N 930 -450 950 -450 {
 lab=vdd}
 N 950 -520 950 -480 {
-lab=#net23}
+lab=#net19}
 N 990 -510 990 -450 {
-lab=#net6}
+lab=bias2}
 N 1320 -230 1340 -230 {
 lab=vss}
 N 1320 -130 1340 -130 {
 lab=vss}
 N 1340 -200 1340 -160 {
-lab=#net24}
+lab=#net20}
 N 1340 -100 1340 -80 {
 lab=vss}
 N 1380 -130 1380 -90 {
-lab=#net3}
+lab=bias4}
 N 1380 -230 1380 -170 {
-lab=#net4}
+lab=bias3}
 N 1140 -290 1160 -290 {
 lab=vss}
 N 1940 -510 1940 -450 {
-lab=#net6}
+lab=bias2}
 N 1940 -550 1960 -550 {
-lab=#net18}
+lab=#net14}
 N 1960 -550 1960 -420 {
-lab=#net18}
+lab=#net14}
 N 1900 -420 1960 -420 {
-lab=#net18}
+lab=#net14}
 N 1940 -370 1940 -350 {
-lab=#net25}
+lab=#net21}
 N 1900 -350 1940 -350 {
-lab=#net25}
+lab=#net21}
 N 1900 -350 1900 -260 {
-lab=#net25}
+lab=#net21}
 N 2090 -590 2090 -550 {
-lab=#net1}
+lab=bias1}
 N 2090 -510 2090 -450 {
-lab=#net6}
+lab=bias2}
 N 1690 -170 1940 -170 {
-lab=#net4}
+lab=bias3}
 N 2090 -230 2090 -170 {
-lab=#net4}
+lab=bias3}
 N 2090 -130 2110 -130 {
-lab=#net22}
+lab=#net18}
 N 2110 -260 2110 -130 {
-lab=#net22}
+lab=#net18}
 N 2050 -260 2110 -260 {
-lab=#net22}
+lab=#net18}
 N 2090 -310 2090 -300 {
-lab=#net15}
+lab=#net11}
 N 2050 -330 2090 -330 {
-lab=#net15}
+lab=#net11}
 N 2050 -420 2050 -330 {
-lab=#net15}
+lab=#net11}
 N 1550 -550 1690 -550 {
-lab=#net13}
+lab=#net9}
 N 1530 -510 1530 -450 {
-lab=#net6}
+lab=bias2}
 N 1690 -510 1690 -450 {
-lab=#net6}
+lab=bias2}
 N 1530 -380 1690 -380 {
-lab=#net25}
+lab=#net21}
 N 1490 -350 1490 -260 {
-lab=#net14}
+lab=#net10}
 N 1550 -270 1550 -260 {
-lab=#net14}
+lab=#net10}
 N 1490 -260 1550 -260 {
-lab=#net14}
+lab=#net10}
 N 1670 -270 1670 -260 {
-lab=#net26}
+lab=#net22}
 N 1670 -260 1730 -260 {
-lab=#net26}
+lab=#net22}
 N 1470 -300 1550 -300 {
 lab=vss}
 N 1470 -300 1470 -230 {
 lab=vss}
 N 1730 -350 1730 -260 {
-lab=#net26}
+lab=#net22}
 N 1550 -410 1550 -330 {
-lab=#net13}
-N 1490 -410 1550 -410 {
-lab=#net13}
-N 1670 -410 1670 -330 {
-lab=#net16}
-N 1670 -410 1730 -410 {
-lab=#net16}
-N 1940 -510 2090 -510 {
-lab=#net6}
-N 1380 -90 1940 -90 {
-lab=#net3}
-N 1940 -170 2090 -170 {
-lab=#net4}
-N 1690 -370 1940 -370 {
-lab=#net25}
-N 1690 -380 1690 -370 {
-lab=#net25}
-N 1630 -310 2090 -310 {
-lab=#net15}
-N 1630 -310 1630 -300 {
-lab=#net15}
-N 750 -360 750 -180 {
 lab=#net9}
+N 1490 -410 1550 -410 {
+lab=#net9}
+N 1670 -410 1670 -330 {
+lab=#net12}
+N 1670 -410 1730 -410 {
+lab=#net12}
+N 1940 -510 2090 -510 {
+lab=bias2}
+N 1380 -90 1940 -90 {
+lab=bias4}
+N 1940 -170 2090 -170 {
+lab=bias3}
+N 1690 -370 1940 -370 {
+lab=#net21}
+N 1690 -380 1690 -370 {
+lab=#net21}
+N 1630 -310 2090 -310 {
+lab=#net11}
+N 1630 -310 1630 -300 {
+lab=#net11}
+N 750 -360 750 -180 {
+lab=#net5}
 N 950 -360 950 -190 {
-lab=#net8}
+lab=#net4}
 N 1140 -500 1140 -320 {
-lab=#net10}
+lab=#net6}
 N 1340 -490 1340 -320 {
-lab=#net7}
+lab=#net3}
 N 1530 -230 1530 -170 {
-lab=#net4}
+lab=bias3}
 N 1690 -230 1690 -170 {
-lab=#net4}
+lab=bias3}
 N 1550 -260 1550 -130 {
-lab=#net14}
+lab=#net10}
 N 1550 -550 1550 -410 {
-lab=#net13}
+lab=#net9}
 N 2220 -600 2240 -600 {
 lab=vdd}
 N 2160 -420 2180 -420 {
-lab=#net16}
+lab=#net12}
 N 2160 -620 2160 -420 {
-lab=#net16}
+lab=#net12}
 N 1790 -620 2160 -620 {
-lab=#net16}
+lab=#net12}
 N 1790 -620 1790 -420 {
-lab=#net16}
+lab=#net12}
 N 1730 -420 1790 -420 {
-lab=#net16}
+lab=#net12}
 N 2160 -260 2180 -260 {
-lab=#net26}
+lab=#net22}
 N 2160 -260 2160 -60 {
-lab=#net26}
+lab=#net22}
 N 1790 -60 2160 -60 {
-lab=#net26}
+lab=#net22}
 N 1790 -260 1790 -60 {
-lab=#net26}
+lab=#net22}
 N 1730 -260 1790 -260 {
-lab=#net26}
+lab=#net22}
 N 1730 -180 2130 -180 {
-lab=#net9}
+lab=#net5}
 N 2130 -340 2130 -320 {
 lab=out}
 N 1140 -500 1730 -500 {
-lab=#net10}
+lab=#net6}
 N 1340 -490 1490 -490 {
-lab=#net7}
+lab=#net3}
 N 950 -190 1490 -190 {
-lab=#net8}
+lab=#net4}
 N 750 -180 1730 -180 {
-lab=#net9}
+lab=#net5}
 N 1470 -600 1490 -600 {
 lab=vdd}
 N 1730 -600 1750 -600 {
@@ -353,35 +352,35 @@ lab=vdd}
 N 2220 -80 2240 -80 {
 lab=vss}
 N 1100 -170 1380 -170 {
-lab=#net4}
+lab=bias3}
 N 1100 -90 1380 -90 {
-lab=#net3}
+lab=bias4}
 N 710 -590 990 -590 {
-lab=#net1}
+lab=bias1}
 N 710 -510 990 -510 {
-lab=#net6}
+lab=bias2}
 N 1690 -510 1940 -510 {
-lab=#net6}
+lab=bias2}
 N 990 -590 2090 -590 {
-lab=#net1}
+lab=bias1}
 N 930 -600 950 -600 {
 lab=vdd}
 N 560 -590 710 -590 {
-lab=#net1}
+lab=bias1}
 N 560 -510 710 -510 {
-lab=#net6}
+lab=bias2}
 N 560 -170 1100 -170 {
-lab=#net4}
+lab=bias3}
 N 580 -90 1100 -90 {
-lab=#net3}
+lab=bias4}
 N 2130 -340 2220 -340 {
 lab=out}
 N 2130 -260 2130 -180 {
-lab=#net9}
+lab=#net5}
 N 1730 -500 2130 -500 {
-lab=#net10}
+lab=#net6}
 N 2130 -500 2130 -420 {
-lab=#net10}
+lab=#net6}
 N 2130 -360 2130 -340 {
 lab=out}
 N 930 -550 930 -450 {
@@ -447,29 +446,29 @@ lab=vss}
 N 1320 -80 1340 -80 {
 lab=vss}
 N 990 -510 1530 -510 {
-lab=#net6}
+lab=bias2}
 N 1530 -510 1690 -510 {
-lab=#net6}
+lab=bias2}
 N 1940 -380 1940 -370 {
-lab=#net25}
+lab=#net21}
 N 2090 -330 2090 -310 {
-lab=#net15}
+lab=#net11}
 N 1380 -170 1530 -170 {
-lab=#net4}
+lab=bias3}
 N 1530 -170 1690 -170 {
-lab=#net4}
+lab=bias3}
 N 1530 -130 1550 -130 {
-lab=#net14}
-N 1530 -550 1550 -550 {
-lab=#net13}
-N 1730 -200 1730 -180 {
-lab=#net9}
-N 1730 -520 1730 -500 {
 lab=#net10}
+N 1530 -550 1550 -550 {
+lab=#net9}
+N 1730 -200 1730 -180 {
+lab=#net5}
+N 1730 -520 1730 -500 {
+lab=#net6}
 N 1490 -520 1490 -490 {
-lab=#net7}
+lab=#net3}
 N 1490 -200 1490 -190 {
-lab=#net8}
+lab=#net4}
 N 2220 -390 2220 -340 {
 lab=out}
 N 1160 -80 1320 -80 {
