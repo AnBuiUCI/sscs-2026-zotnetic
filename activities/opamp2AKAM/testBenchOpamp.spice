@@ -1,5 +1,9 @@
 ** sch_path: /foss/designs/sscs-2026-zotnetic/activities/opamp2AKAM/testBenchOpamp.sch
 **.subckt testBenchOpamp
+.include /foss/pdks/gf180mcuD/libs.tech/ngspice/design.ngspice
+.lib /foss/pdks/gf180mcuD/libs.tech/ngspice/sm141064.ngspice typical
+.lib /foss/pdks/gf180mcuD/libs.tech/ngspice/smbb00149.ngspice typical
+
 V1 bias1 GND PAR_bias1
 V2 bias2 GND PAR_bias2
 V3 bias3 GND PAR_bias3
