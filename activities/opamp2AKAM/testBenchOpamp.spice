@@ -2,7 +2,14 @@
 **.subckt testBenchOpamp
 .include /foss/pdks/gf180mcuD/libs.tech/ngspice/design.ngspice
 .lib /foss/pdks/gf180mcuD/libs.tech/ngspice/sm141064.ngspice typical
-.lib /foss/pdks/gf180mcuD/libs.tech/ngspice/smbb00149.ngspice typical
+.lib /foss/pdks/gf180mcuD/libs.tech/ngspice/smbb000149.ngspice typical
+
+.PARAM PAR_bias1=3.425
+.PARAM PAR_bias2=3.425
+.PARAM PAR_bias3=3.425
+.PARAM PAR_bias4=3.425
+.PARAM PAR_vinn=2.5
+.PARAM PAR_vinp=2.5
 
 V1 bias1 GND PAR_bias1
 V2 bias2 GND PAR_bias2
