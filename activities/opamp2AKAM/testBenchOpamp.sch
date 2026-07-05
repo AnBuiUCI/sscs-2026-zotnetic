@@ -63,12 +63,13 @@ C {lab_pin.sym} 140 10 0 0 {name=p13 sig_type=std_logic lab=vinn}
 C {lab_pin.sym} 270 10 0 0 {name=p14 sig_type=std_logic lab=vinp}
 C {lab_pin.sym} 30 -120 0 0 {name=p15 sig_type=std_logic lab=vinn}
 C {lab_pin.sym} 20 -100 0 0 {name=p16 sig_type=std_logic lab=vinp}
-C {code_shown.sym} -570 -320 0 0 {name=MODELS only_toplevel=false value=".include /foss/pdks/gf180mcuD/libs.tech/ngspice/design.ngspice
+C {code_shown.sym} -580 -420 0 0 {name=MODELS only_toplevel=false value=".include /foss/pdks/gf180mcuD/libs.tech/ngspice/design.ngspice
 .lib /foss/pdks/gf180mcuD/libs.tech/ngspice/sm141064.ngspice typical
 .lib /foss/pdks/gf180mcuD/libs.tech/ngspice/smbb000149.ngspice typical
-.lib /foss/pdks/gf180mcuD/libs.tech/ngspice/sm141064_mim.ngspice typical"}
+.lib /foss/pdks/gf180mcuD/libs.tech/ngspice/sm141064.ngspice cap_mim
+.lib /foss/pdks/gf180mcuD/libs.tech/ngspice/sm141064.ngspice mimcap_typical"}
 C {sscs-2026-zotnetic/activities/opamp2AKAM/opamp.sym} 220 -110 0 0 {name=x1}
-C {code_shown.sym} 450 -450 0 0 {name=NGSPICE only_toplevel=false value="** PARAMETERS
+C {code_shown.sym} 450 -460 0 0 {name=NGSPICE only_toplevel=false value="** PARAMETERS
 .PARAM PAR_bias1=3.425
 .PARAM PAR_bias2=3.425
 .PARAM PAR_bias3=3.425
@@ -77,19 +78,19 @@ C {code_shown.sym} 450 -450 0 0 {name=NGSPICE only_toplevel=false value="** PARA
 .PARAM PAR_vinp=2.5
 
 .control
-* clear the results file and write a header row
-  echo "# bias1 bias2 bias3 bias4 gain" > sweep_results.txt
+  * clear the results file and write a header row
+  echo \\"# bias1 bias2 bias3 bias4 gain\\" > sweep_results.txt
 
   * ---- OUTER LOOP: try many bias combinations ----
   * nominal point is 3.425 / 2.428 / 1.909 / 1.209.
   * (the +0.001 on each limit dodges float-rounding overshoot)
-  let b1 = 3.0
+  let b1 = 3.0 
   while b1 <= 3.801
-    let b2 = 2.2
+    let b2 = 2.2 
     while b2 <= 2.601
-      let b3 = 1.7
+      let b3 = 1.7 
       while b3 <= 2.101
-        let b4 = 1.0
+        let b4 = 1.0 
         while b4 <= 1.401
 
           * set the four bias knobs for this combination
@@ -107,7 +108,7 @@ C {code_shown.sym} 450 -450 0 0 {name=NGSPICE only_toplevel=false value="** PARA
           let gain = 2.0/abs(vhi-vlo)
 
           * write one row of the table
-          echo "$&b1 $&b2 $&b3 $&b4 $&gain" >> sweep_results.txt
+          echo \\"$&b1 $&b2 $&b3 $&b4 $&gain\\" >> sweep_results.txt
 
           let b4 = b4 + 0.2
         end
@@ -118,6 +119,7 @@ C {code_shown.sym} 450 -450 0 0 {name=NGSPICE only_toplevel=false value="** PARA
     let b1 = b1 + 0.2
   end
 
-  echo "DONE - results in sweep_results.txt"
-.endc
+  echo \\"DONE - results in sweep_results.txt\\"
+.endc"
+
 }
