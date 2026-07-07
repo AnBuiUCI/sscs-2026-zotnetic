@@ -1,8 +1,9 @@
-v {xschem version=3.4.7 file_version=1.2}
+v {xschem version=3.4.8RC file_version=1.3}
 G {}
 K {}
 V {}
 S {}
+F {}
 E {}
 N 30 -160 70 -160 {lab=bias1}
 N 30 -140 70 -140 {lab=bias2}
@@ -68,7 +69,6 @@ C {code_shown.sym} -580 -420 0 0 {name=MODELS only_toplevel=false value=".includ
 .lib /foss/pdks/gf180mcuD/libs.tech/ngspice/smbb000149.ngspice typical
 .lib /foss/pdks/gf180mcuD/libs.tech/ngspice/sm141064.ngspice cap_mim
 .lib /foss/pdks/gf180mcuD/libs.tech/ngspice/sm141064.ngspice mimcap_typical"}
-C {sscs-2026-zotnetic/activities/opamp2AKAM/opamp.sym} 220 -110 0 0 {name=x1}
 C {code_shown.sym} 450 -460 0 0 {name=NGSPICE only_toplevel=false value="** PARAMETERS
 .PARAM PAR_bias1=3.425
 .PARAM PAR_bias2=3.425
@@ -79,7 +79,7 @@ C {code_shown.sym} 450 -460 0 0 {name=NGSPICE only_toplevel=false value="** PARA
 
 .control
   * clear the results file and write a header row
-  echo \\"# bias1 bias2 bias3 bias4 gain\\" > sweep_results.txt
+  echo \\"# bias1 bias2 bias3 bias4 gain\\" > /foss/designs/sscs-2026-zotnetic/activities/opamp2AKAM/simulations_testbench/simulation_results/sweep_results.txt
 
   * ---- OUTER LOOP: try many bias combinations ----
   * nominal point is 3.425 / 2.428 / 1.909 / 1.209.
@@ -108,7 +108,7 @@ C {code_shown.sym} 450 -460 0 0 {name=NGSPICE only_toplevel=false value="** PARA
           let gain = 2.0/abs(vhi-vlo)
 
           * write one row of the table
-          echo \\"$&b1 $&b2 $&b3 $&b4 $&gain\\" >> sweep_results.txt
+          echo \\"$&b1 $&b2 $&b3 $&b4 $&gain\\" >> /foss/designs/sscs-2026-zotnetic/activities/opamp2AKAM/simulations_testbench/simulation_results/sweep_results.txt
 
           let b4 = b4 + 0.2
         end
@@ -123,3 +123,4 @@ C {code_shown.sym} 450 -460 0 0 {name=NGSPICE only_toplevel=false value="** PARA
 .endc"
 
 }
+C {/foss/designs/sscs-2026-zotnetic/activities/opamp2AKAM/opamp.sym} 220 -110 0 0 {name=x1}
