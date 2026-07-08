@@ -1,0 +1,28 @@
+* Opamp AC gain testbench 
+.param fnoicor=0
+.param sw_stat_mismatch=0
+.param mim_corner_1p0ff=0
+.param mc_c_cox_1p0ff=0
+.lib /foss/pdks/ciel/gf180mcu/versions/7b70722e33c03fcb5dabcf4d479fb0822d9251c9/gf180mcuD/libs.tech/ngspice/sm141064.ngspice typical
+.lib /foss/pdks/ciel/gf180mcu/versions/7b70722e33c03fcb5dabcf4d479fb0822d9251c9/gf180mcuD/libs.tech/ngspice/sm141064.ngspice nfet_03v3_t
+.lib /foss/pdks/ciel/gf180mcu/versions/7b70722e33c03fcb5dabcf4d479fb0822d9251c9/gf180mcuD/libs.tech/ngspice/sm141064.ngspice pfet_03v3_t
+.lib /foss/pdks/ciel/gf180mcu/versions/7b70722e33c03fcb5dabcf4d479fb0822d9251c9/gf180mcuD/libs.tech/ngspice/sm141064_mim.ngspice cap_mim_new 
+.subckt mimcap_1p0fF 1 2 l=1 w=1
+X1 1 2 cap_mim_1f0_m5m6_noshield c_length=1 c_width=w
+.ends mimcap_1p0fF
+.include /foss/designs/sscs-2026-zotnetic/designs/notebooks/opamp.spice
+* Supply voltages 
+VDD VDD GND DC 5
+* Bias currents
+VDIFFPAIR_BIAS DIFFPAIR_BIAS GND DC 1
+VCS_BIAS CS_BIAS GND DC 1
+* Input AC Signal 
+VIN VP GND DC 0 AC 1
+VN VN GND DC 0
+* Connect Opamp
+XDUT VDD GND DIFFPAIR_BIAS VP VN CS_BIAS VOUT OPAMP_TWO_STAGE 
+* AC analysis 
+.ac dec 100 1 10G
+* Save output 
+.save v(VOUT)
+.end 
