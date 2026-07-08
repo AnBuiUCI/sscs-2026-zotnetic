@@ -1,0 +1,136 @@
+.subckt NMOS D G S B DUM l=1.0 w=6.0
+XMAIN1 D G S B nfet_03v3 l=1.0 w=6.0
+XMAIN2 D G S B nfet_03v3 l=1.0 w=6.0
+XMAIN3 D G S B nfet_03v3 l=1.0 w=6.0
+XMAIN4 D G S B nfet_03v3 l=1.0 w=6.0
+XDUMMY1 DUM DUM DUM B nfet_03v3 l=1.0 w=6.0
+.ends NMOS
+
+.subckt DIFF_PAIR VP VN VDD1 VDD2 VTAIL B
+X0 VDD1 VP VTAIL B B NMOS l=1.0 w=6.0
+X1 VDD1 VP VTAIL B B NMOS l=1.0 w=6.0
+X2 VDD2 VN VTAIL B B NMOS l=1.0 w=6.0
+X3 VDD2 VN VTAIL B B NMOS l=1.0 w=6.0
+.ends DIFF_PAIR
+
+.subckt two_trans_interdigitized VDD1 VDD2 VSS1 VSS2 VG1 VG2 VB l=2.0 w=6.0 m=1 
+XA VDD1 VG1 VSS1 VB nfet_03v3 l=2.0 w=6.0 m=4
+XB VDD2 VG2 VSS2 VB nfet_03v3 l=2.0 w=6.0 m=4
+XDUMMY cmdum cmdum cmdum VB nfet_03v3 l=2.0 w=6.0 m=2
+.ends two_trans_interdigitized
+
+.subckt CMIRROR VREF VOUT VSS B
+X0 VREF VOUT VSS VSS VREF VREF B two_trans_interdigitized l=2.0 w=6.0 m={1}
+.ends CMIRROR
+
+.subckt NMOS_1 D G S B DUM l=0.5 w=1
+XMAIN1 D G S B nfet_03v3 l=0.5 w=1
+XMAIN2 D G S B nfet_03v3 l=0.5 w=1
+XMAIN3 D G S B nfet_03v3 l=0.5 w=1
+XMAIN4 D G S B nfet_03v3 l=0.5 w=1
+XMAIN5 D G S B nfet_03v3 l=0.5 w=1
+.ends NMOS_1
+
+.subckt INPUT_STAGE VP VN VDD1 VDD2 IBIAS VSS B
+X0 VP VN VDD1 VDD2 wire0 B DIFF_PAIR
+X1 IBIAS wire0 VSS B CMIRROR
+X2 VSS VSS VP VSS DUM NMOS_1 l=0.5 w=1
+X3 VSS VSS VN VSS DUM NMOS_1 l=0.5 w=1
+.ends INPUT_STAGE
+
+.subckt DIFF_TO_SINGLE VIN VOUT VSS VSS2 l=1.0 w=6.0 mt=8 mb=12 
+XTOP1 V1   VIN VSS  VSS pfet_03v3 l={l} w={w} m={mt}
+XTOP2 VSS2 VIN VSS  VSS pfet_03v3 l={l} w={w} m={mt}
+XBOT1 VIN  VIN V1   VSS pfet_03v3 l={l} w={w} m={mb}
+XBOT2 VOUT VIN VSS2 VSS pfet_03v3 l={l} w={w} m={mb}
+XDUMMY1  VSS VSS VSS VSS pfet_03v3 l={l} w={w}
+XDUMMY2  VSS VSS VSS VSS pfet_03v3 l={l} w={w}
+XDUMMY3  VSS VSS VSS VSS pfet_03v3 l={l} w={w}
+XDUMMY4  VSS VSS VSS VSS pfet_03v3 l={l} w={w}
+XDUMMY5  VSS VSS VSS VSS pfet_03v3 l={l} w={w}
+XDUMMY6  VSS VSS VSS VSS pfet_03v3 l={l} w={w}
+XDUMMY7  VSS VSS VSS VSS pfet_03v3 l={l} w={w}
+XDUMMY8  VSS VSS VSS VSS pfet_03v3 l={l} w={w}
+XDUMMY9  VSS VSS VSS VSS pfet_03v3 l={l} w={w}
+XDUMMY10 VSS VSS VSS VSS pfet_03v3 l={l} w={w}
+.ends DIFF_TO_SINGLE
+
+.subckt PMOS D G S B DUM l=1.0 w=7.0
+XMAIN1 D G S B pfet_03v3 l=1.0 w=7.0
+XMAIN2 D G S B pfet_03v3 l=1.0 w=7.0
+XMAIN3 D G S B pfet_03v3 l=1.0 w=7.0
+XMAIN4 D G S B pfet_03v3 l=1.0 w=7.0
+XMAIN5 D G S B pfet_03v3 l=1.0 w=7.0
+XMAIN6 D G S B pfet_03v3 l=1.0 w=7.0
+XMAIN7 D G S B pfet_03v3 l=1.0 w=7.0
+XMAIN8 D G S B pfet_03v3 l=1.0 w=7.0
+XMAIN9 D G S B pfet_03v3 l=1.0 w=7.0
+XMAIN10 D G S B pfet_03v3 l=1.0 w=7.0
+XMAIN11 D G S B pfet_03v3 l=1.0 w=7.0
+XMAIN12 D G S B pfet_03v3 l=1.0 w=7.0
+XMAIN13 D G S B pfet_03v3 l=1.0 w=7.0
+XMAIN14 D G S B pfet_03v3 l=1.0 w=7.0
+XMAIN15 D G S B pfet_03v3 l=1.0 w=7.0
+XMAIN16 D G S B pfet_03v3 l=1.0 w=7.0
+XMAIN17 D G S B pfet_03v3 l=1.0 w=7.0
+XMAIN18 D G S B pfet_03v3 l=1.0 w=7.0
+XMAIN19 D G S B pfet_03v3 l=1.0 w=7.0
+XMAIN20 D G S B pfet_03v3 l=1.0 w=7.0
+XMAIN21 D G S B pfet_03v3 l=1.0 w=7.0
+XMAIN22 D G S B pfet_03v3 l=1.0 w=7.0
+XMAIN23 D G S B pfet_03v3 l=1.0 w=7.0
+XMAIN24 D G S B pfet_03v3 l=1.0 w=7.0
+XMAIN25 D G S B pfet_03v3 l=1.0 w=7.0
+XMAIN26 D G S B pfet_03v3 l=1.0 w=7.0
+XMAIN27 D G S B pfet_03v3 l=1.0 w=7.0
+XMAIN28 D G S B pfet_03v3 l=1.0 w=7.0
+XMAIN29 D G S B pfet_03v3 l=1.0 w=7.0
+XMAIN30 D G S B pfet_03v3 l=1.0 w=7.0
+XDUMMY1 DUM DUM DUM B pfet_03v3 l=1.0 w=7.0
+XDUMMY2 DUM DUM DUM B pfet_03v3 l=1.0 w=7.0
+XDUMMY3 DUM DUM DUM B pfet_03v3 l=1.0 w=7.0
+XDUMMY4 DUM DUM DUM B pfet_03v3 l=1.0 w=7.0
+XDUMMY5 DUM DUM DUM B pfet_03v3 l=1.0 w=7.0
+XDUMMY6 DUM DUM DUM B pfet_03v3 l=1.0 w=7.0
+.ends PMOS
+
+.subckt DIFF_TO_SINGLE_CS VIN1 VIN2 VOUT VSS VSS2
+X0 VIN1 VIN2 VSS VSS2 DIFF_TO_SINGLE l=1.0 w=6.0 mt=8 mb=12
+X1 VOUT VIN2 VSS VSS VSS PMOS l=1.0 w=7.0
+X2 VOUT VIN2 VSS VSS VSS PMOS l=1.0 w=7.0
+.ends DIFF_TO_SINGLE_CS
+
+.subckt CMIRROR_1 VREF VOUT VSS B l=2.0 w=6.0 mr=8 mo=16 dr=2 do=4
+XREFL VREF VREF VSS B nfet_03v3 l={l} w={w} m={mr}
+XREFR VREF VREF VSS B nfet_03v3 l={l} w={w} m={mr}
+XOUTL VOUT VREF VSS B nfet_03v3 l={l} w={w} m={mo}
+XOUTR VOUT VREF VSS B nfet_03v3 l={l} w={w} m={mo}
+XDREFL B B B B nfet_03v3 l={l} w={w} m={dr}
+XDREFR B B B B nfet_03v3 l={l} w={w} m={dr}
+XDOUTL B B B B nfet_03v3 l={l} w={w} m={do}
+XDOUTR B B B B nfet_03v3 l={l} w={w} m={do}
+.ends CMIRROR_1
+
+.subckt MIMCap V1 V2 l=1 w=1
+X1 V1 V2 cap_mim_2f0fF l={l} w={w}
+.ends MIMCap
+
+.subckt MIMCAP_ARR V1 V2
+X0 V1 V2 MIMCap l=12.0 w=12.0
+X1 V1 V2 MIMCap l=12.0 w=12.0
+X2 V1 V2 MIMCap l=12.0 w=12.0
+X3 V1 V2 MIMCap l=12.0 w=12.0
+X4 V1 V2 MIMCap l=12.0 w=12.0
+X5 V1 V2 MIMCap l=12.0 w=12.0
+.ends MIMCAP_ARR
+
+.subckt GAIN_STAGE VIN1 VIN2 VOUT VDD IBIAS GND
+X0 VIN1 VIN2 VOUT VDD wire0 DIFF_TO_SINGLE_CS
+X1 IBIAS VOUT GND GND CMIRROR_1 l=2.0 w=6.0 mr=8 mo=16 dr=2 do=4
+X2 wire0 VOUT MIMCAP_ARR
+.ends GAIN_STAGE
+
+.subckt OPAMP_TWO_STAGE VDD GND DIFFPAIR_BIAS VP VN CS_BIAS VOUT
+X0 VP VN wire0 wire1 DIFFPAIR_BIAS GND GND INPUT_STAGE
+X1 wire0 wire1 VOUT VDD CS_BIAS GND GAIN_STAGE
+.ends OPAMP_TWO_STAGE
