@@ -309,7 +309,7 @@ spiceprefix=X
 }
 C {symbols/pfet_06v0.sym} -230 -180 0 1 {name=M1
 L=1.0u
-W=2u
+W=100u
 nf=1
 m=1
 ad="'int((nf+1)/2) * W/nf * 0.18u'"
@@ -323,7 +323,7 @@ spiceprefix=X
 }
 C {symbols/pfet_06v0.sym} -90 -260 0 1 {name=M2
 L=1.0u
-W=10.0u
+W=100.0u
 nf=1
 m=1
 ad="'int((nf+1)/2) * W/nf * 0.18u'"
@@ -337,7 +337,7 @@ spiceprefix=X
 }
 C {symbols/pfet_06v0.sym} -90 -180 0 1 {name=M3
 L=1.0u
-W=10.0u
+W=100.0u
 nf=1
 m=1
 ad="'int((nf+1)/2) * W/nf * 0.18u'"
@@ -426,7 +426,12 @@ C {lab_pin.sym} 780 100 2 0 {name=p11 sig_type=std_logic lab=vss}
 C {code_shown.sym} 900 -320 0 0 {name=NGSPICE only_toplevel=false value="
 
 .control
-
+  op
+  let b1 = v(bias1)
+  let b2 = v(bias2)
+  let b3 = v(bias3)
+  let b4 = v(bias4)
+  echo \\"$&b1 $&b2 $&b3 $&b4\\" >> /foss/designs/sscs-2026-zotnetic/activities/opamp2AKAM/simulations_testbench/simulation_results/biasTestBench.txt
 .endc"
 
 }
