@@ -84,13 +84,13 @@ C {code_shown.sym} 80 -520 0 0 {name=NGSPICE only_toplevel=false value="** PARAM
   * ---- OUTER LOOP: try many bias combinations ----
   * nominal point is 3.425 / 2.428 / 1.909 / 1.209.
   * (the +0.001 on each limit dodges float-rounding overshoot)
-  let b1 = 4.55
-  let b2 = 4.5
+  let b1 = 4.55029
+  let b2 = 4.9506
 
-  *while b2 <= 5.001
-      let b3 = 0.27
-      while b3 >= 0.19
-        let b4 = 0.2
+  *while b2 <= 4.96
+      let b3 = 0.26019
+      while b3 >= 0.25
+        let b4 = 0.167904
         while b4 >= 0.15
 
           * set the four bias knobs for this combination
@@ -110,11 +110,11 @@ C {code_shown.sym} 80 -520 0 0 {name=NGSPICE only_toplevel=false value="** PARAM
           * write one row of the table
           echo \\"$&b1 $&b2 $&b3 $&b4 $&gain\\" >> /foss/designs/sscs-2026-zotnetic/activities/opamp2AKAM/simulations_testbench/simulation_results/gain10.txt
 
-          let b4 = b4 -0.01
+          let b4 = b4 -0.2
         end
-        let b3 = b3 -0.01
+        let b3 = b3 -0.2
     end
-    *let b2 = b2 + 0.05
+    *let b2 = b2 + 0.2
   *end
 
   echo \\"DONE - results in gain10.txt\\"
