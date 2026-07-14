@@ -9,207 +9,208 @@ N 670 200 670 230 {lab=GND}
 N 670 100 670 140 {lab=vdd}
 N 780 200 780 230 {lab=GND}
 N 780 100 780 140 {lab=vss}
-N 120 90 140 90 {
+N 30 140 50 140 {
 lab=vss}
-N 120 170 120 220 {
+N 30 220 30 270 {
 lab=vss}
-N 120 170 140 170 {
+N 30 220 50 220 {
 lab=vss}
-N 140 120 140 140 {
+N 50 170 50 190 {
 lab=#net1}
-N 140 200 140 220 {
+N 50 250 50 270 {
 lab=vss}
-N 140 -300 140 -280 {
+N 50 -250 50 -230 {
 lab=vdd}
-N 120 -250 140 -250 {
+N 30 -200 50 -200 {
 lab=vdd}
-N 120 -170 140 -170 {
+N 30 -120 50 -120 {
 lab=vdd}
-N 120 -250 120 -170 {
+N 30 -200 30 -120 {
 lab=vdd}
-N 140 -220 140 -200 {
+N 50 -170 50 -150 {
 lab=#net2}
-N 180 -210 180 -170 {
+N 90 -160 90 -120 {
 lab=bias2}
-N 180 -290 180 -250 {
+N 90 -240 90 -200 {
 lab=bias1}
-N -20 -300 -20 -280 {
+N -110 -250 -110 -230 {
 lab=vdd}
-N -40 -250 -20 -250 {
+N -130 -200 -110 -200 {
 lab=vdd}
-N -40 -170 -20 -170 {
+N -130 -120 -110 -120 {
 lab=vdd}
-N -40 -250 -40 -170 {
+N -130 -200 -130 -120 {
 lab=vdd}
-N -20 -220 -20 -200 {
+N -110 -170 -110 -150 {
 lab=#net3}
-N 20 -210 20 -170 {
+N -70 -160 -70 -120 {
 lab=bias2}
-N 20 -290 20 -250 {
+N -70 -240 -70 -200 {
 lab=bias1}
-N -40 90 -20 90 {
+N -130 140 -110 140 {
 lab=vss}
-N -40 90 -40 220 {
+N -130 140 -130 270 {
 lab=vss}
-N -20 120 -20 220 {
+N -110 170 -110 270 {
 lab=vss}
-N 20 90 20 130 {
+N -70 140 -70 180 {
 lab=bias3}
-N 20 130 40 130 {
+N -70 180 -50 180 {
 lab=bias3}
-N -20 20 40 20 {
+N -110 70 -50 70 {
 lab=bias3}
-N 180 90 180 130 {
+N 90 140 90 180 {
 lab=bias3}
-N 180 170 180 210 {
+N 90 220 90 260 {
 lab=bias4}
-N 180 210 200 210 {
+N 90 260 110 260 {
 lab=bias4}
-N 40 130 180 130 {
+N -50 180 90 180 {
 lab=bias3}
-N 140 0 200 0 {
+N 50 50 110 50 {
 lab=bias4}
-N -20 -140 -20 20 {
+N -110 -90 -110 70 {
 lab=bias3}
-N 140 -140 140 0 {
+N 50 -90 50 50 {
 lab=bias4}
-N 40 20 40 130 {
+N -50 70 -50 180 {
 lab=bias3}
-N 200 0 200 210 {
+N 110 50 110 260 {
 lab=bias4}
-N 140 0 140 60 {
+N 50 50 50 110 {
 lab=bias4}
-N -20 20 -20 60 {
+N -110 70 -110 110 {
 lab=bias3}
-N 180 -290 330 -290 {
+N 90 -240 240 -240 {
 lab=bias1}
-N 180 -210 330 -210 {
+N 90 -160 240 -160 {
 lab=bias2}
-N -200 220 -40 220 {
+N -290 270 -130 270 {
 lab=vss}
-N -200 -300 -200 -280 {
+N -290 -250 -290 -230 {
 lab=vdd}
-N -220 -250 -200 -250 {
+N -310 -200 -290 -200 {
 lab=vdd}
-N -220 -170 -200 -170 {
+N -310 -120 -290 -120 {
 lab=vdd}
-N -220 -250 -220 -170 {
+N -310 -200 -310 -120 {
 lab=vdd}
-N -200 -220 -200 -200 {
+N -290 -170 -290 -150 {
 lab=#net4}
-N -160 -210 -160 -170 {
+N -250 -160 -250 -120 {
 lab=bias2}
-N -160 -290 -160 -250 {
+N -250 -240 -250 -200 {
 lab=bias1}
-N -200 -100 -140 -100 {
+N -290 -50 -230 -50 {
 lab=bias1}
-N -200 -100 -200 40 {
-lab=bias1}
-N -340 -300 -340 -200 {
+N -430 -250 -430 -150 {
 lab=vdd}
-N -360 -170 -340 -170 {
+N -450 -120 -430 -120 {
 lab=vdd}
-N -360 -300 -360 -170 {
+N -450 -250 -450 -120 {
 lab=vdd}
-N -280 -210 -160 -210 {
+N -370 -160 -250 -160 {
 lab=bias2}
-N -300 -210 -300 -170 {
+N -390 -160 -390 -120 {
 lab=bias2}
-N -340 -100 -280 -100 {
+N -430 -50 -370 -50 {
 lab=bias2}
-N -340 -140 -340 -100 {
+N -430 -90 -430 -50 {
 lab=bias2}
-N -200 -140 -200 -100 {
+N -290 -90 -290 -50 {
 lab=bias1}
-N -280 -210 -280 -100 {
+N -370 -160 -370 -50 {
 lab=bias2}
-N -140 -290 -140 -100 {
+N -230 -240 -230 -50 {
 lab=bias1}
-N -340 160 -340 220 {
+N -430 210 -430 270 {
 lab=vss}
-N -200 160 -200 220 {
+N -290 210 -290 270 {
 lab=vss}
-N -270 130 -240 130 {
+N -360 180 -330 180 {
 lab=#net5}
-N -360 130 -340 130 {
+N -450 180 -430 180 {
 lab=vss}
-N -360 130 -360 160 {
+N -450 180 -450 210 {
 lab=vss}
-N -360 160 -340 160 {
+N -450 210 -430 210 {
 lab=vss}
-N -200 130 -180 130 {
+N -290 180 -270 180 {
 lab=vss}
-N -180 130 -180 160 {
+N -270 180 -270 210 {
 lab=vss}
-N -200 160 -180 160 {
+N -290 210 -270 210 {
 lab=vss}
-N -270 70 -240 70 {
+N -360 120 -330 120 {
 lab=#net5}
-N -270 70 -270 130 {
+N -360 120 -360 180 {
 lab=#net5}
-N -360 70 -340 70 {
+N -450 120 -430 120 {
 lab=vss}
-N -360 70 -360 130 {
+N -450 120 -450 180 {
 lab=vss}
-N -200 70 -180 70 {
+N -290 120 -270 120 {
 lab=vss}
-N -180 70 -180 130 {
+N -270 120 -270 180 {
 lab=vss}
-N -270 50 -270 70 {
+N -360 100 -360 120 {
 lab=#net5}
-N -20 220 120 220 {
+N -110 270 30 270 {
 lab=vss}
-N 120 90 120 170 {
+N 30 140 30 220 {
 lab=vss}
-N 120 220 140 220 {
+N 30 270 50 270 {
 lab=vss}
-N 120 -300 140 -300 {
+N 30 -250 50 -250 {
 lab=vdd}
-N 120 -300 120 -250 {
+N 30 -250 30 -200 {
 lab=vdd}
-N 20 -210 180 -210 {
+N -70 -160 90 -160 {
 lab=bias2}
-N 20 -290 180 -290 {
+N -70 -240 90 -240 {
 lab=bias1}
-N -40 -300 -20 -300 {
+N -130 -250 -110 -250 {
 lab=vdd}
-N -40 -300 -40 -250 {
+N -130 -250 -130 -200 {
 lab=vdd}
-N -160 -210 20 -210 {
+N -250 -160 -70 -160 {
 lab=bias2}
-N -140 -290 20 -290 {
+N -230 -240 -70 -240 {
 lab=bias1}
-N -40 220 -20 220 {
+N -130 270 -110 270 {
 lab=vss}
-N -220 -300 -200 -300 {
+N -310 -250 -290 -250 {
 lab=vdd}
-N -220 -300 -220 -250 {
+N -310 -250 -310 -200 {
 lab=vdd}
-N -360 -300 -340 -300 {
+N -450 -250 -430 -250 {
 lab=vdd}
-N -300 -210 -280 -210 {
+N -390 -160 -370 -160 {
 lab=bias2}
-N -160 -290 -140 -290 {
+N -250 -240 -230 -240 {
 lab=bias1}
-N -340 220 -200 220 {
+N -430 270 -290 270 {
 lab=vss}
-N -300 70 -270 70 {
+N -390 120 -360 120 {
 lab=#net5}
-N -300 130 -270 130 {
+N -390 180 -360 180 {
 lab=#net5}
-N -20 -300 120 -300 {
+N -110 -250 30 -250 {
 lab=vdd}
-N -200 -300 -40 -300 {
+N -290 -250 -130 -250 {
 lab=vdd}
-N -340 -300 -220 -300 {
+N -430 -250 -310 -250 {
 lab=vdd}
-N 180 130 320 130 {lab=bias3}
-N 200 210 320 210 {lab=bias4}
-N -300 10 -270 10 {lab=#net5}
-N -340 -100 -340 -20 {lab=bias2}
-N -360 10 -340 10 {lab=vss}
-N -360 10 -360 70 {lab=vss}
-N -270 10 -270 50 {lab=#net5}
+N -360 30 -360 100 {lab=#net5}
+N 90 180 230 180 {lab=bias3}
+N 110 260 230 260 {lab=bias4}
+N -430 60 -430 90 {lab=#net6}
+N -390 30 -360 30 {lab=#net5}
+N -430 -50 -430 0 {lab=bias2}
+N -450 30 -430 30 {lab=vss}
+N -450 30 -450 120 {lab=vss}
+N -290 -50 -290 -10 {lab=bias1}
+N -290 50 -290 90 {lab=#net7}
 C {code_shown.sym} -720 -440 0 0 {name=MODELS only_toplevel=false value=".include /foss/pdks/gf180mcuD/libs.tech/ngspice/design.ngspice
 .lib /foss/pdks/gf180mcuD/libs.tech/ngspice/sm141064.ngspice typical
 .lib /foss/pdks/gf180mcuD/libs.tech/ngspice/smbb000149.ngspice typical
@@ -223,18 +224,32 @@ C {vsource.sym} 780 170 0 0 {name=V6 value=0V savecurrent=false}
 C {gnd.sym} 780 230 0 0 {name=l5 lab=GND}
 C {lab_pin.sym} 780 100 2 0 {name=p11 sig_type=std_logic lab=vss}
 C {code_shown.sym} 660 -320 0 0 {name=NGSPICE only_toplevel=false value="
-
+.tran 1ms 200ms
+*.dc v3 -3.3 3.3 1m
+.save all
 .control
-  op
-  let b1 = v(bias1)
-  let b2 = v(bias2)
-  let b3 = v(bias3)
-  let b4 = v(bias4)
-  echo \\"$&b1 $&b2 $&b3 $&b4\\" >> /foss/designs/sscs-2026-zotnetic/activities/opamp2AKAM/simulations_testbench/simulation_results/biasTestBench.txt
-.endc"
+run
+meas tran b1 find v(bias1) at=199ms
+meas tran b2 find v(bias2) at=199ms
+meas tran b3 find v(bias3) at=199ms
+meas tran b4 find v(bias4) at=199ms
+echo \\"$&b1 $&b2 $&b3 $&b4\\" >> /foss/designs/sscs-2026-zotnetic/activities/opamp2AKAM/simulations_testbench/simulation_results/biasTestBench.txt
+*let n = length(v(bias1))
+*echo \\"$&v(bias1)[n-1] $&v(bias2)[n-1] $&v(bias3)[n-1] $&v(bias4)[n-1]\\" >> /foss/designs/sscs-2026-zotnetic/activities/opamp2AKAM/simulations_testbench/simulation_results/biasTestBench.txt
+.endc
+*.control
+*  op
+*  let b1 = v(bias1)
+*  let b2 = v(bias2)
+*  let b3 = v(bias3)
+*  let b4 = v(bias4)
+*  echo \\"$&b1 $&b2 $&b3 $&b4\\" >> /foss/designs/sscs-2026-zotnetic/activities/opamp2AKAM/simulations_testbench/simulation_results/biasTestBench.txt
+*
+*.endc
+"
 
 }
-C {symbols/pfet_06v0.sym} 0 -250 0 1 {name=M4
+C {symbols/pfet_06v0.sym} -90 -200 0 1 {name=M4
 L=1.0u
 W=10.0u
 nf=1
@@ -248,7 +263,7 @@ sa=0 sb=0 sd=0
 model=pfet_06v0
 spiceprefix=X
 }
-C {symbols/pfet_06v0.sym} 0 -170 0 1 {name=M5
+C {symbols/pfet_06v0.sym} -90 -120 0 1 {name=M5
 L=1.0u
 W=10.0u
 nf=1
@@ -262,9 +277,9 @@ sa=0 sb=0 sd=0
 model=pfet_06v0
 spiceprefix=X
 }
-C {symbols/nfet_06v0.sym} 0 90 0 1 {name=M6
+C {symbols/nfet_06v0.sym} -90 140 0 1 {name=M6
 L=1.0u
-W=1.0u
+W=6u
 nf=1
 m=1
 ad="'int((nf+1)/2) * W/nf * 0.18u'"
@@ -276,7 +291,7 @@ sa=0 sb=0 sd=0
 model=nfet_06v0
 spiceprefix=X
 }
-C {symbols/pfet_06v0.sym} 160 -250 0 1 {name=M7
+C {symbols/pfet_06v0.sym} 70 -200 0 1 {name=M7
 L=1.0u
 W=10.0u
 nf=1
@@ -290,10 +305,10 @@ sa=0 sb=0 sd=0
 model=pfet_06v0
 spiceprefix=X
 }
-C {symbols/pfet_06v0.sym} 160 -170 0 1 {name=M8
+C {symbols/pfet_06v0.sym} 70 -120 0 1 {name=M8
 L=1.0u
-W=10.0u
-nf=1
+W=7.5u
+nf=10
 m=1
 ad="'int((nf+1)/2) * W/nf * 0.18u'"
 pd="'2*int((nf+1)/2) * (W/nf + 0.18u)'"
@@ -304,7 +319,21 @@ sa=0 sb=0 sd=0
 model=pfet_06v0
 spiceprefix=X
 }
-C {symbols/nfet_06v0.sym} 160 90 0 1 {name=M9
+C {symbols/nfet_06v0.sym} 70 140 0 1 {name=M9
+L=1.0u
+W=100u
+nf=1
+m=1
+ad="'int((nf+1)/2) * W/nf * 0.18u'"
+pd="'2*int((nf+1)/2) * (W/nf + 0.18u)'"
+as="'int((nf+2)/2) * W/nf * 0.18u'"
+ps="'2*int((nf+2)/2) * (W/nf + 0.18u)'"
+nrd="'0.18u / W'" nrs="'0.18u / W'"
+sa=0 sb=0 sd=0
+model=nfet_06v0
+spiceprefix=X
+}
+C {symbols/nfet_06v0.sym} 70 220 0 1 {name=M10
 L=1.0u
 W=100.0u
 nf=1
@@ -318,23 +347,9 @@ sa=0 sb=0 sd=0
 model=nfet_06v0
 spiceprefix=X
 }
-C {symbols/nfet_06v0.sym} 160 170 0 1 {name=M10
+C {symbols/pfet_06v0.sym} -410 -120 0 1 {name=M1
 L=1.0u
-W=100.0u
-nf=1
-m=1
-ad="'int((nf+1)/2) * W/nf * 0.18u'"
-pd="'2*int((nf+1)/2) * (W/nf + 0.18u)'"
-as="'int((nf+2)/2) * W/nf * 0.18u'"
-ps="'2*int((nf+2)/2) * (W/nf + 0.18u)'"
-nrd="'0.18u / W'" nrs="'0.18u / W'"
-sa=0 sb=0 sd=0
-model=nfet_06v0
-spiceprefix=X
-}
-C {symbols/pfet_06v0.sym} -320 -170 0 1 {name=M1
-L=1.0u
-W=8.3u
+W=1.3u
 nf=1
 m=1
 ad="'int((nf+1)/2) * W/nf * 0.18u'"
@@ -346,9 +361,9 @@ sa=0 sb=0 sd=0
 model=pfet_06v0
 spiceprefix=X
 }
-C {symbols/pfet_06v0.sym} -180 -250 0 1 {name=M2
+C {symbols/pfet_06v0.sym} -270 -200 0 1 {name=M2
 L=1.0u
-W=1.0u
+W=13.0u
 nf=1
 m=1
 ad="'int((nf+1)/2) * W/nf * 0.18u'"
@@ -360,9 +375,9 @@ sa=0 sb=0 sd=0
 model=pfet_06v0
 spiceprefix=X
 }
-C {symbols/pfet_06v0.sym} -180 -170 0 1 {name=M3
+C {symbols/pfet_06v0.sym} -270 -120 0 1 {name=M3
 L=1.0u
-W=1.0u
+W=13.0u
 nf=1
 m=1
 ad="'int((nf+1)/2) * W/nf * 0.18u'"
@@ -374,21 +389,7 @@ sa=0 sb=0 sd=0
 model=pfet_06v0
 spiceprefix=X
 }
-C {symbols/nfet_06v0.sym} -220 130 0 0 {name=M47
-L=1.0u
-W=2.23u
-nf=1
-m=1
-ad="'int((nf+1)/2) * W/nf * 0.18u'"
-pd="'2*int((nf+1)/2) * (W/nf + 0.18u)'"
-as="'int((nf+2)/2) * W/nf * 0.18u'"
-ps="'2*int((nf+2)/2) * (W/nf + 0.18u)'"
-nrd="'0.18u / W'" nrs="'0.18u / W'"
-sa=0 sb=0 sd=0
-model=nfet_06v0
-spiceprefix=X
-}
-C {symbols/nfet_06v0.sym} -320 130 0 1 {name=M48
+C {symbols/nfet_06v0.sym} -310 180 0 0 {name=M47
 L=1.0u
 W=1.0u
 nf=1
@@ -402,7 +403,7 @@ sa=0 sb=0 sd=0
 model=nfet_06v0
 spiceprefix=X
 }
-C {symbols/nfet_06v0.sym} -320 70 0 1 {name=M49
+C {symbols/nfet_06v0.sym} -410 180 0 1 {name=M48
 L=1.0u
 W=1.0u
 nf=1
@@ -416,27 +417,7 @@ sa=0 sb=0 sd=0
 model=nfet_06v0
 spiceprefix=X
 }
-C {symbols/nfet_06v0.sym} -220 70 0 0 {name=M50
-L=1.0u
-W=3.2u
-nf=1
-m=1
-ad="'int((nf+1)/2) * W/nf * 0.18u'"
-pd="'2*int((nf+1)/2) * (W/nf + 0.18u)'"
-as="'int((nf+2)/2) * W/nf * 0.18u'"
-ps="'2*int((nf+2)/2) * (W/nf + 0.18u)'"
-nrd="'0.18u / W'" nrs="'0.18u / W'"
-sa=0 sb=0 sd=0
-model=nfet_06v0
-spiceprefix=X
-}
-C {opin.sym} 330 -290 0 0 {name=p1 lab=bias1}
-C {opin.sym} 320 130 0 0 {name=p3 lab=bias3}
-C {opin.sym} 320 210 0 0 {name=p4 lab=bias4}
-C {iopin.sym} 140 -300 0 0 {name=p5 lab=vdd}
-C {iopin.sym} 140 220 0 0 {name=p6 lab=vss}
-C {opin.sym} 330 -210 0 0 {name=p2 lab=bias2}
-C {symbols/nfet_06v0.sym} -320 10 0 1 {name=M11
+C {symbols/nfet_06v0.sym} -410 120 0 1 {name=M49
 L=1.0u
 W=1.0u
 nf=1
@@ -450,3 +431,38 @@ sa=0 sb=0 sd=0
 model=nfet_06v0
 spiceprefix=X
 }
+C {symbols/nfet_06v0.sym} -310 120 0 0 {name=M50
+L=1.0u
+W=1.0u
+nf=1
+m=1
+ad="'int((nf+1)/2) * W/nf * 0.18u'"
+pd="'2*int((nf+1)/2) * (W/nf + 0.18u)'"
+as="'int((nf+2)/2) * W/nf * 0.18u'"
+ps="'2*int((nf+2)/2) * (W/nf + 0.18u)'"
+nrd="'0.18u / W'" nrs="'0.18u / W'"
+sa=0 sb=0 sd=0
+model=nfet_06v0
+spiceprefix=X
+}
+C {opin.sym} 240 -240 0 0 {name=p2 lab=bias1}
+C {opin.sym} 240 -160 0 0 {name=p3 lab=bias2}
+C {opin.sym} 230 180 0 0 {name=p4 lab=bias3}
+C {opin.sym} 230 260 0 0 {name=p5 lab=bias4}
+C {iopin.sym} 50 -250 0 0 {name=p6 lab=vdd}
+C {iopin.sym} 50 270 0 0 {name=p7 lab=vss}
+C {symbols/nfet_06v0.sym} -410 30 0 1 {name=M11
+L=1.0u
+W=1.0u
+nf=1
+m=1
+ad="'int((nf+1)/2) * W/nf * 0.18u'"
+pd="'2*int((nf+1)/2) * (W/nf + 0.18u)'"
+as="'int((nf+2)/2) * W/nf * 0.18u'"
+ps="'2*int((nf+2)/2) * (W/nf + 0.18u)'"
+nrd="'0.18u / W'" nrs="'0.18u / W'"
+sa=0 sb=0 sd=0
+model=nfet_06v0
+spiceprefix=X
+}
+C {vsource.sym} -290 20 0 0 {name=V1 value=0 savecurrent=false}
