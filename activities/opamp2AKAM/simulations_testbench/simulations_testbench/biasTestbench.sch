@@ -307,7 +307,7 @@ spiceprefix=X
 }
 C {symbols/pfet_06v0.sym} 70 -120 0 1 {name=M8
 L=1.0u
-W=7.5u
+W=75.0u
 nf=10
 m=1
 ad="'int((nf+1)/2) * W/nf * 0.18u'"

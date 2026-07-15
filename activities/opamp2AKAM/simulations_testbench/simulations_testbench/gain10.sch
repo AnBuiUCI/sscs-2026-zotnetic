@@ -84,13 +84,13 @@ C {code_shown.sym} 80 -520 0 0 {name=NGSPICE only_toplevel=false value="** PARAM
   * ---- OUTER LOOP: try many bias combinations ----
   * nominal point is 3.425 / 2.428 / 1.909 / 1.209.
   * (the +0.001 on each limit dodges float-rounding overshoot)
-  let b1 = 4.55298
-  let b2 = 4.50034
+  let b1 = 4.54973
+  let b2 = 4.49942
 
   *while b2 <= 4.96
-      let b3 = 0.27084
+      let b3 = 0.270205
       while b3 >= 0.25
-        let b4 = 0.170637
+        let b4 = 0.17017
         while b4 >= 0.15
 
           * set the four bias knobs for this combination
