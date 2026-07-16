@@ -48,6 +48,7 @@ meas dc minslope MIN slope
 let gain = -minslope
 print gain
 plot slope
+plot v(net1)
 
 .endc"
 
