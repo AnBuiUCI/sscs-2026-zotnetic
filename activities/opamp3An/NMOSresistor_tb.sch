@@ -12,7 +12,7 @@ N -150 20 -150 50 {lab=vg}
 N -80 20 -80 50 {lab=vdd}
 N 0 20 0 50 {lab=vss}
 C {NMOSresistor.sym} 20 -20 0 0 {}
-C {vsource.sym} -150 80 0 0 {name=VGATE value=1 savecurrent=false}
+C {vsource.sym} -150 80 0 0 {name=VGATE value=0 savecurrent=false}
 C {vsource.sym} -80 80 0 0 {name=VDD value=5 savecurrent=false}
 C {vsource.sym} 0 80 0 0 {name=VSS value=0 savecurrent=false}
 C {gnd.sym} -150 130 0 0 {name=l1 lab=0}
@@ -27,11 +27,11 @@ C {code_shown.sym} 340 -130 0 0 {name=NGSPICE
 only_toplevel=false 
 value="
 *.tran 1ms 100ms
-.dc VGATE 3 4 1m
+.dc VGATE 2 5 0.01
 .save all
 .control
 run
 display
-plot v(net1)
+plot v(vdd)/-(i(VDD))
 .endc
 "}
