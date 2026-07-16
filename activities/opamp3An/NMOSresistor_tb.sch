@@ -32,6 +32,10 @@ value="
 .control
 run
 display
+plot v(vdd)
+plot vdd#branch
 plot v(vdd)/-(i(VDD))
 .endc
 "}
+C {lab_pin.sym} 210 -80 0 0 {name=p4 sig_type=std_logic lab=vdd}
+C {lab_pin.sym} 70 10 0 0 {name=p5 sig_type=std_logic lab=vss}

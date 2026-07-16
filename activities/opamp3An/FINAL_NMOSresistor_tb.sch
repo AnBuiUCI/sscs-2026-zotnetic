@@ -39,7 +39,7 @@ C {code_shown.sym} 650 -290 0 0 {name=NGSPICE
 only_toplevel=false 
 value="
 *.tran 1ms 100ms
-.dc VGATE 2 5 0.01
+.dc VGATE 1 5 0.01
 .save all
 .control
 run
@@ -53,8 +53,8 @@ C {lab_pin.sym} 310 40 0 0 {name=p1 sig_type=std_logic lab=vg}
 C {lab_pin.sym} 600 -10 0 0 {name=p2 sig_type=std_logic lab=vdd}
 C {lab_pin.sym} 430 80 0 0 {name=p3 sig_type=std_logic lab=vss}
 C {symbols/nfet_06v0.sym} 410 20 0 0 {name=M1
-L=0.70u
-W=0.30u
+L=1u
+W=2u
 nf=1
 m=1
 ad="'int((nf+1)/2) * W/nf * 0.18u'"
