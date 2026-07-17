@@ -1173,9 +1173,9 @@ model=nfet_06v0
 spiceprefix=X
 }
 C {symbols/pfet_06v0.sym} 1620 -180 0 0 {name=M43
-L=1.0u
-W=10u
-nf=10
+L=50.0u
+W=1u
+nf=1
 m=1
 ad="'int((nf+1)/2) * W/nf * 0.18u'"
 pd="'2*int((nf+1)/2) * (W/nf + 0.18u)'"
@@ -1188,8 +1188,8 @@ spiceprefix=X
 }
 C {symbols/nfet_06v0.sym} 1620 -20 0 0 {name=M44
 L=1.0u
-W=5.0u
-nf=10
+W=1.0u
+nf=14
 m=1
 ad="'int((nf+1)/2) * W/nf * 0.18u'"
 pd="'2*int((nf+1)/2) * (W/nf + 0.18u)'"
@@ -1432,12 +1432,12 @@ C {code_shown.sym} 1870 -190 0 0 {name=NGSPICE only_toplevel=false value="
 .save all
 .control
 run
-let slope =deriv(v(p1))
+let slope =deriv(v(out))
 meas dc minslope MIN slope
 let gain = -minslope
 print gain
 plot slope
-plot v(p1)
+plot v(out)
 
 .endc"
 
