@@ -1,0 +1,32 @@
+** sch_path: /foss/designs/sscs-2026-zotnetic/activities/opamp3AKAM/simulations_testbench/resistance.sch
+**.subckt resistance
+XM2 net1 VG2 VDD net1 nfet_06v0 L=1u W=1u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+XM8 VDD VG1 net1 VDD pfet_06v0 L=1.0u W=3.0u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+V1 VSS 0 0
+V2 VDD 0 5
+V3 VG1 0 2.5
+V4 VG2 0 2.5
+Vmeas net1 VSS 0
+**** begin user architecture code
+
+.include /foss/pdks/gf180mcuD/libs.tech/ngspice/design.ngspice
+.lib /foss/pdks/gf180mcuD/libs.tech/ngspice/sm141064.ngspice typical
+
+
+
+.tran 1ms 200ms
+*.dc v3 -3.3 3.3 1m
+.save all
+.control
+run
+meas tran b1 find i(Vmeas) at=199ms
+meas tran b2 find v(VDD) at=199ms
+let b3 = b2/b1
+echo "$&b1 $&b2 $&b3" > /foss/designs/sscs-2026-zotnetic/activities/opamp3AKAM/simulations_results/resistance.txt
+.endc
+
+**** end user architecture code
+**.ends
+.end
