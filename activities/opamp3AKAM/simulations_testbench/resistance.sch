@@ -30,8 +30,8 @@ N 90 190 90 210 {lab=#net1}
 C {code_shown.sym} -280 -110 0 0 {name=MODELS only_toplevel=false value=".include /foss/pdks/gf180mcuD/libs.tech/ngspice/design.ngspice
 .lib /foss/pdks/gf180mcuD/libs.tech/ngspice/sm141064.ngspice typical"}
 C {symbols/nfet_06v0.sym} 220 160 2 0 {name=M2
-L=1u
-W=100u
+L=3u
+W=1u
 nf=1
 m=1
 ad="'int((nf+1)/2) * W/nf * 0.18u'"
@@ -44,8 +44,8 @@ model=nfet_06v0
 spiceprefix=X
 }
 C {symbols/pfet_06v0.sym} -30 160 2 1 {name=M8
-L=1.0u
-W=100.0u
+L=3.0u
+W=1.35u
 nf=1
 m=1
 ad="'int((nf+1)/2) * W/nf * 0.18u'"
@@ -77,7 +77,7 @@ C {lab_pin.sym} -250 240 2 0 {name=p6 sig_type=std_logic lab=VG1
 C {lab_pin.sym} -160 240 2 0 {name=p7 sig_type=std_logic lab=VG2
 
 }
-C {code_shown.sym} 410 110 0 0 {name=NGSPICE only_toplevel=false value="
+C {code_shown.sym} 450 110 0 0 {name=NGSPICE only_toplevel=false value="
 .control
 op
 echo \\"VG1 VG2 Resistance\\" > /foss/designs/sscs-2026-zotnetic/activities/opamp3AKAM/simulations_results/resistance.txt
