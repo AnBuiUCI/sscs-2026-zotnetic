@@ -42,3 +42,4 @@ tools/
 context/
 
 *.gds.backup
+glayout-venv/ 
