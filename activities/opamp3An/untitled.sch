@@ -23,7 +23,7 @@ N -330 100 -330 160 {lab=VDD}
 N -250 220 -250 250 {lab=0}
 N -250 100 -250 160 {lab=VG}
 N -140 210 -140 240 {lab=0}
-N -140 90 -140 150 {lab=vin}
+N -140 90 -140 150 {lab=vinp}
 N 460 -240 670 -240 {lab=vinp}
 N 560 -240 670 -240 {lab=vinp}
 N 560 -320 560 -240 {lab=vinp}
@@ -48,6 +48,8 @@ N 260 180 260 210 {lab=vinn}
 N 230 210 230 230 {lab=vinn}
 N 50 180 90 180 {lab=VG}
 N 380 180 420 180 {lab=VG}
+N -60 210 -60 240 {lab=0}
+N -60 90 -60 150 {lab=vinn}
 C {activities/opamp2AKAM/opamp.sym} 220 -30 0 0 {name=x1}
 C {activities/opamp2AKAM/bias.sym} -180 -50 0 0 {name=x2}
 C {lab_pin.sym} -30 30 0 0 {name=p2 sig_type=std_logic lab=VSS}
@@ -76,22 +78,28 @@ C {code_shown.sym} 540 -70 0 0 {name=NGSPICE
 only_toplevel=false 
 value="
 *.tran 1ms 100ms
-.dc VGATE 1 5 0.01
+.dc VINP 1 5 0.01
 .save all
 .control
 run
 display
-plot v(vdd)
-plot vdd#branch
-plot v(vdd)/-(i(VDD))
+plot v(vinn)
+plot v(vinp)
+plot v(vout)
+plot v(vout) vs v(vinp)
+let slope =deriv(v(out))
+meas dc minslope MIN slope
+let gain = -minslope
+print gain
+plot slope
 .endc
 "}
 C {vsource.sym} -140 180 0 0 {name=VINP value=1 savecurrent=false}
 C {gnd.sym} -140 240 0 0 {name=l4 lab=0}
-C {lab_pin.sym} -140 100 0 0 {name=p8 sig_type=std_logic lab=vin}
+C {lab_pin.sym} -140 100 0 0 {name=p8 sig_type=std_logic lab=vinp}
 C {symbols/nfet_06v0.sym} 690 -210 2 0 {name=M1
 L=1u
-W=1u
+W=4.275u
 nf=1
 m=1
 ad="'int((nf+1)/2) * W/nf * 0.18u'"
@@ -105,7 +113,7 @@ spiceprefix=X
 }
 C {symbols/pfet_06v0.sym} 440 -210 2 1 {name=M2
 L=1.0u
-W=3.0u
+W=4.0u
 nf=1
 m=1
 ad="'int((nf+1)/2) * W/nf * 0.18u'"
@@ -120,12 +128,11 @@ spiceprefix=X
 C {lab_pin.sym} 560 -320 0 0 {name=p9 sig_type=std_logic lab=vinp}
 C {lab_pin.sym} 560 -170 0 0 {name=p11 sig_type=std_logic lab=vout}
 C {lab_pin.sym} 460 -60 2 0 {name=p12 sig_type=std_logic lab=vout}
-C {lab_pin.sym} -880 400 0 0 {name=p13 sig_type=std_logic lab=VG}
 C {lab_pin.sym} 380 -210 0 0 {name=p14 sig_type=std_logic lab=VG}
 C {lab_pin.sym} 750 -210 2 0 {name=p16 sig_type=std_logic lab=VG}
 C {symbols/nfet_06v0.sym} 360 180 2 0 {name=M3
 L=1u
-W=1u
+W=37.5u
 nf=1
 m=1
 ad="'int((nf+1)/2) * W/nf * 0.18u'"
@@ -139,7 +146,7 @@ spiceprefix=X
 }
 C {symbols/pfet_06v0.sym} 110 180 2 1 {name=M4
 L=1.0u
-W=3.0u
+W=40.0u
 nf=1
 m=1
 ad="'int((nf+1)/2) * W/nf * 0.18u'"
@@ -156,3 +163,6 @@ C {lab_pin.sym} 230 220 0 0 {name=p18 sig_type=std_logic lab=vinn}
 C {lab_pin.sym} 50 180 0 0 {name=p19 sig_type=std_logic lab=VG}
 C {lab_pin.sym} 420 180 2 0 {name=p20 sig_type=std_logic lab=VG}
 C {lab_pin.sym} 70 -40 0 0 {name=p21 sig_type=std_logic lab=vinn}
+C {vsource.sym} -60 180 0 0 {name=VINN value=0 savecurrent=false}
+C {gnd.sym} -60 240 0 0 {name=VINN1 lab=0}
+C {lab_pin.sym} -60 100 0 0 {name=VINN2 sig_type=std_logic lab=vinn}
