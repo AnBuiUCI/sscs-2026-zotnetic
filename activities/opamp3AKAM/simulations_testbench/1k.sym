@@ -1,0 +1,25 @@
+v {xschem version=3.4.8RC file_version=1.3}
+G {}
+K {type=subcircuit
+format="@name @pinlist @symname"
+template="name=x1"
+}
+V {}
+S {}
+F {}
+E {}
+L 4 -70 0 -50 0 {}
+L 4 40 -50 40 -30 {}
+L 4 40 30 40 50 {}
+L 4 130 0 150 0 {}
+B 5 -72.5 -2.5 -67.5 2.5 {name=PLUS dir=in}
+B 5 37.5 -52.5 42.5 -47.5 {name=GATE_PMOS dir=in}
+B 5 37.5 47.5 42.5 52.5 {name=GATE_NMOS dir=in}
+B 5 147.5 -2.5 152.5 2.5 {name=NEG dir=out}
+P 4 5 130 -30 -50 -30 -50 30 130 30 130 -30 {}
+T {1k_Res} 43 -66 0 0 0.3 0.3 {}
+T {@name} 135 -42 0 0 0.2 0.2 {}
+T {PLUS} -45 -4 0 0 0.2 0.2 {}
+T {GATE_PMOS} 35 -46 2 0 0.2 0.2 {}
+T {GATE_NMOS} 45 36 0 0 0.2 0.2 {}
+T {NEG} 125 -4 0 1 0.2 0.2 {}
