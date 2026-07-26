@@ -685,42 +685,38 @@ N -1180 520 -1040 520 {lab=#net4}
 N -1160 600 -1040 600 {lab=#net3}
 N -1220 90 -910 90 {lab=VDD}
 N -1230 610 -520 610 {lab=VSS}
-N -1660 950 -1660 980 {lab=0}
-N -1660 830 -1660 890 {lab=VSS}
-N -1580 950 -1580 980 {lab=0}
-N -1580 830 -1580 890 {lab=VDD}
-N -1500 950 -1500 980 {lab=0}
-N -1500 830 -1500 890 {lab=VG}
+N -1710 950 -1710 980 {lab=0}
+N -1710 830 -1710 890 {lab=VSS}
+N -1630 950 -1630 980 {lab=0}
+N -1630 830 -1630 890 {lab=VDD}
+N -1550 950 -1550 980 {lab=0}
+N -1550 830 -1550 890 {lab=VP}
 N -1390 940 -1390 970 {lab=0}
 N -1390 820 -1390 880 {lab=vinp}
-N -1120 880 -910 880 {lab=VSS}
-N -1020 880 -910 880 {lab=VSS}
-N -1020 800 -1020 880 {lab=VSS}
-N -1120 940 -910 940 {lab=#net31}
-N -1020 940 -910 940 {lab=#net31}
-N -1120 910 -1050 910 {lab=VSS}
-N -1050 880 -1050 910 {lab=VSS}
-N -990 910 -910 910 {lab=#net31}
-N -990 910 -990 940 {lab=#net31}
-N -1020 940 -1020 960 {lab=#net31}
-N -1200 910 -1160 910 {lab=VG}
-N -870 910 -830 910 {lab=VG}
+N -1120 880 -910 880 {lab=vinn}
+N -1020 880 -910 880 {lab=vinn}
+N -1020 800 -1020 880 {lab=vinn}
+N -1120 940 -910 940 {lab=VSS}
+N -1020 940 -910 940 {lab=VSS}
+N -1120 910 -1050 910 {lab=VDD}
+N -990 910 -910 910 {lab=VSS}
+N -1020 940 -1020 960 {lab=VSS}
+N -1200 910 -1160 910 {lab=VP}
+N -870 910 -830 910 {lab=VN}
 N -1310 940 -1310 970 {lab=0}
 N -1310 820 -1310 880 {lab=vinn}
-N -1020 1020 -1020 1060 {lab=vinn}
-N -580 840 -370 840 {lab=vinp}
-N -480 840 -370 840 {lab=vinp}
-N -580 900 -370 900 {lab=#net32}
-N -480 900 -370 900 {lab=#net32}
-N -580 870 -510 870 {lab=vinp}
-N -510 840 -510 870 {lab=vinp}
-N -450 870 -370 870 {lab=#net32}
-N -450 870 -450 900 {lab=#net32}
-N -480 900 -480 920 {lab=#net32}
-N -660 870 -620 870 {lab=VG}
-N -330 870 -290 870 {lab=VG}
-N -480 810 -480 840 {lab=vinp}
-N -480 980 -480 1010 {lab=vout}
+N -580 840 -370 840 {lab=vout}
+N -480 840 -370 840 {lab=vout}
+N -580 900 -370 900 {lab=vinp}
+N -480 900 -370 900 {lab=vinp}
+N -580 870 -510 870 {lab=VDD}
+N -450 870 -370 870 {lab=VSS}
+N -480 900 -480 920 {lab=vinp}
+N -660 870 -620 870 {lab=VP}
+N -330 870 -290 870 {lab=VN}
+N -480 810 -480 840 {lab=vout}
+N -1480 950 -1480 980 {lab=0}
+N -1480 830 -1480 890 {lab=VN}
 C {devices/opin.sym} 560 350 0 0 {name=p1 lab=vout}
 C {devices/iopin.sym} 580 90 0 0 {name=p3 lab=VDD}
 C {devices/iopin.sym} 580 610 0 0 {name=p4 lab=VSS}
@@ -1445,7 +1441,7 @@ C {code_shown.sym} -550 -60 0 0 {name=MODELS only_toplevel=false value=".include
 .lib /foss/pdks/gf180mcuD/libs.tech/ngspice/sm141064.ngspice mimcap_typical"}
 C {code_shown.sym} 790 260 0 0 {name=NGSPICE only_toplevel=false value="
 *.tran 10p 0.3u
-.dc VINP 0 5 0.1 
+.dc VINP 0.001 5 0.1 
 .save all
 .control
 run
@@ -1458,22 +1454,27 @@ plot slope
 *plot v(vout) v(vinn) v(vinp)
 
 plot v(vout) vs v(vinp)
-let Rf = v(vinp)/i(Vfeedback)
-let Rin = v(VSS)/i(Vin)
-plot Rf vs v(vinp)
+plot i(VINP)
+
+let Rin = v(vinn)/ -i(vinn)
 plot Rin vs v(vinp)
+
+.dc VINP 2.5 5 0.1
+let Rf = (v(vout) - v(vinp)) / -i(VINP)
+plot Rf vs v(vinp)
+
 .endc"
 
 }
-C {vsource.sym} -1660 920 0 0 {name=V2 value=0 savecurrent=false}
-C {gnd.sym} -1660 980 0 0 {name=l1 lab=0}
-C {lab_pin.sym} -1660 840 0 0 {name=p7 sig_type=std_logic lab=VSS}
-C {vsource.sym} -1580 920 0 0 {name=V3 value=5 savecurrent=false}
-C {gnd.sym} -1580 980 0 0 {name=l2 lab=0}
-C {lab_pin.sym} -1580 840 0 0 {name=p8 sig_type=std_logic lab=VDD}
-C {vsource.sym} -1500 920 0 0 {name=VGATE value=2.5 savecurrent=false}
-C {gnd.sym} -1500 980 0 0 {name=l3 lab=0}
-C {lab_pin.sym} -1500 840 0 0 {name=p10 sig_type=std_logic lab=VG}
+C {vsource.sym} -1710 920 0 0 {name=V2 value=0 savecurrent=false}
+C {gnd.sym} -1710 980 0 0 {name=l1 lab=0}
+C {lab_pin.sym} -1710 840 0 0 {name=p7 sig_type=std_logic lab=VSS}
+C {vsource.sym} -1630 920 0 0 {name=V3 value=5 savecurrent=false}
+C {gnd.sym} -1630 980 0 0 {name=l2 lab=0}
+C {lab_pin.sym} -1630 840 0 0 {name=p8 sig_type=std_logic lab=VDD}
+C {vsource.sym} -1550 920 0 0 {name=VGP value=4 savecurrent=false}
+C {gnd.sym} -1550 980 0 0 {name=l3 lab=0}
+C {lab_pin.sym} -1550 840 0 0 {name=p10 sig_type=std_logic lab=VP}
 C {vsource.sym} -1390 910 0 0 {name=VINP value=1 savecurrent=false}
 C {gnd.sym} -1390 970 0 0 {name=l4 lab=0}
 C {lab_pin.sym} -1390 830 0 0 {name=p9 sig_type=std_logic lab=vinp}
@@ -1493,7 +1494,7 @@ spiceprefix=X
 }
 C {symbols/pfet_06v0.sym} -1140 910 2 1 {name=M52
 L=1.0u
-W=40.0u
+W=20.0u
 nf=1
 m=1
 ad="'int((nf+1)/2) * W/nf * 0.18u'"
@@ -1505,17 +1506,16 @@ sa=0 sb=0 sd=0
 model=pfet_06v0
 spiceprefix=X
 }
-C {lab_pin.sym} -1020 800 0 0 {name=p17 sig_type=std_logic lab=VSS}
-C {lab_pin.sym} -1020 1050 0 0 {name=p18 sig_type=std_logic lab=vinn}
-C {lab_pin.sym} -1200 910 0 0 {name=p19 sig_type=std_logic lab=VG}
-C {lab_pin.sym} -830 910 2 0 {name=p20 sig_type=std_logic lab=VG}
+C {lab_pin.sym} -1020 950 0 0 {name=p17 sig_type=std_logic lab=VSS}
+C {lab_pin.sym} -1020 840 0 0 {name=p18 sig_type=std_logic lab=vinn}
+C {lab_pin.sym} -1200 910 0 0 {name=p19 sig_type=std_logic lab=VP}
+C {lab_pin.sym} -830 910 2 0 {name=p20 sig_type=std_logic lab=VN}
 C {vsource.sym} -1310 910 0 0 {name=VINN value=2.5 savecurrent=false}
 C {gnd.sym} -1310 970 0 0 {name=VINN1 lab=0}
 C {lab_pin.sym} -1310 830 0 0 {name=VINN2 sig_type=std_logic lab=vinn}
-C {vsource.sym} -1020 990 0 0 {name=Vin value=0 savecurrent=false}
 C {symbols/nfet_06v0.sym} -350 870 2 0 {name=M53
 L=1u
-W=4.275u
+W=8u
 nf=1
 m=1
 ad="'int((nf+1)/2) * W/nf * 0.18u'"
@@ -1529,7 +1529,7 @@ spiceprefix=X
 }
 C {symbols/pfet_06v0.sym} -600 870 2 1 {name=M54
 L=1.0u
-W=4.0u
+W=2.0u
 nf=1
 m=1
 ad="'int((nf+1)/2) * W/nf * 0.18u'"
@@ -1541,8 +1541,14 @@ sa=0 sb=0 sd=0
 model=pfet_06v0
 spiceprefix=X
 }
-C {lab_pin.sym} -480 820 0 0 {name=p6 sig_type=std_logic lab=vinp}
-C {lab_pin.sym} -480 1000 0 0 {name=p11 sig_type=std_logic lab=vout}
-C {lab_pin.sym} -660 870 0 0 {name=p14 sig_type=std_logic lab=VG}
-C {lab_pin.sym} -290 870 2 0 {name=p16 sig_type=std_logic lab=VG}
-C {vsource.sym} -480 950 0 0 {name=Vfeedback value=0 savecurrent=false}
+C {lab_pin.sym} -480 920 0 0 {name=p6 sig_type=std_logic lab=vinp}
+C {lab_pin.sym} -480 820 0 0 {name=p11 sig_type=std_logic lab=vout}
+C {lab_pin.sym} -660 870 0 0 {name=p14 sig_type=std_logic lab=VP}
+C {lab_pin.sym} -290 870 2 0 {name=p16 sig_type=std_logic lab=VN}
+C {lab_pin.sym} -970 910 0 0 {name=p12 sig_type=std_logic lab=VSS}
+C {lab_pin.sym} -430 870 0 0 {name=p13 sig_type=std_logic lab=VSS}
+C {lab_pin.sym} -1060 910 2 0 {name=p15 sig_type=std_logic lab=VDD}
+C {lab_pin.sym} -520 870 2 0 {name=p21 sig_type=std_logic lab=VDD}
+C {vsource.sym} -1480 920 0 0 {name=VGN value=2 savecurrent=false}
+C {gnd.sym} -1480 980 0 0 {name=l5 lab=0}
+C {lab_pin.sym} -1480 840 0 0 {name=p22 sig_type=std_logic lab=VN}

@@ -5,26 +5,30 @@ V {}
 S {}
 F {}
 E {}
-P 4 1 320 -40 {}
-N 290 -10 500 -10 {lab=VDD}
-N 390 -10 500 -10 {lab=VDD}
-N 290 50 500 50 {lab=VSS}
-N 390 50 500 50 {lab=VSS}
-N 290 20 360 20 {lab=VDD}
-N 360 -10 360 20 {lab=VDD}
-N 420 20 500 20 {lab=VSS}
-N 420 20 420 50 {lab=VSS}
-N 390 50 390 70 {lab=VSS}
-N 210 20 250 20 {lab=VG}
-N 540 20 580 20 {lab=VG}
-N 390 -40 390 -10 {lab=VDD}
-N -140 220 -140 250 {lab=0}
-N -140 100 -140 160 {lab=VSS}
-N -60 220 -60 250 {lab=0}
-N -60 100 -60 160 {lab=VDD}
-N 20 220 20 250 {lab=0}
-N 20 100 20 160 {lab=VG}
-C {symbols/nfet_06v0.sym} 520 20 2 0 {name=M53
+P 4 1 110 -20 {}
+N 80 10 290 10 {lab=vinn}
+N 180 10 290 10 {lab=vinn}
+N 80 70 290 70 {lab=VSS}
+N 180 70 290 70 {lab=VSS}
+N 80 40 150 40 {lab=VDD}
+N 210 40 290 40 {lab=VSS}
+N 180 70 180 90 {lab=VSS}
+N 0 40 40 40 {lab=VP}
+N 330 40 370 40 {lab=VN}
+N 180 -20 180 10 {lab=vinn}
+N -350 240 -350 270 {lab=0}
+N -350 120 -350 180 {lab=VSS}
+N -270 240 -270 270 {lab=0}
+N -270 120 -270 180 {lab=VDD}
+N -190 240 -190 270 {lab=0}
+N -190 120 -190 180 {lab=VP}
+N -110 240 -110 270 {lab=0}
+N -110 120 -110 180 {lab=VN}
+N 420 240 420 270 {lab=0}
+N 420 120 420 180 {lab=vinn}
+C {code_shown.sym} -380 -90 0 0 {name=MODELS only_toplevel=false value=".include /foss/pdks/gf180mcuD/libs.tech/ngspice/design.ngspice
+.lib /foss/pdks/gf180mcuD/libs.tech/ngspice/sm141064.ngspice typical"}
+C {symbols/nfet_06v0.sym} 310 40 2 0 {name=M1
 L=1u
 W=37.5u
 nf=1
@@ -38,9 +42,9 @@ sa=0 sb=0 sd=0
 model=nfet_06v0
 spiceprefix=X
 }
-C {symbols/pfet_06v0.sym} 270 20 2 1 {name=M54
+C {symbols/pfet_06v0.sym} 60 40 2 1 {name=M2
 L=1.0u
-W=40.0u
+W=20.0u
 nf=1
 m=1
 ad="'int((nf+1)/2) * W/nf * 0.18u'"
@@ -52,30 +56,40 @@ sa=0 sb=0 sd=0
 model=pfet_06v0
 spiceprefix=X
 }
-C {lab_pin.sym} 210 20 0 0 {name=p14 sig_type=std_logic lab=VG}
-C {lab_pin.sym} 580 20 2 0 {name=p16 sig_type=std_logic lab=VG}
-C {vsource.sym} -140 190 0 0 {name=V2 value=0 savecurrent=false}
-C {gnd.sym} -140 250 0 0 {name=l1 lab=0}
-C {lab_pin.sym} -140 110 0 0 {name=p7 sig_type=std_logic lab=VSS}
-C {vsource.sym} -60 190 0 0 {name=Vdd value=5 savecurrent=false}
-C {gnd.sym} -60 250 0 0 {name=l2 lab=0}
-C {lab_pin.sym} -60 110 0 0 {name=p8 sig_type=std_logic lab=VDD}
-C {vsource.sym} 20 190 0 0 {name=VGATE value=2.5 savecurrent=false}
-C {gnd.sym} 20 250 0 0 {name=l3 lab=0}
-C {lab_pin.sym} 20 110 0 0 {name=p10 sig_type=std_logic lab=VG}
-C {lab_pin.sym} 390 60 0 0 {name=p1 sig_type=std_logic lab=VSS}
-C {code_shown.sym} -380 -90 0 0 {name=MODELS only_toplevel=false value=".include /foss/pdks/gf180mcuD/libs.tech/ngspice/design.ngspice
-.lib /foss/pdks/gf180mcuD/libs.tech/ngspice/sm141064.ngspice typical"}
-C {code_shown.sym} 160 120 0 0 {name=NGSPICE only_toplevel=false value="
+C {lab_pin.sym} 0 40 0 0 {name=p2 sig_type=std_logic lab=VP}
+C {lab_pin.sym} 370 40 2 0 {name=p4 sig_type=std_logic lab=VN}
+C {vsource.sym} -350 210 0 0 {name=V1 value=0 savecurrent=false}
+C {gnd.sym} -350 270 0 0 {name=l4 lab=0}
+C {lab_pin.sym} -350 130 0 0 {name=p5 sig_type=std_logic lab=VSS}
+C {vsource.sym} -270 210 0 0 {name=Vdd1 value=5 savecurrent=false}
+C {gnd.sym} -270 270 0 0 {name=l5 lab=0}
+C {lab_pin.sym} -270 130 0 0 {name=p6 sig_type=std_logic lab=VDD}
+C {vsource.sym} -190 210 0 0 {name=VGP value=4 savecurrent=false}
+C {gnd.sym} -190 270 0 0 {name=l6 lab=0}
+C {lab_pin.sym} -190 130 0 0 {name=p9 sig_type=std_logic lab=VP}
+C {lab_pin.sym} 230 40 0 0 {name=p11 sig_type=std_logic lab=VSS}
+C {code_shown.sym} -50 140 0 0 {name=NGSPICE1 only_toplevel=false value="
 .control
+save all
 op
-dc Vdd 0 5 0.1
-let resistance = v(VDD)/i(V2)
-print v(VG) resistance
-plot resistance vs v(VDD)
-plot i(Vdd) vs v(VDD)
-end
+dc VINN 0.1 2 0.1
+let vres = v(vinn) - v(VSS)
+let ires = -i(vinn)
+let resistance = vres / ires
+
+print v(VP) v(VN)
+plot ires vs vres
+plot resistance vs vres
 
 .endc"
+
 }
-C {lab_pin.sym} 390 -30 0 0 {name=p3 sig_type=std_logic lab=VDD}
+C {lab_pin.sym} 140 40 2 0 {name=p12 sig_type=std_logic lab=VDD}
+C {vsource.sym} -110 210 0 0 {name=VGN value=1 savecurrent=false}
+C {gnd.sym} -110 270 0 0 {name=VGN1 lab=0}
+C {lab_pin.sym} -110 130 0 0 {name=VGN2 sig_type=std_logic lab=VN}
+C {vsource.sym} 420 210 0 0 {name=VINN value=0.001 savecurrent=false}
+C {gnd.sym} 420 270 0 0 {name=l7 lab=0}
+C {lab_pin.sym} 420 130 0 0 {name=p17 sig_type=std_logic lab=vinn}
+C {lab_pin.sym} 180 90 0 0 {name=p15 sig_type=std_logic lab=VSS}
+C {lab_pin.sym} 180 -10 0 0 {name=p13 sig_type=std_logic lab=vinn}
