@@ -62,6 +62,7 @@ op
 dc VGATE 0 5 0.1
 let resistance = v(VDD)/i(Vmeas)
 print v(VG) resistance
+plot v(VDD)/i(Vmeas)
 end
 
 .endc"

@@ -1408,7 +1408,7 @@ sa=0 sb=0 sd=0
 model=nfet_06v0
 spiceprefix=X
 }
-C {vsource.sym} 450 550 0 0 {name=V1 value=5V savecurrent=false}
+C {vsource.sym} 450 550 0 0 {name=V1 value=2.5V savecurrent=false}
 C {gnd.sym} 450 610 0 0 {name=l6 lab=GND}
 C {vsource.sym} 560 550 0 0 {name=V2 value=2.5V savecurrent=false}
 C {gnd.sym} 560 610 0 0 {name=l5 lab=GND}
@@ -1428,13 +1428,13 @@ C {code_shown.sym} -700 -300 0 0 {name=MODELS only_toplevel=false value=".includ
 .lib /foss/pdks/gf180mcuD/libs.tech/ngspice/sm141064.ngspice mimcap_typical"}
 C {code_shown.sym} 640 20 0 0 {name=NGSPICE only_toplevel=false value="
 *.tran 10p 0.3u
-.dc V1 0 5 0.1 
+.dc V2 0 5 0.1 
 .save all
 .control
 run
 let slope =deriv(v(out))
 meas dc minslope MIN slope
-let gain = -minslope
+let gain = minslope
 print gain
 plot slope
 plot v(out) v(vinn) v(vinp)
