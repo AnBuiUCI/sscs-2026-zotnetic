@@ -112,7 +112,7 @@ XDOUTR B B B B nfet_03v3 l={l} w={w} m={do}
 .ends CMIRROR_1
 
 .subckt MIMCap V1 V2 l=1 w=1
-X1 V1 V2 cap_mim_2f0fF l={l} w={w}
+X1 V1 V2 mimcap_1p0fF l={l} w={w}
 .ends MIMCap
 
 .subckt MIMCAP_ARR V1 V2
