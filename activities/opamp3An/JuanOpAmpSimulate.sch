@@ -1428,7 +1428,7 @@ C {code_shown.sym} -700 -300 0 0 {name=MODELS only_toplevel=false value=".includ
 .lib /foss/pdks/gf180mcuD/libs.tech/ngspice/sm141064.ngspice mimcap_typical"}
 C {code_shown.sym} 640 20 0 0 {name=NGSPICE only_toplevel=false value="
 *.tran 10p 0.3u
-.dc V2 0 5 0.1 
+.dc V2 0 5 0.001 
 .save all
 .control
 run
