@@ -10,7 +10,7 @@ export PATH="$DESIGNS/scripts:$PATH"
 #==============================================================
 # PDK
 # This script is aliased to `iic-pdk` in the .bashrc file
-# source iic-pdk-script.sh gf180mcuD
+ source iic-pdk-script.sh gf180mcuD
 
 #==============================================================
 # Xschem
