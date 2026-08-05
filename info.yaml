@@ -12,9 +12,9 @@
 # Project metadata (used for documentation / review)
 # ======================================================
 project:
-  title: "PDK test"             # Project title (e.g. "Simple CPU", "PLL", "ADC")
-  team: ""                      # Your Team name
-  discord: ""                   # Optional: Discord username (for support / communication)
+  title: "Magnetic Gradient Navigation and Control IC"
+  team: "B26 Zotnetic"         
+  discord: "teareverie"                   # Optional: Discord username (for support / communication)
   description: "PDK test data"  # Short one-line description
   lvs_config: "<relative-path-to-lvs_config.json>"
 
