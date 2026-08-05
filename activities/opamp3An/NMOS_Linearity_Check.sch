@@ -24,7 +24,7 @@ N -560 -280 -560 -250 {lab=vg}
 N -490 -280 -490 -250 {lab=vdd}
 N -410 -280 -410 -250 {lab=vss}
 N -320 -90 -290 -90 {lab=vss}
-C {vsource.sym} -560 -220 0 0 {name=VGATE value=3 savecurrent=false}
+C {vsource.sym} -560 -220 0 0 {name=VGATE value=1 savecurrent=false}
 C {vsource.sym} -490 -220 0 0 {name=VDD value=5 savecurrent=false}
 C {vsource.sym} -410 -220 0 0 {name=VSS value=0 savecurrent=false}
 C {gnd.sym} -560 -170 0 0 {name=l1 lab=0}
@@ -39,13 +39,12 @@ C {code_shown.sym} -100 -400 0 0 {name=NGSPICE
 only_toplevel=false 
 value="
 *.tran 1ms 100ms
-.dc VDD 1 5 0.01
+.dc VDD .8 5 0.01
 .save all
 .control
 run
 display
-plot v(vdd)
-plot vdd#branch
+plot -vdd#branch vs v(vdd)
 plot v(vdd)/-(i(VDD))
 .endc
 "}
@@ -54,7 +53,7 @@ C {lab_pin.sym} -150 -120 0 0 {name=p2 sig_type=std_logic lab=vdd}
 C {lab_pin.sym} -320 -30 0 0 {name=p3 sig_type=std_logic lab=vss}
 C {symbols/nfet_06v0.sym} -340 -90 0 0 {name=M1
 L=1u
-W=2u
+W=3.5u
 nf=1
 m=1
 ad="'int((nf+1)/2) * W/nf * 0.18u'"
