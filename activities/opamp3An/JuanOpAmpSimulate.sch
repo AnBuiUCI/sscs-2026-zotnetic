@@ -1432,11 +1432,11 @@ C {code_shown.sym} 640 20 0 0 {name=NGSPICE only_toplevel=false value="
 .save all
 .control
 run
-let slope =deriv(v(out))
-meas dc minslope MIN slope
-let gain = minslope
-print gain
-plot slope
+let gain =deriv(v(out))
+meas dc maxgain MAX gain
+let max_gain = maxgain
+print max_gain
+plot gain
 plot v(out) v(vinn) v(vinp)
 
 .endc"

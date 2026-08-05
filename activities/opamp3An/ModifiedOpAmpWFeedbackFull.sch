@@ -1448,23 +1448,14 @@ C {code_shown.sym} 790 260 0 0 {name=NGSPICE only_toplevel=false value="
 .save all
 .control
 run
-let slope =deriv(v(vout))
-meas dc minslope MIN slope
-let gain = minslope
-print gain
+let gain =deriv(v(vout))
+meas dc maxgain MAX gain
+let max_gain = maxgain
+print max_gain
 plot gain
-plot slope
-*plot v(vout) v(vinn) v(vinp)
 
-plot v(vout) vs v(vinp)
-plot i(VINP)
-
-let Rin = v(vinn)/ -i(vinn)
-#plot Rin vs v(vinp)
-
-.dc VINP 2.5 5 0.1
-let Rf = (v(vout) - v(vinp)) / -i(VINP)
-#plot Rf vs v(vinp)
+let Vdiff = v(vinp) - v(vinn)
+plot v(vout) vs Vdiff
 
 .endc"
 

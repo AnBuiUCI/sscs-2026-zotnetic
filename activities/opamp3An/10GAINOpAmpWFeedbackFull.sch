@@ -1484,7 +1484,7 @@ C {lab_pin.sym} -1390 830 0 0 {name=p9 sig_type=std_logic lab=vinp}
 C {vsource.sym} -1310 910 0 0 {name=VINN value=2.5 savecurrent=false}
 C {gnd.sym} -1310 970 0 0 {name=VINN1 lab=0}
 C {lab_pin.sym} -1310 830 0 0 {name=VINN2 sig_type=std_logic lab=vinn}
-C {vsource.sym} -1480 920 0 0 {name=VR1 value=4.5 savecurrent=false}
+C {vsource.sym} -1480 920 0 0 {name=VR1 value=4.355 savecurrent=false}
 C {gnd.sym} -1480 980 0 0 {name=l5 lab=0}
 C {lab_pin.sym} -1480 840 0 0 {name=p22 sig_type=std_logic lab=VR1}
 C {symbols/nfet_06v0.sym} -1030 870 0 0 {name=M51
