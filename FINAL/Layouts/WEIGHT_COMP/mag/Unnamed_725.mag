@@ -1,0 +1,52 @@
+magic
+tech gf180mcuD
+magscale 1 10
+timestamp 2083213696
+<< checkpaint >>
+rect -2192 -2120 2320 2486
+<< nwell >>
+rect -192 -120 320 486
+<< mvpmos >>
+rect 14 0 114 366
+<< mvpdiff >>
+rect -74 306 14 366
+rect -74 60 -61 306
+rect -15 60 14 306
+rect -74 0 14 60
+rect 114 306 202 366
+rect 114 60 143 306
+rect 189 60 202 306
+rect 114 0 202 60
+<< mvpdiffc >>
+rect -61 60 -15 306
+rect 143 60 189 306
+<< polysilicon >>
+rect 14 469 114 482
+rect 14 423 41 469
+rect 87 423 114 469
+rect 14 366 114 423
+rect 14 -57 114 0
+rect 14 -103 41 -57
+rect 87 -103 114 -57
+rect 14 -116 114 -103
+<< polycontact >>
+rect 41 423 87 469
+rect 41 -103 87 -57
+<< metal1 >>
+rect 14 469 114 482
+rect 14 423 41 469
+rect 87 423 114 469
+rect 14 410 114 423
+rect -72 306 0 366
+rect -72 60 -61 306
+rect -15 60 0 306
+rect -72 0 0 60
+rect 128 306 200 366
+rect 128 60 143 306
+rect 189 60 200 306
+rect 128 0 200 60
+rect 14 -57 114 -44
+rect 14 -103 41 -57
+rect 87 -103 114 -57
+rect 14 -116 114 -103
+<< end >>

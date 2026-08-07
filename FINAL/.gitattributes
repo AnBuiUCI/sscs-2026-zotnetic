@@ -1,0 +1,6 @@
+# The repository root sets "* text=auto eol=lf". Git would classify a GDS as
+# binary on its own (it starts with NUL bytes), but a tape-out deliverable should
+# not depend on a heuristic: if it were ever taken for text, the CRLF/LF
+# normalisation would corrupt it silently.
+*.gds binary
+*.gds.gz binary

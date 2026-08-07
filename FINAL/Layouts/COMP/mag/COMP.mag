@@ -1,0 +1,1822 @@
+magic
+tech gf180mcuD
+magscale 1 10
+timestamp 2083213696
+<< checkpaint >>
+rect -2252 -2000 22604 8292
+<< metal1 >>
+rect -38 4846 8 6202
+rect 1074 4846 1120 6202
+rect 131 3306 177 3766
+rect 431 3438 477 3766
+rect 600 1854 646 4846
+rect 1243 3306 1289 3766
+rect 1543 3438 1589 3766
+rect 1712 1986 1758 4846
+rect 2186 4046 2232 6202
+rect 2998 4846 3044 6202
+rect 4110 4846 4156 6202
+rect 5222 4846 5268 6202
+rect 2355 3438 2401 3766
+rect 2524 3438 2570 4046
+rect 91 726 137 1854
+rect 260 546 306 1854
+rect 823 1526 869 1986
+rect 1123 1526 1169 1854
+rect 1292 946 1338 1986
+rect -78 90 -32 546
+rect 654 90 700 946
+rect 1855 726 1901 3438
+rect 2155 726 2201 3438
+rect 2324 546 2370 3306
+rect 2887 726 2933 3438
+rect 3090 3306 3136 3766
+rect 3488 3438 3534 3766
+rect 3193 726 3239 3438
+rect 3356 546 3402 3438
+rect 3636 3306 3682 4846
+rect 4279 3306 4325 3766
+rect 4579 3438 4625 3766
+rect 4748 2646 4794 4846
+rect 5391 3306 5437 3766
+rect 5691 3438 5737 3766
+rect 5860 2646 5906 4846
+rect 6237 2646 6283 4846
+rect 6503 2382 6549 3766
+rect 3919 1526 3965 1986
+rect 4219 1526 4265 1854
+rect 4388 946 4434 2118
+rect 4951 1526 4997 1986
+rect 5251 1526 5297 1854
+rect 5420 946 5466 2118
+rect 5717 946 5763 2118
+rect 6135 1526 6181 2382
+rect 6553 946 6599 2250
+rect 7073 2118 7119 4846
+rect 7353 2646 7399 4846
+rect 7619 2514 7665 3766
+rect 8189 2514 8235 4846
+rect 10701 4346 10747 6202
+rect 12425 4346 12471 6202
+rect 15870 4846 15916 6202
+rect 17794 4846 17840 6202
+rect 18809 4846 18855 6202
+rect 6829 946 6875 2118
+rect 7247 1526 7293 2514
+rect 7665 946 7711 2382
+rect 1686 90 1732 546
+rect 2718 90 2764 546
+rect 3750 90 3796 946
+rect 4782 90 4828 946
+rect 7941 696 7987 2514
+rect 8469 2382 8515 4346
+rect 8735 3438 8781 3766
+rect 9305 2778 9351 4346
+rect 8359 1026 8405 1854
+rect 8777 696 8823 2646
+rect 9585 2250 9631 4346
+rect 9851 3438 9897 3766
+rect 10421 3042 10467 4346
+rect 9053 696 9099 2118
+rect 9471 1026 9517 1854
+rect 9889 696 9935 2910
+rect 11271 2778 11317 3766
+rect 10887 1026 10933 2646
+rect 11609 696 11655 2514
+rect 12145 2382 12191 4346
+rect 12995 2778 13041 3766
+rect 12607 1026 12653 2646
+rect 13329 696 13375 2118
+rect 13702 696 13748 2646
+rect 13869 2250 13915 4346
+rect 14246 2778 14292 4346
+rect 14415 3174 14461 3766
+rect 13871 1026 13917 2118
+rect 14040 696 14086 2778
+rect 14434 696 14480 2910
+rect 14584 2646 14630 4346
+rect 15058 3042 15104 4346
+rect 15227 3174 15273 3766
+rect 14603 1026 14649 2118
+rect 14772 696 14818 3042
+rect 15396 2910 15442 4346
+rect 15335 1526 15381 1986
+rect 15635 1526 15681 1854
+rect 15804 946 15850 3174
+rect 16039 2250 16085 3766
+rect 16339 3438 16385 3766
+rect 16508 2250 16554 4846
+rect 16982 2250 17028 4846
+rect 17151 3174 17197 3766
+rect 17320 3174 17366 4846
+rect 17963 3306 18009 3766
+rect 18263 3438 18309 3766
+rect 16198 946 16244 1986
+rect 16367 1526 16413 2118
+rect 16536 946 16582 2118
+rect 17099 1526 17145 1986
+rect 17399 1526 17445 1854
+rect 17568 946 17614 1986
+rect 18283 1526 18329 2910
+rect 18432 2118 18478 4846
+rect 19379 3042 19425 3766
+rect 19949 1854 19995 4846
+rect 19005 946 19051 1854
+rect 10165 90 10211 696
+rect 11885 90 11931 696
+rect 15166 90 15212 946
+rect 16930 90 16976 946
+rect 17865 90 17911 946
+<< metal2 >>
+rect 454 3410 18286 3466
+rect 154 3278 17986 3334
+rect 14438 3146 17343 3202
+rect 10444 3014 19402 3070
+rect 9912 2882 18306 2938
+rect 9328 2750 14269 2806
+rect 4771 2618 7376 2674
+rect 8800 2618 14607 2674
+rect 7270 2486 7642 2542
+rect 7964 2486 11632 2542
+rect 6158 2354 6526 2410
+rect 7688 2354 12168 2410
+rect 6676 2278 6756 2290
+rect 6576 2222 13892 2278
+rect 16062 2222 17005 2278
+rect 6676 2210 6756 2222
+rect 7196 2146 7276 2158
+rect 4411 2090 6852 2146
+rect 7096 2090 13352 2146
+rect 13894 2090 18455 2146
+rect 7196 2078 7276 2090
+rect 846 1958 15358 2014
+rect 16221 1958 17591 2014
+rect 19128 1882 19208 1894
+rect 19628 1882 19708 1894
+rect 114 1826 17422 1882
+rect 19028 1826 19972 1882
+rect 19128 1814 19208 1826
+rect 19628 1814 19708 1826
+<< mimcap >>
+rect 2716 2430 6716 4430
+rect 15168 2034 19168 4034
+<< metal3 >>
+rect 6676 2210 6756 2290
+rect 7196 2078 7276 2158
+rect 19128 1814 19208 1894
+rect 19628 1814 19708 1894
+<< metal4 >>
+rect 2596 4430 6876 4550
+rect 2596 2430 2716 4430
+rect 6716 2430 6876 4430
+rect 2596 2090 6876 2430
+rect 15048 4034 19328 4154
+rect 7196 2078 7276 2158
+rect 15048 2034 15168 4034
+rect 19168 2034 19328 4034
+rect 15048 1694 19328 2034
+rect 19628 1814 19708 1894
+<< metal5 >>
+rect 2716 4310 19728 4430
+rect 2716 2430 6716 4310
+rect 15168 2178 19168 4034
+rect 7176 2058 19168 2178
+rect 15168 2034 19168 2058
+rect 19608 1794 19728 4310
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_0
+timestamp 2083213696
+transform 1 0 14573 0 1 2612
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_1
+timestamp 2083213696
+transform 1 0 13691 0 1 2612
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_2
+timestamp 2083213696
+transform 1 0 12596 0 1 2612
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_3
+timestamp 2083213696
+transform 1 0 10876 0 1 2612
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_4
+timestamp 2083213696
+transform 1 0 14423 0 1 2876
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_5
+timestamp 2083213696
+transform 1 0 14235 0 1 2744
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_6
+timestamp 2083213696
+transform 1 0 14029 0 1 2744
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_7
+timestamp 2083213696
+transform 1 0 11598 0 1 2480
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_8
+timestamp 2083213696
+transform 1 0 14592 0 1 2084
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_9
+timestamp 2083213696
+transform 1 0 13860 0 1 2084
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_10
+timestamp 2083213696
+transform 1 0 12134 0 1 2348
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_11
+timestamp 2083213696
+transform 1 0 13318 0 1 2084
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_12
+timestamp 2083213696
+transform 1 0 12984 0 1 2744
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_13
+timestamp 2083213696
+transform 1 0 15047 0 1 3008
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_14
+timestamp 2083213696
+transform 1 0 14761 0 1 3008
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_15
+timestamp 2083213696
+transform 1 0 10410 0 1 3008
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_16
+timestamp 2083213696
+transform 1 0 11260 0 1 2744
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_17
+timestamp 2083213696
+transform 1 0 13858 0 1 2216
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_18
+timestamp 2083213696
+transform 1 0 17557 0 1 1952
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_19
+timestamp 2083213696
+transform 1 0 17088 0 1 1952
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_20
+timestamp 2083213696
+transform 1 0 16187 0 1 1952
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_21
+timestamp 2083213696
+transform 1 0 16356 0 1 2084
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_22
+timestamp 2083213696
+transform 1 0 19368 0 1 3008
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_23
+timestamp 2083213696
+transform 1 0 18272 0 1 2876
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_24
+timestamp 2083213696
+transform 1 0 19938 0 1 1820
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_25
+timestamp 2083213696
+transform 1 0 18994 0 1 1820
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_26
+timestamp 2083213696
+transform 1 0 16971 0 1 2216
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_27
+timestamp 2083213696
+transform 1 0 16497 0 1 2216
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_28
+timestamp 2083213696
+transform 1 0 16028 0 1 2216
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_29
+timestamp 2083213696
+transform 1 0 17388 0 1 1820
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_30
+timestamp 2083213696
+transform 1 0 15624 0 1 1820
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_31
+timestamp 2083213696
+transform 1 0 18421 0 1 2084
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_32
+timestamp 2083213696
+transform 1 0 16525 0 1 2084
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_33
+timestamp 2083213696
+transform 1 0 15324 0 1 1952
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_34
+timestamp 2083213696
+transform 1 0 15385 0 1 2876
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_35
+timestamp 2083213696
+transform 1 0 812 0 1 1952
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_36
+timestamp 2083213696
+transform 1 0 249 0 1 1820
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_37
+timestamp 2083213696
+transform 1 0 80 0 1 1820
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_38
+timestamp 2083213696
+transform 1 0 4737 0 1 2612
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_39
+timestamp 2083213696
+transform 1 0 4208 0 1 1820
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_40
+timestamp 2083213696
+transform 1 0 1112 0 1 1820
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_41
+timestamp 2083213696
+transform 1 0 4377 0 1 2084
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_42
+timestamp 2083213696
+transform 1 0 589 0 1 1820
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_43
+timestamp 2083213696
+transform 1 0 3908 0 1 1952
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_44
+timestamp 2083213696
+transform 1 0 1701 0 1 1952
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_45
+timestamp 2083213696
+transform 1 0 1281 0 1 1952
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_46
+timestamp 2083213696
+transform 1 0 7062 0 1 2084
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_47
+timestamp 2083213696
+transform 1 0 6818 0 1 2084
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_48
+timestamp 2083213696
+transform 1 0 5706 0 1 2084
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_49
+timestamp 2083213696
+transform 1 0 5409 0 1 2084
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_50
+timestamp 2083213696
+transform 1 0 6124 0 1 2348
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_51
+timestamp 2083213696
+transform 1 0 9460 0 1 1820
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_52
+timestamp 2083213696
+transform 1 0 8348 0 1 1820
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_53
+timestamp 2083213696
+transform 1 0 5240 0 1 1820
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_54
+timestamp 2083213696
+transform 1 0 9574 0 1 2216
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_55
+timestamp 2083213696
+transform 1 0 6542 0 1 2216
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_56
+timestamp 2083213696
+transform 1 0 9042 0 1 2084
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_57
+timestamp 2083213696
+transform 1 0 9878 0 1 2876
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_58
+timestamp 2083213696
+transform 1 0 9294 0 1 2744
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_59
+timestamp 2083213696
+transform 1 0 8766 0 1 2612
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_60
+timestamp 2083213696
+transform 1 0 7342 0 1 2612
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_61
+timestamp 2083213696
+transform 1 0 6226 0 1 2612
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_62
+timestamp 2083213696
+transform 1 0 5849 0 1 2612
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_63
+timestamp 2083213696
+transform 1 0 8178 0 1 2480
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_64
+timestamp 2083213696
+transform 1 0 7930 0 1 2480
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_65
+timestamp 2083213696
+transform 1 0 7608 0 1 2480
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_66
+timestamp 2083213696
+transform 1 0 7236 0 1 2480
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_67
+timestamp 2083213696
+transform 1 0 8458 0 1 2348
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_68
+timestamp 2083213696
+transform 1 0 7654 0 1 2348
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_69
+timestamp 2083213696
+transform 1 0 6492 0 1 2348
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_70
+timestamp 2083213696
+transform 1 0 4940 0 1 1952
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_71
+timestamp 2083213696
+transform 1 0 9840 0 1 3404
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_72
+timestamp 2083213696
+transform 1 0 8724 0 1 3404
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_73
+timestamp 2083213696
+transform 1 0 5680 0 1 3404
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_74
+timestamp 2083213696
+transform 1 0 4568 0 1 3404
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_75
+timestamp 2083213696
+transform 1 0 3477 0 1 3404
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_76
+timestamp 2083213696
+transform 1 0 3345 0 1 3404
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_77
+timestamp 2083213696
+transform 1 0 3182 0 1 3404
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_78
+timestamp 2083213696
+transform 1 0 2876 0 1 3404
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_79
+timestamp 2083213696
+transform 1 0 2513 0 1 3404
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_80
+timestamp 2083213696
+transform 1 0 2344 0 1 3404
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_81
+timestamp 2083213696
+transform 1 0 2144 0 1 3404
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_82
+timestamp 2083213696
+transform 1 0 1844 0 1 3404
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_83
+timestamp 2083213696
+transform 1 0 1532 0 1 3404
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_84
+timestamp 2083213696
+transform 1 0 420 0 1 3404
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_85
+timestamp 2083213696
+transform 1 0 5380 0 1 3272
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_86
+timestamp 2083213696
+transform 1 0 4268 0 1 3272
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_87
+timestamp 2083213696
+transform 1 0 3625 0 1 3272
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_88
+timestamp 2083213696
+transform 1 0 3079 0 1 3272
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_89
+timestamp 2083213696
+transform 1 0 2313 0 1 3272
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_90
+timestamp 2083213696
+transform 1 0 1232 0 1 3272
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_91
+timestamp 2083213696
+transform 1 0 120 0 1 3272
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_92
+timestamp 2083213696
+transform 1 0 18252 0 1 3404
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_93
+timestamp 2083213696
+transform 1 0 16328 0 1 3404
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_94
+timestamp 2083213696
+transform 1 0 17952 0 1 3272
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_95
+timestamp 2083213696
+transform 1 0 17309 0 1 3140
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_96
+timestamp 2083213696
+transform 1 0 17140 0 1 3140
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_97
+timestamp 2083213696
+transform 1 0 15793 0 1 3140
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_98
+timestamp 2083213696
+transform 1 0 15216 0 1 3140
+box 0 0 68 68
+use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_99
+timestamp 2083213696
+transform 1 0 14404 0 1 3140
+box 0 0 68 68
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_0
+timestamp 2083213696
+transform 1 0 13687 0 1 2608
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_1
+timestamp 2083213696
+transform 1 0 12592 0 1 2608
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_2
+timestamp 2083213696
+transform 1 0 10872 0 1 2608
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_3
+timestamp 2083213696
+transform 1 0 14419 0 1 2872
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_4
+timestamp 2083213696
+transform 1 0 14231 0 1 2740
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_5
+timestamp 2083213696
+transform 1 0 14025 0 1 2740
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_6
+timestamp 2083213696
+transform 1 0 12980 0 1 2740
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_7
+timestamp 2083213696
+transform 1 0 11594 0 1 2476
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_8
+timestamp 2083213696
+transform 1 0 14588 0 1 2080
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_9
+timestamp 2083213696
+transform 1 0 13856 0 1 2080
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_10
+timestamp 2083213696
+transform 1 0 13314 0 1 2080
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_11
+timestamp 2083213696
+transform 1 0 12130 0 1 2344
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_12
+timestamp 2083213696
+transform 1 0 11256 0 1 2740
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_13
+timestamp 2083213696
+transform 1 0 15043 0 1 3004
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_14
+timestamp 2083213696
+transform 1 0 14757 0 1 3004
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_15
+timestamp 2083213696
+transform 1 0 10406 0 1 3004
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_16
+timestamp 2083213696
+transform 1 0 13854 0 1 2212
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_17
+timestamp 2083213696
+transform 1 0 14569 0 1 2608
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_18
+timestamp 2083213696
+transform 1 0 17553 0 1 1948
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_19
+timestamp 2083213696
+transform 1 0 17084 0 1 1948
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_20
+timestamp 2083213696
+transform 1 0 16183 0 1 1948
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_21
+timestamp 2083213696
+transform 1 0 19364 0 1 3004
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_22
+timestamp 2083213696
+transform 1 0 18268 0 1 2872
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_23
+timestamp 2083213696
+transform 1 0 19934 0 1 1816
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_24
+timestamp 2083213696
+transform 1 0 18990 0 1 1816
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_25
+timestamp 2083213696
+transform 1 0 16967 0 1 2212
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_26
+timestamp 2083213696
+transform 1 0 16493 0 1 2212
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_27
+timestamp 2083213696
+transform 1 0 16024 0 1 2212
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_28
+timestamp 2083213696
+transform 1 0 17384 0 1 1816
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_29
+timestamp 2083213696
+transform 1 0 15620 0 1 1816
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_30
+timestamp 2083213696
+transform 1 0 18417 0 1 2080
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_31
+timestamp 2083213696
+transform 1 0 16521 0 1 2080
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_32
+timestamp 2083213696
+transform 1 0 16352 0 1 2080
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_33
+timestamp 2083213696
+transform 1 0 15320 0 1 1948
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_34
+timestamp 2083213696
+transform 1 0 15381 0 1 2872
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_35
+timestamp 2083213696
+transform 1 0 808 0 1 1948
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_36
+timestamp 2083213696
+transform 1 0 245 0 1 1816
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_37
+timestamp 2083213696
+transform 1 0 76 0 1 1816
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_38
+timestamp 2083213696
+transform 1 0 4733 0 1 2608
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_39
+timestamp 2083213696
+transform 1 0 4204 0 1 1816
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_40
+timestamp 2083213696
+transform 1 0 1108 0 1 1816
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_41
+timestamp 2083213696
+transform 1 0 4373 0 1 2080
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_42
+timestamp 2083213696
+transform 1 0 585 0 1 1816
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_43
+timestamp 2083213696
+transform 1 0 3904 0 1 1948
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_44
+timestamp 2083213696
+transform 1 0 1697 0 1 1948
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_45
+timestamp 2083213696
+transform 1 0 1277 0 1 1948
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_46
+timestamp 2083213696
+transform 1 0 7058 0 1 2080
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_47
+timestamp 2083213696
+transform 1 0 6814 0 1 2080
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_48
+timestamp 2083213696
+transform 1 0 5702 0 1 2080
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_49
+timestamp 2083213696
+transform 1 0 5405 0 1 2080
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_50
+timestamp 2083213696
+transform 1 0 6120 0 1 2344
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_51
+timestamp 2083213696
+transform 1 0 9456 0 1 1816
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_52
+timestamp 2083213696
+transform 1 0 8344 0 1 1816
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_53
+timestamp 2083213696
+transform 1 0 5236 0 1 1816
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_54
+timestamp 2083213696
+transform 1 0 9570 0 1 2212
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_55
+timestamp 2083213696
+transform 1 0 6538 0 1 2212
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_56
+timestamp 2083213696
+transform 1 0 9038 0 1 2080
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_57
+timestamp 2083213696
+transform 1 0 9874 0 1 2872
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_58
+timestamp 2083213696
+transform 1 0 9290 0 1 2740
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_59
+timestamp 2083213696
+transform 1 0 8762 0 1 2608
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_60
+timestamp 2083213696
+transform 1 0 7338 0 1 2608
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_61
+timestamp 2083213696
+transform 1 0 6222 0 1 2608
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_62
+timestamp 2083213696
+transform 1 0 5845 0 1 2608
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_63
+timestamp 2083213696
+transform 1 0 8174 0 1 2476
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_64
+timestamp 2083213696
+transform 1 0 7926 0 1 2476
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_65
+timestamp 2083213696
+transform 1 0 7604 0 1 2476
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_66
+timestamp 2083213696
+transform 1 0 7232 0 1 2476
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_67
+timestamp 2083213696
+transform 1 0 8454 0 1 2344
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_68
+timestamp 2083213696
+transform 1 0 7650 0 1 2344
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_69
+timestamp 2083213696
+transform 1 0 6488 0 1 2344
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_70
+timestamp 2083213696
+transform 1 0 4936 0 1 1948
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_71
+timestamp 2083213696
+transform 1 0 9836 0 1 3400
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_72
+timestamp 2083213696
+transform 1 0 8720 0 1 3400
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_73
+timestamp 2083213696
+transform 1 0 5676 0 1 3400
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_74
+timestamp 2083213696
+transform 1 0 4564 0 1 3400
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_75
+timestamp 2083213696
+transform 1 0 3473 0 1 3400
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_76
+timestamp 2083213696
+transform 1 0 3341 0 1 3400
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_77
+timestamp 2083213696
+transform 1 0 3178 0 1 3400
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_78
+timestamp 2083213696
+transform 1 0 2872 0 1 3400
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_79
+timestamp 2083213696
+transform 1 0 2509 0 1 3400
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_80
+timestamp 2083213696
+transform 1 0 2340 0 1 3400
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_81
+timestamp 2083213696
+transform 1 0 2140 0 1 3400
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_82
+timestamp 2083213696
+transform 1 0 1840 0 1 3400
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_83
+timestamp 2083213696
+transform 1 0 1528 0 1 3400
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_84
+timestamp 2083213696
+transform 1 0 416 0 1 3400
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_85
+timestamp 2083213696
+transform 1 0 5376 0 1 3268
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_86
+timestamp 2083213696
+transform 1 0 4264 0 1 3268
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_87
+timestamp 2083213696
+transform 1 0 3621 0 1 3268
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_88
+timestamp 2083213696
+transform 1 0 3075 0 1 3268
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_89
+timestamp 2083213696
+transform 1 0 2309 0 1 3268
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_90
+timestamp 2083213696
+transform 1 0 1228 0 1 3268
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_91
+timestamp 2083213696
+transform 1 0 116 0 1 3268
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_92
+timestamp 2083213696
+transform 1 0 18248 0 1 3400
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_93
+timestamp 2083213696
+transform 1 0 16324 0 1 3400
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_94
+timestamp 2083213696
+transform 1 0 17948 0 1 3268
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_95
+timestamp 2083213696
+transform 1 0 17305 0 1 3136
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_96
+timestamp 2083213696
+transform 1 0 17136 0 1 3136
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_97
+timestamp 2083213696
+transform 1 0 15789 0 1 3136
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_98
+timestamp 2083213696
+transform 1 0 15212 0 1 3136
+box 0 0 76 76
+use rectangle_S0p38_0p38_L3_0880e13d  rectangle_S0p38_0p38_L3_0880e13d_99
+timestamp 2083213696
+transform 1 0 14400 0 1 3136
+box 0 0 76 76
+use rectangle_S0p48_0p48000_285c3115  rectangle_S0p48_0p48000_285c3115_0
+timestamp 2083213696
+transform 1 0 9418 0 1 6092
+box 0 0 96 96
+use rectangle_S0p48_0p48000_285c3115  rectangle_S0p48_0p48000_285c3115_1
+timestamp 2083213696
+transform 1 0 7186 0 1 6092
+box 0 0 96 96
+use rectangle_S0p48_0p48000_285c3115  rectangle_S0p48_0p48000_285c3115_2
+timestamp 2083213696
+transform 1 0 4958 0 1 6092
+box 0 0 96 96
+use rectangle_S0p48_0p48000_285c3115  rectangle_S0p48_0p48000_285c3115_3
+timestamp 2083213696
+transform 1 0 2734 0 1 6092
+box 0 0 96 96
+use rectangle_S0p48_0p48000_285c3115  rectangle_S0p48_0p48000_285c3115_4
+timestamp 2083213696
+transform 1 0 810 0 1 6092
+box 0 0 96 96
+use rectangle_S0p48_0p48000_285c3115  rectangle_S0p48_0p48000_285c3115_5
+timestamp 2083213696
+transform 1 0 17530 0 1 6092
+box 0 0 96 96
+use rectangle_S0p48_0p48000_285c3115  rectangle_S0p48_0p48000_285c3115_6
+timestamp 2083213696
+transform 1 0 15606 0 1 6092
+box 0 0 96 96
+use rectangle_S0p48_0p48000_285c3115  rectangle_S0p48_0p48000_285c3115_7
+timestamp 2083213696
+transform 1 0 13982 0 1 6092
+box 0 0 96 96
+use rectangle_S0p48_0p48000_285c3115  rectangle_S0p48_0p48000_285c3115_8
+timestamp 2083213696
+transform 1 0 12258 0 1 6092
+box 0 0 96 96
+use rectangle_S0p48_0p69000_8359305c  rectangle_S0p48_0p69000_8359305c_0
+timestamp 2083213696
+transform 1 0 16706 0 1 42
+box 0 0 96 138
+use rectangle_S0p48_0p69000_8359305c  rectangle_S0p48_0p69000_8359305c_1
+timestamp 2083213696
+transform 1 0 20316 0 1 42
+box 0 0 96 138
+use rectangle_S0p48_0p69000_8359305c  rectangle_S0p48_0p69000_8359305c_2
+timestamp 2083213696
+transform 1 0 19116 0 1 42
+box 0 0 96 138
+use rectangle_S0p48_0p69000_8359305c  rectangle_S0p48_0p69000_8359305c_3
+timestamp 2083213696
+transform 1 0 13440 0 1 42
+box 0 0 96 138
+use rectangle_S0p48_0p69000_8359305c  rectangle_S0p48_0p69000_8359305c_4
+timestamp 2083213696
+transform 1 0 14942 0 1 42
+box 0 0 96 138
+use rectangle_S0p48_0p69000_8359305c  rectangle_S0p48_0p69000_8359305c_5
+timestamp 2083213696
+transform 1 0 11720 0 1 42
+box 0 0 96 138
+use rectangle_S0p48_0p69000_8359305c  rectangle_S0p48_0p69000_8359305c_6
+timestamp 2083213696
+transform 1 0 6664 0 1 42
+box 0 0 96 138
+use rectangle_S0p48_0p69000_8359305c  rectangle_S0p48_0p69000_8359305c_7
+timestamp 2083213696
+transform 1 0 8888 0 1 42
+box 0 0 96 138
+use rectangle_S0p48_0p69000_8359305c  rectangle_S0p48_0p69000_8359305c_8
+timestamp 2083213696
+transform 1 0 4558 0 1 42
+box 0 0 96 138
+use rectangle_S0p48_0p69000_8359305c  rectangle_S0p48_0p69000_8359305c_9
+timestamp 2083213696
+transform 1 0 2494 0 1 42
+box 0 0 96 138
+use rectangle_S0p48_0p69000_8359305c  rectangle_S0p48_0p69000_8359305c_10
+timestamp 2083213696
+transform 1 0 430 0 1 42
+box 0 0 96 138
+use rectangle_S0p84_0p84_L3_47f5df76  rectangle_S0p84_0p84_L3_47f5df76_0
+timestamp 2083213696
+transform 1 0 19080 0 1 6
+box 0 0 1 1
+use rectangle_S0p84_0p84_L3_47f5df76  rectangle_S0p84_0p84_L3_47f5df76_1
+timestamp 2083213696
+transform 1 0 20280 0 1 6
+box 0 0 1 1
+use rectangle_S0p84_0p84_L3_47f5df76  rectangle_S0p84_0p84_L3_47f5df76_2
+timestamp 2083213696
+transform 1 0 16670 0 1 6
+box 0 0 1 1
+use rectangle_S0p84_0p84_L3_47f5df76  rectangle_S0p84_0p84_L3_47f5df76_3
+timestamp 2083213696
+transform 1 0 14906 0 1 6
+box 0 0 1 1
+use rectangle_S0p84_0p84_L3_47f5df76  rectangle_S0p84_0p84_L3_47f5df76_4
+timestamp 2083213696
+transform 1 0 13404 0 1 6
+box 0 0 1 1
+use rectangle_S0p84_0p84_L3_47f5df76  rectangle_S0p84_0p84_L3_47f5df76_5
+timestamp 2083213696
+transform 1 0 11684 0 1 6
+box 0 0 1 1
+use rectangle_S0p84_0p84_L3_47f5df76  rectangle_S0p84_0p84_L3_47f5df76_6
+timestamp 2083213696
+transform 1 0 8852 0 1 6
+box 0 0 1 1
+use rectangle_S0p84_0p84_L3_47f5df76  rectangle_S0p84_0p84_L3_47f5df76_7
+timestamp 2083213696
+transform 1 0 6628 0 1 6
+box 0 0 1 1
+use rectangle_S0p84_0p84_L3_47f5df76  rectangle_S0p84_0p84_L3_47f5df76_8
+timestamp 2083213696
+transform 1 0 394 0 1 6
+box 0 0 1 1
+use rectangle_S0p84_0p84_L3_47f5df76  rectangle_S0p84_0p84_L3_47f5df76_9
+timestamp 2083213696
+transform 1 0 4522 0 1 6
+box 0 0 1 1
+use rectangle_S0p84_0p84_L3_47f5df76  rectangle_S0p84_0p84_L3_47f5df76_10
+timestamp 2083213696
+transform 1 0 2458 0 1 6
+box 0 0 1 1
+use rectangle_S0p84_0p84_L3_1636d025  rectangle_S0p84_0p84_L3_1636d025_0
+timestamp 2083213696
+transform 1 0 9382 0 1 6056
+box 0 0 1 1
+use rectangle_S0p84_0p84_L3_1636d025  rectangle_S0p84_0p84_L3_1636d025_1
+timestamp 2083213696
+transform 1 0 7150 0 1 6056
+box 0 0 1 1
+use rectangle_S0p84_0p84_L3_1636d025  rectangle_S0p84_0p84_L3_1636d025_2
+timestamp 2083213696
+transform 1 0 4922 0 1 6056
+box 0 0 1 1
+use rectangle_S0p84_0p84_L3_1636d025  rectangle_S0p84_0p84_L3_1636d025_3
+timestamp 2083213696
+transform 1 0 2698 0 1 6056
+box 0 0 1 1
+use rectangle_S0p84_0p84_L3_1636d025  rectangle_S0p84_0p84_L3_1636d025_4
+timestamp 2083213696
+transform 1 0 774 0 1 6056
+box 0 0 1 1
+use rectangle_S0p84_0p84_L3_1636d025  rectangle_S0p84_0p84_L3_1636d025_5
+timestamp 2083213696
+transform 1 0 12222 0 1 6056
+box 0 0 1 1
+use rectangle_S0p84_0p84_L3_1636d025  rectangle_S0p84_0p84_L3_1636d025_6
+timestamp 2083213696
+transform 1 0 17494 0 1 6056
+box 0 0 1 1
+use rectangle_S0p84_0p84_L3_1636d025  rectangle_S0p84_0p84_L3_1636d025_7
+timestamp 2083213696
+transform 1 0 15570 0 1 6056
+box 0 0 1 1
+use rectangle_S0p84_0p84_L3_1636d025  rectangle_S0p84_0p84_L3_1636d025_8
+timestamp 2083213696
+transform 1 0 13946 0 1 6056
+box 0 0 1 1
+use rectangle_S101p82000000_6cecedc5  rectangle_S101p82000000_6cecedc5_0
+timestamp 2083213696
+transform 1 0 -252 0 1 3550
+box 0 0 20364 2742
+use rectangle_S104p02_0p9_L_54305dba  rectangle_S104p02_0p9_L_54305dba_0
+timestamp 2083213696
+transform 1 0 -200 0 1 6112
+box 0 0 20804 180
+use rectangle_S104p02_0p9_L_54305dba  rectangle_S104p02_0p9_L_54305dba_1
+timestamp 2083213696
+transform 1 0 -200 0 1 0
+box 0 0 20804 180
+use Unnamed_603  Unnamed_603_0
+timestamp 2083213696
+transform 1 0 40 0 1 3846
+box -192 -120 420 2120
+use Unnamed_612  Unnamed_612_0
+timestamp 2083213696
+transform 1 0 340 0 1 3846
+box -192 -120 420 2120
+use Unnamed_633  Unnamed_633_0
+timestamp 2083213696
+transform 1 0 0 0 1 446
+box -74 -116 302 316
+use Unnamed_640  Unnamed_640_0
+timestamp 2083213696
+transform 1 0 1152 0 1 3846
+box -192 -120 420 2120
+use Unnamed_641  Unnamed_641_0
+timestamp 2083213696
+transform 1 0 1452 0 1 3846
+box -192 -120 420 2120
+use Unnamed_662  Unnamed_662_0
+timestamp 2083213696
+transform 1 0 1032 0 1 446
+box -74 -116 302 1116
+use Unnamed_669  Unnamed_669_0
+timestamp 2083213696
+transform 1 0 732 0 1 446
+box -74 -116 302 1116
+use Unnamed_692  Unnamed_692_0
+timestamp 2083213696
+transform 1 0 2264 0 1 3846
+box -192 -120 420 520
+use Unnamed_699  Unnamed_699_0
+timestamp 2083213696
+transform 1 0 3076 0 1 3846
+box -192 -120 420 2120
+use Unnamed_700  Unnamed_700_0
+timestamp 2083213696
+transform 1 0 3376 0 1 3846
+box -192 -120 420 2120
+use Unnamed_701  Unnamed_701_0
+timestamp 2083213696
+transform 1 0 1764 0 1 446
+box -74 -116 302 316
+use Unnamed_702  Unnamed_702_0
+timestamp 2083213696
+transform 1 0 2796 0 1 446
+box -74 -116 302 316
+use Unnamed_703  Unnamed_703_0
+timestamp 2083213696
+transform 1 0 3096 0 1 446
+box -74 -116 302 316
+use Unnamed_704  Unnamed_704_0
+timestamp 2083213696
+transform 1 0 2064 0 1 446
+box -74 -116 302 316
+use Unnamed_705  Unnamed_705_0
+timestamp 2083213696
+transform 1 0 4188 0 1 3846
+box -192 -120 420 2120
+use Unnamed_706  Unnamed_706_0
+timestamp 2083213696
+transform 1 0 4488 0 1 3846
+box -192 -120 420 2120
+use Unnamed_707  Unnamed_707_0
+timestamp 2083213696
+transform 1 0 5300 0 1 3846
+box -192 -120 420 2120
+use Unnamed_708  Unnamed_708_0
+timestamp 2083213696
+transform 1 0 5600 0 1 3846
+box -192 -120 420 2120
+use Unnamed_730  Unnamed_730_0
+timestamp 2083213696
+transform 1 0 6412 0 1 3846
+box -192 -120 724 2120
+use Unnamed_756  Unnamed_756_0
+timestamp 2083213696
+transform 1 0 7528 0 1 3846
+box -192 -120 724 2120
+use Unnamed_757  Unnamed_757_0
+timestamp 2083213696
+transform 1 0 4128 0 1 446
+box -74 -116 302 1116
+use Unnamed_758  Unnamed_758_0
+timestamp 2083213696
+transform 1 0 3828 0 1 446
+box -74 -116 302 1116
+use Unnamed_759  Unnamed_759_0
+timestamp 2083213696
+transform 1 0 5160 0 1 446
+box -74 -116 302 1116
+use Unnamed_760  Unnamed_760_0
+timestamp 2083213696
+transform 1 0 4860 0 1 446
+box -74 -116 302 1116
+use Unnamed_779  Unnamed_779_0
+timestamp 2083213696
+transform 1 0 5892 0 1 446
+box -190 -116 722 1116
+use Unnamed_794  Unnamed_794_0
+timestamp 2083213696
+transform 1 0 7004 0 1 446
+box -190 -116 722 1116
+use Unnamed_803  Unnamed_803_0
+timestamp 2083213696
+transform 1 0 8644 0 1 3846
+box -192 -120 724 1120
+use Unnamed_804  Unnamed_804_0
+timestamp 2083213696
+transform 1 0 9760 0 1 3846
+box -192 -120 724 1120
+use Unnamed_826  Unnamed_826_0
+timestamp 2083213696
+transform 1 0 10876 0 1 3846
+box -192 -120 1332 1120
+use Unnamed_847  Unnamed_847_0
+timestamp 2083213696
+transform 1 0 12600 0 1 3846
+box -192 -120 1332 1120
+use Unnamed_856  Unnamed_856_0
+timestamp 2083213696
+transform 1 0 14324 0 1 3846
+box -192 -120 420 1120
+use Unnamed_857  Unnamed_857_0
+timestamp 2083213696
+transform 1 0 15136 0 1 3846
+box -192 -120 420 1120
+use Unnamed_882  Unnamed_882_0
+timestamp 2083213696
+transform 1 0 8116 0 1 446
+box -190 -116 722 616
+use Unnamed_901  Unnamed_901_0
+timestamp 2083213696
+transform 1 0 9228 0 1 446
+box -190 -116 722 616
+use Unnamed_919  Unnamed_919_0
+timestamp 2083213696
+transform 1 0 10340 0 1 446
+box -190 -116 1330 616
+use Unnamed_930  Unnamed_930_0
+timestamp 2083213696
+transform 1 0 12060 0 1 446
+box -190 -116 1330 616
+use Unnamed_945  Unnamed_945_0
+timestamp 2083213696
+transform 1 0 13780 0 1 446
+box -74 -116 302 616
+use Unnamed_946  Unnamed_946_0
+timestamp 2083213696
+transform 1 0 14512 0 1 446
+box -74 -116 302 616
+use Unnamed_947  Unnamed_947_0
+timestamp 2083213696
+transform 1 0 15948 0 1 3846
+box -192 -120 420 2120
+use Unnamed_948  Unnamed_948_0
+timestamp 2083213696
+transform 1 0 16248 0 1 3846
+box -192 -120 420 2120
+use Unnamed_949  Unnamed_949_0
+timestamp 2083213696
+transform 1 0 17060 0 1 3846
+box -192 -120 420 2120
+use Unnamed_950  Unnamed_950_0
+timestamp 2083213696
+transform 1 0 15544 0 1 446
+box -74 -116 302 1116
+use Unnamed_951  Unnamed_951_0
+timestamp 2083213696
+transform 1 0 15244 0 1 446
+box -74 -116 302 1116
+use Unnamed_952  Unnamed_952_0
+timestamp 2083213696
+transform 1 0 17872 0 1 3846
+box -192 -120 420 2120
+use Unnamed_953  Unnamed_953_0
+timestamp 2083213696
+transform 1 0 18172 0 1 3846
+box -192 -120 420 2120
+use Unnamed_954  Unnamed_954_0
+timestamp 2083213696
+transform 1 0 16276 0 1 446
+box -74 -116 302 1116
+use Unnamed_955  Unnamed_955_0
+timestamp 2083213696
+transform 1 0 17308 0 1 446
+box -74 -116 302 1116
+use Unnamed_956  Unnamed_956_0
+timestamp 2083213696
+transform 1 0 17008 0 1 446
+box -74 -116 302 1116
+use Unnamed_976  Unnamed_976_0
+timestamp 2083213696
+transform 1 0 18984 0 1 3846
+box -192 -120 1028 2120
+use Unnamed_1000  Unnamed_1000_0
+timestamp 2083213696
+transform 1 0 18040 0 1 446
+box -190 -116 1026 1116
+use via_generator_XR0p64_0p_4bb94f8e  via_generator_XR0p64_0p_4bb94f8e_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 128 3280 180 3332
+use via_generator_XR0p44000_f60636c5  via_generator_XR0p44000_f60636c5_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 88 1828 140 1880
+use via_generator_XR1p28500_79ad0800  via_generator_XR1p28500_79ad0800_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 257 1828 309 1880
+use via_generator_XR2p14_2p_d9109da9  via_generator_XR2p14_2p_d9109da9_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 428 3412 480 3464
+use via_generator_XR2p98500_55419de5  via_generator_XR2p98500_55419de5_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 597 1828 649 1880
+use via_generator_XR4p10000_0b4fb583  via_generator_XR4p10000_0b4fb583_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 820 1960 872 2012
+use via_generator_XR5p60000_3c7f0c24  via_generator_XR5p60000_3c7f0c24_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 1120 1828 1172 1880
+use via_generator_XR6p2_6p4_3f4a7615  via_generator_XR6p2_6p4_3f4a7615_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 1240 3280 1292 3332
+use via_generator_XR6p445_6_a1c453f8  via_generator_XR6p445_6_a1c453f8_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 1289 1960 1341 2012
+use via_generator_XR7p7_7p9_39c2642f  via_generator_XR7p7_7p9_39c2642f_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 1540 3412 1592 3464
+use via_generator_XR8p545_8_73e8762c  via_generator_XR8p545_8_73e8762c_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 1709 1960 1761 2012
+use via_generator_XR9p26_9p_93bba0c6  via_generator_XR9p26_9p_93bba0c6_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 1852 3412 1904 3464
+use via_generator_XR10p76_1_be4acfa7  via_generator_XR10p76_1_be4acfa7_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 2152 3412 2204 3464
+use via_generator_XR11p76_1_9a5d9375  via_generator_XR11p76_1_9a5d9375_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 2352 3412 2404 3464
+use via_generator_XR11p6049_b3636fe2  via_generator_XR11p6049_b3636fe2_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 2321 3280 2373 3332
+use via_generator_XR12p6049_f1dfba7f  via_generator_XR12p6049_f1dfba7f_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 2521 3412 2573 3464
+use via_generator_XR13p98_3_7dc75aa8  via_generator_XR13p98_3_7dc75aa8_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 2864 2642 6568 4218
+use via_generator_XR14p42_1_c3fe295e  via_generator_XR14p42_1_c3fe295e_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 2884 3412 2936 3464
+use via_generator_XR15p4349_7a4788a6  via_generator_XR15p4349_7a4788a6_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 3087 3280 3139 3332
+use via_generator_XR15p9500_1e6e887c  via_generator_XR15p9500_1e6e887c_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 3190 3412 3242 3464
+use via_generator_XR16p765__cf92dd45  via_generator_XR16p765__cf92dd45_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 3353 3412 3405 3464
+use via_generator_XR17p425__bdccf982  via_generator_XR17p425__bdccf982_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 3485 3412 3537 3464
+use via_generator_XR18p1650_6c547154  via_generator_XR18p1650_6c547154_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 3633 3280 3685 3332
+use via_generator_XR19p5800_6c01f421  via_generator_XR19p5800_6c01f421_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 3916 1960 3968 2012
+use via_generator_XR21p0800_6be8ec99  via_generator_XR21p0800_6be8ec99_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 4216 1828 4268 1880
+use via_generator_XR21p925__05237b49  via_generator_XR21p925__05237b49_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 4385 2092 4437 2144
+use via_generator_XR21p3800_74143e5e  via_generator_XR21p3800_74143e5e_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 4276 3280 4328 3332
+use via_generator_XR22p8800_661a82c7  via_generator_XR22p8800_661a82c7_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 4576 3412 4628 3464
+use via_generator_XR23p725__7446c0f1  via_generator_XR23p725__7446c0f1_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 4745 2620 4797 2672
+use via_generator_XR24p7400_ab78927b  via_generator_XR24p7400_ab78927b_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 4948 1960 5000 2012
+use via_generator_XR26p94_2_13869fe0  via_generator_XR26p94_2_13869fe0_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 5388 3280 5440 3332
+use via_generator_XR26p2400_5627e204  via_generator_XR26p2400_5627e204_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 5248 1828 5300 1880
+use via_generator_XR27p085__db84fecc  via_generator_XR27p085__db84fecc_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 5417 2092 5469 2144
+use via_generator_XR28p44_2_1856e158  via_generator_XR28p44_2_1856e158_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 5688 3412 5740 3464
+use via_generator_XR28p57_2_35500749  via_generator_XR28p57_2_35500749_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 5714 2092 5766 2144
+use via_generator_XR29p285__31423906  via_generator_XR29p285__31423906_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 5857 2620 5909 2672
+use via_generator_XR30p66_3_64011256  via_generator_XR30p66_3_64011256_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 6132 2356 6184 2408
+use via_generator_XR31p17_3_b8c851bb  via_generator_XR31p17_3_b8c851bb_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 6234 2620 6286 2672
+use via_generator_XR32p5_32_7b444ed9  via_generator_XR32p5_32_7b444ed9_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 6500 2356 6552 2408
+use via_generator_XR32p75_3_c69ef394  via_generator_XR32p75_3_c69ef394_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 6550 2224 6602 2276
+use via_generator_XR33p4499_00e1a6b5  via_generator_XR33p4499_00e1a6b5_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 6688 2222 6744 2278
+use via_generator_XR33p4499_5ebabfd9  via_generator_XR33p4499_5ebabfd9_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 6688 2222 6744 2278
+use via_generator_XR34p1299_0f81c1a4  via_generator_XR34p1299_0f81c1a4_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 6826 2092 6878 2144
+use via_generator_XR35p35_3_b0864ca8  via_generator_XR35p35_3_b0864ca8_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 7070 2092 7122 2144
+use via_generator_XR36p05_3_8b815940  via_generator_XR36p05_3_8b815940_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 7208 2090 7264 2146
+use via_generator_XR36p05_3_308d858f  via_generator_XR36p05_3_308d858f_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 7208 2090 7264 2146
+use via_generator_XR36p05_3_528cde57  via_generator_XR36p05_3_528cde57_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 7208 2090 7264 2146
+use via_generator_XR36p22_3_95b6651d  via_generator_XR36p22_3_95b6651d_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 7244 2488 7296 2540
+use via_generator_XR36p75_3_e9cb9375  via_generator_XR36p75_3_e9cb9375_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 7350 2620 7402 2672
+use via_generator_XR38p08_3_8b329b08  via_generator_XR38p08_3_8b329b08_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 7616 2488 7668 2540
+use via_generator_XR38p3099_8cf8cbb7  via_generator_XR38p3099_8cf8cbb7_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 7662 2356 7714 2408
+use via_generator_XR39p69_3_a592bee5  via_generator_XR39p69_3_a592bee5_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 7938 2488 7990 2540
+use via_generator_XR40p93_4_c35402ed  via_generator_XR40p93_4_c35402ed_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 8186 2488 8238 2540
+use via_generator_XR41p78_4_8b98866f  via_generator_XR41p78_4_8b98866f_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 8356 1828 8408 1880
+use via_generator_XR42p33_4_0762e323  via_generator_XR42p33_4_0762e323_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 8466 2356 8518 2408
+use via_generator_XR43p66_4_d74f61c9  via_generator_XR43p66_4_d74f61c9_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 8732 3412 8784 3464
+use via_generator_XR43p87_4_bd4e3dba  via_generator_XR43p87_4_bd4e3dba_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 8774 2620 8826 2672
+use via_generator_XR45p25_4_9c728243  via_generator_XR45p25_4_9c728243_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 9050 2092 9102 2144
+use via_generator_XR46p51_4_e16e3111  via_generator_XR46p51_4_e16e3111_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 9302 2752 9354 2804
+use via_generator_XR47p91_4_ebc7e5a2  via_generator_XR47p91_4_ebc7e5a2_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 9582 2224 9634 2276
+use via_generator_XR47p3399_6c7160e5  via_generator_XR47p3399_6c7160e5_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 9468 1828 9520 1880
+use via_generator_XR49p24_4_da6d98dd  via_generator_XR49p24_4_da6d98dd_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 9848 3412 9900 3464
+use via_generator_XR49p43_4_50da331d  via_generator_XR49p43_4_50da331d_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 9886 2884 9938 2936
+use via_generator_XR52p0899_abf5a015  via_generator_XR52p0899_abf5a015_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 10418 3016 10470 3068
+use via_generator_XR54p42_5_bdcabcf9  via_generator_XR54p42_5_bdcabcf9_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 10884 2620 10936 2672
+use via_generator_XR56p3399_e9e97696  via_generator_XR56p3399_e9e97696_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 11268 2752 11320 2804
+use via_generator_XR58p03_5_fa285762  via_generator_XR58p03_5_fa285762_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 11606 2488 11658 2540
+use via_generator_XR60p71_6_71fbe82f  via_generator_XR60p71_6_71fbe82f_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 12142 2356 12194 2408
+use via_generator_XR63p0199_bd3970ca  via_generator_XR63p0199_bd3970ca_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 12604 2620 12656 2672
+use via_generator_XR64p9600_06facadb  via_generator_XR64p9600_06facadb_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 12992 2752 13044 2804
+use via_generator_XR66p6300_127d8af3  via_generator_XR66p6300_127d8af3_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 13326 2092 13378 2144
+use via_generator_XR68p495__8a694731  via_generator_XR68p495__8a694731_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 13699 2620 13751 2672
+use via_generator_XR69p34_6_41f4b9bf  via_generator_XR69p34_6_41f4b9bf_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 13868 2092 13920 2144
+use via_generator_XR69p3300_7433ea03  via_generator_XR69p3300_7433ea03_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 13866 2224 13918 2276
+use via_generator_XR70p185__fe0b180e  via_generator_XR70p185__fe0b180e_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 14037 2752 14089 2804
+use via_generator_XR71p215__61cee303  via_generator_XR71p215__61cee303_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 14243 2752 14295 2804
+use via_generator_XR72p06_7_8a8febe1  via_generator_XR72p06_7_8a8febe1_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 14412 3148 14464 3200
+use via_generator_XR72p155__a61c41e3  via_generator_XR72p155__a61c41e3_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 14431 2884 14483 2936
+use via_generator_XR72p905__f92c0b43  via_generator_XR72p905__f92c0b43_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 14581 2620 14633 2672
+use via_generator_XR73_73p2_f7cc55c0  via_generator_XR73_73p2_f7cc55c0_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 14600 2092 14652 2144
+use via_generator_XR73p8450_40785ee9  via_generator_XR73p8450_40785ee9_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 14769 3016 14821 3068
+use via_generator_XR75p275__3ed3a187  via_generator_XR75p275__3ed3a187_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 15055 3016 15107 3068
+use via_generator_XR76p12_7_16577e86  via_generator_XR76p12_7_16577e86_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 15224 3148 15276 3200
+use via_generator_XR76p965__3150fafd  via_generator_XR76p965__3150fafd_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 15393 2884 15445 2936
+use via_generator_XR76p2400_19091adc  via_generator_XR76p2400_19091adc_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 15316 2246 19020 3822
+use via_generator_XR76p6600_4c6d9b14  via_generator_XR76p6600_4c6d9b14_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 15332 1960 15384 2012
+use via_generator_XR78p1600_6e313f40  via_generator_XR78p1600_6e313f40_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 15632 1828 15684 1880
+use via_generator_XR79p0050_a4d26f4e  via_generator_XR79p0050_a4d26f4e_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 15801 3148 15853 3200
+use via_generator_XR80p18_8_fe870293  via_generator_XR80p18_8_fe870293_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 16036 2224 16088 2276
+use via_generator_XR80p9750_c5474741  via_generator_XR80p9750_c5474741_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 16195 1960 16247 2012
+use via_generator_XR81p68_8_03b03dd8  via_generator_XR81p68_8_03b03dd8_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 16336 3412 16388 3464
+use via_generator_XR81p8200_c94393b4  via_generator_XR81p8200_c94393b4_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 16364 2092 16416 2144
+use via_generator_XR82p525__dbbbe592  via_generator_XR82p525__dbbbe592_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 16505 2224 16557 2276
+use via_generator_XR82p665__be2307f0  via_generator_XR82p665__be2307f0_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 16533 2092 16585 2144
+use via_generator_XR84p8950_92a992c9  via_generator_XR84p8950_92a992c9_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 16979 2224 17031 2276
+use via_generator_XR85p48_8_cb7596ad  via_generator_XR85p48_8_cb7596ad_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 17096 1960 17148 2012
+use via_generator_XR85p7400_03a8cd0a  via_generator_XR85p7400_03a8cd0a_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 17148 3148 17200 3200
+use via_generator_XR86p98_8_b13304e3  via_generator_XR86p98_8_b13304e3_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 17396 1828 17448 1880
+use via_generator_XR86p5850_c3ae41a7  via_generator_XR86p5850_c3ae41a7_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 17317 3148 17369 3200
+use via_generator_XR87p825__b0b83f3d  via_generator_XR87p825__b0b83f3d_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 17565 1960 17617 2012
+use via_generator_XR89p8000_9f0768a7  via_generator_XR89p8000_9f0768a7_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 17960 3280 18012 3332
+use via_generator_XR91p4_91_9db817a9  via_generator_XR91p4_91_9db817a9_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 18280 2884 18332 2936
+use via_generator_XR91p3000_f0f44e89  via_generator_XR91p3000_f0f44e89_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 18260 3412 18312 3464
+use via_generator_XR92p1450_52f70050  via_generator_XR92p1450_52f70050_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 18429 2092 18481 2144
+use via_generator_XR95p01_9_34785f8d  via_generator_XR95p01_9_34785f8d_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 19002 1828 19054 1880
+use via_generator_XR95p7100_45bd5742  via_generator_XR95p7100_45bd5742_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 19140 1826 19196 1882
+use via_generator_XR95p7100_627dedda  via_generator_XR95p7100_627dedda_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 19140 1826 19196 1882
+use via_generator_XR96p8800_07bc9f95  via_generator_XR96p8800_07bc9f95_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 19376 3016 19428 3068
+use via_generator_XR98p2100_8f910742  via_generator_XR98p2100_8f910742_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 19640 1826 19696 1882
+use via_generator_XR98p2100_56ff527a  via_generator_XR98p2100_56ff527a_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 19640 1826 19696 1882
+use via_generator_XR98p2100_f87d25e5  via_generator_XR98p2100_f87d25e5_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 19640 1826 19696 1882
+use via_generator_XR99p73_9_e5533299  via_generator_XR99p73_9_e5533299_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 19946 1828 19998 1880
+<< labels >>
+rlabel metal1 10202 90 10202 90 4 VSS
+rlabel metal1 s 10202 6202 10202 6202 4 VDD
+rlabel metal1 19972 1854 19972 1854 4 OUT
+rlabel metal1 6526 2382 6526 2382 4 IN+
+rlabel metal1 7642 2514 7642 2514 4 IN-
+rlabel metal1 s 10202 90 10202 90 4 VSS
+port 1 nsew
+rlabel metal1 s 10202 6202 10202 6202 4 VDD
+port 2 nsew
+rlabel metal1 s 19972 1854 19972 1854 4 OUT
+port 3 nsew
+rlabel metal1 s 6526 2382 6526 2382 4 IN+
+port 4 nsew
+rlabel metal1 s 7642 2514 7642 2514 4 IN-
+port 5 nsew
+<< end >>

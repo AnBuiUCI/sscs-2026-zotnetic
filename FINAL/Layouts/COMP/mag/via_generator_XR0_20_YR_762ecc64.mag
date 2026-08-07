@@ -1,0 +1,12 @@
+magic
+tech gf180mcuD
+magscale 1 5
+timestamp 2083213696
+<< checkpaint >>
+rect -948 -944 2948 1944
+use rectangle_S0p22_0p22_Lv_baeaa722  rectangle_S0p22_0p22_Lv_baeaa722_0
+array 0 26 72 0 12 72
+timestamp 2083213696
+transform 1 0 53 0 1 57
+box -1 -1 23 23
+<< end >>

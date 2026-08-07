@@ -1,0 +1,128 @@
+* Nodos de bulk atados: 1 de pozo n -> VDD, 1 de sustrato -> VSS.
+*   magic no extrae los taps de este layout y los dejaba flotando;
+*   la conexion si existe (el LVS de KLayout da 'match uniquely').
+*   Quien detecta un tap que falte de verdad es el LVS, no esto.
+* NGSPICE file created from WEIGHT_COMP.ext - technology: gf180mcuD
+
+.subckt WEIGHT_COMP VSS VDD WE OUT OUT_N VA VB VC VD
+X0 a_3260_3312# WE VDD VDD pfet_05v0 ad=0.8052p pd=4.54u as=0.8052p ps=4.54u w=1.83u l=0.5u
+X1 OUT a_3260_3312# VSS VSS nfet_05v0 ad=0.5808p pd=3.52u as=0.5808p ps=3.52u w=1.32u l=0.6u
+X2 a_2882_1208# WE a_4282_1208# VSS nfet_06v0 ad=0.88p pd=4.88u as=0.5p ps=2.5u w=2u l=1u
+X3 WE VA a_5026_1208# VSS nfet_06v0 ad=0.6448p pd=3u as=1.0912p ps=5.84u w=2.48u l=1u
+X4 a_1038_1208# VB WE VSS nfet_06v0 ad=1.0912p pd=5.84u as=0.6448p ps=3u w=2.48u l=1u
+X5 a_2882_1208# WE WE VSS nfet_06v0 ad=0.88p pd=4.88u as=0.52p ps=2.52u w=2u l=1u
+X6 a_1376_n116# a_1376_n116# VDD VDD pfet_06v0 ad=0.88p pd=4.88u as=0.88p ps=4.88u w=2u l=1u
+X7 a_3040_0# a_1376_n116# VSS VSS nfet_06v0 ad=0.175p pd=1.2u as=0.308p ps=2.28u w=0.7u l=1u
+X8 a_3260_3312# WE VSS VSS nfet_05v0 ad=0.5808p pd=3.52u as=0.5808p ps=3.52u w=1.32u l=0.6u
+X9 a_3640_0# a_1376_n116# a_3340_0# VSS nfet_06v0 ad=0.175p pd=1.2u as=0.175p ps=1.2u w=0.7u l=1u
+X10 OUT_N OUT VSS VSS nfet_05v0 ad=0.5808p pd=3.52u as=0.5808p ps=3.52u w=1.32u l=0.6u
+X11 OUT_N OUT VDD VDD pfet_05v0 ad=0.8052p pd=4.54u as=0.8052p ps=4.54u w=1.83u l=0.5u
+X12 a_5026_1208# VA WE VSS nfet_06v0 ad=1.0912p pd=5.84u as=0.6448p ps=3u w=2.48u l=1u
+X13 a_n74_1208# VD WE VSS nfet_06v0 ad=1.0912p pd=5.84u as=0.6448p ps=3u w=2.48u l=1u
+X14 VDD WE WE VDD pfet_06v0 ad=0.52p pd=2.52u as=0.52p ps=2.52u w=2u l=1u
+X15 WE WE VDD VDD pfet_06v0 ad=0.52p pd=2.52u as=0.52p ps=2.52u w=2u l=1u
+X16 a_1038_1208# a_1376_n116# VSS VSS nfet_06v0 ad=0.5456p pd=3.36u as=0.5456p ps=3.36u w=1.24u l=1u
+X17 OUT a_3260_3312# VDD VDD pfet_05v0 ad=0.8052p pd=4.54u as=0.8052p ps=4.54u w=1.83u l=0.5u
+X18 WE WE VDD VDD pfet_06v0 ad=0.52p pd=2.52u as=0.88p ps=4.88u w=2u l=1u
+X19 WE VB a_1038_1208# VSS nfet_06v0 ad=0.6448p pd=3u as=1.0912p ps=5.84u w=2.48u l=1u
+X20 VDD WE WE VDD pfet_06v0 ad=0.88p pd=4.88u as=0.52p ps=2.52u w=2u l=1u
+X21 WE WE a_2882_1208# VSS nfet_06v0 ad=0.52p pd=2.52u as=0.88p ps=4.88u w=2u l=1u
+X22 WE WE VDD VDD pfet_06v0 ad=0.52p pd=2.52u as=0.52p ps=2.52u w=2u l=1u
+X23 a_n74_0# a_1376_n116# VSS VSS nfet_06v0 ad=0.5456p pd=3.36u as=0.5456p ps=3.36u w=1.24u l=1u
+X24 a_n74_1208# a_1376_n116# VSS VSS nfet_06v0 ad=0.5456p pd=3.36u as=0.5456p ps=3.36u w=1.24u l=1u
+X25 a_3340_0# a_1376_n116# a_3040_0# VSS nfet_06v0 ad=0.175p pd=1.2u as=0.175p ps=1.2u w=0.7u l=1u
+X26 WE VD a_n74_1208# VSS nfet_06v0 ad=0.6448p pd=3u as=1.0912p ps=5.84u w=2.48u l=1u
+X27 a_n74_0# VC WE VSS nfet_06v0 ad=1.0912p pd=5.84u as=0.6448p ps=3u w=2.48u l=1u
+X28 a_4282_1208# WE VSS VSS nfet_06v0 ad=0.5p pd=2.5u as=0.88p ps=4.88u w=2u l=1u
+X29 a_1376_n116# a_1376_n116# a_3640_0# VSS nfet_06v0 ad=0.308p pd=2.28u as=0.175p ps=1.2u w=0.7u l=1u
+X30 VDD WE WE VDD pfet_06v0 ad=0.52p pd=2.52u as=0.52p ps=2.52u w=2u l=1u
+X31 a_5026_1208# a_1376_n116# VSS VSS nfet_06v0 ad=0.5456p pd=3.36u as=0.5456p ps=3.36u w=1.24u l=1u
+X32 WE VC a_n74_0# VSS nfet_06v0 ad=0.6448p pd=3u as=1.0912p ps=5.84u w=2.48u l=1u
+C0 WE a_3260_3312# 0.84642f
+C1 WE a_1376_n116# 2.35783f
+C2 VSS WE 1.13054f
+C3 VB a_n74_1208# 0.0239f
+C4 a_2882_1208# a_1376_n116# 0.74654f
+C5 a_2882_1208# VSS 0.11924f
+C6 a_n74_1208# a_1038_1208# 0.0931f
+C7 VDD a_n74_1208# 0.03427f
+C8 a_2882_1208# WE 2.28641f
+C9 OUT_N a_3260_3312# 0.06711f
+C10 OUT_N a_1376_n116# 0.28802f
+C11 VSS OUT_N 0.16636f
+C12 OUT OUT_N 2.6981f
+C13 a_n74_1208# a_5026_1208# 0.01766f
+C14 VC a_n74_0# 0.50616f
+C15 a_n74_1208# VD 0.52683f
+C16 a_n74_1208# a_3260_3312# 0.04672f
+C17 VSS a_4282_1208# 0.016f
+C18 a_n74_1208# a_1376_n116# 0.52628f
+C19 a_n74_1208# VSS 0.38325f
+C20 a_n74_1208# WE 3.90285f
+C21 a_1038_1208# VDD 0.03368f
+C22 a_2882_1208# a_4282_1208# 0.01057f
+C23 VDD VDD 1.93187f
+C24 a_2882_1208# a_n74_1208# 0.08238f
+C25 VDD a_3260_3312# 0.42267f
+C26 VDD a_1376_n116# 0.54245f
+C27 OUT VDD 0.42126f
+C28 VA a_5026_1208# 0.5269f
+C29 a_n74_1208# a_4282_1208# 0.01864f
+C30 WE VDD 2.36867f
+C31 VA a_1376_n116# 0.01983f
+C32 VA VSS 0.09218f
+C33 a_n74_0# a_1376_n116# 0.32976f
+C34 VSS a_n74_0# 0.13066f
+C35 VA WE 0.4885f
+C36 WE a_n74_0# 1.22851f
+C37 VC VSS 0.15338f
+C38 VDD OUT_N 0.10167f
+C39 VB a_1038_1208# 0.50497f
+C40 VC WE 0.48335f
+C41 VDD a_1038_1208# 0.04398f
+C42 a_n74_1208# VDD 0.01173f
+C43 VB VSS 0.09303f
+C44 a_n74_1208# VA 0.01051f
+C45 VDD a_3260_3312# 0.32586f
+C46 a_1038_1208# a_1376_n116# 0.51396f
+C47 a_n74_1208# a_n74_0# 0.03479f
+C48 a_1038_1208# VSS 0.13149f
+C49 VDD a_1376_n116# 0.34467f
+C50 VDD OUT 0.32084f
+C51 VB WE 0.51909f
+C52 a_1038_1208# WE 1.79265f
+C53 VDD WE 3.1046f
+C54 a_5026_1208# a_3260_3312# 0.16497f
+C55 a_2882_1208# a_1038_1208# 0.22004f
+C56 a_5026_1208# a_1376_n116# 0.51172f
+C57 VSS a_5026_1208# 0.13746f
+C58 VSS VD 0.09207f
+C59 a_1376_n116# a_3260_3312# 1.68549f
+C60 VSS a_3260_3312# 0.34951f
+C61 a_5026_1208# WE 1.16959f
+C62 OUT a_3260_3312# 3.57813f
+C63 WE VD 0.50235f
+C64 VSS a_1376_n116# 1.06952f
+C65 OUT a_1376_n116# 0.44679f
+C66 VDD OUT_N 0.15503f
+C67 a_2882_1208# a_5026_1208# 0.16307f
+C68 VSS OUT 0.32403f
+C69 VC VSS 0.6364f
+C70 VSS VSS 4.54925f
+C71 VA VSS 0.67206f
+C72 VB VSS 0.65437f
+C73 VD VSS 0.64329f
+C74 OUT_N VSS 1.90796f
+C75 OUT VSS 1.60079f
+C76 VDD VSS 2.63932f
+C77 WE VSS 6.61058f
+C78 a_n74_0# VSS 1.35075f
+C79 a_2882_1208# VSS 0.75625f
+C80 a_5026_1208# VSS 0.82912f
+C81 a_1038_1208# VSS 0.81194f
+C82 a_n74_1208# VSS 2.52234f
+C83 a_3260_3312# VSS 2.14834f
+C84 a_1376_n116# VSS 6.29657f
+C85 VDD VSS 18.0893f
+.ends
+

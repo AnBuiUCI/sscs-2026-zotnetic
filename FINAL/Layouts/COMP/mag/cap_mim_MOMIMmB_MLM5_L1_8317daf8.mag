@@ -1,0 +1,31 @@
+magic
+tech gf180mcuD
+magscale 1 10
+timestamp 2083213696
+<< checkpaint >>
+rect -2120 -2120 6120 4120
+use rectangle_S20_0p1_Lmim__ba47fe62  rectangle_S20_0p1_Lmim__ba47fe62_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 0 0 1 1
+use rectangle_S20_10_Lfuset_31dc31b4  rectangle_S20_10_Lfuset_31dc31b4_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 0 0 1 1
+use rectangle_S20_10_Lmetal_484ea846  rectangle_S20_10_Lmetal_484ea846_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 0 0 4000 2000
+use rectangle_S21p2_11p2_Lm_fc222a2d  rectangle_S21p2_11p2_Lm_fc222a2d_0
+timestamp 2083213696
+transform 1 0 -120 0 1 -120
+box 0 0 4240 2240
+use rectangle_S21p200000000_f15da5ff  rectangle_S21p200000000_f15da5ff_0
+timestamp 2083213696
+transform 1 0 -120 0 1 -120
+box 0 0 1 1
+use via_generator_XR0_20_YR_762ecc64  via_generator_XR0_20_YR_762ecc64_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 104 112 3896 1888
+<< end >>

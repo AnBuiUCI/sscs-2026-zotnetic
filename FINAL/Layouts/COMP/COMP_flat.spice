@@ -1,0 +1,63 @@
+* fuente: /foss/designs/a_zonetic2026/XSCHEM/OPAM/simulation/COMP.sch/COMP.spice
+* leida via enlace: /foss/designs/a_zonetic2026/spice_blocks/COMP.spice
+* fecha de la fuente: 2026-08-04 20:09   sha1: 2664362cc6
+* generado por flatten_spice.py — NO editar a mano
+* netlist plana generada por flatten_spice.py (top: COMP)
+* 50 MOSFETs; nets fusionadas por V=0: ninguna
+* nombres: los del esquematico; solo llevan la ruta de instancias (Mx1_M4) los -2 que chocaban
+* m -> fingers: M15: m=2 nf=1 -> nf=2; M16: m=2 nf=1 -> nf=2; M21: m=2 nf=1 -> nf=2; M22: m=2 nf=1 -> nf=2; M29: m=2 nf=1 -> nf=2; M30: m=2 nf=1 -> nf=2; M31: m=4 nf=1 -> nf=4; M35: m=4 nf=1 -> nf=4; M23: m=2 nf=1 -> nf=2; M24: m=2 nf=1 -> nf=2; M25: m=4 nf=1 -> nf=4; M26: m=4 nf=1 -> nf=4; M43: m=3 nf=1 -> nf=3; M44: m=3 nf=1 -> nf=3
+* para generar el layout: nf = numero de dedos
+.subckt COMP VDD IN- OUT IN+ VSS
+M4 x1_net3 net4 VDD VDD pfet_06v0 L=1.0u W=10.0u nf=1
+M5 net2 net3 x1_net3 VDD pfet_06v0 L=1.0u W=10.0u nf=1
+M6 net2 net2 VSS VSS nfet_06v0 L=1.0u W=1.0u nf=1
+M7 x1_net2 net4 VDD VDD pfet_06v0 L=1.0u W=10.0u nf=1
+M8 net1 net3 x1_net2 VDD pfet_06v0 L=1.0u W=10.0u nf=1
+M9 net1 net2 x1_net1 VSS nfet_06v0 L=1.0u W=5.0u nf=1
+M10 x1_net1 net1 VSS VSS nfet_06v0 L=1.0u W=5.0u nf=1
+M1 net3 net3 VDD VDD pfet_06v0 L=1.0u W=2u nf=1
+M2 x1_net4 net4 VDD VDD pfet_06v0 L=1.0u W=10.0u nf=1
+M3 net4 net3 x1_net4 VDD pfet_06v0 L=1.0u W=10.0u nf=1
+M47 x1_net5 net3 VSS VSS nfet_06v0 L=1.0u W=1.0u nf=1
+M48 x1_net6 net3 VSS VSS nfet_06v0 L=1.0u W=1.0u nf=1
+M49 net3 net3 x1_net6 VSS nfet_06v0 L=1.0u W=1.0u nf=1
+M50 net4 net3 x1_net5 VSS nfet_06v0 L=1.0u W=1.0u nf=1
+M11 x2_net2 net4 VDD VDD pfet_06v0 L=1.0u W=10.0u nf=1
+M12 x2_net7 net3 x2_net2 VDD pfet_06v0 L=1.0u W=10.0u nf=1
+M13 x2_net19 net4 VDD VDD pfet_06v0 L=1.0u W=10.0u nf=1
+M14 x2_net7 net3 x2_net19 VDD pfet_06v0 L=1.0u W=10.0u nf=1
+M15 x2_net5 IN+ x2_net7 VDD pfet_06v0 L=1.0u W=10.0u nf=2
+M16 x2_net4 IN- x2_net7 VDD pfet_06v0 L=1.0u W=10.0u nf=2
+M17 x2_net8 net2 x2_net1 VSS nfet_06v0 L=1.0u W=5.0u nf=1
+M18 x2_net1 net1 VSS VSS nfet_06v0 L=1.0u W=5.0u nf=1
+M19 x2_net8 net2 x2_net20 VSS nfet_06v0 L=1.0u W=5.0u nf=1
+M20 x2_net20 net1 VSS VSS nfet_06v0 L=1.0u W=5.0u nf=1
+M21 x2_net6 IN+ x2_net8 VSS nfet_06v0 L=1.0u W=5u nf=2
+M22 x2_net3 IN- x2_net8 VSS nfet_06v0 L=1.0u W=5u nf=2
+M29 x2_net9 net3 x2_net3 VDD pfet_06v0 L=1.0u W=5u nf=2
+M30 x2_net12 net3 x2_net6 VDD pfet_06v0 L=1.0u W=5.0u nf=2
+M31 x2_net3 x2_net9 VDD VDD pfet_06v0 L=1.0u W=5u nf=4
+M35 x2_net6 x2_net9 VDD VDD pfet_06v0 L=1.0u W=5.0u nf=4
+M32 x2_net10 x2_net21 x2_net9 VDD pfet_06v0 L=1.0u W=5u nf=1
+M33 x2_net22 x2_net21 x2_net12 VDD pfet_06v0 L=1.0u W=5.0u nf=1
+M23 x2_net10 net2 x2_net4 VSS nfet_06v0 L=1.0u W=2.5u nf=2
+M24 x2_net22 net2 x2_net5 VSS nfet_06v0 L=1.0u W=2.5u nf=2
+M25 x2_net4 x2_net10 VSS VSS nfet_06v0 L=1.0u W=2.5u nf=4
+M26 x2_net5 x2_net10 VSS VSS nfet_06v0 L=1.0u W=2.5u nf=4
+M27 x2_net9 x2_net11 x2_net10 VSS nfet_06v0 L=1.0u W=2.5u nf=1
+M28 x2_net12 x2_net11 x2_net22 VSS nfet_06v0 L=1.0u W=2.5u nf=1
+M34 x2_net13 x2_net14 VDD VDD pfet_06v0 L=1.0u W=10.0u nf=1
+M36 x2_net14 net3 x2_net13 VDD pfet_06v0 L=1.0u W=10.0u nf=1
+M37 x2_net21 x2_net21 x2_net14 VDD pfet_06v0 L=1.0u W=10.0u nf=1
+M38 x2_net21 net2 x2_net15 VSS nfet_06v0 L=1.0u W=5.0u nf=1
+M39 x2_net15 net1 VSS VSS nfet_06v0 L=1.0u W=5.0u nf=1
+M45 x2_net16 net4 VDD VDD pfet_06v0 L=1.0u W=10.0u nf=1
+M46 x2_net11 net3 x2_net16 VDD pfet_06v0 L=1.0u W=10.0u nf=1
+M40 x2_net11 x2_net11 x2_net18 VSS nfet_06v0 L=1.0u W=5.0u nf=1
+M41 x2_net18 net2 x2_net17 VSS nfet_06v0 L=1.0u W=5.0u nf=1
+M42 x2_net17 x2_net18 VSS VSS nfet_06v0 L=1.0u W=5.0u nf=1
+M43 OUT x2_net12 VDD VDD pfet_06v0 L=1.0u W=10u nf=3
+M44 OUT x2_net22 VSS VSS nfet_06v0 L=1.0u W=5u nf=3
+XC2 OUT x2_net5 cap_mim_2f0fF c_width=20.0u c_length=10.0u
+XC3 x2_net6 OUT cap_mim_2f0fF c_width=20.0u c_length=10.0u
+.ends
