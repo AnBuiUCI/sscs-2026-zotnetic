@@ -1,0 +1,125 @@
+[
+  {
+   "pins": [
+      [
+        "1",
+        "2",
+        "3",
+        "4"
+      ], [
+        "1",
+        "2",
+        "3",
+        "4"
+      ]
+   ]
+  },
+  {
+   "pins": [
+      [
+        "1",
+        "2",
+        "3",
+        "4"
+      ], [
+        "1",
+        "2",
+        "3",
+        "4"
+      ]
+   ]
+  },
+  {
+   "pins": [
+      [
+        "1",
+        "2"
+      ], [
+        "1",
+        "2"
+      ]
+   ]
+  },
+  {
+   "name": [
+      "COMP",
+      "COMP"
+   ],
+   "devices": [
+       [
+         ["nfet_06v0", 25],
+         ["pfet_06v0", 25],
+         ["cap_mim_2f0_m4m5_noshield", 2 ]
+       ], [
+         ["nfet_06v0", 25 ],
+         ["pfet_06v0", 25 ],
+         ["cap_mim_2f0_m4m5_noshield", 2 ]
+       ]
+   ],
+   "nets": [
+    37,
+    37
+   ],
+   "badnets": [
+   ],
+   "badelements": [
+   ],
+   "properties": [
+      [
+         [
+           "cap_mim_2f0_m4m5_noshield:34",
+           [
+             ["c_length", "1e-5"],
+             ["c_width", "2e-5"],
+             ["(no matching parameter)", "(no value)"],
+             ["(no matching parameter)", "(no value)"]
+           ]
+         ],
+         [
+           "cap_mim_2f0_m4m5_noshield:C3",
+           [
+             ["(no matching parameter)", "(no value)"],
+             ["(no matching parameter)", "(no value)"],
+             ["L", "1e-5"],
+             ["W", "2e-5"]
+           ]
+         ]
+      ],
+      [
+         [
+           "cap_mim_2f0_m4m5_noshield:11",
+           [
+             ["c_length", "1e-5"],
+             ["c_width", "2e-5"],
+             ["(no matching parameter)", "(no value)"],
+             ["(no matching parameter)", "(no value)"]
+           ]
+         ],
+         [
+           "cap_mim_2f0_m4m5_noshield:C2",
+           [
+             ["(no matching parameter)", "(no value)"],
+             ["(no matching parameter)", "(no value)"],
+             ["L", "1e-5"],
+             ["W", "2e-5"]
+           ]
+         ]
+      ]
+   ],
+   "pins": [
+      [
+        "INP",
+        "INN",
+        "OUT",
+        "VDD",
+        "VSS"
+      ], [
+        "INP",
+        "INN",
+        "OUT",
+        "VDD",
+        "VSS"
+      ]
+   ]
+  }
+]

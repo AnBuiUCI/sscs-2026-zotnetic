@@ -1,0 +1,55 @@
+VERSION 5.7 ;
+  DIVIDERCHAR "/" ;
+  BUSBITCHARS "[]" ;
+
+# -----------------------------------------------------------------------------
+#  Vias con recuadro suficiente para el area minima del metal.
+#
+#  Las `VIARULE ... GENERATE` del techlef del PDK dan un recuadro de 0.060 x 0.010
+#  alrededor de un corte de 0.26, o sea un pad de 0.38 x 0.28 = **0.1064 um2**,
+#  cuando `Mn.3` pide 0.1444. En un flujo de celdas estandar no se nota porque el
+#  cable sigue y el pad se fusiona; aqui, en el extremo de una ruta o en una via
+#  apilada, el pad se queda solo y salieron 13 violaciones `M3.3` en el top.
+#
+#  Estas son cuadradas de 0.40: corte 0.26 (V*.1 lo pide EXACTO) y 0.07 de
+#  recuadro por lado, que supera de sobra los 0.06/0.01 minimos y da 0.16 um2 de
+#  area, por encima del minimo. `DEFAULT` hace que el router las prefiera.
+# -----------------------------------------------------------------------------
+
+VIA Via1_SQ DEFAULT
+  LAYER Metal1 ;
+    RECT -0.200 -0.200 0.200 0.200 ;
+  LAYER Via1 ;
+    RECT -0.130 -0.130 0.130 0.130 ;
+  LAYER Metal2 ;
+    RECT -0.200 -0.200 0.200 0.200 ;
+END Via1_SQ
+
+VIA Via2_SQ DEFAULT
+  LAYER Metal2 ;
+    RECT -0.200 -0.200 0.200 0.200 ;
+  LAYER Via2 ;
+    RECT -0.130 -0.130 0.130 0.130 ;
+  LAYER Metal3 ;
+    RECT -0.200 -0.200 0.200 0.200 ;
+END Via2_SQ
+
+VIA Via3_SQ DEFAULT
+  LAYER Metal3 ;
+    RECT -0.200 -0.200 0.200 0.200 ;
+  LAYER Via3 ;
+    RECT -0.130 -0.130 0.130 0.130 ;
+  LAYER Metal4 ;
+    RECT -0.200 -0.200 0.200 0.200 ;
+END Via3_SQ
+
+VIA Via4_SQ DEFAULT
+  LAYER Metal4 ;
+    RECT -0.200 -0.200 0.200 0.200 ;
+  LAYER Via4 ;
+    RECT -0.130 -0.130 0.130 0.130 ;
+  LAYER Metal5 ;
+    RECT -0.300 -0.300 0.300 0.300 ;
+END Via4_SQ
+
+END LIBRARY

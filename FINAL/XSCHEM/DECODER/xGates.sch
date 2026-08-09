@@ -12,4 +12,4 @@ C {opin.sym} 120 -50 0 0 {name=p10 lab=output}
 C {ipin.sym} 70 -130 0 0 {name=p1 lab=VDD}
 C {ipin.sym} 70 60 0 0 {name=p2 lab=VSS}
 C {ipin.sym} 30 -30 0 0 {name=p5 lab=XZ}
-C {DESIGN/FINAL/DECODER/andGate.sym} 90 -30 0 0 {name=x2}
+C {a_zonetic2026/XSCHEM/DECODER/andGate.sym} 90 -30 0 0 {name=x2}

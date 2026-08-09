@@ -56,7 +56,7 @@ format="tcleval( @value )"
 value="
 .include "../../../../Layouts/COMP/mag/COMP_pex_rc.spice"
 Xextrc GND VDD1 OUT1 va vb COMP
-*Xextrc VSS VDD OUT IN+ IN- COMP
+*Xextrc VSS VDD OUT INP INN COMP
 
 "}
 C {devices/lab_wire.sym} 40 -100 0 0 {name=p1 sig_type=std_logic lab=vb}

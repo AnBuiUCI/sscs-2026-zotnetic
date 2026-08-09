@@ -80,39 +80,39 @@ N 630 -280 630 -250 {lab=OUT}
 N 870 -280 1080 -280 {lab=OUT}
 N 660 -280 840 -280 {lab=OUT}
 N 450 -280 630 -280 {lab=OUT}
-N 740 -360 740 -350 {
+N 630 -320 630 -310 {
 lab=IN}
-N 810 -410 830 -410 {lab=VDD}
-N 720 -410 740 -410 {lab=IN}
-N 780 -480 780 -450 {lab=IN}
-N 690 -480 740 -480 {lab=IN}
-N 690 -480 690 -450 {lab=IN}
-N 740 -480 740 -410 {lab=IN}
-N 780 -410 780 -390 {lab=VDD}
-N 780 -390 830 -390 {lab=VDD}
-N 830 -410 830 -390 {lab=VDD}
-N 780 -480 790 -480 {lab=IN}
-N 650 -410 660 -410 {lab=#net7}
-N 620 -480 690 -480 {lab=IN}
-N 550 -410 550 -370 {lab=GND}
-N 550 -480 550 -450 {lab=IN}
-N 550 -480 620 -480 {lab=IN}
-N 580 -410 590 -410 {lab=#net8}
-N 740 -410 750 -410 {lab=IN}
-N 740 -410 740 -360 {
+N 700 -370 720 -370 {lab=VDD}
+N 610 -370 630 -370 {lab=IN}
+N 670 -440 670 -410 {lab=IN}
+N 580 -440 630 -440 {lab=IN}
+N 580 -440 580 -410 {lab=IN}
+N 630 -440 630 -370 {lab=IN}
+N 670 -370 670 -350 {lab=VDD}
+N 670 -350 720 -350 {lab=VDD}
+N 720 -370 720 -350 {lab=VDD}
+N 670 -440 680 -440 {lab=IN}
+N 540 -370 550 -370 {lab=#net7}
+N 510 -440 580 -440 {lab=IN}
+N 440 -370 440 -330 {lab=GND}
+N 440 -440 440 -410 {lab=IN}
+N 440 -440 510 -440 {lab=IN}
+N 470 -370 480 -370 {lab=#net8}
+N 630 -370 640 -370 {lab=IN}
+N 630 -370 630 -320 {
 lab=IN}
-N 740 -480 770 -480 {lab=IN}
-N 770 -480 780 -480 {lab=IN}
-N 690 -410 690 -370 {lab=GND}
-N 580 -410 590 -410 {lab=#net8}
-N 620 -410 620 -370 {lab=GND}
-N 620 -480 620 -450 {lab=IN}
-N 450 -410 450 -370 {lab=GND}
-N 480 -410 480 -370 {lab=GND}
-N 510 -410 520 -410 {lab=#net9}
-N 510 -410 520 -410 {lab=#net9}
-N 480 -480 480 -450 {lab=IN}
-N 480 -480 550 -480 {lab=IN}
+N 630 -440 660 -440 {lab=IN}
+N 660 -440 670 -440 {lab=IN}
+N 580 -370 580 -330 {lab=GND}
+N 470 -370 480 -370 {lab=#net8}
+N 510 -370 510 -330 {lab=GND}
+N 510 -440 510 -410 {lab=IN}
+N 340 -370 340 -330 {lab=GND}
+N 370 -370 370 -330 {lab=GND}
+N 400 -370 410 -370 {lab=#net9}
+N 400 -370 410 -370 {lab=#net9}
+N 370 -440 370 -410 {lab=IN}
+N 370 -440 440 -440 {lab=IN}
 C {devices/lab_wire.sym} 1310 -410 2 0 {name=p20 sig_type=std_logic lab=VDD}
 C {symbols/pfet_06v0.sym} 1230 -320 0 0 {name=M2
 L=1u
@@ -313,7 +313,7 @@ sa=0 sb=0 sd=0
 model=nfet_06v0
 spiceprefix=X
 }
-C {symbols/pfet_06v0.sym} 780 -430 1 0 {name=M13
+C {symbols/pfet_06v0.sym} 670 -390 1 0 {name=M13
 L=1u
 W=2u
 nf=1
@@ -327,7 +327,7 @@ sa=0 sb=0 sd=0
 model=pfet_06v0
 spiceprefix=X
 }
-C {symbols/nfet_06v0.sym} 550 -430 1 0 {name=M14
+C {symbols/nfet_06v0.sym} 440 -390 1 0 {name=M14
 L=1u
 W=0.7u
 nf=1
@@ -341,13 +341,13 @@ sa=0 sb=0 sd=0
 model=nfet_06v0
 spiceprefix=X
 }
-C {devices/lab_wire.sym} 550 -370 3 0 {name=p30 sig_type=std_logic lab=GND}
-C {devices/lab_wire.sym} 830 -410 1 0 {name=p31 sig_type=std_logic lab=VDD}
-C {devices/lab_wire.sym} 740 -350 3 0 {name=p32 sig_type=std_logic lab=IN
+C {devices/lab_wire.sym} 440 -330 3 0 {name=p30 sig_type=std_logic lab=GND}
+C {devices/lab_wire.sym} 720 -370 1 0 {name=p31 sig_type=std_logic lab=VDD}
+C {devices/lab_wire.sym} 630 -310 3 0 {name=p32 sig_type=std_logic lab=IN
 }
-C {devices/lab_wire.sym} 690 -370 3 0 {name=p33 sig_type=std_logic lab=GND}
-C {devices/lab_wire.sym} 620 -370 3 0 {name=p34 sig_type=std_logic lab=GND}
-C {symbols/nfet_06v0.sym} 620 -430 1 0 {name=M15
+C {devices/lab_wire.sym} 580 -330 3 0 {name=p33 sig_type=std_logic lab=GND}
+C {devices/lab_wire.sym} 510 -330 3 0 {name=p34 sig_type=std_logic lab=GND}
+C {symbols/nfet_06v0.sym} 510 -390 1 0 {name=M15
 L=1u
 W=0.7u
 nf=1
@@ -361,7 +361,7 @@ sa=0 sb=0 sd=0
 model=nfet_06v0
 spiceprefix=X
 }
-C {symbols/nfet_06v0.sym} 690 -430 1 0 {name=M16
+C {symbols/nfet_06v0.sym} 580 -390 1 0 {name=M16
 L=1u
 W=0.7u
 nf=1
@@ -375,8 +375,8 @@ sa=0 sb=0 sd=0
 model=nfet_06v0
 spiceprefix=X
 }
-C {devices/lab_wire.sym} 450 -370 3 0 {name=p35 sig_type=std_logic lab=GND}
-C {symbols/nfet_06v0.sym} 480 -430 1 0 {name=M17
+C {devices/lab_wire.sym} 340 -330 3 0 {name=p35 sig_type=std_logic lab=GND}
+C {symbols/nfet_06v0.sym} 370 -390 1 0 {name=M17
 L=1u
 W=0.7u
 nf=1
@@ -390,7 +390,7 @@ sa=0 sb=0 sd=0
 model=nfet_06v0
 spiceprefix=X
 }
-C {devices/lab_wire.sym} 480 -370 3 0 {name=p36 sig_type=std_logic lab=GND}
+C {devices/lab_wire.sym} 370 -330 3 0 {name=p36 sig_type=std_logic lab=GND}
 C {ammeter.sym} 420 -90 0 0 {name=Vmeas savecurrent=true spice_ignore=0}
 C {ammeter.sym} 630 -90 0 0 {name=Vmeas1 savecurrent=true spice_ignore=0}
 C {ammeter.sym} 840 -90 0 0 {name=Vmeas2 savecurrent=true spice_ignore=0}

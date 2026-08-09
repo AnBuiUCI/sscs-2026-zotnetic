@@ -19,14 +19,24 @@ C {devices/code_shown.sym} 475 -45 0 0 {name=s1
 only_toplevel=false
 value="
 *.tran 1m 1
-.dc V5 -5m 5m 50u
+.dc V5 -2m 4m 50u
 .save all
 .control
 run
 display
-*wrdata OUT4.txt v(WE) v(OUT) v(OUT_N)
-*wrdata CURR4.txt i(v.x1.Vmeas) i(v.x1.Vmeas1) i(v.x1.Vmeas2) i(v.x1.Vmeas3)
-*plot i(v.x1.Vmeas) i(v.x1.Vmeas1) i(v.x1.Vmeas2) i(v.x1.Vmeas3)
+let slope =deriv(v(OUT))
+meas dc minslope MIN slope
+let gain = -minslope
+print gain
+plot slope
+
+let slope1 =deriv(v(OUT1))
+meas dc minslope1 MIN slope1
+let gain1 = -minslope1
+print gain1
+plot slope1
+
+
 plot v(OUT) v(OUT1)
 plot v(OUT)
 plot v(OUT1)
@@ -56,7 +66,7 @@ format="tcleval( @value )"
 value="
 .include "../../../../Layouts/COMP/mag/COMP_pex_rc.spice"
 Xextrc GND VDD OUT1 va vb COMP
-*Xextrc VSS VDD OUT IN+ IN- COMP
+*Xextrc VSS VDD OUT INP INN COMP
 
 "}
 C {devices/lab_wire.sym} 40 -100 0 0 {name=p1 sig_type=std_logic lab=vb}

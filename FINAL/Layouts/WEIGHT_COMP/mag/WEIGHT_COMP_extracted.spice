@@ -4,7 +4,7 @@
 *   Quien detecta un tap que falte de verdad es el LVS, no esto.
 * NGSPICE file created from WEIGHT_COMP.ext - technology: gf180mcuD
 
-.subckt WEIGHT_COMP VSS VDD WE OUT OUT_N VA VB VC VD
+.subckt WEIGHT_COMP VSS VDD VD WE VA VB OUT OUT_N VC
 X0 a_3260_3312# WE VDD VDD pfet_05v0 ad=0.8052p pd=4.54u as=0.8052p ps=4.54u w=1.83u l=0.5u
 X1 OUT a_3260_3312# VSS VSS nfet_05v0 ad=0.5808p pd=3.52u as=0.5808p ps=3.52u w=1.32u l=0.6u
 X2 a_2882_1208# WE a_4282_1208# VSS nfet_06v0 ad=0.88p pd=4.88u as=0.5p ps=2.5u w=2u l=1u

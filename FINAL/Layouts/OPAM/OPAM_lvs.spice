@@ -1,0 +1,67 @@
+* fuente: /foss/designs/a_zonetic2026/XSCHEM/OPAM/simulation/OPAM.sch/OPAM.spice
+* leida via enlace: /foss/designs/a_zonetic2026/spice_blocks/OPAM.spice
+* fecha de la fuente: 2026-08-08 03:58   sha1: 2ec918349e
+* generado por flatten_spice.py — NO editar a mano
+* netlist plana generada por flatten_spice.py (top: OPAM)
+* 50 MOSFETs; nets fusionadas por V=0: ninguna
+* nombres: los del esquematico; solo llevan la ruta de instancias (Mx1_M4) los -2 que chocaban
+* m -> fingers: ninguno
+* para LVS: cada dedo, un transistor en paralelo
+.subckt OPAM VDD INN OUT INP VSS
+M11 net5 net1 VDD VDD pfet_06v0 L=1.0u W=10.0u
+M12 net11 net6 net5 VDD pfet_06v0 L=1.0u W=10.0u
+M13 net23 net1 VDD VDD pfet_06v0 L=1.0u W=10.0u
+M14 net11 net6 net23 VDD pfet_06v0 L=1.0u W=10.0u
+M15 net9 INP net11 VDD pfet_06v0 L=1.0u W=10.0u
+M16 net8 INN net11 VDD pfet_06v0 L=1.0u W=10.0u
+M17 net12 net4 net2 VSS nfet_06v0 L=1.0u W=5.0u
+M18 net2 net3 VSS VSS nfet_06v0 L=1.0u W=5.0u
+M19 net12 net4 net24 VSS nfet_06v0 L=1.0u W=5.0u
+M20 net24 net3 VSS VSS nfet_06v0 L=1.0u W=5.0u
+M21 net10 INP net12 VSS nfet_06v0 L=1.0u W=5u
+M22 net7 INN net12 VSS nfet_06v0 L=1.0u W=5u
+M29 net13 net6 net7 VDD pfet_06v0 L=1.0u W=5u
+M30 net16 net6 net10 VDD pfet_06v0 L=1.0u W=5u
+M31 net7 net13 VDD VDD pfet_06v0 L=1.0u W=5u
+M35 net10 net13 VDD VDD pfet_06v0 L=1.0u W=5u
+M32 net14 net25 net13 VDD pfet_06v0 L=1.0u W=5.0u
+M33 net26 net25 net16 VDD pfet_06v0 L=1.0u W=5.0u
+M23 net14 net4 net8 VSS nfet_06v0 L=1.0u W=2.5u
+M24 net26 net4 net9 VSS nfet_06v0 L=1.0u W=2.5u
+M25 net8 net14 VSS VSS nfet_06v0 L=1.0u W=2.5u
+M26 net9 net14 VSS VSS nfet_06v0 L=1.0u W=2.5u
+M27 net13 net15 net14 VSS nfet_06v0 L=1.0u W=2.5u
+M28 net16 net15 net26 VSS nfet_06v0 L=1.0u W=2.5u
+M34 net17 net18 VDD VDD pfet_06v0 L=1.0u W=10.0u
+M36 net18 net6 net17 VDD pfet_06v0 L=1.0u W=10.0u
+M37 net25 net25 net18 VDD pfet_06v0 L=1.0u W=10.0u
+M38 net25 net4 net19 VSS nfet_06v0 L=1.0u W=5.0u
+M39 net19 net3 VSS VSS nfet_06v0 L=1.0u W=5.0u
+M45 net20 net1 VDD VDD pfet_06v0 L=1.0u W=10.0u
+M46 net15 net6 net20 VDD pfet_06v0 L=1.0u W=10.0u
+M40 net15 net15 net22 VSS nfet_06v0 L=1.0u W=5.0u
+M41 net22 net4 net21 VSS nfet_06v0 L=1.0u W=5.0u
+M42 net21 net22 VSS VSS nfet_06v0 L=1.0u W=5.0u
+M43 OUT net16 VDD VDD pfet_06v0 L=20.0u W=0.7u
+M44 OUT net26 VSS VSS nfet_06v0 L=1.0u W=1.0u
+M4 net29 net1 VDD VDD pfet_06v0 L=1.0u W=10.0u
+M5 net4 net6 net29 VDD pfet_06v0 L=1.0u W=10.0u
+M6 net4 net4 VSS VSS nfet_06v0 L=1.0u W=1.0u
+M7 net28 net1 VDD VDD pfet_06v0 L=1.0u W=10.0u
+M8 net3 net6 net28 VDD pfet_06v0 L=1.0u W=10.0u
+M9 net3 net4 net27 VSS nfet_06v0 L=1.0u W=5.0u
+M10 net27 net3 VSS VSS nfet_06v0 L=1.0u W=5.0u
+M1 net6 net6 VDD VDD pfet_06v0 L=1.0u W=2u
+M2 net30 net1 VDD VDD pfet_06v0 L=1.0u W=10.0u
+M3 net1 net6 net30 VDD pfet_06v0 L=1.0u W=10.0u
+M47 net31 net6 VSS VSS nfet_06v0 L=1.0u W=1.0u
+M48 net32 net6 VSS VSS nfet_06v0 L=1.0u W=1.0u
+M49 net6 net6 net32 VSS nfet_06v0 L=1.0u W=1.0u
+M50 net1 net6 net31 VSS nfet_06v0 L=1.0u W=1.0u
+* condensadores: elemento 'C' con W/L en METROS, no 'X' con c_width/c_length.
+*   El deck de KLayout los lee con un delegate (custom_classes.lvs, SubcircuitModelsReader#element)
+*   que SOLO actua si el elemento empieza por 'C', y de ahi saca A=W*L*1e12 y P=2*(W+L)*1e6.
+*   Escrito como 'X...' se leeria como llamada a subcircuito y no emparejaria con nada.
+C3 net10 OUT cap_mim_2f0fF W=2e-05 L=1e-05
+C1 OUT net9 cap_mim_2f0fF W=2e-05 L=1e-05
+.ends

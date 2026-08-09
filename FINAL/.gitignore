@@ -1,0 +1,5 @@
+#  Basura de herramienta, no del diseno. Todo lo demas se sube tal cual,
+#  artefactos generados incluidos.
+__pycache__/
+*.pyc
+.ext/

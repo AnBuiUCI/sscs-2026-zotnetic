@@ -7,92 +7,92 @@ Ancho de la celda: 102.02 um
 Tamano total: 104.28 x 31.46 um
 
 ## Transistores
-  M4     PFET pfet_06v0                W=10u L=1u nf=1
-  M5     PFET pfet_06v0                W=10u L=1u nf=1
-  M6     NFET nfet_06v0                W=1u L=1u nf=1
-  M7     PFET pfet_06v0                W=10u L=1u nf=1
-  M8     PFET pfet_06v0                W=10u L=1u nf=1
-  M9     NFET nfet_06v0                W=5u L=1u nf=1
-  M10    NFET nfet_06v0                W=5u L=1u nf=1
-  M1     PFET pfet_06v0                W=2u L=1u nf=1
-  M2     PFET pfet_06v0                W=10u L=1u nf=1
-  M3     PFET pfet_06v0                W=10u L=1u nf=1
-  M47    NFET nfet_06v0                W=1u L=1u nf=1
-  M48    NFET nfet_06v0                W=1u L=1u nf=1
-  M49    NFET nfet_06v0                W=1u L=1u nf=1
-  M50    NFET nfet_06v0                W=1u L=1u nf=1
-  M11    PFET pfet_06v0                W=10u L=1u nf=1
-  M12    PFET pfet_06v0                W=10u L=1u nf=1
-  M13    PFET pfet_06v0                W=10u L=1u nf=1
-  M14    PFET pfet_06v0                W=10u L=1u nf=1
-  M15    PFET pfet_06v0                W=10u L=1u nf=2
-  M16    PFET pfet_06v0                W=10u L=1u nf=2
-  M17    NFET nfet_06v0                W=5u L=1u nf=1
-  M18    NFET nfet_06v0                W=5u L=1u nf=1
-  M19    NFET nfet_06v0                W=5u L=1u nf=1
-  M20    NFET nfet_06v0                W=5u L=1u nf=1
-  M21    NFET nfet_06v0                W=5u L=1u nf=2
-  M22    NFET nfet_06v0                W=5u L=1u nf=2
-  M29    PFET pfet_06v0                W=5u L=1u nf=2
-  M30    PFET pfet_06v0                W=5u L=1u nf=2
-  M31    PFET pfet_06v0                W=5u L=1u nf=4
-  M35    PFET pfet_06v0                W=5u L=1u nf=4
-  M32    PFET pfet_06v0                W=5u L=1u nf=1
-  M33    PFET pfet_06v0                W=5u L=1u nf=1
-  M23    NFET nfet_06v0                W=2.5u L=1u nf=2
-  M24    NFET nfet_06v0                W=2.5u L=1u nf=2
-  M25    NFET nfet_06v0                W=2.5u L=1u nf=4
-  M26    NFET nfet_06v0                W=2.5u L=1u nf=4
-  M27    NFET nfet_06v0                W=2.5u L=1u nf=1
-  M28    NFET nfet_06v0                W=2.5u L=1u nf=1
-  M34    PFET pfet_06v0                W=10u L=1u nf=1
-  M36    PFET pfet_06v0                W=10u L=1u nf=1
-  M37    PFET pfet_06v0                W=10u L=1u nf=1
-  M38    NFET nfet_06v0                W=5u L=1u nf=1
-  M39    NFET nfet_06v0                W=5u L=1u nf=1
-  M45    PFET pfet_06v0                W=10u L=1u nf=1
-  M46    PFET pfet_06v0                W=10u L=1u nf=1
-  M40    NFET nfet_06v0                W=5u L=1u nf=1
-  M41    NFET nfet_06v0                W=5u L=1u nf=1
-  M42    NFET nfet_06v0                W=5u L=1u nf=1
-  M43    PFET pfet_06v0                W=10u L=1u nf=3
-  M44    NFET nfet_06v0                W=5u L=1u nf=3
+  XM4    PFET pfet_06v0                W=10u L=1u nf=1
+  XM5    PFET pfet_06v0                W=10u L=1u nf=1
+  XM6    NFET nfet_06v0                W=1u L=1u nf=1
+  XM7    PFET pfet_06v0                W=10u L=1u nf=1
+  XM8    PFET pfet_06v0                W=10u L=1u nf=1
+  XM9    NFET nfet_06v0                W=5u L=1u nf=1
+  XM10   NFET nfet_06v0                W=5u L=1u nf=1
+  XM1    PFET pfet_06v0                W=2u L=1u nf=1
+  XM2    PFET pfet_06v0                W=10u L=1u nf=1
+  XM3    PFET pfet_06v0                W=10u L=1u nf=1
+  XM47   NFET nfet_06v0                W=1u L=1u nf=1
+  XM48   NFET nfet_06v0                W=1u L=1u nf=1
+  XM49   NFET nfet_06v0                W=1u L=1u nf=1
+  XM50   NFET nfet_06v0                W=1u L=1u nf=1
+  XM11   PFET pfet_06v0                W=10u L=1u nf=1
+  XM12   PFET pfet_06v0                W=10u L=1u nf=1
+  XM13   PFET pfet_06v0                W=10u L=1u nf=1
+  XM14   PFET pfet_06v0                W=10u L=1u nf=1
+  XM15   PFET pfet_06v0                W=10u L=1u nf=2
+  XM16   PFET pfet_06v0                W=10u L=1u nf=2
+  XM17   NFET nfet_06v0                W=5u L=1u nf=1
+  XM18   NFET nfet_06v0                W=5u L=1u nf=1
+  XM19   NFET nfet_06v0                W=5u L=1u nf=1
+  XM20   NFET nfet_06v0                W=5u L=1u nf=1
+  XM21   NFET nfet_06v0                W=5u L=1u nf=2
+  XM22   NFET nfet_06v0                W=5u L=1u nf=2
+  XM29   PFET pfet_06v0                W=5u L=1u nf=2
+  XM30   PFET pfet_06v0                W=5u L=1u nf=2
+  XM31   PFET pfet_06v0                W=5u L=1u nf=4
+  XM35   PFET pfet_06v0                W=5u L=1u nf=4
+  XM32   PFET pfet_06v0                W=5u L=1u nf=1
+  XM33   PFET pfet_06v0                W=5u L=1u nf=1
+  XM23   NFET nfet_06v0                W=2.5u L=1u nf=2
+  XM24   NFET nfet_06v0                W=2.5u L=1u nf=2
+  XM25   NFET nfet_06v0                W=2.5u L=1u nf=4
+  XM26   NFET nfet_06v0                W=2.5u L=1u nf=4
+  XM27   NFET nfet_06v0                W=2.5u L=1u nf=1
+  XM28   NFET nfet_06v0                W=2.5u L=1u nf=1
+  XM34   PFET pfet_06v0                W=10u L=1u nf=1
+  XM36   PFET pfet_06v0                W=10u L=1u nf=1
+  XM37   PFET pfet_06v0                W=10u L=1u nf=1
+  XM38   NFET nfet_06v0                W=5u L=1u nf=1
+  XM39   NFET nfet_06v0                W=5u L=1u nf=1
+  XM45   PFET pfet_06v0                W=10u L=1u nf=1
+  XM46   PFET pfet_06v0                W=10u L=1u nf=1
+  XM40   NFET nfet_06v0                W=5u L=1u nf=1
+  XM41   NFET nfet_06v0                W=5u L=1u nf=1
+  XM42   NFET nfet_06v0                W=5u L=1u nf=1
+  XM43   PFET pfet_06v0                W=10u L=1u nf=3
+  XM44   NFET nfet_06v0                W=5u L=1u nf=3
 
 ## Conexiones (net -> pines)
-  VDD      [POWER]: M4.source, M4.bulk, M5.bulk, M7.source, M7.bulk, M8.bulk, M1.source, M1.bulk, M2.source, M2.bulk, M3.bulk, M11.source, M11.bulk, M12.bulk, M13.source, M13.bulk, M14.bulk, M15.bulk, M16.bulk, M29.bulk, M30.bulk, M31.source, M31.bulk, M35.source, M35.bulk, M32.bulk, M33.bulk, M34.source, M34.bulk, M36.bulk, M37.bulk, M45.source, M45.bulk, M46.bulk, M43.source, M43.bulk
-  VSS      [POWER]: M6.source, M6.bulk, M9.bulk, M10.source, M10.bulk, M47.source, M47.bulk, M48.source, M48.bulk, M49.bulk, M50.bulk, M17.bulk, M18.source, M18.bulk, M19.bulk, M20.source, M20.bulk, M21.bulk, M22.bulk, M23.bulk, M24.bulk, M25.source, M25.bulk, M26.source, M26.bulk, M27.bulk, M28.bulk, M38.bulk, M39.source, M39.bulk, M40.bulk, M41.bulk, M42.source, M42.bulk, M44.source, M44.bulk
-  net3    : M5.gate, M8.gate, M1.drain, M1.gate, M3.gate, M47.gate, M48.gate, M49.drain, M49.gate, M50.gate, M12.gate, M14.gate, M29.gate, M30.gate, M36.gate, M46.gate
-  net2    : M5.drain, M6.drain, M6.gate, M9.gate, M17.gate, M19.gate, M23.gate, M24.gate, M38.gate, M41.gate
-  net4    : M4.gate, M7.gate, M2.gate, M3.drain, M50.drain, M11.gate, M13.gate, M45.gate
-  net1    : M8.drain, M9.drain, M10.gate, M18.gate, M20.gate, M39.gate
-  x2_net9 : M29.drain, M31.gate, M35.gate, M32.source, M27.drain
-  x2_net10: M32.drain, M23.drain, M25.gate, M26.gate, M27.source
-  x2_net21: M32.gate, M33.gate, M37.drain, M37.gate, M38.drain
-  x2_net11: M27.gate, M28.gate, M46.drain, M40.drain, M40.gate
-  x2_net7 : M12.drain, M14.drain, M15.source, M16.source
-  x2_net8 : M17.drain, M19.drain, M21.source, M22.source
-  x2_net12: M30.drain, M33.source, M28.drain, M43.gate
-  x2_net22: M33.drain, M24.drain, M28.source, M44.gate
-  x2_net5 : M15.drain, M24.source, M26.drain
-  x2_net4 : M16.drain, M23.source, M25.drain
-  x2_net6 : M21.drain, M30.source, M35.drain
-  x2_net3 : M22.drain, M29.source, M31.drain
-  x2_net14: M34.gate, M36.drain, M37.source
-  x2_net18: M40.source, M41.drain, M42.gate
-  x1_net3  [ABUTIDA]: M4.drain, M5.source
-  x1_net2  [ABUTIDA]: M7.drain, M8.source
-  x1_net1  [ABUTIDA]: M9.source, M10.drain
-  x1_net4  [ABUTIDA]: M2.drain, M3.source
-  x1_net5  [ABUTIDA]: M47.drain, M50.source
-  x1_net6  [ABUTIDA]: M48.drain, M49.source
-  x2_net2  [ABUTIDA]: M11.drain, M12.source
-  x2_net19 [ABUTIDA]: M13.drain, M14.source
-  IN+     : M15.gate, M21.gate
-  IN-     : M16.gate, M22.gate
-  x2_net1  [ABUTIDA]: M17.source, M18.drain
-  x2_net20 [ABUTIDA]: M19.source, M20.drain
-  x2_net13 [ABUTIDA]: M34.drain, M36.source
-  x2_net15 [ABUTIDA]: M38.source, M39.drain
-  x2_net16 [ABUTIDA]: M45.drain, M46.source
-  x2_net17 [ABUTIDA]: M41.source, M42.drain
-  OUT     : M43.drain, M44.drain
+  VDD      [POWER]: XM4.source, XM4.bulk, XM5.bulk, XM7.source, XM7.bulk, XM8.bulk, XM1.source, XM1.bulk, XM2.source, XM2.bulk, XM3.bulk, XM11.source, XM11.bulk, XM12.bulk, XM13.source, XM13.bulk, XM14.bulk, XM15.bulk, XM16.bulk, XM29.bulk, XM30.bulk, XM31.source, XM31.bulk, XM35.source, XM35.bulk, XM32.bulk, XM33.bulk, XM34.source, XM34.bulk, XM36.bulk, XM37.bulk, XM45.source, XM45.bulk, XM46.bulk, XM43.source, XM43.bulk
+  VSS      [POWER]: XM6.source, XM6.bulk, XM9.bulk, XM10.source, XM10.bulk, XM47.source, XM47.bulk, XM48.source, XM48.bulk, XM49.bulk, XM50.bulk, XM17.bulk, XM18.source, XM18.bulk, XM19.bulk, XM20.source, XM20.bulk, XM21.bulk, XM22.bulk, XM23.bulk, XM24.bulk, XM25.source, XM25.bulk, XM26.source, XM26.bulk, XM27.bulk, XM28.bulk, XM38.bulk, XM39.source, XM39.bulk, XM40.bulk, XM41.bulk, XM42.source, XM42.bulk, XM44.source, XM44.bulk
+  net3    : XM5.gate, XM8.gate, XM1.drain, XM1.gate, XM3.gate, XM47.gate, XM48.gate, XM49.drain, XM49.gate, XM50.gate, XM12.gate, XM14.gate, XM29.gate, XM30.gate, XM36.gate, XM46.gate
+  net2    : XM5.drain, XM6.drain, XM6.gate, XM9.gate, XM17.gate, XM19.gate, XM23.gate, XM24.gate, XM38.gate, XM41.gate
+  net4    : XM4.gate, XM7.gate, XM2.gate, XM3.drain, XM50.drain, XM11.gate, XM13.gate, XM45.gate
+  net1    : XM8.drain, XM9.drain, XM10.gate, XM18.gate, XM20.gate, XM39.gate
+  x2_net9 : XM29.drain, XM31.gate, XM35.gate, XM32.source, XM27.drain
+  x2_net10: XM32.drain, XM23.drain, XM25.gate, XM26.gate, XM27.source
+  x2_net21: XM32.gate, XM33.gate, XM37.drain, XM37.gate, XM38.drain
+  x2_net11: XM27.gate, XM28.gate, XM46.drain, XM40.drain, XM40.gate
+  x2_net7 : XM12.drain, XM14.drain, XM15.source, XM16.source
+  x2_net8 : XM17.drain, XM19.drain, XM21.source, XM22.source
+  x2_net12: XM30.drain, XM33.source, XM28.drain, XM43.gate
+  x2_net22: XM33.drain, XM24.drain, XM28.source, XM44.gate
+  x2_net5 : XM15.drain, XM24.source, XM26.drain
+  x2_net4 : XM16.drain, XM23.source, XM25.drain
+  x2_net6 : XM21.drain, XM30.source, XM35.drain
+  x2_net3 : XM22.drain, XM29.source, XM31.drain
+  x2_net14: XM34.gate, XM36.drain, XM37.source
+  x2_net18: XM40.source, XM41.drain, XM42.gate
+  x1_net3  [ABUTIDA]: XM4.drain, XM5.source
+  x1_net2  [ABUTIDA]: XM7.drain, XM8.source
+  x1_net1  [ABUTIDA]: XM9.source, XM10.drain
+  x1_net4  [ABUTIDA]: XM2.drain, XM3.source
+  x1_net5  [ABUTIDA]: XM47.drain, XM50.source
+  x1_net6  [ABUTIDA]: XM48.drain, XM49.source
+  x2_net2  [ABUTIDA]: XM11.drain, XM12.source
+  x2_net19 [ABUTIDA]: XM13.drain, XM14.source
+  INP     : XM15.gate, XM21.gate
+  INN     : XM16.gate, XM22.gate
+  x2_net1  [ABUTIDA]: XM17.source, XM18.drain
+  x2_net20 [ABUTIDA]: XM19.source, XM20.drain
+  x2_net13 [ABUTIDA]: XM34.drain, XM36.source
+  x2_net15 [ABUTIDA]: XM38.source, XM39.drain
+  x2_net16 [ABUTIDA]: XM45.drain, XM46.source
+  x2_net17 [ABUTIDA]: XM41.source, XM42.drain
+  OUT     : XM43.drain, XM44.drain

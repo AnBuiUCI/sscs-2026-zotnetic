@@ -73,7 +73,7 @@ C {devices/lab_wire.sym} 40 -200 0 0 {name=p13 sig_type=std_logic lab=va}
 C {devices/lab_wire.sym} 70 20 0 0 {name=p8 sig_type=std_logic lab=VDD}
 C {devices/lab_wire.sym} 420 60 2 0 {name=p9 sig_type=std_logic lab=OUT}
 C {a_zonetic2026/XSCHEM/WEIGTH/WEIGHT.sym} 130 90 0 0 {name=x1}
-C {a_zonetic2026/XSCHEM/WEIGTH/comp._out.sym} 330 90 0 0 {name=x2}
+C {a_zonetic2026/XSCHEM/WEIGTH/COMP_OUT.sym} 330 90 0 0 {name=x2}
 C {devices/lab_wire.sym} 230 30 0 0 {name=p4 sig_type=std_logic lab=VDD}
 C {devices/gnd.sym} 70 140 0 0 {name=l6 lab=GND
 value=5}

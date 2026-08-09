@@ -1,0 +1,1134 @@
+
+Circuit 1 cell pfet_06v0 and Circuit 2 cell pfet_06v0 are black boxes.
+
+Subcircuit pins:
+Circuit 1: pfet_06v0                       |Circuit 2: pfet_06v0                       
+-------------------------------------------|-------------------------------------------
+1                                          |1                                          
+2                                          |2                                          
+3                                          |3                                          
+4                                          |4                                          
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes pfet_06v0 and pfet_06v0 are equivalent.
+
+Circuit 1 cell nfet_06v0 and Circuit 2 cell nfet_06v0 are black boxes.
+
+Subcircuit pins:
+Circuit 1: nfet_06v0                       |Circuit 2: nfet_06v0                       
+-------------------------------------------|-------------------------------------------
+1                                          |1                                          
+2                                          |2                                          
+3                                          |3                                          
+4                                          |4                                          
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes nfet_06v0 and nfet_06v0 are equivalent.
+
+Circuit 1 cell cap_mim_2f0_m4m5_noshield and Circuit 2 cell cap_mim_2f0fF are black boxes.
+
+Subcircuit pins:
+Circuit 1: cap_mim_2f0_m4m5_noshield       |Circuit 2: cap_mim_2f0fF                   
+-------------------------------------------|-------------------------------------------
+1                                          |1                                          
+2                                          |2                                          
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes cap_mim_2f0_m4m5_noshield and cap_mim_2f0fF are equivalent.
+
+Circuit 1 cell pfet_05v0 and Circuit 2 cell pfet_05v0 are black boxes.
+
+Subcircuit pins:
+Circuit 1: pfet_05v0                       |Circuit 2: pfet_05v0                       
+-------------------------------------------|-------------------------------------------
+1                                          |1                                          
+2                                          |2                                          
+3                                          |3                                          
+4                                          |4                                          
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes pfet_05v0 and pfet_05v0 are equivalent.
+
+Circuit 1 cell nfet_05v0 and Circuit 2 cell nfet_05v0 are black boxes.
+
+Subcircuit pins:
+Circuit 1: nfet_05v0                       |Circuit 2: nfet_05v0                       
+-------------------------------------------|-------------------------------------------
+1                                          |1                                          
+2                                          |2                                          
+3                                          |3                                          
+4                                          |4                                          
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes nfet_05v0 and nfet_05v0 are equivalent.
+Flattening unmatched subcell GRADIENT in circuit GRADIENT_NAV (1)(4 instances)
+Flattening unmatched subcell OPAM in circuit GRADIENT_NAV (1)(12 instances)
+Flattening unmatched subcell COMP in circuit GRADIENT_NAV (1)(12 instances)
+Flattening unmatched subcell bias in circuit GRADIENT_NAV (1)(12 instances)
+Flattening unmatched subcell sub_diff in circuit GRADIENT_NAV (1)(12 instances)
+Flattening unmatched subcell DECODER in circuit GRADIENT_NAV (1)(4 instances)
+Flattening unmatched subcell Z in circuit GRADIENT_NAV (1)(4 instances)
+Flattening unmatched subcell yGates in circuit GRADIENT_NAV (1)(4 instances)
+Flattening unmatched subcell invertor in circuit GRADIENT_NAV (1)(4 instances)
+Flattening unmatched subcell andGate in circuit GRADIENT_NAV (1)(4 instances)
+Flattening unmatched subcell xGates in circuit GRADIENT_NAV (1)(4 instances)
+Flattening unmatched subcell andGate in circuit GRADIENT_NAV (1)(4 instances)
+Flattening unmatched subcell WEIGHT in circuit GRADIENT_NAV (1)(3 instances)
+Flattening unmatched subcell COMP_OUT in circuit GRADIENT_NAV (1)(3 instances)
+Flattening unmatched subcell INV_1 in circuit GRADIENT_NAV (1)(9 instances)
+
+Cell GRADIENT_NAV (0) disconnected node: VDD
+Cell GRADIENT_NAV (0) disconnected node: VSS
+Cell GRADIENT_NAV (0) disconnected node: X
+Cell GRADIENT_NAV (0) disconnected node: XP
+Cell GRADIENT_NAV (0) disconnected node: XN
+Cell GRADIENT_NAV (0) disconnected node: Y
+Cell GRADIENT_NAV (0) disconnected node: YN
+Cell GRADIENT_NAV (0) disconnected node: YP
+Cell GRADIENT_NAV (0) disconnected node: ZN
+Cell GRADIENT_NAV (0) disconnected node: ZP
+Removing zero-valued device vsrc from cell GRADIENT_NAV (1) makes a better match
+Removing zero-valued device vsrc from cell GRADIENT_NAV (1) makes a better match
+Removing zero-valued device vsrc from cell GRADIENT_NAV (1) makes a better match
+Removing zero-valued device vsrc from cell GRADIENT_NAV (1) makes a better match
+Removing zero-valued device vsrc from cell GRADIENT_NAV (1) makes a better match
+Removing zero-valued device vsrc from cell GRADIENT_NAV (1) makes a better match
+Removing zero-valued device vsrc from cell GRADIENT_NAV (1) makes a better match
+Removing zero-valued device vsrc from cell GRADIENT_NAV (1) makes a better match
+Removing zero-valued device vsrc from cell GRADIENT_NAV (1) makes a better match
+Removing zero-valued device vsrc from cell GRADIENT_NAV (1) makes a better match
+Removing zero-valued device vsrc from cell GRADIENT_NAV (1) makes a better match
+Removing zero-valued device vsrc from cell GRADIENT_NAV (1) makes a better match
+Making another compare attempt.
+
+Cell GRADIENT_NAV (0) disconnected node: VDD
+Cell GRADIENT_NAV (0) disconnected node: VSS
+Cell GRADIENT_NAV (0) disconnected node: X
+Cell GRADIENT_NAV (0) disconnected node: XP
+Cell GRADIENT_NAV (0) disconnected node: XN
+Cell GRADIENT_NAV (0) disconnected node: Y
+Cell GRADIENT_NAV (0) disconnected node: YN
+Cell GRADIENT_NAV (0) disconnected node: YP
+Cell GRADIENT_NAV (0) disconnected node: ZN
+Cell GRADIENT_NAV (0) disconnected node: ZP
+Class GRADIENT_NAV (0):  Merged 318 parallel devices.
+Cell GRADIENT_NAV (0) disconnected node: VDD
+Cell GRADIENT_NAV (0) disconnected node: VSS
+Cell GRADIENT_NAV (0) disconnected node: X
+Cell GRADIENT_NAV (0) disconnected node: XP
+Cell GRADIENT_NAV (0) disconnected node: XN
+Cell GRADIENT_NAV (0) disconnected node: Y
+Cell GRADIENT_NAV (0) disconnected node: YN
+Cell GRADIENT_NAV (0) disconnected node: YP
+Cell GRADIENT_NAV (0) disconnected node: ZN
+Cell GRADIENT_NAV (0) disconnected node: ZP
+Subcircuit summary:
+Circuit 1: GRADIENT_NAV                    |Circuit 2: GRADIENT_NAV                    
+-------------------------------------------|-------------------------------------------
+pfet_06v0 (801->642)                       |pfet_06v0 (657->642)                       
+cap_mim_2f0_m4m5_noshield (48)             |cap_mim_2f0fF (48)                         
+nfet_06v0 (840->681)                       |nfet_06v0 (696->681)                       
+nfet_05v0 (9)                              |nfet_05v0 (9)                              
+pfet_05v0 (9)                              |pfet_05v0 (9)                              
+Number of devices: 1389                    |Number of devices: 1389                    
+Number of nets: 934 **Mismatch**           |Number of nets: 880 **Mismatch**           
+---------------------------------------------------------------------------------------
+NET mismatches: Class fragments follow (with fanout counts):
+Circuit 1: GRADIENT_NAV                    |Circuit 2: GRADIENT_NAV                    
+
+---------------------------------------------------------------------------------------
+Net: a_4026_74376#                         |Net: Z1                                    
+  pfet_06v0/(1|3) = 1                      |  pfet_06v0/(1|3) = 1                      
+  nfet_06v0/(1|3) = 1                      |  nfet_06v0/(1|3) = 2                      
+                                           |  nfet_06v0/2 = 1                          
+                                           |                                           
+Net: a_66634_57016#                        |Net: Z2                                    
+  pfet_06v0/(1|3) = 1                      |  pfet_06v0/(1|3) = 1                      
+  nfet_06v0/(1|3) = 1                      |  nfet_06v0/(1|3) = 2                      
+                                           |  nfet_06v0/2 = 1                          
+                                           |                                           
+Net: a_25530_74376#                        |Net: Z3                                    
+  pfet_06v0/(1|3) = 1                      |  pfet_06v0/(1|3) = 1                      
+  nfet_06v0/(1|3) = 1                      |  nfet_06v0/(1|3) = 2                      
+                                           |  nfet_06v0/2 = 1                          
+                                           |                                           
+Net: a_14778_74376#                        |Net: Z4                                    
+  pfet_06v0/(1|3) = 1                      |  pfet_06v0/(1|3) = 1                      
+  nfet_06v0/(1|3) = 1                      |  nfet_06v0/(1|3) = 2                      
+                                           |  nfet_06v0/2 = 1                          
+                                           |                                           
+Net: a_27294_74376#                        |Net: GRADIENT:1/OPAM:1/net9                
+  nfet_06v0/(1|3) = 1                      |  pfet_06v0/(1|3) = 1                      
+  pfet_06v0/(1|3) = 1                      |  nfet_06v0/(1|3) = 2                      
+                                           |  cap_mim_2f0fF/2 = 1                      
+                                           |                                           
+Net: a_68398_57016#                        |Net: GRADIENT:1/OPAM:2/net9                
+  pfet_06v0/(1|3) = 1                      |  pfet_06v0/(1|3) = 1                      
+  nfet_06v0/(1|3) = 1                      |  nfet_06v0/(1|3) = 2                      
+                                           |  cap_mim_2f0fF/2 = 1                      
+                                           |                                           
+Net: a_16542_74376#                        |Net: GRADIENT:1/OPAM:3/net9                
+  nfet_06v0/(1|3) = 1                      |  pfet_06v0/(1|3) = 1                      
+  pfet_06v0/(1|3) = 1                      |  nfet_06v0/(1|3) = 2                      
+                                           |  cap_mim_2f0fF/2 = 1                      
+                                           |                                           
+Net: a_5790_74376#                         |Net: GRADIENT:2/OPAM:1/net9                
+  pfet_06v0/(1|3) = 1                      |  pfet_06v0/(1|3) = 1                      
+  nfet_06v0/(1|3) = 1                      |  nfet_06v0/(1|3) = 2                      
+                                           |  cap_mim_2f0fF/2 = 1                      
+                                           |                                           
+Net: a_4714_39576#                         |Net: GRADIENT:2/OPAM:2/net9                
+  pfet_06v0/2 = 1                          |  pfet_06v0/(1|3) = 1                      
+  nfet_06v0/2 = 1                          |  nfet_06v0/(1|3) = 2                      
+                                           |  cap_mim_2f0fF/2 = 1                      
+                                           |                                           
+Net: a_8922_48260#                         |Net: GRADIENT:2/OPAM:3/net9                
+  pfet_06v0/2 = 1                          |  pfet_06v0/(1|3) = 1                      
+  nfet_06v0/2 = 1                          |  nfet_06v0/(1|3) = 2                      
+                                           |  cap_mim_2f0fF/2 = 1                      
+                                           |                                           
+Net: a_14134_74260#                        |Net: GRADIENT:3/OPAM:1/net9                
+  nfet_06v0/2 = 2                          |  pfet_06v0/(1|3) = 1                      
+  pfet_06v0/2 = 2                          |  nfet_06v0/(1|3) = 2                      
+                                           |  cap_mim_2f0fF/2 = 1                      
+                                           |                                           
+Net: a_33002_13540#                        |Net: GRADIENT:3/OPAM:2/net9                
+  pfet_06v0/2 = 1                          |  pfet_06v0/(1|3) = 1                      
+  nfet_06v0/2 = 1                          |  nfet_06v0/(1|3) = 2                      
+                                           |  cap_mim_2f0fF/2 = 1                      
+                                           |                                           
+Net: a_57082_30900#                        |Net: GRADIENT:3/OPAM:3/net9                
+  nfet_06v0/2 = 1                          |  pfet_06v0/(1|3) = 1                      
+  pfet_06v0/2 = 1                          |  nfet_06v0/(1|3) = 2                      
+                                           |  cap_mim_2f0fF/2 = 1                      
+                                           |                                           
+Net: a_8922_65732#                         |Net: GRADIENT:4/OPAM:1/net9                
+  pfet_06v0/2 = 1                          |  pfet_06v0/(1|3) = 1                      
+  nfet_06v0/2 = 1                          |  nfet_06v0/(1|3) = 2                      
+                                           |  cap_mim_2f0fF/2 = 1                      
+                                           |                                           
+Net: a_57082_13540#                        |Net: GRADIENT:4/OPAM:2/net9                
+  nfet_06v0/2 = 1                          |  pfet_06v0/(1|3) = 1                      
+  pfet_06v0/2 = 1                          |  nfet_06v0/(1|3) = 2                      
+                                           |  cap_mim_2f0fF/2 = 1                      
+                                           |                                           
+Net: a_25546_4744#                         |Net: GRADIENT:4/OPAM:3/net9                
+  nfet_06v0/2 = 1                          |  pfet_06v0/(1|3) = 1                      
+  pfet_06v0/2 = 1                          |  nfet_06v0/(1|3) = 2                      
+                                           |  cap_mim_2f0fF/2 = 1                      
+                                           |                                           
+Net: a_8922_13540#                         |Net: GRADIENT:1/COMP:4/sub_diff:2/net5     
+  pfet_06v0/2 = 1                          |  pfet_06v0/(1|3) = 1                      
+  nfet_06v0/2 = 1                          |  nfet_06v0/(1|3) = 2                      
+                                           |  cap_mim_2f0fF/2 = 1                      
+                                           |                                           
+Net: a_33002_48260#                        |Net: GRADIENT:1/COMP:5/sub_diff:2/net5     
+  pfet_06v0/2 = 1                          |  pfet_06v0/(1|3) = 1                      
+  nfet_06v0/2 = 1                          |  nfet_06v0/(1|3) = 2                      
+                                           |  cap_mim_2f0fF/2 = 1                      
+                                           |                                           
+Net: a_33002_30900#                        |Net: GRADIENT:1/COMP:6/sub_diff:2/net5     
+  nfet_06v0/2 = 1                          |  pfet_06v0/(1|3) = 1                      
+  pfet_06v0/2 = 1                          |  nfet_06v0/(1|3) = 2                      
+                                           |  cap_mim_2f0fF/2 = 1                      
+                                           |                                           
+Net: a_57082_48260#                        |Net: GRADIENT:2/COMP:4/sub_diff:2/net5     
+  nfet_06v0/2 = 1                          |  pfet_06v0/(1|3) = 1                      
+  pfet_06v0/2 = 1                          |  nfet_06v0/(1|3) = 2                      
+                                           |  cap_mim_2f0fF/2 = 1                      
+                                           |                                           
+Net: a_33002_65732#                        |Net: GRADIENT:2/COMP:5/sub_diff:2/net5     
+  pfet_06v0/2 = 1                          |  pfet_06v0/(1|3) = 1                      
+  nfet_06v0/2 = 1                          |  nfet_06v0/(1|3) = 2                      
+                                           |  cap_mim_2f0fF/2 = 1                      
+                                           |                                           
+Net: a_57082_65732#                        |Net: GRADIENT:2/COMP:6/sub_diff:2/net5     
+  nfet_06v0/2 = 1                          |  pfet_06v0/(1|3) = 1                      
+  pfet_06v0/2 = 1                          |  nfet_06v0/(1|3) = 2                      
+                                           |  cap_mim_2f0fF/2 = 1                      
+                                           |                                           
+Net: a_8922_30900#                         |Net: GRADIENT:3/COMP:4/sub_diff:2/net5     
+  nfet_06v0/2 = 1                          |  pfet_06v0/(1|3) = 1                      
+  pfet_06v0/2 = 1                          |  nfet_06v0/(1|3) = 2                      
+                                           |  cap_mim_2f0fF/2 = 1                      
+                                           |                                           
+Net: a_25546_39576#                        |Net: GRADIENT:3/COMP:5/sub_diff:2/net5     
+  pfet_06v0/2 = 1                          |  pfet_06v0/(1|3) = 1                      
+  nfet_06v0/2 = 1                          |  nfet_06v0/(1|3) = 2                      
+                                           |  cap_mim_2f0fF/2 = 1                      
+                                           |                                           
+Net: a_65990_56900#                        |Net: GRADIENT:3/COMP:6/sub_diff:2/net5     
+  pfet_06v0/2 = 2                          |  pfet_06v0/(1|3) = 1                      
+  nfet_06v0/2 = 2                          |  nfet_06v0/(1|3) = 2                      
+                                           |  cap_mim_2f0fF/2 = 1                      
+                                           |                                           
+Net: a_25546_22216#                        |Net: GRADIENT:4/COMP:4/sub_diff:2/net5     
+  pfet_06v0/2 = 1                          |  pfet_06v0/(1|3) = 1                      
+  nfet_06v0/2 = 1                          |  nfet_06v0/(1|3) = 2                      
+                                           |  cap_mim_2f0fF/2 = 1                      
+                                           |                                           
+Net: a_46378_22216#                        |Net: GRADIENT:4/COMP:5/sub_diff:2/net5     
+  pfet_06v0/2 = 1                          |  pfet_06v0/(1|3) = 1                      
+  nfet_06v0/2 = 1                          |  nfet_06v0/(1|3) = 2                      
+                                           |  cap_mim_2f0fF/2 = 1                      
+                                           |                                           
+Net: a_7810_48260#                         |Net: GRADIENT:4/COMP:6/sub_diff:2/net5     
+  nfet_06v0/2 = 1                          |  pfet_06v0/(1|3) = 1                      
+  pfet_06v0/2 = 1                          |  nfet_06v0/(1|3) = 2                      
+                                           |  cap_mim_2f0fF/2 = 1                      
+                                           |                                           
+Net: a_7810_30900#                         |Net: GRADIENT:1/OPAM:1/net10               
+  pfet_06v0/2 = 1                          |  nfet_06v0/(1|3) = 1                      
+  nfet_06v0/2 = 1                          |  pfet_06v0/(1|3) = 2                      
+                                           |  cap_mim_2f0fF/1 = 1                      
+                                           |                                           
+Net: a_54516_4860#                         |Net: GRADIENT:1/OPAM:2/net10               
+  pfet_06v0/(1|3) = 1                      |  nfet_06v0/(1|3) = 1                      
+  nfet_06v0/(1|3) = 1                      |  pfet_06v0/(1|3) = 2                      
+  cap_mim_2f0_m4m5_noshield/(1|2) = 2      |  cap_mim_2f0fF/1 = 1                      
+                                           |                                           
+Net: a_7810_13540#                         |Net: GRADIENT:1/OPAM:3/net10               
+  pfet_06v0/2 = 1                          |  nfet_06v0/(1|3) = 1                      
+  nfet_06v0/2 = 1                          |  pfet_06v0/(1|3) = 2                      
+                                           |  cap_mim_2f0fF/1 = 1                      
+                                           |                                           
+Net: a_55970_65732#                        |Net: GRADIENT:2/OPAM:1/net10               
+  pfet_06v0/2 = 1                          |  nfet_06v0/(1|3) = 1                      
+  nfet_06v0/2 = 1                          |  pfet_06v0/(1|3) = 2                      
+                                           |  cap_mim_2f0fF/1 = 1                      
+                                           |                                           
+Net: a_55970_13540#                        |Net: GRADIENT:2/OPAM:2/net10               
+  nfet_06v0/2 = 1                          |  nfet_06v0/(1|3) = 1                      
+  pfet_06v0/2 = 1                          |  pfet_06v0/(1|3) = 2                      
+                                           |  cap_mim_2f0fF/1 = 1                      
+                                           |                                           
+Net: a_31890_48260#                        |Net: GRADIENT:2/OPAM:3/net10               
+  pfet_06v0/2 = 1                          |  nfet_06v0/(1|3) = 1                      
+  nfet_06v0/2 = 1                          |  pfet_06v0/(1|3) = 2                      
+                                           |  cap_mim_2f0fF/1 = 1                      
+                                           |                                           
+Net: a_31890_65732#                        |Net: GRADIENT:3/OPAM:1/net10               
+  nfet_06v0/2 = 1                          |  nfet_06v0/(1|3) = 1                      
+  pfet_06v0/2 = 1                          |  pfet_06v0/(1|3) = 2                      
+                                           |  cap_mim_2f0fF/1 = 1                      
+                                           |                                           
+Net: a_55970_30900#                        |Net: GRADIENT:3/OPAM:2/net10               
+  nfet_06v0/2 = 1                          |  nfet_06v0/(1|3) = 1                      
+  pfet_06v0/2 = 1                          |  pfet_06v0/(1|3) = 2                      
+                                           |  cap_mim_2f0fF/1 = 1                      
+                                           |                                           
+Net: a_7810_65732#                         |Net: GRADIENT:3/OPAM:3/net10               
+  pfet_06v0/2 = 1                          |  nfet_06v0/(1|3) = 1                      
+  nfet_06v0/2 = 1                          |  pfet_06v0/(1|3) = 2                      
+                                           |  cap_mim_2f0fF/1 = 1                      
+                                           |                                           
+Net: a_31890_13540#                        |Net: GRADIENT:4/OPAM:1/net10               
+  nfet_06v0/2 = 1                          |  nfet_06v0/(1|3) = 1                      
+  pfet_06v0/2 = 1                          |  pfet_06v0/(1|3) = 2                      
+                                           |  cap_mim_2f0fF/1 = 1                      
+                                           |                                           
+Net: a_24814_56936#                        |Net: GRADIENT:4/OPAM:2/net10               
+  pfet_06v0/2 = 1                          |  nfet_06v0/(1|3) = 1                      
+  nfet_06v0/2 = 1                          |  pfet_06v0/(1|3) = 2                      
+                                           |  cap_mim_2f0fF/1 = 1                      
+                                           |                                           
+Net: a_31890_30900#                        |Net: GRADIENT:4/OPAM:3/net10               
+  pfet_06v0/2 = 1                          |  nfet_06v0/(1|3) = 1                      
+  nfet_06v0/2 = 1                          |  pfet_06v0/(1|3) = 2                      
+                                           |  cap_mim_2f0fF/1 = 1                      
+                                           |                                           
+Net: a_24814_39576#                        |Net: GRADIENT:1/COMP:4/sub_diff:2/net6     
+  pfet_06v0/2 = 1                          |  nfet_06v0/(1|3) = 1                      
+  nfet_06v0/2 = 1                          |  pfet_06v0/(1|3) = 2                      
+                                           |  cap_mim_2f0fF/1 = 1                      
+                                           |                                           
+Net: a_68318_13656#                        |Net: GRADIENT:1/COMP:5/sub_diff:2/net6     
+  cap_mim_2f0_m4m5_noshield/(1|2) = 2      |  nfet_06v0/(1|3) = 1                      
+  nfet_06v0/(1|3) = 1                      |  pfet_06v0/(1|3) = 2                      
+  pfet_06v0/(1|3) = 1                      |  cap_mim_2f0fF/1 = 1                      
+                                           |                                           
+Net: a_46046_60452#                        |Net: GRADIENT:1/COMP:6/sub_diff:2/net6     
+  cap_mim_2f0_m4m5_noshield/(1|2) = 1      |  nfet_06v0/(1|3) = 1                      
+  pfet_06v0/(1|3) = 1                      |  pfet_06v0/(1|3) = 2                      
+  nfet_06v0/(1|3) = 2                      |  cap_mim_2f0fF/1 = 1                      
+                                           |                                           
+Net: a_25214_25732#                        |Net: GRADIENT:2/COMP:4/sub_diff:2/net6     
+  nfet_06v0/(1|3) = 2                      |  nfet_06v0/(1|3) = 1                      
+  pfet_06v0/(1|3) = 1                      |  pfet_06v0/(1|3) = 2                      
+  cap_mim_2f0_m4m5_noshield/(1|2) = 1      |  cap_mim_2f0fF/1 = 1                      
+                                           |                                           
+Net: a_32610_51776#                        |Net: GRADIENT:2/COMP:5/sub_diff:2/net6     
+  nfet_06v0/(1|3) = 2                      |  nfet_06v0/(1|3) = 1                      
+  pfet_06v0/(1|3) = 1                      |  pfet_06v0/(1|3) = 2                      
+  cap_mim_2f0_m4m5_noshield/(1|2) = 1      |  cap_mim_2f0fF/1 = 1                      
+                                           |                                           
+Net: a_56690_17056#                        |Net: GRADIENT:2/COMP:6/sub_diff:2/net6     
+  nfet_06v0/(1|3) = 2                      |  nfet_06v0/(1|3) = 1                      
+  pfet_06v0/(1|3) = 1                      |  pfet_06v0/(1|3) = 2                      
+  cap_mim_2f0_m4m5_noshield/(1|2) = 1      |  cap_mim_2f0fF/1 = 1                      
+                                           |                                           
+Net: a_8530_34416#                         |Net: GRADIENT:3/COMP:4/sub_diff:2/net6     
+  pfet_06v0/(1|3) = 1                      |  nfet_06v0/(1|3) = 1                      
+  nfet_06v0/(1|3) = 2                      |  pfet_06v0/(1|3) = 2                      
+  cap_mim_2f0_m4m5_noshield/(1|2) = 1      |  cap_mim_2f0fF/1 = 1                      
+                                           |                                           
+Net: a_8530_17056#                         |Net: GRADIENT:3/COMP:5/sub_diff:2/net6     
+  pfet_06v0/(1|3) = 1                      |  nfet_06v0/(1|3) = 1                      
+  nfet_06v0/(1|3) = 2                      |  pfet_06v0/(1|3) = 2                      
+  cap_mim_2f0_m4m5_noshield/(1|2) = 1      |  cap_mim_2f0fF/1 = 1                      
+                                           |                                           
+Net: a_56690_69248#                        |Net: GRADIENT:3/COMP:6/sub_diff:2/net6     
+  pfet_06v0/(1|3) = 1                      |  nfet_06v0/(1|3) = 1                      
+  cap_mim_2f0_m4m5_noshield/(1|2) = 1      |  pfet_06v0/(1|3) = 2                      
+  nfet_06v0/(1|3) = 2                      |  cap_mim_2f0fF/1 = 1                      
+                                           |                                           
+Net: a_8530_69248#                         |Net: GRADIENT:4/COMP:4/sub_diff:2/net6     
+  nfet_06v0/(1|3) = 2                      |  nfet_06v0/(1|3) = 1                      
+  pfet_06v0/(1|3) = 1                      |  pfet_06v0/(1|3) = 2                      
+  cap_mim_2f0_m4m5_noshield/(1|2) = 1      |  cap_mim_2f0fF/1 = 1                      
+                                           |                                           
+Net: a_4382_60452#                         |Net: GRADIENT:4/COMP:5/sub_diff:2/net6     
+  pfet_06v0/(1|3) = 1                      |  nfet_06v0/(1|3) = 1                      
+  nfet_06v0/(1|3) = 2                      |  pfet_06v0/(1|3) = 2                      
+  cap_mim_2f0_m4m5_noshield/(1|2) = 1      |  cap_mim_2f0fF/1 = 1                      
+                                           |                                           
+Net: a_32610_34416#                        |Net: GRADIENT:4/COMP:6/sub_diff:2/net6     
+  nfet_06v0/(1|3) = 2                      |  nfet_06v0/(1|3) = 1                      
+  pfet_06v0/(1|3) = 1                      |  pfet_06v0/(1|3) = 2                      
+  cap_mim_2f0_m4m5_noshield/(1|2) = 1      |  cap_mim_2f0fF/1 = 1                      
+                                           |                                           
+Net: a_32610_69248#                        |Net: X1                                    
+  nfet_06v0/(1|3) = 2                      |  pfet_06v0/(1|3) = 1                      
+  pfet_06v0/(1|3) = 1                      |  nfet_06v0/(1|3) = 1                      
+  cap_mim_2f0_m4m5_noshield/(1|2) = 1      |  nfet_06v0/2 = 1                          
+                                           |                                           
+Net: a_32610_17056#                        |Net: X2                                    
+  nfet_06v0/(1|3) = 2                      |  pfet_06v0/(1|3) = 1                      
+  pfet_06v0/(1|3) = 1                      |  nfet_06v0/(1|3) = 1                      
+  cap_mim_2f0_m4m5_noshield/(1|2) = 1      |  nfet_06v0/2 = 1                          
+                                           |                                           
+Net: a_46046_8260#                         |Net: X3                                    
+  pfet_06v0/(1|3) = 1                      |  pfet_06v0/(1|3) = 1                      
+  nfet_06v0/(1|3) = 2                      |  nfet_06v0/(1|3) = 1                      
+  cap_mim_2f0_m4m5_noshield/(1|2) = 1      |  nfet_06v0/2 = 1                          
+                                           |                                           
+Net: a_4382_8260#                          |Net: X4                                    
+  cap_mim_2f0_m4m5_noshield/(1|2) = 1      |  pfet_06v0/(1|3) = 1                      
+  nfet_06v0/(1|3) = 2                      |  nfet_06v0/(1|3) = 1                      
+  pfet_06v0/(1|3) = 1                      |  nfet_06v0/2 = 1                          
+                                           |                                           
+Net: a_46046_25732#                        |Net: Y1                                    
+  nfet_06v0/(1|3) = 2                      |  pfet_06v0/(1|3) = 1                      
+  cap_mim_2f0_m4m5_noshield/(1|2) = 1      |  nfet_06v0/(1|3) = 1                      
+  pfet_06v0/(1|3) = 1                      |  nfet_06v0/2 = 1                          
+                                           |                                           
+Net: a_8530_51776#                         |Net: Y2                                    
+  nfet_06v0/(1|3) = 2                      |  pfet_06v0/(1|3) = 1                      
+  pfet_06v0/(1|3) = 1                      |  nfet_06v0/(1|3) = 1                      
+  cap_mim_2f0_m4m5_noshield/(1|2) = 1      |  nfet_06v0/2 = 1                          
+                                           |                                           
+Net: a_56690_51776#                        |Net: Y3                                    
+  nfet_06v0/(1|3) = 2                      |  pfet_06v0/(1|3) = 1                      
+  cap_mim_2f0_m4m5_noshield/(1|2) = 1      |  nfet_06v0/(1|3) = 1                      
+  pfet_06v0/(1|3) = 1                      |  nfet_06v0/2 = 1                          
+                                           |                                           
+Net: a_25214_43092#                        |Net: Y4                                    
+  nfet_06v0/(1|3) = 2                      |  pfet_06v0/(1|3) = 1                      
+  cap_mim_2f0_m4m5_noshield/(1|2) = 1      |  nfet_06v0/(1|3) = 1                      
+  pfet_06v0/(1|3) = 1                      |  nfet_06v0/2 = 1                          
+                                           |                                           
+Net: a_25214_8260#                         |Net: GRADIENT:1/SX                         
+  nfet_06v0/(1|3) = 2                      |  pfet_06v0/(1|3) = 1                      
+  pfet_06v0/(1|3) = 1                      |  nfet_06v0/(1|3) = 1                      
+  cap_mim_2f0_m4m5_noshield/(1|2) = 1      |  cap_mim_2f0fF/2 = 1                      
+                                           |  cap_mim_2f0fF/1 = 1                      
+                                           |  pfet_06v0/2 = 2                          
+                                           |  nfet_06v0/2 = 2                          
+                                           |                                           
+Net: a_25214_60452#                        |Net: GRADIENT:2/SX                         
+  cap_mim_2f0_m4m5_noshield/(1|2) = 1      |  pfet_06v0/(1|3) = 1                      
+  pfet_06v0/(1|3) = 1                      |  nfet_06v0/(1|3) = 1                      
+  nfet_06v0/(1|3) = 2                      |  cap_mim_2f0fF/2 = 1                      
+                                           |  cap_mim_2f0fF/1 = 1                      
+                                           |  pfet_06v0/2 = 2                          
+                                           |  nfet_06v0/2 = 2                          
+                                           |                                           
+Net: a_46046_43092#                        |Net: GRADIENT:3/SX                         
+  nfet_06v0/(1|3) = 2                      |  pfet_06v0/(1|3) = 1                      
+  pfet_06v0/(1|3) = 1                      |  nfet_06v0/(1|3) = 1                      
+  cap_mim_2f0_m4m5_noshield/(1|2) = 1      |  cap_mim_2f0fF/2 = 1                      
+                                           |  cap_mim_2f0fF/1 = 1                      
+                                           |  pfet_06v0/2 = 2                          
+                                           |  nfet_06v0/2 = 2                          
+                                           |                                           
+Net: a_56690_34416#                        |Net: GRADIENT:4/SX                         
+  pfet_06v0/(1|3) = 1                      |  pfet_06v0/(1|3) = 1                      
+  cap_mim_2f0_m4m5_noshield/(1|2) = 1      |  nfet_06v0/(1|3) = 1                      
+  nfet_06v0/(1|3) = 2                      |  cap_mim_2f0fF/2 = 1                      
+                                           |  cap_mim_2f0fF/1 = 1                      
+                                           |  pfet_06v0/2 = 2                          
+                                           |  nfet_06v0/2 = 2                          
+                                           |                                           
+Net: a_4382_43092#                         |Net: GRADIENT:1/SY                         
+  pfet_06v0/(1|3) = 1                      |  pfet_06v0/(1|3) = 1                      
+  nfet_06v0/(1|3) = 2                      |  nfet_06v0/(1|3) = 1                      
+  cap_mim_2f0_m4m5_noshield/(1|2) = 1      |  cap_mim_2f0fF/2 = 1                      
+                                           |  cap_mim_2f0fF/1 = 1                      
+                                           |  pfet_06v0/2 = 2                          
+                                           |  nfet_06v0/2 = 2                          
+                                           |                                           
+Net: a_4382_25732#                         |Net: GRADIENT:2/SY                         
+  nfet_06v0/(1|3) = 2                      |  pfet_06v0/(1|3) = 1                      
+  pfet_06v0/(1|3) = 1                      |  nfet_06v0/(1|3) = 1                      
+  cap_mim_2f0_m4m5_noshield/(1|2) = 1      |  cap_mim_2f0fF/2 = 1                      
+                                           |  cap_mim_2f0fF/1 = 1                      
+                                           |  pfet_06v0/2 = 2                          
+                                           |  nfet_06v0/2 = 2                          
+                                           |                                           
+Net: a_54516_57052#                        |Net: GRADIENT:3/SY                         
+  cap_mim_2f0_m4m5_noshield/(1|2) = 2      |  pfet_06v0/(1|3) = 1                      
+  pfet_06v0/(1|3) = 1                      |  nfet_06v0/(1|3) = 1                      
+  nfet_06v0/(1|3) = 1                      |  cap_mim_2f0fF/2 = 1                      
+                                           |  cap_mim_2f0fF/1 = 1                      
+                                           |  pfet_06v0/2 = 2                          
+                                           |  nfet_06v0/2 = 2                          
+                                           |                                           
+Net: a_20158_65848#                        |Net: GRADIENT:4/SY                         
+  nfet_06v0/(1|3) = 1                      |  pfet_06v0/(1|3) = 1                      
+  pfet_06v0/(1|3) = 1                      |  nfet_06v0/(1|3) = 1                      
+  cap_mim_2f0_m4m5_noshield/(1|2) = 2      |  cap_mim_2f0fF/2 = 1                      
+                                           |  cap_mim_2f0fF/1 = 1                      
+                                           |  pfet_06v0/2 = 2                          
+                                           |  nfet_06v0/2 = 2                          
+                                           |                                           
+Net: a_68318_65848#                        |Net: GRADIENT:1/SZ                         
+  nfet_06v0/(1|3) = 1                      |  pfet_06v0/(1|3) = 1                      
+  cap_mim_2f0_m4m5_noshield/(1|2) = 2      |  nfet_06v0/(1|3) = 1                      
+  pfet_06v0/(1|3) = 1                      |  cap_mim_2f0fF/2 = 1                      
+                                           |  cap_mim_2f0fF/1 = 1                      
+                                           |  pfet_06v0/2 = 2                          
+                                           |  nfet_06v0/2 = 2                          
+                                           |                                           
+Net: a_44238_65848#                        |Net: GRADIENT:2/SZ                         
+  nfet_06v0/(1|3) = 1                      |  pfet_06v0/(1|3) = 1                      
+  pfet_06v0/(1|3) = 1                      |  nfet_06v0/(1|3) = 1                      
+  cap_mim_2f0_m4m5_noshield/(1|2) = 2      |  cap_mim_2f0fF/2 = 1                      
+                                           |  cap_mim_2f0fF/1 = 1                      
+                                           |  pfet_06v0/2 = 2                          
+                                           |  nfet_06v0/2 = 2                          
+                                           |                                           
+Net: a_44238_13656#                        |Net: GRADIENT:3/SZ                         
+  pfet_06v0/(1|3) = 1                      |  pfet_06v0/(1|3) = 1                      
+  nfet_06v0/(1|3) = 1                      |  nfet_06v0/(1|3) = 1                      
+  cap_mim_2f0_m4m5_noshield/(1|2) = 2      |  cap_mim_2f0fF/2 = 1                      
+                                           |  cap_mim_2f0fF/1 = 1                      
+                                           |  pfet_06v0/2 = 2                          
+                                           |  nfet_06v0/2 = 2                          
+                                           |                                           
+Net: a_68318_31016#                        |Net: GRADIENT:4/SZ                         
+  nfet_06v0/(1|3) = 1                      |  pfet_06v0/(1|3) = 1                      
+  cap_mim_2f0_m4m5_noshield/(1|2) = 2      |  nfet_06v0/(1|3) = 1                      
+  pfet_06v0/(1|3) = 1                      |  cap_mim_2f0fF/2 = 1                      
+                                           |  cap_mim_2f0fF/1 = 1                      
+                                           |  pfet_06v0/2 = 2                          
+                                           |  nfet_06v0/2 = 2                          
+                                           |                                           
+Net: a_20158_48376#                        |Net: GRADIENT:1/net1                       
+  nfet_06v0/(1|3) = 1                      |  pfet_06v0/(1|3) = 1                      
+  pfet_06v0/(1|3) = 1                      |  nfet_06v0/(1|3) = 1                      
+  cap_mim_2f0_m4m5_noshield/(1|2) = 2      |  cap_mim_2f0fF/1 = 1                      
+                                           |  cap_mim_2f0fF/2 = 1                      
+                                           |  pfet_06v0/2 = 2                          
+                                           |  nfet_06v0/2 = 2                          
+                                           |                                           
+Net: a_12852_4860#                         |Net: GRADIENT:2/net1                       
+  cap_mim_2f0_m4m5_noshield/(1|2) = 2      |  pfet_06v0/(1|3) = 1                      
+  nfet_06v0/(1|3) = 1                      |  nfet_06v0/(1|3) = 1                      
+  pfet_06v0/(1|3) = 1                      |  cap_mim_2f0fF/1 = 1                      
+                                           |  cap_mim_2f0fF/2 = 1                      
+                                           |  pfet_06v0/2 = 2                          
+                                           |  nfet_06v0/2 = 2                          
+                                           |                                           
+Net: a_12852_57052#                        |Net: GRADIENT:3/net1                       
+  nfet_06v0/(1|3) = 1                      |  pfet_06v0/(1|3) = 1                      
+  cap_mim_2f0_m4m5_noshield/(1|2) = 2      |  nfet_06v0/(1|3) = 1                      
+  pfet_06v0/(1|3) = 1                      |  cap_mim_2f0fF/1 = 1                      
+                                           |  cap_mim_2f0fF/2 = 1                      
+                                           |  pfet_06v0/2 = 2                          
+                                           |  nfet_06v0/2 = 2                          
+                                           |                                           
+Net: a_33684_4860#                         |Net: GRADIENT:4/net1                       
+  cap_mim_2f0_m4m5_noshield/(1|2) = 2      |  pfet_06v0/(1|3) = 1                      
+  pfet_06v0/(1|3) = 1                      |  nfet_06v0/(1|3) = 1                      
+  nfet_06v0/(1|3) = 1                      |  cap_mim_2f0fF/1 = 1                      
+                                           |  cap_mim_2f0fF/2 = 1                      
+                                           |  pfet_06v0/2 = 2                          
+                                           |  nfet_06v0/2 = 2                          
+                                           |                                           
+Net: a_33684_39692#                        |Net: GRADIENT:1/net3                       
+  cap_mim_2f0_m4m5_noshield/(1|2) = 2      |  pfet_06v0/(1|3) = 1                      
+  pfet_06v0/(1|3) = 1                      |  nfet_06v0/(1|3) = 1                      
+  nfet_06v0/(1|3) = 1                      |  cap_mim_2f0fF/1 = 1                      
+                                           |  cap_mim_2f0fF/2 = 1                      
+                                           |  pfet_06v0/2 = 2                          
+                                           |  nfet_06v0/2 = 2                          
+                                           |                                           
+Net: a_20158_31016#                        |Net: GRADIENT:2/net3                       
+  pfet_06v0/(1|3) = 1                      |  pfet_06v0/(1|3) = 1                      
+  nfet_06v0/(1|3) = 1                      |  nfet_06v0/(1|3) = 1                      
+  cap_mim_2f0_m4m5_noshield/(1|2) = 2      |  cap_mim_2f0fF/1 = 1                      
+                                           |  cap_mim_2f0fF/2 = 1                      
+                                           |  pfet_06v0/2 = 2                          
+                                           |  nfet_06v0/2 = 2                          
+                                           |                                           
+Net: a_33684_57052#                        |Net: GRADIENT:3/net3                       
+  cap_mim_2f0_m4m5_noshield/(1|2) = 2      |  pfet_06v0/(1|3) = 1                      
+  nfet_06v0/(1|3) = 1                      |  nfet_06v0/(1|3) = 1                      
+  pfet_06v0/(1|3) = 1                      |  cap_mim_2f0fF/1 = 1                      
+                                           |  cap_mim_2f0fF/2 = 1                      
+                                           |  pfet_06v0/2 = 2                          
+                                           |  nfet_06v0/2 = 2                          
+                                           |                                           
+Net: a_44238_31016#                        |Net: GRADIENT:4/net3                       
+  nfet_06v0/(1|3) = 1                      |  pfet_06v0/(1|3) = 1                      
+  pfet_06v0/(1|3) = 1                      |  nfet_06v0/(1|3) = 1                      
+  cap_mim_2f0_m4m5_noshield/(1|2) = 2      |  cap_mim_2f0fF/1 = 1                      
+                                           |  cap_mim_2f0fF/2 = 1                      
+                                           |  pfet_06v0/2 = 2                          
+                                           |  nfet_06v0/2 = 2                          
+                                           |                                           
+Net: a_33684_22332#                        |Net: GRADIENT:1/net2                       
+  pfet_06v0/(1|3) = 1                      |  pfet_06v0/(1|3) = 1                      
+  cap_mim_2f0_m4m5_noshield/(1|2) = 2      |  nfet_06v0/(1|3) = 1                      
+  nfet_06v0/(1|3) = 1                      |  cap_mim_2f0fF/1 = 1                      
+                                           |  cap_mim_2f0fF/2 = 1                      
+                                           |  pfet_06v0/2 = 2                          
+                                           |  nfet_06v0/2 = 2                          
+                                           |                                           
+Net: a_20158_13656#                        |Net: GRADIENT:2/net2                       
+  cap_mim_2f0_m4m5_noshield/(1|2) = 2      |  pfet_06v0/(1|3) = 1                      
+  pfet_06v0/(1|3) = 1                      |  nfet_06v0/(1|3) = 1                      
+  nfet_06v0/(1|3) = 1                      |  cap_mim_2f0fF/1 = 1                      
+                                           |  cap_mim_2f0fF/2 = 1                      
+                                           |  pfet_06v0/2 = 2                          
+                                           |  nfet_06v0/2 = 2                          
+                                           |                                           
+Net: a_44238_48376#                        |Net: GRADIENT:3/net2                       
+  pfet_06v0/(1|3) = 1                      |  pfet_06v0/(1|3) = 1                      
+  cap_mim_2f0_m4m5_noshield/(1|2) = 2      |  nfet_06v0/(1|3) = 1                      
+  nfet_06v0/(1|3) = 1                      |  cap_mim_2f0fF/1 = 1                      
+                                           |  cap_mim_2f0fF/2 = 1                      
+                                           |  pfet_06v0/2 = 2                          
+                                           |  nfet_06v0/2 = 2                          
+                                           |                                           
+Net: a_12852_39692#                        |Net: GRADIENT:4/net2                       
+  cap_mim_2f0_m4m5_noshield/(1|2) = 2      |  pfet_06v0/(1|3) = 1                      
+  nfet_06v0/(1|3) = 1                      |  nfet_06v0/(1|3) = 1                      
+  pfet_06v0/(1|3) = 1                      |  cap_mim_2f0fF/1 = 1                      
+                                           |  cap_mim_2f0fF/2 = 1                      
+                                           |  pfet_06v0/2 = 2                          
+                                           |  nfet_06v0/2 = 2                          
+                                           |                                           
+Net: S1P                                   |Net: S1P                                   
+  nfet_06v0/2 = 3                          |  nfet_06v0/2 = 3                          
+  pfet_06v0/2 = 3                          |  pfet_06v0/2 = 3                          
+                                           |                                           
+Net: S2P                                   |Net: S2P                                   
+  pfet_06v0/2 = 3                          |  pfet_06v0/2 = 3                          
+  nfet_06v0/2 = 3                          |  nfet_06v0/2 = 3                          
+  nfet_06v0/4 = 681                        |                                           
+  nfet_06v0/(1|3) = 310                    |                                           
+  nfet_05v0/(1|3) = 9                      |                                           
+  nfet_05v0/4 = 9                          |                                           
+  pfet_06v0/(1|3) = 296                    |                                           
+  pfet_06v0/4 = 636                        |                                           
+                                           |                                           
+Net: S3P                                   |Net: S3P                                   
+  pfet_06v0/2 = 3                          |  pfet_06v0/2 = 3                          
+  nfet_06v0/2 = 3                          |  nfet_06v0/2 = 3                          
+                                           |                                           
+Net: S4P                                   |Net: S4P                                   
+  nfet_06v0/2 = 1                          |  nfet_06v0/2 = 3                          
+  pfet_06v0/2 = 1                          |  pfet_06v0/2 = 3                          
+                                           |                                           
+Net: S1N                                   |Net: S1N                                   
+  pfet_06v0/2 = 3                          |  pfet_06v0/2 = 3                          
+  nfet_06v0/2 = 3                          |  nfet_06v0/2 = 3                          
+                                           |                                           
+Net: S2N                                   |Net: S2N                                   
+  pfet_06v0/2 = 1                          |  pfet_06v0/2 = 3                          
+  nfet_06v0/2 = 1                          |  nfet_06v0/2 = 3                          
+                                           |                                           
+Net: S3N                                   |Net: S3N                                   
+  nfet_06v0/2 = 2                          |  nfet_06v0/2 = 3                          
+  pfet_06v0/2 = 2                          |  pfet_06v0/2 = 3                          
+                                           |                                           
+Net: S4N                                   |Net: S4N                                   
+  nfet_06v0/2 = 1                          |  nfet_06v0/2 = 3                          
+  pfet_06v0/2 = 1                          |  pfet_06v0/2 = 3                          
+                                           |                                           
+Net: a_23422_74260#                        |Net: VDD                                   
+  nfet_06v0/2 = 2                          |  pfet_06v0/(1|3) = 302                    
+  pfet_06v0/2 = 2                          |  pfet_06v0/4 = 642                        
+                                           |  pfet_05v0/(1|3) = 9                      
+                                           |  pfet_05v0/4 = 9                          
+                                           |                                           
+Net: a_1918_74260#                         |Net: VSS                                   
+  pfet_06v0/2 = 2                          |  nfet_06v0/4 = 681                        
+  nfet_06v0/2 = 2                          |  nfet_06v0/(1|3) = 310                    
+                                           |  nfet_05v0/(1|3) = 9                      
+                                           |  nfet_05v0/4 = 9                          
+                                           |                                           
+Net: a_64526_56900#                        |(no matching net)                          
+  nfet_06v0/2 = 2                          |                                           
+  pfet_06v0/2 = 2                          |                                           
+                                           |                                           
+Net: a_2330_75936#                         |(no matching net)                          
+  nfet_06v0/2 = 2                          |                                           
+  pfet_06v0/2 = 2                          |                                           
+                                           |                                           
+Net: a_64938_58576#                        |(no matching net)                          
+  nfet_06v0/2 = 2                          |                                           
+  pfet_06v0/2 = 2                          |                                           
+                                           |                                           
+Net: a_13082_75936#                        |(no matching net)                          
+  pfet_06v0/2 = 2                          |                                           
+  nfet_06v0/2 = 2                          |                                           
+                                           |                                           
+Net: a_23834_75936#                        |(no matching net)                          
+  nfet_06v0/2 = 2                          |                                           
+  pfet_06v0/2 = 2                          |                                           
+                                           |                                           
+Net: a_8010_48376#                         |(no matching net)                          
+  nfet_06v0/(1|3) = 1                      |                                           
+  pfet_06v0/(1|3) = 2                      |                                           
+  cap_mim_2f0_m4m5_noshield/(1|2) = 1      |                                           
+                                           |                                           
+Net: a_45846_22332#                        |(no matching net)                          
+  nfet_06v0/(1|3) = 1                      |                                           
+  pfet_06v0/(1|3) = 2                      |                                           
+  cap_mim_2f0_m4m5_noshield/(1|2) = 1      |                                           
+                                           |                                           
+Net: a_4182_4860#                          |(no matching net)                          
+  pfet_06v0/(1|3) = 2                      |                                           
+  nfet_06v0/(1|3) = 1                      |                                           
+  cap_mim_2f0_m4m5_noshield/(1|2) = 1      |                                           
+                                           |                                           
+Net: a_56170_13656#                        |(no matching net)                          
+  nfet_06v0/(1|3) = 1                      |                                           
+  pfet_06v0/(1|3) = 2                      |                                           
+  cap_mim_2f0_m4m5_noshield/(1|2) = 1      |                                           
+                                           |                                           
+Net: a_45846_39692#                        |(no matching net)                          
+  pfet_06v0/(1|3) = 2                      |                                           
+  nfet_06v0/(1|3) = 1                      |                                           
+  cap_mim_2f0_m4m5_noshield/(1|2) = 1      |                                           
+                                           |                                           
+Net: a_45846_4860#                         |(no matching net)                          
+  pfet_06v0/(1|3) = 2                      |                                           
+  cap_mim_2f0_m4m5_noshield/(1|2) = 1      |                                           
+  nfet_06v0/(1|3) = 1                      |                                           
+                                           |                                           
+Net: a_56170_48376#                        |(no matching net)                          
+  pfet_06v0/(1|3) = 2                      |                                           
+  cap_mim_2f0_m4m5_noshield/(1|2) = 1      |                                           
+  nfet_06v0/(1|3) = 1                      |                                           
+                                           |                                           
+Net: a_32090_65848#                        |(no matching net)                          
+  nfet_06v0/(1|3) = 1                      |                                           
+  pfet_06v0/(1|3) = 2                      |                                           
+  cap_mim_2f0_m4m5_noshield/(1|2) = 1      |                                           
+                                           |                                           
+Net: a_4182_57052#                         |(no matching net)                          
+  nfet_06v0/(1|3) = 1                      |                                           
+  cap_mim_2f0_m4m5_noshield/(1|2) = 1      |                                           
+  pfet_06v0/(1|3) = 2                      |                                           
+                                           |                                           
+Net: a_25014_4860#                         |(no matching net)                          
+  cap_mim_2f0_m4m5_noshield/(1|2) = 1      |                                           
+  pfet_06v0/(1|3) = 2                      |                                           
+  nfet_06v0/(1|3) = 1                      |                                           
+                                           |                                           
+Net: a_25014_39692#                        |(no matching net)                          
+  cap_mim_2f0_m4m5_noshield/(1|2) = 1      |                                           
+  pfet_06v0/(1|3) = 2                      |                                           
+  nfet_06v0/(1|3) = 1                      |                                           
+                                           |                                           
+Net: a_56170_65848#                        |(no matching net)                          
+  pfet_06v0/(1|3) = 2                      |                                           
+  nfet_06v0/(1|3) = 1                      |                                           
+  cap_mim_2f0_m4m5_noshield/(1|2) = 1      |                                           
+                                           |                                           
+Net: a_56170_31016#                        |(no matching net)                          
+  nfet_06v0/(1|3) = 1                      |                                           
+  cap_mim_2f0_m4m5_noshield/(1|2) = 1      |                                           
+  pfet_06v0/(1|3) = 2                      |                                           
+                                           |                                           
+Net: a_32090_31016#                        |(no matching net)                          
+  pfet_06v0/(1|3) = 2                      |                                           
+  cap_mim_2f0_m4m5_noshield/(1|2) = 1      |                                           
+  nfet_06v0/(1|3) = 1                      |                                           
+                                           |                                           
+Net: a_32090_48376#                        |(no matching net)                          
+  pfet_06v0/(1|3) = 2                      |                                           
+  cap_mim_2f0_m4m5_noshield/(1|2) = 1      |                                           
+  nfet_06v0/(1|3) = 1                      |                                           
+                                           |                                           
+Net: a_25014_57052#                        |(no matching net)                          
+  cap_mim_2f0_m4m5_noshield/(1|2) = 1      |                                           
+  pfet_06v0/(1|3) = 2                      |                                           
+  nfet_06v0/(1|3) = 1                      |                                           
+                                           |                                           
+Net: a_8010_31016#                         |(no matching net)                          
+  pfet_06v0/(1|3) = 2                      |                                           
+  nfet_06v0/(1|3) = 1                      |                                           
+  cap_mim_2f0_m4m5_noshield/(1|2) = 1      |                                           
+                                           |                                           
+Net: a_8010_65848#                         |(no matching net)                          
+  pfet_06v0/(1|3) = 2                      |                                           
+  nfet_06v0/(1|3) = 1                      |                                           
+  cap_mim_2f0_m4m5_noshield/(1|2) = 1      |                                           
+                                           |                                           
+Net: a_8010_13656#                         |(no matching net)                          
+  cap_mim_2f0_m4m5_noshield/(1|2) = 1      |                                           
+  pfet_06v0/(1|3) = 2                      |                                           
+  nfet_06v0/(1|3) = 1                      |                                           
+                                           |                                           
+Net: a_4182_39692#                         |(no matching net)                          
+  cap_mim_2f0_m4m5_noshield/(1|2) = 1      |                                           
+  pfet_06v0/(1|3) = 2                      |                                           
+  nfet_06v0/(1|3) = 1                      |                                           
+                                           |                                           
+Net: a_32090_13656#                        |(no matching net)                          
+  pfet_06v0/(1|3) = 2                      |                                           
+  nfet_06v0/(1|3) = 1                      |                                           
+  cap_mim_2f0_m4m5_noshield/(1|2) = 1      |                                           
+                                           |                                           
+Net: a_4182_22332#                         |(no matching net)                          
+  pfet_06v0/(1|3) = 2                      |                                           
+  nfet_06v0/(1|3) = 1                      |                                           
+  cap_mim_2f0_m4m5_noshield/(1|2) = 1      |                                           
+                                           |                                           
+Net: a_45846_57052#                        |(no matching net)                          
+  pfet_06v0/(1|3) = 2                      |                                           
+  cap_mim_2f0_m4m5_noshield/(1|2) = 1      |                                           
+  nfet_06v0/(1|3) = 1                      |                                           
+                                           |                                           
+Net: a_25014_22332#                        |(no matching net)                          
+  cap_mim_2f0_m4m5_noshield/(1|2) = 1      |                                           
+  pfet_06v0/(1|3) = 2                      |                                           
+  nfet_06v0/(1|3) = 1                      |                                           
+                                           |                                           
+Net: a_3382_74260#                         |(no matching net)                          
+  pfet_06v0/2 = 2                          |                                           
+  nfet_06v0/2 = 2                          |                                           
+                                           |                                           
+Net: w_64222_7494#                         |(no matching net)                          
+  pfet_06v0/(1|3) = 2                      |                                           
+  pfet_06v0/4 = 2                          |                                           
+  pfet_05v0/(1|3) = 3                      |                                           
+  pfet_05v0/4 = 3                          |                                           
+                                           |                                           
+Net: w_64222_24966#                        |(no matching net)                          
+  pfet_06v0/(1|3) = 2                      |                                           
+  pfet_06v0/4 = 2                          |                                           
+  pfet_05v0/(1|3) = 3                      |                                           
+  pfet_05v0/4 = 3                          |                                           
+                                           |                                           
+Net: w_64222_42326#                        |(no matching net)                          
+  pfet_06v0/(1|3) = 2                      |                                           
+  pfet_06v0/4 = 2                          |                                           
+  pfet_05v0/(1|3) = 3                      |                                           
+  pfet_05v0/4 = 3                          |                                           
+                                           |                                           
+Net: a_1830_74376#                         |(no matching net)                          
+  nfet_06v0/(1|3) = 2                      |                                           
+  pfet_06v0/(1|3) = 1                      |                                           
+                                           |                                           
+Net: a_64438_57016#                        |(no matching net)                          
+  nfet_06v0/(1|3) = 2                      |                                           
+  pfet_06v0/(1|3) = 1                      |                                           
+                                           |                                           
+Net: a_23334_74376#                        |(no matching net)                          
+  nfet_06v0/(1|3) = 2                      |                                           
+  pfet_06v0/(1|3) = 1                      |                                           
+                                           |                                           
+Net: a_12582_74376#                        |(no matching net)                          
+  nfet_06v0/(1|3) = 2                      |                                           
+  pfet_06v0/(1|3) = 1                      |                                           
+                                           |                                           
+Net: a_12670_74260#                        |(no matching net)                          
+  nfet_06v0/(1|3) = 1                      |                                           
+  pfet_06v0/(1|3) = 1                      |                                           
+  cap_mim_2f0_m4m5_noshield/(1|2) = 2      |                                           
+  nfet_06v0/2 = 2                          |                                           
+  pfet_06v0/2 = 2                          |                                           
+                                           |                                           
+Net: a_54516_39692#                        |(no matching net)                          
+  pfet_06v0/(1|3) = 1                      |                                           
+  nfet_06v0/2 = 1                          |                                           
+  cap_mim_2f0_m4m5_noshield/(1|2) = 2      |                                           
+  nfet_06v0/(1|3) = 1                      |                                           
+  pfet_06v0/2 = 1                          |                                           
+                                           |                                           
+Net: a_12852_22332#                        |(no matching net)                          
+  nfet_06v0/(1|3) = 1                      |                                           
+  pfet_06v0/(1|3) = 1                      |                                           
+  cap_mim_2f0_m4m5_noshield/(1|2) = 2      |                                           
+                                           |                                           
+Net: a_54516_22332#                        |(no matching net)                          
+  nfet_06v0/(1|3) = 1                      |                                           
+  cap_mim_2f0_m4m5_noshield/(1|2) = 2      |                                           
+  pfet_06v0/(1|3) = 1                      |                                           
+                                           |                                           
+Net: a_24886_74260#                        |(no matching net)                          
+  nfet_06v0/2 = 2                          |                                           
+  pfet_06v0/2 = 2                          |                                           
+                                           |                                           
+Net: a_69626_5570#                         |(no matching net)                          
+  nfet_06v0/2 = 1                          |                                           
+                                           |                                           
+Net: a_64526_23042#                        |(no matching net)                          
+  nfet_06v0/2 = 1                          |                                           
+                                           |                                           
+Net: a_65638_23042#                        |(no matching net)                          
+  nfet_06v0/2 = 1                          |                                           
+                                           |                                           
+Net: a_65638_5570#                         |(no matching net)                          
+  nfet_06v0/2 = 1                          |                                           
+                                           |                                           
+Net: a_69626_23042#                        |(no matching net)                          
+  nfet_06v0/2 = 1                          |                                           
+                                           |                                           
+Net: a_64526_39194#                        |(no matching net)                          
+  nfet_06v0/2 = 1                          |                                           
+                                           |                                           
+Net: a_64526_21834#                        |(no matching net)                          
+  nfet_06v0/2 = 1                          |                                           
+                                           |                                           
+Net: a_64526_5570#                         |(no matching net)                          
+  nfet_06v0/2 = 1                          |                                           
+                                           |                                           
+Net: a_69626_40402#                        |(no matching net)                          
+  nfet_06v0/2 = 1                          |                                           
+                                           |                                           
+Net: a_64526_4362#                         |(no matching net)                          
+  nfet_06v0/2 = 1                          |                                           
+                                           |                                           
+Net: a_64526_40402#                        |(no matching net)                          
+  nfet_06v0/2 = 1                          |                                           
+                                           |                                           
+Net: a_65638_40402#                        |(no matching net)                          
+  nfet_06v0/2 = 1                          |                                           
+---------------------------------------------------------------------------------------
+DEVICE mismatches: Class fragments follow (with node fanout counts):
+Circuit 1: GRADIENT_NAV                    |Circuit 2: GRADIENT_NAV                    
+
+---------------------------------------------------------------------------------------
+Instance: cap_mim_2f0_m4m5_noshield:1706   |Instance: GRADIENT:4/COMP:6/sub_diff:2/cap 
+  (1,2) = (4,4)                            |  1 = 4                                    
+                                           |  2 = 8                                    
+                                           |                                           
+Instance: cap_mim_2f0_m4m5_noshield:1700   |Instance: GRADIENT:4/COMP:6/sub_diff:2/cap 
+  (1,2) = (4,4)                            |  1 = 8                                    
+                                           |  2 = 4                                    
+                                           |                                           
+Instance: cap_mim_2f0_m4m5_noshield:1550   |Instance: GRADIENT:4/COMP:5/sub_diff:2/cap 
+  (1,2) = (4,4)                            |  1 = 4                                    
+                                           |  2 = 8                                    
+                                           |                                           
+Instance: cap_mim_2f0_m4m5_noshield:1532   |Instance: GRADIENT:4/COMP:5/sub_diff:2/cap 
+  (1,2) = (4,4)                            |  1 = 8                                    
+                                           |  2 = 4                                    
+                                           |                                           
+Instance: cap_mim_2f0_m4m5_noshield:1503   |Instance: GRADIENT:4/COMP:4/sub_diff:2/cap 
+  (1,2) = (4,4)                            |  1 = 4                                    
+                                           |  2 = 8                                    
+                                           |                                           
+Instance: cap_mim_2f0_m4m5_noshield:1498   |Instance: GRADIENT:4/COMP:4/sub_diff:2/cap 
+  (1,2) = (4,4)                            |  1 = 8                                    
+                                           |  2 = 4                                    
+                                           |                                           
+Instance: cap_mim_2f0_m4m5_noshield:1496   |Instance: GRADIENT:4/OPAM:3/cap_mim_2f0fF: 
+  (1,2) = (4,4)                            |  1 = 8                                    
+                                           |  2 = 4                                    
+                                           |                                           
+Instance: cap_mim_2f0_m4m5_noshield:1426   |Instance: GRADIENT:4/OPAM:3/cap_mim_2f0fF: 
+  (1,2) = (4,4)                            |  1 = 4                                    
+                                           |  2 = 8                                    
+                                           |                                           
+Instance: cap_mim_2f0_m4m5_noshield:1329   |Instance: GRADIENT:4/OPAM:2/cap_mim_2f0fF: 
+  (1,2) = (4,4)                            |  1 = 8                                    
+                                           |  2 = 4                                    
+                                           |                                           
+Instance: cap_mim_2f0_m4m5_noshield:1312   |Instance: GRADIENT:4/OPAM:2/cap_mim_2f0fF: 
+  (1,2) = (4,4)                            |  1 = 4                                    
+                                           |  2 = 8                                    
+                                           |                                           
+Instance: cap_mim_2f0_m4m5_noshield:1306   |Instance: GRADIENT:4/OPAM:1/cap_mim_2f0fF: 
+  (1,2) = (4,4)                            |  1 = 8                                    
+                                           |  2 = 4                                    
+                                           |                                           
+Instance: cap_mim_2f0_m4m5_noshield:1293   |Instance: GRADIENT:4/OPAM:1/cap_mim_2f0fF: 
+  (1,2) = (4,4)                            |  1 = 4                                    
+                                           |  2 = 8                                    
+                                           |                                           
+Instance: cap_mim_2f0_m4m5_noshield:1275   |Instance: GRADIENT:3/COMP:6/sub_diff:2/cap 
+  (1,2) = (4,4)                            |  1 = 4                                    
+                                           |  2 = 8                                    
+                                           |                                           
+Instance: cap_mim_2f0_m4m5_noshield:1227   |Instance: GRADIENT:3/COMP:6/sub_diff:2/cap 
+  (1,2) = (4,4)                            |  1 = 8                                    
+                                           |  2 = 4                                    
+                                           |                                           
+Instance: cap_mim_2f0_m4m5_noshield:1175   |Instance: GRADIENT:3/COMP:5/sub_diff:2/cap 
+  (1,2) = (4,4)                            |  1 = 4                                    
+                                           |  2 = 8                                    
+                                           |                                           
+Instance: cap_mim_2f0_m4m5_noshield:1144   |Instance: GRADIENT:3/COMP:5/sub_diff:2/cap 
+  (1,2) = (4,4)                            |  1 = 8                                    
+                                           |  2 = 4                                    
+                                           |                                           
+Instance: cap_mim_2f0_m4m5_noshield:1135   |Instance: GRADIENT:3/COMP:4/sub_diff:2/cap 
+  (1,2) = (4,4)                            |  1 = 4                                    
+                                           |  2 = 8                                    
+                                           |                                           
+Instance: cap_mim_2f0_m4m5_noshield:1087   |Instance: GRADIENT:3/COMP:4/sub_diff:2/cap 
+  (1,2) = (4,4)                            |  1 = 8                                    
+                                           |  2 = 4                                    
+                                           |                                           
+Instance: cap_mim_2f0_m4m5_noshield:1079   |Instance: GRADIENT:3/OPAM:3/cap_mim_2f0fF: 
+  (1,2) = (4,4)                            |  1 = 8                                    
+                                           |  2 = 4                                    
+                                           |                                           
+Instance: cap_mim_2f0_m4m5_noshield:1078   |Instance: GRADIENT:3/OPAM:3/cap_mim_2f0fF: 
+  (1,2) = (4,4)                            |  1 = 4                                    
+                                           |  2 = 8                                    
+                                           |                                           
+Instance: cap_mim_2f0_m4m5_noshield:1059   |Instance: GRADIENT:3/OPAM:2/cap_mim_2f0fF: 
+  (1,2) = (4,4)                            |  1 = 8                                    
+                                           |  2 = 4                                    
+                                           |                                           
+Instance: cap_mim_2f0_m4m5_noshield:1046   |Instance: GRADIENT:3/OPAM:2/cap_mim_2f0fF: 
+  (1,2) = (4,4)                            |  1 = 4                                    
+                                           |  2 = 8                                    
+                                           |                                           
+Instance: cap_mim_2f0_m4m5_noshield:912    |Instance: GRADIENT:3/OPAM:1/cap_mim_2f0fF: 
+  (1,2) = (4,4)                            |  1 = 8                                    
+                                           |  2 = 4                                    
+                                           |                                           
+Instance: cap_mim_2f0_m4m5_noshield:907    |Instance: GRADIENT:3/OPAM:1/cap_mim_2f0fF: 
+  (1,2) = (4,4)                            |  1 = 4                                    
+                                           |  2 = 8                                    
+                                           |                                           
+Instance: cap_mim_2f0_m4m5_noshield:843    |Instance: GRADIENT:2/COMP:6/sub_diff:2/cap 
+  (1,2) = (4,4)                            |  1 = 4                                    
+                                           |  2 = 8                                    
+                                           |                                           
+Instance: cap_mim_2f0_m4m5_noshield:792    |Instance: GRADIENT:2/COMP:6/sub_diff:2/cap 
+  (1,2) = (6,4)                            |  1 = 8                                    
+                                           |  2 = 4                                    
+                                           |                                           
+Instance: cap_mim_2f0_m4m5_noshield:705    |Instance: GRADIENT:2/COMP:5/sub_diff:2/cap 
+  (1,2) = (8,4)                            |  1 = 4                                    
+                                           |  2 = 8                                    
+                                           |                                           
+Instance: cap_mim_2f0_m4m5_noshield:675    |Instance: GRADIENT:2/COMP:5/sub_diff:2/cap 
+  (1,2) = (4,4)                            |  1 = 8                                    
+                                           |  2 = 4                                    
+                                           |                                           
+Instance: cap_mim_2f0_m4m5_noshield:664    |Instance: GRADIENT:2/COMP:4/sub_diff:2/cap 
+  (1,2) = (6,4)                            |  1 = 4                                    
+                                           |  2 = 8                                    
+                                           |                                           
+Instance: cap_mim_2f0_m4m5_noshield:659    |Instance: GRADIENT:2/COMP:4/sub_diff:2/cap 
+  (1,2) = (4,4)                            |  1 = 8                                    
+                                           |  2 = 4                                    
+                                           |                                           
+Instance: cap_mim_2f0_m4m5_noshield:640    |Instance: GRADIENT:2/OPAM:3/cap_mim_2f0fF: 
+  (1,2) = (4,4)                            |  1 = 8                                    
+                                           |  2 = 4                                    
+                                           |                                           
+Instance: cap_mim_2f0_m4m5_noshield:621    |Instance: GRADIENT:2/OPAM:3/cap_mim_2f0fF: 
+  (1,2) = (4,4)                            |  1 = 4                                    
+                                           |  2 = 8                                    
+                                           |                                           
+Instance: cap_mim_2f0_m4m5_noshield:557    |Instance: GRADIENT:2/OPAM:2/cap_mim_2f0fF: 
+  (1,2) = (4,4)                            |  1 = 8                                    
+                                           |  2 = 4                                    
+                                           |                                           
+Instance: cap_mim_2f0_m4m5_noshield:553    |Instance: GRADIENT:2/OPAM:2/cap_mim_2f0fF: 
+  (1,2) = (4,4)                            |  1 = 4                                    
+                                           |  2 = 8                                    
+                                           |                                           
+Instance: cap_mim_2f0_m4m5_noshield:441    |Instance: GRADIENT:2/OPAM:1/cap_mim_2f0fF: 
+  (1,2) = (4,4)                            |  1 = 8                                    
+                                           |  2 = 4                                    
+                                           |                                           
+Instance: cap_mim_2f0_m4m5_noshield:431    |Instance: GRADIENT:2/OPAM:1/cap_mim_2f0fF: 
+  (1,2) = (4,4)                            |  1 = 4                                    
+                                           |  2 = 8                                    
+                                           |                                           
+Instance: cap_mim_2f0_m4m5_noshield:423    |Instance: GRADIENT:1/COMP:6/sub_diff:2/cap 
+  (1,2) = (4,4)                            |  1 = 4                                    
+                                           |  2 = 8                                    
+                                           |                                           
+Instance: cap_mim_2f0_m4m5_noshield:415    |Instance: GRADIENT:1/COMP:6/sub_diff:2/cap 
+  (1,2) = (4,4)                            |  1 = 8                                    
+                                           |  2 = 4                                    
+                                           |                                           
+Instance: cap_mim_2f0_m4m5_noshield:351    |Instance: GRADIENT:1/COMP:5/sub_diff:2/cap 
+  (1,2) = (4,4)                            |  1 = 4                                    
+                                           |  2 = 8                                    
+                                           |                                           
+Instance: cap_mim_2f0_m4m5_noshield:339    |Instance: GRADIENT:1/COMP:5/sub_diff:2/cap 
+  (1,2) = (4,4)                            |  1 = 8                                    
+                                           |  2 = 4                                    
+                                           |                                           
+Instance: cap_mim_2f0_m4m5_noshield:327    |Instance: GRADIENT:1/COMP:4/sub_diff:2/cap 
+  (1,2) = (8,4)                            |  1 = 4                                    
+                                           |  2 = 8                                    
+                                           |                                           
+Instance: cap_mim_2f0_m4m5_noshield:304    |Instance: GRADIENT:1/COMP:4/sub_diff:2/cap 
+  (1,2) = (4,4)                            |  1 = 8                                    
+                                           |  2 = 4                                    
+                                           |                                           
+Instance: cap_mim_2f0_m4m5_noshield:250    |Instance: GRADIENT:1/OPAM:3/cap_mim_2f0fF: 
+  (1,2) = (4,4)                            |  1 = 8                                    
+                                           |  2 = 4                                    
+                                           |                                           
+Instance: cap_mim_2f0_m4m5_noshield:186    |Instance: GRADIENT:1/OPAM:3/cap_mim_2f0fF: 
+  (1,2) = (4,4)                            |  1 = 4                                    
+                                           |  2 = 8                                    
+                                           |                                           
+Instance: cap_mim_2f0_m4m5_noshield:182    |Instance: GRADIENT:1/OPAM:2/cap_mim_2f0fF: 
+  (1,2) = (4,4)                            |  1 = 8                                    
+                                           |  2 = 4                                    
+                                           |                                           
+Instance: cap_mim_2f0_m4m5_noshield:127    |Instance: GRADIENT:1/OPAM:2/cap_mim_2f0fF: 
+  (1,2) = (4,4)                            |  1 = 4                                    
+                                           |  2 = 8                                    
+                                           |                                           
+Instance: cap_mim_2f0_m4m5_noshield:44     |Instance: GRADIENT:1/OPAM:1/cap_mim_2f0fF: 
+  (1,2) = (4,4)                            |  1 = 8                                    
+                                           |  2 = 4                                    
+                                           |                                           
+Instance: cap_mim_2f0_m4m5_noshield:1      |Instance: GRADIENT:1/OPAM:1/cap_mim_2f0fF: 
+  (1,2) = (4,4)                            |  1 = 4                                    
+                                           |  2 = 8                                    
+---------------------------------------------------------------------------------------
+Netlists do not match.
+Port matching may fail to disambiguate symmetries.
+
+Subcircuit pins:
+Circuit 1: GRADIENT_NAV                    |Circuit 2: GRADIENT_NAV                    
+-------------------------------------------|-------------------------------------------
+S2N                                        |(no pin, node is GRADIENT:3/OPAM:1/net9)   
+S4N                                        |(no pin, node is GRADIENT:3/COMP:6/sub_dif 
+S4P                                        |(no pin, node is GRADIENT:1/OPAM:2/net10)  
+S2P                                        |(no pin, node is GRADIENT:1/COMP:5/sub_dif 
+Cell pin lists are equivalent.
+Device classes GRADIENT_NAV and GRADIENT_NAV are equivalent.
+
+Final result: Netlists do not match.
+Port matching may fail to disambiguate symmetries.
