@@ -28,7 +28,14 @@ TARGETS = {
     "DECODER": ROOT / "gds/DECODER.gds",
     "WEIGHT_COMP": ROOT / "gds/WEIGHT_COMP.gds",
     "GRADIENT_NAV": ROOT / "out/GRADIENT_NAV.gds",
+    #  El mismo top con el relleno de densidad (`scripts/fill_density.py`). Es el
+    #  entregable de submision; el de arriba se queda para el lazo de depuracion.
+    "GRADIENT_NAV_FILLED": ROOT / "out/GRADIENT_NAV_filled.gds",
 }
+
+
+#: El GDS con relleno conserva el nombre de celda del original.
+TOPCELL = {"GRADIENT_NAV_FILLED": "GRADIENT_NAV"}
 
 
 def counts(run_dir: Path) -> collections.Counter:
@@ -46,7 +53,12 @@ def counts(run_dir: Path) -> collections.Counter:
 
 
 def main() -> int:
-    names = sys.argv[1:] or list(TARGETS)
+    #  Las reglas de DENSIDAD van aparte: el deck no las corre salvo que se le
+    #  pidan, asi que hasta ahora no se habian comprobado nunca en este flujo.
+    #  magic no es alternativa aqui — su techfile de GF180 no trae ni una regla
+    #  de densidad, asi que esta comprobacion solo existe en KLayout.
+    densidad = "--density" in sys.argv
+    names = [a for a in sys.argv[1:] if not a.startswith("-")] or list(TARGETS)
     bad = 0
     for name in names:
         gds = TARGETS.get(name)
@@ -55,12 +67,13 @@ def main() -> int:
         if not gds.exists() or not gds.resolve().exists():
             print(f"  {name:14s} sin GDS todavia — saltado")
             continue
-        run_dir = ROOT / "out" / f"drc_{name}"
+        run_dir = ROOT / "out" / (f"density_{name}" if densidad else f"drc_{name}")
         subprocess.run(["rm", "-rf", str(run_dir)], check=False)
         run_dir.mkdir(parents=True, exist_ok=True)
         subprocess.run(
             ["python3", RUNNER, f"--path={gds.resolve()}", "--variant=D",
-             f"--topcell={name}", f"--run_dir={run_dir}", "--mp=4"],
+             f"--topcell={TOPCELL.get(name, name)}", f"--run_dir={run_dir}", "--mp=4"]
+            + (["--density_only"] if densidad else []),
             capture_output=True, text=True, timeout=14400, check=False,
             env={"PATH": "/foss/tools/klayout:/usr/bin:/bin",
                  "HOME": "/tmp", "PDK_ROOT": "/foss/pdks"})
@@ -70,7 +83,7 @@ def main() -> int:
             continue
         bad += 1
         total = sum(c.values())
-        detail = "  ".join(f"{k} x{v}" for k, v in c.most_common(6))
+        detail = "  ".join(f"{k} x{v}" for k, v in c.most_common(10))
         print(f"  {name:14s} {total} violaciones: {detail}")
     return 1 if bad else 0
 

@@ -4,19 +4,53 @@ Everything OpenROAD needs to assemble the analog blocks of this project into the
 top level, `GRADIENT_NAV`. Nothing here is a source: it is all generated from the
 layouts and the xschem netlist, and it is regenerated with one command.
 
+## El proceso completo
+
+De cero a fichero de submision, en orden. Cada paso depende del anterior.
+
 ```bash
-make top          # verilog -> collateral -> floorplan -> gds
+# 0. Los cuatro bloques, si han cambiado los esquematicos (fuera de esta carpeta)
+cd /foss/designs/zotnetic_layout
+for B in COMP OPAM DECODER WEIGHT_COMP; do
+  env -u PYTHONPATH /headless/.venvs/zotnetic/bin/python build_block.py $B
+done
+
+# 1. El top entero: verilog -> colateral -> floorplan -> ruteo -> GDS -> relleno
+cd /foss/designs/a_zonetic2026/openroad
+make top
+
+# 2. Verificacion. Los tres comprueban cosas DISTINTAS, no son opiniones del mismo.
+make drc          # KLayout, deck de firma: FEOL/BEOL/conectividad
+make drc-density  # KLayout, reglas de densidad: `make drc` NO las corre
+make drc-magic    # magic: incluye las reglas de relleno `DPF.*` que KLayout no mira
+make lvs          # netgen sobre la extraccion de magic
+python3 scripts/check_connectivity.py   # que el ruteo conecte: 55/55
 ```
 
-or one step at a time:
+o paso a paso:
 
 ```bash
 make verilog      # xschem netlist -> structural + flat Verilog
 make collateral   # layouts -> LEF / Liberty / black-box Verilog
 make check        # load it all in OpenROAD and list the macros
 make floorplan    # place the macros, build the power grid, write the DEF
+make route        # ruteo global + detallado
 make gds          # DEF -> GDS, with the real layout inside every macro
+make fill         # relleno de densidad -> out/GRADIENT_NAV_filled.gds
 ```
+
+**Cual es el entregable.** `out/GRADIENT_NAV.gds` es el de trabajo: es el que leen
+el DRC, el LVS y `check_connectivity.py`, y el que hay que mirar cuando algo falla.
+El de submision es **`out/GRADIENT_NAV_filled.gds`**, el mismo con el relleno de
+densidad encima.
+
+**Si el DRC del top no sale limpio a la primera**, no es raro: el lazo dirigido por
+DRC necesita un par de vueltas (ver mas abajo). `out/drc_blockages.txt` es
+acumulativo y viene ya con las 11 zonas que hacen falta; si se borra, hay que
+rehacer las vueltas.
+
+    python3 scripts/drc_blockages.py   # anade lo de la ultima tanda de DRC
+    make top && make drc               # y otra vuelta
 
 ## What is here
 
@@ -31,6 +65,9 @@ make gds          # DEF -> GDS, with the real layout inside every macro
 | `verilog/top.v` | the hand-written template from before there was a netlist | by hand, unused |
 | `constraints/top.sdc` | placeholder constraints (no clock yet) | by hand |
 | `scripts/` | the generators and the OpenROAD scripts | by hand |
+| `out/GRADIENT_NAV.gds` | el top, **fichero de trabajo**: lo leen DRC, LVS y conectividad | si |
+| `out/GRADIENT_NAV_filled.gds` | el top con relleno de densidad, **el que se entrega** | si |
+| `out/drc_blockages.txt` | zonas prohibidas al router, del lazo dirigido por DRC | si, acumulativo |
 
 ## The blocks
 
@@ -126,20 +163,32 @@ Two traps worth remembering:
 
 ```bash
 make drc         # KLayout, el deck de firma: cuatro bloques + top
-make drc-magic   # magic, segunda opinión con otro deck
+make fill        # relleno de densidad -> out/GRADIENT_NAV_filled.gds
+make drc-density # las reglas de densidad, que `make drc` NO corre
+make drc-magic   # magic — NO es segunda opinión: trae las reglas de relleno
+                 # `DPF.*` que KLayout no comprueba, y le faltan las de densidad
 make lvs         # netgen sobre la extracción de magic
-make check-all   # los tres
+make lvs-klayout # el deck de firma, también sobre el top
+make check-all   # drc + drc-magic + drc-density + lvs
 ```
 
 Estado a día de hoy:
 
-| | KLayout DRC | KLayout LVS | magic DRC | netgen LVS |
-|---|---|---|---|---|
-| `COMP` | limpio | match | limpio | **match** |
-| `OPAM` | limpio | match | limpio | **match** |
-| `WEIGHT_COMP` | limpio | match | limpio | **match** |
-| `DECODER` | limpio | match | limpio | **match** |
-| `GRADIENT_NAV` | **limpio** | — | **limpio** | dispositivos OK, 54 nets |
+| | KLayout DRC | densidad | KLayout LVS | magic DRC | netgen LVS |
+|---|---|---|---|---|---|
+| `COMP` | limpio | n/a (1) | match | limpio | **match** |
+| `OPAM` | limpio | n/a (1) | match | limpio | **match** |
+| `WEIGHT_COMP` | limpio | n/a (1) | match | limpio | **match** |
+| `DECODER` | limpio | n/a (1) | match | limpio | **match** |
+| `GRADIENT_NAV` | **limpio** | no cumple | — | **limpio** | dispositivos OK, 54 nets |
+| `GRADIENT_NAV_filled` | **limpio** | **limpio** | pendiente (2) | **limpio** | pendiente (2) |
+
+(1) La densidad se mide **sobre el die entero**, asi que sobre un bloque suelto de
+3 000 um2 no significa nada. El unico sitio donde tiene sentido es el top.
+
+(2) El relleno aparece en la extraccion como metal flotante —los decks suman el
+dummy a la capa fisica—, asi que el LVS sobre el fichero con relleno hay que
+volver a pasarlo. No cambia nada de lo de arriba, pero esta sin comprobar.
 
 Y una comprobación más, que no es DRC ni LVS pero contesta a la pregunta que
 ninguno de los dos contesta —¿está el ruteo realmente conectado?—:
@@ -147,6 +196,58 @@ ninguno de los dos contesta —¿está el ruteo realmente conectado?—:
 ```bash
 python3 scripts/check_connectivity.py    # 55/55 nets del DEF conectadas en el GDS
 ```
+
+### Densidad: un pase aparte, y solo en KLayout
+
+**El DRC de firma no comprueba densidad si no se le pide.** El deck solo ejecuta
+esas reglas con `--density` / `--density_only`, asi que todos los "limpio" de las
+demas secciones son de FEOL/BEOL/conectividad **sin densidad**. Y `magic` no sirve
+de segunda opinion: su techfile de GF180 no trae ni una regla de densidad, asi que
+esta comprobacion existe unicamente en KLayout.
+
+Pedidas, el top las incumplia todas. Son de **minimo**: falta metal, no sobra.
+
+| regla | capa | sin relleno | con relleno | pide |
+|---|---|---|---|---|
+| `DCF.1b` | COMP (activo) | 10.19 % | **32.27 %** | 25 % |
+| `PL.8` | Poly2 | 7.26 % | **20.77 %** | 14 % |
+| `M1.4` | Metal1 | 9.98 % | **31.37 %** | 30 % |
+| `M2.4` | Metal2 | 3.83 % | **31.34 %** | 30 % |
+| `M3.4` | Metal3 | 5.30 % | **30.47 %** | 30 % |
+| `M4.4` | Metal4 | 21.43 % | **32.70 %** | 30 % |
+| `M5.4` `MT.3` `MT.1` | Metal5 | 20.00 % | **30.46 %** | 30 % |
+
+`scripts/fill_density.py` corre **despues** del GDS (`make fill`): lee
+`out/GRADIENT_NAV.gds` y escribe `out/GRADIENT_NAV_filled.gds`, que es el fichero
+de submision. El de partida no se toca, para que el lazo de depuracion siga igual.
+
+**Basta con rellenar los canales.** Los 31 macros ocupan 77 880 um2 de los 151 847
+del die y quedan 73 967 libres; con eso las siete capas llegan al minimo, asi que
+**no hay metal flotante encima de los amplificadores ni de los MIM**.
+
+Tres cosas que costaron un intento fallido de 6214 violaciones:
+
+1. **El DRC y el LVS SI ven el dummy.** Lo que se define como `get_polygons(34, 0)`
+   es la capa *drawn*; la fisica se compone despues con
+   `metal1 = metal1_drawn + metal1_dummy` (`layers_def.drc`), y el LVS hace lo
+   mismo. El relleno tiene que cumplir el DRC entero, y aparece en la extraccion
+   como metal flotante.
+2. **Cuadrados enteros, nunca recortados.** Recortar la rejilla contra la zona
+   libre deja cuellos y trozos por debajo del area minima: de ahi salian miles de
+   `M*.1` y `M*.3`. Ahora un cuadrado o cabe entero o no se pone, con lo que ancho
+   y area se cumplen por construccion.
+3. **`MT.*` se aplica a Metal5.** Para el stack de 5 metales el deck hace
+   `top_metal = metal5`, asi que Metal5 se rige por `MT.1` (0.36 de ancho),
+   `MT.2a` (0.46 de espaciado) y `MT.4` (0.5625 um2 de area), no por los 0.28 y
+   0.1444 de las `M5.*`.
+
+Y una advertencia honesta: `comp_dummy` y `poly2_dummy` son lo que el deck cuenta,
+pero en silicio el activo dummy necesita su implante. Para pasar el DRC del PDK
+basta con dibujar el datatype; para fabricar, habria que revisarlo con la foundry.
+
+La rejilla se genera por erosion de region —un cuadrado de lado L cabe entero si su
+centro cae en la zona erosionada L/2—, no probando poligono a poligono, que tardaba
+minutos por capa.
 
 ### El MIM y la jerarquía: 572 por bloque, y 13 745 en el top
 
@@ -400,6 +501,133 @@ ignores them, and writes LEF outlines — a chip-shaped box with no transistors.
 `COMP`, and `WE` / `OUT` / `OUT_N` on `WEIGHT_COMP`, come out as `inout` because
 that is how they are drawn in xschem (`iopin` / `:B`). If they really are
 outputs, change them to `opin` and re-run `make collateral`.
+
+## Reglas aprendidas
+
+Lo que ha costado descubrir, en una linea cada una. Casi todas se pagaron con horas.
+
+**Sobre las herramientas**
+
+- **magic evalua los booleanos del GDS celda a celda.** Una forma solo existe para el si
+  todas las capas que la definen estan en la MISMA celda. Nos costo tres veces: las vias
+  del MIM en una subcelda sin los marcadores (572 violaciones por bloque), el tap del pozo
+  al sustituir macros (43 nets de pozo flotantes) y, de rebote, la solucion —aplanar— trajo
+  la siguiente.
+- **magic funde por nombre de etiqueta.** Al aplanar el top caian doce `OUT`, doce `INN` y
+  cuatro `Z` en la misma celda y la net `Z` acabo con 1501 pines. Solo deben sobrevivir las
+  etiquetas de los pines del top.
+- **Ninguna herramienta cubre todo.** KLayout tiene las reglas de densidad pero no mira la
+  geometria del relleno de poly; magic no tiene ni una regla de densidad pero si las
+  `DPF.*`. Sobre el mismo fichero, KLayout decia limpio y magic sacaba 134 488 violaciones.
+- **El DRC no ve un corto.** Dos formas de nets distintas que se solapan se funden en un
+  poligono y ninguna regla salta. Un abierto tampoco: no viola nada. Por eso existe
+  `check_connectivity.py`, que es lo unico que contesta "¿esta el ruteo conectado?".
+- **KLayout y netgen quieren convenios opuestos** para el mismo transistor (`M` vs `X`) y
+  para el mismo condensador (`C ... cap_mim_2f0fF` vs `X ... cap_mim_2f0_m4m5_noshield`).
+  La traduccion vive en `lvs_netgen.py` y no toca el `.spice` de disco.
+
+**Sobre el deck de GF180**
+
+- **`MT.*` se aplica a Metal5** en un stack de cinco metales: el deck hace
+  `top_metal = metal5`. Son mas duras que las `M5.*` — 0.36 de ancho, 0.46 de espaciado,
+  0.5625 um2 de area.
+- **El DRC y el LVS SI ven el dummy.** `get_polygons(34, 0)` es la capa *drawn*; la fisica
+  se compone despues con `metal1 = metal1_drawn + metal1_dummy`. El relleno tiene que
+  cumplir el DRC entero.
+- **`make drc` no corre densidad.** Hay que pedirla aparte. Todos los "limpio" de un deck
+  sin `--density` son de FEOL/BEOL/conectividad y nada mas.
+- **El deck mide `Mn.2a` en euclidea**, esquina con esquina; el router mide por proyeccion.
+  Dejar exactamente 0.280 en ortogonal da menos en una esquina en diagonal.
+
+**Sobre el flujo de OpenROAD**
+
+- **Una obstruccion del LEF se recorta al contorno del macro.** Engordarla no la saca de
+  ahi; para proteger algo fuera hacen falta obstrucciones a nivel de top.
+- **La obstruccion tiene que llevar media anchura de cable.** El router la respeta midiendo
+  por el eje del cable, no por su borde.
+- **Una plataforma de puerto necesita hueco para el cable que va a aterrizar en ella**, no
+  solo para si misma.
+- **El pin del LEF debe declarar el metal que hay, no su caja envolvente.** `lef write` da
+  un rectangulo por puerto; si los pads no llegaron a unirse, ese rectangulo declara
+  aterrizable un hueco vacio y el router aterriza ahi.
+- **Cuando ya no hay patron comun, el lazo dirigido por DRC cierra el resto**: las zonas
+  que marca el deck se vuelven obstrucciones y el router repite. Acumulativo, para que
+  converja en vez de oscilar. 10 -> 1 -> 0 en dos vueltas.
+
+**Sobre el relleno de densidad**
+
+- **Cuadrados enteros, nunca recortados.** Recortar la rejilla contra la zona libre deja
+  cuellos y trozos bajo el area minima: miles de `M*.1` y `M*.3`.
+- **Basta con los canales.** Los macros ocupan el 51 % del die y el 49 % libre da de sobra
+  para las siete capas — sin metal flotante sobre los amplificadores ni sobre los MIM.
+- **La rejilla se genera por erosion de region**: un cuadrado de lado L cabe entero si su
+  centro cae en la zona erosionada L/2. Probar poligono a poligono tardaba minutos por capa.
+
+**Sobre el proyecto**
+
+- **Regenerar siempre el spice desde el esquematico.** Nunca leer el que uno mismo genero:
+  puede haber cambiado en xschem.
+- **Una fuente de 0 V (`Vmeas`) es un cable.** Para el LVS no se tira: se **unen** las dos
+  nets, y por ambito, porque los nombres se repiten entre bloques.
+- **El LVS del top pide la referencia aplanada y `--top_lvl_pins`.** Sin lo primero no
+  empareja nada; sin lo segundo el extraido sale sin un solo pin y la comparacion no
+  arranca.
+
+## Subir a GitHub
+
+El repositorio es **`git@github.com:AnBuiUCI/sscs-2026-zotnetic.git`**, compartido con
+el resto del equipo: tiene `main`, `add-pads` y `glayout`. La clave SSH de esta maquina
+autentica como `Juander28`; el repositorio es de `AnBuiUCI`, asi que el acceso de
+escritura depende de que te tengan como colaborador.
+
+**Que se sube y donde.** Todo `a_zonetic2026/` va dentro de `FINAL/` en el repositorio.
+No `zotnetic_layout/`, que es un arbol hermano y queda fuera.
+
+**Como, sin tocar el arbol de trabajo.** Nada de `git init` aqui dentro: git no sabe
+empujar un repositorio local a un subdirectorio del remoto, y ademas conviene que
+`/foss/designs/a_zonetic2026` siga sin `.git` ni nada movido. Se clona en un scratchpad
+y se copia dentro:
+
+```bash
+cd /tmp/…/scratchpad
+git clone git@github.com:AnBuiUCI/sscs-2026-zotnetic.git repo
+git -C repo config user.name "Juander28"
+git -C repo config user.email "jdsanch4@uci.edu"
+
+/bin/cp -a /foss/designs/a_zonetic2026/. repo/FINAL/   # `/bin/` a proposito: cp esta
+                                                        # aliaseado a `cp -i` y se queda
+                                                        # preguntando por cada fichero
+git -C repo add -A
+git -C repo diff --cached --name-only --diff-filter=D   # debe salir VACIO
+git -C repo commit -m "…"
+git -C repo push origin main
+```
+
+**Cuatro cosas que hay que mirar antes de empujar:**
+
+1. **`FINAL/` ya existe** desde el commit `d018403`. Se **actualiza**, no se recrea. Por
+   eso `cp -a` y no `rsync --delete`: sobrescribe y anade, pero nunca borra. Comprobar
+   siempre que `--diff-filter=D` sale vacio.
+2. **Nada fuera de `FINAL/`.** `git diff --cached --name-only | grep -v '^FINAL/'` tiene
+   que salir vacio: hay dos ramas mas con trabajo de otras personas.
+3. **Los enlaces de `spice_blocks/` son absolutos** a `/foss/designs/...` y fuera de esta
+   maquina llegan rotos. Hay que rehacerlos relativos antes del commit. Comprobacion:
+   `find FINAL -xtype l` vacio.
+4. **Nunca `--force`, nunca reescribir historia.**
+
+**Verificar de verdad** es clonar en un directorio limpio, no mirar la copia de trabajo:
+
+```bash
+git clone git@github.com:AnBuiUCI/sscs-2026-zotnetic.git verify
+cd verify && find FINAL -xtype l          # vacio
+python3 -c "print(open('FINAL/openroad/out/GRADIENT_NAV.gds','rb').read(4).hex())"
+# 00060002 = cabecera GDSII valida
+```
+
+No hace falta LFS: el fichero mas grande son los 5.7 MB del GDS del top, muy por debajo
+del limite de 100 MB. El `.gitattributes` de `FINAL/` solo declara `*.gds binary`, para
+que la normalizacion de finales de linea no corrompa un GDS si a git le diera por tomarlo
+por texto.
 
 ## Notes on the generated LEF
 

@@ -19,12 +19,12 @@ PYTHON   := python3
 # dropped or the system packages shadow it (see zotnetic_layout/DRC_KLAYOUT.md).
 KPYTHON  := env -u PYTHONPATH /headless/.venvs/zotnetic/bin/python
 
-.PHONY: all top verilog collateral check floorplan route gds \
-        drc drc-magic lvs check-all clean
+.PHONY: all top verilog collateral check floorplan route gds fill \
+        drc drc-magic drc-density lvs lvs-klayout check-all clean
 
 all: verilog collateral check
 
-top: verilog collateral floorplan route gds
+top: verilog collateral floorplan route gds fill
 
 verilog:
 	$(PYTHON) scripts/spice_to_verilog.py
@@ -45,8 +45,20 @@ route:
 gds:
 	$(KPYTHON) scripts/def_to_gds.py
 
+#  El relleno de densidad va DESPUES del GDS y no toca nada de arriba: lee
+#  out/GRADIENT_NAV.gds y escribe out/GRADIENT_NAV_filled.gds, que es el fichero
+#  de submision. El de partida se queda para el lazo de depuracion.
+fill:
+	$(KPYTHON) scripts/fill_density.py
+
 drc:
 	$(KPYTHON) scripts/drc_klayout.py
+
+#  Las reglas de densidad son un pase aparte: el deck no las corre si no se le
+#  piden. magic no sirve de segunda opinion aqui — su techfile de GF180 no trae
+#  ni una regla de densidad.
+drc-density:
+	$(KPYTHON) scripts/drc_klayout.py --density GRADIENT_NAV_FILLED
 
 drc-magic:
 	$(PYTHON) scripts/drc_magic.py
@@ -54,7 +66,10 @@ drc-magic:
 lvs:
 	$(PYTHON) scripts/lvs_netgen.py
 
-check-all: drc drc-magic lvs
+lvs-klayout:
+	$(PYTHON) scripts/lvs_klayout.py
+
+check-all: drc drc-magic drc-density lvs
 
 clean:
 	rm -rf out work work_drc work_lvs

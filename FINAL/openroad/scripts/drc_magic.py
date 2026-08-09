@@ -31,16 +31,24 @@ TARGETS = {
     "DECODER": ROOT / "gds/DECODER.gds",
     "WEIGHT_COMP": ROOT / "gds/WEIGHT_COMP.gds",
     "GRADIENT_NAV": ROOT / "out/GRADIENT_NAV.gds",
+    #  El mismo top con el relleno de densidad (`scripts/fill_density.py`). Es el
+    #  entregable de submision; el de arriba se queda para el lazo de depuracion.
+    "GRADIENT_NAV_FILLED": ROOT / "out/GRADIENT_NAV_filled.gds",
 }
+
+
+#: El GDS con relleno conserva el nombre de celda del original.
+TOPCELL = {"GRADIENT_NAV_FILLED": "GRADIENT_NAV"}
 
 
 def run(cell: str, gds: Path, work: Path) -> tuple[int, str]:
     work.mkdir(parents=True, exist_ok=True)
     script = work / f"{cell}_drc.tcl"
+    celda = TOPCELL.get(cell, cell)
     script.write_text(
         # `-noconsole -dnull` para que no intente abrir ventana ninguna.
         f"gds read {gds}\n"
-        f"load {cell}\n"
+        f"load {celda}\n"
         "select top cell\n"
         # Euclidiano, como el deck de KLayout: con la métrica por defecto
         # (Manhattan) magic es más permisivo y los dos no serían comparables.
