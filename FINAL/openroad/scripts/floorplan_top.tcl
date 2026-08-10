@@ -319,6 +319,55 @@ puts "Bloqueos de Metal4 alrededor de los MIM: $nblock"
 #  izquierdo y derecho salen en Metal3 y los de arriba y abajo en Metal2.
 place_pins -hor_layers Metal3 -ver_layers Metal2
 
+#  ...pero los DOS de alimentacion hay que ponerlos a mano, encima de su propia
+#  tira de Metal5. `place_pins` los trata como una senal mas y los deja en el
+#  borde del die, en un pad de Metal2/Metal3 que no toca la malla: quedan
+#  FLOTANDO. No lo ve el DRC (un abierto no viola ninguna regla) ni
+#  `check_connectivity.py` (que solo mira terminales de macro, no los pines del
+#  top), y el router tampoco los cierra, porque salta las nets POWER/GROUND.
+#
+#  Donde si aparece es en el LVS, y era lo ultimo que le quedaba al top: netgen
+#  daba `Netlists match with 144 symmetries` con 880 nets y 1389 dispositivos
+#  iguales a cada lado, y fallaba solo en el emparejamiento de pines — la red de
+#  alimentacion de verdad salia sin nombre (`w_1904_7964#` el pozo,
+#  `a_2082_4860#` el sustrato) y los puertos `VDD` y `VSS` salian sueltos.
+#
+#  Se pone el pin sobre la tira, no la tira sobre el pin: la malla ya esta hecha
+#  y tocarla es rehacer el reparto entero.
+proc tira_de {block nombre capa} {
+    set net [$block findNet $nombre]
+    if {$net eq "NULL" || $net eq ""} { return {} }
+    foreach sw [$net getSWires] {
+        foreach caja [$sw getWires] {
+            if {[$caja isVia]} { continue }
+            set l [$caja getTechLayer]
+            if {$l eq "NULL" || [$l getName] ne $capa} { continue }
+            return [list [$caja xMin] [$caja yMin] [$caja xMax] [$caja yMax]]
+        }
+    }
+    return {}
+}
+
+set dbu_pin [[ord::get_db_tech] getDbUnitsPerMicron]
+foreach nombre {VDD VSS} {
+    set caja [tira_de $block $nombre Metal5]
+    if {[llength $caja] != 4} {
+        puts "  AVISO: $nombre no tiene tira de Metal5; el pin se queda donde estaba"
+        continue
+    }
+    lassign $caja x0 y0 x1 y1
+    set alto  [expr {($y1 - $y0) / double($dbu_pin)}]
+    set ancho $alto
+    #  Cerca del extremo izquierdo de la tira, no en mitad del die: el pin sigue
+    #  siendo el sitio por donde se entra, aunque aqui no haya anillo de pads.
+    set cx [expr {($x0 / double($dbu_pin)) + $ancho}]
+    set cy [expr {(($y0 + $y1) / 2.0) / $dbu_pin}]
+    place_pin -pin_name $nombre -layer Metal5 \
+              -location [list $cx $cy] -pin_size [list $ancho $alto]
+    puts [format "  pin %s sobre su tira de Metal5 en (%.3f, %.3f), %.3f x %.3f" \
+              $nombre $cx $cy $ancho $alto]
+}
+
 # --- output ------------------------------------------------------------------
 file mkdir out
 write_def out/GRADIENT_NAV.def

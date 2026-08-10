@@ -164,20 +164,20 @@ PINS 19 ;
         + PLACED ( 520 591920 ) N ;
     - VDD + NET VDD + DIRECTION INOUT + USE SIGNAL
       + PORT
-        + LAYER Metal2 ( -280 -520 ) ( 280 520 )
-        + PLACED ( 681520 816520 ) N ;
+        + LAYER Metal5 ( -3000 -3000 ) ( 3000 3000 )
+        + FIXED ( 51380 786200 ) N ;
     - VSS + NET VSS + DIRECTION INOUT + USE SIGNAL
       + PORT
-        + LAYER Metal2 ( -280 -520 ) ( 280 520 )
-        + PLACED ( 52080 520 ) N ;
+        + LAYER Metal5 ( -3000 -3000 ) ( 3000 3000 )
+        + FIXED ( 23130 774200 ) N ;
     - X + NET X + DIRECTION OUTPUT + USE SIGNAL
       + PORT
         + LAYER Metal2 ( -280 -520 ) ( 280 520 )
-        + PLACED ( 665840 520 ) N ;
+        + PLACED ( 659120 520 ) N ;
     - XN + NET XN + DIRECTION OUTPUT + USE SIGNAL
       + PORT
         + LAYER Metal3 ( -520 -280 ) ( 520 280 )
-        + PLACED ( 742880 72240 ) N ;
+        + PLACED ( 742880 81200 ) N ;
     - XP + NET XP + DIRECTION OUTPUT + USE SIGNAL
       + PORT
         + LAYER Metal2 ( -280 -520 ) ( 280 520 )
@@ -185,11 +185,11 @@ PINS 19 ;
     - Y + NET Y + DIRECTION OUTPUT + USE SIGNAL
       + PORT
         + LAYER Metal3 ( -520 -280 ) ( 520 280 )
-        + PLACED ( 742880 235760 ) N ;
+        + PLACED ( 742880 220080 ) N ;
     - YN + NET YN + DIRECTION OUTPUT + USE SIGNAL
       + PORT
         + LAYER Metal3 ( -520 -280 ) ( 520 280 )
-        + PLACED ( 742880 246960 ) N ;
+        + PLACED ( 742880 255920 ) N ;
     - YP + NET YP + DIRECTION OUTPUT + USE SIGNAL
       + PORT
         + LAYER Metal3 ( -520 -280 ) ( 520 280 )
@@ -197,11 +197,11 @@ PINS 19 ;
     - Z + NET Z + DIRECTION OUTPUT + USE SIGNAL
       + PORT
         + LAYER Metal3 ( -520 -280 ) ( 520 280 )
-        + PLACED ( 742880 410480 ) N ;
+        + PLACED ( 742880 394800 ) N ;
     - ZN + NET ZN + DIRECTION OUTPUT + USE SIGNAL
       + PORT
         + LAYER Metal3 ( -520 -280 ) ( 520 280 )
-        + PLACED ( 742880 419440 ) N ;
+        + PLACED ( 742880 450800 ) N ;
     - ZP + NET ZP + DIRECTION OUTPUT + USE SIGNAL
       + PORT
         + LAYER Metal3 ( -520 -280 ) ( 520 280 )

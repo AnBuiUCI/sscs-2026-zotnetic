@@ -14,6 +14,7 @@ screenshot and is worthless.
 
 from __future__ import annotations
 
+import re
 import sys
 from pathlib import Path
 
@@ -34,6 +35,50 @@ def def_dbu(path: Path) -> float:
         if line.startswith("COMPONENTS"):
             break
     return 0.001
+
+
+def lef_origin(path: Path) -> tuple[float, float]:
+    """`ORIGIN` del MACRO, en um. (0, 0) si no lo declara."""
+    m = re.search(r"^\s*ORIGIN\s+([-\d.]+)\s+([-\d.]+)\s*;", path.read_text(), re.M)
+    return (float(m.group(1)), float(m.group(2))) if m else (0.0, 0.0)
+
+
+def normalizar_origen(layout, macro_lefs) -> None:
+    """Mueve cada macro +ORIGIN, que es donde OpenROAD lo tiene.
+
+    **Las dos herramientas leen `ORIGIN` de forma distinta y hay que igualarlas.**
+    OpenROAD normaliza el master: le suma el ORIGIN a toda la geometria, de modo
+    que la esquina inferior izquierda de su caja cae en (0, 0) y el punto del DEF
+    es esa esquina. El lector de DEF de KLayout, cuando sustituye el abstracto por
+    el GDS (`macro_resolution_mode = 2`), coloca el GDS tal cual: en el sistema de
+    coordenadas del propio bloque, que aqui empieza en -1.26 (COMP y OPAM), -1.00
+    (DECODER) o (-1.45, -4.21) (WEIGHT_COMP), porque los taps de sustrato salen
+    por la izquierda del origen.
+
+    Resultado: **todos los macros salian corridos su ORIGIN** respecto de donde el
+    router creia que estaban. Y como el router acierta en su propio modelo, el DEF
+    no tiene ni un error y su informe de DRC sale vacio; el destrozo aparece solo
+    al escribir el GDS. Medido sobre `x5_weight_comp`: la via3 con que el router
+    entra a `VA` cae en (354.20, 38.48), y el pad de `VA` esta en
+    x[349.84, 354.34] y[38.28, 38.68] **sumando el ORIGIN** — sin sumarlo se queda
+    en y[34.07, 34.47], a 4.21 um, que es exactamente el ORIGIN y del bloque.
+
+    Eso son **42 de las 55 nets del top abiertas** en el GDS, y de paso los cortos:
+    un cable que en el modelo del router pasa limpio al lado de un pin, en el GDS
+    lo atraviesa. El LVS lo veia como 54 nets de mas; el DRC, como nada.
+
+    Se mueve la CELDA, no la instancia: asi vale igual para un macro girado, que es
+    como lo hace OpenROAD (normaliza el master y luego le aplica la orientacion).
+    """
+    for lef in macro_lefs:
+        ox, oy = lef_origin(lef)
+        if (ox, oy) == (0.0, 0.0):
+            continue
+        cell = layout.cell(lef.stem)
+        if cell is None:
+            continue
+        cell.transform(kdb.DTrans(kdb.DVector(ox, oy)))
+        print(f"  {lef.stem:14s} +ORIGIN ({ox}, {oy})")
 
 
 def flatten_all(layout, top) -> None:
@@ -140,7 +185,12 @@ def main() -> int:
         n = sum(cell.shapes(i).size() for i in layout.layer_indexes())
         print(f"  {name:14s} {cell.child_instances():5d} sub-cells, {n:6d} shapes")
 
+    normalizar_origen(layout, macro_lefs)
     flatten_all(layout, top)
+    #  Segunda pasada: mover una celda la deja marcada, y `cells()` sigue contando
+    #  las que el aplanado dejo huerfanas hasta que se limpia otra vez. El fichero
+    #  ya salia con una sola celda; lo que enganaba era el numero de esta linea.
+    layout.cleanup()
     gds_path.parent.mkdir(parents=True, exist_ok=True)
     layout.write(str(gds_path))
     print(f"  aplanado   {layout.cells()} celda(s), "
