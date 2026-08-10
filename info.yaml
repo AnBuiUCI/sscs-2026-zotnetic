@@ -16,5 +16,7 @@ project:
   team: "B26 Zotnetic"         
   discord: "teareverie"                   # Optional: Discord username (for support / communication)
   description: "PDK test data"  # Short one-line description
-  lvs_config: "<relative-path-to-lvs_config.json>"
+  lvs_config: "lvs_config.json"
+  # El GDS de submision es FINAL/openroad/out/GRADIENT_NAV_filled.gds, celda top
+  # GRADIENT_NAV. Sale de lvs_config.json -> LAYOUT_FILE.
 
