@@ -1,7 +1,7 @@
 magic
 tech gf180mcuD
 magscale 1 10
-timestamp 1786171983
+timestamp 1786336161
 << error_s >>
 rect 1911 795 1935 841
 rect 1909 692 1935 740
@@ -39,27 +39,27 @@ rect -480 550 -280 750
 rect -510 240 -310 440
 rect -590 -40 -390 160
 use pfet_06v0_S8DJS9  XM1
-timestamp 1786171983
+timestamp 1786313772
 transform 1 0 2276 0 1 284
 box -364 -556 364 556
 use pfet_06v0_S8DJS9  XM2
-timestamp 1786171983
+timestamp 1786313772
 transform 1 0 1616 0 1 352
 box -364 -556 364 556
 use nfet_06v0_A4FXXT  XM3
-timestamp 1786171983
+timestamp 1786313772
 transform 1 0 2936 0 1 16
 box -364 -356 364 356
 use pfet_06v0_S8DJS9  XM4
-timestamp 1786171983
+timestamp 1786313772
 transform 1 0 296 0 1 488
 box -364 -556 364 556
 use nfet_06v0_A4FXXT  XM5
-timestamp 1786171983
+timestamp 1786313772
 transform 1 0 956 0 1 220
 box -364 -356 364 356
 use nfet_06v0_A4FXXT  XM6
-timestamp 1786171983
+timestamp 1786313772
 transform 1 0 3596 0 1 -52
 box -364 -356 364 356
 << labels >>
