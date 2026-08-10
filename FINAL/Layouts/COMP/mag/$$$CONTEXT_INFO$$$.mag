@@ -3,7 +3,7 @@ tech gf180mcuD
 magscale 1 10
 timestamp 2083213696
 << checkpaint >>
-rect -2192 -2120 22804 6218
+rect -2192 -2120 22804 5464
 use rectangle_S0p22_0p22_L3_4b713981  rectangle_S0p22_0p22_L3_4b713981_0
 timestamp 2083213696
 transform 1 0 0 0 1 0
@@ -12,18 +12,6 @@ use rectangle_S0p26_0p26_L3_6eb02eb6  rectangle_S0p26_0p26_L3_6eb02eb6_0
 timestamp 2083213696
 transform 1 0 0 0 1 0
 box 0 0 52 52
-use rectangle_S0p26_0p26_Lv_3f47d4a3  rectangle_S0p26_0p26_Lv_3f47d4a3_0
-timestamp 2083213696
-transform 1 0 0 0 1 0
-box -2 -2 54 54
-use rectangle_S0p26_0p26_Lv_10cf3a4f  rectangle_S0p26_0p26_Lv_10cf3a4f_0
-timestamp 2083213696
-transform 1 0 0 0 1 0
-box -2 -2 54 54
-use rectangle_S0p26_0p26_Lv_975c1f93  rectangle_S0p26_0p26_Lv_975c1f93_0
-timestamp 2083213696
-transform 1 0 0 0 1 0
-box -2 -2 54 54
 use rectangle_S0p34_0p34_L3_3d0540b6  rectangle_S0p34_0p34_L3_3d0540b6_0
 timestamp 2083213696
 transform 1 0 0 0 1 0
@@ -340,10 +328,6 @@ use via_generator_XR13p72_1_39902316  via_generator_XR13p72_1_39902316_0
 timestamp 2083213696
 transform 1 0 0 0 1 0
 box 0 0 1 1
-use via_generator_XR13p98_3_7dc75aa8  via_generator_XR13p98_3_7dc75aa8_0
-timestamp 2083213696
-transform 1 0 0 0 1 0
-box 2864 2642 6568 4218
 use via_generator_XR14p42_1_c3fe295e  via_generator_XR14p42_1_c3fe295e_0
 timestamp 2083213696
 transform 1 0 0 0 1 0
@@ -448,14 +432,6 @@ use via_generator_XR33p37_3_3e31c9b2  via_generator_XR33p37_3_3e31c9b2_0
 timestamp 2083213696
 transform 1 0 0 0 1 0
 box 0 0 1 1
-use via_generator_XR33p4499_00e1a6b5  via_generator_XR33p4499_00e1a6b5_0
-timestamp 2083213696
-transform 1 0 0 0 1 0
-box 6688 2222 6744 2278
-use via_generator_XR33p4499_5ebabfd9  via_generator_XR33p4499_5ebabfd9_0
-timestamp 2083213696
-transform 1 0 0 0 1 0
-box 6688 2222 6744 2278
 use via_generator_XR34p1299_0f81c1a4  via_generator_XR34p1299_0f81c1a4_0
 timestamp 2083213696
 transform 1 0 0 0 1 0
@@ -468,18 +444,6 @@ use via_generator_XR35p98_3_09f35342  via_generator_XR35p98_3_09f35342_0
 timestamp 2083213696
 transform 1 0 0 0 1 0
 box 0 0 1 1
-use via_generator_XR36p05_3_8b815940  via_generator_XR36p05_3_8b815940_0
-timestamp 2083213696
-transform 1 0 0 0 1 0
-box 7208 2090 7264 2146
-use via_generator_XR36p05_3_308d858f  via_generator_XR36p05_3_308d858f_0
-timestamp 2083213696
-transform 1 0 0 0 1 0
-box 7208 2090 7264 2146
-use via_generator_XR36p05_3_528cde57  via_generator_XR36p05_3_528cde57_0
-timestamp 2083213696
-transform 1 0 0 0 1 0
-box 7208 2090 7264 2146
 use via_generator_XR36p22_3_95b6651d  via_generator_XR36p22_3_95b6651d_0
 timestamp 2083213696
 transform 1 0 0 0 1 0
@@ -656,10 +620,6 @@ use via_generator_XR76p965__3150fafd  via_generator_XR76p965__3150fafd_0
 timestamp 2083213696
 transform 1 0 0 0 1 0
 box 15393 2884 15445 2936
-use via_generator_XR76p2400_19091adc  via_generator_XR76p2400_19091adc_0
-timestamp 2083213696
-transform 1 0 0 0 1 0
-box 15316 2246 19020 3822
 use via_generator_XR76p6600_4c6d9b14  via_generator_XR76p6600_4c6d9b14_0
 timestamp 2083213696
 transform 1 0 0 0 1 0
@@ -756,30 +716,10 @@ use via_generator_XR95p63_9_b53615c4  via_generator_XR95p63_9_b53615c4_0
 timestamp 2083213696
 transform 1 0 0 0 1 0
 box 0 0 1 1
-use via_generator_XR95p7100_45bd5742  via_generator_XR95p7100_45bd5742_0
-timestamp 2083213696
-transform 1 0 0 0 1 0
-box 19140 1826 19196 1882
-use via_generator_XR95p7100_627dedda  via_generator_XR95p7100_627dedda_0
-timestamp 2083213696
-transform 1 0 0 0 1 0
-box 19140 1826 19196 1882
 use via_generator_XR96p8800_07bc9f95  via_generator_XR96p8800_07bc9f95_0
 timestamp 2083213696
 transform 1 0 0 0 1 0
 box 19376 3016 19428 3068
-use via_generator_XR98p2100_8f910742  via_generator_XR98p2100_8f910742_0
-timestamp 2083213696
-transform 1 0 0 0 1 0
-box 19640 1826 19696 1882
-use via_generator_XR98p2100_56ff527a  via_generator_XR98p2100_56ff527a_0
-timestamp 2083213696
-transform 1 0 0 0 1 0
-box 19640 1826 19696 1882
-use via_generator_XR98p2100_f87d25e5  via_generator_XR98p2100_f87d25e5_0
-timestamp 2083213696
-transform 1 0 0 0 1 0
-box 19640 1826 19696 1882
 use via_generator_XR99p73_9_e5533299  via_generator_XR99p73_9_e5533299_0
 timestamp 2083213696
 transform 1 0 0 0 1 0

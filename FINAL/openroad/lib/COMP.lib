@@ -1,0 +1,40 @@
+library (COMP) {
+  comment                        : "Black-box view of an analog macro. No timing arcs on purpose.";
+  delay_model                    : table_lookup;
+  time_unit                      : "1ns";
+  voltage_unit                   : "1V";
+  current_unit                   : "1mA";
+  capacitive_load_unit (1, pf);
+  pulling_resistance_unit        : "1kohm";
+  leakage_power_unit             : "1nW";
+  nom_voltage                    : 5.0;
+  nom_temperature                : 25.0;
+  nom_process                    : 1.0;
+
+  cell (COMP) {
+    is_macro_cell : true;
+    dont_touch    : true;
+    dont_use      : true;
+    interface_timing : true;
+    pg_pin (VDD) {
+      voltage_name : "VDD";
+      pg_type      : primary_power;
+    }
+    pin (INN) {
+      direction   : input;
+      capacitance : 0.01;
+    }
+    pin (OUT) {
+      direction   : inout;
+      capacitance : 0.01;
+    }
+    pin (INP) {
+      direction   : input;
+      capacitance : 0.01;
+    }
+    pg_pin (VSS) {
+      voltage_name : "VSS";
+      pg_type      : primary_ground;
+    }
+  }
+}

@@ -1,0 +1,85 @@
+
+Circuit 1 cell pfet_06v0 and Circuit 2 cell pfet_06v0 are black boxes.
+
+Subcircuit pins:
+Circuit 1: pfet_06v0                       |Circuit 2: pfet_06v0                       
+-------------------------------------------|-------------------------------------------
+1                                          |1                                          
+2                                          |2                                          
+3                                          |3                                          
+4                                          |4                                          
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes pfet_06v0 and pfet_06v0 are equivalent.
+
+Circuit 1 cell nfet_06v0 and Circuit 2 cell nfet_06v0 are black boxes.
+
+Subcircuit pins:
+Circuit 1: nfet_06v0                       |Circuit 2: nfet_06v0                       
+-------------------------------------------|-------------------------------------------
+1                                          |1                                          
+2                                          |2                                          
+3                                          |3                                          
+4                                          |4                                          
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes nfet_06v0 and nfet_06v0 are equivalent.
+
+Circuit 1 cell cap_mim_2f0_m4m5_noshield and Circuit 2 cell cap_mim_2f0_m4m5_noshield are black boxes.
+
+Subcircuit pins:
+Circuit 1: cap_mim_2f0_m4m5_noshield       |Circuit 2: cap_mim_2f0_m4m5_noshield       
+-------------------------------------------|-------------------------------------------
+1                                          |1                                          
+2                                          |2                                          
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes cap_mim_2f0_m4m5_noshield and cap_mim_2f0_m4m5_noshield are equivalent.
+
+Subcircuit summary:
+Circuit 1: OPAM                            |Circuit 2: OPAM                            
+-------------------------------------------|-------------------------------------------
+pfet_06v0 (25)                             |pfet_06v0 (25)                             
+nfet_06v0 (25)                             |nfet_06v0 (25)                             
+cap_mim_2f0_m4m5_noshield (2)              |cap_mim_2f0_m4m5_noshield (2)              
+Number of devices: 52                      |Number of devices: 52                      
+Number of nets: 37                         |Number of nets: 37                         
+---------------------------------------------------------------------------------------
+Resolving symmetries by property value.
+Resolving symmetries by pin name.
+Resolving symmetries by net name.
+Netlists match with 6 symmetries with property errors.
+cap_mim_2f0_m4m5_noshield:39 vs. cap_mim_2f0_m4m5_noshield:C3:
+Property c_length in circuit1 has no matching property in circuit2
+cap_mim_2f0_m4m5_noshield:39 vs. cap_mim_2f0_m4m5_noshield:C3:
+Property c_width in circuit1 has no matching property in circuit2
+cap_mim_2f0_m4m5_noshield:39 vs. cap_mim_2f0_m4m5_noshield:C3:
+Property L in circuit2 has no matching property in circuit1
+cap_mim_2f0_m4m5_noshield:39 vs. cap_mim_2f0_m4m5_noshield:C3:
+Property W in circuit2 has no matching property in circuit1
+cap_mim_2f0_m4m5_noshield:19 vs. cap_mim_2f0_m4m5_noshield:C1:
+Property c_length in circuit1 has no matching property in circuit2
+cap_mim_2f0_m4m5_noshield:19 vs. cap_mim_2f0_m4m5_noshield:C1:
+Property c_width in circuit1 has no matching property in circuit2
+cap_mim_2f0_m4m5_noshield:19 vs. cap_mim_2f0_m4m5_noshield:C1:
+Property L in circuit2 has no matching property in circuit1
+cap_mim_2f0_m4m5_noshield:19 vs. cap_mim_2f0_m4m5_noshield:C1:
+Property W in circuit2 has no matching property in circuit1
+
+Subcircuit pins:
+Circuit 1: OPAM                            |Circuit 2: OPAM                            
+-------------------------------------------|-------------------------------------------
+OUT                                        |OUT                                        
+VDD                                        |VDD                                        
+VSS                                        |VSS                                        
+INP                                        |INP                                        
+INN                                        |INN                                        
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes OPAM and OPAM are equivalent.
+
+Final result: Circuits match uniquely.
+Property errors were found.
+
+The following cells had property errors:
+ OPAM

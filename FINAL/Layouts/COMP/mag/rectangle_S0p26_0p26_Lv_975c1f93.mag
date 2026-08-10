@@ -1,9 +1,6 @@
 magic
 tech gf180mcuD
-magscale 1 5
 timestamp 2083213696
 << checkpaint >>
-rect -1001 -1001 1027 1027
-<< via2 >>
-rect -1 -1 27 27
+rect -200 -200 200 200
 << end >>

@@ -17,5 +17,5 @@ C {ipin.sym} -170 80 0 0 {name=p3 lab=VSS}
 C {ipin.sym} 30 -70 0 0 {name=p4 lab=YZ}
 C {ipin.sym} -230 -30 0 0 {name=p2 lab=XY}
 C {opin.sym} 120 -50 0 0 {name=p10 lab=output}
-C {DESIGN/FINAL/DECODER/invertor.sym} -190 -20 0 0 {name=x2}
-C {DESIGN/FINAL/DECODER/andGate.sym} 90 -30 0 0 {name=x3}
+C {a_zonetic2026/XSCHEM/DECODER/invertor.sym} -190 -20 0 0 {name=x2}
+C {a_zonetic2026/XSCHEM/DECODER/andGate.sym} 90 -30 0 0 {name=x3}
