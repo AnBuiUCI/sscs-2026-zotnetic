@@ -1,0 +1,46 @@
+magic
+tech gf180mcuD
+magscale 1 5
+timestamp 1786318561
+<< metal1 >>
+rect 975 785 1075 885
+rect -130 655 1205 760
+rect -225 25 -125 125
+rect 1260 5 1360 105
+rect -130 -430 1205 -330
+use pfet_06v0_S8DJS9  XM1
+timestamp 1786313772
+transform 1 0 1017 0 1 373
+box -182 -278 182 278
+use pfet_06v0_S8DJS9  XM2
+timestamp 1786313772
+transform 1 0 592 0 1 373
+box -182 -278 182 278
+use nfet_06v0_A4FXXT  XM3
+timestamp 1786313772
+transform 1 0 1012 0 1 -147
+box -182 -178 182 178
+use pfet_06v0_S8DJS9  XM4
+timestamp 1786313772
+transform 1 0 167 0 1 373
+box -182 -278 182 278
+use nfet_06v0_A4FXXT  XM5
+timestamp 1786313772
+transform 1 0 167 0 1 -147
+box -182 -178 182 178
+use nfet_06v0_A4FXXT  XM7
+timestamp 1786313772
+transform 1 0 592 0 1 -147
+box -182 -178 182 178
+<< labels >>
+rlabel metal1 -125 660 -25 760 1 VDD
+port 1 n power bidirectional
+rlabel metal1 -130 -430 -30 -330 1 VSS
+port 2 n ground bidirectional
+rlabel metal1 975 785 1075 885 1 A
+port 3 n default input
+rlabel metal1 1260 5 1360 105 1 output
+port 4 n default output
+rlabel metal1 -225 25 -125 125 1 B
+port 5 n default input
+<< end >>
