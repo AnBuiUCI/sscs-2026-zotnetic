@@ -620,12 +620,31 @@ git -C repo push origin main
 ```bash
 git clone git@github.com:AnBuiUCI/sscs-2026-zotnetic.git verify
 cd verify && find FINAL -xtype l          # vacio
-python3 -c "print(open('FINAL/openroad/out/GRADIENT_NAV.gds','rb').read(4).hex())"
+python3 -c "print(open('FINAL/openroad/out/GRADIENT_NAV_filled.gds','rb').read(4).hex())"
 # 00060002 = cabecera GDSII valida
 ```
 
-No hace falta LFS: el fichero mas grande son los 5.7 MB del GDS del top, muy por debajo
-del limite de 100 MB. El `.gitattributes` de `FINAL/` solo declara `*.gds binary`, para
+**El `lvs_config.json` de la raiz del repo es lo que apunta al entregable.** Es el
+fichero que lee el chipathon, y llega a el por `info.yaml -> project.lvs_config`. Los dos
+venian con los marcadores de la plantilla (`A01_topcell`,
+`<relative-path-to-lvs_config.json>`); ahora dicen:
+
+| clave | valor |
+|---|---|
+| `info.yaml` `project.lvs_config` | `lvs_config.json` |
+| `lvs_config.json` `TOP_SOURCE` | `GRADIENT_NAV` |
+| `lvs_config.json` `LAYOUT_FILE` | `$UPRJ_ROOT/FINAL/openroad/out/GRADIENT_NAV_filled.gds` |
+
+`TOP_LAYOUT` se queda en `$TOP_SOURCE`: la celda top del GDS con relleno se llama
+`GRADIENT_NAV`, igual que la del esquematico, y el fichero esta aplanado a una sola
+celda. Si se rehace el die hay que revisar que estas tres claves sigan cuadrando —
+apuntar al GDS sin relleno es incumplir las siete reglas de densidad de golpe.
+
+No hace falta LFS: el fichero mas grande son los 25 MB de
+`out/GRADIENT_NAV_filled.gds` — el relleno de densidad multiplica por cuatro los 5.7 MB
+del GDS de trabajo — y sigue muy por debajo del limite de 100 MB de GitHub. Si algun dia
+molesta, se baja instanciando una celda de relleno en vez de aplanar los cuadrados.
+El `.gitattributes` de `FINAL/` solo declara `*.gds binary`, para
 que la normalizacion de finales de linea no corrompa un GDS si a git le diera por tomarlo
 por texto.
 
