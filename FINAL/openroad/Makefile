@@ -12,6 +12,7 @@
 #   make lvs          netgen LVS on the four blocks and the top
 #   make lvs-ref      netlist de referencia para el LVS externo del chipathon
 #   make probar       rompe el layout a proposito: comprueba que el DRC/LVS se enteran
+#   make probar-drc   lo mismo mas las dos pruebas de DRC (~15 min)
 #   make check-all    the three above
 #   make clean        remove generated outputs (not the collateral)
 
@@ -22,7 +23,8 @@ PYTHON   := python3
 KPYTHON  := env -u PYTHONPATH /headless/.venvs/zotnetic/bin/python
 
 .PHONY: all top verilog collateral check floorplan route gds fill \
-        drc drc-magic drc-density lvs lvs-klayout lvs-ref probar check-all clean
+        drc drc-magic drc-density lvs lvs-klayout lvs-ref probar probar-drc \
+        check-all clean
 
 all: verilog collateral check
 
@@ -82,6 +84,14 @@ lvs-ref:
 #  "limpio" solo vale si sabes que esa herramienta habria cantado el fallo.
 probar:
 	$(PYTHON) scripts/probar_verificacion.py
+
+#  Igual pero anadiendo las dos pruebas de DRC, que tardan unos 15 minutos: una
+#  con una violacion metida a mano (tiene que verla) y otra sobre el GDS con el
+#  corto (tiene que salir LIMPIO, porque el DRC no ve un corto).
+#  Objetivo aparte y no una opcion: `make probar --con-drc` no vale, make se cree
+#  que `--con-drc` es una opcion suya y aborta.
+probar-drc:
+	$(PYTHON) scripts/probar_verificacion.py --con-drc
 
 check-all: drc drc-magic drc-density lvs
 

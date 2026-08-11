@@ -233,9 +233,12 @@ está vacío en casi todas. No fallaba: mentía.
 propósito, de tres formas conocidas, y mira quién se entera:
 
 ```bash
-python3 scripts/probar_verificacion.py             # corto y abierto, ~1 min
-python3 scripts/probar_verificacion.py --con-drc   # además las dos de DRC
+make probar        # corto y abierto, ~1 min
+make probar-drc    # además las dos pruebas de DRC, ~15 min
 ```
+
+(Objetivos separados y no una opción: `make probar --con-drc` **no funciona**,
+make se cree que `--con-drc` es una opción suya y aborta.)
 
 Lo que sale hoy, tal cual:
 
@@ -243,8 +246,8 @@ Lo que sale hoy, tal cual:
 |---|---|
 | Metal3 uniendo `X1` y `XP`, 2.9 µm (**corto**) | `check_connectivity`: **1 corto** |
 | 7 via2 borradas alrededor de `X1` (**abierto**) | `check_connectivity`: **1 abierta** |
-| Metal3 a 0.10 µm de otro Metal3, en COMP | el DRC de KLayout: **lo ve** |
-| el DRC **sobre el GDS con el corto** | **limpio** — y eso es lo correcto |
+| Metal3 a 0.10 µm de otro Metal3, en COMP | el DRC de KLayout: **4 × `M3.2a`** |
+| el DRC **sobre el GDS con el corto** | **0 violaciones en 63 ficheros de reglas** |
 
 La última fila es la que más dice: **un corto no viola ninguna regla de DRC**. Dos
 formas de la misma capa que se solapan se funden en un polígono, y donde falta
