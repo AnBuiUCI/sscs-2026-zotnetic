@@ -77,6 +77,15 @@ def main() -> int:
             capture_output=True, text=True, timeout=14400, check=False,
             env={"PATH": "/foss/tools/klayout:/usr/bin:/bin",
                  "HOME": "/tmp", "PDK_ROOT": "/foss/pdks"})
+        #  **Si no hay ni un `.lyrdb`, el deck no llego a correr.** Sin esto, un
+        #  fallo de la herramienta —un `klayout` que no esta en el PATH, un GDS
+        #  ilegible— se contaba como cero violaciones y salia por pantalla como
+        #  "limpio". Es el mismo error que el `net.name` vacio de
+        #  `check_connectivity`: la comprobacion no falla, miente.
+        if not list(run_dir.glob("*.lyrdb")):
+            print(f"  {name:14s} EL DECK NO CORRIO — ni un .lyrdb en {run_dir}")
+            bad += 1
+            continue
         c = counts(run_dir)
         if not c:
             print(f"  {name:14s} limpio")

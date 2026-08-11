@@ -11,6 +11,7 @@
 #   make drc-magic    magic DRC, a second opinion with a different deck
 #   make lvs          netgen LVS on the four blocks and the top
 #   make lvs-ref      netlist de referencia para el LVS externo del chipathon
+#   make probar       rompe el layout a proposito: comprueba que el DRC/LVS se enteran
 #   make check-all    the three above
 #   make clean        remove generated outputs (not the collateral)
 
@@ -21,7 +22,7 @@ PYTHON   := python3
 KPYTHON  := env -u PYTHONPATH /headless/.venvs/zotnetic/bin/python
 
 .PHONY: all top verilog collateral check floorplan route gds fill \
-        drc drc-magic drc-density lvs lvs-klayout lvs-ref check-all clean
+        drc drc-magic drc-density lvs lvs-klayout lvs-ref probar check-all clean
 
 all: verilog collateral check
 
@@ -77,7 +78,12 @@ lvs-klayout:
 lvs-ref:
 	$(PYTHON) scripts/lvs_reference.py
 
+#  Rompe el layout a proposito y comprueba que las comprobaciones se enteran. Un
+#  "limpio" solo vale si sabes que esa herramienta habria cantado el fallo.
+probar:
+	$(PYTHON) scripts/probar_verificacion.py
+
 check-all: drc drc-magic drc-density lvs
 
 clean:
-	rm -rf out work work_drc work_lvs
+	rm -rf out work work_drc work_lvs work_prueba

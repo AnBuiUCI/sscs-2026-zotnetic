@@ -24,7 +24,12 @@ make drc          # KLayout, deck de firma: FEOL/BEOL/conectividad
 make drc-density  # KLayout, reglas de densidad: `make drc` NO las corre
 make drc-magic    # magic: incluye las reglas de relleno `DPF.*` que KLayout no mira
 make lvs          # netgen sobre la extraccion de magic
+make lvs-klayout  # segunda opinion: extraccion y comparador de KLayout
 python3 scripts/check_connectivity.py   # 55/55 conectadas y 0 cortos
+
+# 3. Y la pregunta que hay que hacerse antes de creerse un "limpio":
+#    ¿se enteraria esta herramienta si el chip estuviera mal?
+make probar       # rompe el layout a proposito y comprueba que salta
 ```
 
 o paso a paso:
@@ -182,7 +187,7 @@ Estado a día de hoy:
 | `OPAM` | limpio | n/a (1) | match | limpio | **match** |
 | `WEIGHT_COMP` | limpio | n/a (1) | match | limpio | **match** |
 | `DECODER` | limpio | n/a (1) | match | limpio | **match** |
-| `GRADIENT_NAV` | **limpio** | no cumple | 168 nets sueltas (3) | **limpio** | **match uniquely** |
+| `GRADIENT_NAV` | **limpio** | no cumple | **match** (3) | **limpio** | **match uniquely** |
 | `GRADIENT_NAV_filled` | **limpio** | **limpio** | pendiente (2) | **limpio** | pendiente (2) |
 
 (1) La densidad se mide **sobre el die entero**, asi que sobre un bloque suelto de
@@ -192,15 +197,22 @@ Estado a día de hoy:
 dummy a la capa fisica—, asi que el LVS sobre el fichero con relleno hay que
 volver a pasarlo. No cambia nada de lo de arriba, pero esta sin comprobar.
 
-(3) **El top cuadra con netgen y no con el deck de KLayout, y eso hay que decirlo
-tal cual.** netgen es un motor independiente sobre una extraccion independiente
-(la de magic) y da `Circuits match uniquely`: 1389 dispositivos y 880 nets a cada
-lado. El deck de KLayout, sobre su propia extraccion, saca **1708 dispositivos y
-886 nodos, de los que 168 tienen fanout cero** —islas de metal que `--purge_nets`
-no se lleva— y ademas su `.SUBCKT GRADIENT_NAV` sale con 17 puertos: le faltan
-`VSS` y `ZP`. O sea que lo que falla ahi es la invocacion del deck, no el layout;
-pero **hasta cerrarlo, el top tiene una sola opinion, no dos**, y una sola opinion
-en LVS es exactamente lo que este proyecto ha decidido no dar por bueno.
+(3) **El veredicto del deck del PDK no vale para el top; el del comparador de
+KLayout, si.** El deck da `Netlists don't match` — pero falla tambien comparando
+el layout contra **su propia extraccion** (72 nets sin pareja), y ahi no hay nada
+que un layout pueda hacer mal. La causa es que llama a `compare` con los limites
+por defecto (`max_depth` 8, `max_branch_complexity` 500), que no dan para un
+circuito plano de 1707 dispositivos con doce rebanadas analogicas iguales, y no
+los expone por linea de ordenes. Con el **mismo comparador de KLayout** conducido
+a mano (`max_depth=30`, `max_branch_complexity=10000`) el emparejamiento cierra
+entero: **840 nets emparejadas, 0 nets, 0 dispositivos y 0 pines sin pareja**. Eso
+es lo que hace `lvs_klayout.py::comparar`, y es el veredicto de la tabla.
+
+Ese camino comprueba la **topologia**, no los **tamanos**: el lector SPICE
+generico de KLayout no sabe casar los parametros que escribe el deck (`L=20U
+W=0.7U AS=.. AD=.. PS=..`) con los de la referencia (`W=.. L=..` en metros), y con
+ellos activados no empareja ni un dispositivo. De los tamanos responde netgen, que
+si los compara. **Las dos opiniones juntas cubren las dos cosas; ninguna sola.**
 
 Y una comprobación más, que no es DRC ni LVS pero contesta a la pregunta que
 ninguno de los dos contesta —¿está el ruteo realmente conectado?—:
@@ -208,6 +220,77 @@ ninguno de los dos contesta —¿está el ruteo realmente conectado?—:
 ```bash
 python3 scripts/check_connectivity.py    # 55/55 conectadas, 0 cortos, 19 puertos
 ```
+
+### Cómo comprobarlo tú mismo
+
+Lo de arriba son órdenes que te devuelven «limpio». Un «limpio» sólo vale si
+sabes **qué habría cantado esa herramienta si el chip estuviera mal**, y en este
+proyecto eso no es filosofía: `check_connectivity.py` dio «55/55» durante días
+pasara lo que pasara, porque usaba `net.name` como identidad de la net y ese campo
+está vacío en casi todas. No fallaba: mentía.
+
+**1. Que las comprobaciones fallan cuando deben.** Esto rompe el layout a
+propósito, de tres formas conocidas, y mira quién se entera:
+
+```bash
+python3 scripts/probar_verificacion.py             # corto y abierto, ~1 min
+python3 scripts/probar_verificacion.py --con-drc   # además las dos de DRC
+```
+
+Lo que sale hoy, tal cual:
+
+| rotura metida a mano | quién la ve |
+|---|---|
+| Metal3 uniendo `X1` y `XP`, 2.9 µm (**corto**) | `check_connectivity`: **1 corto** |
+| 7 via2 borradas alrededor de `X1` (**abierto**) | `check_connectivity`: **1 abierta** |
+| Metal3 a 0.10 µm de otro Metal3, en COMP | el DRC de KLayout: **lo ve** |
+| el DRC **sobre el GDS con el corto** | **limpio** — y eso es lo correcto |
+
+La última fila es la que más dice: **un corto no viola ninguna regla de DRC**. Dos
+formas de la misma capa que se solapan se funden en un polígono, y donde falta
+metal no hay nada que medir. Por eso «DRC limpio» no dice nada sobre si el chip
+está bien conectado, y por eso hacen falta las tres comprobaciones y no una.
+
+Y una advertencia que este mismo script se ganó a pulso: **su primera versión daba
+la prueba de DRC por buena cuando el DRC ni había arrancado** (`klayout` no estaba
+en el PATH; contaba violaciones sobre cero ficheros y salía cero). Se cazó a sí
+misma. `drc_klayout.py` tenía el mismo agujero y ahora los dos abortan si no
+aparece ni un `.lyrdb`.
+
+**2. Sin fiarte de los scripts de aquí.** Las mismas comprobaciones, llamando al
+PDK a pelo — si estos dan lo mismo, lo de arriba no se ha inventado nada:
+
+```bash
+cd /foss/designs/a_zonetic2026/openroad
+
+# DRC de firma sobre el fichero que se entrega
+python3 /foss/pdks/gf180mcuD/libs.tech/klayout/tech/drc/run_drc.py \
+  --path=$PWD/out/GRADIENT_NAV_filled.gds --variant=D \
+  --topcell=GRADIENT_NAV --run_dir=/tmp/midrc --mp=4
+
+# ...y contar violaciones: tiene que dar 0
+grep -c "<item>" /tmp/midrc/*.lyrdb | awk -F: '{s+=$2} END {print s" violaciones"}'
+
+# LVS con netgen (motor y extracción independientes de KLayout)
+python3 scripts/lvs_netgen.py GRADIENT_NAV
+grep "Final result" out/lvs_netgen_GRADIENT_NAV.rpt
+```
+
+**3. Mirándolo.** El GDS se abre en KLayout y las violaciones se cargan encima:
+
+```bash
+klayout out/GRADIENT_NAV_filled.gds -m out/drc_GRADIENT_NAV_FILLED/*.lyrdb
+```
+
+**4. Qué comprueba cada uno, para no pedirle peras al olmo.**
+
+| | topología | tamaños (W/L) | reglas de dibujo | densidad | relleno de poly |
+|---|---|---|---|---|---|
+| KLayout DRC | — | — | **sí** | sólo con `--density` | no |
+| magic DRC | — | — | **sí** | no | **sí** (`DPF.*`) |
+| netgen LVS | **sí** | **sí** | — | — | — |
+| KLayout LVS | **sí** | no (ver abajo) | — | — | — |
+| `check_connectivity` | cortos y abiertos del ruteo | — | — | — | — |
 
 ### Densidad: un pase aparte, y solo en KLayout
 
@@ -581,6 +664,23 @@ Lo que ha costado descubrir, en una linea cada una. Casi todas se pagaron con ho
   con el numero de pines que declara el DEF y aborta si no cuadra**, y el nombre del MIM
   **se lee de cada netlist**. Toda comprobacion nueva necesita una forma conocida de verla
   fallar.
+- **El deck de LVS del PDK llama a `compare` con los limites por defecto.**
+  `max_depth` 8 y `max_branch_complexity` 500 no dan para un circuito plano de 1707
+  dispositivos con doce rebanadas iguales, y el deck no los expone. Como se
+  demuestra que el problema es del comparador y no del diseno: **comparando el
+  layout contra su propia extraccion**. Si eso falla —72 nets sin pareja—, no hay
+  layout que arreglar. Con `max_depth=30` y `max_branch_complexity=10000`, el mismo
+  comparador cierra el emparejamiento entero.
+- **Una comprobacion que no distingue "limpio" de "no llegue a correr" es peor que
+  no tenerla.** `drc_klayout.py` contaba violaciones sobre los `.lyrdb` del
+  directorio; si el deck no arrancaba no habia ficheros, la cuenta daba cero y
+  salia **"limpio"**. Lo cazo `probar_verificacion.py`... cazandose a si mismo, que
+  tenia el mismo fallo. Ahora los dos abortan si no hay ni un `.lyrdb`.
+- **Una etiqueta en la celda de arriba no es una pista: es un PUERTO.** Poner el
+  nombre de cada net del DEF sobre su metal parecia la forma de darle anclas al
+  comparador; lo que hace es que el layout pase a tener 55 pines contra los 19 de
+  la referencia. Ni ayudo al deck (los mismos 170 mensajes) y habria roto el
+  emparejamiento de netgen, que hoy cuadra.
 - **`permute` de netgen es silencioso si el nombre no existe.** El MIM se llama
   `cap_mim_2f0_m4m5_noshield` en la extraccion de magic y `cap_mim_2f0fF` en el
   esquematico. Pedir el primero en los dos circuitos deja el condensador permutable en el

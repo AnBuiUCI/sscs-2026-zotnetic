@@ -158,8 +158,14 @@ def macro_size(path: Path) -> tuple[float, float]:
 
 
 def main() -> int:
-    dpath = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / "out/GRADIENT_NAV_routed.def"
-    gpath = ROOT / "out/GRADIENT_NAV.gds"
+    #  El GDS se puede cambiar por la linea de ordenes para poder pasarle un
+    #  fichero ESTROPEADO A PROPOSITO y ver que la comprobacion falla: ver
+    #  `scripts/probar_verificacion.py`. Una comprobacion que nadie ha visto
+    #  fallar no ha demostrado nada.
+    args = [a for a in sys.argv[1:] if not a.startswith("--")]
+    gds = [a.split("=", 1)[1] for a in sys.argv[1:] if a.startswith("--gds=")]
+    dpath = Path(args[0]) if args else ROOT / "out/GRADIENT_NAV_routed.def"
+    gpath = Path(gds[0]) if gds else ROOT / "out/GRADIENT_NAV.gds"
     inst, nets, units = read_def(dpath)
 
     ly = kdb.Layout()

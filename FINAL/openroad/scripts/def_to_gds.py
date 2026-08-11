@@ -81,6 +81,65 @@ def normalizar_origen(layout, macro_lefs) -> None:
         print(f"  {lef.stem:14s} +ORIGIN ({ox}, {oy})")
 
 
+#: Capa de etiquetas de Metal3 en GF180 (`42/10`). Es donde el deck de LVS busca
+#: el nombre de una net de Metal3, y donde ya vienen las de los pines del top.
+_M3_LABEL = (42, 10)
+
+
+def etiquetar_nets(layout, top, def_path) -> int:
+    """Pone el nombre de cada net del DEF sobre su metal, como etiqueta.
+
+    **NO se usa, y conviene saber por que antes de volver a intentarlo.** La idea
+    era darle anclas al comparador de KLayout: las 55 nets del DEF se llaman igual
+    en la referencia —comprobado, las 55— porque las dos salen del mismo netlist
+    de xschem. Pero **una etiqueta en el top no es una pista: es un PUERTO.** Tanto
+    el deck de KLayout como magic convierten cada net etiquetada del top en pin del
+    circuito, asi que el layout pasaba a tener 55 pines contra los 19 de la
+    referencia, y eso rompe el emparejamiento en vez de ayudarlo — incluido el de
+    netgen, que hoy cuadra.
+
+    Se deja escrito porque la funcion es correcta y puede servir si algun dia la
+    referencia declara los mismos 55 puertos; lo que no vale es enchufarla sin
+    tocar el otro lado. Medido: con las etiquetas puestas el deck seguia dando los
+    mismos 170 mensajes.
+    """
+    #  Dentro de la funcion a proposito: `check_connectivity` importa `lef_origin`
+    #  de aqui, y a nivel de modulo el import seria circular.
+    from check_connectivity import lef_pins, macro_size, place, read_def
+
+    inst, nets, units = read_def(def_path)
+    lefs, sizes, origenes = {}, {}, {}
+    for p in (ROOT / "lef").glob("*.lef"):
+        if p.name in ("vias.lef", "techlef_patched.tlef"):
+            continue
+        lefs[p.stem] = lef_pins(p)
+        sizes[p.stem] = macro_size(p)
+        origenes[p.stem] = lef_origin(p)
+
+    #  Las que ya tienen etiqueta son los pines del top: no se duplican.
+    puestas = {s.text.string for li in layout.layer_indexes()
+               for s in top.shapes(li).each() if s.is_text()}
+    capa = layout.layer(*_M3_LABEL)
+    n = 0
+    for net, pins in sorted(nets.items()):
+        if net in puestas:
+            continue
+        for iname, pin in pins:
+            if iname not in inst:
+                continue
+            cell, x, y, orient = inst[iname]
+            rects = lefs.get(cell, {}).get(pin, [])
+            if not rects:
+                continue
+            a = place(rects[0], x / units, y / units, orient,
+                      sizes[cell], origenes[cell])
+            top.shapes(capa).insert(kdb.DText(
+                net, (a[0] + a[2]) / 2, (a[1] + a[3]) / 2))
+            n += 1
+            break
+    return n
+
+
 def flatten_all(layout, top) -> None:
     """Aplana el top entero antes de escribir el GDS.
 
