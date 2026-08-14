@@ -21,10 +21,10 @@
 		""
 	],
 	"LVS_SPICE_FILES": [
-		""
+		"$UPRJ_ROOT/FINAL/openroad/out/GRADIENT_NAV_lvs.spice"
 	],
 	"LVS_VERILOG_FILES": [
-		""
+		"$UPRJ_ROOT/FINAL/openroad/verilog/GRADIENT_NAV.v"
 	],
 	"LAYOUT_FILE": "$UPRJ_ROOT/FINAL/openroad/out/GRADIENT_NAV_filled.gds"
 }

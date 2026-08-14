@@ -24,7 +24,12 @@ make drc          # KLayout, deck de firma: FEOL/BEOL/conectividad
 make drc-density  # KLayout, reglas de densidad: `make drc` NO las corre
 make drc-magic    # magic: incluye las reglas de relleno `DPF.*` que KLayout no mira
 make lvs          # netgen sobre la extraccion de magic
-python3 scripts/check_connectivity.py   # que el ruteo conecte: 55/55
+make lvs-klayout  # segunda opinion: extraccion y comparador de KLayout
+python3 scripts/check_connectivity.py   # 55/55 conectadas y 0 cortos
+
+# 3. Y la pregunta que hay que hacerse antes de creerse un "limpio":
+#    ¿se enteraria esta herramienta si el chip estuviera mal?
+make probar       # rompe el layout a proposito y comprueba que salta
 ```
 
 o paso a paso:
@@ -37,6 +42,7 @@ make floorplan    # place the macros, build the power grid, write the DEF
 make route        # ruteo global + detallado
 make gds          # DEF -> GDS, with the real layout inside every macro
 make fill         # relleno de densidad -> out/GRADIENT_NAV_filled.gds
+make lvs-ref      # netlist de referencia para el LVS externo del chipathon
 ```
 
 **Cual es el entregable.** `out/GRADIENT_NAV.gds` es el de trabajo: es el que leen
@@ -67,6 +73,7 @@ rehacer las vueltas.
 | `scripts/` | the generators and the OpenROAD scripts | by hand |
 | `out/GRADIENT_NAV.gds` | el top, **fichero de trabajo**: lo leen DRC, LVS y conectividad | si |
 | `out/GRADIENT_NAV_filled.gds` | el top con relleno de densidad, **el que se entrega** | si |
+| `out/GRADIENT_NAV_lvs.spice` | netlist de referencia **para el LVS externo** del chipathon | si, `make lvs-ref` |
 | `out/drc_blockages.txt` | zonas prohibidas al router, del lazo dirigido por DRC | si, acumulativo |
 
 ## The blocks
@@ -180,7 +187,7 @@ Estado a día de hoy:
 | `OPAM` | limpio | n/a (1) | match | limpio | **match** |
 | `WEIGHT_COMP` | limpio | n/a (1) | match | limpio | **match** |
 | `DECODER` | limpio | n/a (1) | match | limpio | **match** |
-| `GRADIENT_NAV` | **limpio** | no cumple | — | **limpio** | dispositivos OK, 54 nets |
+| `GRADIENT_NAV` | **limpio** | no cumple | **match** (3) | **limpio** | **match uniquely** |
 | `GRADIENT_NAV_filled` | **limpio** | **limpio** | pendiente (2) | **limpio** | pendiente (2) |
 
 (1) La densidad se mide **sobre el die entero**, asi que sobre un bloque suelto de
@@ -190,12 +197,103 @@ Estado a día de hoy:
 dummy a la capa fisica—, asi que el LVS sobre el fichero con relleno hay que
 volver a pasarlo. No cambia nada de lo de arriba, pero esta sin comprobar.
 
+(3) **El veredicto del deck del PDK no vale para el top; el del comparador de
+KLayout, si.** El deck da `Netlists don't match` — pero falla tambien comparando
+el layout contra **su propia extraccion** (72 nets sin pareja), y ahi no hay nada
+que un layout pueda hacer mal. La causa es que llama a `compare` con los limites
+por defecto (`max_depth` 8, `max_branch_complexity` 500), que no dan para un
+circuito plano de 1707 dispositivos con doce rebanadas analogicas iguales, y no
+los expone por linea de ordenes. Con el **mismo comparador de KLayout** conducido
+a mano (`max_depth=30`, `max_branch_complexity=10000`) el emparejamiento cierra
+entero: **840 nets emparejadas, 0 nets, 0 dispositivos y 0 pines sin pareja**. Eso
+es lo que hace `lvs_klayout.py::comparar`, y es el veredicto de la tabla.
+
+Ese camino comprueba la **topologia**, no los **tamanos**: el lector SPICE
+generico de KLayout no sabe casar los parametros que escribe el deck (`L=20U
+W=0.7U AS=.. AD=.. PS=..`) con los de la referencia (`W=.. L=..` en metros), y con
+ellos activados no empareja ni un dispositivo. De los tamanos responde netgen, que
+si los compara. **Las dos opiniones juntas cubren las dos cosas; ninguna sola.**
+
 Y una comprobación más, que no es DRC ni LVS pero contesta a la pregunta que
 ninguno de los dos contesta —¿está el ruteo realmente conectado?—:
 
 ```bash
-python3 scripts/check_connectivity.py    # 55/55 nets del DEF conectadas en el GDS
+python3 scripts/check_connectivity.py    # 55/55 conectadas, 0 cortos, 19 puertos
 ```
+
+### Cómo comprobarlo tú mismo
+
+Lo de arriba son órdenes que te devuelven «limpio». Un «limpio» sólo vale si
+sabes **qué habría cantado esa herramienta si el chip estuviera mal**, y en este
+proyecto eso no es filosofía: `check_connectivity.py` dio «55/55» durante días
+pasara lo que pasara, porque usaba `net.name` como identidad de la net y ese campo
+está vacío en casi todas. No fallaba: mentía.
+
+**1. Que las comprobaciones fallan cuando deben.** Esto rompe el layout a
+propósito, de tres formas conocidas, y mira quién se entera:
+
+```bash
+make probar        # corto y abierto, ~1 min
+make probar-drc    # además las dos pruebas de DRC, ~15 min
+```
+
+(Objetivos separados y no una opción: `make probar --con-drc` **no funciona**,
+make se cree que `--con-drc` es una opción suya y aborta.)
+
+Lo que sale hoy, tal cual:
+
+| rotura metida a mano | quién la ve |
+|---|---|
+| Metal3 uniendo `X1` y `XP`, 2.9 µm (**corto**) | `check_connectivity`: **1 corto** |
+| 7 via2 borradas alrededor de `X1` (**abierto**) | `check_connectivity`: **1 abierta** |
+| Metal3 a 0.10 µm de otro Metal3, en COMP | el DRC de KLayout: **4 × `M3.2a`** |
+| el DRC **sobre el GDS con el corto** | **0 violaciones en 63 ficheros de reglas** |
+
+La última fila es la que más dice: **un corto no viola ninguna regla de DRC**. Dos
+formas de la misma capa que se solapan se funden en un polígono, y donde falta
+metal no hay nada que medir. Por eso «DRC limpio» no dice nada sobre si el chip
+está bien conectado, y por eso hacen falta las tres comprobaciones y no una.
+
+Y una advertencia que este mismo script se ganó a pulso: **su primera versión daba
+la prueba de DRC por buena cuando el DRC ni había arrancado** (`klayout` no estaba
+en el PATH; contaba violaciones sobre cero ficheros y salía cero). Se cazó a sí
+misma. `drc_klayout.py` tenía el mismo agujero y ahora los dos abortan si no
+aparece ni un `.lyrdb`.
+
+**2. Sin fiarte de los scripts de aquí.** Las mismas comprobaciones, llamando al
+PDK a pelo — si estos dan lo mismo, lo de arriba no se ha inventado nada:
+
+```bash
+cd /foss/designs/a_zonetic2026/openroad
+
+# DRC de firma sobre el fichero que se entrega
+python3 /foss/pdks/gf180mcuD/libs.tech/klayout/tech/drc/run_drc.py \
+  --path=$PWD/out/GRADIENT_NAV_filled.gds --variant=D \
+  --topcell=GRADIENT_NAV --run_dir=/tmp/midrc --mp=4
+
+# ...y contar violaciones: tiene que dar 0
+grep -c "<item>" /tmp/midrc/*.lyrdb | awk -F: '{s+=$2} END {print s" violaciones"}'
+
+# LVS con netgen (motor y extracción independientes de KLayout)
+python3 scripts/lvs_netgen.py GRADIENT_NAV
+grep "Final result" out/lvs_netgen_GRADIENT_NAV.rpt
+```
+
+**3. Mirándolo.** El GDS se abre en KLayout y las violaciones se cargan encima:
+
+```bash
+klayout out/GRADIENT_NAV_filled.gds -m out/drc_GRADIENT_NAV_FILLED/*.lyrdb
+```
+
+**4. Qué comprueba cada uno, para no pedirle peras al olmo.**
+
+| | topología | tamaños (W/L) | reglas de dibujo | densidad | relleno de poly |
+|---|---|---|---|---|---|
+| KLayout DRC | — | — | **sí** | sólo con `--density` | no |
+| magic DRC | — | — | **sí** | no | **sí** (`DPF.*`) |
+| netgen LVS | **sí** | **sí** | — | — | — |
+| KLayout LVS | **sí** | no (ver abajo) | — | — | — |
+| `check_connectivity` | cortos y abiertos del ruteo | — | — | — | — |
 
 ### Densidad: un pase aparte, y solo en KLayout
 
@@ -298,17 +396,30 @@ Y el orden de los puertos del `.subckt` extraído se reordena para seguir al de
 referencia: netgen empareja los pines del top **por posición**, y con la misma
 conectividad exacta terminaba en `Top level cell failed pin matching`.
 
-### El top: cuatro causas, y ninguna era el layout
+### El top: cinco causas, y ninguna era el layout
 
 El LVS del top empezó en 1436 dispositivos y 1003 nets contra los 1389 y 880 de
 la referencia. Antes de tocar nada conviene saber **si el layout está bien**, y
 para eso está `scripts/check_connectivity.py`: extrae la conectividad del GDS con
-KLayout —sólo metales y vías, sin dispositivos, medio minuto— y comprueba que
-todos los terminales de cada net del DEF caen en la misma net extraída. Da
-**55/55**. Un circuito abierto no viola ninguna regla de DRC, así que sin esta
-comprobación no hay forma de separar un fallo del layout de uno de la extracción.
+KLayout —sólo metales y vías, sin dispositivos, un segundo— y comprueba dos cosas
+que el DRC no puede ver: que todos los terminales de cada net del DEF caen en la
+misma net extraída (**abiertos**) y que no hay dos nets del DEF en la misma
+(**cortos**).
 
 Lo que iba mal, por orden de tamaño:
+
+0. **El `ORIGIN` del LEF, que es la gorda y estuvo escondida hasta el final.**
+   Tiene sección propia más abajo, en *Reglas aprendidas*: OpenROAD y KLayout lo
+   interpretan distinto y **los 31 macros salían corridos en el GDS**, lo que
+   dejaba 42 de las 55 nets abiertas. Eso solo es casi todo el hueco de nets que
+   netgen cantaba.
+
+   Y estuvo escondida porque la herramienta que tenía que haberla visto mentía:
+   `check_connectivity.py` usaba `net.name` como identidad de la net extraída, y
+   **ese campo está vacío en toda net sin etiqueta**, o sea en casi todas. Metía
+   nets distintas en el mismo saco y decía «55/55 conectadas» pasara lo que
+   pasara. Con `expanded_name()` —que da `$1143`— decía 13/55. Una comprobación
+   que no puede fallar no está comprobando nada.
 
 1. **El pin del LEF era la caja envolvente, no el metal.** `lef write` de magic da
    un rectángulo por puerto. Cuando los pads de un puerto no llegaron a unirse en
@@ -403,7 +514,7 @@ tambien limpio.
     python3 scripts/drc_blockages.py           # anade lo de la ultima tanda
     python3 scripts/drc_blockages.py --reset   # empieza de cero
 
-### Lo que queda
+### El LVS del top, y lo que queda
 
 **El top, en LVS.** Ahora tiene tambien el deck de firma
 (`scripts/lvs_klayout.py`), que le faltaba: hasta ahora solo se comprobaba con
@@ -419,33 +530,44 @@ tapaba a la siguiente:
 3. El netlist extraido salia **sin un solo pin**; el deck solo llama a
    `make_top_level_pins` con `--top_lvl_pins`.
 
-Con eso el resultado ya es informativo: **los dispositivos cuadran exactamente,
-1707 contra 1707**. Lo que bloquea la comparacion es que la extraccion del top
-asigna el bulk de **780 de los 801 pfet al sustrato** en vez de a su pozo n. Eso
-hincha un solo nodo hasta 2438 terminales, que se traga VDD, VSS y el nombre de
-nueve pines, y de ahi el descuadre de nets (954 contra 861). magic ve el mismo
-nodo con 2442, asi que no es mania de una herramienta.
+**Y el top cuadra: `Circuits match uniquely`**, 1389 dispositivos y 880 nets a cada
+lado. Ademas del `ORIGIN` (el punto 0 de arriba, que se llevo el 54 de diferencia
+entero), hicieron falta dos cosas mas:
 
-**No es el layout.** Comprobado: el pozo esta entero en el top (33 442.9 um2 en
-43 islas, exactamente la suma de las 31 instancias), **los 43 pozos tienen su tap
-n+ contactado** (286 contactos), no hay solape entre las tiras de VDD y las de
-VSS, ni una sola via3 que toque la barra de una alimentacion y la tira de la
-otra, ni metal del router sobre las barras de los macros. Y el mismo bloque
-suelto extrae bien: en COMP los 37 pfet dan `bulk=VDD`.
+1. **El MIM estaba declarado permutable en un solo lado.** `setup_con_permute.tcl`
+   pedia `permute "-circuit2 cap_mim_2f0_m4m5_noshield"`, y ese nombre en el top
+   **solo existe en el layout**: la referencia los instancia como
+   `cap_mim_2f0fF`. O sea que netgen permutaba los dos terminales en el layout y
+   los dejaba fijos en la referencia, y contaba `cap/(1|2) = 2` frente a
+   `cap/1 = 1` y `cap/2 = 1` — misma conectividad, distinta clase de pin. Ahora el
+   nombre se saca de cada netlist (`lvs_netgen._modelos_mim`) en vez de escribirse
+   a mano.
+2. **Los puertos `VDD` y `VSS` del top estaban FLOTANDO.** `place_pins` los trata
+   como una senal mas y los deja en el borde del die, en un pad que no toca la
+   malla; el router no los cierra porque salta las nets POWER/GROUND. netgen ya
+   daba `Netlists match with 144 symmetries` y fallaba solo aqui: la red de
+   alimentacion de verdad salia sin nombre (`w_1904_7964#` el pozo,
+   `a_2082_4860#` el sustrato) y los dos puertos salian sueltos. Se arregla en
+   `floorplan_top.tcl` poniendo cada pin **encima de su propia tira de Metal5**
+   con `place_pin`, despues de `pdngen` y despues de `place_pins`.
 
-Queda, por tanto, alinear la invocacion del deck para el top con la que usan los
-bloques desde `build_block.py`. Una diferencia conocida: al aplanar el top se
-quitan las etiquetas internas de los macros (hace falta, si no magic funde por
-nombre todo lo que se llama igual), y con ellas el nodo del pozo se queda sin
-nombre.
+Las simetrias que quedan (144) son los 318 dispositivos que netgen funde en
+paralelo: grupos realmente intercambiables, y las resuelve por nombre de net.
 
-**Antes, con netgen: 54 nets de diferencia** (venia de 47 dispositivos y 123 nets).
-Los **dispositivos ya cuadran exactamente**: 1389 contra 1389. Lo que sobra son 54
-nets, y de ellas quedan tres pozos flotantes localizados; el resto son nodos de
-activo sin etiqueta (`a_...#`), de los que hay 922 y que en su mayoria si emparejan.
-La conectividad del ruteo esta verificada aparte y da 55/55, asi que lo que falta
-esta en la extraccion, no en el layout — pero hasta cerrarlo no es una
-verificacion, es una indicacion.
+**Dos cambios del colateral que se hicieron ANTES de dar con el ORIGIN y que no se
+han vuelto a medir.** Los dos convierten metal de pin en obstruccion, y los dos se
+sostienen por si mismos —el stack interno de vias de un bloque no es un punto de
+acceso para el top—, pero se pusieron para tapar cortos que probablemente eran
+sintoma del ORIGIN:
+
+* los ~55 pads de Metal2 de cada pin de alimentacion (`keep_top_access`);
+* los pads de Metal3 pegados a otro pin, a menos de 0.94 um (`drop_trapped_pads`):
+  `XZ` de DECODER, `WE` y `OUT_N` de WEIGHT_COMP.
+
+Quitar cualquiera de los dos exige rehacer colateral, ruteo, GDS y las cinco
+comprobaciones, y con el flujo entero en verde no se toco. Queda anotado: si algun
+dia el router va justo de sitio, **ahi hay obstruccion que quiza sobra**, y la
+forma de saberlo es quitarla y mirar `check_connectivity.py`, no razonarlo.
 
 ## Things that will bite you
 
@@ -508,6 +630,66 @@ Lo que ha costado descubrir, en una linea cada una. Casi todas se pagaron con ho
 
 **Sobre las herramientas**
 
+- **OpenROAD y KLayout leen el `ORIGIN` del LEF de forma distinta, y esa fue la causa de
+  fondo del LVS del top.** OpenROAD **normaliza el master**: le suma el ORIGIN a toda la
+  geometria, de modo que la esquina inferior izquierda de la caja del macro cae en (0, 0) y
+  el punto del DEF es esa esquina. El lector de DEF de KLayout, al sustituir el abstracto
+  por el GDS (`macro_resolution_mode = 2`), deja el GDS en las coordenadas del propio
+  bloque, que aqui empiezan en negativo porque los taps de sustrato salen por la izquierda
+  del origen: COMP y OPAM en -1.26, DECODER en -1.00, WEIGHT_COMP en (-1.45, -4.21).
+
+  Resultado: **los 31 macros salian corridos su ORIGIN en el GDS**, hasta 4.21 um. La
+  prueba, sobre `x5_weight_comp`: la via3 con que el router entra al pin `VA` cae en
+  (354.20, 38.48), y el pad de `VA` esta en x[349.84, 354.34] y[38.28, 38.68] **sumando el
+  ORIGIN**; sin sumarlo se queda en y[34.07, 34.47] — a 4.21 um exactos.
+
+  Eso dejaba **42 de las 55 nets abiertas**, y de paso los cortos: un cable que en el modelo
+  del router pasa limpio al lado de un pin, en el GDS lo atraviesa. Lo peor es lo callado
+  que es: **el router nunca se equivoco** —su DEF es coherente y su informe de DRC sale
+  vacio— y el DRC de firma tampoco lo ve, porque dos formas de la misma capa que se solapan
+  se funden en un poligono. Solo lo ve el LVS, y alli sale disfrazado de «faltan 54 nets».
+  Se arregla en `def_to_gds.py::normalizar_origen`, moviendo la CELDA del macro (no la
+  instancia: asi vale tambien para un macro girado, que es como lo hace OpenROAD).
+
+  La regla general: **si dos herramientas comparten un LEF con `ORIGIN` distinto de cero,
+  comprueba a mano donde pone cada una un pin antes de fiarte de nada.**
+- **`net.name` de KLayout esta vacio en toda net sin etiqueta.** Usarlo como identidad de
+  una net extraida mete nets distintas en el mismo saco. La que identifica es
+  `expanded_name()`. Con `name` la comprobacion de conectividad daba «55/55» hiciera lo que
+  hiciera el layout, que es la peor clase de error: no falla, miente.
+
+  Y la version general, que es la leccion cara del dia: **una comprobacion que no puede
+  fallar no esta comprobando nada.** Paso tres veces seguidas y de tres formas distintas —
+  el `net.name` vacio; `read_def_ports` mirando solo `PLACED` y saltandose en silencio los
+  dos unicos pines que importaban, que OpenROAD escribe como `FIXED`; y el `permute` del
+  MIM pedido sobre un nombre que en ese circuito no existe, que netgen acepta sin rechistar.
+  En los tres el sintoma fue el mismo: silencio. Por eso ahora `read_def_ports` **compara
+  con el numero de pines que declara el DEF y aborta si no cuadra**, y el nombre del MIM
+  **se lee de cada netlist**. Toda comprobacion nueva necesita una forma conocida de verla
+  fallar.
+- **El deck de LVS del PDK llama a `compare` con los limites por defecto.**
+  `max_depth` 8 y `max_branch_complexity` 500 no dan para un circuito plano de 1707
+  dispositivos con doce rebanadas iguales, y el deck no los expone. Como se
+  demuestra que el problema es del comparador y no del diseno: **comparando el
+  layout contra su propia extraccion**. Si eso falla —72 nets sin pareja—, no hay
+  layout que arreglar. Con `max_depth=30` y `max_branch_complexity=10000`, el mismo
+  comparador cierra el emparejamiento entero.
+- **Una comprobacion que no distingue "limpio" de "no llegue a correr" es peor que
+  no tenerla.** `drc_klayout.py` contaba violaciones sobre los `.lyrdb` del
+  directorio; si el deck no arrancaba no habia ficheros, la cuenta daba cero y
+  salia **"limpio"**. Lo cazo `probar_verificacion.py`... cazandose a si mismo, que
+  tenia el mismo fallo. Ahora los dos abortan si no hay ni un `.lyrdb`.
+- **Una etiqueta en la celda de arriba no es una pista: es un PUERTO.** Poner el
+  nombre de cada net del DEF sobre su metal parecia la forma de darle anclas al
+  comparador; lo que hace es que el layout pase a tener 55 pines contra los 19 de
+  la referencia. Ni ayudo al deck (los mismos 170 mensajes) y habria roto el
+  emparejamiento de netgen, que hoy cuadra.
+- **`permute` de netgen es silencioso si el nombre no existe.** El MIM se llama
+  `cap_mim_2f0_m4m5_noshield` en la extraccion de magic y `cap_mim_2f0fF` en el
+  esquematico. Pedir el primero en los dos circuitos deja el condensador permutable en el
+  layout y fijo en la referencia, y ninguna de las dos partes puede cuadrar: `cap/(1|2) = 2`
+  contra `cap/1 = 1` y `cap/2 = 1`. Nada avisa. Los nombres de dispositivo que van a un
+  `permute` se sacan del fichero, no se escriben a mano.
 - **magic evalua los booleanos del GDS celda a celda.** Una forma solo existe para el si
   todas las capas que la definen estan en la MISMA celda. Nos costo tres veces: las vias
   del MIM en una subcelda sin los marcadores (572 violaciones por bloque), el tap del pozo
@@ -550,6 +732,24 @@ Lo que ha costado descubrir, en una linea cada una. Casi todas se pagaron con ho
 - **El pin del LEF debe declarar el metal que hay, no su caja envolvente.** `lef write` da
   un rectangulo por puerto; si los pads no llegaron a unirse, ese rectangulo declara
   aterrizable un hueco vacio y el router aterriza ahi.
+- **`place_pins` no conecta un pin de alimentacion.** Lo trata como una senal mas y lo deja
+  en el borde del die, en un pad que no toca la malla; `pdngen` no baja a por el y el router
+  lo salta, porque salta las nets POWER/GROUND. **Los puertos `VDD` y `VSS` del top llevaban
+  todo el proyecto flotando** y no lo vio nadie: ni el DRC (un abierto no viola ninguna
+  regla), ni el router, ni `check_connectivity.py`, que solo miraba terminales de macro. Se
+  ponen a mano con `place_pin` **encima de una tira de la propia net**, despues de `pdngen`
+  y despues de `place_pins`.
+- **Lo que declaras como pin, el router se cree con derecho a usarlo.** El stack interno de
+  Metal2 con que un bloque sube su riel a Metal3 sale de `lef write` como geometria del pin
+  de alimentacion — ~55 pads por riel—, y eso no es un punto de acceso para el top: es
+  metal del bloque. Como pin invita; como obstruccion, el router lo respeta y ademas
+  `add_via_obstructions` deriva de ahi la obstruccion de Via1 y Via2, que es por donde se
+  colaba.
+- **Un pad de pin pegado a otro pin no es un sitio donde aterrizar.** Si entre los dos no
+  cabe un cable con su espaciado a cada lado (aqui 2 x (0.19 + 0.28) = 0.94 um), el router
+  no tiene forma legal de llegar al vecino — y no se para: pasa por encima. Se retira ese
+  pad **solo si al pin le queda otro libre** (`drop_trapped_pads`); un pin inalcanzable es
+  peor que un corto, porque no hay quien lo rutee.
 - **Cuando ya no hay patron comun, el lazo dirigido por DRC cierra el resto**: las zonas
   que marca el deck se vuelven obstrucciones y el router repite. Acumulativo, para que
   converja en vez de oscilar. 10 -> 1 -> 0 en dos vueltas.
@@ -572,6 +772,21 @@ Lo que ha costado descubrir, en una linea cada una. Casi todas se pagaron con ho
 - **El LVS del top pide la referencia aplanada y `--top_lvl_pins`.** Sin lo primero no
   empareja nada; sin lo segundo el extraido sale sin un solo pin y la comparacion no
   arranca.
+- **Un netlist de referencia se genera, no se retoca.** El de xschem no vale tal cual —
+  `.subckt` comentado, sondas de 0 V, tarjetas de simulacion— pero el arreglo va en un
+  script (`lvs_reference.py`, encadenado en `make top`), no en el fichero. Un netlist de
+  referencia editado a mano es la forma elegante de hacer que el LVS mienta.
+- **Dos motores, no uno.** netgen sobre la extraccion de magic y el deck de KLayout sobre la
+  suya no comparten ni codigo ni extractor: que los dos digan lo mismo vale mucho mas que
+  que lo diga uno. Hoy el top solo tiene el primero, y por eso figura como pendiente en la
+  tabla de estado en vez de como cerrado.
+- **Diagnosticar midiendo, no razonando.** Del LVS del top se dijeron por el camino tres
+  cosas que resultaron falsas: que habia un corto de VDD contra VSS por las tiras de
+  Metal4, que el problema era el bulk de 780 pfet, y que `pplus and comp and nwell`
+  detectaba taps mal puestos (es la difusion del propio PMOS). Las tres venian de razonar
+  sobre una hipotesis en vez de medir. Lo que si funciono fue instrumentar: ablacion capa a
+  capa del modelo de conectividad hasta ver en cual aparecia el corto, y de ahi al poligono
+  concreto.
 
 ## Subir a GitHub
 
@@ -610,16 +825,28 @@ git -C repo push origin main
    siempre que `--diff-filter=D` sale vacio.
 2. **Nada fuera de `FINAL/`.** `git diff --cached --name-only | grep -v '^FINAL/'` tiene
    que salir vacio: hay dos ramas mas con trabajo de otras personas.
-3. **Los enlaces de `spice_blocks/` son absolutos** a `/foss/designs/...` y fuera de esta
-   maquina llegan rotos. Hay que rehacerlos relativos antes del commit. Comprobacion:
-   `find FINAL -xtype l` vacio.
+3. **Los cuatro enlaces de `spice_blocks/` los rompe cada copia.** En la carpeta de trabajo
+   son absolutos a `/foss/designs/...`; en el repo estan guardados **relativos**
+   (`../XSCHEM/...`), que es lo unico que funciona en un clon ajeno. `cp -a` conserva el
+   enlace tal cual y por tanto los vuelve absolutos: hay que **deshacer esa parte de la
+   copia** antes del commit.
+
+       git checkout -- FINAL/spice_blocks/
+
+   Y la comprobacion buena **no es `find FINAL -xtype l`**: en esta maquina el destino
+   absoluto existe, asi que el enlace no esta "roto" y esa orden sale vacia igual. La que
+   sirve es buscar enlaces absolutos, que aqui nunca deben existir:
+
+       find FINAL -type l -lname '/*'      # tiene que salir vacio
+
 4. **Nunca `--force`, nunca reescribir historia.**
 
 **Verificar de verdad** es clonar en un directorio limpio, no mirar la copia de trabajo:
 
 ```bash
 git clone git@github.com:AnBuiUCI/sscs-2026-zotnetic.git verify
-cd verify && find FINAL -xtype l          # vacio
+cd verify && find FINAL -type l -lname '/*'   # vacio: ni un enlace absoluto
+ls -l FINAL/spice_blocks/                     # los cuatro, relativos y vivos
 python3 -c "print(open('FINAL/openroad/out/GRADIENT_NAV_filled.gds','rb').read(4).hex())"
 # 00060002 = cabecera GDSII valida
 ```
@@ -629,16 +856,37 @@ fichero que lee el chipathon, y llega a el por `info.yaml -> project.lvs_config`
 venian con los marcadores de la plantilla (`A01_topcell`,
 `<relative-path-to-lvs_config.json>`); ahora dicen:
 
-| clave | valor |
-|---|---|
-| `info.yaml` `project.lvs_config` | `lvs_config.json` |
-| `lvs_config.json` `TOP_SOURCE` | `GRADIENT_NAV` |
-| `lvs_config.json` `LAYOUT_FILE` | `$UPRJ_ROOT/FINAL/openroad/out/GRADIENT_NAV_filled.gds` |
+| clave | valor | quien lo genera |
+|---|---|---|
+| `info.yaml` `project.lvs_config` | `lvs_config.json` | a mano, una vez |
+| `TOP_SOURCE` / `TOP_LAYOUT` | `GRADIENT_NAV` | a mano, una vez |
+| `LAYOUT_FILE` | `$UPRJ_ROOT/FINAL/openroad/out/GRADIENT_NAV_filled.gds` | `make fill` |
+| `LVS_SPICE_FILES` | `$UPRJ_ROOT/FINAL/openroad/out/GRADIENT_NAV_lvs.spice` | `make lvs-ref` |
+| `LVS_VERILOG_FILES` | `$UPRJ_ROOT/FINAL/openroad/verilog/GRADIENT_NAV.v` | `make verilog` |
 
 `TOP_LAYOUT` se queda en `$TOP_SOURCE`: la celda top del GDS con relleno se llama
 `GRADIENT_NAV`, igual que la del esquematico, y el fichero esta aplanado a una sola
-celda. Si se rehace el die hay que revisar que estas tres claves sigan cuadrando —
+celda. Si se rehace el die hay que revisar que estas claves sigan cuadrando —
 apuntar al GDS sin relleno es incumplir las siete reglas de densidad de golpe.
+
+**El netlist de referencia hay que generarlo; el de xschem no vale tal cual.** Trae el
+`.subckt` de arriba COMENTADO (`**.subckt GRADIENT_NAV ...`, que es como xschem exporta
+desde la CLI), fuentes de 0 V como sonda de corriente —`Not a known element type: 'V'`, y
+electricamente son un cable, asi que hay que **unir** las dos nets, no tirarlas— y tarjetas
+de simulacion. Ademas hay que aplanarlo, porque el layout del top es una sola celda.
+`scripts/lvs_reference.py` hace las tres cosas reutilizando `lvs_klayout.prepare()`, que es
+el mismo parcheo con el que el LVS de KLayout compara este top en local, y escribe
+`out/GRADIENT_NAV_lvs.spice` (19 puertos, 1707 dispositivos). Va encadenado en `make top`:
+un netlist de referencia viejo hace que el LVS compare el GDS de hoy contra el esquematico
+de la semana pasada y diga que cuadra.
+
+**Aviso sobre `LVS_VERILOG_FILES`.** En estos config el Verilog y el spice son fuentes
+**alternativas** para el mismo circuito. Este diseño no lleva ni una celda estandar: los
+cuatro bloques son layout custom, y `GRADIENT_NAV.v` es estructural con los macros como
+cajas negras — o sea **sin un solo transistor que comparar**. Su sitio natural es la
+entrada de OpenROAD, no la referencia de un LVS. Se declara porque se pidio declararlo; si
+el harness lo lee junto al spice, comparara una jerarquia de cajas negras contra un layout
+plano y no cuadrara. Si eso pasa, vaciar `LVS_VERILOG_FILES` y dejar solo el spice.
 
 No hace falta LFS: el fichero mas grande son los 25 MB de
 `out/GRADIENT_NAV_filled.gds` — el relleno de densidad multiplica por cuatro los 5.7 MB

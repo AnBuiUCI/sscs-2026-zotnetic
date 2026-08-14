@@ -159,7 +159,12 @@ def align_ports(layout: Path, ref: Path, cell: str, work: Path) -> Path:
     return out
 
 
-def setup_with_cap_permute(work: Path) -> Path:
+def _modelos_mim(path: Path) -> list[str]:
+    """Con que nombre aparece el MIM en una netlist."""
+    return sorted(set(re.findall(r"\bcap_mim\w*", path.read_text())))
+
+
+def setup_with_cap_permute(work: Path, layout: Path, ref: Path) -> Path:
     """El setup del PDK mas los dos terminales del MIM declarados permutables.
 
     Los dos MIM de COMP y de OPAM son identicos y comparten un terminal en `OUT`:
@@ -170,12 +175,23 @@ def setup_with_cap_permute(work: Path) -> Path:
 
     Permutar los dos terminales de un condensador de dos patas es lo que hace el
     LVS de KLayout, que da `Netlists match` sobre estas mismas netlists.
+
+    **El nombre se saca de cada netlist, no se escribe a mano.** Estaba puesto a
+    pelo como `cap_mim_2f0_m4m5_noshield` en los dos circuitos, y en el top ese
+    nombre solo existe en el layout: la referencia los instancia como
+    `cap_mim_2f0fF` (`as_subckt_calls` solo renombra los que vienen como elemento
+    `C`, y en el top ya vienen como llamada `X`). O sea que **el MIM quedaba
+    permutable en el layout y fijo en la referencia**, y ninguna de las dos partes
+    podia cuadrar: el layout contaba `cap/(1|2) = 2` donde la referencia contaba
+    `cap/1 = 1` y `cap/2 = 1`. Misma conectividad, distinta clase de pin.
     """
     work.mkdir(parents=True, exist_ok=True)
+    lineas = [f"source {SETUP}"]
+    for n, path in ((1, layout), (2, ref)):
+        for modelo in _modelos_mim(path):
+            lineas.append(f'permute "-circuit{n} {modelo}" 1 2')
     dst = work / "setup_con_permute.tcl"
-    dst.write_text(f'source {SETUP}\n'
-                   'permute "-circuit1 cap_mim_2f0_m4m5_noshield" 1 2\n'
-                   'permute "-circuit2 cap_mim_2f0_m4m5_noshield" 1 2\n')
+    dst.write_text("\n".join(lineas) + "\n")
     return dst
 
 
@@ -215,7 +231,7 @@ def main() -> int:
             layout = align_ports(layout, ref, name, work)
             report = outdir / f"lvs_netgen_{name}.rpt"
             ok, log = compare(layout, ref, name, report,
-                              setup_with_cap_permute(work))
+                              setup_with_cap_permute(work, layout, ref))
             (outdir / f"lvs_netgen_{name}.log").write_text(log)
             print(f"  {name:14s} {'Circuits match uniquely' if ok else 'NO CUADRA'}"
                   f"   -> {report.name}")

@@ -175,20 +175,20 @@ PINS 19 ;
         + PLACED ( 520 591920 ) N ;
     - VDD + NET VDD + DIRECTION INOUT + USE SIGNAL
       + PORT
-        + LAYER Metal2 ( -280 -520 ) ( 280 520 )
-        + PLACED ( 681520 816520 ) N ;
+        + LAYER Metal5 ( -3000 -3000 ) ( 3000 3000 )
+        + FIXED ( 51380 786200 ) N ;
     - VSS + NET VSS + DIRECTION INOUT + USE SIGNAL
       + PORT
-        + LAYER Metal2 ( -280 -520 ) ( 280 520 )
-        + PLACED ( 52080 520 ) N ;
+        + LAYER Metal5 ( -3000 -3000 ) ( 3000 3000 )
+        + FIXED ( 23130 774200 ) N ;
     - X + NET X + DIRECTION OUTPUT + USE SIGNAL
       + PORT
         + LAYER Metal2 ( -280 -520 ) ( 280 520 )
-        + PLACED ( 665840 520 ) N ;
+        + PLACED ( 659120 520 ) N ;
     - XN + NET XN + DIRECTION OUTPUT + USE SIGNAL
       + PORT
         + LAYER Metal3 ( -520 -280 ) ( 520 280 )
-        + PLACED ( 742880 72240 ) N ;
+        + PLACED ( 742880 81200 ) N ;
     - XP + NET XP + DIRECTION OUTPUT + USE SIGNAL
       + PORT
         + LAYER Metal2 ( -280 -520 ) ( 280 520 )
@@ -196,11 +196,11 @@ PINS 19 ;
     - Y + NET Y + DIRECTION OUTPUT + USE SIGNAL
       + PORT
         + LAYER Metal3 ( -520 -280 ) ( 520 280 )
-        + PLACED ( 742880 235760 ) N ;
+        + PLACED ( 742880 220080 ) N ;
     - YN + NET YN + DIRECTION OUTPUT + USE SIGNAL
       + PORT
         + LAYER Metal3 ( -520 -280 ) ( 520 280 )
-        + PLACED ( 742880 246960 ) N ;
+        + PLACED ( 742880 255920 ) N ;
     - YP + NET YP + DIRECTION OUTPUT + USE SIGNAL
       + PORT
         + LAYER Metal3 ( -520 -280 ) ( 520 280 )
@@ -208,11 +208,11 @@ PINS 19 ;
     - Z + NET Z + DIRECTION OUTPUT + USE SIGNAL
       + PORT
         + LAYER Metal3 ( -520 -280 ) ( 520 280 )
-        + PLACED ( 742880 410480 ) N ;
+        + PLACED ( 742880 394800 ) N ;
     - ZN + NET ZN + DIRECTION OUTPUT + USE SIGNAL
       + PORT
         + LAYER Metal3 ( -520 -280 ) ( 520 280 )
-        + PLACED ( 742880 419440 ) N ;
+        + PLACED ( 742880 450800 ) N ;
     - ZP + NET ZP + DIRECTION OUTPUT + USE SIGNAL
       + PORT
         + LAYER Metal3 ( -520 -280 ) ( 520 280 )
@@ -787,107 +787,123 @@ SPECIALNETS 2 ;
 END SPECIALNETS
 NETS 55 ;
     - S1N ( PIN S1N ) ( x3_x3 INN ) ( x2_x1 INN ) ( x1_x1 INN ) + USE SIGNAL + NONDEFAULTRULE ANCHO
-      + ROUTED Metal3 ( 27440 71120 380 ) ( 50960 * 380 )
-      NEW Metal3 ( 50960 71120 380 ) ( * 73360 380 )
-      NEW Metal3 TAPER ( 50960 73360 ) ( * 77200 0 )
+      + ROUTED Metal3 ( 29680 83440 380 ) ( 47600 * 380 )
+      NEW Metal3 TAPER ( 47600 77200 0 ) ( * 81900 )
+      NEW Metal3 ( 47600 81900 380 ) ( * 83440 380 )
       NEW Metal3 TAPER ( 47600 251440 ) ( * 251920 0 )
       NEW Metal3 ( 27440 251440 380 ) ( 43120 * 380 )
       NEW Metal3 TAPER ( 43120 251440 ) ( 47600 * )
-      NEW Metal4 ( 27440 71120 380 ) ( * 251440 380 )
-      NEW Metal3 ( 560 365680 0 ) ( 27440 * 380 )
-      NEW Metal4 ( 27440 365680 380 ) ( * 423920 380 )
+      NEW Metal4 ( 29680 83440 380 ) ( * 251440 380 )
+      NEW Metal3 ( 560 365680 0 ) ( 10640 * 380 )
+      NEW Metal4 ( 10640 365680 380 ) ( * 423920 380 )
+      NEW Metal3 ( 10640 365680 380 ) ( 27440 * 380 )
       NEW Metal4 ( 27440 251440 380 ) ( * 365680 380 )
       NEW Metal3 TAPER ( 459760 423920 ) ( 464240 * )
       NEW Metal3 TAPER ( 464240 423920 ) ( * 425520 0 )
-      NEW Metal3 ( 27440 423920 380 ) ( 459760 * 380 )
-      NEW Metal3 ( 27440 71120 ) Via3_HH
+      NEW Metal3 ( 10640 423920 380 ) ( 459760 * 380 )
+      NEW Metal3 ( 29680 83440 ) Via3_HH
       NEW Metal3 ( 27440 251440 ) Via3_HH
-      NEW Metal3 ( 27440 365680 ) Via3_HH
-      NEW Metal3 ( 27440 423920 ) Via3_HH ;
+      NEW Metal3 ( 29680 251440 ) Via3_HH
+      NEW Metal3 ( 10640 365680 ) Via3_HH
+      NEW Metal3 ( 10640 423920 ) Via3_HH
+      NEW Metal3 ( 27440 365680 ) Via3_HH ;
     - S1P ( PIN S1P ) ( x3_x3 INP ) ( x2_x1 INP ) ( x1_x1 INP ) + USE SIGNAL + NONDEFAULTRULE ANCHO
-      + ROUTED Metal3 ( 29680 78960 380 ) ( 43120 * 380 )
-      NEW Metal3 TAPER ( 43120 73240 0 ) ( * 77200 )
-      NEW Metal3 ( 43120 77200 380 ) ( * 78960 380 )
+      + ROUTED Metal3 ( 27440 73360 380 ) ( 38640 * 380 )
+      NEW Metal3 TAPER ( 38640 73360 ) ( 43120 * )
+      NEW Metal3 TAPER ( 43120 73240 0 ) ( * 73360 )
       NEW Metal3 TAPER ( 43120 247960 0 ) ( * 248080 )
       NEW Metal3 ( 25200 248080 380 ) ( 38640 * 380 )
       NEW Metal3 TAPER ( 38640 248080 ) ( 43120 * )
-      NEW Metal4 ( 29680 78960 380 ) ( * 248080 380 )
+      NEW Metal4 ( 27440 73360 380 ) ( * 248080 380 )
       NEW Metal3 ( 560 363440 0 ) ( 25200 * 380 )
-      NEW Metal4 ( 25200 363440 380 ) ( * 427280 380 )
+      NEW Metal4 ( 25200 363440 380 ) ( * 434000 380 )
+      NEW Metal3 ( 25200 434000 380 ) ( 55440 * 380 )
+      NEW Metal4 ( 55440 427280 380 ) ( * 434000 380 )
       NEW Metal4 ( 25200 248080 380 ) ( * 363440 380 )
       NEW Metal3 ( 459760 425520 380 ) ( * 427280 380 )
       NEW Metal4 ( 459760 421560 380 ) ( * 425520 380 )
-      NEW Metal3 ( 25200 427280 380 ) ( 459760 * 380 )
-      NEW Metal3 ( 29680 78960 ) Via3_HH
+      NEW Metal3 ( 55440 427280 380 ) ( 459760 * 380 )
+      NEW Metal3 ( 27440 73360 ) Via3_HH
       NEW Metal3 ( 25200 248080 ) Via3_HH
-      NEW Metal3 ( 29680 248080 ) Via3_HH
+      NEW Metal3 ( 27440 248080 ) Via3_HH
       NEW Metal3 ( 25200 363440 ) Via3_HH
-      NEW Metal3 ( 25200 427280 ) Via3_HH
+      NEW Metal3 ( 25200 434000 ) Via3_HH
+      NEW Metal3 ( 55440 434000 ) Via3_HH
+      NEW Metal3 ( 55440 427280 ) Via3_HH
       NEW Metal3 ( 459760 425520 ) Via3_HH
       NEW Metal3 TAPER ( 459760 421560 ) Via3_VV ;
     - S2N ( PIN S2N ) ( x4_x3 INN ) ( x2_x2 INN ) ( x1_x2 INN ) + USE SIGNAL + NONDEFAULTRULE ANCHO
       + ROUTED Metal3 TAPER ( 261520 77200 0 ) ( 263760 * )
-      NEW Metal4 ( 263760 43120 380 ) ( * 77200 380 )
-      NEW Metal3 ( 260400 43120 380 ) ( 263760 * 380 )
-      NEW Metal2 ( 260400 560 0 ) ( * 43120 380 )
+      NEW Metal4 ( 263760 42000 380 ) ( * 77200 380 )
+      NEW Metal3 ( 260400 42000 380 ) ( 263760 * 380 )
+      NEW Metal2 ( 260400 560 0 ) ( * 42000 380 )
+      NEW Metal3 TAPER ( 261520 251920 0 ) ( 264880 * )
       NEW Metal4 ( 261520 77200 380 ) ( * 251920 380 )
-      NEW Metal4 ( 261520 251920 380 ) ( * 597520 380 )
-      NEW Metal3 TAPER ( 459760 597520 ) ( 464240 * )
-      NEW Metal3 TAPER ( 464240 597520 ) ( * 599120 0 )
-      NEW Metal3 ( 261520 597520 380 ) ( 459760 * 380 )
+      NEW Metal3 ( 264880 323120 380 ) ( 277200 * 380 )
+      NEW Metal4 ( 264880 251920 380 ) ( * 323120 380 )
+      NEW Metal4 ( 277200 323120 380 ) ( * 599760 380 )
+      NEW Metal3 TAPER ( 459760 599760 ) ( 464240 * )
+      NEW Metal3 TAPER ( 464240 599120 0 ) ( * 599760 )
+      NEW Metal3 ( 277200 599760 380 ) ( 459760 * 380 )
       NEW Metal3 TAPER ( 263760 77200 ) Via3_HH
-      NEW Metal3 ( 263760 43120 ) Via3_HH
-      NEW Metal2 ( 260400 43120 ) Via2_HH
+      NEW Metal3 ( 263760 42000 ) Via3_HH
+      NEW Metal2 ( 260400 42000 ) Via2_HH
       NEW Metal3 TAPER ( 261520 77200 ) Via3_VV
+      NEW Metal3 TAPER ( 264880 251920 ) Via3_HH
       NEW Metal3 TAPER ( 261520 251920 ) Via3_VV
-      NEW Metal3 ( 261520 597520 ) Via3_HH ;
+      NEW Metal3 ( 264880 323120 ) Via3_HH
+      NEW Metal3 ( 277200 323120 ) Via3_HH
+      NEW Metal3 ( 277200 599760 ) Via3_HH ;
     - S2P ( PIN S2P ) ( x4_x3 INP ) ( x2_x2 INP ) ( x1_x2 INP ) + USE SIGNAL + NONDEFAULTRULE ANCHO
-      + ROUTED Metal4 ( 252560 43120 380 ) ( * 73240 380 )
-      NEW Metal3 ( 252560 43120 380 ) ( 255920 * 380 )
-      NEW Metal2 ( 255920 560 0 ) ( * 43120 380 )
+      + ROUTED Metal4 ( 252560 42000 380 ) ( * 73240 380 )
+      NEW Metal3 ( 252560 42000 380 ) ( 255920 * 380 )
+      NEW Metal2 ( 255920 560 0 ) ( * 42000 380 )
+      NEW Metal3 TAPER ( 257040 247960 0 ) ( * 250320 )
+      NEW Metal3 TAPER ( 257040 250320 ) ( 261520 * )
+      NEW Metal3 ( 261520 250320 380 ) ( 267120 * 380 )
       NEW Metal4 ( 252560 73240 380 ) ( * 247960 380 )
-      NEW Metal4 ( 252560 247960 380 ) ( * 512400 380 )
-      NEW Metal3 ( 459760 589680 380 ) ( * 591300 380 )
-      NEW Metal3 TAPER ( 459760 591300 ) ( * 595160 0 )
-      NEW Metal3 ( 252560 512400 380 ) ( 319200 * 380 )
-      NEW Metal3 ( 319200 512400 380 ) ( * 516880 380 )
-      NEW Metal3 ( 319200 516880 380 ) ( 435120 * 380 )
-      NEW Metal2 ( 435120 516880 380 ) ( * 589680 380 )
-      NEW Metal3 ( 435120 589680 380 ) ( 459760 * 380 )
+      NEW Metal4 ( 267120 250320 380 ) ( * 484400 380 )
+      NEW Metal3 TAPER ( 465360 595160 0 ) ( 469840 * )
+      NEW Metal4 ( 469840 484400 380 ) ( * 595160 380 )
+      NEW Metal3 ( 267120 484400 380 ) ( 469840 * 380 )
       NEW Metal3 TAPER ( 252560 73240 ) Via3_VV
-      NEW Metal3 ( 252560 43120 ) Via3_HH
-      NEW Metal2 ( 255920 43120 ) Via2_HH
+      NEW Metal3 ( 252560 42000 ) Via3_HH
+      NEW Metal2 ( 255920 42000 ) Via2_HH
+      NEW Metal3 ( 267120 250320 ) Via3_HH
       NEW Metal3 TAPER ( 252560 247960 ) Via3_VV
-      NEW Metal3 ( 252560 512400 ) Via3_HH
-      NEW Metal2 ( 435120 516880 ) Via2_HH
-      NEW Metal2 ( 435120 589680 ) Via2_HH ;
+      NEW Metal3 ( 267120 484400 ) Via3_HH
+      NEW Metal3 ( 469840 484400 ) Via3_HH
+      NEW Metal3 ( 469840 595160 ) Via3_HH ;
     - S3N ( PIN S3N ) ( x4_x1 INN ) ( x3_x1 INN ) ( x1_x3 INN ) + USE SIGNAL + NONDEFAULTRULE ANCHO
-      + ROUTED Metal3 ( 445200 83440 380 ) ( 464240 * 380 )
-      NEW Metal3 TAPER ( 464240 77200 0 ) ( * 81900 )
-      NEW Metal3 ( 464240 81900 380 ) ( * 83440 380 )
-      NEW Metal4 ( 53200 425520 380 ) ( * 429520 380 )
+      + ROUTED Metal3 TAPER ( 460880 77200 ) ( 464240 * 0 )
+      NEW Metal3 TAPER ( 47600 425520 0 ) ( * 429520 )
+      NEW Metal3 ( 47600 429520 380 ) ( * 430640 380 )
+      NEW Metal3 ( 29680 430640 380 ) ( 47600 * 380 )
+      NEW Metal3 TAPER ( 53200 425520 0 ) ( * 429520 )
       NEW Metal3 ( 53200 429520 380 ) ( * 431760 380 )
-      NEW Metal3 ( 31920 431760 380 ) ( 53200 * 380 )
-      NEW Metal3 ( 560 598640 0 ) ( 43120 * 380 )
-      NEW Metal3 TAPER ( 43120 598640 ) ( 47600 * )
-      NEW Metal3 TAPER ( 47600 598640 ) ( * 599120 0 )
-      NEW Metal4 ( 31920 431760 380 ) ( * 598640 380 )
-      NEW Metal4 ( 250320 418320 380 ) ( * 431760 380 )
-      NEW Metal3 ( 250320 418320 380 ) ( 266000 * 380 )
-      NEW Metal4 ( 266000 128240 380 ) ( * 418320 380 )
-      NEW Metal4 ( 445200 83440 380 ) ( * 128240 380 )
+      NEW Metal3 ( 560 598640 0 ) ( 1680 * 380 )
+      NEW Metal3 ( 1680 598640 380 ) ( * 599760 380 )
+      NEW Metal3 ( 1680 599760 380 ) ( 43120 * 380 )
+      NEW Metal3 TAPER ( 43120 599760 ) ( 47600 * )
+      NEW Metal3 TAPER ( 47600 599120 0 ) ( * 599760 )
+      NEW Metal4 ( 29680 430640 380 ) ( * 599760 380 )
+      NEW Metal4 ( 250320 325360 380 ) ( * 431760 380 )
+      NEW Metal3 ( 250320 325360 380 ) ( 279440 * 380 )
+      NEW Metal3 ( 279440 319200 380 ) ( * 325360 380 )
+      NEW Metal4 ( 279440 319200 380 ) ( * 319500 380 )
+      NEW Metal4 ( 277200 319500 380 ) ( 279440 * 380 )
+      NEW Metal4 ( 277200 126000 380 ) ( * 319500 380 )
+      NEW Metal4 ( 460880 77200 380 ) ( * 126000 380 )
       NEW Metal3 ( 53200 431760 380 ) ( 250320 * 380 )
-      NEW Metal3 ( 266000 128240 380 ) ( 445200 * 380 )
-      NEW Metal3 ( 445200 83440 ) Via3_HH
-      NEW Metal3 TAPER ( 53200 425520 ) Via3_VV
-      NEW Metal3 ( 53200 429520 ) Via3_HH
-      NEW Metal3 ( 31920 431760 ) Via3_HH
-      NEW Metal3 ( 31920 598640 ) Via3_HH
-      NEW Metal3 ( 266000 128240 ) Via3_HH
+      NEW Metal3 ( 277200 126000 380 ) ( 460880 * 380 )
+      NEW Metal3 TAPER ( 460880 77200 ) Via3_HH
+      NEW Metal3 ( 29680 430640 ) Via3_HH
+      NEW Metal3 ( 29680 599760 ) Via3_HH
+      NEW Metal3 ( 277200 126000 ) Via3_HH
       NEW Metal3 ( 250320 431760 ) Via3_HH
-      NEW Metal3 ( 250320 418320 ) Via3_HH
-      NEW Metal3 ( 266000 418320 ) Via3_HH
-      NEW Metal3 ( 445200 128240 ) Via3_HH ;
+      NEW Metal3 ( 250320 325360 ) Via3_HH
+      NEW Metal3 ( 279440 319200 ) Via3_HH
+      NEW Metal3 ( 460880 126000 ) Via3_HH ;
     - S3P ( PIN S3P ) ( x4_x1 INP ) ( x3_x1 INP ) ( x1_x3 INP ) + USE SIGNAL + NONDEFAULTRULE ANCHO
       + ROUTED Metal3 ( 453040 73240 380 ) ( * 74480 380 )
       NEW Metal3 ( 453040 73240 380 ) ( 455280 * 380 )
@@ -895,71 +911,58 @@ NETS 55 ;
       NEW Metal3 TAPER ( 43120 421560 0 ) ( * 421680 )
       NEW Metal3 ( 31920 421680 380 ) ( 38640 * 380 )
       NEW Metal3 TAPER ( 38640 421680 ) ( 43120 * )
-      NEW Metal3 ( 29680 421680 380 ) ( 31920 * 380 )
-      NEW Metal4 ( 31920 81200 380 ) ( * 421680 380 )
-      NEW Metal3 ( 560 594160 0 ) ( 36400 * 380 )
-      NEW Metal3 ( 36400 594160 380 ) ( * 595160 380 )
-      NEW Metal3 ( 36400 595160 380 ) ( 38640 * 380 )
-      NEW Metal3 TAPER ( 38640 595160 ) ( 43120 * 0 )
-      NEW Metal4 ( 29680 421680 380 ) ( * 594160 380 )
-      NEW Metal3 ( 31920 81200 380 ) ( 84000 * 380 )
-      NEW Metal3 ( 84000 75600 380 ) ( * 81200 380 )
-      NEW Metal3 ( 84000 75600 380 ) ( 319200 * 380 )
+      NEW Metal3 TAPER ( 43120 595160 0 ) ( * 595280 )
+      NEW Metal3 TAPER ( 40880 595280 ) ( 43120 * )
+      NEW Metal3 TAPER ( 40880 594160 ) ( * 595280 )
+      NEW Metal3 ( 560 594160 0 ) ( 38640 * 380 )
+      NEW Metal3 TAPER ( 38640 594160 ) ( 40880 * )
+      NEW Metal4 ( 31920 75600 380 ) ( * 594160 380 )
+      NEW Metal3 ( 31920 75600 380 ) ( 319200 * 380 )
       NEW Metal3 ( 319200 74480 380 ) ( * 75600 380 )
       NEW Metal3 ( 319200 74480 380 ) ( 453040 * 380 )
-      NEW Metal3 ( 31920 81200 ) Via3_HH
+      NEW Metal3 ( 31920 75600 ) Via3_HH
       NEW Metal3 ( 31920 421680 ) Via3_HH
-      NEW Metal3 ( 29680 421680 ) Via3_HH
-      NEW Metal3 ( 29680 594160 ) Via3_HH ;
+      NEW Metal3 ( 31920 594160 ) Via3_HH ;
     - S4N ( PIN S4N ) ( x4_x2 INN ) ( x3_x2 INN ) ( x2_x3 INN ) + USE SIGNAL + NONDEFAULTRULE ANCHO
-      + ROUTED Metal4 ( 267120 553500 380 ) ( 268240 * 380 )
-      NEW Metal3 ( 560 596400 0 ) ( 1680 * 380 )
-      NEW Metal2 ( 1680 596400 380 ) ( * 600880 380 )
-      NEW Metal3 TAPER ( 261520 425520 0 ) ( 263760 * )
-      NEW Metal4 ( 263760 425520 380 ) ( * 429520 380 )
-      NEW Metal4 ( 268240 429520 380 ) ( * 553500 380 )
-      NEW Metal3 TAPER ( 261520 599120 0 ) ( 266000 * )
-      NEW Metal3 ( 266000 599120 380 ) ( 267120 * 380 )
-      NEW Metal3 TAPER ( 251440 600880 ) ( 255920 * )
-      NEW Metal3 TAPER ( 255920 599120 0 ) ( * 600880 )
-      NEW Metal4 ( 267120 553500 380 ) ( * 599120 380 )
+      + ROUTED Metal3 ( 560 596400 0 ) ( 5040 * 380 )
+      NEW Metal3 ( 5040 596400 380 ) ( * 597520 380 )
+      NEW Metal3 TAPER ( 261520 425520 0 ) ( 264880 * )
+      NEW Metal4 ( 264880 425520 380 ) ( * 429520 380 )
+      NEW Metal3 TAPER ( 261520 599120 0 ) ( 264880 * )
+      NEW Metal3 TAPER ( 251440 597520 ) ( 255920 * )
+      NEW Metal3 TAPER ( 255920 597520 ) ( * 599120 0 )
+      NEW Metal4 ( 264880 429520 380 ) ( * 599120 380 )
       NEW Metal4 ( 469840 251920 380 ) ( * 429520 380 )
-      NEW Metal3 ( 1680 600880 380 ) ( 251440 * 380 )
-      NEW Metal3 ( 263760 429520 380 ) ( 469840 * 380 )
+      NEW Metal3 ( 5040 597520 380 ) ( 84000 * 380 )
+      NEW Metal3 ( 201600 597520 380 ) ( 251440 * 380 )
+      NEW Metal3 ( 84000 597520 380 ) ( * 602000 380 )
+      NEW Metal3 ( 84000 602000 380 ) ( 201600 * 380 )
+      NEW Metal3 ( 201600 597520 380 ) ( * 602000 380 )
+      NEW Metal3 ( 264880 429520 380 ) ( 469840 * 380 )
       NEW Metal3 TAPER ( 469840 251920 ) Via3_VV
-      NEW Metal2 ( 1680 596400 ) Via2_HH
-      NEW Metal2 ( 1680 600880 ) Via2_HH
-      NEW Metal3 TAPER ( 263760 425520 ) Via3_HH
-      NEW Metal3 ( 263760 429520 ) Via3_HH
-      NEW Metal3 ( 268240 429520 ) Via3_HH
-      NEW Metal3 ( 267120 599120 ) Via3_HH
+      NEW Metal3 TAPER ( 264880 425520 ) Via3_HH
+      NEW Metal3 ( 264880 429520 ) Via3_HH
+      NEW Metal3 TAPER ( 264880 599120 ) Via3_HH
       NEW Metal3 ( 469840 429520 ) Via3_HH ;
     - S4P ( PIN S4P ) ( x4_x2 INP ) ( x3_x2 INP ) ( x2_x3 INP ) + USE SIGNAL + NONDEFAULTRULE ANCHO
-      + ROUTED Metal4 ( 263760 551700 380 ) ( 266000 * 380 )
-      NEW Metal4 ( 459760 247960 380 ) ( * 260400 380 )
+      + ROUTED Metal3 TAPER ( 455280 251440 ) ( 459760 * )
+      NEW Metal3 TAPER ( 459760 247960 0 ) ( * 251440 )
       NEW Metal3 ( 560 591920 0 ) ( 53200 * 380 )
       NEW Metal4 ( 53200 585200 380 ) ( * 591920 380 )
-      NEW Metal3 TAPER ( 257040 421560 0 ) ( * 421680 )
-      NEW Metal3 TAPER ( 257040 421680 ) ( 261520 * )
-      NEW Metal3 ( 261520 421680 380 ) ( 263760 * 380 )
-      NEW Metal3 ( 263760 421680 380 ) ( 266000 * 380 )
-      NEW Metal4 ( 263760 260400 380 ) ( * 421680 380 )
-      NEW Metal4 ( 266000 421680 380 ) ( * 551700 380 )
-      NEW Metal3 ( 257040 589680 380 ) ( * 591300 380 )
-      NEW Metal3 TAPER ( 257040 591300 ) ( * 595160 0 )
-      NEW Metal3 ( 257040 589680 380 ) ( 263760 * 380 )
-      NEW Metal4 ( 263760 551700 380 ) ( * 589680 380 )
-      NEW Metal3 ( 263760 260400 380 ) ( 459760 * 380 )
-      NEW Metal3 ( 53200 585200 380 ) ( 263760 * 380 )
-      NEW Metal3 ( 263760 260400 ) Via3_HH
-      NEW Metal3 ( 459760 260400 ) Via3_HH
-      NEW Metal3 TAPER ( 459760 247960 ) Via3_VV
+      NEW Metal4 ( 252560 260400 380 ) ( * 421560 380 )
+      NEW Metal4 ( 252560 421560 380 ) ( * 595160 380 )
+      NEW Metal4 ( 406000 251440 380 ) ( * 260400 380 )
+      NEW Metal3 ( 252560 260400 380 ) ( 406000 * 380 )
+      NEW Metal3 ( 406000 251440 380 ) ( 455280 * 380 )
+      NEW Metal3 ( 53200 585200 380 ) ( 252560 * 380 )
+      NEW Metal3 ( 252560 260400 ) Via3_HH
       NEW Metal3 ( 53200 591920 ) Via3_HH
       NEW Metal3 ( 53200 585200 ) Via3_HH
-      NEW Metal3 ( 263760 421680 ) Via3_HH
-      NEW Metal3 ( 266000 421680 ) Via3_HH
-      NEW Metal3 ( 263760 589680 ) Via3_HH
-      NEW Metal3 ( 263760 585200 ) Via3_HH ;
+      NEW Metal3 TAPER ( 252560 421560 ) Via3_VV
+      NEW Metal3 TAPER ( 252560 595160 ) Via3_VV
+      NEW Metal3 ( 252560 585200 ) Via3_HH
+      NEW Metal3 ( 406000 260400 ) Via3_HH
+      NEW Metal3 ( 406000 251440 ) Via3_HH ;
     - VDD ( PIN VDD ) ( x7_weight_comp VDD ) ( x6_weight_comp VDD ) ( x5_weight_comp VDD ) ( x4_x7 VDD ) ( x4_x6 VDD ) ( x4_x5 VDD )
       ( x4_x4 VDD ) ( x4_x3 VDD ) ( x4_x2 VDD ) ( x4_x1 VDD ) ( x3_x7 VDD ) ( x3_x6 VDD ) ( x3_x5 VDD ) ( x3_x4 VDD )
       ( x3_x3 VDD ) ( x3_x2 VDD ) ( x3_x1 VDD ) ( x2_x7 VDD ) ( x2_x6 VDD ) ( x2_x5 VDD ) ( x2_x4 VDD ) ( x2_x3 VDD )
@@ -971,27 +974,27 @@ NETS 55 ;
       ( x2_x2 VSS ) ( x2_x1 VSS ) ( x1_x7 VSS ) ( x1_x6 VSS ) ( x1_x5 VSS ) ( x1_x4 VSS ) ( x1_x3 VSS ) ( x1_x2 VSS )
       ( x1_x1 VSS ) + USE GROUND ;
     - X ( PIN X ) ( x5_weight_comp WE ) + USE SIGNAL + NONDEFAULTRULE ANCHO
-      + ROUTED Metal4 ( 678160 33040 380 ) ( * 75640 380 )
-      NEW Metal2 ( 665840 560 0 ) ( * 33040 380 )
-      NEW Metal3 ( 665840 33040 380 ) ( 678160 * 380 )
-      NEW Metal3 ( 678160 33040 ) Via3_HH
-      NEW Metal3 TAPER ( 678160 75640 ) Via3_VV
-      NEW Metal2 ( 665840 33040 ) Via2_HH ;
+      + ROUTED Metal2 ( 659120 560 0 ) ( * 40880 380 )
+      NEW Metal3 ( 658680 40880 380 ) ( 659120 * 380 )
+      NEW Metal3 ( 658680 40880 380 ) ( * 42300 380 )
+      NEW Metal3 TAPER ( 658680 42300 ) ( * 46480 0 )
+      NEW Metal2 ( 659120 40880 ) Via2_HH ;
     - X1 ( x5_weight_comp VA ) ( x1_x7 X ) + USE SIGNAL + NONDEFAULTRULE ANCHO
       + ROUTED Metal3 ( 708400 437360 380 ) ( 712880 * 380 )
       NEW Metal4 ( 712880 437360 380 ) ( * 441900 380 )
       NEW Metal4 ( 710640 441900 380 ) ( 712880 * 380 )
       NEW Metal4 ( 708400 76960 380 ) ( * 437360 380 )
       NEW Metal3 TAPER ( 689360 580200 0 ) ( 691600 * )
-      NEW Metal4 ( 691600 575120 380 ) ( * 580200 380 )
-      NEW Metal3 ( 691600 575120 380 ) ( 710640 * 380 )
-      NEW Metal4 ( 710640 441900 380 ) ( * 575120 380 )
+      NEW Metal4 ( 691600 580200 380 ) ( * 584080 380 )
+      NEW Metal3 TAPER ( 691600 584080 ) ( 693840 * )
+      NEW Metal3 ( 693840 584080 380 ) ( 710640 * 380 )
+      NEW Metal4 ( 710640 441900 380 ) ( * 584080 380 )
       NEW Metal3 TAPER ( 708400 76960 ) Via3_VV
       NEW Metal3 ( 708400 437360 ) Via3_HH
       NEW Metal3 ( 712880 437360 ) Via3_HH
       NEW Metal3 TAPER ( 691600 580200 ) Via3_HH
-      NEW Metal3 ( 691600 575120 ) Via3_HH
-      NEW Metal3 ( 710640 575120 ) Via3_HH ;
+      NEW Metal3 TAPER ( 691600 584080 ) Via3_HH
+      NEW Metal3 ( 710640 584080 ) Via3_HH ;
     - X2 ( x5_weight_comp VB ) ( x2_x7 X ) + USE SIGNAL + NONDEFAULTRULE ANCHO
       + ROUTED Metal3 ( 15120 745360 380 ) ( 55440 * 380 )
       NEW Metal4 ( 55440 745360 380 ) ( * 753800 380 )
@@ -1007,32 +1010,33 @@ NETS 55 ;
       NEW Metal3 TAPER ( 659120 78280 ) Via3_VV
       NEW Metal3 ( 659120 95760 ) Via3_HH ;
     - X3 ( x5_weight_comp VC ) ( x3_x7 X ) + USE SIGNAL + NONDEFAULTRULE ANCHO
-      + ROUTED Metal3 TAPER ( 170800 753800 0 ) ( 173040 * )
-      NEW Metal4 ( 173040 730800 380 ) ( * 753800 380 )
-      NEW Metal3 TAPER ( 650840 44240 ) ( * 46480 0 )
-      NEW Metal3 TAPER ( 650840 44240 ) ( 655760 * )
-      NEW Metal3 ( 655760 44240 380 ) ( 722960 * 380 )
-      NEW Metal3 ( 173040 730800 380 ) ( 722960 * 380 )
-      NEW Metal4 ( 722960 44240 380 ) ( * 730800 380 )
+      + ROUTED Metal3 ( 672000 44240 380 ) ( 722960 * 380 )
+      NEW Metal3 TAPER ( 650840 46480 0 ) ( * 48720 )
+      NEW Metal3 TAPER ( 650840 48720 ) ( 655760 * )
+      NEW Metal3 ( 655760 48720 380 ) ( 672000 * 380 )
+      NEW Metal3 ( 672000 44240 380 ) ( * 48720 380 )
+      NEW Metal3 TAPER ( 170800 753800 0 ) ( * 756560 )
+      NEW Metal3 TAPER ( 170800 756560 ) ( 175280 * )
+      NEW Metal3 ( 175280 756560 380 ) ( 722960 * 380 )
+      NEW Metal4 ( 722960 44240 380 ) ( * 756560 380 )
       NEW Metal3 ( 722960 44240 ) Via3_HH
-      NEW Metal3 ( 722960 730800 ) Via3_HH
-      NEW Metal3 TAPER ( 173040 753800 ) Via3_HH
-      NEW Metal3 ( 173040 730800 ) Via3_HH ;
+      NEW Metal3 ( 722960 756560 ) Via3_HH ;
     - X4 ( x5_weight_comp VD ) ( x4_x7 X ) + USE SIGNAL + NONDEFAULTRULE ANCHO
-      + ROUTED Metal4 ( 278320 733040 380 ) ( * 753800 380 )
-      NEW Metal3 ( 650840 70000 380 ) ( * 72240 380 )
-      NEW Metal3 TAPER ( 650840 72240 ) ( * 75640 0 )
-      NEW Metal3 ( 650840 70000 380 ) ( 725200 * 380 )
-      NEW Metal3 ( 278320 733040 380 ) ( 725200 * 380 )
-      NEW Metal4 ( 725200 70000 380 ) ( * 733040 380 )
-      NEW Metal3 TAPER ( 278320 753800 ) Via3_VV
-      NEW Metal3 ( 278320 733040 ) Via3_HH
-      NEW Metal3 ( 725200 70000 ) Via3_HH
-      NEW Metal3 ( 725200 733040 ) Via3_HH ;
+      + ROUTED Metal3 TAPER ( 278320 753800 0 ) ( * 754320 )
+      NEW Metal3 TAPER ( 278320 754320 ) ( 282800 * )
+      NEW Metal3 TAPER ( 650840 75640 0 ) ( 652400 * )
+      NEW Metal3 ( 282800 754320 380 ) ( 725200 * 380 )
+      NEW Metal4 ( 652400 75640 380 ) ( * 98000 380 )
+      NEW Metal3 ( 652400 98000 380 ) ( 725200 * 380 )
+      NEW Metal4 ( 725200 98000 380 ) ( * 754320 380 )
+      NEW Metal3 ( 725200 754320 ) Via3_HH
+      NEW Metal3 ( 725200 98000 ) Via3_HH
+      NEW Metal3 TAPER ( 652400 75640 ) Via3_HH
+      NEW Metal3 ( 652400 98000 ) Via3_HH ;
     - XN ( PIN XN ) ( x5_weight_comp OUT_N ) + USE SIGNAL + NONDEFAULTRULE ANCHO
-      + ROUTED Metal3 TAPER ( 711760 72240 ) ( 716240 * )
-      NEW Metal3 ( 716240 72240 380 ) ( 743120 * 0 )
-      NEW Metal3 TAPER ( 711760 72240 ) ( * 82240 0 ) ;
+      + ROUTED Metal3 TAPER ( 711760 81200 ) ( 716240 * )
+      NEW Metal3 ( 716240 81200 380 ) ( 743120 * 0 )
+      NEW Metal3 TAPER ( 711760 81200 ) ( * 82240 0 ) ;
     - XP ( PIN XP ) ( x5_weight_comp OUT ) + USE SIGNAL + NONDEFAULTRULE ANCHO
       + ROUTED Metal2 ( 706160 560 0 ) ( * 11760 380 )
       NEW Metal2 ( 706160 11760 380 ) ( 707280 * 380 )
@@ -1042,13 +1046,11 @@ NETS 55 ;
       NEW Metal3 ( 705040 11760 ) Via3_HH
       NEW Metal3 TAPER ( 705040 80920 ) Via3_VV ;
     - Y ( PIN Y ) ( x6_weight_comp WE ) + USE SIGNAL + NONDEFAULTRULE ANCHO
-      + ROUTED Metal3 ( 742000 235760 380 ) ( 743120 * 0 )
-      NEW Metal2 ( 742000 235760 380 ) ( * 244720 380 )
-      NEW Metal3 ( 686000 244720 380 ) ( 742000 * 380 )
-      NEW Metal3 ( 686000 244720 380 ) ( * 246960 380 )
-      NEW Metal3 TAPER ( 686000 246960 ) ( * 250360 0 )
-      NEW Metal2 ( 742000 235760 ) Via2_HH
-      NEW Metal2 ( 742000 244720 ) Via2_HH ;
+      + ROUTED Metal3 ( 742000 220080 380 ) ( 743120 * 0 )
+      NEW Metal3 ( 742000 218960 380 ) ( * 220080 380 )
+      NEW Metal3 TAPER ( 658680 218960 ) ( * 221200 0 )
+      NEW Metal3 TAPER ( 658680 218960 ) ( 663600 * )
+      NEW Metal3 ( 663600 218960 380 ) ( 742000 * 380 ) ;
     - Y1 ( x6_weight_comp VA ) ( x1_x7 Y ) + USE SIGNAL + NONDEFAULTRULE ANCHO
       + ROUTED Metal3 TAPER ( 675920 580200 0 ) ( 677040 * )
       NEW Metal3 TAPER ( 677040 580200 ) ( * 581840 )
@@ -1058,158 +1060,171 @@ NETS 55 ;
       NEW Metal3 TAPER ( 702800 251680 ) Via3_VV
       NEW Metal3 ( 702800 581840 ) Via3_HH ;
     - Y2 ( x6_weight_comp VB ) ( x2_x7 Y ) + USE SIGNAL + NONDEFAULTRULE ANCHO
-      + ROUTED Metal3 ( 12880 722960 380 ) ( 40880 * 380 )
-      NEW Metal4 ( 40880 722960 380 ) ( * 755440 380 )
-      NEW Metal3 ( 40880 755440 380 ) ( 43120 * 380 )
+      + ROUTED Metal3 ( 12880 755440 380 ) ( 43120 * 380 )
       NEW Metal3 TAPER ( 43120 755440 ) ( 45360 * )
       NEW Metal3 TAPER ( 45360 753800 ) ( * 755440 )
       NEW Metal3 TAPER ( 45360 753800 ) ( 47600 * 0 )
-      NEW Metal4 ( 12880 253680 380 ) ( * 722960 380 )
+      NEW Metal4 ( 12880 253680 380 ) ( * 755440 380 )
       NEW Metal3 TAPER ( 654640 253680 ) ( 659120 * )
       NEW Metal3 TAPER ( 659120 253000 0 ) ( * 253680 )
       NEW Metal3 ( 12880 253680 380 ) ( 654640 * 380 )
       NEW Metal3 ( 12880 253680 ) Via3_HH
-      NEW Metal3 ( 12880 722960 ) Via3_HH
-      NEW Metal3 ( 40880 722960 ) Via3_HH
-      NEW Metal3 ( 40880 755440 ) Via3_HH ;
+      NEW Metal3 ( 12880 755440 ) Via3_HH ;
     - Y3 ( x6_weight_comp VC ) ( x3_x7 Y ) + USE SIGNAL + NONDEFAULTRULE ANCHO
-      + ROUTED Metal4 ( 250320 755100 380 ) ( * 755440 380 )
-      NEW Metal4 ( 250320 755100 380 ) ( 251440 * 380 )
-      NEW Metal4 ( 251440 613200 380 ) ( * 755100 380 )
-      NEW Metal3 TAPER ( 157360 753800 0 ) ( 158480 * )
-      NEW Metal3 TAPER ( 158480 753800 ) ( * 755440 )
-      NEW Metal3 TAPER ( 158480 755440 ) ( 161840 * )
-      NEW Metal3 ( 161840 755440 380 ) ( 250320 * 380 )
+      + ROUTED Metal4 ( 251440 613200 380 ) ( * 733040 380 )
+      NEW Metal4 ( 150640 733040 380 ) ( * 753800 380 )
+      NEW Metal3 ( 150640 733040 380 ) ( 251440 * 380 )
       NEW Metal3 ( 616560 221200 380 ) ( 646800 * 380 )
       NEW Metal3 TAPER ( 646800 221200 ) ( 650720 * 0 )
       NEW Metal3 ( 251440 613200 380 ) ( 616560 * 380 )
+      NEW Metal3 TAPER ( 150640 753800 ) ( 155120 * 0 )
       NEW Metal4 ( 616560 221200 380 ) ( * 613200 380 )
-      NEW Metal3 ( 250320 755440 ) Via3_HH
+      NEW Metal3 ( 251440 733040 ) Via3_HH
       NEW Metal3 ( 251440 613200 ) Via3_HH
+      NEW Metal3 ( 150640 753800 ) Via3_HH
+      NEW Metal3 ( 150640 733040 ) Via3_HH
       NEW Metal3 ( 616560 221200 ) Via3_HH
       NEW Metal3 ( 616560 613200 ) Via3_HH ;
     - Y4 ( x6_weight_comp VD ) ( x4_x7 Y ) + USE SIGNAL + NONDEFAULTRULE ANCHO
-      + ROUTED Metal4 ( 264880 745360 380 ) ( * 753800 380 )
-      NEW Metal3 ( 625520 250320 380 ) ( 646800 * 380 )
+      + ROUTED Metal4 ( 622160 250320 380 ) ( * 294000 380 )
+      NEW Metal3 ( 622160 250320 380 ) ( 646800 * 380 )
       NEW Metal3 TAPER ( 646800 250320 ) ( 650720 * )
       NEW Metal3 TAPER ( 650720 250320 ) ( * 250360 0 )
-      NEW Metal3 ( 264880 745360 380 ) ( 625520 * 380 )
-      NEW Metal4 ( 625520 250320 380 ) ( * 745360 380 )
-      NEW Metal3 TAPER ( 264880 753800 ) Via3_VV
-      NEW Metal3 ( 264880 745360 ) Via3_HH
-      NEW Metal3 ( 625520 250320 ) Via3_HH
-      NEW Metal3 ( 625520 745360 ) Via3_HH ;
+      NEW Metal4 ( 262640 294000 380 ) ( * 753800 380 )
+      NEW Metal3 ( 262640 294000 380 ) ( 622160 * 380 )
+      NEW Metal3 ( 262640 294000 ) Via3_HH
+      NEW Metal3 ( 622160 294000 ) Via3_HH
+      NEW Metal3 ( 622160 250320 ) Via3_HH
+      NEW Metal3 TAPER ( 262640 753800 ) Via3_VV ;
     - YN ( PIN YN ) ( x6_weight_comp OUT_N ) + USE SIGNAL + NONDEFAULTRULE ANCHO
-      + ROUTED Metal3 TAPER ( 711760 246960 ) ( 716240 * )
-      NEW Metal3 ( 716240 246960 380 ) ( 743120 * 0 )
-      NEW Metal3 TAPER ( 711760 246960 ) ( * 256960 0 ) ;
+      + ROUTED Metal3 TAPER ( 711760 255920 ) ( 716240 * )
+      NEW Metal3 ( 716240 255920 380 ) ( 743120 * 0 )
+      NEW Metal3 TAPER ( 711760 255920 ) ( * 256960 0 ) ;
     - YP ( PIN YP ) ( x6_weight_comp OUT ) + USE SIGNAL + NONDEFAULTRULE ANCHO
       + ROUTED Metal3 ( 742000 238000 380 ) ( 743120 * 0 )
-      NEW Metal3 ( 742000 238000 380 ) ( * 239120 380 )
-      NEW Metal3 ( 705040 239120 380 ) ( 742000 * 380 )
-      NEW Metal4 ( 705040 239120 380 ) ( * 255640 380 )
-      NEW Metal3 ( 705040 239120 ) Via3_HH
-      NEW Metal3 TAPER ( 705040 255640 ) Via3_VV ;
+      NEW Metal4 ( 742000 238000 380 ) ( * 253680 380 )
+      NEW Metal3 TAPER ( 709520 253680 ) ( 711200 * )
+      NEW Metal3 ( 711200 253680 380 ) ( 742000 * 380 )
+      NEW Metal3 TAPER ( 709520 253680 ) ( * 255640 )
+      NEW Metal3 TAPER ( 707280 255640 0 ) ( 709520 * )
+      NEW Metal3 ( 742000 238000 ) Via3_HH
+      NEW Metal3 ( 742000 253680 ) Via3_HH ;
     - Z ( PIN Z ) ( x7_weight_comp WE ) + USE SIGNAL + NONDEFAULTRULE ANCHO
-      + ROUTED Metal3 ( 742000 410480 380 ) ( 743120 * 0 )
-      NEW Metal4 ( 742000 410480 380 ) ( * 417200 380 )
-      NEW Metal3 ( 709520 417200 380 ) ( 742000 * 380 )
-      NEW Metal3 ( 709520 417200 380 ) ( * 420560 380 )
-      NEW Metal3 ( 686000 420560 380 ) ( 709520 * 380 )
-      NEW Metal3 TAPER ( 686000 420560 ) ( * 423960 0 )
-      NEW Metal3 ( 742000 410480 ) Via3_HH
-      NEW Metal3 ( 742000 417200 ) Via3_HH ;
+      + ROUTED Metal3 ( 742000 394800 380 ) ( 743120 * 0 )
+      NEW Metal3 ( 742000 392560 380 ) ( * 394800 380 )
+      NEW Metal3 TAPER ( 658680 392560 ) ( * 394800 0 )
+      NEW Metal3 TAPER ( 658680 392560 ) ( 663600 * )
+      NEW Metal3 ( 663600 392560 380 ) ( 742000 * 380 ) ;
     - Z1 ( x7_weight_comp VA ) ( x1_x7 Z ) + USE SIGNAL + NONDEFAULTRULE ANCHO
-      + ROUTED Metal3 TAPER ( 696080 427280 ) ( 700560 * )
-      NEW Metal3 TAPER ( 700560 425280 0 ) ( * 427280 )
-      NEW Metal3 ( 672000 427280 380 ) ( 696080 * 380 )
-      NEW Metal3 ( 642320 428400 380 ) ( 672000 * 380 )
-      NEW Metal3 ( 672000 427280 380 ) ( * 428400 380 )
+      + ROUTED Metal3 TAPER ( 700560 421680 ) ( * 425280 0 )
+      NEW Metal3 ( 642320 421680 380 ) ( 700560 * 380 )
       NEW Metal3 TAPER ( 642320 577560 ) ( 646800 * 0 )
-      NEW Metal4 ( 642320 428400 380 ) ( * 577560 380 )
-      NEW Metal3 ( 642320 428400 ) Via3_HH
+      NEW Metal4 ( 642320 421680 380 ) ( * 577560 380 )
+      NEW Metal3 ( 642320 421680 ) Via3_HH
       NEW Metal3 ( 642320 577560 ) Via3_HH ;
     - Z2 ( x7_weight_comp VB ) ( x2_x7 Z ) + USE SIGNAL + NONDEFAULTRULE ANCHO
-      + ROUTED Metal4 ( 25200 462000 380 ) ( * 751160 380 )
-      NEW Metal3 ( 25200 462000 380 ) ( 653520 * 380 )
-      NEW Metal3 ( 653520 426600 380 ) ( 654640 * 380 )
-      NEW Metal3 TAPER ( 654640 426600 ) ( 659120 * 0 )
-      NEW Metal4 ( 653520 426600 380 ) ( * 462000 380 )
-      NEW Metal3 ( 25200 462000 ) Via3_HH
+      + ROUTED Metal4 ( 25200 482160 380 ) ( * 751160 380 )
+      NEW Metal3 ( 25200 482160 380 ) ( 659120 * 380 )
+      NEW Metal4 ( 659120 426600 380 ) ( * 482160 380 )
+      NEW Metal3 ( 25200 482160 ) Via3_HH
       NEW Metal3 TAPER ( 25200 751160 ) Via3_VV
-      NEW Metal3 ( 653520 462000 ) Via3_HH
-      NEW Metal3 ( 653520 426600 ) Via3_HH ;
+      NEW Metal3 ( 659120 482160 ) Via3_HH
+      NEW Metal3 TAPER ( 659120 426600 ) Via3_VV ;
     - Z3 ( x7_weight_comp VC ) ( x3_x7 Z ) + USE SIGNAL + NONDEFAULTRULE ANCHO
-      + ROUTED Metal4 ( 127120 684900 380 ) ( 128240 * 380 )
-      NEW Metal4 ( 127120 684900 380 ) ( * 751160 380 )
-      NEW Metal3 TAPER ( 127120 751160 ) ( 128240 * 0 )
-      NEW Metal4 ( 128240 663600 380 ) ( * 684900 380 )
+      + ROUTED Metal2 ( 314160 745360 380 ) ( * 758800 380 )
+      NEW Metal3 ( 134960 745360 380 ) ( * 747600 380 )
+      NEW Metal3 TAPER ( 134960 747600 ) ( * 751160 0 )
+      NEW Metal3 ( 314160 745360 380 ) ( 618800 * 380 )
       NEW Metal3 ( 618800 394800 380 ) ( 646800 * 380 )
       NEW Metal3 TAPER ( 646800 394800 ) ( 650720 * 0 )
-      NEW Metal3 ( 128240 663600 380 ) ( 618800 * 380 )
-      NEW Metal4 ( 618800 394800 380 ) ( * 663600 380 )
-      NEW Metal3 TAPER ( 127120 751160 ) Via3_HH
-      NEW Metal3 ( 128240 663600 ) Via3_HH
+      NEW Metal4 ( 618800 394800 380 ) ( * 745360 380 )
+      NEW Metal3 ( 268800 758800 380 ) ( 314160 * 380 )
+      NEW Metal4 ( 171920 745360 380 ) ( * 761040 380 )
+      NEW Metal3 ( 171920 761040 380 ) ( 268800 * 380 )
+      NEW Metal3 ( 268800 758800 380 ) ( * 761040 380 )
+      NEW Metal3 ( 134960 745360 380 ) ( 171920 * 380 )
+      NEW Metal2 ( 314160 758800 ) Via2_HH
+      NEW Metal2 ( 314160 745360 ) Via2_HH
+      NEW Metal3 ( 618800 745360 ) Via3_HH
       NEW Metal3 ( 618800 394800 ) Via3_HH
-      NEW Metal3 ( 618800 663600 ) Via3_HH ;
+      NEW Metal3 ( 171920 745360 ) Via3_HH
+      NEW Metal3 ( 171920 761040 ) Via3_HH ;
     - Z4 ( x7_weight_comp VD ) ( x4_x7 Z ) + USE SIGNAL + NONDEFAULTRULE ANCHO
-      + ROUTED Metal4 ( 240240 743120 380 ) ( * 751160 380 )
-      NEW Metal4 ( 478800 425040 380 ) ( * 743120 380 )
-      NEW Metal3 ( 240240 743120 380 ) ( 478800 * 380 )
-      NEW Metal3 ( 644560 423960 380 ) ( * 425040 380 )
-      NEW Metal3 ( 644560 423960 380 ) ( 646800 * 380 )
-      NEW Metal3 TAPER ( 646800 423960 ) ( 650720 * 0 )
-      NEW Metal3 ( 478800 425040 380 ) ( 644560 * 380 )
-      NEW Metal3 TAPER ( 240240 751160 ) Via3_VV
-      NEW Metal3 ( 240240 743120 ) Via3_HH
-      NEW Metal3 ( 478800 743120 ) Via3_HH
-      NEW Metal3 ( 478800 425040 ) Via3_HH ;
+      + ROUTED Metal3 ( 625520 430640 380 ) ( 650720 * 380 )
+      NEW Metal3 TAPER ( 650720 423960 0 ) ( * 428400 )
+      NEW Metal3 ( 650720 428400 380 ) ( * 430640 380 )
+      NEW Metal3 ( 242480 746480 380 ) ( * 747600 380 )
+      NEW Metal3 TAPER ( 242480 747600 ) ( * 751160 0 )
+      NEW Metal2 ( 257040 746480 380 ) ( 263760 * 380 )
+      NEW Metal3 ( 263760 746480 380 ) ( 283920 * 380 )
+      NEW Metal4 ( 283920 744300 380 ) ( * 746480 380 )
+      NEW Metal4 ( 283920 744300 380 ) ( 288400 * 380 )
+      NEW Metal4 ( 288400 744300 380 ) ( * 752080 380 )
+      NEW Metal3 ( 288400 752080 380 ) ( 625520 * 380 )
+      NEW Metal3 ( 242480 746480 380 ) ( 257040 * 380 )
+      NEW Metal4 ( 625520 430640 380 ) ( * 752080 380 )
+      NEW Metal3 ( 625520 430640 ) Via3_HH
+      NEW Metal2 ( 257040 746480 ) Via2_HH
+      NEW Metal2 ( 263760 746480 ) Via2_HH
+      NEW Metal3 ( 283920 746480 ) Via3_HH
+      NEW Metal3 ( 288400 752080 ) Via3_HH
+      NEW Metal3 ( 625520 752080 ) Via3_HH ;
     - ZN ( PIN ZN ) ( x7_weight_comp OUT_N ) + USE SIGNAL + NONDEFAULTRULE ANCHO
-      + ROUTED Metal3 TAPER ( 711760 419440 ) ( 716240 * )
-      NEW Metal3 ( 716240 419440 380 ) ( 743120 * 0 )
-      NEW Metal3 TAPER ( 711760 419440 ) ( * 430560 0 ) ;
+      + ROUTED Metal3 ( 742000 450800 380 ) ( 743120 * 0 )
+      NEW Metal3 TAPER ( 711760 432880 ) ( 716240 * )
+      NEW Metal3 ( 716240 432880 380 ) ( 742000 * 380 )
+      NEW Metal3 TAPER ( 711760 430560 0 ) ( * 432880 )
+      NEW Metal4 ( 742000 432880 380 ) ( * 450800 380 )
+      NEW Metal3 ( 742000 450800 ) Via3_HH
+      NEW Metal3 ( 742000 432880 ) Via3_HH ;
     - ZP ( PIN ZP ) ( x7_weight_comp OUT ) + USE SIGNAL + NONDEFAULTRULE ANCHO
-      + ROUTED Metal3 ( 705040 412720 380 ) ( 743120 * 0 )
-      NEW Metal4 ( 705040 412720 380 ) ( * 429240 380 )
-      NEW Metal3 ( 705040 412720 ) Via3_HH
-      NEW Metal3 TAPER ( 705040 429240 ) Via3_VV ;
+      + ROUTED Metal3 ( 742000 412720 380 ) ( 743120 * 0 )
+      NEW Metal4 ( 742000 412720 380 ) ( * 427280 380 )
+      NEW Metal3 TAPER ( 710640 427280 ) ( 711200 * )
+      NEW Metal3 ( 711200 427280 380 ) ( 742000 * 380 )
+      NEW Metal3 TAPER ( 710640 427280 ) ( * 429240 )
+      NEW Metal3 TAPER ( 707280 429240 0 ) ( 710640 * )
+      NEW Metal3 ( 742000 412720 ) Via3_HH
+      NEW Metal3 ( 742000 427280 ) Via3_HH ;
     - x1_SX ( x1_x5 INN ) ( x1_x4 INN ) ( x1_x1 OUT ) + USE SIGNAL + NONDEFAULTRULE ANCHO
       + ROUTED Metal3 TAPER ( 190960 66640 0 ) ( 195440 * )
       NEW Metal3 ( 195440 66640 380 ) ( 197680 * 380 )
-      NEW Metal4 ( 143920 130480 380 ) ( * 157360 380 )
-      NEW Metal3 ( 103600 157360 380 ) ( 143920 * 380 )
+      NEW Metal4 ( 160720 142800 380 ) ( * 157360 380 )
+      NEW Metal3 ( 103600 157360 380 ) ( 160720 * 380 )
       NEW Metal3 ( 103600 157240 380 ) ( * 157360 380 )
       NEW Metal3 TAPER ( 96880 157240 0 ) ( 101360 * )
       NEW Metal3 ( 101360 157240 380 ) ( 103600 * 380 )
-      NEW Metal4 ( 197680 66640 380 ) ( * 130480 380 )
-      NEW Metal4 ( 336560 130480 380 ) ( * 157240 380 )
-      NEW Metal3 ( 143920 130480 380 ) ( 336560 * 380 )
+      NEW Metal3 ( 197680 141680 380 ) ( * 142800 380 )
+      NEW Metal4 ( 197680 66640 380 ) ( * 141680 380 )
+      NEW Metal4 ( 336560 142800 380 ) ( * 157240 380 )
+      NEW Metal3 ( 160720 142800 380 ) ( 336560 * 380 )
       NEW Metal3 ( 197680 66640 ) Via3_HH
-      NEW Metal3 ( 143920 130480 ) Via3_HH
-      NEW Metal3 ( 143920 157360 ) Via3_HH
-      NEW Metal3 ( 197680 130480 ) Via3_HH
-      NEW Metal3 ( 336560 130480 ) Via3_HH
+      NEW Metal3 ( 160720 142800 ) Via3_HH
+      NEW Metal3 ( 160720 157360 ) Via3_HH
+      NEW Metal3 ( 197680 141680 ) Via3_HH
+      NEW Metal3 ( 336560 142800 ) Via3_HH
       NEW Metal3 TAPER ( 336560 157240 ) Via3_VV ;
     - x1_SY ( x1_x6 INN ) ( x1_x4 INP ) ( x1_x2 OUT ) + USE SIGNAL + NONDEFAULTRULE ANCHO
       + ROUTED Metal3 TAPER ( 399280 66640 0 ) ( 403760 * )
-      NEW Metal3 ( 84560 151760 380 ) ( * 152100 380 )
-      NEW Metal3 TAPER ( 84560 152100 ) ( * 155920 0 )
-      NEW Metal3 ( 84560 151760 380 ) ( 118160 * 380 )
-      NEW Metal4 ( 118160 126000 380 ) ( * 151760 380 )
-      NEW Metal2 ( 403760 66640 380 ) ( * 126000 380 )
-      NEW Metal4 ( 577360 126000 380 ) ( * 157240 380 )
-      NEW Metal3 ( 118160 126000 380 ) ( 577360 * 380 )
-      NEW Metal2 ( 403760 66640 ) Via2_HH
-      NEW Metal3 ( 118160 151760 ) Via3_HH
-      NEW Metal3 ( 118160 126000 ) Via3_HH
-      NEW Metal2 ( 403760 126000 ) Via2_HH
-      NEW Metal3 ( 577360 126000 ) Via3_HH
+      NEW Metal3 ( 403760 66640 380 ) ( 406000 * 380 )
+      NEW Metal3 TAPER ( 84560 155920 0 ) ( * 159600 )
+      NEW Metal3 ( 84560 159600 380 ) ( 134960 * 380 )
+      NEW Metal4 ( 134960 159600 380 ) ( * 168560 380 )
+      NEW Metal4 ( 401520 130500 380 ) ( 406000 * 380 )
+      NEW Metal4 ( 401520 130500 380 ) ( * 168560 380 )
+      NEW Metal4 ( 406000 66640 380 ) ( * 130500 380 )
+      NEW Metal4 ( 577360 157240 380 ) ( * 168560 380 )
+      NEW Metal3 ( 134960 168560 380 ) ( 577360 * 380 )
+      NEW Metal3 ( 406000 66640 ) Via3_HH
+      NEW Metal3 ( 134960 159600 ) Via3_HH
+      NEW Metal3 ( 134960 168560 ) Via3_HH
+      NEW Metal3 ( 401520 168560 ) Via3_HH
+      NEW Metal3 ( 577360 168560 ) Via3_HH
       NEW Metal3 TAPER ( 577360 157240 ) Via3_VV ;
     - x1_SZ ( x1_x6 INP ) ( x1_x5 INP ) ( x1_x3 OUT ) + USE SIGNAL + NONDEFAULTRULE ANCHO
       + ROUTED Metal3 TAPER ( 552720 63280 ) ( * 66640 0 )
       NEW Metal3 ( 486640 63280 380 ) ( 548240 * 380 )
       NEW Metal3 TAPER ( 548240 63280 ) ( 552720 * )
-      NEW Metal4 ( 492240 142800 380 ) ( * 150640 380 )
       NEW Metal4 ( 486640 101700 380 ) ( 487760 * 380 )
       NEW Metal4 ( 487760 101700 380 ) ( * 142800 380 )
       NEW Metal4 ( 486640 63280 380 ) ( * 101700 380 )
@@ -1217,96 +1232,108 @@ NETS 55 ;
       NEW Metal3 TAPER ( 325360 152100 ) ( * 155920 0 )
       NEW Metal3 ( 325360 151760 380 ) ( 370160 * 380 )
       NEW Metal4 ( 370160 142800 380 ) ( * 151760 380 )
-      NEW Metal3 ( 370160 142800 380 ) ( 492240 * 380 )
-      NEW Metal3 ( 562800 150640 380 ) ( * 152100 380 )
-      NEW Metal3 TAPER ( 562800 152100 ) ( * 155920 0 )
-      NEW Metal3 ( 492240 150640 380 ) ( 562800 * 380 )
+      NEW Metal4 ( 577360 142800 380 ) ( * 150640 380 )
+      NEW Metal3 ( 566160 150640 380 ) ( 577360 * 380 )
+      NEW Metal3 ( 566160 150640 380 ) ( * 152100 380 )
+      NEW Metal3 TAPER ( 566160 152100 ) ( * 155920 0 )
+      NEW Metal3 ( 370160 142800 380 ) ( 577360 * 380 )
       NEW Metal3 ( 486640 63280 ) Via3_HH
-      NEW Metal3 ( 492240 142800 ) Via3_HH
-      NEW Metal3 ( 492240 150640 ) Via3_HH
       NEW Metal3 ( 487760 142800 ) Via3_HH
       NEW Metal3 ( 370160 151760 ) Via3_HH
-      NEW Metal3 ( 370160 142800 ) Via3_HH ;
+      NEW Metal3 ( 370160 142800 ) Via3_HH
+      NEW Metal3 ( 577360 142800 ) Via3_HH
+      NEW Metal3 ( 577360 150640 ) Via3_HH ;
     - x1_net1 ( x1_x7 XY ) ( x1_x4 OUT ) + USE SIGNAL + NONDEFAULTRULE ANCHO
-      + ROUTED Metal3 TAPER ( 220080 148400 ) ( * 150640 0 )
-      NEW Metal3 TAPER ( 220080 148400 ) ( 224560 * )
-      NEW Metal3 ( 224560 148400 380 ) ( 623280 * 380 )
-      NEW Metal3 ( 623280 574000 380 ) ( 673680 * 380 )
-      NEW Metal3 TAPER ( 673680 574000 ) ( * 577560 0 )
-      NEW Metal4 ( 623280 148400 380 ) ( * 574000 380 )
-      NEW Metal3 ( 623280 148400 ) Via3_HH
-      NEW Metal3 ( 623280 574000 ) Via3_HH ;
+      + ROUTED Metal3 TAPER ( 220080 150640 0 ) ( 223440 * )
+      NEW Metal3 ( 223440 581840 380 ) ( 669200 * 380 )
+      NEW Metal3 TAPER ( 669200 581840 ) ( 673680 * )
+      NEW Metal3 TAPER ( 673680 581840 ) ( * 582300 )
+      NEW Metal3 ( 673680 582300 380 ) ( * 584080 380 )
+      NEW Metal3 ( 673680 584080 380 ) ( 678160 * 380 )
+      NEW Metal4 ( 678160 577560 380 ) ( * 584080 380 )
+      NEW Metal4 ( 223440 150640 380 ) ( * 581840 380 )
+      NEW Metal3 TAPER ( 223440 150640 ) Via3_HH
+      NEW Metal3 ( 223440 581840 ) Via3_HH
+      NEW Metal3 ( 678160 584080 ) Via3_HH
+      NEW Metal3 TAPER ( 678160 577560 ) Via3_VV ;
     - x1_net2 ( x1_x7 XZ ) ( x1_x5 OUT ) + USE SIGNAL + NONDEFAULTRULE ANCHO
-      + ROUTED Metal3 TAPER ( 460880 150640 0 ) ( 465360 * )
-      NEW Metal2 ( 465360 146160 380 ) ( * 150640 380 )
-      NEW Metal3 ( 465360 146160 380 ) ( 614320 * 380 )
-      NEW Metal3 ( 614320 574000 380 ) ( 621600 * 380 )
-      NEW Metal3 ( 621600 574000 380 ) ( * 579600 380 )
-      NEW Metal3 ( 621600 579600 380 ) ( 661360 * 380 )
-      NEW Metal3 ( 661360 578880 380 ) ( * 579600 380 )
-      NEW Metal3 ( 661360 578880 380 ) ( 663600 * 380 )
-      NEW Metal3 TAPER ( 663600 578880 ) ( 667520 * 0 )
-      NEW Metal4 ( 614320 146160 380 ) ( * 574000 380 )
-      NEW Metal2 ( 465360 150640 ) Via2_HH
-      NEW Metal2 ( 465360 146160 ) Via2_HH
-      NEW Metal3 ( 614320 146160 ) Via3_HH
-      NEW Metal3 ( 614320 574000 ) Via3_HH ;
+      + ROUTED Metal3 TAPER ( 459760 148400 ) ( * 150640 0 )
+      NEW Metal3 TAPER ( 459760 148400 ) ( 465360 * )
+      NEW Metal3 ( 465360 148400 380 ) ( 614320 * 380 )
+      NEW Metal3 ( 614320 572880 380 ) ( 621600 * 380 )
+      NEW Metal3 ( 621600 572880 380 ) ( * 574000 380 )
+      NEW Metal3 ( 621600 574000 380 ) ( 695520 * 380 )
+      NEW Metal3 ( 695520 574000 380 ) ( * 575120 380 )
+      NEW Metal3 TAPER ( 695520 575120 ) ( * 578880 0 )
+      NEW Metal4 ( 614320 148400 380 ) ( * 572880 380 )
+      NEW Metal3 ( 614320 148400 ) Via3_HH
+      NEW Metal3 ( 614320 572880 ) Via3_HH ;
     - x1_net3 ( x1_x7 YZ ) ( x1_x6 OUT ) + USE SIGNAL + NONDEFAULTRULE ANCHO
       + ROUTED Metal3 ( 706160 202160 380 ) ( 710640 * 380 )
       NEW Metal4 ( 708400 440100 380 ) ( 710640 * 380 )
       NEW Metal3 TAPER ( 701680 150640 0 ) ( 706160 * )
       NEW Metal4 ( 706160 150640 380 ) ( * 202160 380 )
       NEW Metal4 ( 710640 202160 380 ) ( * 440100 380 )
-      NEW Metal4 ( 669200 571760 380 ) ( * 576240 380 )
-      NEW Metal3 ( 669200 571760 380 ) ( 708400 * 380 )
       NEW Metal4 ( 708400 440100 380 ) ( * 571760 380 )
+      NEW Metal4 ( 668080 571760 380 ) ( * 576240 380 )
+      NEW Metal3 ( 668080 571760 380 ) ( 708400 * 380 )
       NEW Metal3 ( 706160 202160 ) Via3_HH
       NEW Metal3 ( 710640 202160 ) Via3_HH
       NEW Metal3 ( 706160 150640 ) Via3_HH
-      NEW Metal3 TAPER ( 669200 576240 ) Via3_VV
-      NEW Metal3 ( 669200 571760 ) Via3_HH
-      NEW Metal3 ( 708400 571760 ) Via3_HH ;
+      NEW Metal3 ( 708400 571760 ) Via3_HH
+      NEW Metal3 TAPER ( 668080 576240 ) Via3_VV
+      NEW Metal3 ( 668080 571760 ) Via3_HH ;
     - x2_SX ( x2_x5 INN ) ( x2_x4 INN ) ( x2_x1 OUT ) + USE SIGNAL + NONDEFAULTRULE ANCHO
-      + ROUTED Metal4 ( 277200 294000 380 ) ( * 330960 380 )
-      NEW Metal4 ( 197680 241360 380 ) ( * 294000 380 )
+      + ROUTED Metal4 ( 302960 304080 380 ) ( * 317520 380 )
+      NEW Metal3 ( 302960 317520 380 ) ( * 330960 380 )
+      NEW Metal2 ( 195440 241360 380 ) ( * 304080 380 )
       NEW Metal3 TAPER ( 190960 241360 0 ) ( 195440 * )
-      NEW Metal3 ( 195440 241360 380 ) ( 197680 * 380 )
-      NEW Metal3 ( 133840 294000 380 ) ( 197680 * 380 )
-      NEW Metal3 ( 197680 294000 380 ) ( 277200 * 380 )
+      NEW Metal3 ( 159600 304080 380 ) ( 195440 * 380 )
+      NEW Metal3 ( 195440 304080 380 ) ( 302960 * 380 )
       NEW Metal3 TAPER ( 96880 330840 0 ) ( 98000 * )
       NEW Metal3 TAPER ( 98000 330840 ) ( * 330960 )
       NEW Metal3 TAPER ( 98000 330960 ) ( 101360 * )
-      NEW Metal3 ( 101360 330960 380 ) ( 133840 * 380 )
-      NEW Metal4 ( 133840 294000 380 ) ( * 330960 380 )
+      NEW Metal3 ( 101360 330960 380 ) ( 159600 * 380 )
+      NEW Metal4 ( 159600 304080 380 ) ( * 330960 380 )
       NEW Metal3 ( 327600 330840 380 ) ( * 330960 380 )
       NEW Metal3 ( 327600 330840 380 ) ( 328720 * 380 )
       NEW Metal3 TAPER ( 328720 330840 ) ( 333200 * 0 )
-      NEW Metal3 ( 277200 330960 380 ) ( 327600 * 380 )
-      NEW Metal3 ( 277200 294000 ) Via3_HH
-      NEW Metal3 ( 277200 330960 ) Via3_HH
-      NEW Metal3 ( 197680 294000 ) Via3_HH
-      NEW Metal3 ( 197680 241360 ) Via3_HH
-      NEW Metal3 ( 133840 294000 ) Via3_HH
-      NEW Metal3 ( 133840 330960 ) Via3_HH ;
+      NEW Metal3 ( 302960 330960 380 ) ( 327600 * 380 )
+      NEW Metal3 ( 302960 304080 ) Via3_HH
+      NEW Metal3 ( 302960 317520 ) Via3_HH
+      NEW Metal2 ( 195440 304080 ) Via2_HH
+      NEW Metal2 ( 195440 241360 ) Via2_HH
+      NEW Metal3 ( 159600 304080 ) Via3_HH
+      NEW Metal3 ( 159600 330960 ) Via3_HH ;
     - x2_SY ( x2_x6 INN ) ( x2_x4 INP ) ( x2_x2 OUT ) + USE SIGNAL + NONDEFAULTRULE ANCHO
-      + ROUTED Metal3 TAPER ( 399280 241360 0 ) ( 403760 * )
-      NEW Metal3 ( 403760 241360 380 ) ( 406000 * 380 )
-      NEW Metal4 ( 406000 241360 380 ) ( * 294000 380 )
-      NEW Metal3 ( 336560 294000 380 ) ( 406000 * 380 )
+      + ROUTED Metal2 ( 277200 319760 380 ) ( 281680 * 380 )
+      NEW Metal3 ( 281680 319760 380 ) ( 300720 * 380 )
+      NEW Metal2 ( 300720 319760 380 ) ( 305200 * 380 )
+      NEW Metal3 TAPER ( 399280 241360 0 ) ( 403760 * )
+      NEW Metal3 ( 403760 241360 380 ) ( 408240 * 380 )
+      NEW Metal4 ( 408240 241360 380 ) ( * 296240 380 )
+      NEW Metal3 ( 336560 296240 380 ) ( 408240 * 380 )
+      NEW Metal3 ( 201600 319760 380 ) ( 277200 * 380 )
       NEW Metal3 ( 84560 322000 380 ) ( * 325360 380 )
       NEW Metal3 TAPER ( 84560 325360 ) ( * 329520 0 )
-      NEW Metal3 ( 84560 322000 380 ) ( 336560 * 380 )
-      NEW Metal4 ( 336560 294000 380 ) ( * 322000 380 )
-      NEW Metal3 ( 406000 294000 380 ) ( 538160 * 380 )
-      NEW Metal3 ( 538160 319760 380 ) ( 577360 * 380 )
+      NEW Metal3 ( 84560 322000 380 ) ( 201600 * 380 )
+      NEW Metal3 ( 201600 319760 380 ) ( * 322000 380 )
+      NEW Metal3 ( 305200 319760 380 ) ( 336560 * 380 )
+      NEW Metal4 ( 336560 296240 380 ) ( * 319760 380 )
+      NEW Metal3 ( 408240 296240 380 ) ( 554960 * 380 )
+      NEW Metal3 ( 554960 319760 380 ) ( 577360 * 380 )
       NEW Metal4 ( 577360 319760 380 ) ( * 330840 380 )
-      NEW Metal4 ( 538160 294000 380 ) ( * 319760 380 )
-      NEW Metal3 ( 406000 241360 ) Via3_HH
-      NEW Metal3 ( 406000 294000 ) Via3_HH
-      NEW Metal3 ( 336560 294000 ) Via3_HH
-      NEW Metal3 ( 336560 322000 ) Via3_HH
-      NEW Metal3 ( 538160 294000 ) Via3_HH
-      NEW Metal3 ( 538160 319760 ) Via3_HH
+      NEW Metal4 ( 554960 296240 380 ) ( * 319760 380 )
+      NEW Metal2 ( 277200 319760 ) Via2_HH
+      NEW Metal2 ( 281680 319760 ) Via2_HH
+      NEW Metal2 ( 300720 319760 ) Via2_HH
+      NEW Metal2 ( 305200 319760 ) Via2_HH
+      NEW Metal3 ( 408240 241360 ) Via3_HH
+      NEW Metal3 ( 408240 296240 ) Via3_HH
+      NEW Metal3 ( 336560 296240 ) Via3_HH
+      NEW Metal3 ( 336560 319760 ) Via3_HH
+      NEW Metal3 ( 554960 296240 ) Via3_HH
+      NEW Metal3 ( 554960 319760 ) Via3_HH
       NEW Metal3 ( 577360 319760 ) Via3_HH
       NEW Metal3 TAPER ( 577360 330840 ) Via3_VV ;
     - x2_SZ ( x2_x6 INP ) ( x2_x5 INP ) ( x2_x3 OUT ) + USE SIGNAL + NONDEFAULTRULE ANCHO
@@ -1320,10 +1347,10 @@ NETS 55 ;
       NEW Metal3 TAPER ( 552720 239120 ) ( 554400 * )
       NEW Metal3 TAPER ( 552720 241360 0 ) ( 554400 * )
       NEW Metal3 ( 554400 239120 380 ) ( * 241360 380 )
-      NEW Metal3 ( 325360 324240 380 ) ( * 325360 380 )
+      NEW Metal3 ( 325360 322000 380 ) ( * 325360 380 )
       NEW Metal3 TAPER ( 325360 325360 ) ( * 329520 0 )
-      NEW Metal3 ( 325360 324240 380 ) ( 386960 * 380 )
-      NEW Metal3 ( 386960 318640 380 ) ( * 324240 380 )
+      NEW Metal3 ( 325360 322000 380 ) ( 386960 * 380 )
+      NEW Metal3 ( 386960 318640 380 ) ( * 322000 380 )
       NEW Metal3 ( 562800 322000 380 ) ( * 325360 380 )
       NEW Metal3 TAPER ( 562800 325360 ) ( * 329520 0 )
       NEW Metal3 ( 478800 322000 380 ) ( 562800 * 380 )
@@ -1331,55 +1358,64 @@ NETS 55 ;
       NEW Metal3 ( 478800 322000 ) Via3_HH
       NEW Metal3 ( 478800 319760 ) Via3_HH ;
     - x2_net1 ( x2_x7 XY ) ( x2_x4 OUT ) + USE SIGNAL + NONDEFAULTRULE ANCHO
-      + ROUTED Metal3 TAPER ( 66640 749840 ) ( * 751160 0 )
-      NEW Metal3 TAPER ( 66640 749840 ) ( 71120 * )
-      NEW Metal3 TAPER ( 216720 324240 0 ) ( * 326480 )
-      NEW Metal3 TAPER ( 216720 326480 ) ( 221200 * )
-      NEW Metal4 ( 221200 326480 380 ) ( * 743120 380 )
-      NEW Metal2 ( 89040 743120 380 ) ( * 749840 380 )
-      NEW Metal3 ( 71120 749840 380 ) ( 89040 * 380 )
-      NEW Metal3 ( 89040 743120 380 ) ( 221200 * 380 )
-      NEW Metal3 ( 221200 743120 ) Via3_HH
-      NEW Metal3 TAPER ( 221200 326480 ) Via3_HH
-      NEW Metal2 ( 89040 749840 ) Via2_HH
-      NEW Metal2 ( 89040 743120 ) Via2_HH ;
+      + ROUTED Metal3 TAPER ( 66640 747600 ) ( * 751160 0 )
+      NEW Metal3 TAPER ( 220080 324240 0 ) ( 224560 * )
+      NEW Metal3 ( 224560 324240 380 ) ( 225680 * 380 )
+      NEW Metal3 ( 66640 747600 380 ) ( 84000 * 380 )
+      NEW Metal3 ( 84000 743120 380 ) ( * 747600 380 )
+      NEW Metal3 ( 199920 737520 380 ) ( 204400 * 380 )
+      NEW Metal3 ( 204400 739760 380 ) ( 225680 * 380 )
+      NEW Metal3 ( 84000 743120 380 ) ( 199920 * 380 )
+      NEW Metal4 ( 199920 737520 380 ) ( * 743120 380 )
+      NEW Metal3 ( 204400 737520 380 ) ( * 739760 380 )
+      NEW Metal4 ( 225680 324240 380 ) ( * 739760 380 )
+      NEW Metal3 ( 225680 324240 ) Via3_HH
+      NEW Metal3 ( 199920 737520 ) Via3_HH
+      NEW Metal3 ( 199920 743120 ) Via3_HH
+      NEW Metal3 ( 225680 739760 ) Via3_HH ;
     - x2_net2 ( x2_x7 XZ ) ( x2_x5 OUT ) + USE SIGNAL + NONDEFAULTRULE ANCHO
-      + ROUTED Metal3 ( 75600 752480 380 ) ( * 753200 380 )
-      NEW Metal3 TAPER ( 69440 752480 0 ) ( 74480 * )
-      NEW Metal3 ( 74480 752480 380 ) ( 75600 * 380 )
+      + ROUTED Metal3 TAPER ( 69520 749840 ) ( * 752480 0 )
+      NEW Metal3 TAPER ( 69520 749840 ) ( 74480 * )
       NEW Metal3 ( 240240 437360 380 ) ( 249200 * 380 )
-      NEW Metal4 ( 240240 395920 380 ) ( * 437360 380 )
-      NEW Metal4 ( 249200 437360 380 ) ( * 668080 380 )
+      NEW Metal3 ( 232400 735280 380 ) ( 249200 * 380 )
+      NEW Metal4 ( 240240 385840 380 ) ( * 437360 380 )
+      NEW Metal4 ( 249200 437360 380 ) ( * 735280 380 )
       NEW Metal3 TAPER ( 447440 324240 ) ( 451920 * 0 )
-      NEW Metal3 ( 75600 753200 380 ) ( 142800 * 380 )
-      NEW Metal4 ( 142800 668080 380 ) ( * 753200 380 )
-      NEW Metal3 ( 142800 668080 380 ) ( 249200 * 380 )
-      NEW Metal4 ( 399280 324240 380 ) ( * 395920 380 )
-      NEW Metal3 ( 240240 395920 380 ) ( 399280 * 380 )
-      NEW Metal3 ( 399280 324240 380 ) ( 447440 * 380 )
+      NEW Metal3 ( 74480 749840 380 ) ( 84000 * 380 )
+      NEW Metal3 ( 84000 749840 380 ) ( * 755440 380 )
+      NEW Metal4 ( 336560 324240 380 ) ( * 385840 380 )
+      NEW Metal3 ( 240240 385840 380 ) ( 336560 * 380 )
+      NEW Metal3 ( 336560 324240 380 ) ( 447440 * 380 )
+      NEW Metal3 ( 168560 755440 380 ) ( * 758800 380 )
+      NEW Metal3 ( 168560 758800 380 ) ( 176400 * 380 )
+      NEW Metal4 ( 176400 750960 380 ) ( * 758800 380 )
+      NEW Metal3 ( 176400 750960 380 ) ( 232400 * 380 )
+      NEW Metal4 ( 232400 739760 380 ) ( * 750960 380 )
+      NEW Metal3 ( 84000 755440 380 ) ( 168560 * 380 )
+      NEW Metal3 ( 232400 735280 380 ) ( * 739760 380 )
       NEW Metal3 ( 240240 437360 ) Via3_HH
       NEW Metal3 ( 249200 437360 ) Via3_HH
-      NEW Metal3 ( 240240 395920 ) Via3_HH
-      NEW Metal3 ( 249200 668080 ) Via3_HH
-      NEW Metal3 ( 142800 753200 ) Via3_HH
-      NEW Metal3 ( 142800 668080 ) Via3_HH
-      NEW Metal3 ( 399280 395920 ) Via3_HH
-      NEW Metal3 ( 399280 324240 ) Via3_HH ;
+      NEW Metal3 ( 249200 735280 ) Via3_HH
+      NEW Metal3 ( 240240 385840 ) Via3_HH
+      NEW Metal3 ( 336560 385840 ) Via3_HH
+      NEW Metal3 ( 336560 324240 ) Via3_HH
+      NEW Metal3 ( 176400 758800 ) Via3_HH
+      NEW Metal3 ( 176400 750960 ) Via3_HH
+      NEW Metal3 ( 232400 750960 ) Via3_HH
+      NEW Metal3 ( 232400 739760 ) Via3_HH ;
     - x2_net3 ( x2_x7 YZ ) ( x2_x6 OUT ) + USE SIGNAL + NONDEFAULTRULE ANCHO
-      + ROUTED Metal3 TAPER ( 45360 747600 ) ( * 749840 0 )
-      NEW Metal3 TAPER ( 45360 747600 ) ( 49840 * )
+      + ROUTED Metal4 ( 44240 730800 380 ) ( * 749840 380 )
       NEW Metal3 TAPER ( 701680 324240 0 ) ( 706160 * )
-      NEW Metal3 ( 706160 324240 380 ) ( 712880 * 380 )
-      NEW Metal4 ( 712880 324240 380 ) ( * 432880 380 )
-      NEW Metal3 ( 706160 432880 380 ) ( 712880 * 380 )
-      NEW Metal3 ( 49840 747600 380 ) ( 706160 * 380 )
-      NEW Metal4 ( 706160 432880 380 ) ( * 747600 380 )
-      NEW Metal3 ( 706160 747600 ) Via3_HH
-      NEW Metal3 ( 712880 324240 ) Via3_HH
-      NEW Metal3 ( 712880 432880 ) Via3_HH
-      NEW Metal3 ( 706160 432880 ) Via3_HH ;
+      NEW Metal3 ( 44240 730800 380 ) ( 706160 * 380 )
+      NEW Metal4 ( 706160 324240 380 ) ( * 730800 380 )
+      NEW Metal3 TAPER ( 44240 749840 ) Via3_VV
+      NEW Metal3 ( 44240 730800 ) Via3_HH
+      NEW Metal3 ( 706160 730800 ) Via3_HH
+      NEW Metal3 ( 706160 324240 ) Via3_HH ;
     - x3_SX ( x3_x5 INN ) ( x3_x4 INN ) ( x3_x1 OUT ) + USE SIGNAL + NONDEFAULTRULE ANCHO
-      + ROUTED Metal4 ( 223440 414960 380 ) ( * 504560 380 )
+      + ROUTED Metal3 ( 221200 437360 380 ) ( 227920 * 380 )
+      NEW Metal4 ( 227920 437360 380 ) ( * 504560 380 )
+      NEW Metal4 ( 221200 414960 380 ) ( * 437360 380 )
       NEW Metal3 TAPER ( 96880 504440 0 ) ( 98000 * )
       NEW Metal3 TAPER ( 98000 504440 ) ( * 504560 )
       NEW Metal3 TAPER ( 98000 504560 ) ( 101360 * )
@@ -1388,9 +1424,11 @@ NETS 55 ;
       NEW Metal3 TAPER ( 328720 504440 ) ( 333200 * 0 )
       NEW Metal3 ( 101360 504560 380 ) ( 327600 * 380 )
       NEW Metal3 TAPER ( 190960 414960 0 ) ( 195440 * )
-      NEW Metal3 ( 195440 414960 380 ) ( 223440 * 380 )
-      NEW Metal3 ( 223440 504560 ) Via3_HH
-      NEW Metal3 ( 223440 414960 ) Via3_HH ;
+      NEW Metal3 ( 195440 414960 380 ) ( 221200 * 380 )
+      NEW Metal3 ( 221200 437360 ) Via3_HH
+      NEW Metal3 ( 227920 437360 ) Via3_HH
+      NEW Metal3 ( 227920 504560 ) Via3_HH
+      NEW Metal3 ( 221200 414960 ) Via3_HH ;
     - x3_SY ( x3_x6 INN ) ( x3_x4 INP ) ( x3_x2 OUT ) + USE SIGNAL + NONDEFAULTRULE ANCHO
       + ROUTED Metal3 ( 84560 496720 380 ) ( * 499500 380 )
       NEW Metal3 TAPER ( 84560 499500 ) ( * 503120 0 )
@@ -1425,134 +1463,141 @@ NETS 55 ;
       NEW Metal3 ( 486640 495600 ) Via3_HH
       NEW Metal3 ( 486640 418320 ) Via3_HH ;
     - x3_net1 ( x3_x7 XY ) ( x3_x4 OUT ) + USE SIGNAL + NONDEFAULTRULE ANCHO
-      + ROUTED Metal3 TAPER ( 220080 497840 0 ) ( 224560 * )
-      NEW Metal3 ( 224560 497840 380 ) ( 225680 * 380 )
-      NEW Metal4 ( 225680 497840 380 ) ( * 749840 380 )
-      NEW Metal3 TAPER ( 174160 749840 ) ( * 751160 0 )
-      NEW Metal3 TAPER ( 174160 749840 ) ( 178640 * )
-      NEW Metal3 ( 178640 749840 380 ) ( 225680 * 380 )
-      NEW Metal3 ( 225680 497840 ) Via3_HH
-      NEW Metal3 ( 225680 749840 ) Via3_HH ;
+      + ROUTED Metal3 TAPER ( 218960 497840 0 ) ( * 500080 )
+      NEW Metal3 TAPER ( 218960 500080 ) ( 221200 * )
+      NEW Metal4 ( 174160 745360 380 ) ( * 751160 380 )
+      NEW Metal3 ( 174160 745360 380 ) ( 221200 * 380 )
+      NEW Metal4 ( 221200 500080 380 ) ( * 745360 380 )
+      NEW Metal3 TAPER ( 221200 500080 ) Via3_HH
+      NEW Metal3 TAPER ( 174160 751160 ) Via3_VV
+      NEW Metal3 ( 174160 745360 ) Via3_HH
+      NEW Metal3 ( 221200 745360 ) Via3_HH ;
     - x3_net2 ( x3_x7 XZ ) ( x3_x5 OUT ) + USE SIGNAL + NONDEFAULTRULE ANCHO
-      + ROUTED Metal4 ( 238000 740700 380 ) ( * 753200 380 )
-      NEW Metal4 ( 238000 740700 380 ) ( 240240 * 380 )
-      NEW Metal3 TAPER ( 447440 497840 ) ( 451920 * 0 )
-      NEW Metal4 ( 240240 497840 380 ) ( * 740700 380 )
-      NEW Metal3 ( 183120 752480 380 ) ( * 753200 380 )
-      NEW Metal3 TAPER ( 176960 752480 0 ) ( 182000 * )
-      NEW Metal3 ( 182000 752480 380 ) ( 183120 * 380 )
-      NEW Metal3 ( 183120 753200 380 ) ( 238000 * 380 )
+      + ROUTED Metal3 TAPER ( 447440 497840 ) ( 451920 * 0 )
       NEW Metal3 ( 320880 493360 380 ) ( * 497840 380 )
       NEW Metal3 ( 320880 493360 380 ) ( 336560 * 380 )
       NEW Metal4 ( 336560 493360 380 ) ( * 497840 380 )
       NEW Metal3 ( 240240 497840 380 ) ( 320880 * 380 )
       NEW Metal3 ( 336560 497840 380 ) ( 447440 * 380 )
+      NEW Metal3 TAPER ( 177020 752480 0 ) ( * 754320 )
+      NEW Metal3 TAPER ( 177020 754320 ) ( 182000 * )
+      NEW Metal3 ( 182000 754320 380 ) ( 240240 * 380 )
+      NEW Metal4 ( 240240 497840 380 ) ( * 754320 380 )
       NEW Metal3 ( 240240 497840 ) Via3_HH
-      NEW Metal3 ( 238000 753200 ) Via3_HH
       NEW Metal3 ( 336560 493360 ) Via3_HH
-      NEW Metal3 ( 336560 497840 ) Via3_HH ;
+      NEW Metal3 ( 336560 497840 ) Via3_HH
+      NEW Metal3 ( 240240 754320 ) Via3_HH ;
     - x3_net3 ( x3_x7 YZ ) ( x3_x6 OUT ) + USE SIGNAL + NONDEFAULTRULE ANCHO
-      + ROUTED Metal3 TAPER ( 688240 497840 ) ( 692720 * 0 )
-      NEW Metal4 ( 150640 745360 380 ) ( * 749840 380 )
-      NEW Metal3 ( 150640 745360 380 ) ( 159600 * 380 )
-      NEW Metal4 ( 159600 697200 380 ) ( * 745360 380 )
-      NEW Metal3 ( 621040 497840 380 ) ( 688240 * 380 )
-      NEW Metal3 ( 159600 697200 380 ) ( 621040 * 380 )
-      NEW Metal4 ( 621040 497840 380 ) ( * 697200 380 )
-      NEW Metal3 TAPER ( 150640 749840 ) Via3_VV
-      NEW Metal3 ( 150640 745360 ) Via3_HH
-      NEW Metal3 ( 159600 745360 ) Via3_HH
-      NEW Metal3 ( 159600 697200 ) Via3_HH
-      NEW Metal3 ( 621040 497840 ) Via3_HH
-      NEW Metal3 ( 621040 697200 ) Via3_HH ;
+      + ROUTED Metal3 ( 234640 737520 380 ) ( 267120 * 380 )
+      NEW Metal3 TAPER ( 688240 497840 ) ( 692720 * 0 )
+      NEW Metal4 ( 478800 493360 380 ) ( * 743120 380 )
+      NEW Metal3 ( 672000 497840 380 ) ( 688240 * 380 )
+      NEW Metal3 ( 672000 493360 380 ) ( * 497840 380 )
+      NEW Metal3 ( 478800 493360 380 ) ( 672000 * 380 )
+      NEW Metal3 TAPER ( 152880 747600 ) ( * 749840 0 )
+      NEW Metal3 TAPER ( 152880 747600 ) ( 157360 * )
+      NEW Metal3 ( 157360 747600 380 ) ( 234640 * 380 )
+      NEW Metal4 ( 234640 737520 380 ) ( * 747600 380 )
+      NEW Metal4 ( 267120 737520 380 ) ( * 743120 380 )
+      NEW Metal3 ( 267120 743120 380 ) ( 478800 * 380 )
+      NEW Metal3 ( 234640 737520 ) Via3_HH
+      NEW Metal3 ( 267120 737520 ) Via3_HH
+      NEW Metal3 ( 478800 493360 ) Via3_HH
+      NEW Metal3 ( 478800 743120 ) Via3_HH
+      NEW Metal3 ( 234640 747600 ) Via3_HH
+      NEW Metal3 ( 267120 743120 ) Via3_HH ;
     - x4_SX ( x4_x5 INN ) ( x4_x4 INN ) ( x4_x1 OUT ) + USE SIGNAL + NONDEFAULTRULE ANCHO
       + ROUTED Metal3 TAPER ( 96880 679160 0 ) ( 98000 * )
       NEW Metal3 TAPER ( 98000 679160 ) ( * 679280 )
       NEW Metal3 TAPER ( 98000 679280 ) ( 101360 * )
       NEW Metal3 ( 101360 679280 380 ) ( 136080 * 380 )
-      NEW Metal3 ( 136080 594160 380 ) ( * 596400 380 )
-      NEW Metal3 ( 136080 594160 380 ) ( 138320 * 380 )
+      NEW Metal4 ( 136080 625500 380 ) ( 138320 * 380 )
+      NEW Metal4 ( 138320 596400 380 ) ( * 625500 380 )
       NEW Metal3 TAPER ( 138320 588560 ) ( * 593040 )
-      NEW Metal3 ( 138320 593040 380 ) ( * 594160 380 )
+      NEW Metal3 ( 138320 593040 380 ) ( * 596400 380 )
       NEW Metal3 TAPER ( 136080 588560 0 ) ( 138320 * )
-      NEW Metal4 ( 136080 596400 380 ) ( * 679280 380 )
+      NEW Metal4 ( 136080 625500 380 ) ( * 679280 380 )
       NEW Metal3 ( 136080 670320 380 ) ( 336560 * 380 )
       NEW Metal4 ( 336560 670320 380 ) ( * 679160 380 )
       NEW Metal3 ( 136080 679280 ) Via3_HH
       NEW Metal3 TAPER ( 336560 679160 ) Via3_VV
-      NEW Metal3 ( 136080 596400 ) Via3_HH
+      NEW Metal3 ( 138320 596400 ) Via3_HH
       NEW Metal3 ( 136080 670320 ) Via3_HH
       NEW Metal3 ( 336560 670320 ) Via3_HH ;
     - x4_SY ( x4_x6 INN ) ( x4_x4 INP ) ( x4_x2 OUT ) + USE SIGNAL + NONDEFAULTRULE ANCHO
       + ROUTED Metal3 ( 84560 672560 380 ) ( * 674100 380 )
       NEW Metal3 TAPER ( 84560 674100 ) ( * 677840 0 )
-      NEW Metal3 ( 84560 672560 380 ) ( 158480 * 380 )
-      NEW Metal4 ( 158480 665840 380 ) ( * 672560 380 )
+      NEW Metal3 ( 84560 672560 380 ) ( 159600 * 380 )
+      NEW Metal4 ( 159600 646800 380 ) ( * 672560 380 )
       NEW Metal3 TAPER ( 399280 588560 0 ) ( 403760 * )
       NEW Metal3 ( 403760 588560 380 ) ( 406000 * 380 )
-      NEW Metal4 ( 406000 588560 380 ) ( * 661360 380 )
-      NEW Metal2 ( 406000 661360 380 ) ( * 665840 380 )
-      NEW Metal3 ( 158480 665840 380 ) ( 406000 * 380 )
-      NEW Metal3 ( 406000 665840 380 ) ( 577360 * 380 )
-      NEW Metal4 ( 577360 665840 380 ) ( * 679160 380 )
-      NEW Metal3 ( 158480 672560 ) Via3_HH
+      NEW Metal4 ( 406000 588560 380 ) ( * 646800 380 )
+      NEW Metal3 ( 159600 646800 380 ) ( 406000 * 380 )
+      NEW Metal3 ( 406000 646800 380 ) ( 577360 * 380 )
+      NEW Metal4 ( 577360 646800 380 ) ( * 679160 380 )
+      NEW Metal3 ( 159600 672560 ) Via3_HH
       NEW Metal3 TAPER ( 577360 679160 ) Via3_VV
-      NEW Metal3 ( 158480 665840 ) Via3_HH
+      NEW Metal3 ( 159600 646800 ) Via3_HH
       NEW Metal3 ( 406000 588560 ) Via3_HH
-      NEW Metal2 ( 406000 661360 ) Via2_HH
-      NEW Metal3 ( 406000 661360 ) Via3_HH
-      NEW Metal2 ( 406000 665840 ) Via2_HH
-      NEW Metal3 ( 577360 665840 ) Via3_HH ;
+      NEW Metal3 ( 406000 646800 ) Via3_HH
+      NEW Metal3 ( 577360 646800 ) Via3_HH ;
     - x4_SZ ( x4_x6 INP ) ( x4_x5 INP ) ( x4_x3 OUT ) + USE SIGNAL + NONDEFAULTRULE ANCHO
       + ROUTED Metal3 TAPER ( 552720 590800 ) ( * 593040 )
       NEW Metal3 ( 552720 593040 380 ) ( * 596400 380 )
-      NEW Metal4 ( 552720 596400 380 ) ( * 668080 380 )
-      NEW Metal3 ( 552720 668080 380 ) ( * 670320 380 )
+      NEW Metal4 ( 552720 596400 380 ) ( * 663600 380 )
       NEW Metal3 ( 325360 672560 380 ) ( * 674100 380 )
       NEW Metal3 TAPER ( 325360 674100 ) ( * 677840 0 )
-      NEW Metal3 ( 325360 672560 380 ) ( 386960 * 380 )
+      NEW Metal3 ( 325360 672560 380 ) ( 399280 * 380 )
       NEW Metal3 TAPER ( 562800 674100 ) ( * 677840 0 )
-      NEW Metal3 ( 386960 670320 380 ) ( * 672560 380 )
-      NEW Metal3 TAPER ( 552720 588560 0 ) ( 554400 * )
+      NEW Metal4 ( 399280 663600 380 ) ( * 672560 380 )
       NEW Metal3 TAPER ( 552720 590800 ) ( 554400 * )
+      NEW Metal3 TAPER ( 552720 588560 0 ) ( 554400 * )
       NEW Metal3 ( 554400 588560 380 ) ( * 590800 380 )
-      NEW Metal3 ( 386960 670320 380 ) ( 562800 * 380 )
-      NEW Metal3 ( 562800 670320 380 ) ( * 674100 380 )
+      NEW Metal3 ( 399280 663600 380 ) ( 562800 * 380 )
+      NEW Metal3 ( 562800 663600 380 ) ( * 674100 380 )
       NEW Metal3 ( 552720 596400 ) Via3_HH
-      NEW Metal3 ( 552720 668080 ) Via3_HH ;
+      NEW Metal3 ( 552720 663600 ) Via3_HH
+      NEW Metal3 ( 399280 672560 ) Via3_HH
+      NEW Metal3 ( 399280 663600 ) Via3_HH ;
     - x4_net1 ( x4_x7 XY ) ( x4_x4 OUT ) + USE SIGNAL + NONDEFAULTRULE ANCHO
       + ROUTED Metal3 TAPER ( 220080 672560 0 ) ( 223440 * )
-      NEW Metal4 ( 223440 672560 380 ) ( * 745360 380 )
-      NEW Metal3 ( 223440 745360 380 ) ( 262640 * 380 )
-      NEW Metal4 ( 262640 745360 380 ) ( * 751160 380 )
+      NEW Metal3 ( 223440 744240 380 ) ( 264880 * 380 )
+      NEW Metal4 ( 264880 744240 380 ) ( * 751160 380 )
+      NEW Metal4 ( 223440 672560 380 ) ( * 744240 380 )
       NEW Metal3 TAPER ( 223440 672560 ) Via3_HH
-      NEW Metal3 ( 223440 745360 ) Via3_HH
-      NEW Metal3 ( 262640 745360 ) Via3_HH
-      NEW Metal3 TAPER ( 262640 751160 ) Via3_VV ;
+      NEW Metal3 ( 223440 744240 ) Via3_HH
+      NEW Metal3 ( 264880 744240 ) Via3_HH
+      NEW Metal3 TAPER ( 264880 751160 ) Via3_VV ;
     - x4_net2 ( x4_x7 XZ ) ( x4_x5 OUT ) + USE SIGNAL + NONDEFAULTRULE ANCHO
-      + ROUTED Metal2 ( 317520 750960 380 ) ( * 755440 380 )
-      NEW Metal3 TAPER ( 284480 750960 ) ( 289520 * )
-      NEW Metal3 ( 289520 750960 380 ) ( 317520 * 380 )
-      NEW Metal3 TAPER ( 284480 750960 ) ( * 752480 0 )
-      NEW Metal4 ( 469840 672560 380 ) ( * 755440 380 )
+      + ROUTED Metal3 TAPER ( 284560 752480 0 ) ( 286160 * )
+      NEW Metal4 ( 286160 746480 380 ) ( * 752480 380 )
+      NEW Metal3 ( 286160 746480 380 ) ( 311920 * 380 )
+      NEW Metal4 ( 311920 739760 380 ) ( * 746480 380 )
+      NEW Metal4 ( 469840 672560 380 ) ( * 740880 380 )
       NEW Metal3 TAPER ( 460880 672560 0 ) ( 465360 * )
       NEW Metal3 ( 465360 672560 380 ) ( 469840 * 380 )
-      NEW Metal3 ( 317520 755440 380 ) ( 469840 * 380 )
-      NEW Metal2 ( 317520 755440 ) Via2_HH
-      NEW Metal2 ( 317520 750960 ) Via2_HH
-      NEW Metal3 ( 469840 755440 ) Via3_HH
+      NEW Metal3 ( 311920 739760 380 ) ( 319200 * 380 )
+      NEW Metal3 ( 319200 739760 380 ) ( * 740880 380 )
+      NEW Metal3 ( 319200 740880 380 ) ( 469840 * 380 )
+      NEW Metal3 TAPER ( 286160 752480 ) Via3_HH
+      NEW Metal3 ( 286160 746480 ) Via3_HH
+      NEW Metal3 ( 311920 746480 ) Via3_HH
+      NEW Metal3 ( 311920 739760 ) Via3_HH
+      NEW Metal3 ( 469840 740880 ) Via3_HH
       NEW Metal3 ( 469840 672560 ) Via3_HH ;
     - x4_net3 ( x4_x7 YZ ) ( x4_x6 OUT ) + USE SIGNAL + NONDEFAULTRULE ANCHO
-      + ROUTED Metal3 TAPER ( 252560 749840 0 ) ( * 753300 )
-      NEW Metal3 ( 252560 753300 380 ) ( * 755440 380 )
-      NEW Metal3 ( 252560 755440 380 ) ( 286160 * 380 )
-      NEW Metal3 ( 286160 753200 380 ) ( * 755440 380 )
+      + ROUTED Metal3 TAPER ( 701680 672560 0 ) ( 703920 * )
+      NEW Metal3 TAPER ( 258160 747600 ) ( * 749840 0 )
+      NEW Metal3 TAPER ( 258160 747600 ) ( 261520 * )
+      NEW Metal3 TAPER ( 261520 747600 ) ( * 748720 )
+      NEW Metal3 TAPER ( 261520 748720 ) ( 264880 * )
+      NEW Metal3 ( 264880 748720 380 ) ( 314160 * 380 )
+      NEW Metal3 ( 314160 747600 380 ) ( * 748720 380 )
+      NEW Metal3 ( 314160 747600 380 ) ( 320880 * 380 )
+      NEW Metal3 ( 320880 747600 380 ) ( * 749840 380 )
+      NEW Metal3 ( 320880 749840 380 ) ( 703920 * 380 )
       NEW Metal4 ( 703920 672560 380 ) ( * 749840 380 )
-      NEW Metal3 TAPER ( 701680 672560 0 ) ( 703920 * )
-      NEW Metal3 ( 286160 753200 380 ) ( 319200 * 380 )
-      NEW Metal3 ( 319200 749840 380 ) ( * 753200 380 )
-      NEW Metal3 ( 319200 749840 380 ) ( 703920 * 380 )
-      NEW Metal3 ( 703920 749840 ) Via3_HH
-      NEW Metal3 TAPER ( 703920 672560 ) Via3_HH ;
+      NEW Metal3 TAPER ( 703920 672560 ) Via3_HH
+      NEW Metal3 ( 703920 749840 ) Via3_HH ;
 END NETS
 END DESIGN

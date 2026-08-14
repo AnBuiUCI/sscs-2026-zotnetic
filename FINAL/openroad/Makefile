@@ -10,6 +10,9 @@
 #   make drc          KLayout sign-off DRC on the four blocks and the top
 #   make drc-magic    magic DRC, a second opinion with a different deck
 #   make lvs          netgen LVS on the four blocks and the top
+#   make lvs-ref      netlist de referencia para el LVS externo del chipathon
+#   make probar       rompe el layout a proposito: comprueba que el DRC/LVS se enteran
+#   make probar-drc   lo mismo mas las dos pruebas de DRC (~15 min)
 #   make check-all    the three above
 #   make clean        remove generated outputs (not the collateral)
 
@@ -20,11 +23,12 @@ PYTHON   := python3
 KPYTHON  := env -u PYTHONPATH /headless/.venvs/zotnetic/bin/python
 
 .PHONY: all top verilog collateral check floorplan route gds fill \
-        drc drc-magic drc-density lvs lvs-klayout check-all clean
+        drc drc-magic drc-density lvs lvs-klayout lvs-ref probar probar-drc \
+        check-all clean
 
 all: verilog collateral check
 
-top: verilog collateral floorplan route gds fill
+top: verilog collateral floorplan route gds fill lvs-ref
 
 verilog:
 	$(PYTHON) scripts/spice_to_verilog.py
@@ -69,7 +73,27 @@ lvs:
 lvs-klayout:
 	$(PYTHON) scripts/lvs_klayout.py
 
+#  Netlist de referencia para el LVS de FUERA (el del chipathon, que lee
+#  lvs_config.json de la raiz del repo). Va encadenado en `top` a proposito: si
+#  se queda viejo, el LVS externo compara el GDS de hoy contra el esquematico de
+#  la semana pasada y dice que cuadra.
+lvs-ref:
+	$(PYTHON) scripts/lvs_reference.py
+
+#  Rompe el layout a proposito y comprueba que las comprobaciones se enteran. Un
+#  "limpio" solo vale si sabes que esa herramienta habria cantado el fallo.
+probar:
+	$(PYTHON) scripts/probar_verificacion.py
+
+#  Igual pero anadiendo las dos pruebas de DRC, que tardan unos 15 minutos: una
+#  con una violacion metida a mano (tiene que verla) y otra sobre el GDS con el
+#  corto (tiene que salir LIMPIO, porque el DRC no ve un corto).
+#  Objetivo aparte y no una opcion: `make probar --con-drc` no vale, make se cree
+#  que `--con-drc` es una opcion suya y aborta.
+probar-drc:
+	$(PYTHON) scripts/probar_verificacion.py --con-drc
+
 check-all: drc drc-magic drc-density lvs
 
 clean:
-	rm -rf out work work_drc work_lvs
+	rm -rf out work work_drc work_lvs work_prueba

@@ -14,6 +14,7 @@ screenshot and is worthless.
 
 from __future__ import annotations
 
+import re
 import sys
 from pathlib import Path
 
@@ -34,6 +35,109 @@ def def_dbu(path: Path) -> float:
         if line.startswith("COMPONENTS"):
             break
     return 0.001
+
+
+def lef_origin(path: Path) -> tuple[float, float]:
+    """`ORIGIN` del MACRO, en um. (0, 0) si no lo declara."""
+    m = re.search(r"^\s*ORIGIN\s+([-\d.]+)\s+([-\d.]+)\s*;", path.read_text(), re.M)
+    return (float(m.group(1)), float(m.group(2))) if m else (0.0, 0.0)
+
+
+def normalizar_origen(layout, macro_lefs) -> None:
+    """Mueve cada macro +ORIGIN, que es donde OpenROAD lo tiene.
+
+    **Las dos herramientas leen `ORIGIN` de forma distinta y hay que igualarlas.**
+    OpenROAD normaliza el master: le suma el ORIGIN a toda la geometria, de modo
+    que la esquina inferior izquierda de su caja cae en (0, 0) y el punto del DEF
+    es esa esquina. El lector de DEF de KLayout, cuando sustituye el abstracto por
+    el GDS (`macro_resolution_mode = 2`), coloca el GDS tal cual: en el sistema de
+    coordenadas del propio bloque, que aqui empieza en -1.26 (COMP y OPAM), -1.00
+    (DECODER) o (-1.45, -4.21) (WEIGHT_COMP), porque los taps de sustrato salen
+    por la izquierda del origen.
+
+    Resultado: **todos los macros salian corridos su ORIGIN** respecto de donde el
+    router creia que estaban. Y como el router acierta en su propio modelo, el DEF
+    no tiene ni un error y su informe de DRC sale vacio; el destrozo aparece solo
+    al escribir el GDS. Medido sobre `x5_weight_comp`: la via3 con que el router
+    entra a `VA` cae en (354.20, 38.48), y el pad de `VA` esta en
+    x[349.84, 354.34] y[38.28, 38.68] **sumando el ORIGIN** — sin sumarlo se queda
+    en y[34.07, 34.47], a 4.21 um, que es exactamente el ORIGIN y del bloque.
+
+    Eso son **42 de las 55 nets del top abiertas** en el GDS, y de paso los cortos:
+    un cable que en el modelo del router pasa limpio al lado de un pin, en el GDS
+    lo atraviesa. El LVS lo veia como 54 nets de mas; el DRC, como nada.
+
+    Se mueve la CELDA, no la instancia: asi vale igual para un macro girado, que es
+    como lo hace OpenROAD (normaliza el master y luego le aplica la orientacion).
+    """
+    for lef in macro_lefs:
+        ox, oy = lef_origin(lef)
+        if (ox, oy) == (0.0, 0.0):
+            continue
+        cell = layout.cell(lef.stem)
+        if cell is None:
+            continue
+        cell.transform(kdb.DTrans(kdb.DVector(ox, oy)))
+        print(f"  {lef.stem:14s} +ORIGIN ({ox}, {oy})")
+
+
+#: Capa de etiquetas de Metal3 en GF180 (`42/10`). Es donde el deck de LVS busca
+#: el nombre de una net de Metal3, y donde ya vienen las de los pines del top.
+_M3_LABEL = (42, 10)
+
+
+def etiquetar_nets(layout, top, def_path) -> int:
+    """Pone el nombre de cada net del DEF sobre su metal, como etiqueta.
+
+    **NO se usa, y conviene saber por que antes de volver a intentarlo.** La idea
+    era darle anclas al comparador de KLayout: las 55 nets del DEF se llaman igual
+    en la referencia —comprobado, las 55— porque las dos salen del mismo netlist
+    de xschem. Pero **una etiqueta en el top no es una pista: es un PUERTO.** Tanto
+    el deck de KLayout como magic convierten cada net etiquetada del top en pin del
+    circuito, asi que el layout pasaba a tener 55 pines contra los 19 de la
+    referencia, y eso rompe el emparejamiento en vez de ayudarlo — incluido el de
+    netgen, que hoy cuadra.
+
+    Se deja escrito porque la funcion es correcta y puede servir si algun dia la
+    referencia declara los mismos 55 puertos; lo que no vale es enchufarla sin
+    tocar el otro lado. Medido: con las etiquetas puestas el deck seguia dando los
+    mismos 170 mensajes.
+    """
+    #  Dentro de la funcion a proposito: `check_connectivity` importa `lef_origin`
+    #  de aqui, y a nivel de modulo el import seria circular.
+    from check_connectivity import lef_pins, macro_size, place, read_def
+
+    inst, nets, units = read_def(def_path)
+    lefs, sizes, origenes = {}, {}, {}
+    for p in (ROOT / "lef").glob("*.lef"):
+        if p.name in ("vias.lef", "techlef_patched.tlef"):
+            continue
+        lefs[p.stem] = lef_pins(p)
+        sizes[p.stem] = macro_size(p)
+        origenes[p.stem] = lef_origin(p)
+
+    #  Las que ya tienen etiqueta son los pines del top: no se duplican.
+    puestas = {s.text.string for li in layout.layer_indexes()
+               for s in top.shapes(li).each() if s.is_text()}
+    capa = layout.layer(*_M3_LABEL)
+    n = 0
+    for net, pins in sorted(nets.items()):
+        if net in puestas:
+            continue
+        for iname, pin in pins:
+            if iname not in inst:
+                continue
+            cell, x, y, orient = inst[iname]
+            rects = lefs.get(cell, {}).get(pin, [])
+            if not rects:
+                continue
+            a = place(rects[0], x / units, y / units, orient,
+                      sizes[cell], origenes[cell])
+            top.shapes(capa).insert(kdb.DText(
+                net, (a[0] + a[2]) / 2, (a[1] + a[3]) / 2))
+            n += 1
+            break
+    return n
 
 
 def flatten_all(layout, top) -> None:
@@ -140,7 +244,12 @@ def main() -> int:
         n = sum(cell.shapes(i).size() for i in layout.layer_indexes())
         print(f"  {name:14s} {cell.child_instances():5d} sub-cells, {n:6d} shapes")
 
+    normalizar_origen(layout, macro_lefs)
     flatten_all(layout, top)
+    #  Segunda pasada: mover una celda la deja marcada, y `cells()` sigue contando
+    #  las que el aplanado dejo huerfanas hasta que se limpia otra vez. El fichero
+    #  ya salia con una sola celda; lo que enganaba era el numero de esta linea.
+    layout.cleanup()
     gds_path.parent.mkdir(parents=True, exist_ok=True)
     layout.write(str(gds_path))
     print(f"  aplanado   {layout.cells()} celda(s), "

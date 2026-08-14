@@ -18,6 +18,8 @@ import sys
 import re
 from pathlib import Path
 
+import klayout.db as kdb
+
 ROOT = Path(__file__).resolve().parent.parent
 PROJECT = ROOT.parent
 RUNNER = "/foss/pdks/gf180mcuD/libs.tech/klayout/tech/lvs/run_lvs.py"
@@ -106,6 +108,94 @@ def prepare(ref: Path, cell: str, work: Path) -> Path:
     return dst
 
 
+#: Capacidad por area del MIM de este PDK: `cap_mim_2f0fF` son 2.0 fF/um2. El deck
+#: extrae 4e-13 F para una placa de 20 x 10 um, que es exactamente eso.
+_MIM_FF_UM2 = 2.0e-15
+
+
+def _legible_por_spice(ref: Path, work: Path) -> Path:
+    """La referencia, con la capacidad del MIM escrita, para el lector de KLayout.
+
+    El lector SPICE normal de KLayout aborta con `Can't find a value for a R, C or
+    L device` porque la referencia declara el MIM como `C... cap_mim_2f0fF W=.. L=..`
+    sin valor: el deck lo entiende porque usa un delegado propio, pero ese delegado
+    no se puede pedir desde Python. Se le pone el valor **que el propio deck
+    extrae** — 2.0 fF/um2 por el area— asi que no se inventa nada.
+    """
+    out = []
+    for line in ref.read_text().splitlines():
+        m = re.match(r"^(C\S+\s+\S+\s+\S+\s+)(cap_mim_\S+)\s+W=(\S+)\s+L=(\S+)\s*$",
+                     line)
+        if m:
+            c = _MIM_FF_UM2 * (float(m.group(3)) * 1e6) * (float(m.group(4)) * 1e6)
+            line = f"{m.group(1)}{c:g} {m.group(2)}"
+        out.append(line)
+    dst = work / (ref.stem + "_con_valor.spice")
+    dst.write_text("\n".join(out) + "\n")
+    return dst
+
+
+class _Cuenta(kdb.GenericNetlistCompareLogger):
+    def __init__(self):
+        super().__init__()
+        self.nets = self.disp = self.pines = self.ok = 0
+
+    def net_mismatch(self, a, b, *extra):
+        self.nets += 1
+
+    def device_mismatch(self, a, b, *extra):
+        self.disp += 1
+
+    def pin_mismatch(self, a, b, *extra):
+        self.pines += 1
+
+    def match_nets(self, a, b, *extra):
+        self.ok += 1
+
+
+def comparar(cir: Path, ref: Path, work: Path,
+             profundidad: int = 30, ramas: int = 10000) -> tuple[bool, str]:
+    """Compara la extraccion del deck contra la referencia, con los limites a mano.
+
+    **El deck del PDK no da un veredicto usable en este diseno**, y la prueba no es
+    una opinion: falla comparando el layout contra **su propia extraccion** —72
+    nets sin pareja—, y ahi no hay nada que un layout pueda hacer mal. `compare` se
+    llama con los valores por defecto (`max_depth` 8, `max_branch_complexity` 500),
+    que no dan para un circuito plano de 1707 dispositivos con doce rebanadas
+    analogicas iguales; y el deck no los expone.
+
+    Aqui se usa el mismo comparador de KLayout pero conducido a mano. Con
+    `max_depth=30` y `max_branch_complexity=10000` el emparejamiento **cierra
+    entero**: 0 nets, 0 dispositivos y 0 pines sin pareja.
+
+    **Que comprueba y que no.** Comprueba la TOPOLOGIA: que cada dispositivo y cada
+    net del layout tenga su pareja en el esquematico. **No comprueba los tamanos**
+    (W/L): el lector SPICE generico no sabe casar los parametros que escribe el
+    deck (`L=20U W=0.7U AS=.. AD=.. PS=.. PD=..`) con los de la referencia (`W=..
+    L=..` en metros) y con ellos activados no empareja ni un dispositivo. De los
+    tamanos responde **netgen**, que si los compara — por eso el top se firma con
+    los dos y no con uno.
+    """
+    ref = _legible_por_spice(ref, work)
+
+    def leer(p: Path) -> kdb.Netlist:
+        nl = kdb.Netlist()
+        nl.read(str(p), kdb.NetlistSpiceReader())
+        for dc in nl.each_device_class():
+            for pd in dc.parameter_definitions():
+                dc.enable_parameter(pd.name, False)
+        return nl
+
+    log = _Cuenta()
+    cmp = kdb.NetlistComparer(log)
+    cmp.max_depth = profundidad
+    cmp.max_branch_complexity = ramas
+    ok = cmp.compare(leer(cir), leer(ref))
+    return ok, (f"max_depth={profundidad} max_branch_complexity={ramas}: "
+                f"{log.ok} nets emparejadas, sin pareja: {log.nets} nets, "
+                f"{log.disp} dispositivos, {log.pines} pines")
+
+
 def main() -> int:
     bad = 0
     for name in (sys.argv[1:] or ["GRADIENT_NAV"]):
@@ -136,8 +226,21 @@ def main() -> int:
         log = run / "run.log"
         log.write_text(r.stdout + r.stderr)
         ok = "Congratulations! Netlists match." in (r.stdout + r.stderr)
-        print(f"  {name:14s} {'match' if ok else 'NO CUADRA'}   -> {log}")
-        if not ok:
+        cir = run / f"{gds.stem}.cir"
+
+        #  El veredicto del deck vale para los bloques. Para el top no: falla
+        #  incluso comparando el layout contra su propia extraccion, asi que ahi
+        #  manda la comparacion conducida a mano (ver `comparar`).
+        if ok or not cir.exists():
+            print(f"  {name:14s} {'match' if ok else 'NO CUADRA'}   -> {log}")
+            bad += 0 if ok else 1
+            continue
+        ok2, detalle = comparar(cir, ref, ROOT / "work_lvs")
+        print(f"  {name:14s} deck: NO CUADRA  |  comparador a mano: "
+              f"{'MATCH' if ok2 else 'NO CUADRA'}")
+        print(f"                 {detalle}")
+        print(f"                 -> {log}")
+        if not ok2:
             bad += 1
     return 1 if bad else 0
 
