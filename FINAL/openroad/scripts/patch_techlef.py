@@ -79,7 +79,7 @@ def main() -> int:
         #  orthogonally and at a diagonal corner the deck saw less.
         #  With 0.300 any euclidean spacing is >= 0.300 > 0.280 and the problem
         #  disappears by construction. It costs 7% of routing slack.
-        #  ruteo, que sobra.
+        #  routing slack, which we can spare.
         m = re.match(r"LAYER (\S+)\s*$", line)
         if m:
             rlayer = m.group(1)

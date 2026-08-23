@@ -102,10 +102,10 @@ C {a_zonetic2026/XSCHEM/COMBINATION/GRADIENT2.sym} 130 -60 0 0 {name=x1}
 C {a_zonetic2026/XSCHEM/COMBINATION/GRADIENT2.sym} 130 140 0 0 {name=x2}
 C {a_zonetic2026/XSCHEM/COMBINATION/GRADIENT2.sym} 130 330 0 0 {name=x3}
 C {a_zonetic2026/XSCHEM/COMBINATION/GRADIENT2.sym} 130 530 0 0 {name=x4}
-C {devices/code_shown.sym} 700 700 0 0 {name=DESACOPLE only_toplevel=true value="
+C {devices/code.sym} 680 580 0 0 {name=DESACOPLE only_toplevel=true value="
 * Condensadores de desacople: NMOS y PMOS en inversion metidos en
-* los huecos entre macros. LO ESCRIBE scripts/decap_fill.py -- no
-* se edita a mano: tiene que ser exactamente lo que hay en el GDS.
+* the gaps between macros. WRITTEN BY scripts/decap_fill.py -- do
+* not edit by hand: it must be exactly what is in the GDS.
 XMdecn0 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.5u nf=1 m=1
 XMdecn1 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.5u nf=1 m=1
 XMdecn2 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.5u nf=1 m=1
@@ -331,36 +331,36 @@ XMdecp221 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.5u nf=1 m=1
 XMdecn222 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.5u nf=1 m=1
 XMdecp223 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.5u nf=1 m=1
 "}
-C {devices/code_shown.sym} 900 100 0 0 {name=DECISION only_toplevel=false
+C {devices/code_shown.sym} 930 -80 0 0 {name=DECISION only_toplevel=false
 value="
-* LA DECISION DE SALIDA, REHECHA. Sustituye a las tres COMP_OUT del top de hoy.
+* THE OUTPUT DECISION, REDONE. Replaces the three COMP_OUT of today's top.
 *
-* QUE ESTABA MAL. El bloque de pesos es un CONTADOR ANALOGICO DE VOTOS y ademas
+* WHAT WAS WRONG. The weight block is an ANALOGUE VOTE COUNTER and also
 * INVERSOR: medido, 0/1/2/3 cadenas votando dan 3.035 / 2.579 / 2.178 / 1.814 V,
 * escalones iguales de 0.4 V y correlacion -0.999. Detras iba un par de
-* inversores, o sea un buffer NO inversor con su punto de disparo donde cayera:
+* inverters, i.e. a NON-inverting buffer with its trip point wherever it fell:
 *
-*   * la salida llamada 'P' quedaba alta cuando el eje NO gana, al reves de su
+*   * the output called 'P' was high when the axis does NOT win, the opposite of
 *     nombre;
-*   * y el punto de disparo caia en ~2.0 V, o sea entre 2 y 3 votos, cuando la
+*   * and the trip point fell at ~2.0 V, i.e. between 2 and 3 votes, when the
 *     decision correcta es a partir de DOS. Medido: X e Y disparaban el 22.5 %
-*     del barrido cuando les tocaba el 47.7 % y el 52.3 %.
+*     of the sweep when they were due 47.7 % and 52.3 %.
 *
-* POR QUE NO VALE UN INVERSOR SESGADO. Se probo: con el PMOS a 3.0/0.5 el punto
+* WHY A SKEWED INVERTER WILL NOT DO. It was tried: with the PMOS at 3.0/0.5 the
 * de disparo cae en 2.365 V a 27 C y 5 V, justo en medio de la ventana. Pero es
-* un divisor de relacion, asi que **sigue a VDD**: 2.110 V a 4.5 V y 2.620 V a
-* 5.5 V. La ventana entre escalones es 2.178..2.579, o sea que con VDD +-10 % se
-* sale por los dos lados. La temperatura no importa (+-0.02 V); VDD si.
+* a ratio divider, so it **follows VDD**: 2.110 V at 4.5 V and 2.620 V at
+* 5.5 V. The window between steps is 2.178..2.579, so with VDD +-10 % it goes
+* out on both sides. Temperature does not matter (+-0.02 V); VDD does.
 *
-* QUE SE PONE. Un comparador contra una referencia sacada de DOS REPLICAS DEL
-* PROPIO BLOQUE DE PESOS, una cargada con 1 voto y otra con 2, promediadas. La
-* referencia se mueve con el proceso, con VDD y con la temperatura igual que la
-* senal, que es justo lo que el punto de disparo de un inversor no hace. Y el
-* comparador es la celda COMP que ya existe, ya dibujada y con DRC y LVS limpios.
+* WHAT GOES IN. A comparator against a reference taken from TWO REPLICAS OF THE
+* WEIGHT BLOCK ITSELF, one loaded with 1 vote and one with 2, averaged. The
+* reference moves with process, VDD and temperature just like the signal, which
+* is exactly what an inverter's trip point does not do. And the comparator is
+* the COMP cell that already exists, already drawn and with clean DRC and LVS.
 *
-* ESTO ES UN BLOQUE DE CODIGO A PROPOSITO: instancia celdas que ya estan en el
-* diseno, para poder medir la idea antes de dibujarla. Si los numeros convencen,
-* se dibuja como celda (REF_VOTOS + COMP_OUT_v2) y entonces las dos resistencias
+* THIS IS A CODE BLOCK ON PURPOSE: it instantiates cells already in the design,
+* so the idea can be measured before drawing it. If the numbers convince,
+* it gets drawn as a cell (REF_VOTOS + COMP_OUT_v2) and then the two resistors
 * pasan a ser ppolyf de verdad.
 *
 *   .subckt WEIGHT   VDD GND OUT VA VC VB VD

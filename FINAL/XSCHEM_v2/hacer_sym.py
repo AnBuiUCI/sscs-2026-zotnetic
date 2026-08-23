@@ -1,7 +1,7 @@
 """Genera un .sym de caja a partir de una lista de puertos.
 
-El orden de la lista ES el orden de puertos del subcircuito: xschem los saca de
-las lineas B del simbolo, asi que cambiar el orden aqui cambia el netlist.
+The list order IS the subcircuit port order: xschem takes them from the
+symbol B lines, so changing the order here changes the netlist.
 """
 import sys
 

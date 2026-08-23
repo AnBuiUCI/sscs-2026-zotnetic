@@ -3,42 +3,42 @@
 #
 #   ./run_gradient.sh
 #
-# LAS CUATRO CADENAS. Las mismas dos, dos veces:
+# THE FOUR CHAINS. The same two, twice over:
 #
-#   G1  esquematico, con el OPAM de 98 dB          alimentacion VDD1  salidas X1 Y1 Z1
-#   G2  esquematico, con el OPAM_LIN de 40 dB      alimentacion VDD2  salidas X2 Y2 Z2
-#   G3  rehecha con los bloques del layout v2      alimentacion VDD3  salidas X3 Y3 Z3
-#   G4  idem, con el OPAM_LIN_flat del layout v2   alimentacion VDD4  salidas X4 Y4 Z4
+#   G1  schematic, with the 98 dB OPAM             supply VDD1  outputs X1 Y1 Z1
+#   G2  schematic, with the 40 dB OPAM_LIN         supply VDD2  outputs X2 Y2 Z2
+#   G3  rebuilt from the v2 layout blocks          supply VDD3  outputs X3 Y3 Z3
+#   G4  same, with the v2 layout OPAM_LIN_flat     supply VDD4  outputs X4 Y4 Z4
 #
-# Las cuatro cuelgan de los MISMOS seis nodos de sensor y cada una lleva su
-# propia fuente, para que el consumo se pueda comparar sin mezclarlo.
+# All four hang off the SAME six sensor nodes and each carries its own supply,
+# so that current draw can be compared without mixing them.
 #
-# QUE MIDE. Los tres campos van desfasados 120 grados entre si, asi que suman
-# cero y el vector solo cambia de direccion. Barriendo el angulo de 0 a 360 cada
-# eje deberia ganar un sector de 120 grados exactos; lo que se desvien esas tres
-# fronteras es la cifra que sale de aqui.
+# WHAT IT MEASURES. The three fields are 120 degrees apart, so they sum to zero
+# and the vector only changes direction. Sweeping the angle 0 to 360 each axis
+# should win a sector of exactly 120 degrees; how far those three boundaries
+# drift is the figure that comes out of here.
 #
-# COMO SE MODELA EL SENSOR. Puente completo, las cuatro ramas de 1 Mohm variando
+# HOW THE SENSOR IS MODELLED. Full bridge, the four 1 Mohm arms varying
 # a la vez:
 #
 #     VEXC --R(1-b)-- SkP --R(1+b)-- GND      V(SkP) = VEXC*(1+b)/2
 #     VEXC --R(1+b)-- SkN --R(1-b)-- GND      V(SkN) = VEXC*(1-b)/2
 #
-# de donde Vdiff = VEXC*b y **Vcm = VEXC/2 exacto, independiente de b**. Lo
-# segundo hace falta: si el modo comun se moviera con la senal se mezclaria con
-# la sensibilidad al modo comun de estas celdas y no habria forma de separar las
+# from which Vdiff = VEXC*b and **Vcm = VEXC/2 exactly, independent of b**. The
+# second matters: if the common mode moved with the signal it would mix with
+# these cells' common-mode sensitivity and there would be no way to separate the
 # dos cosas al leer la curva. `b` es literalmente dR/R.
 #
-# Son resistencias de comportamiento y no un barrido de resistencias porque `dc`
-# admite dos fuentes anidadas como mucho, y aqui hay DOCE que se tienen que
+# They are behavioural resistors and not a resistor sweep because `dc` takes two
+# nested sources at most, and here there are TWELVE that have to
 # mover a la vez y de forma coherente.
 #
-# VEXC es fuente aparte aunque valga 5 V como el rail. Bajarla a 4.0 V lleva el
-# modo comun a 2.0 V, que es donde run_opam_g100.sh midio ~107 V/V en vez de 61.
+# VEXC is a separate source even though it is 5 V like the rail. Dropping it to
+# 4.0 V puts the common mode at 2.0 V, where run_opam_g100.sh measured ~107 V/V
 # Es cambiar un numero en el esquematico.
 #
-# Tarda un minuto y medio largo: las cadenas G3 y G4 son netlists extraidos con
-# RC, y son 721 puntos por barrido y dos barridos.
+# It takes a good minute and a half: chains G3 and G4 are netlists extracted
+# with RC, and there are 721 points per sweep and two sweeps.
 
 set -euo pipefail
 
@@ -47,9 +47,9 @@ SIM="$AQUI/simulation/test_GRADIENT.sch"
 DAT="$AQUI/datos"
 mkdir -p "$SIM" "$DAT"
 
-#  Los extraidos de la v2 hay que prepararlos antes: renombrar su subcircuito
-#  -- los dos declaran el mismo nombre y no se pueden incluir juntos -- y
-#  normalizar el orden de sus puertos. magic los emite en el orden en que los
+#  The v2 extractions have to be prepared first: rename their subcircuit -- both
+#  declare the same name and cannot be included together -- and normalise
+#  their port order. magic emits them in the order it
 #  encuentra en el layout, y ese orden cambia con el layout.
 echo "==> preparando los extraidos de la v2"
 /foss/designs/a_zonetic2026/XSCHEM/TEST/preparar_extraidos.sh \
@@ -57,23 +57,23 @@ echo "==> preparando los extraidos de la v2"
 
 echo "==> netlist"
 #  xschem devuelve a veces codigo 10 aunque escriba el netlist perfectamente, y
-#  sin decir nada. Con `set -e` eso mataba el script a mitad, asi que no se mira
-#  su codigo de salida: se comprueba que el fichero esta y es mas nuevo que el
-#  esquematico, que es lo que de verdad importa.
+#  without a word. With `set -e` that killed the script halfway, so its exit
+#  code is not checked: instead we check the file is there and newer than the
+#  schematic, which is what actually matters.
 rm -f "$SIM/test_GRADIENT.spice"
 ( cd "$AQUI" && xschem -n -s -q -o "$SIM" test_GRADIENT.sch ) || true
 if [ ! -s "$SIM/test_GRADIENT.spice" ] || [ "$AQUI/test_GRADIENT.sch" -nt "$SIM/test_GRADIENT.spice" ]; then
     echo "  xschem no regenero $SIM/test_GRADIENT.spice" >&2; exit 1
 fi
 
-#  GUARDA 1: las dos cadenas esquematicas. Se conectan con etiquetas sueltas y
-#  ahi es facilisimo dejarse una: el esquematico de partida tenia SYN atado a
-#  S3N en las DOS cadenas -- el eje Y midiendo el sensor Z por su pata negativa
-#  -- y las tres salidas de las dos cadenas al mismo nodo. Ninguna de las dos
-#  cosas da error: simulan y devuelven numeros que no valen nada.
+#  GUARD 1: the two schematic chains. They connect with loose labels and there
+#  it is dead easy to miss one: the starting schematic had SYN tied to S3N in
+#  BOTH chains -- the Y axis reading sensor Z through its negative leg -- and
+#  the three outputs of both chains on the same node. Neither of those raises
+#  an error: they simulate and return numbers that are worth nothing.
 #
-#  Solo el bloque de primer nivel: dentro de GRADIENT y de las celdas hay mas
-#  instancias que tambien se llaman x2 y x3, y buscarlas en todo el fichero
+#  Top-level block only: inside GRADIENT and the cells there are more instances
+#  also called x2 and x3, and searching the whole file for them
 #  seria buscar la palabra en el sitio equivocado.
 sed -n '1,/^\*\*\*\* begin user architecture code/p' "$SIM/test_GRADIENT.spice" > "$SIM/.top"
 for e in "x2 S1N S1P VDD1 X1 S2N Y1 Z1 S2P GND S3N S3P GRADIENT" \
@@ -87,15 +87,15 @@ for e in "x2 S1N S1P VDD1 X1 S2N Y1 Z1 S2P GND S3N S3P GRADIENT" \
         exit 1
     fi
 done
-echo "    G1 y G2 cableadas como toca, y con salidas separadas"
+echo "    G1 and G2 wired as they should be, with separate outputs"
 
-#  GUARDA 2: las dos cadenas rehechas a mano tienen que ser el MISMO circuito
-#  que las esquematicas. Es la comprobacion central del banco: sin ella,
-#  comparar G1 con G3 no demuestra nada.
+#  GUARD 2: the two hand-rebuilt chains have to be the SAME circuit as the
+#  schematic ones. It is the bench's central check: without it, comparing G1
+#  with G3 proves nothing.
 python3 "$AQUI/comprobar_cadena.py" "$SIM/test_GRADIENT.spice" GRADIENT  3
 python3 "$AQUI/comprobar_cadena.py" "$SIM/test_GRADIENT.spice" GRADIENT2 4
 
-echo "==> simulando  (minuto y medio: G3 y G4 son extraidos con RC)"
+echo "==> simulating  (a minute and a half: G3 and G4 are RC extractions)"
 ( cd "$SIM" && ngspice -b test_GRADIENT.spice > ngspice.log 2>&1 ) || true
 if grep -iqE "error|singular|no DC path" "$SIM/ngspice.log"; then
     echo "  ngspice se ha quejado:" >&2

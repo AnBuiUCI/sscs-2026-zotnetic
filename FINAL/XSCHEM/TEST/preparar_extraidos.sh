@@ -1,33 +1,33 @@
 #!/bin/bash
-# Deja listos los netlists extraidos de la v2 para poder instanciarlos AL LADO de
-# los de la v1 en el mismo banco. Hace DOS cosas, y las dos hacen falta:
+# Prepares the v2 extracted netlists so they can be instantiated ALONGSIDE the
+# v1 ones in the same bench. It does TWO things, and both are needed:
 #
-# 1. RENOMBRAR el subcircuito. Los dos declaran `.subckt <BLOQUE>`, porque la
-#    celda se llama igual en las dos versiones a proposito: es lo que permite
-#    compararlas contra la MISMA netlist de referencia en el LVS. Incluir los dos
-#    ficheros en una misma simulacion redefine el subcircuito.
+# 1. RENAME the subcircuit. Both declare `.subckt <BLOCK>`, because the cell is
+#    named the same in both versions on purpose: that is what lets them be
+#    compared against the SAME reference netlist in LVS. Including both files in
+#    one simulation redefines the subcircuit.
 #
-#    Se tocan SOLO las lineas `.subckt` y `.ends`. Un `sed` global sobre el
-#    nombre tocaria tambien nodos internos que lo contengan (magic los genera
-#    como `<BLOQUE>_...`), y eso si romperia la netlist en silencio.
+#    ONLY the `.subckt` and `.ends` lines are touched. A global `sed` on the
+#    name would also touch internal nodes containing it (magic generates them
+#    as `<BLOCK>_...`), and that would break the netlist silently.
 #
-# 2. NORMALIZAR EL ORDEN DE LOS PUERTOS al de la v1. **magic emite los puertos en
-#    el orden en que los encuentra en el layout, y ese orden cambia con el
+# 2. NORMALISE THE PORT ORDER to v1. **magic emits the ports in the order it
+#    finds them in the layout, and that order changes with the
 #    layout.** Medido:
 #
 #      v1: .subckt OPAM_LIN_flat    VSS VDD INP OUT INN
 #      v2: .subckt OPAM_LIN_flat_V2 VSS VDD INP INN OUT     <- OUT e INN al reves
 #
-#    Con las dos instancias cableadas igual, la v2 tenia la salida conectada a la
-#    entrada negativa. No da ningun error: simula y da numeros, solo que no son
-#    los del circuito. Se vio porque la transferencia salia plana en 0.0..0.7 V
+#    With both instances wired the same, v2 had its output connected to the
+#    negative input. No error at all: it simulates and gives numbers, only they
+#    are not the circuit. It showed because the transfer came out flat over
 #    mientras el esquematico hacia 0.01..4.97.
 #
-#    Reordenar la linea `.subckt` es legitimo y no toca nada mas: el cuerpo se
-#    refiere a los nodos por NOMBRE, asi que cambiar su posicion solo cambia con
-#    que nodo del llamante se empareja cada uno.
+#    Reordering the `.subckt` line is legitimate and touches nothing else: the
+#    body refers to nodes by NAME, so changing their position only changes which
+#    of the caller's nodes each one pairs with.
 #
-#   ./preparar_extraidos.sh              todos los bloques
+#   ./preparar_extraidos.sh              all the blocks
 #   ./preparar_extraidos.sh COMP         uno solo
 
 set -uo pipefail
@@ -55,16 +55,16 @@ for B in $BLOQUES; do
             { print }
         ''' "$SRC" > "$DST"
 
-        #  Comprobar que el renombrado ha ocurrido: un `.subckt` que no case
-        #  dejaria dos definiciones con el mismo nombre y ngspice se quedaria con
-        #  una de las dos sin avisar de nada.
+        #  Check the rename actually happened: a `.subckt` that does not match
+        #  would leave two definitions with the same name and ngspice would keep
+        #  one of them without warning.
         if ! grep -qiE "^\.subckt[[:space:]]+${B}_V2\b" "$DST"; then
             echo "  ERROR: no se renombro el subcircuito en $DST" >&2
             FALLOS=$((FALLOS + 1)); continue
         fi
-        #  ...y que los DOS declaran el mismo juego de puertos. Si magic ha
-        #  descubierto un puerto de mas o de menos en una version, cablearlas
-        #  igual no significa lo mismo y hay que enterarse aqui, no mirando una
+        #  ...and that BOTH declare the same set of ports. If magic has
+        #  found one port more or fewer in one version, wiring them
+        #  the same does not mean the same thing and it must be caught here, not by
         #  curva rara tres pasos despues.
         A=$(grep -m1 -iE "^\.subckt[[:space:]]+$B\b" "$REF" | cut -d" " -f3- | tr " " "\n" | sort | tr "\n" " ")
         C=$(grep -m1 -iE "^\.subckt[[:space:]]+${B}_V2\b" "$DST" | cut -d" " -f3- | tr " " "\n" | sort | tr "\n" " ")
@@ -77,4 +77,4 @@ for B in $BLOQUES; do
         printf "  %-16s %-10s -> %s   (%s)\n" "$B" "$SUF" "$(basename "$DST")" "$ORDEN"
     done
 done
-[ "$FALLOS" -eq 0 ] || { echo "  $FALLOS fichero(s) sin preparar" >&2; exit 1; }
+[ "$FALLOS" -eq 0 ] || { echo "  $FALLOS file(s) not prepared" >&2; exit 1; }

@@ -1,12 +1,12 @@
 #!/bin/bash
-# Punto de disparo del inversor de COMP_OUT: contra el tamano del PMOS, y contra
+# COMP_OUT inverter trip point: against the PMOS size, and against
 # VDD y temperatura una vez elegido.
 #
 #   ./medir_disparo.sh    -> datos_top/disparo_w.csv y datos_top/disparo_vdd.csv
 #
-# Es lo que decide si la decision de salida se puede hacer con un inversor
-# sesgado o hace falta un comparador con referencia. Los escalones que hay que
-# separar son los del bloque de pesos: 2.178 V (2 votos) y 2.579 V (1 voto).
+# It is what decides whether the output decision can be made with a skewed
+# inverter or needs a comparator with a reference. The steps to be separated
+# are those of the weight block: 2.178 V (2 votes) and 2.579 V (1 vote).
 set -euo pipefail
 AQUI="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DAT="$AQUI/datos_top"; TMP=$(mktemp -d); mkdir -p "$DAT"
@@ -30,7 +30,7 @@ SP
 ( cd "$TMP" && ngspice -b d.spice > /dev/null 2>&1 ) || true
 }
 
-echo "==> punto de disparo contra el ancho del PMOS (VDD 5 V, 27 C)"
+echo "==> trip point against PMOS width (VDD 5 V, 27 C)"
 : > "$DAT/disparo_w.csv"; echo "wp_um,vdd,temp_c,trip_v" >> "$DAT/disparo_w.csv"
 for w in 1.83 2.5 3.0 3.5 4.5 6.0 8.0 11.0; do
     deck "$w" 5.0 27 "s.txt"
@@ -42,7 +42,7 @@ open(sys.argv[5],"a").write(f"{sys.argv[2]},{sys.argv[3]},{sys.argv[4]},{trip:.4
 PY
 done
 
-echo "==> y contra VDD y temperatura, con el PMOS ya elegido (3.0 um)"
+echo "==> and against VDD and temperature, with the PMOS chosen (3.0 um)"
 : > "$DAT/disparo_vdd.csv"; echo "wp_um,vdd,temp_c,trip_v" >> "$DAT/disparo_vdd.csv"
 for t in -40 27 125; do for v in 4.5 4.75 5.0 5.25 5.5; do
     deck 3.0 "$v" "$t" "s.txt"

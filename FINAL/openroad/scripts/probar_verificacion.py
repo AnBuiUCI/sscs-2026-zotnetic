@@ -94,9 +94,9 @@ def romper_corto(dst: Path):
     ly = kdb.Layout()
     ly.read(str(GDS))
     top = ly.top_cell()
-    caja = kdb.DBox(min(xa, xb), min(ya, yb), max(xa, xb), max(ya, yb))
-    caja = caja.enlarged(0.19, 0.19)
-    top.shapes(ly.layer(*M3)).insert(caja.to_itype(ly.dbu))
+    box = kdb.DBox(min(xa, xb), min(ya, yb), max(xa, xb), max(ya, yb))
+    box = box.enlarged(0.19, 0.19)
+    top.shapes(ly.layer(*M3)).insert(box.to_itype(ly.dbu))
     ly.write(str(dst))
     return f"{na} and {nb} joined with Metal3 ({d:.1f} um bridge)"
 
@@ -107,14 +107,14 @@ def romper_abierto(dst: Path):
     ly.read(str(GDS))
     top = ly.top_cell()
     d, (na, xa, ya), _ = _pads_de_dos_nets()
-    ventana = kdb.DBox(xa - 6, ya - 6, xa + 6, ya + 6).to_itype(ly.dbu)
-    capa = ly.layer(*VIA2)
-    fuera = [s for s in top.shapes(capa).each()
+    window = kdb.DBox(xa - 6, ya - 6, xa + 6, ya + 6).to_itype(ly.dbu)
+    layer = ly.layer(*VIA2)
+    fuera = [s for s in top.shapes(layer).each()
              if s.is_box() or s.is_polygon() or s.is_path()]
     n = 0
     for s in fuera:
-        if ventana.contains(s.dbbox().center().to_itype(ly.dbu)):
-            top.shapes(capa).erase(s)
+        if window.contains(s.dbbox().center().to_itype(ly.dbu)):
+            top.shapes(layer).erase(s)
             n += 1
     ly.write(str(dst))
     return f"{n} via2 deleted around {na} ({xa:.1f}, {ya:.1f})"
@@ -125,17 +125,17 @@ def romper_drc(dst: Path):
     ly = kdb.Layout()
     ly.read(str(ROOT / "gds/COMP.gds"))
     top = ly.top_cell()
-    capa = ly.layer(*M3)
-    origen = next(s for s in top.shapes(capa).each() if s.is_box() or s.is_polygon())
+    layer = ly.layer(*M3)
+    origen = next(s for s in top.shapes(layer).each() if s.is_box() or s.is_polygon())
     b = origen.dbbox()
-    top.shapes(capa).insert(
+    top.shapes(layer).insert(
         kdb.DBox(b.right + 0.10, b.bottom, b.right + 0.50, b.bottom + 0.40)
         .to_itype(ly.dbu))
     ly.write(str(dst))
     return f"Metal3 a 0.10 um de ({b.right:.2f}, {b.bottom:.2f}) en COMP"
 
 
-def drc_limpio(gds: Path, celda: str) -> bool:
+def drc_limpio(gds: Path, cell: str) -> bool:
     """True if the KLayout DRC reports not one violation. Aborts if it did not run.
 
     The first version said "clean" when the deck **never even started** --
@@ -144,12 +144,12 @@ def drc_limpio(gds: Path, celda: str) -> bool:
     PATH must carry `/foss/tools/klayout`, and `PDK_ROOT` must be set: same as
     what `drc_klayout.py` does.
     """
-    run = TMP / f"drc_{celda}"
+    run = TMP / f"drc_{cell}"
     subprocess.run(["rm", "-rf", str(run)], check=False)
     run.mkdir(parents=True, exist_ok=True)
     subprocess.run(
         ["python3", "/foss/pdks/gf180mcuD/libs.tech/klayout/tech/drc/run_drc.py",
-         f"--path={gds}", "--variant=D", f"--topcell={celda}",
+         f"--path={gds}", "--variant=D", f"--topcell={cell}",
          f"--run_dir={run}", "--mp=4"],
         capture_output=True, text=True, check=False, timeout=14400,
         env={"PATH": "/foss/tools/klayout:/usr/bin:/bin",
@@ -166,7 +166,7 @@ def main() -> int:
     con_drc = "--con-drc" in sys.argv
     print("Baseline: the real layout\n")
     ab, co = conectividad(GDS)
-    print(f"  conectividad sobre el GDS bueno: {ab} abiertas, {co} cortos"
+    print(f"  connectivity on the good GDS: {ab} opens, {co} shorts"
           f"   {'OK' if (ab, co) == (0, 0) else 'OJO: ya venia roto'}\n")
 
     fallos = 0
@@ -176,7 +176,7 @@ def main() -> int:
     print(f"  1. CORTO      {romper_corto(dst)}")
     ab, co = conectividad(dst)
     bien = co > 0
-    print(f"     conectividad: {ab} abiertas, {co} cortos"
+    print(f"     connectivity: {ab} opens, {co} shorts"
           f"      -> {'SEES IT' if bien else 'MISSES IT  <-- BAD'}")
     fallos += 0 if bien else 1
 
@@ -184,7 +184,7 @@ def main() -> int:
     print(f"  2. ABIERTO    {romper_abierto(dst)}")
     ab, co = conectividad(dst)
     bien = ab > 0
-    print(f"     conectividad: {ab} abiertas, {co} cortos"
+    print(f"     connectivity: {ab} opens, {co} shorts"
           f"      -> {'SEES IT' if bien else 'MISSES IT  <-- BAD'}")
     fallos += 0 if bien else 1
 
@@ -197,9 +197,9 @@ def main() -> int:
         fallos += 0 if bien else 1
 
         print("\n  And the control that says the most about all this:")
-        limpio = drc_limpio(TMP / "roto_corto.gds", "GRADIENT_NAV")
+        clean = drc_limpio(TMP / "roto_corto.gds", "GRADIENT_NAV")
         print(f"     DRC on the GDS WITH THE SHORT: "
-              f"{'limpio' if limpio else 'saca violaciones'}"
+              f"{'clean' if clean else 'saca violaciones'}"
               f"   <- clean is EXPECTED: DRC does not see a short")
     else:
         print("\n  (--con-drc adds the two DRC tests)")

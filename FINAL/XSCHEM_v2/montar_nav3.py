@@ -1,8 +1,8 @@
 """Monta GRADIENT3 y el top GRADIENT_NAV3 a partir de la geometria de la caja.
 
-El cableado de las cuatro cadenas NO se escribe a mano: sale de invertir la
-matriz de posiciones de cada trio, que es la unica forma de que los signos sean
-los que son y no los que uno cree recordar.
+The wiring of the four chains is NOT written by hand: it comes from inverting
+each triad's position matrix, which is the only way for the signs to be what
+they are and not what one thinks one remembers.
 """
 import itertools
 import sys
@@ -14,9 +14,9 @@ from hacer_sch import Hoja
 from hacer_sym import sym
 from pathlib import Path
 
-#  Los cuatro sensores en los vertices del tetraedro, dentro de un cubo de 1000
-#  um de lado. Con Lz = Lxy la compensacion de caja vale 1, asi que no hacen
-#  falta ni las resistencias de compensacion ni las patas de parametro.
+#  The four sensors at the tetrahedron vertices, inside a 1000 um cube. With
+#  Lz = Lxy the box compensation is 1, so neither the compensation resistors nor
+#  the parameter pins are needed.
 SIG = [(-1, +1, +1), (+1, -1, +1), (-1, -1, -1), (+1, +1, -1)]
 TRIOS = list(itertools.combinations(range(4), 3))
 
@@ -37,11 +37,11 @@ SAL3 = [f"{e}{x}" for x in "AB" for e in "XYZ"]
 def opam_suma():
     """El amplificador lineal con sus cuatro resistencias sumadoras dentro.
 
-    Las resistencias no pueden vivir en una celda propia: el generador saca el
-    ancho de la celda de las filas de transistores, y una celda solo de
-    resistencias nace con 1 um y no hay serpentin que quepa. Aqui caben porque el
-    OPAM ya trae canal de serpentines y 85 um de celda, y ademas es mejor sitio
-    -- el nodo de suma es de alta impedancia y no hay que sacarlo a ruteo global.
+    The resistors cannot live in a cell of their own: the generator takes the
+    cell width from the transistor rows, and a resistors-only cell is born 1 um
+    wide with no serpentine that fits. They fit here because the OPAM already
+    has a serpentine channel and 85 um of cell, and besides it is a better place
+    -- the summing node is high impedance and need not go out to global routing.
     """
     H = Hoja()
     H.macro("a_zonetic2026/XSCHEM/OPAM/OPAM_LIN.sym", "xamp", 0, 0,
@@ -53,9 +53,9 @@ def opam_suma():
             ent = f"{pre}{j}"
             #  La resistencia sumadora: 3 tramos de 55.56 um a 3 kohm/cuadro, o
             #  sea 500 kohm. Es el valor que equilibra atenuacion contra area:
-            #  el puente tiene 500 kohm de salida, asi que con 100 kohm la senal
-            #  se atenua 10.5 veces y con 1 Mohm solo 1.5, pero 1 Mohm son 333 um
-            #  de poly por resistencia. 500 kohm deja la atenuacion en 2.5 veces
+            #  the bridge has 500 kohm of output, so with 100 kohm the signal is
+            #  attenuated 10.5 times and with 1 Mohm only 1.5, but 1 Mohm is
+            #  333 um of poly per resistor. 500 kohm leaves attenuation at 2.5
             #  por la mitad de area.
             H.lin.append(f"C {{{RP}}} -250 {y} 0 0 {{name=R{ent}\n"
                          "W=1e-6\nL=55.56e-6\nmodel=ppolyf_u_3k\n"
@@ -67,11 +67,11 @@ def opam_suma():
                 H.lin.append(f"C {{devices/lab_pin.sym}} {-250+dx} {y+dy} 0 0 "
                              f"{{name=r{H.n} sig_type=std_logic lab={lab}}}")
             #  Y un condensador MOS en la entrada. Filtra el nodo de suma, que es
-            #  de alta impedancia, pero sobre todo es lo que le da a esa net
-            #  presencia en la fila de transistores: sin ella el generador no le
+            #  high impedance, but above all it is what gives that net
+            #  presence in the transistor row: without it the generator creates
             #  crea carril de metal2 ("trunk de 0.00 um en 0 tramos") y el
-            #  terminal de la resistencia se queda sin donde aterrizar. Con W y L
-            #  de 2 um son unos 6 fF, o sea 3 ns: invisible para un gradiente.
+            #  the resistor terminal has nowhere to land. With W and L of 2 um
+            #  it is about 6 fF, i.e. 3 ns: invisible to a gradient.
             H.macro(NF, f"xmc{ent}", -560, y,
                     {"G": ent, "D": "VSS", "S": "VSS", "B": "VSS"})
             H.lin[-5] = H.lin[-5].replace(
@@ -99,20 +99,20 @@ def opam_suma():
 
 def gradient3():
     H = Hoja()
-    #  Un amplificador por componente, con sus cuatro resistencias sumadoras
-    #  dentro: promedia los dos sensores de cada lado y saca la componente.
+    #  One amplifier per component, with its four summing resistors inside: it
+    #  averages the two sensors on each side and gives the component.
     for i, e in enumerate("XYZ"):
         H.macro(OS, f"xa{e}", -600, -400 + 300 * i,
                 {"VDD": "VDD", "VSS": "VSS", "OUT": f"S{e}",
                  "A1": f"S{e}P1", "A2": f"S{e}P2",
                  "B1": f"S{e}N1", "B2": f"S{e}N2"})
-    #  Las tres parejas de componentes. Mismo orden de patas que GRADIENT2, donde
+    #  The three component pairs. Same pin order as GRADIENT2, where
     #  estas tres redes salian sin nombre (#net1, #net2, #net3).
     for nom, a, b in (("XY", "X", "Y"), ("XZ", "X", "Z"), ("YZ", "Y", "Z")):
         H.macro(CO, f"xc{nom}", 0, {"XY": -400, "XZ": -100, "YZ": 200}[nom],
                 {"VDD": "VDD", "VSS": "VSS", "INN": f"S{a}", "INP": f"S{b}",
                  "OUT": nom})
-    #  Los DOS decodificadores cuelgan de los MISMOS tres comparadores: sacar el
+    #  BOTH decoders hang off the SAME three comparators: getting the
     #  extremo contrario cuesta tres puertas, no otra cadena analogica.
     for s, nom, suf, y in ((DE, "xdA", "A", -300), (DM, "xdB", "B", 100)):
         H.macro(s, nom, 600, y,
@@ -125,26 +125,26 @@ def gradient3():
     H.puerto("iopin", "VDD", 1200, -100)
     H.puerto("iopin", "VSS", 1200, -60)
     H.texto(
-        "* GRADIENT3 = una cadena completa: tres componentes y LOS DOS EXTREMOS.\n"
+        "* GRADIENT3 = a complete chain: three components and BOTH EXTREMES.\n"
         "*\n"
-        "* Cada componente del gradiente se forma promediando dos sensores en la\n"
-        "* entrada del amplificador (las resistencias van dentro de OPAM_SUMA), se\n"
+        "* Each gradient component is formed by averaging two sensors at the\n"
+        "* amplifier input (the resistors live inside OPAM_SUMA), the three are\n"
         "* comparan las tres dos a dos, y esas MISMAS tres comparaciones alimentan\n"
-        "* dos decodificadores: el que senala un extremo y el que senala el otro.\n"
+        "* two decoders: the one naming one extreme and the one naming the other.\n"
         "*\n"
-        "* La diferencia con GRADIENT2 es doble. Una, que lo que se compara son\n"
-        "* COMPONENTES DEL GRADIENTE y no lecturas crudas de sensor. Y dos, que hay\n"
-        "* dos decodificadores en vez de uno, que es lo que permite dar el SENTIDO:\n"
-        "* con un solo extremo, cuando el gradiente apunta hacia el lado contrario\n"
+        "* The difference from GRADIENT2 is twofold. One, what is compared are\n"
+        "* GRADIENT COMPONENTS and not raw sensor readings. And two, there are\n"
+        "* two decoders instead of one, which is what allows giving the SENSE:\n"
+        "* with a single extreme, when the gradient points the other way\n"
         "* la componente senalada vale casi cero y decide el ruido.\n"
         "*\n"
-        "* QUE GRADIENTE. Cada sensor lee la MAGNITUD del campo, |B|, en su\n"
-        "* posicion: un escalar. Los cuatro muestrean ese campo escalar y lo que se\n"
-        "* reconstruye es grad|B|, que apunta hacia donde la magnitud CRECE, o sea\n"
+        "* WHICH GRADIENT. Each sensor reads the MAGNITUDE of the field, |B|, at\n"
+        "* its position: a scalar. The four sample that scalar field and what is\n"
+        "* reconstructed is grad|B|, which points where the magnitude GROWS, that\n"
         "* hacia la fuente.\n"
         "*\n"
-        "* A y B son los dos extremos. Cual es el minimo y cual el maximo depende\n"
-        "* del signo de la cadena analogica, asi que se fija MIDIENDO y no aqui.\n"
+        "* A and B are the two extremes. Which is the minimum and which the\n"
+        "* maximum depends on the analogue chain sign, so it is fixed by MEASURING.\n"
         "* Medido: el lado B es el maximo, o sea el que apunta hacia la fuente.")
     H.escribir("GRADIENT3.sch")
     Path("GRADIENT3.sym").write_text(sym(
@@ -158,9 +158,9 @@ def top():
         Mi = np.linalg.inv(np.array([SIG[i] for i in trio], float))
         con = {"VDD": "VDD", "VSS": "VSS"}
         for r, e in enumerate("XYZ"):
-            #  De cada componente salen exactamente dos sensores con peso +-0.5.
-            #  El signo se hace eligiendo que pata del puente entra por donde:
-            #  peso positivo manda P al lado P, y negativo las cruza.
+            #  Each component takes exactly two sensors with weight +-0.5.
+            #  The sign is made by choosing which bridge leg enters where:
+            #  positive weight sends P to the P side, negative crosses them.
             usados = [(trio[j] + 1, Mi[r, j]) for j in range(3)
                       if abs(Mi[r, j]) > 1e-9]
             assert len(usados) == 2, usados
@@ -170,8 +170,8 @@ def top():
                 con[f"S{e}N{k}"] = f"S{s}{n}"
         con.update({f"{e}{x}": f"{e}{x}{c}" for e in "XYZ" for x in "AB"})
         H.macro(G3, f"xg{c}", -600, -900 + 500 * c, con)
-    #  Seis votaciones, una por salida. Cada WEIGHT suma las cuatro cadenas en un
-    #  nodo analogico y el COMP_OUT lo pasa a digital: es el mismo par que ya usa
+    #  Six votes, one per output. Each WEIGHT sums the four chains into an
+    #  analogue node and the COMP_OUT turns it digital: the same pair already used
     #  el top de hoy, y la herramienta lo funde en el macro WEIGHT_COMP.
     for i, s in enumerate(SAL3):
         H.macro(WE, f"xw{s}", 600, -900 + 200 * i,

@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
-"""Comprueba que una cadena rehecha a mano es la MISMA que la del esquematico.
+"""Checks that a hand-rebuilt chain is the SAME as the schematic one.
 
     python3 comprobar_cadena.py <netlist> GRADIENT  3
     python3 comprobar_cadena.py <netlist> GRADIENT2 4
 
-Por que hace falta. Las cadenas G3 y G4 se escriben a mano, instanciando los
-bloques extraidos del layout v2 con conexiones de SPICE. Comparar G1 con G3 solo
-significa algo si las dos son el mismo circuito, y hay dos formas de que no lo
-sean sin que salte ningun error:
+Why it is needed. Chains G3 and G4 are written by hand, instantiating the
+blocks extracted from the v2 layout with SPICE connections. Comparing G1 with
+G3 only means something if both are the same circuit, and there are two ways
+for them not to be without any error going off:
 
-  * **El orden de puertos no coincide.** xschem los emite en el orden de las
-    lineas B del simbolo y magic en el orden en que los encuentra en el layout:
+  * **The port order does not match.** xschem emits them in the order of the
+    symbol B lines and magic in the order it finds them in the layout:
 
         esquematico  .subckt OPAM            VDD INN OUT INP VSS
         extraido     .subckt OPAM_V2         VSS VDD OUT INP INN
@@ -22,18 +22,18 @@ sean sin que salte ningun error:
   * **Un nodo mal tecleado.** Un `SY3` donde iba `SZ3` no es un error de sintaxis:
     es otro circuito.
 
-Como lo comprueba. Lee del netlist los puertos declarados de cada subcircuito,
-traduce cada instancia a un diccionario pin -> nodo, y compara las dos cadenas
+How it checks. It reads each subcircuit's declared ports from the netlist,
+turns each instance into a pin -> node dictionary, and compares the two chains
 como grafos:
 
-  * los nodos EXTERNOS se emparejan por su papel (S1P es el SXP de la cadena
-    rehecha, VDD3 es su VDD, GND es su VSS, X3 es su X...),
-  * los nodos INTERNOS no se emparejan por nombre -- se llaman distinto a
-    proposito -- sino por a que pines de que celdas tocan,
-  * y las celdas se emparejan por familia: OPAM y OPAM_V2 son las dos el
+  * EXTERNAL nodes are matched by role (S1P is the SXP of the rebuilt chain,
+    VDD3 is its VDD, GND is its VSS, X3 is its X...),
+  * INTERNAL nodes are not matched by name -- they are named differently on
+    purpose -- but by which pins of which cells they touch,
+  * and the cells are matched by family: OPAM and OPAM_V2 are both the
     amplificador, OPAM_LIN y OPAM_LIN_flat_V2 tambien.
 
-Si los dos grafos no salen iguales, imprime que instancia sobra o falta y
+If the two graphs do not come out equal, it prints which instance is extra or
 devuelve 1.
 """
 
@@ -43,7 +43,7 @@ import sys
 from collections import defaultdict
 from pathlib import Path
 
-#: Cada celda a su familia, para poder comparar el esquematico con el extraido.
+#: Each cell to its family, so the schematic can be compared with the extraction.
 FAMILIA = {
     "OPAM": "AMP", "OPAM_V2": "AMP",
     "OPAM_LIN": "AMP", "OPAM_LIN_flat_V2": "AMP",
@@ -53,11 +53,11 @@ FAMILIA = {
 
 
 def puertos(lineas: list[str], base: Path) -> dict[str, list[str]]:
-    """Nombre de subcircuito -> lista de puertos, tal y como los declara el netlist.
+    """Subcircuit name -> port list, exactly as the netlist declares them.
 
-    Sigue los `.include`, porque los puertos de los bloques extraidos NO estan en
-    el netlist de xschem sino en el fichero de magic, y ese orden es justo lo que
-    hay que leer y no suponer.
+    It follows the `.include`s, because the extracted blocks' ports are NOT in
+    the xschem netlist but in magic's file, and that order is exactly what must
+    be read and not assumed.
     """
     out = {}
     for ln in lineas:
@@ -74,7 +74,7 @@ def puertos(lineas: list[str], base: Path) -> dict[str, list[str]]:
 
 
 def instancias(cuerpo: list[str], pts: dict[str, list[str]]) -> list[tuple[str, dict]]:
-    """Lineas de instancia -> (celda, pin -> nodo). Se salta lo que no sea una celda."""
+    """Instance lines -> (cell, pin -> node). Skips anything that is not a cell."""
     out = []
     for ln in cuerpo:
         t = ln.split()
@@ -89,11 +89,11 @@ def instancias(cuerpo: list[str], pts: dict[str, list[str]]) -> list[tuple[str, 
 
 
 def grafo(insts: list[tuple[str, dict]], externos: dict[str, str]) -> list:
-    """Cada instancia como (familia, pines ordenados con su nodo canonico).
+    """Each instance as (family, pins ordered with their canonical node).
 
-    Los nodos internos se etiquetan por a que toca cada uno -- el conjunto de
-    pares (familia, pin) que lo tocan -- y no por su nombre, que es justo lo que
-    difiere entre las dos cadenas.
+    Internal nodes are labelled by what each one touches -- the set of
+    (family, pin) pairs touching it -- and not by name, which is exactly what
+    differs between the two chains.
     """
     toca = defaultdict(set)
     for celda, pines in insts:
@@ -114,7 +114,7 @@ def main() -> int:
     lineas = netlist.read_text().splitlines()
     pts = puertos(lineas, netlist.parent)
 
-    #  --- la cadena del esquematico: el cuerpo de su .subckt
+    #  --- the schematic chain: the body of its .subckt
     try:
         i = next(k for k, ln in enumerate(lineas)
                  if ln.split()[:2] == [".subckt", subckt])
@@ -124,7 +124,7 @@ def main() -> int:
     j = next(k for k in range(i + 1, len(lineas)) if lineas[k].split()[:1] == [".ends"])
     esq = instancias(lineas[i + 1:j], pts)
 
-    #  --- la cadena rehecha: las instancias del primer nivel que cuelgan de VDD<suf>
+    #  --- the rebuilt chain: the top-level instances hanging off VDD<suffix>
     tope = lineas[:next(k for k, ln in enumerate(lineas)
                         if ln.startswith("**** begin user architecture code"))] \
         + [ln for ln in lineas if ln.split()[:1] and ln.split()[0].upper().startswith("X")]
@@ -147,7 +147,7 @@ def main() -> int:
         return 0
 
     print(f"  LA CADENA DE VDD{suf} NO ES {subckt}", file=sys.stderr)
-    for etiq, falta in (("solo en el esquematico", [x for x in ga if x not in gb]),
+    for etiq, falta in (("only in the schematic", [x for x in ga if x not in gb]),
                         ("solo en la rehecha   ", [x for x in gb if x not in ga])):
         for fam, pines in falta:
             print(f"    {etiq}: {fam} " +

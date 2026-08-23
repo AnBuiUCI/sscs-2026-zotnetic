@@ -110,5 +110,5 @@ write_def $OUT/${TOPCELL}_routed.def
 puts "--------------------------------------------------------------"
 report_design_area
 puts "DEF ruteado en $OUT/${TOPCELL}_routed.def"
-puts "informe DRC del router en $OUT/route_drc.rpt"
+puts "router DRC report in $OUT/route_drc.rpt"
 puts "--------------------------------------------------------------"

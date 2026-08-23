@@ -107,8 +107,8 @@ C {a_zonetic2026/XSCHEM/COMBINATION/GRADIENT2.sym} 130 330 0 0 {name=x3}
 C {a_zonetic2026/XSCHEM/COMBINATION/GRADIENT2.sym} 130 530 0 0 {name=x4}
 C {devices/code_shown.sym} 700 700 0 0 {name=DESACOPLE only_toplevel=true value="
 * Condensadores de desacople: NMOS y PMOS en inversion metidos en
-* los huecos entre macros. LO ESCRIBE scripts/decap_fill.py -- no
-* se edita a mano: tiene que ser exactamente lo que hay en el GDS.
+* the gaps between macros. WRITTEN BY scripts/decap_fill.py -- do
+* not edit by hand: it must be exactly what is in the GDS.
 XMdecn0 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.5u nf=1 m=1
 XMdecn1 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.5u nf=1 m=1
 XMdecn2 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.5u nf=1 m=1

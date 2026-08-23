@@ -134,7 +134,7 @@ def parse(text: str) -> tuple[dict[str, Subckt], Subckt]:
             tok = stripped.split()
             #  The alias applies both when DEFINING and when INSTANTIATING, so
             #  that from here on the whole file speaks the macro name and not
-            #  celda del esquematico.
+            #  the schematic cell.
             cur = Subckt(ALIAS.get(tok[1], tok[1]), tok[2:])
             subckts[cur.name] = cur
             continue

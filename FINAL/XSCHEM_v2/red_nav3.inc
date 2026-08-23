@@ -1,25 +1,25 @@
-* CUATRO CADENAS POR TRIOS, Y SEIS SALIDAS (una por SENTIDO).
+* FOUR CHAINS BY TRIADS, AND SIX OUTPUTS (one per SENSE).
 *
-* POR QUE CUATRO CADENAS. Cada trio de tres sensores determina el gradiente
-* por si solo -- las tres posiciones son linealmente independientes -- asi que
-* hay CUATRO estimaciones del mismo gradiente y se pueden votar. Es la misma
-* redundancia que ya tiene el diseno, y se conserva a proposito: con mas
-* sensores la votacion empieza a pagar (con 7 ya hay mayoria de trios que no
-* usan al sensor averiado; con 4 no, y esta medido).
+* WHY FOUR CHAINS. Each triad of three sensors determines the gradient on its
+* own -- the three positions are linearly independent -- so there are FOUR
+* estimates of the same gradient and they can be voted. It is the same
+* redundancy the design already has, and it is kept on purpose: with more
+* sensors the vote starts to pay off (with 7 there is already a majority of
+* triads not using the faulty sensor; with 4 there is not, and it is measured).
 *
-* POR QUE SEIS SALIDAS. Con tres no se puede dar el SENTIDO del gradiente: el
-* decodificador senala la componente MAS NEGATIVA, y cuando el gradiente apunta
-* hacia +x esa componente no es gx sino una de las otras dos, que valen casi
-* cero -- ahi decide el ruido. Medido: 50 % de acierto, o sea una moneda. Con
-* dos decodificadores por cadena -- el minimo y el maximo, que salen de los
-* MISMOS tres comparadores -- se cubren los seis sentidos y el acierto sube al
-* 100 %. Aqui el maximo se monta instanciando la cadena otra vez con P y N
-* cambiados, que es lo mismo y no pide celda nueva; en silicio se compartirian
-* los comparadores y solo se duplicaria el decodificador.
+* WHY SIX OUTPUTS. With three you cannot give the SENSE of the gradient: the
+* decoder names the MOST NEGATIVE component, and when the gradient points
+* towards +x that component is not gx but one of the other two, which are nearly
+* zero -- there noise decides. Measured: 50 % accuracy, i.e. a coin toss. With
+* two decoders per chain -- the minimum and the maximum, which come from the
+* SAME three comparators -- the six senses are covered and accuracy rises to
+* 100 %. Here the maximum is built by instantiating the chain again with P and N
+* swapped, which is the same and needs no new cell; in silicon the comparators
+* would be shared and only the decoder duplicated.
 *
-* LOS PESOS de la red sumadora salen de invertir la matriz de posiciones del
-* trio, y son +-0.5 y 0: cada componente usa DOS de los tres sensores, con
-* resistencias iguales. No hay nada exotico que ajustar.
+* THE WEIGHTS of the summing network come from inverting the position matrix of
+* the triad, and they are +-0.5 and 0: each component uses TWO of the three
+* sensors, with equal resistors. There is nothing exotic to tune.
 
 * --- cadena 1: trio S1 S2 S3
 *     gx = -0.50*b(S1) -0.50*b(S3)
@@ -37,8 +37,8 @@ RZ11p S1P GZ1P 100k
 RZ11n S1N GZ1N 100k
 RZ12p S2P GZ1P 100k
 RZ12n S2N GZ1N 100k
-* compensacion de la caja: se atenuan x e y por Lz/Lxy, que es lo unico que
-* una red pasiva puede hacer. LXY y LZ entran como PUERTOS porque el banco
+* box compensation: x and y are attenuated by Lz/Lxy, which is all a passive
+* network can do. LXY and LZ come in as PORTS because the bench
 * barre la caja; en un chip de verdad es un valor fijo de resistencia.
 RX1D GX1P GX1N r='50k*(v(LZ)/v(LXY))/(1-v(LZ)/v(LXY)+1e-9)'
 RY1D GY1P GY1N r='50k*(v(LZ)/v(LXY))/(1-v(LZ)/v(LXY)+1e-9)'
@@ -62,8 +62,8 @@ RZ21p S1P GZ2P 100k
 RZ21n S1N GZ2N 100k
 RZ22p S2P GZ2P 100k
 RZ22n S2N GZ2N 100k
-* compensacion de la caja: se atenuan x e y por Lz/Lxy, que es lo unico que
-* una red pasiva puede hacer. LXY y LZ entran como PUERTOS porque el banco
+* box compensation: x and y are attenuated by Lz/Lxy, which is all a passive
+* network can do. LXY and LZ come in as PORTS because the bench
 * barre la caja; en un chip de verdad es un valor fijo de resistencia.
 RX2D GX2P GX2N r='50k*(v(LZ)/v(LXY))/(1-v(LZ)/v(LXY)+1e-9)'
 RY2D GY2P GY2N r='50k*(v(LZ)/v(LXY))/(1-v(LZ)/v(LXY)+1e-9)'
@@ -87,8 +87,8 @@ RZ33p S3N GZ3P 100k
 RZ33n S3P GZ3N 100k
 RZ34p S4N GZ3P 100k
 RZ34n S4P GZ3N 100k
-* compensacion de la caja: se atenuan x e y por Lz/Lxy, que es lo unico que
-* una red pasiva puede hacer. LXY y LZ entran como PUERTOS porque el banco
+* box compensation: x and y are attenuated by Lz/Lxy, which is all a passive
+* network can do. LXY and LZ come in as PORTS because the bench
 * barre la caja; en un chip de verdad es un valor fijo de resistencia.
 RX3D GX3P GX3N r='50k*(v(LZ)/v(LXY))/(1-v(LZ)/v(LXY)+1e-9)'
 RY3D GY3P GY3N r='50k*(v(LZ)/v(LXY))/(1-v(LZ)/v(LXY)+1e-9)'
@@ -112,8 +112,8 @@ RZ43p S3N GZ4P 100k
 RZ43n S3P GZ4N 100k
 RZ44p S4N GZ4P 100k
 RZ44n S4P GZ4N 100k
-* compensacion de la caja: se atenuan x e y por Lz/Lxy, que es lo unico que
-* una red pasiva puede hacer. LXY y LZ entran como PUERTOS porque el banco
+* box compensation: x and y are attenuated by Lz/Lxy, which is all a passive
+* network can do. LXY and LZ come in as PORTS because the bench
 * barre la caja; en un chip de verdad es un valor fijo de resistencia.
 RX4D GX4P GX4N r='50k*(v(LZ)/v(LXY))/(1-v(LZ)/v(LXY)+1e-9)'
 RY4D GY4P GY4N r='50k*(v(LZ)/v(LXY))/(1-v(LZ)/v(LXY)+1e-9)'
@@ -121,7 +121,7 @@ RY4D GY4P GY4N r='50k*(v(LZ)/v(LXY))/(1-v(LZ)/v(LXY)+1e-9)'
 XCN4 GX4N GX4P VDD XN4 GY4N YN4 ZN4 GY4P VSS GZ4N GZ4P GRADIENT2
 XCP4 GX4P GX4N VDD XP4 GY4P YP4 ZP4 GY4N VSS GZ4P GZ4N GRADIENT2
 
-* LOS SEIS PESOS: uno por sentido, votando entre las cuatro cadenas.
+* THE SIX WEIGHTS: one per sense, voting across the four chains.
 * .subckt WEIGHT VDD GND OUT VA VC VB VD
 XWXN VDD VSS WXN XN1 XN2 XN3 XN4 WEIGHT
 XWYN VDD VSS WYN YN1 YN2 YN3 YN4 WEIGHT
@@ -131,7 +131,7 @@ XWYP VDD VSS WYP YP1 YP2 YP3 YP4 WEIGHT
 XWZP VDD VSS WZP ZP1 ZP2 ZP3 ZP4 WEIGHT
 
 * Y la decision, como en el resto de XSCHEM_v2: comparador contra la
-* referencia de dos replicas del bloque de pesos, una con 1 voto y otra con 2.
+* reference from two replicas of the weight block, one with 1 vote and one with 2.
 XREF1 VDD VSS VREFA VDD VSS VSS VSS WEIGHT
 XREF2 VDD VSS VREFB VDD VDD VSS VSS WEIGHT
 RREF1 VREFA VREF 100k

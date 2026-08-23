@@ -7,34 +7,34 @@
 #   ./run_opam_g100.sh tran        # solo transitorio
 #   ./run_opam_g100.sh dc --esquinas
 #
-# Los tres bancos llevan las tres celdas en paralelo, cada una con su propia
-# fuente, para que el consumo se compare sin sesgo.
+# All three benches carry the three cells in parallel, each with its own supply,
+# so that current draw is compared without bias.
 #
-# Cosas que hay que tener en la cabeza al leer los numeros:
+# Things to keep in mind when reading the numbers:
 #
-#   * Las entradas son puertas: el par va/vb no tiene camino de continua a masa
-#     por si solo. Sin la fuente de modo comun el modo comun se lo acaba fijando
-#     el gmin de ngspice y la transferencia sale con picos y desplomes a 0 V.
+#   * The inputs are gates: the va/vb pair has no DC path to ground on its own.
+#     Without the common-mode source, ngspice's gmin ends up setting it and the
+#     transfer comes out with spikes and collapses to 0 V.
 #
-#   * La ganancia se mide como MAX de la pendiente, no como -MIN, y el ancho de
+#   * Gain is measured as the MAX of the slope, not as -MIN, and the
 #     la transicion va como 5V/ganancia: 85 uV en el original de 95 dB y 50 mV
-#     en las variantes. Por eso el banco de continua hace dos barridos.
+#     in the variants. That is why the DC bench does two sweeps.
 #
 #   * La ganancia de estas celdas depende mucho de donde quede OUT en reposo:
-#     ~99 V/V con OUT a 2.5 V pero ~39 V/V con OUT a 3.0 V. La ventana donde
+#     ~99 V/V with OUT at 2.5 V but ~39 V/V with OUT at 3.0 V. The window where
 #     aguanta dentro del +-10% va de OUT 1.8 a 2.6 V.
 #
-#     Por eso los bancos polarizan el modo comun a 2.0 V y no a medio rail. Con
+#     That is why the benches bias the common mode at 2.0 V and not half rail.
 #     Vcm a 2.5 el offset del diodo dejaba OUT reposando en 2.73 V, o sea FUERA
 #     de esa ventana, y el banco de alterna leia 61 V/V. Con Vcm a 2.0 el reposo
 #     cae en 2.18 V, en el centro, y la ganancia en uso sube a unos 107 V/V.
-#     No es un truco de medida: es donde hay que polarizar esta celda.
+#     It is not a measurement trick: it is where this cell must be biased.
 
 set -euo pipefail
 
 AQUI="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-QUE=${1:-todo}
-[ "$QUE" = "--esquinas" ] && QUE=todo
+WHAT=${1:-all}
+[ "$WHAT" = "--esquinas" ] && WHAT=all
 ESQUINAS=""
 for a in "$@"; do [ "$a" = "--esquinas" ] && ESQUINAS=si; done
 
@@ -43,9 +43,9 @@ banco() {   # banco <sufijo> [esquina] [temperatura]
     local sim="$AQUI/simulation/test_opam_g100_$suf.sch"
     mkdir -p "$sim"
     #  xschem devuelve a veces codigo 10 aunque escriba el netlist perfectamente,
-    #  sin decir nada. Con `set -e` eso mataba el script a mitad. Asi que no se
-    #  mira su codigo de salida: se comprueba que el fichero esta y es mas nuevo
-    #  que el esquematico, que es lo que de verdad importa.
+    #  without a word. With `set -e` that killed the script halfway. So its
+    #  exit code is not checked: instead we check the file is there and newer
+    #  than the schematic, which is what actually matters.
     ( cd "$AQUI" && xschem -n -s -q -o "$sim" "test_opam_g100_$suf.sch" ) || true
     if [ ! -s "$sim/test_opam_g100_$suf.spice" ] || [ "$AQUI/test_opam_g100_$suf.sch" -nt "$sim/test_opam_g100_$suf.spice" ]; then
         echo "  xschem no regenero $sim/test_opam_g100_$suf.spice" >&2
@@ -55,9 +55,9 @@ banco() {   # banco <sufijo> [esquina] [temperatura]
         -e "s|^\.save all|.temp $tmp\n.save all|" \
         "$sim/test_opam_g100_$suf.spice" > "$sim/corrida.spice"
     #  Guarda de cableado. Estos .sch se editan a mano en xschem y al mover un
-    #  bloque es facil dejarse atras su simbolo de masa: el pin se queda colgando
-    #  y sale como #netN en vez de GND. Eso no da ningun error -- la simulacion
-    #  corre y devuelve numeros -- pero son basura. Paso una vez con xB, que dio
+    #  block it is easy to leave its ground symbol behind: the pin dangles and
+    #  comes out as #netN instead of GND. That raises no error -- the simulation
+    #  runs and returns numbers -- but they are rubbish. It happened once with xB,
     #  0.000 mW y OUT clavado en 5 V.
     local malas
     malas=$(grep -E "^x[RABL] " "$sim/test_opam_g100_$suf.spice" | grep -vE " GND OPAM") || true
@@ -72,15 +72,15 @@ banco() {   # banco <sufijo> [esquina] [temperatura]
 }
 
 # --------------------------------------------------------------------- dc
-#  Los extraidos de la v2 hay que prepararlos antes de simular: renombrar su
-#  subcircuito y NORMALIZAR EL ORDEN DE SUS PUERTOS al de la v1. magic los
-#  emite en el orden en que los encuentra en el layout, y ese orden cambia con
-#  el layout: sin normalizarlo, las dos instancias cableadas igual no son el
+#  The v2 extractions must be prepared before simulating: rename their
+#  subcircuit and NORMALISE THEIR PORT ORDER to v1. magic emits them in the
+#  order it finds them in the layout, and that order changes with the layout:
+#  without normalising it, the two instances wired the same are not the
 #  mismo circuito y no salta ningun error.
 "$AQUI/preparar_extraidos.sh" OPAM_LIN_flat > /dev/null || {
     echo "  ERROR: no se pudieron preparar los extraidos de la v2" >&2; exit 1; }
 
-if [ "$QUE" = todo ] || [ "$QUE" = dc ]; then
+if [ "$WHAT" = all ] || [ "$WHAT" = dc ]; then
     echo "==> continua"
     banco dc
     python3 - "$AQUI/simulation/test_opam_g100_dc.sch" <<'PY'
@@ -91,7 +91,7 @@ an = np.loadtxt(sim / "ancho.txt")
 fi = np.loadtxt(sim / "fino.txt")
 x, xf = an[:, 0], fi[:, 0]
 
-#: Tramo de salida sobre el que se exige linealidad, acordado con el diseno.
+#: Output range over which linearity is required, agreed with the design.
 BAJO, ALTO = 1.0, 4.0
 
 CELDAS = [("OPAMt (original)", 0), ("OPAM_G100A", 1), ("OPAM_G100B", 2),
@@ -111,8 +111,8 @@ for i, (nom, col) in enumerate(CELDAS):
     p = abs(an[:, 2 * (col + 6) + 1]).max() * 1e3
     baja = int(np.sum(np.diff(v) < -1e-3))
 
-    #  Error de linealidad: se ajusta una recta al tramo util por minimos
-    #  cuadrados y se mide la maxima desviacion, en % del span. Es la cifra que
+    #  Linearity error: a straight line is fitted to the useful range by least
+    #  squares and the maximum deviation is measured, in % of span. It is the
     #  distingue un amplificador de un comparador.
     util = (v >= BAJO) & (v <= ALTO)
     if util.sum() >= 20:
@@ -135,24 +135,24 @@ for nom, pico, inl, p, baja, off in filas[1:]:
     if baja:
         fallos.append(f"{nom}: la transferencia baja en {baja} puntos")
     if p > filas[0][3]:
-        fallos.append(f"{nom}: consume {p:.3f} mW, mas que el original ({filas[0][3]:.3f})")
-#  A la celda lineal se le exige ademas lo que se diseno para ella
+        fallos.append(f"{nom}: draws {p:.3f} mW, more than the original ({filas[0][3]:.3f})")
+#  The linear cell is additionally held to what it was designed for
 nom, pico, inl, p, baja, off = filas[3]
 if not (inl < 1.0):
-    fallos.append(f"{nom}: INL {inl:.2f}%, por encima del 1% exigido")
+    fallos.append(f"{nom}: INL {inl:.2f}%, above the required 1%")
 if not (off > 0):
-    fallos.append(f"{nom}: offset {off*1e3:+.1f} mV, tiene que ser positivo")
+    fallos.append(f"{nom}: offset {off*1e3:+.1f} mV, must be positive")
 if fallos:
     print("\n  FALLA:")
     for f in fallos:
         print(f"    {f}")
     sys.exit(1)
-print("\n  OPAM_LIN: INL por debajo del 1% entre 1 y 4 V, offset positivo, sin pasarse de consumo")
+print("\n  OPAM_LIN: INL below 1% between 1 and 4 V, positive offset, within the power budget")
 PY
 fi
 
 # --------------------------------------------------------------------- ac
-if [ "$QUE" = todo ] || [ "$QUE" = ac ]; then
+if [ "$WHAT" = all ] || [ "$WHAT" = ac ]; then
     echo
     echo "==> alterna"
     banco ac
@@ -167,8 +167,8 @@ for i, nom in enumerate(["OPAMt (original)", "OPAM_G100A", "OPAM_G100B",
                          "OPAM_LIN", "OPAM_LIN lay v1", "OPAM_LIN lay v2"]):
     g = d[:, 3 * i + 1] + 1j * d[:, 3 * i + 2]
     mdb = 20 * np.log10(abs(g))
-    #  vin ataca a INN, que es la entrada inversora, asi que la meseta esta en
-    #  180 grados. El margen de fase es la fase que queda al cruzar 0 dB.
+    #  vin drives INN, the inverting input, so the plateau sits at
+    #  180 degrees. Phase margin is the phase left at the 0 dB crossing.
     fase = np.degrees(np.unwrap(np.angle(g)))
     fase -= round((fase[0] - 180) / 360) * 360
     cero = np.where(np.diff(np.sign(mdb)))[0]
@@ -180,13 +180,13 @@ for i, nom in enumerate(["OPAMt (original)", "OPAM_G100A", "OPAM_G100B",
     print(f"  {nom:16s} {mdb.max():9.1f} dB {gbw:10.3e} Hz {pm:9.1f} gr"
           f"{'   <<< INESTABLE' if pm < 45 else ''}")
 print("\n  El lazo unitario deja OUT reposando cerca de 2.2 V, dentro de la ventana")
-print("  lineal, porque el modo comun esta en 2.0 V. Con Vcm a 2.5 reposaba en 2.73 V,")
-print("  fuera de ella, y esta misma medida daba 61 V/V en vez de los ~107 de ahora.")
+print("  linear, because the common mode is at 2.0 V. With Vcm at 2.5 it rested at 2.73 V,")
+print("  outside it, and this same measurement gave 61 V/V instead of the ~107 now.")
 PY
 fi
 
 # ------------------------------------------------------------------- tran
-if [ "$QUE" = todo ] || [ "$QUE" = tran ]; then
+if [ "$WHAT" = all ] || [ "$WHAT" = tran ]; then
     echo
     echo "==> transitorio (los cuatro en seguidor)"
     banco tran
@@ -228,12 +228,12 @@ PY
         done
     done
     echo
-    echo "  La columna OPAMt solo vale en tipico/27: su transicion mide 85 uV y el offset"
-    echo "  se mueve con la esquina, asi que la ventana fina de +-1 mV se la salta."
+    echo "  The OPAMt column is only valid at typical/27: its transition is 85 uV and the offset"
+    echo "  moves with the corner, so the fine +-1 mV window misses it."
 
-    #  Cada esquina pisa ancho.txt y fino.txt, asi que al acabar el barrido lo
+    #  Each corner overwrites ancho.txt and fino.txt, so when the sweep ends
     #  que queda en disco es la ULTIMA esquina, no la nominal. Se rehace tipico
-    #  a 27 grados para que quien lea esos ficheros despues -- por ejemplo
+    #  at 27 degrees so that whoever reads those files later -- for instance
     #  doc/graficas.py -- no dibuje sin saberlo la esquina ss a 125 grados.
     banco dc typical 27 >/dev/null
     echo "  (datos de tipico/27 restaurados en simulation/)"

@@ -29,39 +29,39 @@ C {devices/gnd.sym} 270 -490 0 0 {name=lV3 lab=GND
 value=5}
 C {devices/code_shown.sym} -700 -700 0 0 {name=ESTIMULO only_toplevel=true
 value="
-* LOS CUATRO SENSORES, CON LA CAJA COMO PARAMETRO.
+* THE FOUR SENSORS, WITH THE BOX AS A PARAMETER.
 *
 * Vertices en (+-Lxy/2, +-Lxy/2, +-Lz/2), con la asignacion de la foto:
 *
 *     S1 (-Lxy/2, +Lxy/2, +Lz/2)      S2 (+Lxy/2, -Lxy/2, +Lz/2)   plano z de arriba
 *     S3 (-Lxy/2, -Lxy/2, -Lz/2)      S4 (+Lxy/2, +Lxy/2, -Lz/2)   plano z de abajo
 *
-* Lo que lee cada sensor es la proyeccion de SU POSICION sobre la direccion del
-* gradiente, mas el campo de fondo, que es COMUN a los cuatro:
+* What each sensor reads is the projection of ITS POSITION onto the gradient
+* direction, plus the background field, which is COMMON to all four:
 *
 *     b_k = bg + gmm * (r_k . direccion) ,  con r_k en mm
 *
 * `gmm` va en dR/R POR MILIMETRO. No se convierte a campo: eso pide la
-* sensibilidad del AMR, que no esta fijada todavia.
+* AMR sensitivity, which is not fixed yet.
 *
 * La caja, el gradiente, el fondo y el plano de barrido son FUENTES DE CONTINUA,
-* no numeros de este texto: asi las seis cajas y todos los niveles caben en una
-* sola corrida de ngspice, con `alter` entre barridos. La netlist son 31 bloques
-* extraidos con RC y lo caro es montarla, no barrerla.
-* DESAJUSTE DE SENSOR. Sin el, la resolucion por abajo NO EXISTE: los cuatro
-* puentes y los tres amplificadores de la simulacion son identicos, asi que la
-* comparacion es exacta por pequena que sea la senal, y el acierto se queda
-* clavado en el 98.9 % hasta el nivel mas bajo que se barra. Eso es una
-* propiedad del modelo, no del chip.
+* not numbers from this text: that way the six boxes and every level fit in one
+* single ngspice run, with `alter` between sweeps. The netlist is 31 blocks
+* extracted with RC and the cost is building it, not sweeping it.
+* SENSOR MISMATCH. Without it, resolution from below DOES NOT EXIST: the four
+* bridges and three amplifiers in the simulation are identical, so the
+* comparison is exact however small the signal, and accuracy stays pinned
+* at 98.9 % down to the lowest level swept. That is a property of the
+* model, not of the chip.
 *
-* Lo que de verdad pone el suelo es el offset del puente, que en una AMR real es
-* grande y distinto en cada uno. Se modela como un dR/R fijo por sensor, con un
-* patron arbitrario pero FIJO y documentado, escalado por `Voff`:
+* What really sets the floor is the bridge offset, which in a real AMR is large
+* and different in each one. It is modelled as a fixed dR/R per sensor, with an
+* arbitrary but FIXED and documented pattern, scaled by `Voff`:
 *
 *     p = (+1.00, -0.62, +0.31, -0.85)
 *
 * El patron no es simetrico a proposito: un offset que se parezca a un gradiente
-* sesga la respuesta hacia esa direccion, que es justo lo que hace en la realidad.
+* biases the response towards that direction, which is exactly what it does in reality.
 Voff  off  0 0
 Vlxy  lxy  0 1000
 Vlz   lz   0 1000
@@ -79,9 +79,9 @@ Bb2 b2 0 v='v(bg) -0.62*v(off) + v(gmm)*( v(lxy)*v(gx) -v(lxy)*v(gy) +v(lz)*v(gz
 Bb3 b3 0 v='v(bg) +0.31*v(off) + v(gmm)*(-v(lxy)*v(gx) -v(lxy)*v(gy) -v(lz)*v(gz))/2000'
 Bb4 b4 0 v='v(bg) -0.85*v(off) + v(gmm)*( v(lxy)*v(gx) +v(lxy)*v(gy) -v(lz)*v(gz))/2000'
 
-* Los cuatro puentes, de 1 Mohm por rama y las cuatro ramas moviendose a la vez.
-* Vcm = VEXC/2 exacto e independiente de b, que es lo que permite leer la curva
-* sin mezclarla con la sensibilidad al modo comun de estas celdas.
+* The four bridges, 1 Mohm per arm and all four arms moving at once.
+* Vcm = VEXC/2 exactly and independent of b, which is what allows reading the
+* curve without mixing it with these cells' common-mode sensitivity.
 R1a VEXC S1P r='1meg*(1-v(b1))'
 R1b S1P  GND r='1meg*(1+v(b1))'
 R1c VEXC S1N r='1meg*(1+v(b1))'

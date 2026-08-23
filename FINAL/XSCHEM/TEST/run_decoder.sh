@@ -7,29 +7,29 @@
 #
 #   1. Renombra el subckt del layout extraido a DECODER_LAY.
 #
-#      Esto no es cosmetico. El layout y el esquematico llaman DECODER a la misma
-#      celda, y ngspice se queda con la PRIMERA definicion que lee y descarta la
-#      segunda con un aviso facil de pasar por alto:
+#      This is not cosmetic. Layout and schematic both call the same cell
+#      DECODER, and ngspice keeps the FIRST definition it reads and discards the
+#      second with a warning that is easy to miss:
 #
 #          Warning: redefinition of .subckt decoder, ignored
 #
-#      Como el .include del pex va antes que el netlist de xschem, ganaba el
-#      layout y la instancia x1 -- que deberia ser el esquematico -- acababa atada
-#      al subckt extraido. Los ordenes de pines no tienen nada que ver entre si
+#      Since the pex .include comes before the xschem netlist, the layout won
+#      and instance x1 -- which should be the schematic -- ended up bound to the
+#      extracted subckt. The pin orders have nothing to do with each other
 #      (esquematico VDD XY XZ X Y YZ Z VSS contra layout VSS VDD YZ Z XY XZ Y X),
-#      asi que su VSS caia en VDD y su VDD en la senal VXY. De ahi salia el v(X)
+#      so its VSS landed on VDD and its VDD on signal VXY. Hence the v(X)
 #      absurdo que no se parecia a v(test).
 #
-#      El renombrado se rehace en cada corrida a partir del pex de verdad, para
-#      que la copia no se quede vieja cuando se reextraiga el layout.
+#      The rename is redone on every run from the real pex, so the copy does not
+#      go stale when the layout is re-extracted.
 #
 #   2. Regenera el netlist desde el .sch. Nunca se edita el .spice a mano: xschem
-#      lo reescribe entero y se perderia. El -o es imprescindible, porque el
-#      netlist_dir del xschemrc global apunta a otro sitio.
+#      rewrites it whole and it would be lost. The -o is essential, because the
+#      global xschemrc netlist_dir points somewhere else.
 #
 #   3. Simula y comprueba.
 #
-# El test_weight.sch no sufre este problema porque alli el esquematico se llama
+# test_weight.sch does not suffer this because there the schematic is called
 # WEIGHT / COMP_OUT y el layout WEIGHT_COMP: no hay choque de nombres.
 
 set -euo pipefail
@@ -43,27 +43,27 @@ SIM="$AQUI/simulation/test_decoder.sch"
 
 echo "==> 1/3  renombrando el subckt del layout a DECODER_LAY"
 test -f "$MAG/DECODER_pex_rc.spice" || {
-    echo "no esta $MAG/DECODER_pex_rc.spice -- reextrae el DECODER con magic" >&2
+    echo "$MAG/DECODER_pex_rc.spice missing -- re-extract DECODER with magic" >&2
     exit 1
 }
 sed 's/^\.subckt DECODER /.subckt DECODER_LAY /' \
     "$MAG/DECODER_pex_rc.spice" > "$MAG/DECODER_pex_rc_LAY.spice"
 grep -q "^\.subckt DECODER_LAY " "$MAG/DECODER_pex_rc_LAY.spice" || {
-    echo "el renombrado no pego -- mira como se llama el .subckt del pex" >&2
+    echo "the rename did not take -- check what the pex .subckt is called" >&2
     exit 1
 }
 
 echo "==> 2/3  regenerando el netlist desde test_decoder.sch"
 mkdir -p "$SIM"
-#  xschem devuelve a veces codigo 10 aunque escriba el netlist bien, y con
-#  `set -e` eso mata el script. Se comprueba el fichero, no su codigo.
+#  xschem sometimes returns code 10 even though it writes the netlist fine, and
+#  with `set -e` that kills the script. The file is checked, not its code.
 ( cd "$AQUI" && xschem -n -s -q -o "$SIM" test_decoder.sch ) || true
 [ -s "$SIM/test_decoder.spice" ] || { echo "xschem no regenero el netlist" >&2; exit 1; }
 
 echo "==> 3/3  simulando"
 #  ngspice -b vuelca el punto de operacion entero al terminal y ahoga cualquier
-#  aviso util, asi que va todo al log y aqui solo se saca lo que importa. El
-#  'plot' no funciona sin ventana: los avisos son inofensivos y se filtran.
+#  useful warning, so it all goes to the log and only what matters is printed.
+#  'plot' does not work headless: the warnings are harmless and get filtered.
 ( cd "$SIM" && ngspice -b test_decoder.spice > ngspice.log 2>&1 ) || true
 grep -iE "error|singular|no DC path|redefinition" "$SIM/ngspice.log" || true
 grep -q "^No. of Data Rows" "$SIM/ngspice.log" || {
@@ -90,12 +90,12 @@ _, pw = leer("power.txt", ["p_esq", "p_v1", "p_v2"])
 
 fallos = []
 
-#  Ya no hay compuerta de referencia en el banco: lo que se compara es el
-#  esquematico contra el layout extraido, salida por salida.
+#  There is no longer a reference gate in the bench: what is compared is the
+#  schematic against the extracted layout, output by output.
 
 #  2. Logica esperada del decodificado winner-take-all de tres comparadores
-#     por pares.  Se muestrea en el centro de cada meseta de 125 ms, lejos de
-#     los flancos, porque el extraido llega con retardo RC.
+#     pairwise. Sampled at the centre of each 125 ms plateau, far from the
+#     edges, because the extraction arrives with RC delay.
 print(f"\n  {'t':>7} {'XY XZ YZ':>9}   {'X  X1':>7} {'Y  Y1':>7} {'Z  Z1':>7}   esperado")
 for centro in np.arange(0.0625, 1.0, 0.125):
     k = int(np.argmin(abs(t - centro)))
@@ -120,12 +120,12 @@ pico = abs(pw["p_v1"]).max()
 print(f"\n  consumo pico   esquematico {abs(pw['p_esq']).max()*1e3:.3f} mW"
       f"   layout {pico*1e3:.3f} mW")
 if pico == 0:
-    fallos.append("el consumo del layout es cero: VDD1 no esta alimentando el bloque")
+    fallos.append("layout current is zero: VDD1 is not powering the block")
 
 
-#  Energia por transicion. El consumo de pico dice poco; lo que se suma para
-#  estimar el consumo del chip es la energia, que sale de integrar la potencia
-#  en el tiempo y repartirla entre las conmutaciones que ha habido.
+#  Energy per transition. Peak current says little; what adds up when estimating
+#  the chip's consumption is energy, which comes from integrating power over
+#  time and dividing it among the transitions that occurred.
 ent = np.column_stack([ent[n] for n in ("VXY", "VXZ", "VYZ")])
 cambios = int(np.sum(np.any(np.diff(ent > 2.5, axis=0), axis=1)))
 for nom, p in (("esquematico", pw["p_esq"]), ("layout v1", pw["p_v1"]),
@@ -133,15 +133,15 @@ for nom, p in (("esquematico", pw["p_esq"]), ("layout v1", pw["p_v1"]),
     e = np.trapezoid(abs(p), t) if hasattr(np, "trapezoid") else np.trapz(abs(p), t)
     print(f"  energia {nom:12s} {e*1e9:8.2f} nJ en {t[-1]:.2f} s"
           f"   ->  {e/max(cambios,1)*1e9:7.2f} nJ por transicion  ({cambios} transiciones)")
-print("  OJO: los flancos de entrada de este banco duran 1 ms, seis ordenes de")
-print("  magnitud mas lentos que la realidad, asi que esta energia esta dominada por")
+print("  CAREFUL: the input edges of this bench last 1 ms, six orders of")
+print("  magnitude slower than reality, so this energy is dominated by")
 print("  la corriente de cruce durante el flanco y NO representa el coste de conmutar.")
-print("  Para una cifra util haria falta rehacer el estimulo con flancos de ns.")
+print("  For a useful figure the stimulus would need ns edges.")
 
 if fallos:
     print(f"\n  FALLA ({len(fallos)}):")
     for f in fallos[:20]:
         print(f"    {f}")
     sys.exit(1)
-print("\n  todo cuadra: esquematico y layout dan la misma logica")
+print("\n  all matches: schematic and layout give the same logic")
 PY

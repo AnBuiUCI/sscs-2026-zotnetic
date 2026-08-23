@@ -1,21 +1,21 @@
-"""Monta esquematicos de xschem colgando etiquetas de los pines de cada simbolo.
+"""Builds xschem schematics by hanging labels off each symbol's pins.
 
-xschem conecta por NOMBRE: un lab_pin puesto exactamente encima de un pin lo une
-a esa red. Asi que en vez de tirar cables, este modulo lee las coordenadas de los
-pines del .sym (las lineas B) y suelta un lab_pin en cada una. Es mecanico y no
-se equivoca, que es lo que hace falta para un top de cuarenta macros.
+xschem connects by NAME: a lab_pin placed exactly over a pin joins it to that
+net. So instead of drawing wires, this module reads the pin coordinates from the
+.sym (the B lines) and drops a lab_pin on each. It is mechanical and does not
+make mistakes, which is what a forty-macro top needs.
 """
 import re
 from pathlib import Path
 
-#  Donde busca los simbolos, en el mismo orden que XSCHEM_LIBRARY_PATH: primero
-#  los del proyecto y luego los del PDK.
+#  Where symbols are looked up, in the same order as XSCHEM_LIBRARY_PATH: the
+#  project's first and then the PDK's.
 RAICES = [Path("/foss/designs"),
           Path("/foss/pdks/gf180mcuD/libs.tech/xschem")]
 
 def pines(sym):
-    """Devuelve [(nombre, x, y)] en el ORDEN de las lineas B, que es el orden de
-    puertos que xschem le pondra al subcircuito."""
+    """Returns [(name, x, y)] in the ORDER of the B lines, which is the port
+    order xschem will give the subcircuit."""
     if sym.startswith("/"):
         ruta = Path(sym)
     else:

@@ -61,33 +61,33 @@ Xextrc GND VDD1 OUT1 va vb COMP
 C {devices/code_shown.sym} -220 -440 0 0 {name=DUT2 only_toplevel=true
 format="tcleval( @value )"
 value="
-* La v2 del layout, al lado de la v1. El subcircuito va renombrado a COMP_V2
-* porque los dos extraidos declaran el mismo nombre -- la celda se llama igual a
-* proposito, que es lo que permite compararlas contra la MISMA referencia en el
-* LVS. Lo renombra preparar_extraidos.sh, tocando solo .subckt y .ends.
+* The v2 layout, beside v1. The subcircuit is renamed to COMP_V2 because both
+* extractions declare the same name -- the cell is named the same on purpose,
+* which is what allows comparing them against the SAME reference in
+* LVS. preparar_extraidos.sh renames it, touching only .subckt and .ends.
 .include "../../../../layouts_v2/COMP/mag/COMP_V2_pex_rc.spice"
 Xextrc2 GND VDD2 OUT2 va vb COMP_V2
 "}
 C {devices/code_shown.sym} 560 -410 0 0 {name=s1
 only_toplevel=false
 value="
-* OJO: ni una llave en este texto. xschem las cuenta para saber donde acaba el
-* bloque de atributos y una sola dentro de un comentario lo corta por la mitad,
-* dejando el netlist con el 'blabla' de la plantilla y sin dar ningun error.
+* CAREFUL: not one brace in this text. xschem counts them to find where the
+* attribute block ends and a single one inside a comment cuts it in half,
+* leaving the netlist with the template 'blabla' and raising no error.
 *
-* Las entradas son puertas, asi que el par va/vb no tiene camino de continua a
-* masa por si solo. Vcm se lo da. Se eligio 2.5 V despues de barrerlo: a
-* diferencia del OPAM, la ganancia del COMP no depende del modo comun -- unos
-* 22000 V/V entre 1.5 y 3.5 V -- porque su etapa de salida esta bien
+* The inputs are gates, so the va/vb pair has no DC path to ground on its own.
+* Vcm provides it. 2.5 V was chosen after sweeping it: unlike
+* the OPAM, the COMP gain does not depend on common mode -- about
+* 22000 V/V between 1.5 and 3.5 V -- because its output stage is properly
 * dimensionada y no se sale de saturacion.
 .save all
 .control
-* Ventana ancha, para ver la excursion completa de las dos ramas.
+* Wide window, to see the full swing of both branches.
 dc V5 -0.3 0.3 1m
 wrdata ancho.txt v(OUT) v(OUT1) v(OUT2) v(VDD)*i(v1) v(VDD1)*i(v2) v(VDD2)*i(v6)
 plot v(OUT) v(OUT1) v(OUT2) title 'ANCHO'
 plot v(VDD)*i(v1) v(VDD1)*i(v2) v(VDD2)*i(v6) title 'ANCHO'
-* Ventana fina: con ganancia 22000 la transicion mide 5V/22000 = 227 uV, que la
+* Fine window: at gain 22000 the transition is 5V/22000 = 227 uV, which the
 * ventana de arriba se salta entera.
 dc V5 -0.5m 0.5m 1u
 wrdata fino.txt v(OUT) v(OUT1) v(OUT2)

@@ -124,20 +124,20 @@ C {devices/lab_wire.sym} 430 440 0 0 {name=pcBb sig_type=std_logic lab=fbB}
 C {devices/code_shown.sym} 700 -100 0 0 {name=s1
 only_toplevel=false
 value="
-* OJO: ni una llave en este texto. xschem cuenta las llaves para saber donde
-* acaba el bloque de atributos, asi que una sola dentro de un comentario lo
-* corta por la mitad y el netlist sale con el 'blabla' de la plantilla, sin
+* CAREFUL: not one brace in this text. xschem counts braces to find where
+* the attribute block ends, so a single one inside a comment cuts it in
+* half and the netlist comes out with the template 'blabla', without
 * dar ningun error.
 *
-* No se puede lanzar un .ac con la entrada atada en continua: con el offset de
+* You cannot run a .ac with the input tied in DC: with the offset of
 * -200 mV que mete el diodo el punto de operacion cae saturado y la
-* linealizacion no significa nada. Por eso cada amplificador lleva su lazo de
+* linearisation means nothing. That is why each amplifier carries its own
 * L de 1 GH y C de 1 GF: en continua la L es un corto y el lazo unitario coloca
-* al amplificador en su propio offset, sea cual sea; en alterna la L abre y la
-* C cortocircuita, y lo que se mide es la ganancia en lazo abierto.
+* the amplifier at its own offset, whatever it is; in AC the L opens and the
+* C shorts, and what is measured is the open-loop gain.
 * OUT realimenta a INN porque INP es la entrada no inversora: en el barrido de
 * continua, subir INP-INN sube OUT.
-* Vin vale AC 1, asi que v(OUT) ES la ganancia.
+* Vin is AC 1, so v(OUT) IS the gain.
 .save all
 .control
 ac dec 100 0.001 10G
@@ -189,7 +189,7 @@ C {devices/lab_wire.sym} 430 960 0 0 {name=pcL2b sig_type=std_logic lab=fbL2}
 C {devices/code_shown.sym} 900 400 0 0 {name=DUTL only_toplevel=true
 format="tcleval( @value )"
 value="
-* El layout de OPAM_LIN con parasitos RC, en sus dos versiones y cada una con su
+* The OPAM_LIN layout with RC parasitics, in both versions and each with its own
 * lazo de autopolarizacion. Puertos del extraido: VSS VDD INP OUT INN.
 .include "../../../../Layouts/OPAM_LIN_flat/mag/OPAM_LIN_flat_pex_rc.spice"
 XextrcL GND VDDL1 vcm OUTL1 fbL1 OPAM_LIN_flat

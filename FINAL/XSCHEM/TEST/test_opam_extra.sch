@@ -61,18 +61,18 @@ value=5}
 C {devices/code_shown.sym} 700 -100 0 0 {name=s1
 only_toplevel=false
 value="
-* OJO: ni una llave en este texto, xschem las cuenta.
+* CAREFUL: not one brace in this text, xschem counts them.
 *
-* Cuatro medidas del mismo banco y del mismo punto de operacion. Las tres
-* fuentes arrancan con ac=0 y se van activando de una en una, que es mas fiable
-* que montar tres esquematicos y esperar que polaricen igual.
+* Four measurements from the same bench and the same operating point. The three
+* sources start with ac=0 and are enabled one at a time, which is more reliable
+* than building three schematics and hoping they bias the same.
 *
 * CL es la carga capacitiva: en el chip estos amplificadores no atacan el vacio.
 .save all
 .control
 * 1. ruido referido a la entrada. Va PRIMERO a proposito: ngspice numera los
-* plots por orden de analisis, asi que si antes corre un .ac el espectro de
-* ruido deja de llamarse noise1 y el setplot falla sin decir nada util.
+* plots by analysis order, so if a .ac runs first the noise spectrum stops
+* being called noise1 and the setplot fails without saying anything useful.
 alter @Vin[acmag]=1
 noise v(OUT) Vin dec 20 1 1G
 print inoise_total onoise_total
@@ -88,9 +88,9 @@ alter @V1[acmag]=1
 ac dec 100 1 1G
 wrdata psrr.txt v(OUT)
 alter @V1[acmag]=0
-* 4. rechazo de modo comun. Ojo: hay que agitar LAS DOS entradas a la vez. Si
-* solo se mueve Vcm, la otra entrada se queda atada a masa por el condensador
-* del lazo y lo que se mide es la ganancia diferencial otra vez -- me paso.
+* 4. common-mode rejection. Careful: BOTH inputs must be driven at once. If
+* only Vcm moves, the other input stays tied to ground through the loop
+* capacitor and what is measured is the differential gain again -- it happened.
 alter @Vcm[acmag]=1
 alter @Vin[acmag]=1
 ac dec 100 1 1G

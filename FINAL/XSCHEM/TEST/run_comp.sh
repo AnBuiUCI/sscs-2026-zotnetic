@@ -4,45 +4,45 @@
 #   ./run_comp.sh            # los tres bancos
 #   ./run_comp.sh dc         # solo uno
 #
-# Los tres bancos llevan las dos ramas en paralelo -- x1 es el esquematico
-# COMP_sc y Xextrc el layout extraido -- cada una con su propia alimentacion,
-# para que el consumo se pueda comparar sin mezclarlos.
+# All three benches carry the two branches in parallel -- x1 is the COMP_sc
+# schematic and Xextrc the extracted layout -- each with its own supply, so that
+# current draw can be compared without mixing them.
 #
-# Cosas que hay que tener en la cabeza:
+# Things to keep in mind:
 #
-#   * Las entradas son puertas: el par va/vb no tiene camino de continua a masa
-#     por si solo. Sin la fuente de modo comun se lo acaba fijando el gmin de
-#     ngspice y salen curvas con picos que no son del circuito.
+#   * The inputs are gates: the va/vb pair has no DC path to ground on its own.
+#     Without the common-mode source ngspice's gmin ends up setting it and
+#     curves come out with spikes that are not the circuit.
 #
 #   * Se eligio Vcm = 2.5 V despues de barrerlo. A diferencia del OPAM, la
-#     ganancia del COMP NO depende del modo comun: unos 22000 V/V de 1.5 a
-#     3.5 V, porque su etapa de salida esta bien dimensionada y no se sale de
-#     saturacion. Es justo lo que le falta al OPAMt.
+#     the COMP's gain does NOT depend on common mode: about 22000 V/V from 1.5
+#     to 3.5 V, because its output stage is properly sized and does not leave
+#     saturation. Which is exactly what OPAMt lacks.
 
 set -euo pipefail
 
 AQUI="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-QUE=${1:-todo}
+WHAT=${1:-all}
 
 banco() {   # banco <sufijo>
     local suf=$1
     local sim="$AQUI/simulation/test_comp_$suf.sch"
     mkdir -p "$sim"
     #  xschem devuelve a veces codigo 10 aunque escriba el netlist perfectamente,
-    #  sin decir nada. Con `set -e` eso mataba el script a mitad. Asi que no se
-    #  mira su codigo de salida: se comprueba que el fichero esta y es mas nuevo
-    #  que el esquematico, que es lo que de verdad importa.
+    #  without a word. With `set -e` that killed the script halfway. So its
+    #  exit code is not checked: instead we check the file is there and newer
+    #  than the schematic, which is what actually matters.
     ( cd "$AQUI" && xschem -n -s -q -o "$sim" "test_comp_$suf.sch" ) || true
     if [ ! -s "$sim/test_comp_$suf.spice" ] || [ "$AQUI/test_comp_$suf.sch" -nt "$sim/test_comp_$suf.spice" ]; then
         echo "  xschem no regenero $sim/test_comp_$suf.spice" >&2
         exit 1
     fi
 
-    #  Guarda de cableado: al mover un bloque en xschem es facil dejarse atras
-    #  su simbolo de masa y que el pin salga como #netN. No da error, simula, y
-    #  devuelve numeros que no valen nada.
+    #  Wiring guard: moving a block in xschem it is easy to leave its ground
+    #  symbol behind and have the pin come out as #netN. No error, it simulates,
+    #  and returns numbers worth nothing.
     if ! grep -qE "^x1 VDD \S+ \S+ \S+ GND COMP_sc" "$sim/test_comp_$suf.spice"; then
-        echo "  CABLEADO ROTO en test_comp_$suf.sch -- x1 no tiene VDD y GND donde toca" >&2
+        echo "  BROKEN WIRING in test_comp_$suf.sch -- x1 has no VDD and GND where it should" >&2
         grep -E "^x1 " "$sim/test_comp_$suf.spice" | sed 's/^/    /' >&2
         exit 1
     fi
@@ -51,13 +51,13 @@ banco() {   # banco <sufijo>
     grep -iE "error|singular|no DC path" "$sim/ngspice.log" | head -3 || true
 }
 
-#  Los extraidos de la v2 hay que prepararlos antes: renombrar su subcircuito y
-#  normalizar el orden de sus puertos al de la v1. Sin lo segundo, las dos
-#  instancias cableadas igual NO son el mismo circuito y no da ningun error.
+#  The v2 extractions have to be prepared first: rename their subcircuit and
+#  normalise their port order to v1. Without the second, the two instances wired
+#  the same are NOT the same circuit and no error is raised.
 "$AQUI/preparar_extraidos.sh" COMP > /dev/null || {
     echo "  ERROR: no se pudieron preparar los extraidos de la v2" >&2; exit 1; }
 
-if [ "$QUE" = todo ] || [ "$QUE" = dc ]; then
+if [ "$WHAT" = all ] || [ "$WHAT" = dc ]; then
     echo "==> continua"
     banco dc
     python3 - "$AQUI/simulation/test_comp_dc.sch" <<'PY'
@@ -80,7 +80,7 @@ for i, nom in enumerate(["esquematico", "layout v1", "layout v2"]):
 PY
 fi
 
-if [ "$QUE" = todo ] || [ "$QUE" = ac ]; then
+if [ "$WHAT" = all ] || [ "$WHAT" = ac ]; then
     echo
     echo "==> alterna"
     banco ac
@@ -94,7 +94,7 @@ print(f"\n  {'rama':14s} {'ganancia cc':>12s} {'GBW':>12s} {'margen fase':>12s} 
 for i, nom in enumerate(["esquematico", "layout v1", "layout v2"]):
     g = d[:, 3 * i + 1] + 1j * d[:, 3 * i + 2]
     mdb = 20 * np.log10(abs(g))
-    #  vin ataca a INN, la entrada inversora, asi que la meseta esta en 180 gr.
+    #  vin drives INN, the inverting input, so the plateau sits at 180 deg.
     fase = np.degrees(np.unwrap(np.angle(g)))
     fase -= round((fase[0] - 180) / 360) * 360
     k0 = np.where(np.diff(np.sign(mdb)))[0]
@@ -102,14 +102,14 @@ for i, nom in enumerate(["esquematico", "layout v1", "layout v2"]):
     gbw = f[k0[0]] if len(k0) else float("nan")
     pm = fase[k0[0]] if len(k0) else float("nan")
     #  Margen de ganancia: cuanta ganancia queda cuando la fase llega a 0 gr.
-    #  Si es negativo hay realimentacion positiva con ganancia, o sea oscila.
+    #  If negative there is positive feedback with gain, i.e. it oscillates.
     gm = -mdb[kf[0]] if len(kf) else float("nan")
     print(f"  {nom:14s} {mdb.max():9.1f} dB {gbw:10.3e} Hz {pm:9.1f} gr {gm:9.1f} dB"
           + ("   <<< INESTABLE" if pm < 45 else ""))
 PY
 fi
 
-if [ "$QUE" = todo ] || [ "$QUE" = tran ]; then
+if [ "$WHAT" = all ] || [ "$WHAT" = tran ]; then
     echo
     echo "==> transitorio de comparador"
     banco tran
@@ -122,7 +122,7 @@ t, vin = d[:, 0], d[:, 1]
 
 
 def cruce(x, y, nivel):
-    """Instante en que y cruza el nivel, interpolando entre muestras."""
+    """The instant y crosses the level, interpolating between samples."""
     k = np.where(np.diff(np.sign(y - nivel)))[0]
     if not len(k):
         return None
@@ -142,6 +142,6 @@ for i, nom in enumerate(["esquematico", "layout v1", "layout v2"]):
     ret = (tout - tin) * 1e9 if (tout and tin) else float("nan")
     sub = (t90 - t10) * 1e9 if (t10 and t90) else float("nan")
     print(f"  {nom:14s} {ret:9.2f} ns {sub:12.2f} ns {lo:6.2f}..{hi:5.2f} V")
-print("\n  retardo = del cruce de la entrada por el umbral al cruce de OUT por medio rail")
+print("\n  delay = from the input crossing the threshold to OUT crossing half rail")
 PY
 fi

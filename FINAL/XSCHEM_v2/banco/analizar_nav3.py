@@ -1,21 +1,21 @@
-"""Mide si las salidas de GRADIENT_NAV3 dan el SENTIDO del gradiente.
+"""Measures whether the GRADIENT_NAV3 outputs give the SENSE of the gradient.
 
-Se corre asi, desde este directorio:
+Run like this, from this directory:
 
     sed 's|nav3.inc|<ruta al netlist>|' banco_nav3.spice > /tmp/b.spice
     ngspice -b /tmp/b.spice
     python3 analizar_nav3.py salidas.raw
 
-DOS COSAS QUE NO SE ADIVINAN Y HAY QUE SABER:
+TWO THINGS YOU CANNOT GUESS AND NEED TO KNOW:
 
-  * Los decodificadores son ACTIVOS A NIVEL BAJO. Siempre hay exactamente dos
-    salidas altas de cada tres, y el eje senalado es la que esta a cero. Sale de
-    que el COMP_OUT es una cadena de inversores. Leerlo al reves da 0 % y parece
-    que el bloque no funciona.
+  * The decoders are ACTIVE LOW. There are always exactly two high outputs of
+    every three, and the axis named is the one at zero. It comes from COMP_OUT
+    being an inverter chain. Reading it the other way gives 0 % and makes it look
+    like the block does not work.
   * Cual de los dos lados (A o B) es el maximo NO se razona, se mide: se mira
     cual acierta cuando el gradiente va en sentido positivo. Medido, es el B.
-    Y como el gradiente lo es de la MAGNITUD del campo, el lado B nombra el eje
-    y el sentido en que |B| crece mas deprisa: la direccion HACIA LA FUENTE. El
+    And since the gradient is of the field MAGNITUDE, side B names the axis and
+    sense in which |B| grows fastest: the direction TOWARDS THE SOURCE. Side A
     lado A apunta al contrario, alejandose.
 """
 import sys
@@ -30,7 +30,7 @@ def leer_raw(ruta):
     il = next(i for i, l in enumerate(lin) if l.startswith("Values:"))
     nom = [l.split()[1] for l in lin[iv + 1:il]]
     n = len(nom)
-    #  Cada punto son n+1 fichas: el indice y los n valores.
+    #  Each point is n+1 tokens: the index and the n values.
     crudo = [x for l in lin[il + 1:] for x in l.split()]
     filas, k = [], 0
     while k < len(crudo) and len(crudo) - k >= n + 1:
@@ -55,12 +55,12 @@ def main(ruta="salidas.raw"):
     ep, en = (A, B) if aA > aB else (B, A)
     lado = "A" if aA > aB else "B"
     print(f"  El lado {lado} senala el extremo POSITIVO: {100*max(aA,aB):.1f} % "
-          f"contra {100*min(aA,aB):.1f} % del otro.\n")
+          f"against {100*min(aA,aB):.1f} % for the other.\n")
 
     bien = np.where(pos, ep == dom, en == dom)
     enpar = (A == dom) | (B == dom)
     print(f"  SENTIDO bien identificado ..... {100*bien.mean():5.1f} %  ({bien.sum()}/{N})")
-    print(f"  eje dominante entre los dos ... {100*enpar.mean():5.1f} %\n")
+    print(f"  dominant axis among the two ... {100*enpar.mean():5.1f} %\n")
     print("      sentido    n    eje ok   sentido ok")
     for e, nm in enumerate("XYZ"):
         for s, sn in ((1, "+"), (-1, "-")):
@@ -68,7 +68,7 @@ def main(ruta="salidas.raw"):
             if m.any():
                 print(f"      {sn}{nm}      {m.sum():4d}    {100*enpar[m].mean():5.1f} %"
                       f"    {100*bien[m].mean():5.1f} %")
-    #  Donde falla: pegado a la frontera entre octantes las dos componentes
+    #  Where it fails: right on the octant boundary the two components
     #  mayores casi empatan y ahi decide el offset del amplificador.
     o = np.sort(np.abs(g), 1)
     r = o[:, 2] / np.maximum(o[:, 1], 1e-9)

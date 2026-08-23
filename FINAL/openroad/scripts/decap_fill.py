@@ -1,66 +1,66 @@
 #!/usr/bin/env python3
-"""Rellena los huecos del top con transistores conectados como condensadores.
+"""Fills the gaps in the top with transistors wired as capacitors.
 
-    python3 scripts/decap_fill.py --tile 16x47.85    # una baldosa suelta, para DRC
+    python3 scripts/decap_fill.py --tile 16x47.85    # one loose tile, for DRC
     python3 scripts/decap_fill.py                    # el top entero
 
-QUE SE DIBUJA. En cada hueco, bandas de NMOS y PMOS con sus tiras de taps. El
-NMOS lleva la puerta a VDD y el canal, la fuente, el drenador y el sustrato a
-VSS; el PMOS al reves. Asi los dos quedan en inversion y dan la capacidad de
-oxido de puerta completa, que es de lo que se trata.
+WHAT GETS DRAWN. In each gap, bands of NMOS and PMOS with their tap strips. The
+NMOS has its gate on VDD and its channel, source, drain and bulk on VSS; the
+PMOS the other way round. That way both sit in inversion and give the full gate
+oxide capacitance, which is the whole point.
 
-COMO SE ALIMENTAN, que es lo que decide donde se puede rellenar y donde no. La
-red de alimentacion del top son tiras de Metal4 (verticales, por encima de los
-bloques) y de Metal5 (horizontales, por los canales): en los huecos no hay
-alimentacion en metal bajo. Pero **dentro de un estante todos los macros miden lo
-mismo** y cada bloque saca su riel VSS en Metal1 abajo y VDD en Metal1 arriba, a
-la misma altura. Un relleno metido en un hueco de ese estante conecta con los
-rieles del vecino **por abutment en Metal1**, sin una sola via y sin tocar Metal2
-ni Metal3, que es por donde va el ruteo que ya cerro con DRC 0.
+HOW THEY ARE POWERED, which is what decides where fill can go and where it
+cannot. The top's power network is Metal4 strips (vertical, above the blocks)
+and Metal5 ones (horizontal, along the channels): there is no low-metal power
+in the gaps. But **within a shelf every macro is the same height** and each
+block brings its VSS rail out on Metal1 at the bottom and VDD on Metal1 at the
+top, at the same height. Fill dropped into a gap on that shelf connects to the
+neighbour's rails **by abutment on Metal1**, without a single via and without
+touching Metal2 or Metal3, where the routing that already closed at DRC 0 runs.
 
-Corolario: solo se rellena lo que tenga un macro al lado con los rieles a su
-misma altura. El resto del hueco -- la banda de margen y los canales entre
-estantes -- se queda vacio y se reporta, porque llegar alli exigiria una pila de
-vias hasta el Metal5 y esa pila cruza el ruteo.
+Corollary: only gaps with a macro beside them whose rails are at the same height
+get filled. The rest -- the margin band and the channels between shelves --
+stays empty and is reported, because reaching there would need a via stack up to
+Metal5 and that stack crosses the routing.
 
-**Los rieles NO llegan a los dos bordes del macro.** Medido en el top: el riel
-VSS del vecino de la izquierda termina exacto en su borde derecho (x = 96.830),
-pero el del vecino de la derecha empieza **0.26 um dentro** (x = 112.820 para un
-macro cuyo borde esta en 112.560). Una baldosa que dibuje su riel de borde a
-borde queda **abierta por ese lado**, y 0.26 > 0.23 asi que el DRC no dice nada.
-Por eso los rieles se estiran hasta SOLAPAR el del vecino, midiendolo en el GDS
-(`alcance`), y al final se comprueba la conectividad de verdad (`comprobar`).
+**The rails do NOT reach both macro edges.** Measured on the top: the VSS rail
+of the left neighbour ends exactly at its right edge (x = 96.830), but the one
+on the right starts **0.26 um inside** (x = 112.820 for a macro whose edge is at
+112.560). A tile drawing its rail edge to edge is **left open on that side**,
+and 0.26 > 0.23 so DRC says nothing.
+That is why the rails are stretched to OVERLAP the neighbour's, measuring it in
+the GDS (`alcance`), and at the end real connectivity is checked (`comprobar`).
 
-Lo que quedo resuelto por el camino, y conviene no volver a pisarlo:
+What got settled along the way, and is worth not stepping on again:
 
-  * **La puerta es `cajas[-1]` en LOS DOS tipos.** Los dos dispositivos se
-    construyen con `gate_con="top"`, asi que la placa de puerta es siempre la de
-    arriba. Cogiendo `cajas[0]` para el PMOS se tomaba un drenador por puerta:
-    se estiraba la placa de puerta (2.0 um de ancho, la del canal) hasta el riel
-    contrario, pasaba a 0.07 um de la fuente y del drenador -- las cuatro
-    `M1.2a` que quedaban -- y ademas el PMOS quedaba con la puerta a VDD y un
-    drenador a VSS, o sea **cortado y sin capacidad ninguna**.
-  * **No se llama al PCell en crudo.** `map_device` de `coil_layout` ya pone el
-    metal1 de los pads y aplica `_fix_pcell_co7_gf180`; sin el salian 220 `CO.7`.
-  * **Sin anillo de guarda.** El del PCell sale con `grw=0.22` y `DF.1a_MV` pide
-    0.30: 768 `CO.4` + 348 `CO.7` + 184 `CO.6` en una baldosa. El sustrato y el
-    pozo los atan las tiras de `_tap`.
-  * **Los taps van EN los huecos entre dispositivos**, no a paso fijo desde el
-    borde, o caen a 0.12 um del metal1 del vecino. Y el hueco tiene que medir al
-    menos `TAP_W + 2*CLR`: con 1.20 no cabia ninguno y saltaba `DF.14_MV`, que
-    pide un tap de sustrato a menos de 15 um de cada NCOMP.
-  * **La barra VSS de cierre arrancaba en `x0 - CLR`** y tocaba el carril de VDD:
-    cortocircuitaba las dos alimentaciones. El DRC solo lo asomaba como cuatro
-    `M1.2a`; se vio extrayendo las nets, no leyendo el informe.
-  * **El pozo se aparta 1.8 um del borde de la baldosa.** Sin `CONNECTIVITY_RULES`
-    el deck aplica `NW.2b_MV` y pide **1.7 um entre pozos aunque sean la misma
-    net**; el pozo del macro de la derecha llega justo a su borde.
+  * **The gate is `boxes[-1]` for BOTH types.** Both devices are built with
+    `gate_con="top"`, so the gate plate is always the top one. Taking
+    `boxes[0]` for the PMOS took a drain for a gate: the gate plate (2.0 um
+    wide, the channel one) was stretched to the opposite rail, came within
+    0.07 um of source and drain -- the four remaining `M1.2a` -- and on top of
+    that the PMOS ended with its gate on VDD and a drain on VSS, i.e. **cut off
+    and with no capacitance at all**.
+  * **The PCell is not called raw.** `coil_layout`'s `map_device` already places
+    the pad metal1 and applies `_fix_pcell_co7_gf180`; without it, 220 `CO.7`.
+  * **No guard ring.** The PCell's comes out with `grw=0.22` and `DF.1a_MV` asks
+    0.30: 768 `CO.4` + 348 `CO.7` + 184 `CO.6` on one tile. Bulk and well are
+    tied by the `_tap` strips instead.
+  * **The taps go IN the gaps between devices**, not at a fixed pitch from the
+    edge, or they land 0.12 um from the neighbour's metal1. And the gap must
+    measure at least `TAP_W + 2*CLR`: with 1.20 not one fitted and `DF.14_MV`
+    fired, which asks for a bulk tap within 15 um of every NCOMP.
+  * **The closing VSS bar started at `x0 - CLR`** and touched the VDD rail: it
+    shorted the two supplies. DRC only hinted at it as four `M1.2a`; it was
+    found by extracting the nets, not by reading the report.
+  * **The well is kept 1.8 um from the tile edge.** Without `CONNECTIVITY_RULES`
+    the deck applies `NW.2b_MV` and asks **1.7 um between wells even on the same
+    net**; the right macro's well reaches right up to its edge.
 
-COLUMNAS ALTERNAS, y no dos filas. Con una fila de NMOS abajo y otra de PMOS
-arriba, la puerta de cada uno tiene que cruzar toda la altura del hueco hasta el
-riel contrario, y esos dos caminos se cruzan entre si. Alternando el tipo por
-bandas, cada dispositivo tiene su barra propia debajo y la contraria encima, y su
-puerta sale por arriba. Ni un cruce.
+ALTERNATING COLUMNS, not two rows. With a row of NMOS below and one of PMOS
+above, each gate has to cross the whole height of the gap to the opposite rail,
+and those two paths cross each other. Alternating the type by bands, each device
+has its own bar below and the opposite one above, and its gate exits upwards.
+Not one crossing.
 """
 
 from __future__ import annotations
@@ -84,8 +84,8 @@ from fill_density import colocacion                         # noqa: E402
 ROOT = Path(__file__).resolve().parent.parent
 PROJECT = ROOT.parent
 
-#: Directorio y celda del top, igual que en el resto del flujo (`TOP_OUT` /
-#: `TOP_CELL` los pone el Makefile).
+#: Top directory and cell, as everywhere else in the flow (`TOP_OUT` /
+#: `TOP_CELL` are set by the Makefile).
 OUT = ROOT / os.environ.get("TOP_OUT", "out")
 TOP = os.environ.get("TOP_CELL", "GRADIENT_NAV")
 
@@ -100,74 +100,74 @@ SCH = PROJECT / "XSCHEM" / f"{TOP}.sch"
 COMP, POLY, PPLUS, NPLUS, CONT, M1, NWELL = (22, 0), (30, 0), (31, 0), (32, 0), (33, 0), (34, 0), (21, 0)
 
 # --- geometria ----------------------------------------------------------------
-RAIL_W = 0.9        # ancho de los rieles del bloque; el relleno los continua
-CLR = 0.40          # holgura de metal1 contra metal1 de otra net (M1.2a: 0.23)
-L_CANAL = 2.0       # canal largo: mas area de oxido por dispositivo
-ALTO_MIN = 12.0     # por debajo no cabe dispositivo entre los dos rieles
+RAIL_W = 0.9        # block rail width; the fill continues them
+CLR = 0.40          # metal1 clearance to another net's metal1 (M1.2a: 0.23)
+L_CANAL = 2.0       # long channel: more oxide area per device
+ALTO_MIN = 12.0     # below this no device fits between the two rails
 ANCHO_MIN = 6.0
 GRID = 0.005
-TAP_W = 0.48        # DF.9 pide 0.2025 um2 de COMP; 0.45 es el lado minimo
+TAP_W = 0.48        # DF.9 asks 0.2025 um2 of COMP; 0.45 is the minimum side
 IMP_ENC = 0.18      # NP.5di/PP.5di piden 0.16
 CO_S = 0.22
 NWELL_ENC = 0.50    # nwell sobre la difusion p
-NWELL_BORDE = 1.80  # del nwell al borde de la baldosa: NW.2b_MV pide 1.7 um
+NWELL_BORDE = 1.80  # nwell to tile edge: NW.2b_MV asks 1.7 um
 TAP_PITCH = 6.0
-BAR = 0.40          # alto de las barras horizontales de VDD/VSS
-CARRIL = 0.60       # ancho de los carriles verticales de los bordes
-RISER_W = 0.50      # ancho del cable que sube de la puerta a su barra
-W_MAX = 26.0        # `DF.13_MV` y `DF.14_MV` piden un tap a menos de 15 um de
-                    # cada PCOMP / NCOMP. Con tap **arriba y abajo** de cada fila
-                    # el punto peor es el centro del canal, o sea W/2 + holguras:
-                    # 26 um deja el centro a 14 y pico. Con un solo tap el tope
+BAR = 0.40          # height of the horizontal VDD/VSS bars
+CARRIL = 0.60       # width of the vertical edge rails
+RISER_W = 0.50      # width of the wire climbing from gate to its bar
+W_MAX = 26.0        # `DF.13_MV` and `DF.14_MV` ask for a tap within 15 um of
+                    # every PCOMP / NCOMP. With a tap **above and below** each
+                    # row the worst point is the channel centre, W/2 + margins:
+                    # 26 um leaves the centre at just over 14. With one tap the
                     # eran 11.
-DEVICE_GAP = 1.44   # separacion entre dispositivos de una misma fila. Tiene
-                    # que dar para un tap (0.48) con su holgura de metal1 a
-                    # cada lado: los taps van EN estos huecos, no encima del
-                    # dispositivo. Con 1.20 no cabia NINGUNO y saltaba
+DEVICE_GAP = 1.44   # spacing between devices on the same row. It must fit a
+                    # tap (0.48) with its metal1 clearance on each side: the
+                    # taps go IN these gaps, not on top of the device. With
+                    # 1.20 not ONE fitted and it fired
                     # `DF.14_MV`.
-CLR_TAP = 0.60      # del COMP de un tap al bbox del dispositivo vecino
-BORDE_DIE = 2.00    # margen de guarda contra el contorno del die. Un puerto SI
-                    # tiene que tocar el borde -- es por donde se entra -- pero
-                    # el relleno no: pegado al contorno, cualquier cosa que el
-                    # integrador ponga al lado (un anillo de sellado, otro
-                    # proyecto) queda a espaciado CERO. Antes el metal1 de las
-                    # baldosas de margen llegaba a 0.000 del borde.
-SOLAPE = 0.20       # cuanto tiene que montar el riel sobre el del vecino
-ALCANCE_MAX = 1.20  # y como mucho cuanto se le deja entrar
+CLR_TAP = 0.60      # from a tap's COMP to the neighbouring device bbox
+BORDE_DIE = 2.00    # guard margin against the die outline. A port DOES have to
+                    # touch the edge -- that is the way in -- but fill does not:
+                    # up against the outline, anything the integrator puts
+                    # beside it (a seal ring, another project) ends at ZERO
+                    # spacing. Before, the metal1 of the margin tiles reached
+                    # 0.000 from the edge.
+SOLAPE = 0.20       # how far the rail must ride onto the neighbour's
+ALCANCE_MAX = 1.20  # and at most how far it is allowed in
 
-#: Ventana en x de cada fila, medida desde el borde de la baldosa. La del PMOS va
-#: mas adentro porque arrastra el pozo, que necesita `NWELL_BORDE`.
+#: x window of each row, measured from the tile edge. The PMOS one sits further
+#: in because it drags the well, which needs `NWELL_BORDE`.
 MARGEN_N = 2 * CLR + CARRIL
 MARGEN_P = NWELL_BORDE + NWELL_ENC
 
-#: Margen del pozo por un lado que da al CONTORNO DEL DIE. Ahi `NW.2b_MV` no
-#: aplica -- no hay otro pozo enfrente -- y el margen de guarda de `BORDE_DIE` ya
-#: deja 2 um libres por fuera. Sin esta distincion, las ocho baldosas de los
-#: margenes del die se quedaban sin sitio para un solo dispositivo (2.92 um de
-#: ventana contra los 3.66 que mide) y se perdian 0.77 pF.
+#: Well margin on a side facing the DIE OUTLINE. There `NW.2b_MV` does not
+#: apply -- there is no other well opposite -- and the `BORDE_DIE` guard margin
+#: already leaves 2 um clear outside. Without this distinction, the eight tiles
+#: on the die margins had no room for a single device (2.92 um of window against
+#: the 3.66 it measures) and 0.77 pF were lost.
 NWELL_BORDE_DIE = 0.20
 
 
-def _reg(cell, capa) -> kdb.Region:
+def _reg(cell, layer) -> kdb.Region:
     ly = cell.kcl.layout
-    return kdb.Region(cell.kdb_cell.begin_shapes_rec(ly.layer(*capa)))
+    return kdb.Region(cell.kdb_cell.begin_shapes_rec(ly.layer(*layer)))
 
 
 _HECHOS: dict = {}
 
 
-def dispositivo(tipo: str, w_gate: float):
-    """El dispositivo, envuelto por el MISMO codigo que usan los bloques.
+def device(tipo: str, w_gate: float):
+    """The device, wrapped by the SAME code the blocks use.
 
-    No se llama al PCell en crudo. `coil_layout.device_map.map_device` ya le pone
-    el metal1 encima de los contactos de fuente, drenador y puerta, le deja
-    puertos con nombre y le aplica `_fix_pcell_co7_gf180`, que corrige una
+    The PCell is not called raw. `coil_layout.device_map.map_device` already puts
+    metal1 over the source, drain and gate contacts, leaves named ports and
+    applies `_fix_pcell_co7_gf180`, which fixes a
     separacion contacto-poly del PCell: llamandolo a pelo salian 220 `CO.7` en
-    una sola baldosa. Reaprovecharlo es tambien la garantia de que el relleno
-    esta hecho con los mismos dispositivos que el resto del chip.
+    a single tile. Reusing it is also the guarantee that the fill is made of the
+    same devices as the rest of the chip.
 
-    `bulk` no entra: `map_device` los pide siempre sin anillo de guarda, y el
-    sustrato y el pozo los atan las tiras de taps de `_tap`.
+    `bulk` is not included: `map_device` always asks for them without a guard
+    ring, and bulk and well are tied by `_tap`'s tap strips.
     """
     clave = (tipo, round(w_gate, 3))
     if clave in _HECHOS:
@@ -176,10 +176,10 @@ def dispositivo(tipo: str, w_gate: float):
                  model=("nfet_06v0" if tipo == "n" else "pfet_06v0"),
                  nodes={"drain": "d", "gate": "g", "source": "s", "bulk": "b"},
                  params={"L": f"{L_CANAL}u", "W": f"{w_gate}u", "nf": "1", "m": "1"})
-    #  Los DOS con el contacto de puerta ARRIBA. En esta estructura cada
-    #  dispositivo tiene su barra propia debajo (la de su fuente) y la contraria
-    #  encima, asi que la puerta sale siempre hacia arriba. Sacando la del PMOS
-    #  por abajo, su riser tenia que volver a subir bordeando el drenador y
+    #  BOTH with the gate contact ON TOP. In this structure every device has its
+    #  own bar below (its source one) and the opposite one above, so the gate
+    #  always exits upwards. Bringing the PMOS one out at the bottom, its riser
+    #  had to climb back up around the drain and
     #  pasaba a 0.07 um de el.
     wd = map_device(dev, "gf180", gate_con="top")
     _HECHOS[clave] = wd.component
@@ -189,15 +189,15 @@ def dispositivo(tipo: str, w_gate: float):
 def copiar_dispositivo(pc, destino, layout: kdb.Layout) -> None:
     """Vuelca la geometria de un PCell en `destino`, reescalando el dbu.
 
-    Los PCells viven en un layout de `coil_layout` con dbu 0.001 y el GDS del top
-    va a 0.0005. `Cell.copy_tree` copia entre layouts pero **no reescala**, y
-    traer las baldosas por fichero es peor: `Layout.read` sobre un layout que ya
-    tiene celdas **le cambia el dbu al de destino sin tocar lo que ya habia**, o
-    sea que el top entero se queda con las coordenadas al doble. Se vio porque el
-    riel de una baldosa aparecia de 1.37 um de alto en vez de 0.9.
+    The PCells live in a `coil_layout` layout with dbu 0.001 and the top's GDS
+runs at 0.0005. `Cell.copy_tree` copies between layouts but **does not rescale**,
+    and bringing the tiles in through a file is worse: `Layout.read` on a layout
+    that already has cells **changes the destination dbu without touching what
+    was already there**, so the whole top ends up at double coordinates. It was
+    spotted because a tile's rail showed as 1.37 um tall instead of 0.9.
 
-    `begin_shapes_rec` recorre el arbol y devuelve las formas ya transformadas,
-    asi que el dispositivo entra aplanado -- que es como acaba el top de todas
+    `begin_shapes_rec` walks the tree and returns the shapes already transformed,
+    so the device comes in flattened -- which is how the top ends up anyway.
     formas (`def_to_gds.py::flatten_all`).
     """
     origen = pc.kdb_cell.layout()
@@ -217,7 +217,7 @@ def sn(v: float) -> float:
 
 
 def _tap(cell, layers, x, y, implante):
-    """Un tap: COMP + implante + contacto + metal1, con las cotas del generador."""
+    """A tap: COMP + implant + contact + metal1, with the generator dimensions."""
     cell.shapes(layers[COMP]).insert(kdb.DBox(x, y, x + TAP_W, y + TAP_W))
     cell.shapes(layers[implante]).insert(
         kdb.DBox(x - IMP_ENC, y - IMP_ENC, x + TAP_W + IMP_ENC, y + TAP_W + IMP_ENC))
@@ -227,32 +227,32 @@ def _tap(cell, layers, x, y, implante):
 
 
 def _alto_pcell(tipo: str, w: float) -> float:
-    return dispositivo(tipo, w).kdb_cell.dbbox().height()
+    return device(tipo, w).kdb_cell.dbbox().height()
 
 
 def _alto_fila(tipo: str, w: float) -> float:
-    """Alto de una fila: barra + tap de abajo + dispositivo + tap de arriba."""
+    """Height of a row: bar + bottom tap + device + top tap."""
     return (BAR + 0.10 + TAP_W + CLR_TAP + _alto_pcell(tipo, w)
             + CLR_TAP + TAP_W + 0.10)
 
 
 def _alto_banda(w: float) -> float:
-    """Alto exacto de la banda entera: una fila de NMOS y una de PMOS."""
+    """Exact height of the whole band: one NMOS row and one PMOS row."""
     return _alto_fila("n", w) + _alto_fila("p", w)
 
 
 def _plan(util: float) -> tuple[int, float]:
-    """Con que ancho de canal, en **una sola banda**.
+    """With what channel width, in **a single band**.
 
-    Una fila de NMOS y una de PMOS, y nada mas. Antes se repartia la altura en
-    varias bandas apiladas y se elegia la combinacion que mas area de oxido daba;
-    ahora la altura entera va a **un solo transistor por tipo**, lo mas largo que
-    quepa. Sale la misma capacidad con menos dispositivos, y sin la escalera de
-    barras y taps que hacia falta para intercalar bandas.
+    One NMOS row and one PMOS row, nothing else. The height used to be split
+across several stacked bands, choosing the combination that gave the most oxide
+    area; now the whole height goes to **a single transistor per type**, as long
+    as fits. Same capacitance with fewer devices, and without the ladder of bars
+    and taps needed to interleave bands.
 
-    El ancho del dispositivo en x no depende de W -- son siempre 3.66 um, porque
-    W va en vertical -- asi que el numero de dispositivos por fila es el mismo se
-    elija lo que se elija, y lo unico que se reparte es la altura.
+    The device's x width does not depend on W -- it is always 3.66 um, because W
+    runs vertically -- so the number of devices per row is the same whatever is
+    chosen, and the only thing being shared out is the height.
     """
     mejor, w = 0.0, 0.5
     while w <= W_MAX + 1e-9:
@@ -264,85 +264,85 @@ def _plan(util: float) -> tuple[int, float]:
     return (1, sn(mejor)) if mejor >= 0.5 else (0, 0.0)
 
 
-def baldosa(layout: kdb.Layout, ancho: float, alto: float, nombre: str,
+def tile(layout: kdb.Layout, width: float, height: float, name: str,
             ext: tuple[float, float, float, float] = (0.0, 0.0, 0.0, 0.0),
             nw: tuple[float, float] = (NWELL_BORDE, NWELL_BORDE)):
-    """Una celda de relleno de `ancho` x `alto`, con sus rieles en los bordes.
+    """A fill cell of `width` x `height`, with its rails on the edges.
 
     Estructura, de abajo arriba y repetida tantas veces como quepa:
 
-        barra VSS / taps p+ / fila NMOS (puerta arriba) / barra VDD
-                  / taps n+ en el pozo / fila PMOS (puerta arriba) / [barra VSS...]
+        bar VSS / taps p+ / fila NMOS (puerta arriba) / bar VDD
+                  / taps n+ en el pozo / fila PMOS (puerta arriba) / [bar VSS...]
 
-    **Cada cruce de metal es entre la MISMA net**: la fuente y el drenador del
-    NMOS bajan a su barra VSS cruzando los taps p+, que son VSS; los del PMOS
-    bajan a la barra VDD cruzando los taps n+, que son VDD. Por eso no hace falta
-    ni un hueco en ninguna tira ni una sola via.
+    **Every metal crossing is within the SAME net**: the NMOS source and drain
+    come down to their VSS bar crossing the p+ taps, which are VSS; the PMOS ones
+    come down to the VDD bar crossing the n+ taps, which are VDD. Hence not one
+    break in any strip and not a single via.
 
-    Las barras se atan a los rieles por dos carriles verticales, VDD por la
-    izquierda y VSS por la derecha. Es toda la distribucion vertical que hay.
+    The bars are tied to the rails by two vertical lanes, VDD on the left and VSS
+    on the right. That is all the vertical distribution there is.
 
-    `ext` son los cuatro estirones de riel medidos contra el vecino, en el orden
+    `ext` are the four rail stretches measured against the neighbour, in the
     (VSS izquierda, VSS derecha, VDD izquierda, VDD derecha). `nw` es cuanto se
-    aparta el pozo de cada borde de la baldosa: `NWELL_BORDE` contra un macro y
+    keeps the well away from each tile edge: `NWELL_BORDE` against a macro and
     `NWELL_BORDE_DIE` contra el contorno del die.
     """
-    top = layout.create_cell(nombre)
+    top = layout.create_cell(name)
     L = {c: layout.layer(*c) for c in (COMP, POLY, PPLUS, NPLUS, CONT, M1, NWELL)}
     vss_i, vss_d, vdd_i, vdd_d = ext
 
     def m1(x0, y0, x1, y1):
         top.shapes(L[M1]).insert(kdb.DBox(sn(x0), sn(y0), sn(x1), sn(y1)))
 
-    m1(-vss_i, 0, ancho + vss_d, RAIL_W)                     # VSS, abuta con el vecino
-    m1(-vdd_i, alto - RAIL_W, ancho + vdd_d, alto)           # VDD, idem
+    m1(-vss_i, 0, width + vss_d, RAIL_W)                     # VSS, abuts the neighbour
+    m1(-vdd_i, height - RAIL_W, width + vdd_d, height)           # VDD, same
 
     margen_p = (nw[0] + NWELL_ENC, nw[1] + NWELL_ENC)
-    util = alto - 2 * RAIL_W - 2 * CLR
-    if util <= 0 or ancho - margen_p[0] - margen_p[1] < 3.0:
+    util = height - 2 * RAIL_W - 2 * CLR
+    if util <= 0 or width - margen_p[0] - margen_p[1] < 3.0:
         return top, []
     n_per, w_gate = _plan(util)
     if n_per == 0:
         return top, []
 
-    #  Carriles verticales: cada uno arranca por encima del riel contrario, y
-    #  los dos van metidos `CLR` hacia dentro. Pegados al borde, el carril VSS de
-    #  una baldosa quedaba a **0.14 um del riel VDD del DECODER de al lado** --
-    #  ese macro es de otro estante y su riel empieza 0.14 dentro de su borde.
-    #  Lo unico que puede asomar por el borde son los dos rieles horizontales,
-    #  que es de lo que se trata.
-    m1(CLR, RAIL_W + CLR, CLR + CARRIL, alto)
-    m1(ancho - CLR - CARRIL, 0.0, ancho - CLR, alto - RAIL_W - CLR)
+    #  Vertical lanes: each starts above the opposite rail, and both are set
+    #  `CLR` inwards. Flush with the edge, a tile's VSS lane came within **0.14
+    #  um of the VDD rail of the DECODER next door** -- that macro belongs to
+    #  another shelf and its rail starts 0.14 inside its edge.
+    #  The only things allowed to stick out past the edge are the two horizontal
+    #  rails, which is the whole point.
+    m1(CLR, RAIL_W + CLR, CLR + CARRIL, height)
+    m1(width - CLR - CARRIL, 0.0, width - CLR, height - RAIL_W - CLR)
 
-    devs: list[tuple[str, float, float]] = []
+    devices: list[tuple[str, float, float]] = []
     y = RAIL_W + CLR
     for k in range(n_per):
-        y = _banda(layout, top, L, m1, y, w_gate, ancho, devs, nombre, k,
+        y = _banda(layout, top, L, m1, y, w_gate, width, devices, name, k,
                    nw, margen_p)
-    #  Una barra VSS final: la puerta de los PMOS de la ultima banda tiene que
-    #  aterrizar en algo, y arriba lo que hay es el riel de VDD.
-    #  Arranca en CARRIL + CLR como las demas. Arrancandola en `x0 - CLR` tocaba
-    #  el carril de VDD por su borde derecho y **cortocircuitaba las dos
-    #  alimentaciones**: la extraccion daba una sola net de metal1 en toda la
-    #  baldosa, y el DRC solo lo asomaba como cuatro `M1.2a` de 0.07 um.
-    m1(2 * CLR + CARRIL, y, ancho - CLR, y + BAR)
-    return top, devs
+    #  A final VSS bar: the gate of the last band's PMOS has to land on
+    #  something, and what is above is the VDD rail.
+    #  It starts at CARRIL + CLR like the others. Starting it at `x0 - CLR` it
+    #  touched the VDD lane on its right edge and **shorted the two supplies**:
+    #  extraction gave one single metal1 net across the whole tile, and DRC only
+    #  hinted at it as four 0.07 um `M1.2a`.
+    m1(2 * CLR + CARRIL, y, width - CLR, y + BAR)
+    return top, devices
 
 
-def _banda(layout, top, L, m1, y, w_gate, ancho, devs, nombre, idx,
+def _banda(layout, top, L, m1, y, w_gate, width, devices, name, idx,
            nw=(NWELL_BORDE, NWELL_BORDE), margen_p=(MARGEN_P, MARGEN_P)):
     """Dibuja una banda a partir de `y`. Devuelve la `y` de la barra de arriba."""
-    izq, der = 2 * CLR + CARRIL, ancho - 2 * CLR - CARRIL
+    izq, der = 2 * CLR + CARRIL, width - 2 * CLR - CARRIL
     h_n, h_p = _alto_pcell("n", w_gate), _alto_pcell("p", w_gate)
 
-    #  Todas las cotas ANTES de dibujar: la puerta del NMOS tiene que saber donde
-    #  esta su barra VDD, y esa barra va por encima de el.
+    #  All the dimensions BEFORE drawing: the NMOS gate has to know where its VDD
+    #  bar is, and that bar runs above it.
     #
-    #  Cada fila lleva **dos** tiras de taps, una debajo y otra encima. Con una
+    #  Each row carries **two** tap strips, one below and one above. With one
     #  sola, el tap queda en un extremo del canal y `DF.13_MV` / `DF.14_MV` -- 15
-    #  um como mucho del tap a cada PCOMP / NCOMP -- limitan el dispositivo a
-    #  unos 11 um de largo. Con las dos, el punto peor es el centro del canal y
-    #  el mismo margen da para 26.
+    #  um at most from the tap to every PCOMP / NCOMP -- limit the device to
+    #  about 11 um long. With both, the worst point is the channel centre and the
+    #  same margin allows 26.
     y_vss = y
     y_ptap0 = y_vss + BAR + 0.10
     y_n0 = y_ptap0 + TAP_W + CLR_TAP
@@ -353,33 +353,33 @@ def _banda(layout, top, L, m1, y, w_gate, ancho, devs, nombre, idx,
     y_ntap1 = y_p0 + h_p + CLR_TAP
     y_fin = y_ntap1 + TAP_W + 0.10
 
-    def barra(y0, net):
-        #  Cada barra toca solo SU carril y se aparta del otro.
+    def bar(y0, net):
+        #  Each bar touches only ITS lane and keeps clear of the other.
         if net == "VDD":
             m1(CLR, y0, der, y0 + BAR)
         else:
-            m1(izq, y0, ancho - CLR, y0 + BAR)
+            m1(izq, y0, width - CLR, y0 + BAR)
 
-    def taps(y_tap, implante, y_barra, sitios):
-        """Un tap por dispositivo, **entre sus dos pads de fuente y drenador**.
+    def taps(y_tap, implante, y_barra, sites):
+        """One tap per device, **between its source and drain pads**.
 
-        Ahi hay 2.14 um libres -- el ancho del canal menos los dos pads-- y esa
-        banda esta despejada: lo unico que la cruza en vertical son los propios
-        pads, que van a la barra de abajo, y el riser de puerta, que va hacia
+        There are 2.14 um free there -- the channel width minus the two pads --
+        and that band is clear: the only things crossing it vertically are the
+        pads themselves, which go to the bar below, and the gate riser, which
         arriba.
 
-        Antes se metian en los huecos ENTRE dispositivos y eso los dejaba fuera
-        cuando el hueco medida menos de `TAP_W + 2*CLR`: en una baldosa estrecha
-        (las de 9.52 um del margen del die) solo cabe un PMOS y el unico hueco
-        que quedaba media 1.26 um, dos centesimas por debajo. Resultado: **once
-        `DF.13_MV`**, que pide un tap de pozo a menos de 15 um de cada PCOMP.
+        They used to go in the gaps BETWEEN devices, and that left them out when
+        the gap measured less than `TAP_W + 2*CLR`: on a narrow tile (the 9.52 um
+        ones on the die margin) only one PMOS fits and the only remaining gap was
+        1.26 um, two hundredths short. Result: **eleven `DF.13_MV`**, which asks
+        for a well tap within 15 um of every PCOMP.
 
-        A paso fijo desde el borde tampoco valia: caian a 0.12 um del metal1 de
-        un dispositivo. Como la fuente y el tap son la MISMA net el corto no
-        existe, pero `M1.2a` se comprueba sobre la geometria y salta igual.
+        A fixed pitch from the edge did not work either: they landed 0.12 um from
+        a device's metal1. Since source and tap are the SAME net there is no
+        short, but `M1.2a` is checked on geometry and fires anyway.
         """
         ultimo = -1e9
-        for a, b in sitios:
+        for a, b in sites:
             if b - a < TAP_W or (a + b) / 2 - ultimo < TAP_PITCH:
                 continue
             x = sn((a + b - TAP_W) / 2)
@@ -388,105 +388,105 @@ def _banda(layout, top, L, m1, y, w_gate, ancho, devs, nombre, idx,
             ultimo = (a + b) / 2
 
     def fila(tipo, y_base, y_sd, y_g):
-        """Una fila de dispositivos, con su metal1 estirado hasta las barras.
+        """A row of devices, with their metal1 stretched to the bars.
 
-        Los pads de metal1 ya vienen puestos por `map_device`; aqui solo se
-        alargan: fuente y drenador hasta la barra de su net y la puerta hasta la
+        The metal1 pads are already placed by `map_device`; here they are only
+        alargan: fuente y drenador hasta la bar de su net y la puerta hasta la
         contraria.
 
-        **La puerta es siempre `cajas[-1]`**, la placa de mas arriba, porque los
-        dos tipos se construyen con `gate_con="top"`. Ver la cabecera del
-        fichero: cogiendo `cajas[0]` para el PMOS se tomaba un drenador por
-        puerta y salian cuatro `M1.2a` por baldosa, con el PMOS ademas cortado.
+        **The gate is always `boxes[-1]`**, the topmost plate, because both types
+        are built with `gate_con="top"`. See the file header: taking `boxes[0]`
+        for the PMOS took a drain for a gate and gave four `M1.2a` per tile, with
+        the PMOS cut off on top of that.
         """
-        pc = dispositivo(tipo, w_gate)
+        pc = device(tipo, w_gate)
         bb = pc.kdb_cell.dbbox()
-        #  A MICRAS con el dbu del PCell, no con el del layout de destino. Las
-        #  cajas salen en unidades enteras del layout de origen (0.001) y aqui se
-        #  dibuja en el del top (0.0005): multiplicandolas por el dbu de destino
-        #  el dispositivo entero salia **a la mitad de tamano**, con pads de
-        #  metal1 de 0.18 um. 1180 `M1.1` y 886 `M1.2a`, y ni una en la baldosa
-        #  suelta, que se construye en un layout de 0.001 y por eso cuadraba.
+        #  To MICRONS with the PCell's dbu, not the destination layout's. The
+        #  boxes come out in integer units of the source layout (0.001) and here
+        #  we draw in the top's (0.0005): multiplying them by the destination dbu
+        #  the whole device came out **at half size**, with 0.18 um metal1 pads.
+        #  1180 `M1.1` and 886 `M1.2a`, and not one on the loose tile, which is
+        #  built in a 0.001 layout and therefore matched.
         dbu_pc = pc.kdb_cell.layout().dbu
-        cajas = [poly.bbox().to_dtype(dbu_pc) for poly in _reg(pc, M1).merged().each()]
-        if len(cajas) < 3:
+        boxes = [poly.bbox().to_dtype(dbu_pc) for poly in _reg(pc, M1).merged().each()]
+        if len(boxes) < 3:
             return []
-        cajas.sort(key=lambda b: b.bottom)
-        g = cajas[-1]
-        sd = [b for b in cajas if b is not g]
+        boxes.sort(key=lambda b: b.bottom)
+        g = boxes[-1]
+        sd = [b for b in boxes if b is not g]
 
         x0 = MARGEN_N if tipo == "n" else margen_p[0]
-        x1 = ancho - (MARGEN_N if tipo == "n" else margen_p[1])
-        #  Dos sitios de tap por dispositivo, en coordenadas del PCell:
+        x1 = width - (MARGEN_N if tipo == "n" else margen_p[1])
+        #  Two tap sites per device, in PCell coordinates:
         #
-        #  * el de ABAJO va en el hueco interno, entre los dos pads de S/D, y
-        #    baja recto a la barra;
-        #  * el de ARRIBA va **encima de un pad de S/D**, porque ahi lo unico que
-        #    tiene a mano de su misma net es ese pad: en el centro esta la placa
+        #  * the BOTTOM one goes in the internal gap, between the two S/D pads,
+        #    baja recto a la bar;
+        #  * the TOP one goes **over an S/D pad**, because up there the only
+        #    thing of its own net within reach is that pad: in the middle sits
         #    de puerta, que es de la net contraria.
         sd_orden = sorted(sd, key=lambda b: b.left)
         interno = (sd_orden[0].right, sd_orden[-1].left)
         sobre_pad = (sd_orden[0].left, sd_orden[0].right)
         x = x0
-        sitios, sitios_alto = [], []
+        sites, sitios_alto = [], []
         while x + bb.width() <= x1:
-            celda = layout.create_cell(f"{nombre}_{idx}{tipo}{len(devs)}")
-            copiar_dispositivo(pc, celda, layout)
+            cell = layout.create_cell(f"{name}_{idx}{tipo}{len(devices)}")
+            copiar_dispositivo(pc, cell, layout)
             dx, dy = x - bb.left, y_base - bb.bottom
-            top.insert(kdb.DCellInstArray(celda.cell_index(),
+            top.insert(kdb.DCellInstArray(cell.cell_index(),
                                           kdb.DTrans(kdb.DVector(dx, dy))))
             for b, destino, estrecho in ([(k, y_sd, False) for k in sd]
                                          + [(g, y_g, True)]):
                 a0, a1 = b.left + dx, b.right + dx
                 if estrecho and a1 - a0 > RISER_W:
-                    #  El pad de puerta es tan ancho como el canal (2 um) y queda
+                    #  The gate pad is as wide as the channel (2 um) and sits
                     #  a 0.07 de la fuente y del drenador. Mientras no se solapen
-                    #  en `y` eso es legal -- es el end cap del poly -- pero
-                    #  estirarlo hacia la barra lo mete en la banda de los otros
+                    #  in `y` that is legal -- it is the poly end cap -- but
+                    #  stretching it towards the bar puts it in the band of the
                     #  dos y lo convierte en `M1.2a`. El riser va centrado y
-                    #  estrecho, que deja de sobra a cada lado.
+                    #  narrow one, which leaves plenty on each side.
                     c = (a0 + a1) / 2
                     a0, a1 = c - RISER_W / 2, c + RISER_W / 2
                     m1(b.left + dx, b.bottom + dy, b.right + dx, b.top + dy)
                 m1(a0, min(b.bottom + dy, destino), a1, max(b.top + dy, destino))
-            devs.append((tipo, w_gate, L_CANAL))
-            sitios.append((interno[0] + dx, interno[1] + dx))
+            devices.append((tipo, w_gate, L_CANAL))
+            sites.append((interno[0] + dx, interno[1] + dx))
             sitios_alto.append((sobre_pad[0] + dx, sobre_pad[1] + dx))
             x += bb.width() + DEVICE_GAP
-        return sitios, sitios_alto
+        return sites, sitios_alto
 
-    #  Las filas primero: los taps se meten en los huecos que dejan.
-    barra(y_vss, "VSS")
-    barra(y_vdd, "VDD")
+    #  Rows first: the taps go into the gaps they leave.
+    bar(y_vss, "VSS")
+    bar(y_vdd, "VDD")
     sitios_n, altos_n = fila("n", y_n0, y_vss + BAR, y_vdd) or ([], [])
     sitios_p, altos_p = fila("p", y_p0, y_vdd + BAR, y_fin + BAR) or ([], [])
     taps(y_ptap0, PPLUS, y_vss, sitios_n)
     taps(y_ntap0, NPLUS, y_vdd, sitios_p)
-    #  Las tiras de arriba se atan al pad que tienen justo debajo, que es de su
-    #  misma net (la fuente/drenador del NMOS es VSS como el tap p+; la del PMOS
-    #  es VDD como el tap n+). No hace falta llegar a ninguna barra.
+    #  The top strips tie to the pad right below them, which is of their own net
+    #  (the NMOS source/drain is VSS like the p+ tap; the PMOS one is VDD like
+    #  the n+ tap). There is no need to reach any bar.
     taps(y_ptap1, PPLUS, y_ptap1 - CLR_TAP - BAR, altos_n)
     taps(y_ntap1, NPLUS, y_ntap1 - CLR_TAP - BAR, altos_p)
 
-    #  El pozo cubre las DOS tiras de taps n+ y la fila p entera, con su
-    #  enclosure, pero se queda a `NWELL_BORDE` del borde de la baldosa: sin
-    #  `CONNECTIVITY_RULES` el deck aplica `NW.2b_MV` y pide 1.7 um al pozo del
-    #  macro vecino **aunque sea la misma net**, y el de la derecha llega justo
-    #  hasta su borde.
+    #  The well covers BOTH n+ tap strips and the whole p row, with its
+    #  enclosure, but stays `NWELL_BORDE` from the tile edge: without
+    #  `CONNECTIVITY_RULES` the deck applies `NW.2b_MV` and asks 1.7 um to the
+    #  neighbouring macro's well **even on the same net**, and the right one
+    #  reaches right up to its edge.
     top.shapes(L[NWELL]).insert(
         kdb.DBox(sn(nw[0]), sn(y_ntap0 - NWELL_ENC),
-                 sn(ancho - nw[1]), sn(y_ntap1 + TAP_W + NWELL_ENC)))
+                 sn(width - nw[1]), sn(y_ntap1 + TAP_W + NWELL_ENC)))
     return y_fin
 
 
 # --------------------------------------------------------------------------- #
-#  El top: donde caben las baldosas
+#  The top: where the tiles fit
 # --------------------------------------------------------------------------- #
-def estantes(macros) -> dict[tuple[float, float], list[tuple[float, float]]]:
-    """Los macros agrupados por estante: misma `y` y mismo alto.
+def shelves(macros) -> dict[tuple[float, float], list[tuple[float, float]]]:
+    """The macros grouped by shelf: same `y` and same height.
 
-    Esa es la condicion para que sus rieles esten a la misma cota, que es lo que
-    permite que una baldosa metida entre dos de ellos conecte por abutment.
+    That is the condition for their rails to sit at the same level, which is what
+    lets a tile dropped between two of them connect by abutment.
     """
     out: dict[tuple[float, float], list[tuple[float, float]]] = {}
     for _, _, x, y, w, h in macros:
@@ -496,22 +496,22 @@ def estantes(macros) -> dict[tuple[float, float], list[tuple[float, float]]]:
     return out
 
 
-def huecos(macros, die: kdb.DBox):
-    """Los intervalos libres de cada estante, incluidos los dos margenes del die.
+def gaps(macros, die: kdb.DBox):
+    """The free intervals of each shelf, including the two die margins.
 
-    Devuelve `(x0, x1, y, alto, hay_izq, hay_der)`.
+    Devuelve `(x0, x1, y, height, hay_izq, hay_der)`.
 
-    Lo que tapa un estante **no son solo los macros del estante**: WEIGHT_COMP
-    esta en su propio estante (y = 202.15, 25 um de alto) y se mete de lleno en
-    el hueco derecho de los cuatro estantes de COMP. Restando solo los del propio
-    estante salia un "hueco" de 356 um de ancho que en realidad esta lleno de
-    macros, y lo unico que lo cazaba era la comprobacion de metal1.
+    What blocks a shelf is **not only the macros on that shelf**: WEIGHT_COMP
+    sits on its own shelf (y = 202.15, 25 um tall) and reaches straight into the
+    right-hand gap of the four COMP shelves. Subtracting only those on the shelf
+    itself gave a 356 um wide "gap" that is in fact full of macros, and the only
+    thing that caught it was the metal1 check.
     """
     out = []
-    for (y, h), _ in sorted(estantes(macros).items()):
+    for (y, h), _ in sorted(shelves(macros).items()):
         if h < ALTO_MIN:
             continue
-        #  Todo macro que solape en `y` con este estante tapa su trozo de x.
+        #  Any macro overlapping this shelf in `y` blocks its slice of x.
         tapado = sorted((mx, mx + mw) for _, _, mx, my, mw, mh in macros
                         if my < y + h and my + mh > y)
         fundido: list[list[float]] = []
@@ -520,57 +520,56 @@ def huecos(macros, die: kdb.DBox):
                 fundido[-1][1] = max(fundido[-1][1], b)
             else:
                 fundido.append([a, b])
-        bordes = ([[die.left, die.left]] + fundido + [[die.right, die.right]])
-        for i in range(len(bordes) - 1):
-            x0, x1 = bordes[i][1], bordes[i + 1][0]
+        edges = ([[die.left, die.left]] + fundido + [[die.right, die.right]])
+        for i in range(len(edges) - 1):
+            x0, x1 = edges[i][1], edges[i + 1][0]
             if x1 - x0 < ANCHO_MIN:
                 continue
-            out.append((x0, x1, y, h, i > 0, i + 1 < len(bordes) - 1))
+            out.append((x0, x1, y, h, i > 0, i + 1 < len(edges) - 1))
     return out
 
 
 def alcance(m1: kdb.Region, dbu: float, y0: float, y1: float,
             x_borde: float, hacia: int) -> float:
-    """Cuanto hay que estirar un riel para SOLAPAR el del vecino.
+    """How far a rail must stretch to OVERLAP the neighbour's.
 
-    Devuelve el estiron (positivo) si por ese lado hay riel, y `-CLR` si no lo
-    hay: entonces el riel se **retira** del borde, porque lo que asome puede
-    quedar a menos de 0.23 um del metal del macro.
+    Returns the stretch (positive) if there is a rail on that side, and `-CLR` if
+    there is not: then the rail **pulls back** from the edge, because anything
+    sticking out could sit within 0.23 um of the macro's metal.
 
-    Lo que se busca es una **barra horizontal maciza**, no cualquier metal. Un
-    dedo de transistor que cruce la banda del riel la llena de arriba abajo y
-    mide 0.9 um de alto igual que un riel: mirando solo el alto del bbox, el
-    generador tomo tres dedos de WEIGHT_COMP por rieles, estiro el VSS de tres
-    baldosas hasta dentro de ellos y **cortocircuito `net5`/`net6` de tres
-    WEIGHT contra VSS**. El DRC daba limpio -- son solapes, no espaciados -- y
-    solo lo vio el LVS: 877 nets contra 880. De ahi la sonda del fondo, que un
-    dedo de 0.36 um de ancho no puede cubrir.
+    What is looked for is a **solid horizontal bar**, not just any metal. A
+    transistor finger crossing the rail band fills it top to bottom and is 0.9 um
+    tall just like a rail: looking only at bbox height, the generator took three
+    WEIGHT_COMP fingers for rails, stretched three tiles' VSS into them and
+    **shorted `net5`/`net6` of three WEIGHTs against VSS**. DRC came out clean --
+    they are overlaps, not spacings -- and only LVS saw it: 877 nets against 880.
+    Hence the deep probe, which a 0.36 um wide finger cannot cover.
     """
     x0, x1 = (x_borde, x_borde + ALCANCE_MAX) if hacia > 0 else (x_borde - ALCANCE_MAX, x_borde)
-    ventana = kdb.Region(kdb.DBox(x0, y0, x1, y1).to_itype(dbu))
-    cerca = (m1 & ventana).merged()
-    if cerca.is_empty():
+    window = kdb.Region(kdb.DBox(x0, y0, x1, y1).to_itype(dbu))
+    near = (m1 & window).merged()
+    if near.is_empty():
         return 0.0
-    #  Sonda: media micra de la banda ENTERA, al fondo de la ventana. Solo la
-    #  llena algo que cruce la ventana de lado a lado con toda la altura.
+    #  Probe: half a micron of the WHOLE band, at the far end of the window.
+    #  Only something crossing the window side to side at full height fills it.
     sx0, sx1 = (x1 - 0.5, x1) if hacia > 0 else (x0, x0 + 0.5)
-    sonda = kdb.Region(kdb.DBox(sx0, y0, sx1, y1).to_itype(dbu))
-    riel = cerca.interacting(sonda)
-    if riel.is_empty() or not (sonda - riel).is_empty():
+    probe = kdb.Region(kdb.DBox(sx0, y0, sx1, y1).to_itype(dbu))
+    rail = near.interacting(probe)
+    if rail.is_empty() or not (probe - rail).is_empty():
         return -CLR
-    caja = riel.bbox().to_dtype(dbu)
-    d = (caja.left - x_borde) if hacia > 0 else (x_borde - caja.right)
+    box = rail.bbox().to_dtype(dbu)
+    d = (box.left - x_borde) if hacia > 0 else (x_borde - box.right)
     return min(round(max(d, 0.0) + SOLAPE, 3), ALCANCE_MAX)
 
 
-def comprobar(m1: kdb.Region, dbu: float, puestas, ext_de) -> list[str]:
-    """Que cada baldosa tenga sus dos rieles separados y pegados a los del vecino.
+def comprobar(m1: kdb.Region, dbu: float, placed, ext_de) -> list[str]:
+    """That each tile has its two rails separate and touching the neighbour's.
 
-    `Region.merged()` funde los poligonos que se tocan, asi que **un poligono es
-    una componente conexa**. Con eso se contesta a las dos preguntas que el DRC
-    no contesta: si VDD y VSS acabaron siendo la misma cosa (un corto, que ya
-    paso una vez) y si el relleno quedo colgando (un abierto, que el DRC no ve
-    porque 0.26 um de aire cumplen el espaciado de sobra).
+    `Region.merged()` fuses touching polygons, so **one polygon is one connected
+    component**. That answers the two questions DRC does not: whether VDD and VSS
+    ended up being the same thing (a short, which happened once) and whether the
+    fill was left dangling (an open, which DRC does not see because 0.26 um of
+    air passes the spacing easily).
     """
     fundido = m1.merged()
     fallos = []
@@ -579,46 +578,46 @@ def comprobar(m1: kdb.Region, dbu: float, puestas, ext_de) -> list[str]:
         p = kdb.Region(kdb.DBox(x - 0.05, y - 0.05, x + 0.05, y + 0.05).to_itype(dbu))
         return fundido.interacting(p)
 
-    for nombre, x0, x1, y, h, hay_izq, hay_der in puestas:
+    for name, x0, x1, y, h, hay_izq, hay_der in placed:
         cx = (x0 + x1) / 2
         c_vss = componente(cx, y + RAIL_W / 2)
         c_vdd = componente(cx, y + h - RAIL_W / 2)
         if c_vss.is_empty() or c_vdd.is_empty():
-            fallos.append(f"{nombre}: no encuentro metal en un riel")
+            fallos.append(f"{name}: no metal found on one rail")
             continue
         if c_vss.bbox() == c_vdd.bbox():
-            fallos.append(f"{nombre}: VDD y VSS son la MISMA componente (corto)")
+            fallos.append(f"{name}: VDD and VSS are the SAME component (short)")
             continue
         for net, comp, yy, lado in (("VSS", c_vss, y + RAIL_W / 2, 0),
                                     ("VDD", c_vdd, y + h - RAIL_W / 2, 2)):
-            x_vec = (x0 - 2.0) if ext_de[nombre][lado] > 0 else (x1 + 2.0)
-            sonda = kdb.Region(kdb.DBox(x_vec - 0.05, yy - 0.05,
+            x_vec = (x0 - 2.0) if ext_de[name][lado] > 0 else (x1 + 2.0)
+            probe = kdb.Region(kdb.DBox(x_vec - 0.05, yy - 0.05,
                                         x_vec + 0.05, yy + 0.05).to_itype(dbu))
-            if comp.interacting(sonda).is_empty():
-                fallos.append(f"{nombre}: el riel {net} no llega al macro vecino")
+            if comp.interacting(probe).is_empty():
+                fallos.append(f"{name}: rail {net} does not reach the neighbouring macro")
     return fallos
 
 
 # --------------------------------------------------------------------------- #
 #  Salidas
 # --------------------------------------------------------------------------- #
-#: Capacidad de oxido de puerta del dispositivo de 6 V, en fF/um2. Sale de
-#: `sm141064.ngspice` (`toxe` del modelo de 6 V) y solo se usa para dar la cifra
-#: por pantalla: no entra en ningun fichero ni en ninguna comprobacion.
+#: Gate oxide capacitance of the 6 V device, in fF/um2. Comes from
+#: `sm141064.ngspice` (the 6 V model's `toxe`) and is only used to print the
+#: figure on screen: it enters no file and no check.
 COX_FF_UM2 = 1.55
 
 
-def lineas_spice(devs) -> list[str]:
-    """Las lineas SPICE de los transistores, en el formato del proyecto.
+def lineas_spice(devices) -> list[str]:
+    """The SPICE lines of the transistors, in the project format.
 
-    `spiceprefix=X`, que es como los instancia xschem y como los extrae magic:
-    en este PDK los modelos son subcircuitos, asi que un elemento `M` no
-    emparejaria con la llamada `X0 ... nfet_06v0` del extraido.
+    `spiceprefix=X`, which is how xschem instantiates them and how magic extracts
+    them: in this PDK the models are subcircuits, so an `M` element would not
+    match the extracted `X0 ... nfet_06v0` call.
 
-    El orden de nodos es el del modelo: `d g s b`.
+    Node order is the model's: `d g s b`.
     """
     out = []
-    for i, (tipo, w, l) in enumerate(devs):
+    for i, (tipo, w, l) in enumerate(devices):
         if tipo == "n":
             nodos, modelo = "VSS VDD VSS VSS", "nfet_06v0"
         else:
@@ -628,59 +627,59 @@ def lineas_spice(devs) -> list[str]:
     return out
 
 
-#: Marca del bloque de codigo en el esquematico. Se busca por el `name=` de la
-#: instancia, que es lo unico estable: la geometria del simbolo la mueve xschem.
+#: Marker of the code block in the schematic. Found by the instance `name=`,
+#: the only stable thing: xschem moves the symbol geometry around.
 NOMBRE_BLOQUE = "DESACOPLE"
 
 
-def parchear_sch(lineas: list[str]) -> bool:
-    """Mete (o sustituye) el bloque de desacople en el esquematico del top.
+def parchear_sch(lines: list[str]) -> bool:
+    """Inserts (or replaces) the decoupling block in the top schematic.
 
-    Va **escrito por el generador y no a mano** a proposito: el layout y el
-    esquematico tienen que salir de la misma corrida o el LVS deja de significar
-    nada. Es una instancia de `devices/code_shown.sym` con `only_toplevel=true`,
-    el mismo patron que usan los bancos de `XSCHEM/TEST*`.
+    It is **written by the generator and not by hand** on purpose: layout and
+    schematic have to come from the same run or LVS stops meaning anything. It is
+    an instance of `devices/code_shown.sym` with `only_toplevel=true`, the same
+    pattern the `XSCHEM/TEST*` benches use.
     """
     if not SCH.exists():
-        print(f"  AVISO: no encuentro {SCH}; no toco el esquematico")
+        print(f"  WARNING: {SCH} not found; leaving the schematic alone")
         return False
     texto = SCH.read_text()
-    cuerpo = "\n".join(lineas)
-    bloque = ("C {devices/code_shown.sym} 700 700 0 0 {name=" + NOMBRE_BLOQUE
+    cuerpo = "\n".join(lines)
+    block = ("C {devices/code_shown.sym} 700 700 0 0 {name=" + NOMBRE_BLOQUE
               + " only_toplevel=true value=\"\n"
-              + "* Condensadores de desacople: NMOS y PMOS en inversion metidos en\n"
-              + "* los huecos entre macros. LO ESCRIBE scripts/decap_fill.py -- no\n"
-              + "* se edita a mano: tiene que ser exactamente lo que hay en el GDS.\n"
+              + "* Decoupling capacitors: NMOS and PMOS in inversion dropped into\n"
+              + "* the gaps between macros. WRITTEN BY scripts/decap_fill.py -- do\n"
+              + "* not edit by hand: it must be exactly what is in the GDS.\n"
               + cuerpo + "\n\"}\n")
     patron = re.compile(r"^C \{devices/code_shown\.sym\}[^\n]*name=" + NOMBRE_BLOQUE
                         + r"\b.*?\"\}\n", re.S | re.M)
-    nuevo, n = patron.subn(bloque, texto)
+    nuevo, n = patron.subn(block, texto)
     if not n:
-        nuevo = texto.rstrip("\n") + "\n" + bloque
+        nuevo = texto.rstrip("\n") + "\n" + block
     SCH.write_text(nuevo)
     return True
 
 
 def main() -> int:
     args = sys.argv[1:]
-    #  --- baldosa suelta: el lazo corto de DRC ---------------------------------
+    #  --- loose tile: the short DRC loop ---------------------------------------
     for a in args:
         if a.startswith("--tile"):
             spec = a.split("=", 1)[1] if "=" in a else args[args.index(a) + 1]
             w, h = (float(v) for v in spec.lower().split("x"))
             ly = kdb.Layout()
             ly.dbu = 0.001
-            _, devs = baldosa(ly, w, h, f"T{spec.replace('.', 'p').replace('x', 'x')}")
+            _, devices = tile(ly, w, h, f"T{spec.replace('.', 'p').replace('x', 'x')}")
             dst = OUT / "decap_tile.gds"
             dst.parent.mkdir(parents=True, exist_ok=True)
             ly.write(str(dst))
-            print(f"  baldosa {w} x {h}: {len(devs)} dispositivos -> {dst}")
+            print(f"  tile {w} x {h}: {len(devices)} devices -> {dst}")
             return 0
 
     if not GDS_IN.exists():
-        sys.exit(f"no hay {GDS_IN} — corre antes `make top T={TOP}`")
+        sys.exit(f"{GDS_IN} is missing -- run `make top T={TOP}` first")
     if not DEF.exists():
-        sys.exit(f"no hay {DEF}")
+        sys.exit(f"{DEF} is missing")
 
     ly = kdb.Layout()
     ly.read(str(GDS_IN))
@@ -691,27 +690,27 @@ def main() -> int:
     m1.merge()
 
     macros = colocacion(DEF)
-    libres = huecos(macros, die)
+    libres = gaps(macros, die)
 
-    #  Las baldosas se construyen DENTRO del layout del top: `copiar_dispositivo`
-    #  se encarga del cambio de dbu de los PCells, y asi no hay que pasar por un
-    #  fichero intermedio (que le cambiaba el dbu al top; ver alli).
-    especs, devs_por_baldosa, ext_de = [], {}, {}
-    saltados = []
-    #  De mayor a menor, y descartando lo que pise a una baldosa ya puesta: los
-    #  estantes **se solapan en `y`** (WEIGHT_COMP ocupa 202.15..227.15 y el de
-    #  COMP 202.13..233.59), asi que el mismo trozo de silicio aparece como hueco
-    #  de dos estantes distintos. Poniendo los dos salian baldosas encima de
-    #  baldosas -- y la comprobacion de conectividad lo cantaba como corto.
-    puestas: list[tuple[float, float, float, float]] = []
+    #  The tiles are built INSIDE the top layout: `copiar_dispositivo` handles
+    #  the PCells' dbu change, so no intermediate file is needed (which changed
+    #  the top's dbu; see there).
+    specs, devs_por_baldosa, ext_de = [], {}, {}
+    skipped = []
+    #  Largest first, discarding anything overlapping a tile already placed: the
+    #  shelves **overlap in `y`** (WEIGHT_COMP takes 202.15..227.15 and the COMP
+    #  one 202.13..233.59), so the same piece of silicon shows up as a gap on two
+    #  different shelves. Placing both put tiles on top of tiles -- and the
+    #  connectivity check flagged it as a short.
+    placed: list[tuple[float, float, float, float]] = []
     for x0, x1, y, h, hay_izq, hay_der in sorted(
             libres, key=lambda r: -(r[1] - r[0]) * r[3]):
         if any(x0 < bx1 and x1 > bx0 and y < by1 and y + h > by0
-               for bx0, bx1, by0, by1 in puestas):
+               for bx0, bx1, by0, by1 in placed):
             continue
-        #  Margen de guarda contra el contorno del die por los lados que lo
-        #  tocan. Los estantes nunca llegan arriba ni abajo del die -- los
-        #  macros van a `MARGIN` = 9 um -- asi que solo hace falta en x.
+        #  Guard margin against the die outline on the sides that touch it. The
+        #  shelves never reach the top or bottom of the die -- the
+        #  macros go at `MARGIN` = 9 um -- so it is only needed in x.
         nw = [NWELL_BORDE, NWELL_BORDE]
         if x0 <= die.left + 1e-6:
             x0 += BORDE_DIE
@@ -720,49 +719,49 @@ def main() -> int:
             x1 -= BORDE_DIE
             nw[1] = NWELL_BORDE_DIE
         if x1 - x0 < ANCHO_MIN:
-            saltados.append((x0, x1, y, h, "no cabe tras el margen del die"))
+            skipped.append((x0, x1, y, h, "does not fit after the die margin"))
             continue
-        ancho = round(x1 - x0, 3)
-        ventana = kdb.Region(kdb.DBox(x0, y, x1, y + h).to_itype(dbu))
-        if not (m1 & ventana).is_empty():
-            saltados.append((x0, x1, y, h, "hay metal1 del ruteo dentro"))
+        width = round(x1 - x0, 3)
+        window = kdb.Region(kdb.DBox(x0, y, x1, y + h).to_itype(dbu))
+        if not (m1 & window).is_empty():
+            skipped.append((x0, x1, y, h, "routing metal1 inside"))
             continue
         ext = (alcance(m1, dbu, y, y + RAIL_W, x0, -1),
                alcance(m1, dbu, y, y + RAIL_W, x1, +1),
                alcance(m1, dbu, y + h - RAIL_W, y + h, x0, -1),
                alcance(m1, dbu, y + h - RAIL_W, y + h, x1, +1))
-        #  Las DOS alimentaciones tienen que tener a quien agarrarse. No basta
-        #  con que haya macro al lado: WEIGHT_COMP no saca riel VSS por su borde
-        #  de abajo -- ahi lo que asoma son los dedos de sus transistores -- asi
-        #  que una baldosa a su derecha se quedaria con el VSS al aire, y eso el
-        #  DRC no lo ve.
+        #  BOTH supplies must have something to hold on to. A macro beside it is
+        #  not enough: WEIGHT_COMP brings no VSS rail out of its bottom edge --
+        #  what shows there are its transistor fingers -- so a tile to its right
+        #  would be left with VSS in the air, and DRC does not see that.
+
         if not ((ext[0] > 0 or ext[1] > 0) and (ext[2] > 0 or ext[3] > 0)):
-            saltados.append((x0, x1, y, h, "el macro vecino no tiene riel a esa altura"))
+            skipped.append((x0, x1, y, h, "the neighbouring macro has no rail at that height"))
             continue
-        nombre = f"DECAP_{int(round(x0*100))}_{int(round(y*100))}"
-        celda, devs = baldosa(ly, ancho, h, nombre, ext, tuple(nw))
-        if not devs:
-            #  Y se borra: una baldosa creada y no instanciada se queda como
-            #  **celda de arriba suelta** en el layout, y al releer el GDS
+        name = f"DECAP_{int(round(x0*100))}_{int(round(y*100))}"
+        cell, devices = tile(ly, width, h, name, ext, tuple(nw))
+        if not devices:
+            #  And it is deleted: a tile created and not instantiated stays as a
+            #  **loose top cell** in the layout, and on re-reading the GDS
             #  `top_cell()` aborta con "multiple top cells".
-            ly.delete_cell_rec(celda.cell_index())
-            saltados.append((x0, x1, y, h, "no cabe ni una banda"))
+            ly.delete_cell_rec(cell.cell_index())
+            skipped.append((x0, x1, y, h, "not even one band fits"))
             continue
-        especs.append((nombre, x0, x1, y, h, hay_izq, hay_der))
-        devs_por_baldosa[nombre] = devs
-        ext_de[nombre] = ext
-        puestas.append((x0, x1, y, y + h))
+        specs.append((name, x0, x1, y, h, hay_izq, hay_der))
+        devs_por_baldosa[name] = devices
+        ext_de[name] = ext
+        placed.append((x0, x1, y, y + h))
 
-    if not especs:
-        sys.exit("  no se pudo rellenar ningun hueco")
+    if not specs:
+        sys.exit("  no gap could be filled")
 
-    for nombre, x0, x1, y, h, _, _ in especs:
-        celda = ly.cell(nombre)
-        top.insert(kdb.DCellInstArray(celda.cell_index(),
+    for name, x0, x1, y, h, _, _ in specs:
+        cell = ly.cell(name)
+        top.insert(kdb.DCellInstArray(cell.cell_index(),
                                       kdb.DTrans(kdb.DVector(x0, y))))
-    #  Aplanado, como el resto del top (`def_to_gds.py::flatten_all`): el LVS
-    #  compara contra una referencia aplanada y una jerarquia nueva aqui haria
-    #  que el deck extrajera subcircuitos que la referencia no tiene.
+    #  Flattened, like the rest of the top (`def_to_gds.py::flatten_all`): LVS
+    #  compares against a flattened reference and a new hierarchy here would make
+    #  the deck extract subcircuits the reference does not have.
     top.flatten(-1, True)
     ly.write(str(GDS_OUT))
 
@@ -771,48 +770,48 @@ def main() -> int:
     ly2.read(str(GDS_OUT))
     t2 = ly2.top_cell()
     m1_final = kdb.Region(t2.begin_shapes_rec(ly2.layer(*M1)))
-    fallos = comprobar(m1_final, ly2.dbu, especs, ext_de)
+    fallos = comprobar(m1_final, ly2.dbu, specs, ext_de)
 
     #  --- salidas --------------------------------------------------------------
-    devs = [d for nombre, *_ in especs for d in devs_por_baldosa[nombre]]
-    lineas = lineas_spice(devs)
-    DEV_TXT.write_text("\n".join(lineas) + "\n")
+    devices = [d for name, *_ in specs for d in devs_por_baldosa[name]]
+    lines = lineas_spice(devices)
+    DEV_TXT.write_text("\n".join(lines) + "\n")
     HUECOS_TXT.write_text("\n".join(
-        f"{x0:.3f} {y:.3f} {x1:.3f} {y + h:.3f}" for _, x0, x1, y, h, _, _ in especs) + "\n")
-    parchear_sch(lineas)
+        f"{x0:.3f} {y:.3f} {x1:.3f} {y + h:.3f}" for _, x0, x1, y, h, _, _ in specs) + "\n")
+    parchear_sch(lines)
 
     #  --- informe --------------------------------------------------------------
-    #  La UNION, no la suma: los huecos de estantes que se solapan cuentan el
+    #  The UNION, not the sum: gaps of overlapping shelves count the same piece
     #  mismo silicio dos veces.
     reg_libre = kdb.Region()
     for x0, x1, y, h, _, _ in libres:
         reg_libre.insert(kdb.DBox(x0, y, x1, y + h).to_itype(dbu))
     reg_libre.merge()
     area_total = reg_libre.area() * dbu * dbu
-    area_llena = sum((x1 - x0) * h for _, x0, x1, y, h, _, _ in especs)
-    n_n = sum(1 for t, _, _ in devs if t == "n")
-    w_n = sum(w for t, w, _ in devs if t == "n")
-    w_p = sum(w for t, w, _ in devs if t == "p")
+    area_llena = sum((x1 - x0) * h for _, x0, x1, y, h, _, _ in specs)
+    n_n = sum(1 for t, _, _ in devices if t == "n")
+    w_n = sum(w for t, w, _ in devices if t == "n")
+    w_p = sum(w for t, w, _ in devices if t == "p")
     cap = (w_n + w_p) * L_CANAL * COX_FF_UM2 / 1000.0
-    print(f"  {TOP}: {len(especs)} baldosas en {len(libres)} huecos de estante")
-    print(f"    hueco de estante  {area_total:9,.0f} um2")
+    print(f"  {TOP}: {len(specs)} tiles in {len(libres)} shelf gaps")
+    print(f"    shelf gap         {area_total:9,.0f} um2")
     print(f"    rellenado         {area_llena:9,.0f} um2  "
           f"({100 * area_llena / area_total:.0f} %)")
     print(f"    sin rellenar      {area_total - area_llena:9,.0f} um2")
-    for x0, x1, y, h, motivo in saltados:
-        print(f"      hueco {x0:7.2f}..{x1:7.2f} y={y:7.2f} "
+    for x0, x1, y, h, motivo in skipped:
+        print(f"      gap {x0:7.2f}..{x1:7.2f} y={y:7.2f} "
               f"({(x1 - x0) * h:6.0f} um2): {motivo}")
-    print(f"    {len(devs)} transistores: {n_n} NMOS + {len(devs) - n_n} PMOS")
+    print(f"    {len(devices)} transistores: {n_n} NMOS + {len(devices) - n_n} PMOS")
     print(f"    W total  N {w_n:8.1f} um   P {w_p:8.1f} um   L {L_CANAL} um")
     print(f"    desacople estimado ~{cap:.2f} pF")
     print(f"  {GDS_OUT}")
-    print(f"  {DEV_TXT}   ({len(lineas)} lineas, metidas en {SCH.name})")
+    print(f"  {DEV_TXT}   ({len(lines)} lines, written into {SCH.name})")
     if fallos:
-        print("\n  CONECTIVIDAD:")
+        print("\n  CONNECTIVITY:")
         for f in fallos:
             print(f"    {f}")
         return 1
-    print("  conectividad: cada baldosa con sus dos rieles separados y "
+    print("  connectivity: every tile with its two rails separate and "
           "pegados al macro vecino")
     return 0
 

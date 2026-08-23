@@ -67,16 +67,16 @@ Xextrc2 GND VDD2 OUT2 va vb COMP_V2
 C {devices/code_shown.sym} 700 -100 0 0 {name=s1
 only_toplevel=false
 value="
-* OJO: ni una llave en este texto. xschem las cuenta para saber donde acaba el
-* bloque de atributos y una sola dentro de un comentario lo corta por la mitad,
-* dejando el netlist con el 'blabla' de la plantilla y sin dar ningun error.
+* CAREFUL: not one brace in this text. xschem counts them to find where the
+* attribute block ends and a single one inside a comment cuts it in half,
+* leaving the netlist with the template 'blabla' and raising no error.
 *
 * Transitorio de comparador, no de amplificador: lazo abierto y un escalon de
-* sobreexcitacion de +-10 mV alrededor del umbral. Lo que se mide es el retardo
-* de propagacion -- del cruce de la entrada al cruce de medio rail de la
-* salida -- y los tiempos de subida y de bajada, para el esquematico y para el
+* overdrive of +-10 mV around the threshold. What is measured is the propagation
+* delay -- from the input crossing to the half-rail crossing of the
+* output -- and the rise and fall times, for the schematic and for the
 * layout extraido.
-* El umbral es cero porque el offset medido del COMP es de decimas de milivoltio.
+* The threshold is zero because the measured COMP offset is tenths of a millivolt.
 .save all
 .control
 tran 200p 2u

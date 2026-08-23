@@ -6,7 +6,7 @@ This is a **second opinion**, not a replacement: the KLayout deck
 `gf180mcuD.tech`) do not cover exactly the same rules. What makes running
 both worthwhile is precisely what shows up in one and not in the other.
 
-    python3 scripts/drc_magic.py [bloque ...]
+    python3 scripts/drc_magic.py [block ...]
 
 With no arguments it runs the blocks and the top. Returns a non-zero exit
 code if any GDS has violations, so that `make` notices.
@@ -54,11 +54,11 @@ TOPCELL = {f"{TOP}_FILLED": TOP, f"{TOP}_DECAP": TOP}
 def run(cell: str, gds: Path, work: Path) -> tuple[int, str]:
     work.mkdir(parents=True, exist_ok=True)
     script = work / f"{cell}_drc.tcl"
-    celda = TOPCELL.get(cell, cell)
+    cell = TOPCELL.get(cell, cell)
     script.write_text(
         # `-noconsole -dnull` so it never tries to open any window.
         f"gds read {gds}\n"
-        f"load {celda}\n"
+        f"load {cell}\n"
         "select top cell\n"
         # Euclidean, like the KLayout deck: with the default metric
         # (Manhattan) magic is more permissive and the two would not compare.
@@ -101,7 +101,7 @@ def main() -> int:
             print(f"  {name:14s} magic gave no count -- see {rpt}")
             bad += 1
         elif n:
-            print(f"  {name:14s} {n} violaciones — ver {rpt}")
+            print(f"  {name:14s} {n} violations -- see {rpt}")
             bad += 1
         else:
             print(f"  {name:14s} limpio")

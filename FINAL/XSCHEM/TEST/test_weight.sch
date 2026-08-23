@@ -49,19 +49,19 @@ C {devices/lab_wire.sym} 230 -200 0 0 {name=p7 sig_type=std_logic lab=VDD}
 C {devices/code_shown.sym} 475 -45 0 0 {name=s1
 only_toplevel=false
 value="
-* OJO: nada de llaves en este texto. xschem las cuenta para saber donde acaba
-* el bloque de atributos y una sola lo corta por la mitad.
+* CAREFUL: no braces in this text. xschem counts them to find where the
+* attribute block ends and a single one cuts it in half.
 *
 * CORRIENTES DE RAMA EN EL LAYOUT.
-* En el esquematico se miden con las cuatro fuentes de 0 V Vmeas..Vmeas3 que
-* hay dentro de WEIGHT, en serie con la cola de cada rama. El netlist extraido
-* no tiene esas fuentes, pero ngspice sabe dar la corriente de drenador de un
-* transistor si se le pide con .save ANTES de correr -- las variables internas
-* de dispositivo no se pueden pedir despues. El .m0 del final hace falta porque
+* In the schematic they are measured with the four 0 V sources Vmeas..Vmeas3
+* inside WEIGHT, in series with each branch tail. The extracted netlist has no
+* such sources, but ngspice can give a transistor drain current if asked with
+* .save BEFORE running -- device internal variables cannot be asked for
+* afterwards. The trailing .m0 is needed because
 * el modelo del PDK es un subcircuito y el MOS de dentro se llama m0.
 *
-* Que transistor es cada rama se traza por los nodos: las cuatro colas del
-* extraido son las de w=1.24u, y cada una cuelga del nodo intermedio al que
+* Which transistor is which branch is traced through the nodes: the four tails
+* of the extraction are the w=1.24u ones, and each hangs off the intermediate
 * llegan los dos transistores de entrada de esa rama.
 *
 *   rama   esquematico   nodo intermedio   cola en el layout
@@ -79,8 +79,8 @@ wrdata input.txt   v(VA) v(VB) V(VC) V(VD)
 wrdata middle.txt  v(WE) v(WE1) v(WE2)
 wrdata power.txt   v(VDD)*i(V1) v(VDD1)*i(V6) v(VDD2)*i(V9)
 wrdata out.txt     v(OUT) v(OUT1) v(OUT2) v(OUT_N) v(OUT_N1) v(OUT_N2)
-* Las ocho corrientes de rama: primero las cuatro del esquematico y luego las
-* cuatro del layout, en el mismo orden VA VB VC VD.
+* The eight branch currents: first the four schematic ones and then the four
+* layout ones, in the same VA VB VC VD order.
 wrdata current.txt i(v.x1.Vmeas) i(v.x1.Vmeas1) i(v.x1.Vmeas2) i(v.x1.Vmeas3)
 + @m.xextrc.x31.m0[id] @m.xextrc.x16.m0[id]
 + @m.xextrc.x23.m0[id] @m.xextrc.x24.m0[id]

@@ -36,15 +36,15 @@ C {a_zonetic2026/XSCHEM/DECODER/yGates.sym} 10 -100 0 0 {name=x2}
 C {a_zonetic2026/XSCHEM/DECODER/Z.sym} 330 -90 0 0 {name=x1}
 C {devices/code_shown.sym} -430 -80 0 0 {name=NOTA only_toplevel=false
 value="
-* EL DECODIFICADOR DEL MAXIMO. Mismas tres puertas que el DECODER de hoy, con
-* las entradas permutadas: no hace falta ninguna celda nueva.
+* THE MAXIMUM DECODER. The same three gates as today's DECODER, with the
+* inputs permuted: no new cell is needed.
 *
 *   xGates  = AND(a,b)        -> Z = XZ . YZ
 *   yGates  = AND(a,~b)       -> Y = XY . ~YZ
 *   Z       = NOR(a,b)        -> X = ~XY . ~XZ
 *
-* Con las componentes del gradiente a la entrada, esto senala cual es la MAS
+* With the gradient components at the input, this names which one is the MOST
 * POSITIVA, o sea hacia que sentido apunta el gradiente. El DECODER de hoy
-* senala la mas negativa. Los dos salen de los MISMOS tres comparadores, que es
-* lo que hace que el sentido cueste tres puertas y no una cadena entera.
+* names the most negative. Both come from the SAME three comparators, which is
+* what makes the sense cost three gates and not a whole chain.
 "}

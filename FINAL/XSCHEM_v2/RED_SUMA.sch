@@ -159,23 +159,23 @@ C {iopin.sym} 600 -700 0 0 {name=pVSS lab=VSS}
 C {devices/code_shown.sym} -400 -750 0 0 {name=NOTA only_toplevel=false
 value="
 * RED SUMADORA. Doce resistencias de poly de 500 kohm en seis pares: cada par
-* promedia dos nodos de puente en un nodo de salida, y de ahi salen las tres
+* averages two bridge nodes into one output node, and from there come the three
 * componentes del gradiente en diferencial.
 *
-* POR QUE 500 kohm. El puente tiene 500 kohm de impedancia de salida (dos ramas
-* de 1 Mohm en paralelo), asi que la red lo carga. Resolviendo el circuito
-* entero: con 100 kohm la senal se atenua 10.5 veces y con 1 Mohm solo 1.5, pero
-* 1 Mohm son 333 um de poly por resistencia y 28k um2 en total, casi un tercio
-* del area de macros del top. 500 kohm deja la atenuacion en 2.5 veces por 14k
+* WHY 500 kohm. The bridge has 500 kohm of output impedance (two 1 Mohm arms in
+* parallel), so the network loads it. Solving the whole circuit: with 100 kohm
+* the signal is attenuated 10.5 times and with 1 Mohm only 1.5, but 1 Mohm is
+* 333 um of poly per resistor and 28k um2 in total, nearly a third of the
+* macro area of the top. 500 kohm leaves attenuation at 2.5 times for 14k
 * um2, y subir mas da rendimientos decrecientes.
 *
-* La carga ATENUA pero no mezcla: la red es simetrica y el acoplo entre puentes
+* The load ATTENUATES but does not mix: the network is symmetric and the coupling
 * se cancela en diferencial. Comprobado resolviendo la red: la ganancia sale
-* identica para las tres componentes de las cuatro cadenas, asi que tampoco mete
+* identical for the three components of the four chains, so it does not sneak in
 * anisotropia por la puerta de atras.
 *
-* Que sensor va a cada entrada, y con que signo, lo decide el TOP. Los cuatro
-* trios usan pares distintos de sensores, pero la FORMA es la misma -- dos
-* sensores por componente con peso +-0.5 -- asi que esta celda sirve para los
+* Which sensor goes to each input, and with what sign, is decided by the TOP. The
+* four triads use different sensor pairs, but the SHAPE is the same -- two
+* sensors per component with weight +-0.5 -- so this cell serves all
 * cuatro y el signo se hace eligiendo si va la pata P o la N.
 "}

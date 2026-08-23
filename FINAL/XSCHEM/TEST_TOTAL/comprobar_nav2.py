@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
-"""Comprueba que el navegador rehecho a mano es el MISMO que el del esquematico.
+"""Checks that the hand-rebuilt navigator is the SAME as the schematic one.
 
     python3 comprobar_nav2.py <netlist>
 
-Es la comprobacion central del banco: comparar la salida del esquematico con la
-del layout solo significa algo si los dos son el mismo circuito, y hay tres
-formas de que no lo sean sin que salte ningun error.
+It is the bench's central check: comparing the schematic output with the layout
+one only means something if both are the same circuit, and there are three ways
+for them not to be without any error going off.
 
-  * **El orden de puertos no coincide.** xschem los emite en el orden de las
-    lineas B del simbolo y magic en el orden en que los encuentra en el layout:
+  * **The port order does not match.** xschem emits them in the order of the
+    symbol B lines and magic in the order it finds them in the layout:
 
         esquematico  .subckt OPAM_LIN          VDD INN OUT INP VSS
         extraido     .subckt OPAM_LIN_flat_V2  VSS VDD INP OUT INN   <- OUT en medio
@@ -19,21 +19,21 @@ formas de que no lo sean sin que salte ningun error.
 
   * **El WEIGHT_COMP cruza dos de sus entradas.** Su propio netlist dice
     `x1 VDD VSS WE VA VB VC VD WEIGHT` contra `.subckt WEIGHT VDD GND OUT VA VC
-    VB VD`, o sea que su VB va al pin VC del WEIGHT y su VC al VB. Escribirlo
+    VB VD`, so its VB goes to the WEIGHT's VC pin and its VC to VB. Writing it
     'en orden' pesa mal dos cadenas y tampoco da error.
 
   * **Un nodo mal tecleado.** Un `SY3r` donde iba `SZ3r` no es un error de
     sintaxis: es otro circuito.
 
-Como lo comprueba. Aplana el `.subckt GRADIENT_NAV2` un nivel -- sus cuatro
+How it checks. It flattens `.subckt GRADIENT_NAV2` one level -- its four
 GRADIENT2 se abren en amplificadores, comparadores y decodificadores, y cada
-pareja WEIGHT + COMP_OUT se funde en el bloque que el layout tiene de verdad --
+WEIGHT + COMP_OUT pair is fused into the block the layout actually has --
 y compara ese grafo contra el de las instancias `_V2` escritas a mano:
 
-  * los nodos EXTERNOS se emparejan por su papel (GND es VSS, VDDR es VDD, Xr es X),
-  * los nodos INTERNOS no se emparejan por nombre -- se llaman distinto a
-    proposito -- sino por a que pines de que celdas tocan,
-  * y las celdas por familia: OPAM_LIN y OPAM_LIN_flat_V2 son las dos el
+  * EXTERNAL nodes are matched by role (GND is VSS, VDDR is VDD, Xr is X),
+  * INTERNAL nodes are not matched by name -- they are named differently on
+    purpose -- but by which pins of which cells they touch,
+  * and the cells by family: OPAM_LIN and OPAM_LIN_flat_V2 are both the
     amplificador.
 """
 
@@ -43,7 +43,7 @@ import sys
 from collections import defaultdict
 from pathlib import Path
 
-#: Cada celda a su familia, para poder comparar el esquematico con el extraido.
+#: Each cell to its family, so the schematic can be compared with the extraction.
 FAMILIA = {
     "OPAM_LIN": "AMP", "OPAM_LIN_flat_V2": "AMP",
     "COMP": "COMP", "COMP_V2": "COMP",
@@ -51,15 +51,15 @@ FAMILIA = {
     "WEIGHT_COMP_V2": "WC",
 }
 
-#: Las dos celdas del esquematico que el layout trae fundidas en una.
+#: The two schematic cells the layout carries fused into one.
 FUSION = ("WEIGHT", "COMP_OUT")
 
 
 def puertos(lineas: list[str], base: Path) -> dict[str, list[str]]:
     """Subcircuito -> lista de puertos, siguiendo los `.include`.
 
-    Los puertos de los bloques extraidos NO estan en el netlist de xschem sino en
-    el fichero de magic, y ese orden es justo lo que hay que leer y no suponer.
+    The extracted blocks' ports are NOT in the xschem netlist but in magic's
+    file, and that order is exactly what must be read and not assumed.
     """
     out: dict[str, list[str]] = {}
     for ln in lineas:
@@ -102,10 +102,10 @@ def llamadas(lineas: list[str], pts: dict[str, list[str]]) -> list[tuple[str, st
 
 
 def aplanar(lineas, pts, top: str) -> list[tuple[str, dict]]:
-    """El top del esquematico, abierto un nivel y con los WEIGHT+COMP_OUT fundidos.
+    """The schematic top, opened one level and with WEIGHT+COMP_OUT fused.
 
-    Los nodos internos de cada instancia se prefijan con su nombre, que es lo que
-    impide que las cuatro copias de GRADIENT2 compartan un nodo que no comparten.
+    Each instance's internal nodes are prefixed with its name, which is what
+    stops the four GRADIENT2 copies sharing a node they do not share.
     """
     hojas: list[tuple[str, dict]] = []
     sueltos: dict[str, list[tuple[str, dict]]] = {FUSION[0]: [], FUSION[1]: []}
@@ -117,7 +117,7 @@ def aplanar(lineas, pts, top: str) -> list[tuple[str, dict]]:
         if celda in FAMILIA:
             hojas.append((celda, pines))
             continue
-        #  Un nivel mas: se abren sus instancias, con los nodos internos
+        #  One more level: its instances are opened, with the internal nodes
         #  prefijados por el nombre de la instancia padre.
         for _, hcelda, hpines in llamadas(cuerpo(lineas, celda), pts):
             if hcelda not in FAMILIA:
@@ -125,13 +125,13 @@ def aplanar(lineas, pts, top: str) -> list[tuple[str, dict]]:
             hojas.append((hcelda, {p: (pines[n] if n in pines else f"{inst}/{n}")
                                    for p, n in hpines.items()}))
 
-    #  Y la fusion: cada WEIGHT con el COMP_OUT que cuelga de su salida.
-    #  `WEIGHT_COMP` alimenta su VB al pin VC del WEIGHT y al reves; aqui se
-    #  deshace ese cruce para poder comparar con el bloque del layout.
+    #  And the fusion: each WEIGHT with the COMP_OUT hanging off its output.
+    #  `WEIGHT_COMP` feeds its VB to the WEIGHT's VC pin and vice versa; that
+    #  cross is undone here so it can be compared with the layout block.
     for _, w in sueltos[FUSION[0]]:
         pareja = next((c for _, c in sueltos[FUSION[1]] if c["IN"] == w["OUT"]), None)
         if pareja is None:
-            sys.exit(f"  hay un {FUSION[0]} sin su {FUSION[1]}: OUT={w['OUT']}")
+            sys.exit(f"  a {FUSION[0]} without its {FUSION[1]}: OUT={w['OUT']}")
         hojas.append(("WEIGHT_COMP_V2", {
             "VDD": w["VDD"], "VSS": pareja["VSS"],
             "VA": w["VA"], "VB": w["VC"], "VC": w["VB"], "VD": w["VD"],
@@ -140,7 +140,7 @@ def aplanar(lineas, pts, top: str) -> list[tuple[str, dict]]:
 
 
 def grafo(insts, externos: dict[str, str]) -> list:
-    """Cada instancia como (familia, pines ordenados con su nodo canonico)."""
+    """Each instance as (family, pins ordered with their canonical node)."""
     toca = defaultdict(set)
     for celda, pines in insts:
         for pin, nodo in pines.items():
@@ -162,7 +162,7 @@ def main() -> int:
 
     esq = aplanar(lineas, pts, "GRADIENT_NAV2")
 
-    #  La rehecha: las instancias de primer nivel, o sea todo lo que esta fuera
+    #  The rebuild: the top-level instances, i.e. everything outside
     #  de cualquier `.subckt`.
     fuera, dentro = [], False
     for ln in lineas:
@@ -176,7 +176,7 @@ def main() -> int:
     rc = [(c, p) for _, c, p in llamadas(fuera, pts) if c in FAMILIA]
 
     if not rc:
-        print("  no hay ni una instancia rehecha en el primer nivel", file=sys.stderr)
+        print("  not one rebuilt instance at the top level", file=sys.stderr)
         return 1
 
     señal = ["S1P", "S1N", "S2P", "S2N", "S3P", "S3N", "S4P", "S4N"]
@@ -188,12 +188,12 @@ def main() -> int:
 
     ga, gb = grafo(esq, ext_esq), grafo(rc, ext_rc)
     if ga == gb:
-        print(f"    el navegador rehecho es el MISMO circuito que el esquematico"
+        print(f"    the rebuilt navigator is the SAME circuit as the schematic"
               f"  ({len(esq)} celdas)")
         return 0
 
     print("  EL NAVEGADOR REHECHO NO ES GRADIENT_NAV2", file=sys.stderr)
-    for etiq, falta in (("solo en el esquematico", [x for x in ga if x not in gb]),
+    for etiq, falta in (("only in the schematic", [x for x in ga if x not in gb]),
                         ("solo en el rehecho    ", [x for x in gb if x not in ga])):
         for fam, pines in falta:
             print(f"    {etiq}: {fam} " +

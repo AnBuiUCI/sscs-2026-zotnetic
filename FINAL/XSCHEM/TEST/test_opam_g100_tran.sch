@@ -33,7 +33,7 @@ value=5}
 C {devices/code_shown.sym} 900 400 0 0 {name=DUTL only_toplevel=true
 format="tcleval( @value )"
 value="
-* El layout de OPAM_LIN con parasitos RC, en sus dos versiones, tambien en
+* The OPAM_LIN layout with RC parasitics, in both versions, also in
 * seguidor: la entrada negativa va atada a su propia salida.
 * Puertos del extraido: VSS VDD INP OUT INN.
 .include "../../../../Layouts/OPAM_LIN_flat/mag/OPAM_LIN_flat_pex_rc.spice"
@@ -100,14 +100,14 @@ value=5}
 C {devices/code_shown.sym} 700 -100 0 0 {name=s1
 only_toplevel=false
 value="
-* OJO: ni una llave en este texto. xschem cuenta las llaves para saber donde
-* acaba el bloque de atributos, asi que una sola dentro de un comentario lo
-* corta por la mitad y el netlist sale con el 'blabla' de la plantilla, sin
+* CAREFUL: not one brace in this text. xschem counts braces to find where
+* the attribute block ends, so a single one inside a comment cuts it in
+* half and the netlist comes out with the template 'blabla', without
 * dar ningun error.
 *
-* Los tres en seguidor -OUT atado a INN- con un escalon de 2 a 3 V. Interesa
+* All three as followers -OUT tied to INN- with a 2 to 3 V step. What matters
 * porque el diodo cambia la polarizacion de reposo de la etapa de salida clase
-* AB, y el slew rate y el establecimiento es donde mas se nota.
+* AB, and slew rate and settling is where it shows most.
 .save all
 .control
 tran 2n 20u

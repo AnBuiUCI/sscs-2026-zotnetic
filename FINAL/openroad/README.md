@@ -4,32 +4,32 @@ Everything OpenROAD needs to assemble the analog blocks of this project into the
 top level, `GRADIENT_NAV`. Nothing here is a source: it is all generated from the
 layouts and the xschem netlist, and it is regenerated with one command.
 
-## El proceso completo
+## The full process
 
-De cero a fichero de submision, en orden. Cada paso depende del anterior.
+From nothing to submission file, in order. Each step depends on the previous one.
 
 ```bash
-# 0. Los cuatro bloques, si han cambiado los esquematicos (fuera de esta carpeta)
+# 0. The blocks, if the schematics changed (outside this folder)
 cd /foss/designs/zotnetic_layout
 for B in COMP OPAM DECODER WEIGHT_COMP; do
   env -u PYTHONPATH /headless/.venvs/zotnetic/bin/python build_block.py $B
 done
 
-# 1. El top entero: verilog -> colateral -> floorplan -> ruteo -> GDS -> relleno
+# 1. The whole top: verilog -> collateral -> floorplan -> route -> GDS -> fill
 cd /foss/designs/a_zonetic2026/openroad
 make top
 
-# 2. Verificacion. Los tres comprueban cosas DISTINTAS, no son opiniones del mismo.
+# 2. Verification. The three check DIFFERENT things; they are not opinions on the same.
 make drc          # KLayout, deck de firma: FEOL/BEOL/conectividad
 make drc-density  # KLayout, reglas de densidad: `make drc` NO las corre
-make drc-magic    # magic: incluye las reglas de relleno `DPF.*` que KLayout no mira
+make drc-magic    # magic: includes the `DPF.*` fill rules KLayout does not check
 make lvs          # netgen sobre la extraccion de magic
 make lvs-klayout  # segunda opinion: extraccion y comparador de KLayout
 python3 scripts/check_connectivity.py   # 55/55 conectadas y 0 cortos
 
-# 3. Y la pregunta que hay que hacerse antes de creerse un "limpio":
-#    ¿se enteraria esta herramienta si el chip estuviera mal?
-make probar       # rompe el layout a proposito y comprueba que salta
+# 3. And the question to ask before believing a "clean":
+#    would this tool notice if the chip were wrong?
+make probar       # breaks the layout on purpose and checks that it fires
 ```
 
 o paso a paso:
@@ -39,20 +39,20 @@ make verilog      # xschem netlist -> structural + flat Verilog
 make collateral   # layouts -> LEF / Liberty / black-box Verilog
 make check        # load it all in OpenROAD and list the macros
 make floorplan    # place the macros, build the power grid, write the DEF
-make route        # ruteo global + detallado
+make route        # global + detailed routing
 make gds          # DEF -> GDS, with the real layout inside every macro
-make fill         # relleno de densidad -> out/GRADIENT_NAV_filled.gds
-make lvs-ref      # netlist de referencia para el LVS externo del chipathon
+make fill         # density fill -> out/GRADIENT_NAV_filled.gds
+make lvs-ref      # reference netlist for the external chipathon LVS
 ```
 
 **Cual es el entregable.** `out/GRADIENT_NAV.gds` es el de trabajo: es el que leen
-el DRC, el LVS y `check_connectivity.py`, y el que hay que mirar cuando algo falla.
-El de submision es **`out/GRADIENT_NAV_filled.gds`**, el mismo con el relleno de
+DRC, LVS and `check_connectivity.py` read it, and it is the one to look at when
+something fails. The submission one is **`out/GRADIENT_NAV_filled.gds`**, the
 densidad encima.
 
-**Si el DRC del top no sale limpio a la primera**, no es raro: el lazo dirigido por
+**If the top DRC is not clean first time**, that is not unusual: the DRC-driven
 DRC necesita un par de vueltas (ver mas abajo). `out/drc_blockages.txt` es
-acumulativo y viene ya con las 11 zonas que hacen falta; si se borra, hay que
+cumulative and already ships with the 11 zones needed; if deleted, it has to be
 rehacer las vueltas.
 
     python3 scripts/drc_blockages.py   # anade lo de la ultima tanda de DRC
@@ -71,10 +71,10 @@ rehacer las vueltas.
 | `verilog/top.v` | the hand-written template from before there was a netlist | by hand, unused |
 | `constraints/top.sdc` | placeholder constraints (no clock yet) | by hand |
 | `scripts/` | the generators and the OpenROAD scripts | by hand |
-| `out/GRADIENT_NAV.gds` | el top, **fichero de trabajo**: lo leen DRC, LVS y conectividad | si |
-| `out/GRADIENT_NAV_filled.gds` | el top con relleno de densidad, **el que se entrega** | si |
-| `out/GRADIENT_NAV_lvs.spice` | netlist de referencia **para el LVS externo** del chipathon | si, `make lvs-ref` |
-| `out/drc_blockages.txt` | zonas prohibidas al router, del lazo dirigido por DRC | si, acumulativo |
+| `out/GRADIENT_NAV.gds` | the top, **working file**: read by DRC, LVS and connectivity | yes |
+| `out/GRADIENT_NAV_filled.gds` | the top with density fill, **the one submitted** | yes |
+| `out/GRADIENT_NAV_lvs.spice` | reference netlist **for the external LVS** of the chipathon | yes, `make lvs-ref` |
+| `out/drc_blockages.txt` | zones forbidden to the router, from the DRC-driven loop | yes, cumulative |
 
 ## The blocks
 
@@ -87,28 +87,28 @@ rehacer las vueltas.
 
 **`M43` del OPAM va aparte.** Es un `pfet_06v0` de `L=20u W=0.7u`; girado 90° mide
 4.46 × 22.96 µm, y dentro de la fila P la estiraba entera a 22.96 cuando el resto
-de sus dispositivos miden 11.96 — el bloque acababa en 43.12 de alto. Ahora se
-coloca **a la derecha de todo, a caballo de las dos filas**, que es donde su
-altura cabe en lo que ya ocupan N + canal + P: **87.44 × 43.12 → 88.27 × 31.46**,
-un 27 % menos de área, y OPAM deja de ser el bloque más alto del chip.
+its devices are 11.96 -- the block ended up 43.12 tall. Now it is placed
+**to the far right, straddling both rows**, which is where its height fits into
+what N + channel + P already occupy: **87.44 x 43.12 -> 88.27 x 31.46**,
+27 % less area, and OPAM stops being the tallest block on the chip.
 
-Lo que hay que cuidar de un PFET ahí es el pozo. Baja hasta la altura de la fila
-N, así que se dibuja **en L**, de una pieza con el de la fila P (dos pozos
-separados pedirían 1.7 µm por `NW.2b_MV`), y su franja se excluye de la tira de
-taps p+ — un tap ahí sería pplus dentro del nwell, que además cortocircuita VGND
-con el pozo de VDD. Y como mide 23 µm de alto, la tira de taps n+ de bajo VPWR no
-le llega al extremo de abajo (`DF.13_MV` pide un tap a menos de 15 µm), así que
-lleva una **columna de taps** a su derecha.
+What needs care with a PFET there is the well. It reaches down to the N row, so
+it is drawn **in an L**, as one piece with the P row well (two separate wells
+would need 1.7 um by `NW.2b_MV`), and its strip is excluded from the p+ tap
+strip -- a tap there would be pplus inside the nwell, which also shorts VGND to
+the VDD well. And since it is 23 um tall, the n+ tap strip below VPWR does not
+reach its bottom end (`DF.13_MV` asks for a tap within 15 um), so it carries a
+**column of taps** on its right.
 
-Los terminales no necesitaron nada nuevo: los carriles laterales del envoltorio
-girado ya recorren toda su altura, de modo que el stub del router los prolonga
-hasta el trunk del canal, que le cruza por la mitad.
+The terminals needed nothing new: the rotated wrapper's side lanes already run
+its full height, so the router's stub extends them to the channel trunk, which
+crosses it halfway up.
 
-Cada bloque **sube sus puertos a Metal3**: los rieles con una barra del ancho
-completo y cada puerto de señal con la suya sobre su trunk
+Each block **brings its ports up to Metal3**: the rails with a full-width bar
+and each signal port with its own over its trunk
 (`zotnetic_layout/coil_layout/power.py`). Sin eso, un pin de señal se queda en
-Metal1/Metal2 rodeado del ruteo del propio bloque y el router del top no le puede
-bajar una vía sin tocar al vecino: 43 `Cut Short` en el ruteo detallado.
+Metal1/Metal2 surrounded by the block's own routing and the top router cannot
+drop a via without touching the neighbour: 43 `Cut Short` in detailed routing.
 
 The top is **31 macros**: 12 `OPAM`, 12 `COMP`, 4 `DECODER`, 3 `WEIGHT_COMP`.
 
@@ -118,15 +118,15 @@ The top is **31 macros**: 12 `OPAM`, 12 `COMP`, 4 `DECODER`, 3 `WEIGHT_COMP`.
 |---|---|
 | Die | 371.70 × 408.52 µm, 151 847 µm², proporción **1.099** |
 | Macro area | 77 880 µm², **57 %** de utilización |
-| Arrangement | empaquetado por estantes (FFDH), 9 estantes; ocho de ellos miden 31.46 porque `OPAM` y `COMP` ya son igual de altos, y cada estante de OPAM se lleva de propina un `WEIGHT_COMP` |
-| Power | Metal4 vertical sobre los bloques, Metal5 horizontal en los canales, hasta la barra de Metal3 de cada bloque. **31 de 31 atados a las dos nets** |
+| Arrangement | shelf packing (FFDH), 9 shelves; eight of them are 31.46 because `OPAM` and `COMP` are now equally tall, and each OPAM shelf picks up a `WEIGHT_COMP` as a bonus |
+| Power | Metal4 vertical over the blocks, Metal5 horizontal in the channels, down to each block Metal3 bar. **31 of 31 tied to both nets** |
 | Signal | 53 nets, **100 % ruteadas**, `detailed_route` con **0 violaciones** |
 | Output | `out/GRADIENT_NAV.def`, `..._routed.def`, `.gds`, `.png` |
 
-Antes de todo esto el die medía 495.12 × 390.58 (193 385 µm², proporción 1.27) al
-51 %: **13 % menos de área, más cuadrado y más denso**. Lo que sobraba era la
-rejilla de columnas, que obligaba a que toda columna fuese tan ancha como su
-macro más ancho — cada fila de OPAM (87.44) tiraba 16.84 µm dentro de una columna
+Before all this the die was 495.12 x 390.58 (193,385 um2, aspect 1.27) at
+51 %: **13 % less area, squarer and denser**. What was wasted was the column
+grid, which forced every column to be as wide as its widest macro -- each OPAM
+row (87.44) threw away 16.84 um inside a column
 de 104.28, doce veces.
 
 Rows and columns are sized **per row and per column**, not once from the tallest
@@ -166,14 +166,14 @@ Two traps worth remembering:
   them, so the netlist gave them `net4`…`net9` instead. Twelve op-amps with no
   supply, and nothing else in the flow had complained.
 
-## Verificación
+## Verification
 
 ```bash
 make drc         # KLayout, el deck de firma: cuatro bloques + top
 make fill        # relleno de densidad -> out/GRADIENT_NAV_filled.gds
-make drc-density # las reglas de densidad, que `make drc` NO corre
-make drc-magic   # magic — NO es segunda opinión: trae las reglas de relleno
-                 # `DPF.*` que KLayout no comprueba, y le faltan las de densidad
+make drc-density # the density rules, which `make drc` does NOT run
+make drc-magic   # magic -- NOT a second opinion: it brings the `DPF.*` fill
+                 # rules KLayout does not check, and lacks the density ones
 make lvs         # netgen sobre la extracción de magic
 make lvs-klayout # el deck de firma, también sobre el top
 make check-all   # drc + drc-magic + drc-density + lvs
@@ -190,46 +190,46 @@ Estado a día de hoy:
 | `GRADIENT_NAV` | **limpio** | no cumple | **match** (3) | **limpio** | **match uniquely** |
 | `GRADIENT_NAV_filled` | **limpio** | **limpio** | pendiente (2) | **limpio** | pendiente (2) |
 
-(1) La densidad se mide **sobre el die entero**, asi que sobre un bloque suelto de
-3 000 um2 no significa nada. El unico sitio donde tiene sentido es el top.
+(1) Density is measured **over the whole die**, so on a loose 3,000 um2 block it
+means nothing. The only place it makes sense is the top.
 
-(2) El relleno aparece en la extraccion como metal flotante —los decks suman el
-dummy a la capa fisica—, asi que el LVS sobre el fichero con relleno hay que
-volver a pasarlo. No cambia nada de lo de arriba, pero esta sin comprobar.
+(2) The fill shows up in extraction as floating metal -- the decks add the dummy
+to the physical layer -- so LVS on the filled file has to be run again. It
+changes nothing above, but it is unverified.
 
-(3) **El veredicto del deck del PDK no vale para el top; el del comparador de
-KLayout, si.** El deck da `Netlists don't match` — pero falla tambien comparando
-el layout contra **su propia extraccion** (72 nets sin pareja), y ahi no hay nada
-que un layout pueda hacer mal. La causa es que llama a `compare` con los limites
-por defecto (`max_depth` 8, `max_branch_complexity` 500), que no dan para un
+(3) **The PDK deck's verdict is no good for the top; KLayout's comparer is.**
+The deck says `Netlists don't match` -- but it also fails comparing the layout
+against **its own extraction** (72 unmatched nets), and there is nothing a
+layout can do wrong there. The cause is that it calls `compare` with the default
+limits (`max_depth` 8, `max_branch_complexity` 500), not enough for a
 circuito plano de 1707 dispositivos con doce rebanadas analogicas iguales, y no
-los expone por linea de ordenes. Con el **mismo comparador de KLayout** conducido
+exposes them on the command line. With the **same KLayout comparer** driven
 a mano (`max_depth=30`, `max_branch_complexity=10000`) el emparejamiento cierra
 entero: **840 nets emparejadas, 0 nets, 0 dispositivos y 0 pines sin pareja**. Eso
-es lo que hace `lvs_klayout.py::comparar`, y es el veredicto de la tabla.
+that is what `lvs_klayout.py::comparar` does, and it is the verdict in the table.
 
 Ese camino comprueba la **topologia**, no los **tamanos**: el lector SPICE
-generico de KLayout no sabe casar los parametros que escribe el deck (`L=20U
-W=0.7U AS=.. AD=.. PS=..`) con los de la referencia (`W=.. L=..` en metros), y con
-ellos activados no empareja ni un dispositivo. De los tamanos responde netgen, que
-si los compara. **Las dos opiniones juntas cubren las dos cosas; ninguna sola.**
+KLayout's generic reader cannot match the parameters the deck writes (`L=20U
+W=0.7U AS=.. AD=.. PS=..`) against the reference ones (`W=.. L=..` in metres),
+and with them enabled it matches not one device. Sizes are netgen's job, which
+does compare them. **The two opinions together cover both; neither alone does.**
 
-Y una comprobación más, que no es DRC ni LVS pero contesta a la pregunta que
-ninguno de los dos contesta —¿está el ruteo realmente conectado?—:
+And one more check, which is neither DRC nor LVS but answers the question
+neither of them answers -- is the routing actually connected?
 
 ```bash
 python3 scripts/check_connectivity.py    # 55/55 conectadas, 0 cortos, 19 puertos
 ```
 
-### Cómo comprobarlo tú mismo
+### How to check it yourself
 
-Lo de arriba son órdenes que te devuelven «limpio». Un «limpio» sólo vale si
+The above are commands that return "clean". A "clean" is only worth something
 sabes **qué habría cantado esa herramienta si el chip estuviera mal**, y en este
 proyecto eso no es filosofía: `check_connectivity.py` dio «55/55» durante días
-pasara lo que pasara, porque usaba `net.name` como identidad de la net y ese campo
+no matter what, because it used `net.name` as net identity and that field
 está vacío en casi todas. No fallaba: mentía.
 
-**1. Que las comprobaciones fallan cuando deben.** Esto rompe el layout a
+**1. That the checks fail when they should.** This breaks the layout on
 propósito, de tres formas conocidas, y mira quién se entera:
 
 ```bash
@@ -237,44 +237,44 @@ make probar        # corto y abierto, ~1 min
 make probar-drc    # además las dos pruebas de DRC, ~15 min
 ```
 
-(Objetivos separados y no una opción: `make probar --con-drc` **no funciona**,
-make se cree que `--con-drc` es una opción suya y aborta.)
+(Separate targets and not an option: `make probar --con-drc` **does not work**,
+make thinks `--con-drc` is one of its own options and aborts.)
 
-Lo que sale hoy, tal cual:
+What comes out today, as is:
 
 | rotura metida a mano | quién la ve |
 |---|---|
 | Metal3 uniendo `X1` y `XP`, 2.9 µm (**corto**) | `check_connectivity`: **1 corto** |
 | 7 via2 borradas alrededor de `X1` (**abierto**) | `check_connectivity`: **1 abierta** |
 | Metal3 a 0.10 µm de otro Metal3, en COMP | el DRC de KLayout: **4 × `M3.2a`** |
-| el DRC **sobre el GDS con el corto** | **0 violaciones en 63 ficheros de reglas** |
+| DRC **on the GDS with the short** | **0 violations across 63 rule files** |
 
 La última fila es la que más dice: **un corto no viola ninguna regla de DRC**. Dos
-formas de la misma capa que se solapan se funden en un polígono, y donde falta
-metal no hay nada que medir. Por eso «DRC limpio» no dice nada sobre si el chip
-está bien conectado, y por eso hacen falta las tres comprobaciones y no una.
+overlapping shapes on the same layer merge into one polygon, and where metal is
+missing there is nothing to measure. That is why "DRC clean" says nothing about
+whether the chip is properly connected, and why all three checks are needed.
 
-Y una advertencia que este mismo script se ganó a pulso: **su primera versión daba
-la prueba de DRC por buena cuando el DRC ni había arrancado** (`klayout` no estaba
+And a warning this very script earned: **its first version passed the DRC test
+when DRC had not even started** (`klayout` was not on
 en el PATH; contaba violaciones sobre cero ficheros y salía cero). Se cazó a sí
-misma. `drc_klayout.py` tenía el mismo agujero y ahora los dos abortan si no
+itself. `drc_klayout.py` had the same hole and now both abort if they do not
 aparece ni un `.lyrdb`.
 
-**2. Sin fiarte de los scripts de aquí.** Las mismas comprobaciones, llamando al
-PDK a pelo — si estos dan lo mismo, lo de arriba no se ha inventado nada:
+**2. Without trusting the scripts here.** The same checks, calling the PDK
+directly -- if these agree, nothing above was invented:
 
 ```bash
 cd /foss/designs/a_zonetic2026/openroad
 
-# DRC de firma sobre el fichero que se entrega
+# Sign-off DRC on the file being submitted
 python3 /foss/pdks/gf180mcuD/libs.tech/klayout/tech/drc/run_drc.py \
   --path=$PWD/out/GRADIENT_NAV_filled.gds --variant=D \
   --topcell=GRADIENT_NAV --run_dir=/tmp/midrc --mp=4
 
-# ...y contar violaciones: tiene que dar 0
+# ...and count violations: it must give 0
 grep -c "<item>" /tmp/midrc/*.lyrdb | awk -F: '{s+=$2} END {print s" violaciones"}'
 
-# LVS con netgen (motor y extracción independientes de KLayout)
+# LVS with netgen (engine and extraction independent of KLayout)
 python3 scripts/lvs_netgen.py GRADIENT_NAV
 grep "Final result" out/lvs_netgen_GRADIENT_NAV.rpt
 ```
@@ -285,7 +285,7 @@ grep "Final result" out/lvs_netgen_GRADIENT_NAV.rpt
 klayout out/GRADIENT_NAV_filled.gds -m out/drc_GRADIENT_NAV_FILLED/*.lyrdb
 ```
 
-**4. Qué comprueba cada uno, para no pedirle peras al olmo.**
+**4. What each one checks, so as not to expect the impossible.**
 
 | | topología | tamaños (W/L) | reglas de dibujo | densidad | relleno de poly |
 |---|---|---|---|---|---|
@@ -293,19 +293,19 @@ klayout out/GRADIENT_NAV_filled.gds -m out/drc_GRADIENT_NAV_FILLED/*.lyrdb
 | magic DRC | — | — | **sí** | no | **sí** (`DPF.*`) |
 | netgen LVS | **sí** | **sí** | — | — | — |
 | KLayout LVS | **sí** | no (ver abajo) | — | — | — |
-| `check_connectivity` | cortos y abiertos del ruteo | — | — | — | — |
+| `check_connectivity` | routing shorts and opens | -- | -- | -- | -- |
 
-### Densidad: un pase aparte, y solo en KLayout
+### Density: a separate pass, and only in KLayout
 
-**El DRC de firma no comprueba densidad si no se le pide.** El deck solo ejecuta
-esas reglas con `--density` / `--density_only`, asi que todos los "limpio" de las
-demas secciones son de FEOL/BEOL/conectividad **sin densidad**. Y `magic` no sirve
-de segunda opinion: su techfile de GF180 no trae ni una regla de densidad, asi que
+**The sign-off DRC does not check density unless asked.** The deck only runs
+those rules with `--density` / `--density_only`, so every "clean" in the other
+sections is FEOL/BEOL/connectivity **without density**. And `magic` is no
+second opinion: its GF180 techfile carries not one density rule, so
 esta comprobacion existe unicamente en KLayout.
 
-Pedidas, el top las incumplia todas. Son de **minimo**: falta metal, no sobra.
+When asked, the top broke all of them. They are **minimums**: metal is missing.
 
-| regla | capa | sin relleno | con relleno | pide |
+| rule | layer | without fill | with fill | asks |
 |---|---|---|---|---|
 | `DCF.1b` | COMP (activo) | 10.19 % | **32.27 %** | 25 % |
 | `PL.8` | Poly2 | 7.26 % | **20.77 %** | 14 % |
@@ -316,44 +316,44 @@ Pedidas, el top las incumplia todas. Son de **minimo**: falta metal, no sobra.
 | `M5.4` `MT.3` `MT.1` | Metal5 | 20.00 % | **30.46 %** | 30 % |
 
 `scripts/fill_density.py` corre **despues** del GDS (`make fill`): lee
-`out/GRADIENT_NAV.gds` y escribe `out/GRADIENT_NAV_filled.gds`, que es el fichero
-de submision. El de partida no se toca, para que el lazo de depuracion siga igual.
+`out/GRADIENT_NAV.gds` and writes `out/GRADIENT_NAV_filled.gds`, which is the
+submission file. The starting one is untouched, so the debug loop stays the same.
 
-**Basta con rellenar los canales.** Los 31 macros ocupan 77 880 um2 de los 151 847
-del die y quedan 73 967 libres; con eso las siete capas llegan al minimo, asi que
-**no hay metal flotante encima de los amplificadores ni de los MIM**.
+**Filling the channels is enough.** The 31 macros take 77,880 um2 of the 151,847
+of the die and 73,967 are left free; with that the seven layers reach the
+minimum, so **there is no floating metal over the amplifiers or the MIMs**.
 
 Tres cosas que costaron un intento fallido de 6214 violaciones:
 
-1. **El DRC y el LVS SI ven el dummy.** Lo que se define como `get_polygons(34, 0)`
-   es la capa *drawn*; la fisica se compone despues con
-   `metal1 = metal1_drawn + metal1_dummy` (`layers_def.drc`), y el LVS hace lo
-   mismo. El relleno tiene que cumplir el DRC entero, y aparece en la extraccion
+1. **DRC and LVS DO see the dummy.** What is defined as `get_polygons(34, 0)` is
+   the *drawn* layer; the physical one is composed afterwards with
+   `metal1 = metal1_drawn + metal1_dummy` (`layers_def.drc`), and LVS does the
+   same. The fill has to pass the whole DRC, and appears in extraction
    como metal flotante.
 2. **Cuadrados enteros, nunca recortados.** Recortar la rejilla contra la zona
-   libre deja cuellos y trozos por debajo del area minima: de ahi salian miles de
-   `M*.1` y `M*.3`. Ahora un cuadrado o cabe entero o no se pone, con lo que ancho
+   free area leaves necks and pieces below minimum area: thousands of
+   `M*.1` and `M*.3` came from that. Now a square either fits whole or is not
    y area se cumplen por construccion.
-3. **`MT.*` se aplica a Metal5.** Para el stack de 5 metales el deck hace
-   `top_metal = metal5`, asi que Metal5 se rige por `MT.1` (0.36 de ancho),
-   `MT.2a` (0.46 de espaciado) y `MT.4` (0.5625 um2 de area), no por los 0.28 y
+3. **`MT.*` applies to Metal5.** For the 5-metal stack the deck does
+   `top_metal = metal5`, so Metal5 is governed by `MT.1` (0.36 width),
+   `MT.2a` (0.46 spacing) and `MT.4` (0.5625 um2 area), not by the 0.28 and
    0.1444 de las `M5.*`.
 
-Y una advertencia honesta: `comp_dummy` y `poly2_dummy` son lo que el deck cuenta,
-pero en silicio el activo dummy necesita su implante. Para pasar el DRC del PDK
-basta con dibujar el datatype; para fabricar, habria que revisarlo con la foundry.
+And an honest warning: `comp_dummy` and `poly2_dummy` are what the deck counts,
+but in silicon dummy active needs its implant. To pass the PDK DRC drawing the
+datatype is enough; to fabricate, it would need reviewing with the foundry.
 
-La rejilla se genera por erosion de region —un cuadrado de lado L cabe entero si su
+The grid is generated by region erosion -- a square of side L fits whole if its
 centro cae en la zona erosionada L/2—, no probando poligono a poligono, que tardaba
-minutos por capa.
+minutes per layer.
 
-### El MIM y la jerarquía: 572 por bloque, y 13 745 en el top
+### The MIM and the hierarchy: 572 per block, and 13,745 on the top
 
-magic daba 572 violaciones `Can't overlap those layers` en cada bloque con MIM, y
-su extracción dejaba los terminales del condensador en nets propias (43 nets
-contra 41 en netgen). Un solo motivo, y no era del deck:
+magic reported 572 `Can't overlap those layers` violations in every block with a
+MIM, and its extraction left the capacitor terminals on their own nets (43 nets
+against 41 in netgen). One single cause, and it was not the deck:
 
-**Los booleanos con que magic lee un GDS se evalúan celda a celda.** La regla que
+**The booleans magic reads a GDS with are evaluated cell by cell.** The rule
 reconoce el contacto del MIM es
 
 ```
@@ -361,212 +361,212 @@ layer mimcc VIA4 and MET5 and CAPM and CAPDEF
 ```
 
 y el mar de vía4 salía de `gf180.via_generator`, que trae jerarquía propia. En esa
-subcelda no hay ni `fusetop` (CAPM) ni `cap_mk` (CAPDEF) ni metal5 — los
-marcadores viven en la celda de arriba —, así que la regla no disparaba nunca: la
-vía entraba como `via4` plana dentro de un `mimcap`, dos tipos del mismo plano, y
-de ahí el conflicto. Aplanar **después** del `gds read` no vale: para entonces la
-capa ya está mal pintada.
+subcell there is no `fusetop` (CAPM), no `cap_mk` (CAPDEF) and no metal5 -- the
+markers live in the parent cell -- so the rule never fired: the via came in as
+a flat `via4` inside a `mimcap`, two types of the same plane, and hence the
+conflict. Flattening **after** the `gds read` is no good: by then the layer is
+already painted wrong.
 
 Se arregla en el origen (`coil_layout/caps.py::flat_add`): la geometría de las
-vías se copia dentro de la celda de arriba en vez de instanciarse. Con eso magic
-lee el bloque limpio en 0.8 s, sin banderas ni parches. `gds flatglob` al leer
-también funciona, pero hay que aplanar además los rectángulos y las celdas sin
-nombre —la jerarquía de `via_generator` cuelga de ellas— y son minutos por bloque.
+vias is copied into the parent cell instead of instantiated. With that magic
+reads the block clean in 0.8 s, with no flags or patches. `gds flatglob` on read
+also works, but you must also flatten the rectangles and the unnamed cells --
+`via_generator`'s hierarchy hangs off them -- and that is minutes per block.
 
-El top heredaba lo mismo multiplicado por sus 24 MIM: **13 745 → 17**.
+The top inherited the same multiplied by its 24 MIMs: **13,745 -> 17**.
 
-### Lo que netgen necesitaba además
+### What netgen additionally needed
 
 Tres traducciones de la netlist de referencia, todas en `lvs_netgen.py` y sólo
-para netgen — el `<B>_lvs.spice` de disco se queda como lo quiere KLayout:
+for netgen -- the `<B>_lvs.spice` on disk stays as KLayout wants it:
 
-- **`M` → `X`** en los MOSFET. KLayout necesita `M` (un elemento que empieza por
-  otra letra no es un MOSFET para SPICE); magic extrae `X ... pfet_06v0`, porque
+- **`M` -> `X`** on the MOSFETs. KLayout needs `M` (an element starting with any
+  other letter is not a MOSFET to SPICE); magic extracts `X ... pfet_06v0`,
   en el PDK esos modelos son subcircuitos.
-- **`C ... cap_mim_2f0fF` → `X ... cap_mim_2f0_m4m5_noshield`**, que es como lo
+- **`C ... cap_mim_2f0fF` -> `X ... cap_mim_2f0_m4m5_noshield`**, which is how
   llama magic. Antes netgen comparaba un condensador de pines `top`/`bottom`
   contra un subcircuito de pines posicionales.
-- **Los dos terminales del MIM, declarados permutables.** Los dos condensadores de
-  COMP son idénticos y comparten un terminal en `OUT`: topológicamente son
+- **The two MIM terminals, declared permutable.** The two COMP capacitors are
+  identical and share a terminal on `OUT`: topologically they are
   intercambiables salvo por el orden de sus pines, y netgen no sabe deshacer ese
-  empate — lo dice él mismo, `Port matching may fail to disambiguate symmetries`.
-  Permutar las dos patas de un condensador es lo que hace el LVS de KLayout.
+  tie -- it says so itself, `Port matching may fail to disambiguate symmetries`.
+  Permuting a capacitor's two legs is what KLayout's LVS does.
 
-Y el orden de los puertos del `.subckt` extraído se reordena para seguir al de
-referencia: netgen empareja los pines del top **por posición**, y con la misma
+And the extracted `.subckt` port order is rearranged to follow the reference
+one: netgen matches the top pins **by position**, and with the very same
 conectividad exacta terminaba en `Top level cell failed pin matching`.
 
-### El top: cinco causas, y ninguna era el layout
+### The top: five causes, and none was the layout
 
-El LVS del top empezó en 1436 dispositivos y 1003 nets contra los 1389 y 880 de
+The top LVS started at 1436 devices and 1003 nets against the 1389 and 880 of
 la referencia. Antes de tocar nada conviene saber **si el layout está bien**, y
-para eso está `scripts/check_connectivity.py`: extrae la conectividad del GDS con
+that is what `scripts/check_connectivity.py` is for: it extracts connectivity
 KLayout —sólo metales y vías, sin dispositivos, un segundo— y comprueba dos cosas
-que el DRC no puede ver: que todos los terminales de cada net del DEF caen en la
-misma net extraída (**abiertos**) y que no hay dos nets del DEF en la misma
+that DRC cannot see: that all terminals of each DEF net land on the same
+extracted net (**opens**) and that no two DEF nets land on the same
 (**cortos**).
 
-Lo que iba mal, por orden de tamaño:
+What was wrong, by size:
 
-0. **El `ORIGIN` del LEF, que es la gorda y estuvo escondida hasta el final.**
-   Tiene sección propia más abajo, en *Reglas aprendidas*: OpenROAD y KLayout lo
-   interpretan distinto y **los 31 macros salían corridos en el GDS**, lo que
-   dejaba 42 de las 55 nets abiertas. Eso solo es casi todo el hueco de nets que
+0. **The LEF `ORIGIN`, the big one, hidden until the very end.**
+   It has its own section below, in *Lessons learned*: OpenROAD and KLayout read
+   it differently and **all 31 macros came out shifted in the GDS**, which left
+   42 of the 55 nets open. That alone is almost the whole net gap that
    netgen cantaba.
 
-   Y estuvo escondida porque la herramienta que tenía que haberla visto mentía:
+   And it stayed hidden because the tool that should have seen it was lying:
    `check_connectivity.py` usaba `net.name` como identidad de la net extraída, y
-   **ese campo está vacío en toda net sin etiqueta**, o sea en casi todas. Metía
-   nets distintas en el mismo saco y decía «55/55 conectadas» pasara lo que
-   pasara. Con `expanded_name()` —que da `$1143`— decía 13/55. Una comprobación
-   que no puede fallar no está comprobando nada.
+   **that field is empty on every unlabelled net**, i.e. on almost all of them.
+   It threw different nets into the same bucket and said "55/55 connected" no
+   matter what. With `expanded_name()` -- which gives `$1143` -- it said 13/55.
+   A check that cannot fail is checking nothing.
 
 1. **El pin del LEF era la caja envolvente, no el metal.** `lef write` de magic da
-   un rectángulo por puerto. Cuando los pads de un puerto no llegaron a unirse en
-   barra (`add_signal_access` sólo los une si el espaciado se lo permite), ese
-   rectángulo declara como aterrizable el hueco que hay entre ellos: en `OPAM.INN`
-   son 0.4 µm de nada, y por debajo pasa además un riser de otra net. El router
-   aterrizaba ahí, a 0.14 µm del pad de al lado. **Eran ocho nets realmente
-   abiertas.** `build_collateral.py::_clip_to_real` recorta ahora cada RECT del pin
-   contra el metal que hay de verdad en el GDS.
-2. **El pozo n de cada macro salía flotante.** Otra vez los booleanos por celda: al
-   sustituir los macros, el lector de DEF de KLayout reconstruye su jerarquía
-   interna de otra manera y el tap deja de cumplir `COMP and NPLUS and NWELL`, así
-   que el pozo quedaba como nodo suelto (`w_1724_75756#`) en vez de VDD. Leyendo el
-   mismo bloque de su propio GDS sí queda atado. **43 nets de pozo y 47 de activo
+   one rectangle per port. When a port's pads never merged into a bar
+   (`add_signal_access` only joins them if the spacing allows), that rectangle
+   declares the gap between them landable: in `OPAM.INN` it is 0.4 um of
+   nothing, and another net's riser passes underneath. The router landed there,
+   0.14 um from the pad next door. **That was eight genuinely open nets.**
+   `build_collateral.py::_clip_to_real` now clips each pin RECT against the
+   metal really present in the GDS.
+2. **Every macro's n-well came out floating.** The per-cell booleans again: on
+   swapping the macros, KLayout's DEF reader rebuilds their internal hierarchy
+   differently and the tap stops satisfying `COMP and NPLUS and NWELL`, so the
+   well was left a loose node (`w_1724_75756#`) instead of VDD. Reading the same
+   block from its own GDS it is tied. **43 well nets and 47 active ones
    de más.** Se cura aplanando el top al escribir el GDS
    (`def_to_gds.py::flatten_all`).
-3. **Al aplanar, las etiquetas de los macros se pisan.** Cada bloque trae sus
+3. **On flattening, the macro labels tread on each other.** Each block brings
    propias etiquetas de puerto en Metal1 (`OUT`, `INN`, `Z`, `VDD`...), y aplanadas
-   caen todas en la misma celda: doce `OUT`, doce `INN`, cuatro `Z`. magic da por
-   **unido** todo lo que comparte nombre de etiqueta, así que la net `Z` salía con
-   1501 pines y el chip se quedaba en 848 nets, por debajo de las 880. Se guardan
-   las etiquetas del top antes de aplanar y se reponen después: quedan las 19 de
-   los pines del DEF y ninguna más.
-4. Y una pista falsa que conviene no volver a seguir: **el GDS del top sí tiene las
-   vías del router**. Parecía que no porque `cell.shapes()` sin recursión no las
-   ve — el lector de DEF mete cada vía en una celda propia (`VIA_Via3_HH`). Las
-   vías de tecnología que el router se fabrica de las `VIARULE` se resuelven solas
-   desde el LEF de la librería de celdas; no hace falta volcarlas a ningún sitio.
+   they all land in the same cell: twelve `OUT`, twelve `INN`, four `Z`. magic
+   treats everything sharing a label name as **joined**, so net `Z` came out with
+   1501 pins and the chip dropped to 848 nets, below the 880. The top labels are
+   saved before flattening and restored after: the 19 DEF pin ones remain and
+   none other.
+4. And a false trail worth not following again: **the top GDS does have the
+   router vias**. It looked like it did not because `cell.shapes()` without
+   recursion does not see them -- the DEF reader puts each via in its own cell
+   (`VIA_Via3_HH`). The technology vias the router builds from the `VIARULE`
+   resolve themselves from the cell library LEF; they need not be dumped anywhere.
 
-### El MIM que no cuadraba en OPAM
+### The MIM that did not match in OPAM
 
-`OPAM` se quedaba en 38 nets contra 37 con netgen: un terminal de uno de los dos
-condensadores salia como net suelta (`m4_6467_2958#`). No era el metal5, como
+`OPAM` sat at 38 nets against 37 with netgen: one terminal of one of the two
+capacitors came out as a loose net (`m4_6467_2958#`). It was not the metal5, as
 parecia al medir la geometria en planta — era la **placa de arriba**, y el motivo
-es el mismo tipo de cosa que el resto de este apartado.
+it is the same kind of thing as the rest of this section.
 
-Cada placa de metal5 baja a metal3 por una sola via4 fuera del marcador del MIM.
-La del MIM B aterriza en un pad de metal4 propio, limpio. La del MIM A aterrizaba
-**encima de la placa de metal4 del MIM B**, que esta entera dentro de su `cap_mk`.
-Ahi magic ya no ve metal4 sino `mimcap`, y una via4 normal sobre `mimcap` no es ni
-via ni contacto de MIM —`mimcc` exige ademas estar dentro del `fusetop`—, asi que
+Each metal5 plate drops to metal3 through a single via4 outside the MIM marker.
+MIM B's lands on its own clean metal4 pad. MIM A's landed **on top of MIM B's
+metal4 plate**, which is entirely inside its `cap_mk`.
+There magic no longer sees metal4 but `mimcap`, and a plain via4 over `mimcap` is
+neither a via nor a MIM contact -- `mimcc` also requires being inside `fusetop`
 el terminal se quedaba flotando. En silicio esa via es buena; para la extraccion
 no existe.
 
-Lo permitia la excepcion de misma net de `caps.py::_too_close`, que deja que dos
-formas de la misma net se contengan una a otra porque al fusionarse no hay
-separacion que medir. Correcta entre dos pads, no contra una placa de MIM. Con la
-condicion anadida —y **simetrica**, porque da igual cual de los dos se coloque
-primero— el buscador encuentra otra colocacion sin que el bloque crezca: OPAM
+It was allowed by the same-net exception in `caps.py::_too_close`, which lets two
+shapes of the same net contain one another because once merged there is no
+spacing to measure. Correct between two pads, not against a MIM plate. With the
+added condition -- and **symmetric**, because it does not matter which of the two
+is placed first -- the search finds another placement without the block growing:
 sigue en 88.27 x 31.46 y netgen da `Circuits match uniquely`.
 
-### El DRC del top: de 37 a cero
+### The top DRC: from 37 to zero
 
-Lo primero fue saber **contra que** eran. Restando del metal del top el que aportan
-las instancias de los bloques, las 15 que quedaban resultaron ser todas lo mismo:
+The first thing was to know **against what** they were. Subtracting from the top
+metal what the block instances contribute, the 15 left turned out to be all the
 **cable del router contra metal de un macro**, ninguna macro contra macro ni
-router contra router, y con huecos de 0.236 a 0.273 — justo por debajo del 0.28
-de la regla. Eso ya no es azar, son dos sesgos sistematicos:
+same: router against router, with gaps from 0.236 to 0.273 -- just below the
+0.28 of the rule. That is not chance any more, it is two systematic biases:
 
-1. **La obstruccion tiene que llevar media anchura de cable.** Las nets del top van
-   con la regla no estandar `ANCHO` (0.38), y el router mantiene el cable fuera de
-   la obstruccion midiendo por su **eje**: creciendola solo el espaciado, el borde
+1. **The obstruction has to carry half a wire width.** The top nets use the
+   non-standard `ANCHO` rule (0.38), and the router keeps the wire outside the
+   obstruction measuring by its **axis**: growing it by the spacing alone, the
    acababa dentro. `_OBS_GROW` crece ahora `0.30 + 0.19`.
 2. **El router mide por proyeccion y el deck en euclidea.** `Mn.2a` se comprueba
-   esquina con esquina, asi que dejar exactamente 0.280 en ortogonal da menos en
-   una esquina en diagonal. El techlef parcheado le pide al router **0.300** en
+   corner to corner, so leaving exactly 0.280 orthogonally gives less at a
+   diagonal corner. The patched techlef asks the router for **0.300** on
    Metal2/3/4: cualquier separacion euclidea es entonces >= 0.300 > 0.280 y el
-   problema desaparece por construccion. Cuesta un 7% de holgura, que sobra.
+   the problem disappears by construction. It costs 7% of slack, which we have.
 
-Y lo mismo, un escalon antes, en dos sitios mas: el pin del LEF era la caja
-envolvente y declaraba aterrizable el hueco entre dos pads; y una plataforma de
-puerto necesita hueco para el cable que va a aterrizar en ella, no solo para si
+And the same, one step earlier, in two more places: the LEF pin was the bounding
+box and declared the gap between two pads landable; and a port landing pad needs
+room for the wire that will land on it, not just for itself
 misma (`_LAND_CLEAR` en `power.py`; en DECODER dos pads de puertos distintos
-quedaban a 0.295 um, legal entre ellos pero sin sitio para el cable).
+(they sat 0.295 um apart, legal between them but with no room for the wire).
 
-Con eso se llego a **9-10, sin patron comun**: sitios sueltos que cada tanda
-cambiaba de sitio sin bajar de la decena. De ahi para abajo subir margenes solo
-baraja, asi que se cierra con un **lazo dirigido por DRC**, entero dentro de
+That got it to **9-10, with no common pattern**: isolated spots that each run
+moved around without dropping below ten. Below that, raising margins only
+reshuffles, so it is closed with a **DRC-driven loop**, entirely inside
 OpenROAD (`scripts/drc_blockages.py`):
 
 ```
-ruteo -> GDS -> DRC de firma -> obstrucciones -> ruteo
+route -> GDS -> sign-off DRC -> blockages -> route
 ```
 
-Los sitios que marca el deck se convierten en `dbObstruction` y el router vuelve a
-tender. El fichero `out/drc_blockages.txt` es **acumulativo a proposito**: lo
-prohibido en una vuelta lo sigue estando en la siguiente, y por eso el lazo
-converge en vez de oscilar. **10 -> 1 -> 0 en dos vueltas**, con las 55 nets del
-DEF conectadas en las tres — no ha cerrado el DRC rompiendo el ruteo. `magic` da
+The spots the deck marks become `dbObstruction` and the router lays down again.
+The file `out/drc_blockages.txt` is **cumulative on purpose**: what was
+forbidden on one pass stays forbidden on the next, and that is why the loop
+converges instead of ringing. **10 -> 1 -> 0 in two passes**, with the 55 DEF
+nets connected in all three -- it did not close DRC by breaking the routing.
 tambien limpio.
 
     python3 scripts/drc_blockages.py           # anade lo de la ultima tanda
     python3 scripts/drc_blockages.py --reset   # empieza de cero
 
-### El LVS del top, y lo que queda
+### The top LVS, and what is left
 
-**El top, en LVS.** Ahora tiene tambien el deck de firma
-(`scripts/lvs_klayout.py`), que le faltaba: hasta ahora solo se comprobaba con
-netgen. Montarlo pedia tres cosas en la preparacion de la referencia, y cada una
+**The top, in LVS.** It now also has the sign-off deck
+(`scripts/lvs_klayout.py`), which it lacked: until now it was only checked with
+netgen. Setting it up needed three things in preparing the reference, and each
 tapaba a la siguiente:
 
-1. Las sondas de corriente `Vmeas` del netlist de xschem. Son fuentes de 0 V, o
-   sea un cable: lo correcto no es tirarlas sino **unir las dos nets**, y por
-   ambito, porque los nombres se repiten entre bloques. Sin esto el deck ni
+1. The `Vmeas` current probes in the xschem netlist. They are 0 V sources, i.e.
+   a wire: the right thing is not to drop them but to **merge the two nets**, and
+   per scope, because names repeat across blocks. Without this the deck did not
    arrancaba (`Not a known element type: 'V'`).
-2. La referencia iba **jerarquica** contra un layout que es una sola celda plana.
-   Asi no emparejaba ni una de 1815 nets ni uno de 3414 dispositivos.
-3. El netlist extraido salia **sin un solo pin**; el deck solo llama a
+2. The reference was **hierarchical** against a layout that is one flat cell.
+   That way it matched not one of 1815 nets nor one of 3414 devices.
+3. The extracted netlist came out **without a single pin**; the deck only calls
    `make_top_level_pins` con `--top_lvl_pins`.
 
 **Y el top cuadra: `Circuits match uniquely`**, 1389 dispositivos y 880 nets a cada
-lado. Ademas del `ORIGIN` (el punto 0 de arriba, que se llevo el 54 de diferencia
+side. Besides the `ORIGIN` (point 0 above, which took the 54 difference
 entero), hicieron falta dos cosas mas:
 
 1. **El MIM estaba declarado permutable en un solo lado.** `setup_con_permute.tcl`
    pedia `permute "-circuit2 cap_mim_2f0_m4m5_noshield"`, y ese nombre en el top
-   **solo existe en el layout**: la referencia los instancia como
-   `cap_mim_2f0fF`. O sea que netgen permutaba los dos terminales en el layout y
+   **only exists in the layout**: the reference instantiates them as
+   `cap_mim_2f0fF`. So netgen permuted the two terminals in the layout and
    los dejaba fijos en la referencia, y contaba `cap/(1|2) = 2` frente a
    `cap/1 = 1` y `cap/2 = 1` — misma conectividad, distinta clase de pin. Ahora el
    nombre se saca de cada netlist (`lvs_netgen._modelos_mim`) en vez de escribirse
    a mano.
-2. **Los puertos `VDD` y `VSS` del top estaban FLOTANDO.** `place_pins` los trata
-   como una senal mas y los deja en el borde del die, en un pad que no toca la
-   malla; el router no los cierra porque salta las nets POWER/GROUND. netgen ya
-   daba `Netlists match with 144 symmetries` y fallaba solo aqui: la red de
+2. **The top `VDD` and `VSS` ports were FLOATING.** `place_pins` treats them
+   like any other signal and leaves them on the die edge, on a pad that never
+   touches the grid; the router does not close them because it skips POWER/GROUND
+   nets. netgen already said `Netlists match with 144 symmetries` and failed only
    alimentacion de verdad salia sin nombre (`w_1904_7964#` el pozo,
    `a_2082_4860#` el sustrato) y los dos puertos salian sueltos. Se arregla en
-   `floorplan_top.tcl` poniendo cada pin **encima de su propia tira de Metal5**
+   `floorplan_top.tcl` puts each pin **on top of its own Metal5 strap**
    con `place_pin`, despues de `pdngen` y despues de `place_pins`.
 
-Las simetrias que quedan (144) son los 318 dispositivos que netgen funde en
-paralelo: grupos realmente intercambiables, y las resuelve por nombre de net.
+The symmetries that remain (144) are the 318 devices netgen merges in
+parallel: genuinely interchangeable groups, and it resolves them by net name.
 
-**Dos cambios del colateral que se hicieron ANTES de dar con el ORIGIN y que no se
-han vuelto a medir.** Los dos convierten metal de pin en obstruccion, y los dos se
-sostienen por si mismos —el stack interno de vias de un bloque no es un punto de
-acceso para el top—, pero se pusieron para tapar cortos que probablemente eran
+**Two collateral changes made BEFORE the ORIGIN was found and never re-measured.**
+Both turn pin metal into obstruction, and both stand on their own
+-- a block's internal via stack is not an access point for the top -- but they
+were put in to cover shorts that were probably
 sintoma del ORIGIN:
 
-* los ~55 pads de Metal2 de cada pin de alimentacion (`keep_top_access`);
-* los pads de Metal3 pegados a otro pin, a menos de 0.94 um (`drop_trapped_pads`):
+* the ~55 Metal2 pads of each power pin (`keep_top_access`);
+* the Metal3 pads against another pin, closer than 0.94 um (`drop_trapped_pads`):
   `XZ` de DECODER, `WE` y `OUT_N` de WEIGHT_COMP.
 
-Quitar cualquiera de los dos exige rehacer colateral, ruteo, GDS y las cinco
+Removing either requires redoing collateral, routing, GDS and the five
 comprobaciones, y con el flujo entero en verde no se toco. Queda anotado: si algun
-dia el router va justo de sitio, **ahi hay obstruccion que quiza sobra**, y la
+day the router runs short of room, **there is obstruction there that may be
 forma de saberlo es quitarla y mirar `check_connectivity.py`, no razonarlo.
 
 ## Things that will bite you
@@ -591,23 +591,23 @@ perfectly.
 `COMP_OUT`. Anything that still refers to the old names (the `TEST/` testbenches)
 needs updating.
 
-**4. El abstracto no puede anunciar más de lo que el top puede usar.** Los pines
-de señal se recortan a Metal3 (`keep_top_access`), y lo que se les quita **pasa a
+**4. The abstract must not advertise more than the top can use.** Signal pins
+are clipped to Metal3 (`keep_top_access`), and what is taken from them **becomes
 obstrucción**, no a la basura: en COMP y OPAM esas formas de Metal4/Metal5 son la
-placa del MIM, y borrarlas del LEF la dejó invisible — las tiras de alimentación
-se le pusieron a 0.51 µm cuando `MIMTM.1` pide 1.2.
+the MIM plate, and deleting them from the LEF left it invisible -- the power
+straps were laid 0.51 um from it when `MIMTM.1` asks 1.2.
 
-**5. Una obstrucción del LEF se recorta al contorno del macro.** Engordarla no
-protege lo de fuera, así que el router tendía Metal4 pegado a una placa desde el
-canal de al lado. Lo que sí respeta es un bloqueo declarado en el top, y eso es
-lo que hace `floorplan_top.tcl` con los 72 halos de Metal4.
+**5. A LEF obstruction is clipped to the macro outline.** Growing it does not
+protect what is outside, so the router laid Metal4 against a plate from the
+channel next door. What it does respect is a blockage declared on the top, and
+that is what `floorplan_top.tcl` does with the 72 Metal4 halos.
 
-**6. KLayout y netgen quieren convenios opuestos para el mismo transistor.**
-KLayout necesita `M` (un elemento que empieza por otra letra no es un MOSFET para
-SPICE); magic extrae `X ... pfet_06v0`, porque en el PDK esos modelos son
+**6. KLayout and netgen want opposite conventions for the same transistor.**
+KLayout needs `M` (an element starting with any other letter is not a MOSFET to
+SPICE); magic extracts `X ... pfet_06v0`, because in the PDK those models are
 subcircuitos, y netgen entonces compara una llamada a subcircuito contra un
-dispositivo y no empareja ni uno. `lvs_netgen.py` traduce la referencia al vuelo;
-el `<B>_lvs.spice` de disco se queda como lo quiere KLayout.
+device and matches none. `lvs_netgen.py` translates the reference on the fly;
+the `<B>_lvs.spice` on disk stays as KLayout wants it.
 
 **7. `lef write` without `-hide`.** With `-hide`, magic collapses the
 obstructions into a few coarse blocks and one of them covered the block's own
@@ -624,183 +624,183 @@ ignores them, and writes LEF outlines — a chip-shaped box with no transistors.
 that is how they are drawn in xschem (`iopin` / `:B`). If they really are
 outputs, change them to `opin` and re-run `make collateral`.
 
-## Reglas aprendidas
+## Lessons learned
 
-Lo que ha costado descubrir, en una linea cada una. Casi todas se pagaron con horas.
+What was hard to find, one line each. Nearly all of them cost hours.
 
-**Sobre las herramientas**
+**On the tools**
 
 - **OpenROAD y KLayout leen el `ORIGIN` del LEF de forma distinta, y esa fue la causa de
-  fondo del LVS del top.** OpenROAD **normaliza el master**: le suma el ORIGIN a toda la
-  geometria, de modo que la esquina inferior izquierda de la caja del macro cae en (0, 0) y
-  el punto del DEF es esa esquina. El lector de DEF de KLayout, al sustituir el abstracto
-  por el GDS (`macro_resolution_mode = 2`), deja el GDS en las coordenadas del propio
-  bloque, que aqui empiezan en negativo porque los taps de sustrato salen por la izquierda
+  root cause of the top LVS.** OpenROAD **normalises the master**: it adds ORIGIN to all
+  the geometry, so the lower-left corner of the macro box lands on (0, 0) and
+  the DEF point is that corner. KLayout's DEF reader, on swapping the abstract
+  for the GDS (`macro_resolution_mode = 2`), leaves the GDS in the block's own
+  coordinates, which here start negative because the substrate taps stick out left
   del origen: COMP y OPAM en -1.26, DECODER en -1.00, WEIGHT_COMP en (-1.45, -4.21).
 
-  Resultado: **los 31 macros salian corridos su ORIGIN en el GDS**, hasta 4.21 um. La
-  prueba, sobre `x5_weight_comp`: la via3 con que el router entra al pin `VA` cae en
+  Result: **all 31 macros came out shifted by their ORIGIN in the GDS**, up to 4.21 um.
+  The proof, on `x5_weight_comp`: the via3 the router uses to reach pin `VA` lands at
   (354.20, 38.48), y el pad de `VA` esta en x[349.84, 354.34] y[38.28, 38.68] **sumando el
   ORIGIN**; sin sumarlo se queda en y[34.07, 34.47] — a 4.21 um exactos.
 
-  Eso dejaba **42 de las 55 nets abiertas**, y de paso los cortos: un cable que en el modelo
-  del router pasa limpio al lado de un pin, en el GDS lo atraviesa. Lo peor es lo callado
-  que es: **el router nunca se equivoco** —su DEF es coherente y su informe de DRC sale
-  vacio— y el DRC de firma tampoco lo ve, porque dos formas de la misma capa que se solapan
-  se funden en un poligono. Solo lo ve el LVS, y alli sale disfrazado de «faltan 54 nets».
-  Se arregla en `def_to_gds.py::normalizar_origen`, moviendo la CELDA del macro (no la
-  instancia: asi vale tambien para un macro girado, que es como lo hace OpenROAD).
+  That left **42 of the 55 nets open**, and the shorts too: a wire that in the
+  router's model passes cleanly beside a pin goes through it in the GDS. The worst
+  part is how quiet it is: **the router was never wrong** -- its DEF is consistent and its
+  DRC report comes out empty -- and the sign-off DRC does not see it either, because two
+  overlapping shapes on the same layer merge into one polygon. Only LVS sees it, and there
+  it appears disguised as "54 nets missing". Fixed in `def_to_gds.py::normalizar_origen`,
+  moving the macro CELL (not the instance: that way it works for a rotated macro too).
 
   La regla general: **si dos herramientas comparten un LEF con `ORIGIN` distinto de cero,
-  comprueba a mano donde pone cada una un pin antes de fiarte de nada.**
-- **`net.name` de KLayout esta vacio en toda net sin etiqueta.** Usarlo como identidad de
-  una net extraida mete nets distintas en el mismo saco. La que identifica es
-  `expanded_name()`. Con `name` la comprobacion de conectividad daba «55/55» hiciera lo que
+  check by hand where each of them puts a pin before trusting anything.**
+- **KLayout's `net.name` is empty on every unlabelled net.** Using it as the identity of
+  an extracted net throws different nets into the same bucket. The identifier is
+  `expanded_name()`. With `name` the connectivity check said "55/55" whatever
   hiciera el layout, que es la peor clase de error: no falla, miente.
 
-  Y la version general, que es la leccion cara del dia: **una comprobacion que no puede
-  fallar no esta comprobando nada.** Paso tres veces seguidas y de tres formas distintas —
-  el `net.name` vacio; `read_def_ports` mirando solo `PLACED` y saltandose en silencio los
-  dos unicos pines que importaban, que OpenROAD escribe como `FIXED`; y el `permute` del
-  MIM pedido sobre un nombre que en ese circuito no existe, que netgen acepta sin rechistar.
-  En los tres el sintoma fue el mismo: silencio. Por eso ahora `read_def_ports` **compara
-  con el numero de pines que declara el DEF y aborta si no cuadra**, y el nombre del MIM
-  **se lee de cada netlist**. Toda comprobacion nueva necesita una forma conocida de verla
+  And the general version, the expensive lesson of the day: **a check that cannot
+  fail is checking nothing.** It happened three times running and three different ways --
+  the empty `net.name`; `read_def_ports` looking only at `PLACED` and silently skipping the
+  only two pins that mattered, which OpenROAD writes as `FIXED`; and the MIM `permute`
+  asked on a name that does not exist in that circuit, which netgen accepts without a word.
+  In all three the symptom was the same: silence. That is why `read_def_ports` now
+  **compares against the pin count the DEF declares and aborts on a mismatch**, and the MIM
+  name **is read from each netlist**. Every new check needs a known way of seeing it
   fallar.
-- **El deck de LVS del PDK llama a `compare` con los limites por defecto.**
+- **The PDK LVS deck calls `compare` with the default limits.**
   `max_depth` 8 y `max_branch_complexity` 500 no dan para un circuito plano de 1707
-  dispositivos con doce rebanadas iguales, y el deck no los expone. Como se
-  demuestra que el problema es del comparador y no del diseno: **comparando el
-  layout contra su propia extraccion**. Si eso falla —72 nets sin pareja—, no hay
-  layout que arreglar. Con `max_depth=30` y `max_branch_complexity=10000`, el mismo
+  devices with twelve identical slices, and the deck does not expose them. How to
+  prove the problem is the comparer and not the design: **compare the layout
+  against its own extraction**. If that fails -- 72 unmatched nets -- there is no
+  layout to fix. With `max_depth=30` and `max_branch_complexity=10000`, the same
   comparador cierra el emparejamiento entero.
-- **Una comprobacion que no distingue "limpio" de "no llegue a correr" es peor que
-  no tenerla.** `drc_klayout.py` contaba violaciones sobre los `.lyrdb` del
+- **A check that cannot tell "clean" from "never ran" is worse than
+  no check at all.** `drc_klayout.py` counted violations over the `.lyrdb` of the
   directorio; si el deck no arrancaba no habia ficheros, la cuenta daba cero y
-  salia **"limpio"**. Lo cazo `probar_verificacion.py`... cazandose a si mismo, que
-  tenia el mismo fallo. Ahora los dos abortan si no hay ni un `.lyrdb`.
-- **Una etiqueta en la celda de arriba no es una pista: es un PUERTO.** Poner el
-  nombre de cada net del DEF sobre su metal parecia la forma de darle anclas al
-  comparador; lo que hace es que el layout pase a tener 55 pines contra los 19 de
-  la referencia. Ni ayudo al deck (los mismos 170 mensajes) y habria roto el
+  came out **"clean"**. `probar_verificacion.py` caught it... by catching itself,
+  which had the same bug. Now both abort if there is not one `.lyrdb`.
+- **A label on the top cell is not a hint: it is a PORT.** Putting each DEF net
+  name onto its metal looked like the way to give the comparer anchors; what it
+  does is give the layout 55 pins against the 19 of the reference. It did not help
+  the deck (the same 170 messages) and would have broken the
   emparejamiento de netgen, que hoy cuadra.
 - **`permute` de netgen es silencioso si el nombre no existe.** El MIM se llama
   `cap_mim_2f0_m4m5_noshield` en la extraccion de magic y `cap_mim_2f0fF` en el
-  esquematico. Pedir el primero en los dos circuitos deja el condensador permutable en el
-  layout y fijo en la referencia, y ninguna de las dos partes puede cuadrar: `cap/(1|2) = 2`
-  contra `cap/1 = 1` y `cap/2 = 1`. Nada avisa. Los nombres de dispositivo que van a un
-  `permute` se sacan del fichero, no se escriben a mano.
-- **magic evalua los booleanos del GDS celda a celda.** Una forma solo existe para el si
-  todas las capas que la definen estan en la MISMA celda. Nos costo tres veces: las vias
-  del MIM en una subcelda sin los marcadores (572 violaciones por bloque), el tap del pozo
+  schematic. Asking for the first in both circuits leaves the capacitor permutable in the
+  layout and fixed in the reference, and neither side can match: `cap/(1|2) = 2`
+  against `cap/1 = 1` and `cap/2 = 1`. Nothing warns. Device names going into a
+  `permute` are taken from the file, not written by hand.
+- **magic evaluates GDS booleans cell by cell.** A shape only exists for it if
+  all the layers defining it are in the SAME cell. It cost us three times: the MIM
+  vias in a subcell without the markers (572 violations per block), the well tap
   al sustituir macros (43 nets de pozo flotantes) y, de rebote, la solucion —aplanar— trajo
   la siguiente.
-- **magic funde por nombre de etiqueta.** Al aplanar el top caian doce `OUT`, doce `INN` y
-  cuatro `Z` en la misma celda y la net `Z` acabo con 1501 pines. Solo deben sobrevivir las
-  etiquetas de los pines del top.
-- **Ninguna herramienta cubre todo.** KLayout tiene las reglas de densidad pero no mira la
-  geometria del relleno de poly; magic no tiene ni una regla de densidad pero si las
-  `DPF.*`. Sobre el mismo fichero, KLayout decia limpio y magic sacaba 134 488 violaciones.
+- **magic merges by label name.** Flattening the top, twelve `OUT`, twelve `INN` and
+  four `Z` fell in the same cell and net `Z` ended with 1501 pins. Only the top pin
+  labels should survive.
+- **No single tool covers everything.** KLayout has the density rules but does not look at
+  the poly fill geometry; magic has not one density rule but does have the
+  `DPF.*`. On the same file, KLayout said clean and magic reported 134,488 violations.
 - **El DRC no ve un corto.** Dos formas de nets distintas que se solapan se funden en un
-  poligono y ninguna regla salta. Un abierto tampoco: no viola nada. Por eso existe
-  `check_connectivity.py`, que es lo unico que contesta "¿esta el ruteo conectado?".
-- **KLayout y netgen quieren convenios opuestos** para el mismo transistor (`M` vs `X`) y
-  para el mismo condensador (`C ... cap_mim_2f0fF` vs `X ... cap_mim_2f0_m4m5_noshield`).
+  polygon and no rule fires. Nor does an open: it breaks nothing. That is why
+  `check_connectivity.py` exists, the only thing that answers "is the routing connected?".
+- **KLayout and netgen want opposite conventions** for the same transistor (`M` vs `X`) and
+  for the same capacitor (`C ... cap_mim_2f0fF` vs `X ... cap_mim_2f0_m4m5_noshield`).
   La traduccion vive en `lvs_netgen.py` y no toca el `.spice` de disco.
 
 **Sobre el deck de GF180**
 
 - **`MT.*` se aplica a Metal5** en un stack de cinco metales: el deck hace
-  `top_metal = metal5`. Son mas duras que las `M5.*` — 0.36 de ancho, 0.46 de espaciado,
+  `top_metal = metal5`. They are harsher than `M5.*` -- 0.36 width, 0.46 spacing,
   0.5625 um2 de area.
 - **El DRC y el LVS SI ven el dummy.** `get_polygons(34, 0)` es la capa *drawn*; la fisica
-  se compone despues con `metal1 = metal1_drawn + metal1_dummy`. El relleno tiene que
+  is composed afterwards with `metal1 = metal1_drawn + metal1_dummy`. The fill has to
   cumplir el DRC entero.
-- **`make drc` no corre densidad.** Hay que pedirla aparte. Todos los "limpio" de un deck
-  sin `--density` son de FEOL/BEOL/conectividad y nada mas.
-- **El deck mide `Mn.2a` en euclidea**, esquina con esquina; el router mide por proyeccion.
-  Dejar exactamente 0.280 en ortogonal da menos en una esquina en diagonal.
+- **`make drc` does not run density.** It must be asked for separately. Every "clean" from
+  a deck without `--density` is FEOL/BEOL/connectivity and nothing more.
+- **The deck measures `Mn.2a` euclidean**, corner to corner; the router measures by projection.
+  Leaving exactly 0.280 orthogonally gives less at a diagonal corner.
 
 **Sobre el flujo de OpenROAD**
 
-- **Una obstruccion del LEF se recorta al contorno del macro.** Engordarla no la saca de
-  ahi; para proteger algo fuera hacen falta obstrucciones a nivel de top.
-- **La obstruccion tiene que llevar media anchura de cable.** El router la respeta midiendo
-  por el eje del cable, no por su borde.
-- **Una plataforma de puerto necesita hueco para el cable que va a aterrizar en ella**, no
-  solo para si misma.
-- **El pin del LEF debe declarar el metal que hay, no su caja envolvente.** `lef write` da
-  un rectangulo por puerto; si los pads no llegaron a unirse, ese rectangulo declara
+- **A LEF obstruction is clipped to the macro outline.** Growing it does not get it out of
+  there; protecting something outside needs top-level obstructions.
+- **The obstruction has to carry half a wire width.** The router respects it measuring
+  by the wire axis, not by its edge.
+- **A port landing pad needs room for the wire that will land on it**, not
+  just for itself.
+- **A LEF pin must declare the metal that exists, not its bounding box.** `lef write` gives
+  one rectangle per port; if the pads never merged, that rectangle declares
   aterrizable un hueco vacio y el router aterriza ahi.
-- **`place_pins` no conecta un pin de alimentacion.** Lo trata como una senal mas y lo deja
-  en el borde del die, en un pad que no toca la malla; `pdngen` no baja a por el y el router
-  lo salta, porque salta las nets POWER/GROUND. **Los puertos `VDD` y `VSS` del top llevaban
-  todo el proyecto flotando** y no lo vio nadie: ni el DRC (un abierto no viola ninguna
-  regla), ni el router, ni `check_connectivity.py`, que solo miraba terminales de macro. Se
-  ponen a mano con `place_pin` **encima de una tira de la propia net**, despues de `pdngen`
+- **`place_pins` does not connect a power pin.** It treats it like any other signal and
+  leaves it on the die edge, on a pad that never touches the grid; `pdngen` does not come
+  down for it and the router skips it, because it skips POWER/GROUND nets. **The top `VDD`
+  and `VSS` ports had been floating the whole project** and nobody saw it: not DRC (an open
+  breaks no rule), not the router, not `check_connectivity.py`, which only looked at macro
+  terminals. They are placed by hand with `place_pin` **on a strap of their own net**,
   y despues de `place_pins`.
-- **Lo que declaras como pin, el router se cree con derecho a usarlo.** El stack interno de
-  Metal2 con que un bloque sube su riel a Metal3 sale de `lef write` como geometria del pin
-  de alimentacion — ~55 pads por riel—, y eso no es un punto de acceso para el top: es
-  metal del bloque. Como pin invita; como obstruccion, el router lo respeta y ademas
-  `add_via_obstructions` deriva de ahi la obstruccion de Via1 y Via2, que es por donde se
+- **Whatever you declare as a pin, the router believes it may use.** The internal Metal2
+  stack a block uses to bring its rail up to Metal3 comes out of `lef write` as power pin
+  geometry -- ~55 pads per rail -- and that is not an access point for the top: it is
+  block metal. As a pin it invites; as an obstruction the router respects it and besides
+  `add_via_obstructions` derives the Via1 and Via2 obstruction from it, which is where it
   colaba.
-- **Un pad de pin pegado a otro pin no es un sitio donde aterrizar.** Si entre los dos no
-  cabe un cable con su espaciado a cada lado (aqui 2 x (0.19 + 0.28) = 0.94 um), el router
-  no tiene forma legal de llegar al vecino — y no se para: pasa por encima. Se retira ese
-  pad **solo si al pin le queda otro libre** (`drop_trapped_pads`); un pin inalcanzable es
-  peor que un corto, porque no hay quien lo rutee.
-- **Cuando ya no hay patron comun, el lazo dirigido por DRC cierra el resto**: las zonas
-  que marca el deck se vuelven obstrucciones y el router repite. Acumulativo, para que
+- **A pin pad against another pin is not a place to land.** If a wire with its spacing on
+  each side does not fit between them (here 2 x (0.19 + 0.28) = 0.94 um), the router has no
+  legal way to reach the neighbour -- and it does not stop: it goes over. That pad is
+  removed **only if the pin keeps another free one** (`drop_trapped_pads`); an unreachable
+  pin is worse than a short, because nobody can route it.
+- **When there is no common pattern left, the DRC-driven loop closes the rest**: the zones
+  the deck marks become obstructions and the router repeats. Cumulative, so that
   converja en vez de oscilar. 10 -> 1 -> 0 en dos vueltas.
 
-**Sobre el relleno de densidad**
+**On the density fill**
 
 - **Cuadrados enteros, nunca recortados.** Recortar la rejilla contra la zona libre deja
   cuellos y trozos bajo el area minima: miles de `M*.1` y `M*.3`.
-- **Basta con los canales.** Los macros ocupan el 51 % del die y el 49 % libre da de sobra
-  para las siete capas — sin metal flotante sobre los amplificadores ni sobre los MIM.
-- **La rejilla se genera por erosion de region**: un cuadrado de lado L cabe entero si su
-  centro cae en la zona erosionada L/2. Probar poligono a poligono tardaba minutos por capa.
+- **The channels are enough.** The macros take 51 % of the die and the free 49 % is plenty
+  for the seven layers -- with no floating metal over the amplifiers or the MIMs.
+- **The grid is generated by region erosion**: a square of side L fits whole if its
+  centre lands in the L/2-eroded zone. Testing polygon by polygon took minutes per layer.
 
 **Sobre el proyecto**
 
-- **Regenerar siempre el spice desde el esquematico.** Nunca leer el que uno mismo genero:
+- **Always regenerate the spice from the schematic.** Never read the one you generated
   puede haber cambiado en xschem.
-- **Una fuente de 0 V (`Vmeas`) es un cable.** Para el LVS no se tira: se **unen** las dos
-  nets, y por ambito, porque los nombres se repiten entre bloques.
-- **El LVS del top pide la referencia aplanada y `--top_lvl_pins`.** Sin lo primero no
-  empareja nada; sin lo segundo el extraido sale sin un solo pin y la comparacion no
+- **A 0 V source (`Vmeas`) is a wire.** For LVS it is not dropped: the two nets are
+  **merged**, and per scope, because names repeat across blocks.
+- **The top LVS needs the reference flattened and `--top_lvl_pins`.** Without the first it
+  matches nothing; without the second the extraction comes out with no pins and the
   arranca.
 - **Un netlist de referencia se genera, no se retoca.** El de xschem no vale tal cual —
   `.subckt` comentado, sondas de 0 V, tarjetas de simulacion— pero el arreglo va en un
   script (`lvs_reference.py`, encadenado en `make top`), no en el fichero. Un netlist de
-  referencia editado a mano es la forma elegante de hacer que el LVS mienta.
-- **Dos motores, no uno.** netgen sobre la extraccion de magic y el deck de KLayout sobre la
-  suya no comparten ni codigo ni extractor: que los dos digan lo mismo vale mucho mas que
-  que lo diga uno. Hoy el top solo tiene el primero, y por eso figura como pendiente en la
+  reference edited by hand is the elegant way of making LVS lie.
+- **Two engines, not one.** netgen on magic's extraction and the KLayout deck on its own
+  share neither code nor extractor: both saying the same is worth far more than
+  one saying it. Today the top only has the first, hence it is listed as pending in the
   tabla de estado en vez de como cerrado.
-- **Diagnosticar midiendo, no razonando.** Del LVS del top se dijeron por el camino tres
-  cosas que resultaron falsas: que habia un corto de VDD contra VSS por las tiras de
-  Metal4, que el problema era el bulk de 780 pfet, y que `pplus and comp and nwell`
-  detectaba taps mal puestos (es la difusion del propio PMOS). Las tres venian de razonar
-  sobre una hipotesis en vez de medir. Lo que si funciono fue instrumentar: ablacion capa a
-  capa del modelo de conectividad hasta ver en cual aparecia el corto, y de ahi al poligono
+- **Diagnose by measuring, not by reasoning.** Three things were said along the way about
+  the top LVS that turned out false: that there was a VDD-VSS short through the Metal4
+  straps, that the problem was the bulk of 780 pfets, and that `pplus and comp and nwell`
+  detected misplaced taps (it is the PMOS's own diffusion). All three came from reasoning
+  about a hypothesis instead of measuring. What did work was instrumenting: ablating the
+  connectivity model layer by layer until seeing which one the short appeared in, and from
   concreto.
 
-## Subir a GitHub
+## Uploading to GitHub
 
 El repositorio es **`git@github.com:AnBuiUCI/sscs-2026-zotnetic.git`**, compartido con
-el resto del equipo: tiene `main`, `add-pads` y `glayout`. La clave SSH de esta maquina
-autentica como `Juander28`; el repositorio es de `AnBuiUCI`, asi que el acceso de
-escritura depende de que te tengan como colaborador.
+the rest of the team: it has `main`, `add-pads` and `glayout`. This machine's SSH key
+authenticates as `Juander28`; the repository belongs to `AnBuiUCI`, so write access
+depends on being listed as a collaborator.
 
-**Que se sube y donde.** Todo `a_zonetic2026/` va dentro de `FINAL/` en el repositorio.
+**What goes up and where.** All of `a_zonetic2026/` goes inside `FINAL/` in the repository.
 No `zotnetic_layout/`, que es un arbol hermano y queda fuera.
 
-**Como, sin tocar el arbol de trabajo.** Nada de `git init` aqui dentro: git no sabe
-empujar un repositorio local a un subdirectorio del remoto, y ademas conviene que
-`/foss/designs/a_zonetic2026` siga sin `.git` ni nada movido. Se clona en un scratchpad
+**How, without touching the working tree.** No `git init` in here: git cannot push a
+local repository into a subdirectory of the remote, and besides it is better that
+`/foss/designs/a_zonetic2026` stays without `.git` or anything moved. Clone into a scratchpad
 y se copia dentro:
 
 ```bash
@@ -811,33 +811,33 @@ git -C repo config user.email "jdsanch4@uci.edu"
 
 /bin/cp -a /foss/designs/a_zonetic2026/. repo/FINAL/   # `/bin/` a proposito: cp esta
                                                         # aliaseado a `cp -i` y se queda
-                                                        # preguntando por cada fichero
+                                                        # asking about each file
 git -C repo add -A
 git -C repo diff --cached --name-only --diff-filter=D   # debe salir VACIO
 git -C repo commit -m "…"
 git -C repo push origin main
 ```
 
-**Cuatro cosas que hay que mirar antes de empujar:**
+**Four things to check before pushing:**
 
-1. **`FINAL/` ya existe** desde el commit `d018403`. Se **actualiza**, no se recrea. Por
+1. **`FINAL/` already exists** since commit `d018403`. It is **updated**, not recreated.
    eso `cp -a` y no `rsync --delete`: sobrescribe y anade, pero nunca borra. Comprobar
-   siempre que `--diff-filter=D` sale vacio.
-2. **Nada fuera de `FINAL/`.** `git diff --cached --name-only | grep -v '^FINAL/'` tiene
-   que salir vacio: hay dos ramas mas con trabajo de otras personas.
-3. **Los cuatro enlaces de `spice_blocks/` los rompe cada copia.** En la carpeta de trabajo
+   always check that `--diff-filter=D` comes out empty.
+2. **Nothing outside `FINAL/`.** `git diff --cached --name-only | grep -v '^FINAL/'` must
+   come out empty: there are two more branches with other people's work.
+3. **The four `spice_blocks/` links are broken by every copy.** In the working folder
    son absolutos a `/foss/designs/...`; en el repo estan guardados **relativos**
-   (`../XSCHEM/...`), que es lo unico que funciona en un clon ajeno. `cp -a` conserva el
-   enlace tal cual y por tanto los vuelve absolutos: hay que **deshacer esa parte de la
+   (`../XSCHEM/...`), which is the only thing that works in someone else's clone. `cp -a`
+   preserves the link as is and therefore makes them absolute: that part of the copy
    copia** antes del commit.
 
        git checkout -- FINAL/spice_blocks/
 
    Y la comprobacion buena **no es `find FINAL -xtype l`**: en esta maquina el destino
-   absoluto existe, asi que el enlace no esta "roto" y esa orden sale vacia igual. La que
-   sirve es buscar enlaces absolutos, que aqui nunca deben existir:
+   absolute target exists, so the link is not "broken" and that command comes out empty
+   works is to look for absolute links, which must never exist here:
 
-       find FINAL -type l -lname '/*'      # tiene que salir vacio
+       find FINAL -type l -lname '/*'      # must come out empty
 
 4. **Nunca `--force`, nunca reescribir historia.**
 
@@ -848,12 +848,12 @@ git clone git@github.com:AnBuiUCI/sscs-2026-zotnetic.git verify
 cd verify && find FINAL -type l -lname '/*'   # vacio: ni un enlace absoluto
 ls -l FINAL/spice_blocks/                     # los cuatro, relativos y vivos
 python3 -c "print(open('FINAL/openroad/out/GRADIENT_NAV_filled.gds','rb').read(4).hex())"
-# 00060002 = cabecera GDSII valida
+# 00060002 = valid GDSII header
 ```
 
-**El `lvs_config.json` de la raiz del repo es lo que apunta al entregable.** Es el
-fichero que lee el chipathon, y llega a el por `info.yaml -> project.lvs_config`. Los dos
-venian con los marcadores de la plantilla (`A01_topcell`,
+**The `lvs_config.json` at the repo root is what points at the deliverable.** It is the
+file the chipathon reads, reached through `info.yaml -> project.lvs_config`. Both
+came with the template placeholders (`A01_topcell`,
 `<relative-path-to-lvs_config.json>`); ahora dicen:
 
 | clave | valor | quien lo genera |
@@ -864,36 +864,36 @@ venian con los marcadores de la plantilla (`A01_topcell`,
 | `LVS_SPICE_FILES` | `$UPRJ_ROOT/FINAL/openroad/out/GRADIENT_NAV_lvs.spice` | `make lvs-ref` |
 | `LVS_VERILOG_FILES` | `$UPRJ_ROOT/FINAL/openroad/verilog/GRADIENT_NAV.v` | `make verilog` |
 
-`TOP_LAYOUT` se queda en `$TOP_SOURCE`: la celda top del GDS con relleno se llama
-`GRADIENT_NAV`, igual que la del esquematico, y el fichero esta aplanado a una sola
-celda. Si se rehace el die hay que revisar que estas claves sigan cuadrando —
-apuntar al GDS sin relleno es incumplir las siete reglas de densidad de golpe.
+`TOP_LAYOUT` stays `$TOP_SOURCE`: the top cell of the filled GDS is called
+`GRADIENT_NAV`, same as the schematic one, and the file is flattened to a single
+cell. If the die is rebuilt these keys must be re-checked --
+pointing at the unfilled GDS breaks all seven density rules at once.
 
-**El netlist de referencia hay que generarlo; el de xschem no vale tal cual.** Trae el
-`.subckt` de arriba COMENTADO (`**.subckt GRADIENT_NAV ...`, que es como xschem exporta
-desde la CLI), fuentes de 0 V como sonda de corriente —`Not a known element type: 'V'`, y
-electricamente son un cable, asi que hay que **unir** las dos nets, no tirarlas— y tarjetas
-de simulacion. Ademas hay que aplanarlo, porque el layout del top es una sola celda.
-`scripts/lvs_reference.py` hace las tres cosas reutilizando `lvs_klayout.prepare()`, que es
-el mismo parcheo con el que el LVS de KLayout compara este top en local, y escribe
+**The reference netlist has to be generated; the xschem one is not usable as is.** It
+carries the top `.subckt` COMMENTED (`**.subckt GRADIENT_NAV ...`, which is how xschem
+exports from the CLI), 0 V sources as current probes -- `Not a known element type: 'V'`,
+and electrically they are a wire, so the two nets must be **merged**, not dropped -- and
+simulation cards. It also has to be flattened, because the top layout is a single cell.
+`scripts/lvs_reference.py` does all three reusing `lvs_klayout.prepare()`, which is
+the same patching KLayout's LVS uses to compare this top locally, and writes
 `out/GRADIENT_NAV_lvs.spice` (19 puertos, 1707 dispositivos). Va encadenado en `make top`:
-un netlist de referencia viejo hace que el LVS compare el GDS de hoy contra el esquematico
+a stale reference netlist makes LVS compare today's GDS against last week's schematic
 de la semana pasada y diga que cuadra.
 
-**Aviso sobre `LVS_VERILOG_FILES`.** En estos config el Verilog y el spice son fuentes
-**alternativas** para el mismo circuito. Este diseño no lleva ni una celda estandar: los
-cuatro bloques son layout custom, y `GRADIENT_NAV.v` es estructural con los macros como
-cajas negras — o sea **sin un solo transistor que comparar**. Su sitio natural es la
+**A warning about `LVS_VERILOG_FILES`.** In these configs the Verilog and the spice are
+**alternative** sources for the same circuit. This design has not one standard cell: the
+blocks are custom layout, and `GRADIENT_NAV.v` is structural with the macros as black
+boxes -- that is, **without a single transistor to compare**. Its natural place is the
 entrada de OpenROAD, no la referencia de un LVS. Se declara porque se pidio declararlo; si
-el harness lo lee junto al spice, comparara una jerarquia de cajas negras contra un layout
-plano y no cuadrara. Si eso pasa, vaciar `LVS_VERILOG_FILES` y dejar solo el spice.
+the harness reads it alongside the spice, it will compare a black-box hierarchy against a
+flat layout and it will not match. If that happens, empty `LVS_VERILOG_FILES` and leave
 
-No hace falta LFS: el fichero mas grande son los 25 MB de
-`out/GRADIENT_NAV_filled.gds` — el relleno de densidad multiplica por cuatro los 5.7 MB
-del GDS de trabajo — y sigue muy por debajo del limite de 100 MB de GitHub. Si algun dia
-molesta, se baja instanciando una celda de relleno en vez de aplanar los cuadrados.
-El `.gitattributes` de `FINAL/` solo declara `*.gds binary`, para
-que la normalizacion de finales de linea no corrompa un GDS si a git le diera por tomarlo
+LFS is not needed: the largest file is the 25 MB of
+`out/GRADIENT_NAV_filled.gds` -- the density fill quadruples the 5.7 MB of the working
+GDS -- and it is still well under GitHub's 100 MB limit. If one day it
+becomes a nuisance, it can be reduced by instantiating a fill cell instead of flattening.
+`FINAL/`'s `.gitattributes` only declares `*.gds binary`, so that
+line-ending normalisation cannot corrupt a GDS should git decide to take it
 por texto.
 
 ## Notes on the generated LEF
@@ -922,3 +922,39 @@ The site for the floorplan is `GF018hv5v_green_sc9` (the name in the cell LEF,
 not the library name). Routing tracks: 0.56 µm pitch on Metal1–Metal4, 0.90 µm on
 Metal5. Metal4 is vertical and Metal5 horizontal, which is why the power stripes
 are assigned to those layers the way they are.
+
+
+## Two versions of the blocks
+
+The top can be assembled with v1 or v2 of the block layouts, and both results
+conviven:
+
+```bash
+make top            # bloques de layouts/     -> out/
+make top V=v2       # bloques de layouts_v2/  -> out_v2/
+```
+
+Tres piezas:
+
+* `scripts/usar_version.sh v1|v2` repoints the `gds/` links, which is how the flow
+  reads the block layouts. It is the only entry point.
+* `TOP_OUT` sends output to `out` or `out_v2`. The OpenROAD scripts read it and so do the
+  DRC, LVS y relleno.
+* `lef/.version` + el objetivo `comprobar-version`: los bloques de la v2 miden distinto, y
+  a LEF from the other version would describe macros of the wrong size. The floorplan would
+  still close and place overlapping macros, so any step that reads the LEF first checks
+  which version the collateral was generated with.
+
+Both tops are verified: **DRC clean** (router, sign-off and filled), the 7 density rules,
+**55/55 nets connected with no shorts** and **matching LVS** (880 = 880 nets). The
+la v2 es un **6.9 % mas pequeno** (0.1414 contra 0.1518 mm2).
+
+Two things worth keeping in mind when using this:
+
+* **The blocks DEF, LEF and GDS must come from the SAME run.**
+  Regenerating only part leaves the top inconsistent and no error fires: it was seen
+  regenerating the v1 GDS over an old DEF, which went from 55/55 nets connected to 34/55
+  with 3 shorts. If you switch version or touch the blocks, run the whole flow.
+* **`make gds` starts from the ROUTED DEF.** The floorplan DEF yields a GDS with the macros
+  placed and without a single connection, and that **passes DRC** and passes the fill. Only
+  LVS. Ver `zotnetic_layout/DRC_KLAYOUT.md` §15.2.

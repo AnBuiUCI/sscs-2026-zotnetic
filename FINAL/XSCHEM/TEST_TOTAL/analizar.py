@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""Lee lo que escribio ngspice, saca las tablas y exporta los datos con nombres.
+"""Reads what ngspice wrote, produces the tables and exports the named data.
 
     python3 analizar.py <carpeta_simulacion> <carpeta_datos>
 
-`wrdata` no escribe cabeceras: guarda un par (x, y) por vector, asi que el
-fichero tiene el doble de columnas que vectores y la unica forma de saber que
-columna es que es el registro VECTORES de aqui abajo. Es la fuente de verdad y
-hay que mantenerlo a la par que el bloque .control del .sch.
+`wrdata` writes no headers: it stores an (x, y) pair per vector, so the file
+has twice as many columns as vectors and the only way to know which column is
+which is the VECTORES record below. It is the source of truth and has to be
+kept in step with the .control block of the .sch.
 """
 
 from __future__ import annotations
@@ -16,7 +16,7 @@ from pathlib import Path
 
 import numpy as np
 
-#: El orden EXACTO de los `wrdata` del .sch. Si se toca uno hay que tocar el otro.
+#: The EXACT order of the .sch `wrdata`. Touch one and you must touch the other.
 VECTORES = [
     "X1", "Y1", "Z1", "X2", "Y2", "Z2", "X3", "Y3", "Z3", "X4", "Y4", "Z4",
     "SX1", "SY1", "SZ1", "SX2", "SY2", "SZ2",
@@ -37,13 +37,13 @@ CADENAS = [
 BARRIDOS = [("ancho.txt", 0.02, "fondo de escala AMR, dR/R = 2 %"),
             ("fino.txt", 50e-6, "ventana fina, dR/R = 50 ppm")]
 
-#: Umbral logico. Las salidas del decodificador son rail a rail, asi que medio
+#: Logic threshold. The decoder outputs are rail to rail, so half
 #: rail vale y no hace falta histeresis.
 UMBRAL = 2.5
 
 
 def tramos(cod, ang):
-    """Trozos contiguos con el mismo codigo, como (angulo_ini, angulo_fin, codigo)."""
+    """Contiguous runs with the same code, as (angle_start, angle_end, code)."""
     out, ini = [], 0
     for j in range(1, len(cod) + 1):
         if j == len(cod) or cod[j] != cod[ini]:
@@ -53,7 +53,7 @@ def tramos(cod, ang):
 
 
 def campo(ang, amp):
-    """El campo que impuso el estimulo, recalculado aqui sin mirar la simulacion."""
+    """The field the stimulus imposed, recomputed here without looking at the sim."""
     return np.array([np.cos(np.radians(ang)),
                      np.cos(np.radians(ang - 120.0)),
                      np.cos(np.radians(ang + 120.0))]) * amp
@@ -82,7 +82,7 @@ def main() -> None:
               f"   (esperado 15.000)")
 
         # ------------------------------------------------- las senales de dentro
-        print("\n  senales intermedias   (excursion a lo largo del barrido)")
+        print("\n  intermediate signals   (swing along the sweep)")
         print(f"    {'cadena':32s} {'salida del amplificador':>26s}"
               f" {'salida del comparador':>24s}")
         for g, desc in CADENAS:
@@ -100,9 +100,9 @@ def main() -> None:
             decidido = alto.sum(axis=0) == 1
             eje = np.where(decidido, alto.argmax(axis=0), -1)
 
-            #  Este decodificador no saca el eje mayor sino el MENOR: se ve en su
-            #  tabla de verdad (X = XY.XZ, o sea SX por debajo de las otras dos) y
-            #  se confirma aqui contando aciertos contra las dos hipotesis.
+            #  This decoder gives not the largest axis but the SMALLEST: it shows
+            #  in its truth table (X = XY.XZ, i.e. SX below the other two) and is
+            #  confirmed here by counting hits against both hypotheses.
             ac = {"EL MENOR": (eje[decidido] == menor[decidido]).mean() * 100,
                   "EL MAYOR": (eje[decidido] == mayor[decidido]).mean() * 100}
             criterio = max(ac, key=ac.get)
@@ -112,8 +112,8 @@ def main() -> None:
             print(f"      saca {criterio}   acierto {ac[criterio]:5.1f} %"
                   f"   (la otra hipotesis {min(ac.values()):5.1f} %)")
 
-            #  El barrido es un circulo: el tramo que empieza en 0 y el que acaba
-            #  en 360 son el mismo sector partido por donde arranca el barrido.
+            #  The sweep is a circle: the run starting at 0 and the one ending at
+            #  360 are the same sector split by where the sweep starts.
             tr = tramos(cod, ang)
             if len(tr) > 1 and tr[0][2] == tr[-1][2]:
                 a0, _, c = tr[-1]
@@ -124,14 +124,14 @@ def main() -> None:
                 print(f"      {a0:7.1f} .. {a1:6.1f} gr   {c:3s}"
                       f"   {a1-a0+0.5:5.1f} gr{marca}")
 
-            #  Fronteras emparejadas por CERCANIA CIRCULAR y no por orden en la
-            #  lista: las dos listas empiezan donde arranca el barrido, no en el
-            #  mismo sector, y emparejarlas por indice daba errores de 120 grados
+            #  Boundaries matched by CIRCULAR PROXIMITY and not by list order:
+            #  both lists start where the sweep starts, not at the same sector,
+            #  and matching them by index gave 120-degree errors
             #  con el mapa perfecto delante.
             #  Las fronteras ideales se saben de memoria y no se muestrean: tres
             #  cosenos a 120 grados se cruzan EXACTAMENTE en 0, 120 y 240 si lo
             #  que se decodifica es el menor, y en 60, 180 y 300 si es el mayor.
-            #  Sacarlas del argmin sobre la rejilla metia medio paso de sesgo.
+            #  Taking them from the argmin over the grid added half a step of bias.
             fr_id = np.array((0.0, 120.0, 240.0) if criterio == "EL MENOR"
                              else (60.0, 180.0, 300.0))
             fr_re = ang[np.where(np.diff(eje) != 0)[0]] + (ang[1] - ang[0]) / 2
@@ -148,12 +148,12 @@ def main() -> None:
             mal = (~decidido).sum()
             if mal:
                 print(f"      {mal} de {len(ang)} puntos ({mal/len(ang)*100:.1f} %)"
-                      " sin una sola salida activa")
+                      " with not one active output")
             resumen[(fich, g)] = (ac[criterio], abs(err).max() if len(err) else float("nan"),
                                   abs(v(f"P_{g}")).max() * 1e3)
 
         # ----------------------------------------------- esquematico contra layout
-        print("\n  esquematico contra layout, la comparacion que pedia el banco")
+        print("\n  schematic against layout, the comparison the bench asked for")
         print(f"    {'pareja':34s} {'acierto':>16s} {'error de sector':>18s} {'consumo':>16s}")
         for a, c, que in (("G1", "G3", "OPAM      "), ("G2", "G4", "OPAM_LIN  ")):
             pa, pc = resumen[(fich, a)], resumen[(fich, c)]

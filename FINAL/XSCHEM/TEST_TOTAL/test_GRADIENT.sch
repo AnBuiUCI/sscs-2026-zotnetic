@@ -44,22 +44,22 @@ C {devices/gnd.sym} 270 -490 0 0 {name=lV6 lab=GND
 value=5}
 C {devices/code_shown.sym} -340 -1040 0 0 {name=ESTIMULO only_toplevel=true
 value="
-* EL CAMPO. Tres componentes desfasadas 120 grados entre si, que es lo que hace
-* que sumen cero: el vector solo cambia de DIRECCION, no de modulo. Barriendo
-* Vang de 0 a 360 se recorre el circulo entero, y si la cadena esta bien cada
+* THE FIELD. Three components 120 degrees apart, which is what makes them sum
+* to zero: the vector only changes DIRECTION, not magnitude. Sweeping
+* Vang from 0 to 360 covers the whole circle, and if the chain is right each
 * eje deberia ganar exactamente 120 grados: X de -60 a 60, Y de 60 a 180 y Z de
-* 180 a 300. Lo que se desvien esas tres fronteras es la cifra del banco.
+* 180 to 300. How far those three boundaries drift is the figure of the bench.
 *
-* v(amp) ES dR/R, sin factores de conversion por medio: cada rama del puente
-* vale 1meg*(1 +- v(bx)), asi que el amplificador ve VEXC*v(bx) de senal
-* diferencial y el modo comun se queda clavado en VEXC/2 pase lo que pase con
+* v(amp) IS dR/R, with no conversion factors in between: each bridge arm is
+* 1meg*(1 +- v(bx)), so the amplifier sees VEXC*v(bx) of differential signal
+* and the common mode stays pinned at VEXC/2 whatever happens to
 * la senal. Eso segundo no es un adorno: si el modo comun se moviera con la
-* senal se mezclaria con la sensibilidad al modo comun de estas celdas y no
-* habria forma de separar las dos cosas al leer la curva.
+* signal it would mix with these cells' common-mode sensitivity and there
+* would be no way to separate the two when reading the curve.
 *
 * Va con fuentes B y resistencias de comportamiento, y no barriendo
-* resistencias, porque dc admite dos fuentes anidadas como mucho y aqui hay
-* DOCE resistencias que se tienen que mover a la vez y de forma coherente.
+* resistors, because dc takes two nested sources at most and here there are
+* TWELVE resistors that must all move at once and consistently.
 Vamp amp 0 0.02
 Vang ang 0 0
 Bbx bx 0 v='v(amp)*cos( v(ang)       *3.14159265358979/180)'
@@ -68,9 +68,9 @@ Bbz bz 0 v='v(amp)*cos((v(ang)+120.0)*3.14159265358979/180)'
 "}
 C {devices/code_shown.sym} 900 -1010 0 0 {name=RECONSTRUCCION only_toplevel=true
 value="
-* LAS MISMAS DOS CADENAS, REHECHAS CON LOS BLOQUES EXTRAIDOS DEL LAYOUT v2.
-* Cuelgan de los MISMOS seis nodos de sensor que las esquematicas y cada una
-* lleva su propia alimentacion, para poder comparar tambien el consumo.
+* THE SAME TWO CHAINS, REBUILT FROM THE v2 LAYOUT BLOCKS.
+* They hang off the SAME six sensor nodes as the schematic ones and each
+* carries its own supply, so current draw can be compared too.
 *
 * La topologia es la de COMBINATION/GRADIENT.sch, copiada nodo a nodo:
 *
@@ -79,20 +79,20 @@ value="
 *     amp Z: S3N->INN  S3P->INP  -> SZ        COMP YZ: INN=SY INP=SZ -> YZ
 *                                             DECODER: XY XZ YZ -> X Y Z
 *
-* OJO CON EL ORDEN DE PUERTOS. xschem los emite en el orden de las lineas B del
-* simbolo y magic en el orden en que los encuentra en el layout, y NO coinciden:
+* CAREFUL WITH THE PORT ORDER. xschem emits them in the order of the symbol B
+* lines and magic in the order it finds them in the layout, and they do NOT agree:
 * el esquematico declara OPAM VDD INN OUT INP VSS y el extraido OPAM VSS VDD OUT
 * INP INN. Cablear las dos igual significa cosas distintas y no da ningun error.
-* Por eso encima de cada grupo va el orden de verdad, y por eso los ficheros son
-* los _V2_ que produce TEST/preparar_extraidos.sh: renombra el subcircuito -- los
-* dos declaran el mismo nombre y no se pueden incluir juntos -- y normaliza el
-* orden. Fijate en que el OPAM_LIN_flat lleva OUT en medio y los otros no.
+* That is why the real order is written above each group, and why the files are
+* the _V2_ ones produced by TEST/preparar_extraidos.sh: it renames the subcircuit
+* -- both declare the same name and cannot be included together -- and normalises
+* the order. Note that OPAM_LIN_flat has OUT in the middle and the others do not.
 .include ../../../../layouts_v2/OPAM/mag/OPAM_V2_pex_rc.spice
 .include ../../../../layouts_v2/OPAM_LIN_flat/mag/OPAM_LIN_flat_V2_pex_rc.spice
 .include ../../../../layouts_v2/COMP/mag/COMP_V2_pex_rc.spice
 .include ../../../../layouts_v2/DECODER/mag/DECODER_V2_pex_rc.spice
 
-* --- G3: la cadena de G1, con el OPAM del layout v2
+* --- G3: the G1 chain, with the v2 layout OPAM
 * .subckt OPAM_V2     VSS VDD OUT INP INN
 XA31 GND VDD3 SX3 S1P S1N OPAM_V2
 XA32 GND VDD3 SY3 S2P S2N OPAM_V2
@@ -104,7 +104,7 @@ XC33 GND VDD3 YZ3 SZ3 SY3 COMP_V2
 * .subckt DECODER_V2  VSS VDD YZ Z XY XZ Y X
 XD3  GND VDD3 YZ3 Z3 XY3 XZ3 Y3 X3 DECODER_V2
 
-* --- G4: la cadena de G2, con el OPAM_LIN_flat del layout v2
+* --- G4: the G2 chain, with the v2 layout OPAM_LIN_flat
 * .subckt OPAM_LIN_flat_V2  VSS VDD INP OUT INN
 XA41 GND VDD4 S1P SX4 S1N OPAM_LIN_flat_V2
 XA42 GND VDD4 S2P SY4 S2N OPAM_LIN_flat_V2
@@ -119,16 +119,16 @@ XD4  GND VDD4 YZ4 Z4 XY4 XZ4 Y4 X4 DECODER_V2
 C {devices/code_shown.sym} 520 -1010 0 0 {name=s1
 only_toplevel=false
 value="
-* OJO: ni una llave en este texto. xschem las cuenta para saber donde acaba el
-* bloque de atributos y una sola dentro de un comentario lo corta por la mitad,
-* dejando el netlist con el 'blabla' de la plantilla y sin dar ningun error.
+* CAREFUL: not one brace in this text. xschem counts them to find where the
+* attribute block ends and a single one inside a comment cuts it in half,
+* leaving the netlist with the template 'blabla' and raising no error.
 *
-* Este banco NO necesita fuente de modo comun, al contrario que test_comp_* y
-* test_opam_*: alli el par de entrada eran dos puertas sin camino de continua a
-* masa, y aqui el propio puente se lo da.
+* This bench does NOT need a common-mode source, unlike test_comp_* and
+* test_opam_*: there the input pair were two gates with no DC path to
+* ground, and here the bridge itself provides it.
 *
-* Las senales intermedias de las cadenas esquematicas se sacan por nombre
-* jerarquico, v(x2.SX) y compania. En las rehechas a mano los nodos son de
+* The intermediate signals of the schematic chains come out by hierarchical
+* name, v(x2.SX) and company. In the hand-rebuilt ones the nodes are
 * primer nivel y se llaman SX3, XY3 y asi.
 .save all
 .control

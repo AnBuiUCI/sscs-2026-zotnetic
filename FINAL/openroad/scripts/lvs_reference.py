@@ -47,21 +47,21 @@ def main() -> int:
         sys.exit(f"xschem netlist missing: {ref}\n"
                  f"  export it from the schematic before running this")
 
-    limpio = prepare(ref, CELDA, ROOT / "work_lvs")
+    clean = prepare(ref, CELDA, ROOT / "work_lvs")
     DESTINO.parent.mkdir(parents=True, exist_ok=True)
-    DESTINO.write_text(limpio.read_text())
+    DESTINO.write_text(clean.read_text())
 
-    lineas = DESTINO.read_text().splitlines()
-    cabecera = next((l for l in lineas if l.lower().startswith(".subckt")), "")
+    lines = DESTINO.read_text().splitlines()
+    cabecera = next((l for l in lines if l.lower().startswith(".subckt")), "")
     if CELDA not in cabecera:
         sys.exit(f"the generated netlist does not declare '.subckt {CELDA}' -- "
                  f"algo cambio en xschem o en prepare()")
-    dispositivos = sum(1 for l in lineas
+    device_lines = sum(1 for l in lines
                        if l[:1] in "MmXxCcRrDdQq" and not l.startswith("*"))
     print(f"  {DESTINO}")
-    print(f"  {cabecera.split()[1]}: {len(cabecera.split()) - 2} puertos, "
-          f"{dispositivos} dispositivos, {len(lineas)} lineas")
-    print(f"  origen: {ref}")
+    print(f"  {cabecera.split()[1]}: {len(cabecera.split()) - 2} ports, "
+          f"{device_lines} devices, {len(lines)} lines")
+    print(f"  source: {ref}")
     return 0
 
 

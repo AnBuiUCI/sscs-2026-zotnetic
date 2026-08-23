@@ -46,8 +46,8 @@ BLOCKS = {
     "OPAM": PROJECT / "XSCHEM/OPAM/simulation/OPAM.sch/OPAM.spice",
     "OPAM_LIN_flat": PROJECT / "XSCHEM/OPAM/simulation/OPAM_LIN_flat.sch/OPAM_LIN_flat.spice",
     "DECODER": PROJECT / "XSCHEM/DECODER/simulation/DECODER.sch/DECODER.spice",
-    #  Las dos de la v2. Viven en XSCHEM_v2 porque el top GRADIENT_NAV3 no toca
-    #  nada del que ya esta verificado.
+    #  The two v2 ones. They live in XSCHEM_v2 because the GRADIENT_NAV3 top
+    #  touches nothing of the already verified one.
     "DECODER_MAX": PROJECT / "XSCHEM_v2/simulation/DECODER_MAX.sch/DECODER_MAX.spice",
     "OPAM_SUMA": PROJECT / "XSCHEM_v2/simulation/OPAM_SUMA.sch/OPAM_SUMA.spice",
 }
@@ -152,31 +152,31 @@ def patch_directions(lef_text: str, dirs: dict[str, str]) -> str:
     return "\n".join(out) + "\n"
 
 
-#: Que via conecta que par de metales. magic no escribe obstrucciones en las
-#: capas de via, y sin ellas el router se cree con derecho a bajar una via en
+#: Which via connects which pair of metals. magic writes no obstructions on the
+#: via layers, and without them the router thinks it may drop a via anywhere.
 #: cualquier punto del interior de un macro: 255 violaciones en el top, casi
-#: todas DENTRO de los bloques (M1.3 de area minima, M1.2a, V1.x, y hasta
-#: `MIMTM.10 MiM cap cannot overlap via3`). Una via solo puede existir donde los
-#: DOS metales que une esten libres, asi que su obstruccion es la union de las
+#: all INSIDE the blocks (M1.3 minimum area, M1.2a, V1.x, and even
+#: `MIMTM.10 MiM cap cannot overlap via3`). A via can only exist where BOTH
+#: metals it joins are free, so its obstruction is the union of the
 #: dos.
 _VIA_BETWEEN = {"Via1": ("Metal1", "Metal2"), "Via2": ("Metal2", "Metal3"),
                 "Via3": ("Metal3", "Metal4"), "Via4": ("Metal4", "Metal5")}
 
-#: Cuanto se engorda la obstruccion de cada metal. Declararla con la geometria
-#: exacta no basta: el router se cuela por huecos donde luego no puede cumplir el
-#: espaciado, y salen violaciones DENTRO del macro. Se le da el margen de la
-#: propia regla para que se mantenga a raya.
+#: How far each metal's obstruction is grown. Declaring it with the exact
+#: geometry is not enough: the router slips through gaps where it then cannot
+#: meet the spacing, and violations appear INSIDE the macro. It is given the
+#: rule's own margin so it keeps its distance.
 #:
-#: Metal4 lleva ademas los 1.2 um de `MIMTM.1`: las placas de los MIM viven ahi y
-#: la regla no pide no solaparlas, pide 1.2 um a cualquier otro metal4. Aun asi
+#: Metal4 also carries the 1.2 um of `MIMTM.1`: the MIM plates live there and the
+#: rule does not ask not to overlap them, it asks 1.2 um to any other metal4.
 #: quedan bandas libres de sobra (en COMP, 48 de sus 104 um), y hacen falta:
-#: es por donde el router cruza un macro en vertical. Sin Metal4, todo el trafico
-#: vertical tenia que pasar por los canales y el ruteo global no cerraba.
-#: Media anchura del cable del router. Las nets de senal del top van con la regla
+#: it is how the router crosses a macro vertically. Without Metal4, all the
+#: vertical traffic had to go through the channels and global routing did not close.
+#: Half the router's wire width. The top signal nets use the
 #: no estandar `ANCHO` (0.38, ver `route_top.tcl`), y el router mantiene el cable
-#: FUERA de la obstruccion pero midiendo por su eje: creciendo la obstruccion solo
-#: el espaciado, el borde del cable acababa a 0.24-0.27 um del metal del macro.
-#: Las 15 violaciones que quedaban en el top eran todas eso — cable del router
+#: OUTSIDE the obstruction but measured on its axis: growing the obstruction by
+#: the spacing alone, the wire edge ended 0.24-0.27 um from the macro's metal.
+#: The 15 violations left on the top were all that -- router wire
 #: contra metal de un macro, ninguna macro contra macro ni router contra router.
 _MEDIO_CABLE = 0.19
 
@@ -187,18 +187,18 @@ _OBS_GROW = {"Metal1": 0.23, "Metal2": 0.30 + _MEDIO_CABLE,
 
 def add_via_obstructions(lef_text: str, extra: dict[str, list] | None = None,
                          exacta: dict[str, list] | None = None) -> str:
-    """Reescribe el bloque OBS: engorda los metales y anade las capas de via.
+    """Rewrites the OBS block: grows the metals and adds the via layers.
 
-    `extra` trae la geometria que `keep_top_access` quito de los pines. Va aqui y
-    no a la basura: en COMP y OPAM esas formas de Metal4/Metal5 son **la placa del
-    MIM**. Borrarlas del abstracto dejo la placa invisible, y las tiras de
-    alimentacion del top se le pusieron al lado — 22 `MIMTM.1`, que pide 1.2 um.
-    Como obstruccion, y con el margen de la regla, nadie se le acerca.
+    `extra` carries the geometry `keep_top_access` removed from the pins. It goes
+    here and not in the bin: in COMP and OPAM those Metal4/Metal5 shapes are **the
+    MIM plate**. Deleting them from the abstract left the plate invisible, and the
+    top's power straps were laid beside it -- 22 `MIMTM.1`, which asks 1.2 um.
+    As an obstruction, and with the rule's margin, nobody goes near it.
 
-    `exacta` son los pads que `drop_trapped_pads` retiro, y van **sin engordar**.
-    Lo que se les pide es solo que nadie se funda con ellos; engordarlos 0.49 les
-    haria comerse el pin del vecino, que esta justo al lado — es lo que los hacia
-    inservibles como punto de acceso, para empezar.
+    `exacta` are the pads `drop_trapped_pads` removed, and they go **ungrown**.
+    All that is asked of them is that nobody merges with them; growing them 0.49
+    would have them eat the neighbour's pin, which is right beside -- that is what
+    made them useless as an access point in the first place.
     """
     body = lef_text[lef_text.index("  OBS"):]
     by_layer: dict[str, kdb.Region] = {}
@@ -247,8 +247,8 @@ def add_via_obstructions(lef_text: str, extra: dict[str, list] | None = None,
             extra.append(f"        RECT {b.left / 1000:.3f} {b.bottom / 1000:.3f} "
                          f"{b.right / 1000:.3f} {b.top / 1000:.3f} ;")
 
-    #  Se reescribe el bloque OBS entero: las de metal van engordadas y las de
-    #  via son nuevas, asi que no vale con anadir al final.
+    #  The whole OBS block is rewritten: the metal ones grown and the via ones
+    #  new, so appending at the end will not do.
     for name in _OBS_GROW:
         if name not in by_layer:
             continue
@@ -271,13 +271,13 @@ def add_via_obstructions(lef_text: str, extra: dict[str, list] | None = None,
         re.search(r"MACRO (\S+)", lef_text).group(1) + "\n"
 
 
-#: Numero de capa en el GDS de cada metal, para poder mirar lo que hay de verdad.
+#: GDS layer number of each metal, so the real geometry can be inspected.
 _GDS = {"Metal1": (34, 0), "Metal2": (36, 0), "Metal3": (42, 0),
         "Metal4": (46, 0), "Metal5": (81, 0)}
 
 
 def _clip_to_real(rects: list[str], real) -> list[str]:
-    """Sustituye cada RECT del pin por su interseccion con el metal real."""
+    """Replaces each pin RECT with its intersection with the real metal."""
     out = []
     for line in rects:
         m = re.match(r"\s*RECT ([-\d.]+) ([-\d.]+) ([-\d.]+) ([-\d.]+) ;", line)
@@ -290,16 +290,16 @@ def _clip_to_real(rects: list[str], real) -> list[str]:
         pieces = []
         for poly in got.each():
             #  Ni `is_box()` ni la igualdad exacta de areas valen como criterio:
-            #  el metal real llega al pin con las esquinas achaflanadas y sale un
-            #  poligono de ocho vertices. Se acepta la caja del trozo cuando el
-            #  trozo la llena casi entera; lo que se declara de mas son esos
-            #  chaflanes, centesimas de micra y siempre DENTRO del rectangulo que
+            #  the real metal reaches the pin with chamfered corners and an
+            #  eight-vertex polygon comes out. The piece's box is accepted when
+            #  the piece nearly fills it; what gets over-declared are those
+            #  chamfers, hundredths of a micron and always INSIDE the rectangle
             #  magic ya declaraba.
             if poly.area() < 0.8 * poly.bbox().area():
                 pieces = []            # forma rara: mejor dejar el RECT original
                 break
             b = poly.bbox().to_dtype(1e-3)
-            #  Nada por debajo del ancho minimo de metal3 (M3.1 = 0.28): una
+            #  Nothing below the metal3 minimum width (M3.1 = 0.28): a
             #  esquirla no es un sitio donde aterrizar.
             if min(b.width(), b.height()) >= 0.28:
                 pieces.append(f"      RECT {b.left:.3f} {b.bottom:.3f} "
@@ -308,29 +308,29 @@ def _clip_to_real(rects: list[str], real) -> list[str]:
     return out
 
 
-#: Hueco por debajo del cual un pad de Metal3 no es un sitio donde aterrizar:
+#: Gap below which a Metal3 pad is not a place to land:
 #: dos veces (medio cable + espaciado) = 2 * (0.19 + 0.28). Si entre el pad y el
-#: metal del pin de al lado no cabe un cable con su espaciado a cada lado, el
-#: router no tiene forma LEGAL de llegar a ese vecino sin rozar el pad — y cuando
-#: no la tiene, no se para: pasa por encima. Como las dos formas son de la misma
-#: capa, se funden en un poligono y no queda ni rastro en el DRC.
+#: the neighbouring pin's metal a wire with its spacing on each side does not
+#: fit, the router has no LEGAL way to reach that neighbour without brushing the
+#: pad -- and when it has none, it does not stop: it goes over. Since both shapes
+#: layer, se funden en un poligono y no queda ni rastro en el DRC.
 _HUECO_UTIL = 2 * (_MEDIO_CABLE + 0.28)
 
 
 def drop_trapped_pads(lef_text: str):
-    """Quita del pin los pads de Metal3 que estan pegados a otro pin.
+    """Removes from a pin the Metal3 pads that sit against another pin.
 
-    Asi salio el segundo corto del top: `DECODER` sube `XZ` por tres pads de
-    0.4 x 0.4 (x = 10.03, 12.03 y 24.03 en coordenadas del macro) y la barra de
-    `YZ` pasa 0.92 um por debajo de los dos primeros. El router entro en `YZ` por
+    That is how the top's second short appeared: `DECODER` brings `XZ` up through
+    0.4 x 0.4 (x = 10.03, 12.03 y 24.03 en coordenadas del macro) y la bar de
+    `YZ` passes 0.92 um below the first two. The router entered `YZ` from
     (75.32, 374.92) y subio recto: a 0.92 um no cabe un cable de 0.38 con 0.28 a
-    cada lado, asi que atraveso el pad de `XZ` y dejo `x3_net2` y `x3_net3`
+    each side, so it crossed the `XZ` pad and left `x3_net2` and `x3_net3`
     siendo la misma net. Cero violaciones de DRC, claro.
 
-    Solo se retira un pad si al pin le queda **otro** que no este atrapado: el
-    tercero de `XZ`, a 12 um de distancia, esta libre y por ahi se entra igual de
-    bien. Si todos lo estan, se dejan como estaban — un pin inalcanzable es peor
-    que un corto, porque no hay quien lo rutee.
+    A pad is only removed if the pin keeps **another** that is not trapped: the
+    third one of `XZ`, 12 um away, is free and gets in just as well. If all of
+    them are trapped, they are left as they were -- an unreachable pin is worse
+    than a short, because nobody can route it.
     """
     pins: dict[str, list[tuple]] = {}
     pin = layer = None
@@ -352,8 +352,8 @@ def drop_trapped_pads(lef_text: str):
 
     def region(rects):
         r = kdb.Region()
-        for caja in rects:
-            r.insert(kdb.DBox(*caja).to_itype(1e-3))
+        for box in rects:
+            r.insert(kdb.DBox(*box).to_itype(1e-3))
         return r.merged()
 
     fuera: dict[str, set] = {}
@@ -396,9 +396,9 @@ def drop_trapped_pads(lef_text: str):
     return "\n".join(out) + "\n", exacta
 
 
-#: Pila de metales para saber que esta unido con que dentro del bloque. Es la
-#: misma que usa scripts/check_connectivity.py, y a proposito NO lleva poly: lo
-#: que hace falta aqui es precisamente que el cuerpo de una resistencia de poly
+#: Metal stack for working out what is joined to what inside the block. It is the
+#: same one scripts/check_connectivity.py uses, and on purpose it does NOT carry
+#: poly: what is needed here is precisely that a poly resistor body
 #: NO una sus dos extremos.
 PILA = [("Metal1", (34, 0)), ("Via1", (35, 0)), ("Metal2", (36, 0)),
         ("Via2", (38, 0)), ("Metal3", (42, 0)), ("Via3", (40, 0)),
@@ -406,7 +406,7 @@ PILA = [("Metal1", (34, 0)), ("Via1", (35, 0)), ("Metal2", (36, 0)),
 
 
 def _extraer(gds: Path):
-    """(l2n, regiones, etiquetas) del layout de un bloque."""
+    """(l2n, regions, labels) of a block layout."""
     ly = kdb.Layout()
     ly.read(str(gds))
     top = ly.top_cell()
@@ -421,55 +421,55 @@ def _extraer(gds: Path):
     l2n.extract_netlist()
     etiquetas = {}
     for li in ly.layer_indexes():
-        capa = next((n for n, gl in PILA if ly.get_info(li).layer == gl[0]
+        layer = next((n for n, gl in PILA if ly.get_info(li).layer == gl[0]
                      and ly.get_info(li).datatype == gl[1]), None)
-        if capa is None:
+        if layer is None:
             continue
         for sh in top.shapes(li).each():
             if sh.is_text():
                 etiquetas.setdefault(sh.text.string,
-                                     (capa, sh.text.x * ly.dbu, sh.text.y * ly.dbu))
+                                     (layer, sh.text.x * ly.dbu, sh.text.y * ly.dbu))
     return l2n, reg, etiquetas
 
 
 def podar_islas_ajenas(lef_text: str, gds: Path, dirs: dict[str, str]):
-    """Quita de cada PIN el metal que NO esta unido electricamente a su etiqueta.
+    """Removes from each PIN the metal NOT electrically joined to its label.
 
-    magic escribe el puerto con toda la geometria que su modelo de conectividad
-    da por unida, **y ese modelo atraviesa el cuerpo de una resistencia de
-    poly**. En `OPAM_LIN_flat`, que es el unico bloque con resistencia, el pin
-    `OUT` salia con metal de los DOS lados de la realimentacion: el de `OUT` y el
+    magic writes the port with all the geometry its connectivity model considers
+    joined, **and that model goes straight through the body of a poly
+    resistor**. In `OPAM_LIN_flat`, the only block with a resistor, pin `OUT`
+    came out with metal from BOTH sides of the feedback: that of `OUT` and that
     de `G_OUT_P`, que es un nodo interno.
 
     Eso no da ningun error en ningun sitio. El router del top aterrizo en el lado
-    equivocado y los tres comparadores de cada GRADIENT2 quedaron colgados de
-    `G_OUT_P` en vez de `OUT`. El DRC no ve nada -- no hay regla que se viole --
-    y el propio informe del router sale vacio.
+    wrong one and the three comparators of each GRADIENT2 ended up hanging off
+    `G_OUT_P` instead of `OUT`. DRC sees nothing -- no rule is broken -- and the
+    router's own report comes out empty.
 
-    Aqui se sondea cada rectangulo del puerto contra la extraccion de metal del
-    bloque y se deja solo el grupo que contiene la ETIQUETA del pin. Lo que se
-    quita se devuelve para que entre como obstruccion: sigue siendo metal y nadie
+    Here each port rectangle is probed against the block's metal extraction and
+    only the group containing the pin's LABEL is kept. What is removed is
+    returned so it can go in as an obstruction: it is still metal and nobody
     debe fundirse con el.
 
-    Los pines de alimentacion se saltan: su metal se une por taps de sustrato y
-    de pozo, que no estan en la pila, asi que ahi partirse en islas es normal.
+    The power pins are skipped: their metal is joined through substrate and well
+    taps, which are not in the stack, so breaking into islands there is normal.
     """
-    #  Las coordenadas del LEF que escribe magic SON las del GDS, sin desplazar:
-    #  el bloque declara `ORIGIN 1.26 0` y `SIZE 87.31` justamente porque su
-    #  geometria va de -1.26 a 86.05, que es el bbox del GDS. El ORIGIN se suma
-    #  mas tarde, al colocar el macro (ver check_connectivity.place); aqui no.
+    #  The LEF coordinates magic writes ARE the GDS ones, unshifted: the block
+    #  declares `ORIGIN 1.26 0` and `SIZE 87.31` precisely because its geometry
+    #  runs from -1.26 to 86.05, which is the GDS bbox. ORIGIN is added later,
+    #  when placing the macro (see check_connectivity.place); not here.
     l2n, reg, etiquetas = _extraer(gds)
 
-    def net_en(capa, x, y):
-        n = l2n.probe_net(reg[capa], kdb.DPoint(x, y))
+    def net_en(layer, x, y):
+        n = l2n.probe_net(reg[layer], kdb.DPoint(x, y))
         return n.expanded_name() if n else None
 
     podado: dict[str, list] = {}
-    out, pin, capa, alimentacion = [], None, None, False
+    out, pin, layer, alimentacion = [], None, None, False
     for line in lef_text.splitlines():
         m = re.match(r"\s*PIN\s+(\S+)\s*$", line)
         if m:
-            pin, capa, alimentacion = m.group(1), None, False
+            pin, layer, alimentacion = m.group(1), None, False
             out.append(line)
             continue
         if pin and re.match(rf"\s*END\s+{re.escape(pin)}\s*$", line):
@@ -480,77 +480,77 @@ def podar_islas_ajenas(lef_text: str, gds: Path, dirs: dict[str, str]):
             alimentacion = True
         m = re.match(r"\s*LAYER\s+(\S+)\s*;", line)
         if m:
-            capa = m.group(1)
+            layer = m.group(1)
         m = re.match(r"\s*RECT ([-\d.]+) ([-\d.]+) ([-\d.]+) ([-\d.]+) ;", line)
-        if not (pin and not alimentacion and capa in reg and m
+        if not (pin and not alimentacion and layer in reg and m
                 and pin in etiquetas):
             out.append(line)
             continue
         x0, y0, x1, y1 = (float(v) for v in m.groups())
         cap_et, ex, ey = etiquetas[pin]
         buena = net_en(cap_et, ex, ey)
-        suya = net_en(capa, (x0 + x1) / 2, (y0 + y1) / 2)
+        suya = net_en(layer, (x0 + x1) / 2, (y0 + y1) / 2)
         if buena is None or suya == buena:
             out.append(line)
         else:
-            podado.setdefault(capa, []).append((x0, y0, x1, y1))
+            podado.setdefault(layer, []).append((x0, y0, x1, y1))
     return "\n".join(out) + "\n", podado
 
 
 def keep_top_access(lef_text: str, dirs: dict[str, str], gds=None):
-    """Deja en cada pin de senal solo el metal por el que el top puede entrar.
+    """Leaves on each signal pin only the metal the top can enter through.
 
     Los bloques suben ahora sus puertos hasta Metal3 (ver
     `zotnetic_layout/coil_layout/power.py`). Si el LEF sigue anunciando ademas la
-    forma de Metal1, el router del top se mete por ahi: baja una via1 hasta dentro
-    del bloque y aterriza pegada al metal del vecino — `Cut Short` en el ruteo
-    detallado, que es exactamente lo que la plataforma de Metal3 venia a evitar.
+    Metal1 shape, the top's router goes in through it: it drops a via1 into the
+    block and lands against the neighbour's metal -- `Cut Short` in detailed
+    routing, which is exactly what the Metal3 landing pad was there to prevent.
 
-    A los de alimentacion se les quita **solo el Metal2**, y por una razon
-    concreta: es un CORTO, el unico que le quedaba al top. `lef write` declara
-    como pin del puerto los ~55 pads de 0.4 x 0.4 de Metal2 con que cada bloque
-    sube su riel de Metal1 hasta la barra de Metal3, y el router del top se cree
-    con derecho a cruzarlos. Cruzo uno: el cable de Metal2 de `S2P` va de
-    (217.56, 258.44) a (217.56, 294.84) y por el camino se funde con el pad de
-    VDD de `x3_x5` en y=270.66 y con el de VSS de `x4_x3` en y=283.48 —el LEF los
-    da a 0.10 um de su eje—, con lo que S2P, VDD y VSS acaban siendo la misma net.
-    **No hay violacion de DRC**: dos formas de la misma capa que se solapan se
-    funden en un poligono, asi que ni KLayout ni magic ven nada, y el propio
-    router da su informe vacio. Solo lo ve el LVS, y alli sale como un nodo con
+    From the power ones **only Metal2** is removed, and for a specific reason:
+    it is a SHORT, the only one the top had left. `lef write` declares as port
+    pins the ~55 Metal2 pads of 0.4 x 0.4 each block uses to bring its Metal1
+    rail up to the Metal3 bar, and the top's router believes
+    it may cross them. It crossed one: the `S2P` Metal2 wire runs from
+    (217.56, 258.44) to (217.56, 294.84) and on the way merges with the VDD pad
+    of `x3_x5` at y=270.66 and with the VSS one of `x4_x3` at y=283.48 -- the LEF
+    puts them 0.10 um from its axis -- so S2P, VDD and VSS end up the same net.
+    **There is no DRC violation**: two overlapping shapes on the same layer merge
+    into one polygon, so neither KLayout nor magic sees anything, and the router
+    itself reports empty. Only LVS sees it, and there it shows as a node with
     2442 terminales que se come medio circuito.
 
-    Como obstruccion, en cambio, el router los respeta —es lo que ya hace con
-    todo el Metal2 interno del bloque— y ademas `add_via_obstructions` deriva de
-    ahi la obstruccion de Via1 y Via2, que es por donde se colaba.
+    As an obstruction, on the other hand, the router respects them -- which is
+    what it already does with all the block's internal Metal2 -- and besides
+    `add_via_obstructions` derives the Via1 and Via2 obstruction from it, which
 
-    El Metal1 se queda como pin: son los rieles, no estorban al ruteo de senal
-    (que va de Metal2 para arriba) y quitarlos no arregla nada. Y la barra de
-    Metal3 tambien, que es a la que `pdngen` engancha la rejilla
+    Metal1 stays as a pin: those are the rails, they do not get in the way of
+    signal routing (which runs Metal2 and up) and removing them fixes nothing.
+    And the Metal3 bar too, which is the one `pdngen` hooks the grid to
     (`add_pdn_connect -grid macro -layers {Metal3 Metal4}`).
     """
-    #  SOLO Metal3. Dejar tambien Metal4/Metal5 parecia inofensivo —es la misma
-    #  net— pero en COMP y OPAM esas formas son **la placa del MIM**: el router
-    #  las tomaba como punto de acceso y tendia Metal4 a su lado, y `MIMTM.1` pide
-    #  1.2 um a cualquier otro metal4 sin perdonar que sea la misma net. De ahi
-    #  salian 60 de las 170 violaciones del top.
+    #  Metal3 ONLY. Leaving Metal4/Metal5 too looked harmless -- same net -- but
+    #  in COMP and OPAM those shapes are **the MIM plate**: the router took them
+    #  as an access point and ran Metal4 beside them, and `MIMTM.1` asks 1.2 um
+    #  to any other metal4 without forgiving that it is the same net. That is
+    #  where 60 of the 170 top violations came from.
     keep_senal = {"Metal3"}
     keep_power = {"Metal1", "Metal3"}
     keep = keep_senal
     dropped: dict[str, list] = {}
-    #  El pin se recorta contra el metal3 QUE HAY DE VERDAD en el GDS. `lef write`
-    #  de magic da un rectangulo por puerto, y cuando los pads de un puerto no
-    #  llegaron a unirse en barra (`add_signal_access` solo los une si el
-    #  espaciado se lo permite) ese rectangulo es su CAJA ENVOLVENTE: declara como
-    #  aterrizable un hueco donde no hay metal. El router aterrizaba ahi, a 0.14 um
-    #  del pad de al lado — las `M3.2a` que quedaban en el top, y sobre todo un
-    #  circuito ABIERTO que netgen veia como un fragmento de net por cada pin de
+    #  The pin is clipped against the metal3 that is REALLY in the GDS. magic's
+    #  `lef write` gives one rectangle per port, and when a port's pads never
+    #  merged into a bar (`add_signal_access` only joins them if the spacing
+    #  allows) that rectangle is their BOUNDING BOX: it declares as landable a
+    #  gap where there is no metal. The router landed there, 0.14 um from the pad
+    #  next door -- the `M3.2a` left on the top, and above all an OPEN circuit
+    #  that netgen saw as one net fragment per
     #  macro (114 nets de mas en el top).
     real = None
     if gds is not None:
         ly = kdb.Layout()
         ly.read(str(gds))
         #  42/0 es Metal3 en GF180. 34/0 es Metal1: recortar contra el metal
-        #  equivocado dejaba los pines en esquirlas de 0.34 um donde hay una barra
+        #  wrong one left the pins as 0.34 um slivers where there is a bar
         #  entera de 2.3 x 0.4, y el DRC del top subia de 14 a 32.
         real = kdb.Region(ly.top_cell().begin_shapes_rec(ly.layer(*_GDS["Metal3"])))
         real.merge()
@@ -573,8 +573,8 @@ def keep_top_access(lef_text: str, dirs: dict[str, str], gds=None):
             continue
         if in_port:
             if re.match(r"\s*END\s*$", line):
-                #  Si el puerto no llega a la capa por la que se entra, no se le
-                #  quita nada: mejor un pin de mas que un pin inalcanzable.
+                #  If the port does not reach the entry layer, nothing is taken
+                #  from it: better a spare pin than an unreachable one.
                 has3 = any(g[0] in keep for g in groups)
                 for layer, rects in groups:
                     if has3 and layer not in keep:
@@ -585,11 +585,11 @@ def keep_top_access(lef_text: str, dirs: dict[str, str], gds=None):
                             if m2:
                                 dropped.setdefault(layer, []).append(
                                     tuple(float(v) for v in m2.groups()))
-                        continue          # el top entra por arriba, no por aqui
+                        continue          # the top enters from above, not here
                     out.append(f"      LAYER {layer} ;")
-                    #  `real` es Metal3 y solo Metal3: recortar contra el el riel
+                    #  `real` is Metal3 and only Metal3: clipping the rail
                     #  de Metal1 de un pin de alimentacion lo borraria entero. Y
-                    #  la barra de Metal3 de alimentacion tampoco se recorta —es
+                    #  la bar de Metal3 de alimentacion tampoco se recorta —es
                     #  metal macizo de punta a punta y `pdngen` engancha ahi.
                     out.extend(_clip_to_real(rects, real)
                                if layer == "Metal3" and not power and real is not None
@@ -709,16 +709,16 @@ def main() -> None:
 
         dirs = read_directions(netlist, block)
         raw = write_lef(block, gds.resolve(), work)
-        # Primero se recortan los pines, y lo que se quita de ellos entra como
+        # The pins are clipped first, and what is taken from them goes in as
         # obstruccion: el orden inverso perderia la placa del MIM.
         text, podado = podar_islas_ajenas(
             patch_directions(raw.read_text(), dirs), gds.resolve(), dirs)
-        for capa, rs in podado.items():
-            print(f"               isla ajena fuera del pin: {len(rs)} rect(s)"
-                  f" de {capa}")
+        for layer, rs in podado.items():
+            print(f"               foreign island outside the pin: {len(rs)} rect(s)"
+                  f" de {layer}")
         text, dropped = keep_top_access(text, dirs, gds.resolve())
-        for capa, rs in podado.items():
-            dropped.setdefault(capa, []).extend(rs)
+        for layer, rs in podado.items():
+            dropped.setdefault(layer, []).extend(rs)
         text, atrapados = drop_trapped_pads(text)
         text = add_via_obstructions(text, dropped, atrapados)
         for r in atrapados.get("Metal3", []):

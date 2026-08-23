@@ -4,9 +4,9 @@
 The PDK deck (`libs.tech/klayout/tech/drc`) is the sign-off one: it decides.
 OpenROAD's own router DRC (`out/route_drc.rpt`) checks fewer rules -- it knows
 no `MIMTM.*` at all, for instance -- so settling for that one would be marking
-por bueno a uno mismo.
+your own homework.
 
-    python3 scripts/drc_klayout.py [bloque ...]
+    python3 scripts/drc_klayout.py [block ...]
 """
 
 from __future__ import annotations
@@ -110,7 +110,7 @@ def main() -> int:
         bad += 1
         total = sum(c.values())
         detail = "  ".join(f"{k} x{v}" for k, v in c.most_common(10))
-        print(f"  {name:14s} {total} violaciones: {detail}")
+        print(f"  {name:14s} {total} violations: {detail}")
     return 1 if bad else 0
 
 

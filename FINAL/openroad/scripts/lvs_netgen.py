@@ -6,7 +6,7 @@ different extractions: KLayout's comes from its own deck and this one from
 magic (`layouts/<B>/mag/<B>_extracted.spice`, already produced by `build_block.py`).
 Both saying the same thing is worth a good deal more than one saying it.
 
-    python3 scripts/lvs_netgen.py [bloque ...]
+    python3 scripts/lvs_netgen.py [block ...]
 
 With no arguments it runs the blocks. `GRADIENT_NAV` is asked for separately
 because the top must first be extracted with magic, which is slow.
@@ -157,10 +157,10 @@ def hoja_poly(ref: Path) -> str | None:
 
     1k, 2k and 3k **are drawn identically**: same layer, what changes is a
     process option. That is why the magic techfile only declares `ppolyf_u_1k`
-    extrae siempre esa, aunque el circuito pida otra.
+    always extracts that one, even when the circuit asks for another.
     """
-    hojas = set(_RE_POLY.findall(ref.read_text()))
-    return f"ppolyf_u_{hojas.pop()}k" if len(hojas) == 1 else None
+    sheets = set(_RE_POLY.findall(ref.read_text()))
+    return f"ppolyf_u_{sheets.pop()}k" if len(sheets) == 1 else None
 
 
 def _hoja_resistencia(layout: Path, modelo: str, work: Path) -> Path:
@@ -216,7 +216,7 @@ def align_ports(layout: Path, ref: Path, cell: str, work: Path) -> Path:
 
     magic lists them in the order it finds the labels and the schematic in its
     own, and netgen matches the top pins **by position**: with the very same
-    conectividad exacta (18 dispositivos y 86 nets a cada lado en DECODER)
+    conectividad exacta (18 device_lines y 86 nets a cada lado en DECODER)
     it ended in `Top level cell failed pin matching` for that reason alone, and
     warning on top that the block's symmetries kept it from breaking the tie.
 
@@ -278,12 +278,12 @@ does, and it reports `Netlists match` on these very netlists.
     #  If the circuit carries 2k or 3k poly the local setup is needed: the PDK
     #  one does not declare those devices and without that it will not reduce
     base = SETUP_POLYRES if (hoja_poly(ref) or "1k") != "ppolyf_u_1k" else SETUP
-    lineas = [f"source {base}"]
+    lines = [f"source {base}"]
     for n, path in ((1, layout), (2, ref)):
         for modelo in _modelos_mim(path):
-            lineas.append(f'permute "-circuit{n} {modelo}" 1 2')
+            lines.append(f'permute "-circuit{n} {modelo}" 1 2')
     dst = work / "setup_con_permute.tcl"
-    dst.write_text("\n".join(lineas) + "\n")
+    dst.write_text("\n".join(lines) + "\n")
     return dst
 
 

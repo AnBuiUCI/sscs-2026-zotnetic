@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""Lee lo que escribio ngspice, saca las tablas y exporta los datos con nombres.
+"""Reads what ngspice wrote, produces the tables and exports the named data.
 
     python3 analizar_nav2.py <carpeta_simulacion> <carpeta_datos>
 
-`wrdata` no escribe cabeceras: guarda un par (x, y) por vector, asi que el
-fichero tiene el doble de columnas que vectores y la unica forma de saber que
-columna es que es el registro VECTORES de aqui abajo. Es la fuente de verdad y
-hay que mantenerlo a la par que el bloque .control del .sch.
+`wrdata` writes no headers: it stores an (x, y) pair per vector, so the file
+has twice as many columns as vectors and the only way to know which column is
+which is the VECTORES record below. It is the source of truth and has to be
+kept in step with the .control block of the .sch.
 """
 
 from __future__ import annotations
@@ -16,7 +16,7 @@ from pathlib import Path
 
 import numpy as np
 
-#: El orden EXACTO de los `wrdata` del .sch. Si se toca uno hay que tocar el otro.
+#: The EXACT order of the .sch `wrdata`. Touch one and you must touch the other.
 VECTORES = [
     "X", "Y", "Z", "XP", "XN", "YP", "YN", "ZP", "ZN",
     "Xr", "Yr", "Zr", "XPr", "XNr", "YPr", "YNr", "ZPr", "ZNr",
@@ -31,26 +31,26 @@ COL = {n: 2 * i + 1 for i, n in enumerate(VECTORES)}
 BARRIDOS = [("ancho.txt", 0.02, "fondo de escala AMR, dR/R = 2 %"),
             ("fino.txt", 50e-6, "ventana fina, dR/R = 50 ppm")]
 
-#: Las salidas del navegador, cada una con su pareja del layout.
+#: The navigator outputs, each with its layout counterpart.
 #:
-#: **X, Y y Z son ANALOGICAS**, no logicas. Son la salida de los tres bloques de
-#: peso, que promedian las cuatro cadenas: medido, se mueven en 2.18 .. 3.04 V,
-#: no de rail a rail. Compararlas con un umbral seria inventarse bits que no hay,
-#: asi que se comparan como tensiones.
+#: **X, Y and Z are ANALOGUE**, not logic. They are the output of the three
+#: weight blocks averaging the four chains: measured, they move over
+#: 2.18 .. 3.04 V, not rail to rail. Thresholding them would invent bits that
+#: are not there, so they are compared as voltages.
 ANALOGICAS = ["X", "Y", "Z"]
-#: Estas si son logicas: salen del par de inversores de `COMP_OUT`.
+#: These ones are logic: they come out of `COMP_OUT`'s inverter pair.
 LOGICAS = ["XP", "XN", "YP", "YN", "ZP", "ZN"]
-#: Y las doce intermedias, la salida de cada cadena antes de los pesos.
+#: And the twelve intermediate ones, each chain's output before the weights.
 CADENAS = [f"{e}{k}" for e in "XYZ" for k in (1, 2, 3, 4)]
 
-#: Los cuatro sensores en el espacio, centrados en +-1 (ver el bloque ESTIMULO
+#: The four sensors in space, centred on +-1 (see the ESTIMULO block
 #: del .sch). Tetraedro regular inscrito en el cubo: S3 y S4 en esquinas opuestas
-#: del plano z de abajo, S1 y S2 en las dos contrarias del de arriba.
+#: of the lower z plane, S1 and S2 on the opposite two of the upper one.
 POSICION = {"S1": (-1, +1, +1), "S2": (+1, -1, +1),
             "S3": (-1, -1, -1), "S4": (+1, +1, -1)}
 
-#: Umbral logico. Las salidas del decodificador y de los pesos son rail a rail,
-#: asi que medio rail vale y no hace falta histeresis.
+#: Logic threshold. The decoder and weight outputs are rail to rail, so half a
+#: rail will do and no hysteresis is needed.
 UMBRAL = 2.5
 
 
@@ -63,7 +63,7 @@ def leer(path: Path) -> np.ndarray:
 
 
 def tramos(bits, ang):
-    """Trozos contiguos con el mismo valor, como (angulo_ini, angulo_fin, valor)."""
+    """Contiguous runs with the same value, as (angle_start, angle_end, value)."""
     out, ini = [], 0
     for j in range(1, len(bits) + 1):
         if j == len(bits) or bits[j] != bits[ini]:
@@ -87,16 +87,16 @@ def main() -> int:
         print(f"\n{'=' * 74}\n  {titulo}   ({len(ang)} puntos de {ang[0]:.0f} a {ang[-1]:.0f} grados)\n{'=' * 74}")
 
         #  --- la geometria: se recupera el gradiente de las cuatro lecturas ----
-        #  Los cuatro vectores de posicion son ortogonales componente a
-        #  componente, asi que el gradiente sale de una suma con signos y sin
+        #  The four position vectors are orthogonal component by component, so
+        #  the gradient comes from a signed sum with no
         #  resolver ningun sistema. Es la comprobacion de que la disposicion de
-        #  los sensores hace lo que se le pide: de cuatro numeros salen las tres
+        #  the sensors does what is asked of it: from four numbers come the three
         #  diferencias en x, y, z.
         b = {k: (v[f"{k}P"] - v[f"{k}N"]) / 5.0 for k in POSICION}
         g = {eje: sum(POSICION[k][i] * b[k] for k in POSICION) / 4.0
              for i, eje in enumerate("xyz")}
         #  Y el angulo reconstruido contra el que se pidio. En el plano X-Z el
-        #  gradiente va (cos, 0, sen), asi que atan2(gz, gx) tiene que devolver
+        #  gradient goes (cos, 0, sin), so atan2(gz, gx) must return
         #  el barrido.
         rec = np.degrees(np.arctan2(g["z"], g["x"])) % 360.0
         err = (rec - ang + 180.0) % 360.0 - 180.0
@@ -107,33 +107,33 @@ def main() -> int:
         print(f"             angulo reconstruido contra el barrido: "
               f"error |max| {np.abs(err).max():.4f} grados, rms {np.sqrt(np.mean(err ** 2)):.4f}")
 
-        #  --- el estimulo, antes que nada -------------------------------------
-        #  Si el modo comun se mueve, el modelo de puente esta mal puesto y todo
+        #  --- the stimulus, before anything else -------------------------------
+        #  If the common mode moves, the bridge model is wrong and everything
         #  lo demas sobra.
         vcm = np.concatenate([(v[f"S{k}P"] + v[f"S{k}N"]) / 2 for k in (1, 2, 3, 4)])
         dif = [np.ptp(v[f"S{k}P"] - v[f"S{k}N"]) / 2 for k in (1, 2, 3, 4)]
         print(f"  sensores   Vcm {vcm.min():.6f} .. {vcm.max():.6f} V   "
-              f"(tiene que ser constante)")
+              f"(must be constant)")
         print(f"             Vdiff maximo por sensor  " +
               "  ".join(f"S{k}={x * 1000:+.4f} mV" for k, x in enumerate(dif, 1)))
-        #  En valor absoluto: `i(V)` es la corriente que ENTRA por el borne
+        #  In absolute value: `i(V)` is the current ENTERING the positive
         #  positivo, o sea negativa cuando la fuente entrega.
         print(f"  consumo    puentes {abs(v['P_EXC'].mean()) * 1e6:8.1f} uW   "
               f"esquematico {abs(v['P_ESQ'].mean()) * 1e3:8.3f} mW   "
               f"layout RC {abs(v['P_LAY'].mean()) * 1e3:8.3f} mW")
 
-        #  --- lo que mide el banco: coinciden las dos versiones? --------------
+        #  --- what the bench measures: do the two versions agree? -------------
         paso = ang[1] - ang[0]
-        print(f"\n  las tres salidas de peso, comparadas como TENSIONES:")
+        print(f"\n  the three weight outputs, compared as VOLTAGES:")
         print(f"  {'salida':7s} {'rango esquematico':>20s} {'rango layout RC':>18s} "
               f"{'|dif| max':>10s} {'rms':>8s} {'grados de canto':>16s}")
         for n in ANALOGICAS:
             e = v[n] - v[n + "r"]
-            #  La salida del peso es una escalera: promedia cuatro niveles
-            #  logicos. Donde las dos versiones coinciden la diferencia es de
-            #  milivoltios; donde una ya ha dado el escalon y la otra no, es el
-            #  escalon entero. Por eso el maximo por si solo enganaria: lo que
-            #  mide de verdad la diferencia entre esquematico y layout es
+            #  The weight output is a staircase: it averages four logic levels.
+            #  Where the two versions agree the difference is millivolts; where
+            #  one has already stepped and the other has not, it is the whole
+            #  step. That is why the maximum alone would mislead: what really
+            #  measures the difference between schematic and layout is
             #  CUANTOS GRADOS del barrido caen en ese canto.
             canto = np.sum(np.abs(e) > 0.1) * (ang[1] - ang[0])
             print(f"  {n:7s} {v[n].min():8.4f}..{v[n].max():<8.4f} "
@@ -154,22 +154,22 @@ def main() -> int:
                      if secs else "(siempre a 0)"))
         clavadas = [n for n in LOGICAS if np.ptp(v[n]) < 0.5]
         if clavadas:
-            #  Una salida logica que no se mueve en TODO el barrido no es un
+            #  A logic output that does not move over the WHOLE sweep is not a
             #  acuerdo: es que no lleva informacion. Pasa igual en el
-            #  esquematico y en el layout, asi que ningun LVS ni ningun DRC lo
-            #  puede ver -- solo esto.
+            #  schematic and in the layout, so no LVS and no DRC can see it --
+            #  only this can.
             ejes = sorted({n[0] for n in clavadas})
             print(f"    CLAVADAS EN TODO EL BARRIDO: {' '.join(clavadas)}."
                   f"  No es del banco: el par de inversores de COMP_OUT no")
             for e in ejes:
-                print(f"    conmuta en el rango en que vive la salida del peso "
+                print(f"    switches in the range where the weight output lives "
                       f"{e} ({v[e].min():.3f} .. {v[e].max():.3f} V).")
 
-        #  --- y las doce salidas de cadena, antes de los pesos -----------------
+        #  --- and the twelve chain outputs, before the weights ----------------
         peor = min(((100.0 * np.mean((v[n] > UMBRAL) == (v[n + "r"] > UMBRAL)), n)
                     for n in CADENAS))
         acu = [100.0 * np.mean((v[n] > UMBRAL) == (v[n + "r"] > UMBRAL)) for n in CADENAS]
-        print(f"\n  las 12 salidas de cadena (antes de los pesos): "
+        print(f"\n  the 12 chain outputs (before the weights): "
               f"acuerdo medio {np.mean(acu):.2f} %, peor {peor[0]:.2f} % en {peor[1]}")
 
         #  --- exportar con nombres --------------------------------------------

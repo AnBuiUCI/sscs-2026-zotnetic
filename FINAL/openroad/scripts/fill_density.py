@@ -58,7 +58,7 @@ DEF = OUT / f"{TOP}_routed.def"
 #: cannot put COMP inside their well nor poly over their gates.
 HUECOS = OUT / "decap_huecos.txt"
 
-#: (nombre, capa GDS, minimo en %, separacion al metal real, separacion entre
+#: (name, GDS layer, minimum in %, spacing to real metal, spacing between
 #: fill squares, minimum square side, rule).
 #:
 #: Poly2 uses very different numbers because **magic does have fill rules** even
@@ -134,15 +134,15 @@ def colocacion(defpath: Path | None = None) -> list[tuple[str, str, float, float
         if m:
             tam[lef.stem] = (float(m.group(1)), float(m.group(2)))
     out = []
-    bloque = texto[texto.index("COMPONENTS"):texto.index("END COMPONENTS")]
+    block = texto[texto.index("COMPONENTS"):texto.index("END COMPONENTS")]
     for m in re.finditer(r"-\s+(\S+)\s+(\S+)\s*\+\s+\S+\s+"
-                         r"\(\s*(-?\d+)\s+(-?\d+)\s*\)\s+(\w+)", bloque):
-        celda = m.group(2)
-        if celda not in tam:
+                         r"\(\s*(-?\d+)\s+(-?\d+)\s*\)\s+(\w+)", block):
+        cell = m.group(2)
+        if cell not in tam:
             continue
         x, y = int(m.group(3)) / unidades, int(m.group(4)) / unidades
-        w, h = tam[celda]
-        out.append((m.group(1), celda, x, y, w, h))
+        w, h = tam[cell]
+        out.append((m.group(1), cell, x, y, w, h))
     return out
 
 
@@ -158,15 +158,15 @@ def huella_macros() -> kdb.Region:
     for _, _, x, y, w, h in colocacion():
         out.insert(kdb.DBox(x, y, x + w, y + h).to_itype(1e-3))
     if HUECOS.exists():
-        for linea in HUECOS.read_text().split("\n"):
-            if linea.strip():
-                x0, y0, x1, y1 = (float(v) for v in linea.split())
+        for line in HUECOS.read_text().split("\n"):
+            if line.strip():
+                x0, y0, x1, y1 = (float(v) for v in line.split())
                 out.insert(kdb.DBox(x0, y0, x1, y1).to_itype(1e-3))
     out.merge()
     return out
 
 
-def rejilla(zona: kdb.Region, lado: float, paso: float, die: kdb.DBox) -> kdb.Region:
+def rejilla(zona: kdb.Region, lado: float, pitch: float, die: kdb.DBox) -> kdb.Region:
     """Squares of `lado` every `paso`, **whole**, inside `zona`.
 
     No clipping against the zone: a square either fits whole or is not placed.
@@ -175,13 +175,13 @@ def rejilla(zona: kdb.Region, lado: float, paso: float, die: kdb.DBox) -> kdb.Re
     area, and DRC flagged thousands of `M*.1` and `M*.3`.
     """
     cuadros = kdb.Region()
-    y = die.bottom + paso / 2
+    y = die.bottom + pitch / 2
     while y + lado <= die.top:
-        x = die.left + paso / 2
+        x = die.left + pitch / 2
         while x + lado <= die.right:
             cuadros.insert(kdb.DBox(x, y, x + lado, y + lado).to_itype(1e-3))
-            x += paso
-        y += paso
+            x += pitch
+        y += pitch
     return cuadros.inside(zona)
 
 
@@ -208,10 +208,10 @@ def main() -> int:
     print(f"  die {die.width():.2f} x {die.height():.2f} = {area_die:,.0f} um2   "
           f"macros {macros.area()/1e6:,.0f}   libre {libre_total.area()/1e6:,.0f}")
     print(f"  fill {'in channels AND over the macros' if sobre_macros else 'in channels only'}\n")
-    print(f"    {'capa':7s} {'regla':12s} {'antes':>7s} {'despues':>8s} {'pide':>5s}   estado")
+    print(f"    {'layer':7s} {'regla':12s} {'antes':>7s} {'despues':>8s} {'pide':>5s}   estado")
 
     corto = []
-    for nombre, gl, minimo, guarda, sep_relleno, lado_min, regla in CAPAS:
+    for name, gl, minimo, guarda, sep_relleno, lado_min, regla in CAPAS:
         idx = layout.layer(gl, 0)
         real = region(top, idx, layout.dbu)
         antes = 100 * real.area() / 1e6 / area_die
@@ -231,8 +231,8 @@ def main() -> int:
         def buscar(z: kdb.Region) -> kdb.Region:
             puesto, lado = kdb.Region(), lado_min
             while lado <= lado_min * LADO_FACTOR + 1e-9:
-                paso = lado + sep_relleno + PASO_HOLGURA
-                puesto = rejilla(z, lado, paso, die)
+                pitch = lado + sep_relleno + PASO_HOLGURA
+                puesto = rejilla(z, lado, pitch, die)
                 if 100 * (real.area() + puesto.area()) / 1e6 / area_die >= minimo:
                     break
                 lado += 0.20
@@ -246,7 +246,7 @@ def main() -> int:
         #  and `MT.3`, one violation per rule in the density pass. Over a macro
         #  fill only fits where none of its own metal is, because the zone
         #  already comes from subtracting its geometry with the layer's spacing.
-        #  con el espaciado de la capa.
+        #  with the layer's spacing.
         encima = False
         if (not sobre_macros
                 and 100 * (real.area() + puesto.area()) / 1e6 / area_die < minimo):
@@ -265,10 +265,10 @@ def main() -> int:
         despues = 100 * (real.area() + puesto.area()) / 1e6 / area_die
         ok = despues >= minimo
         if not ok:
-            corto.append((nombre, regla, despues, minimo))
-        print(f"    {nombre:7s} {regla:12s} {antes:6.2f}% {despues:7.2f}% "
+            corto.append((name, regla, despues, minimo))
+        print(f"    {name:7s} {regla:12s} {antes:6.2f}% {despues:7.2f}% "
               f"{minimo:4.0f}%   {'cumple' if ok else 'SIGUE CORTA'}"
-              f"{'  (tambien sobre los macros)' if encima else ''}")
+              f"{'  (also over the macros)' if encima else ''}")
 
     GDS_OUT.parent.mkdir(parents=True, exist_ok=True)
     layout.write(str(GDS_OUT))
@@ -276,8 +276,8 @@ def main() -> int:
 
     if corto:
         print(f"\n  {len(corto)} layer(s) short of the minimum:")
-        for nombre, regla, d, m in corto:
-            print(f"    {nombre} ({regla}): {d:.2f}% de {m:.0f}%")
+        for name, regla, d, m in corto:
+            print(f"    {name} ({regla}): {d:.2f}% de {m:.0f}%")
         if not sobre_macros:
             print("  With --sobre-macros the fill also goes over the macros.")
         return 1

@@ -86,24 +86,24 @@ C {opin.sym} 1200 -400 0 0 {name=q70 lab=ZB}
 C {iopin.sym} 1200 -100 0 0 {name=q71 lab=VDD}
 C {iopin.sym} 1200 -60 0 0 {name=q72 lab=VSS}
 C {devices/code_shown.sym} -1200 -1200 0 0 {name=NOTA only_toplevel=false
-value="* GRADIENT3 = una cadena completa: tres componentes y LOS DOS EXTREMOS.
+value="* GRADIENT3 = a complete chain: three components and BOTH EXTREMES.
 *
-* Cada componente del gradiente se forma promediando dos sensores en la
-* entrada del amplificador (las resistencias van dentro de OPAM_SUMA), se
+* Each gradient component is formed by averaging two sensors at the
+* amplifier input (the resistors live inside OPAM_SUMA), the three are
 * comparan las tres dos a dos, y esas MISMAS tres comparaciones alimentan
-* dos decodificadores: el que senala un extremo y el que senala el otro.
+* two decoders: the one naming one extreme and the one naming the other.
 *
-* La diferencia con GRADIENT2 es doble. Una, que lo que se compara son
-* COMPONENTES DEL GRADIENTE y no lecturas crudas de sensor. Y dos, que hay
-* dos decodificadores en vez de uno, que es lo que permite dar el SENTIDO:
-* con un solo extremo, cuando el gradiente apunta hacia el lado contrario
+* The difference from GRADIENT2 is twofold. One, what is compared are
+* GRADIENT COMPONENTS and not raw sensor readings. And two, there are
+* two decoders instead of one, which is what allows giving the SENSE:
+* with a single extreme, when the gradient points the other way
 * la componente senalada vale casi cero y decide el ruido.
 *
-* QUE GRADIENTE. Cada sensor lee la MAGNITUD del campo, |B|, en su
-* posicion: un escalar. Los cuatro muestrean ese campo escalar y lo que se
-* reconstruye es grad|B|, que apunta hacia donde la magnitud CRECE, o sea
+* WHICH GRADIENT. Each sensor reads the MAGNITUDE of the field, |B|, at
+* its position: a scalar. The four sample that scalar field and what is
+* reconstructed is grad|B|, which points where the magnitude GROWS, that
 * hacia la fuente.
 *
-* A y B son los dos extremos. Cual es el minimo y cual el maximo depende
-* del signo de la cadena analogica, asi que se fija MIDIENDO y no aqui.
+* A and B are the two extremes. Which is the minimum and which the
+* maximum depends on the analogue chain sign, so it is fixed by MEASURING.
 * Medido: el lado B es el maximo, o sea el que apunta hacia la fuente."}

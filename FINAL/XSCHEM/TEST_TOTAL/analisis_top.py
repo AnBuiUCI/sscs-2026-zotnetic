@@ -1,18 +1,18 @@
 #!/usr/bin/env python3
-"""Recalcula todo lo que afirma FUNCIONALIDAD_TOP.md, y en el mismo orden.
+"""Recomputes everything FUNCIONALIDAD_TOP.md claims, in the same order.
 
     python3 analisis_top.py
 
-No simula: lee los CSV que dejan `run_gradient.sh` y `run_nav2.sh`, y el netlist
-del top. Existe para que **ninguna cifra del documento este tecleada a mano**: si
+It does not simulate: it reads the CSVs left by `run_gradient.sh` and
+`run_nav2.sh`, and the top netlist. It exists so that **no figure in the document
 se vuelve a correr un banco y cambia un numero, esto lo canta y el documento se
 actualiza contra esta salida.
 
-  datos/ancho.csv        banco del gradiente -- es el unico que trae las senales
-                         INTERNAS de la cadena (SX/SY/SZ y XY/XZ/YZ), que es lo
-                         que permite medir la polaridad de cada etapa por
+  datos/ancho.csv        gradient bench -- the only one carrying the chain
+                         INTERNAL signals (SX/SY/SZ and XY/XZ/YZ), which is what
+                         allows measuring each stage polarity
                          separado.
-  datos_nav2/ancho_nav2.csv   banco del navegador con la geometria de tetraedro.
+  datos_nav2/ancho_nav2.csv   navigator bench with the tetrahedron geometry.
   XSCHEM/simulation/GRADIENT_NAV2.sch/GRADIENT_NAV2.spice   el cableado de verdad.
 """
 
@@ -32,12 +32,12 @@ CSV_GRAD = AQUI / "datos/ancho.csv"
 CSV_NAV = AQUI / "datos_nav2/ancho_nav2.csv"
 
 #: Los cuatro sensores, de la foto: tetraedro regular inscrito en el cubo. S3 y
-#: S4 en esquinas opuestas del plano z de abajo, S1 y S2 en las dos contrarias
+#: S4 on opposite corners of the lower z plane, S1 and S2 on the other two
 #: del de arriba. En unidades de medio lado de cubo.
 POSICION = {"S1": (-1, +1, +1), "S2": (+1, -1, +1),
             "S3": (-1, -1, -1), "S4": (+1, +1, -1)}
 
-#: Umbral logico. Las salidas del decodificador son rail a rail.
+#: Logic threshold. The decoder outputs are rail to rail.
 UMBRAL = 2.5
 VEXC = 5.0
 
@@ -63,13 +63,13 @@ def leer_netlist() -> tuple[dict[str, list[str]], list[str]]:
 
 
 def instancias(lineas, pts, celda, dentro=None):
-    """Las llamadas a `celda`, como (instancia, pin -> nodo)."""
+    """The calls to `cell`, as (instance, pin -> node)."""
     out, act = [], None
     for ln in lineas:
         t = ln.split()
-        #  El nivel de arriba viene COMENTADO (`**.subckt`), que es como xschem
-        #  exporta desde la CLI. Sin contarlo, buscar dentro del top no encuentra
-        #  nada y la comprobacion sale vacia -- que es peor que salir mal.
+        #  The top level comes COMMENTED (`**.subckt`), which is how xschem
+        #  exports from the CLI. Without counting it, searching inside the top
+        #  finds nothing and the check comes out empty -- worse than coming out wrong.
         if t[:1] in ([".subckt"], ["**.subckt"]):
             act = t[1]
         elif t[:1] in ([".ends"], ["**.ends"]):
@@ -83,7 +83,7 @@ def instancias(lineas, pts, celda, dentro=None):
 
 # --------------------------------------------------------------------------- #
 def geometria(d) -> None:
-    titulo(1, "La disposicion de los sensores, y que se saca de ella")
+    titulo(1, "The sensor arrangement, and what comes out of it")
     P = np.array(list(POSICION.values()), float)
     print("  sensor   x   y   z    plano z")
     for k, (x, y, z) in POSICION.items():
@@ -95,7 +95,7 @@ def geometria(d) -> None:
     G = P.T @ P
     print(f"  suma(u_a * u_b) = diag{tuple(int(x) for x in np.diag(G))}, "
           f"fuera de la diagonal {np.abs(G - np.diag(np.diag(G))).max():.0f}"
-          f"   -> los tres ejes se recuperan por separado")
+          f"   -> the three axes are recovered separately")
 
     b = {k: (d[f"{k}P"] - d[f"{k}N"]) / VEXC for k in POSICION}
     g = {e: sum(POSICION[k][i] * b[k] for k in POSICION) / 4.0
@@ -103,19 +103,19 @@ def geometria(d) -> None:
     ang = d["angulo"]
     rec = np.degrees(np.arctan2(g["z"], g["x"])) % 360.0
     err = (rec - ang + 180.0) % 360.0 - 180.0
-    print(f"\n  gradiente recuperado de las cuatro lecturas, con el barrido en el plano X-Z:")
+    print(f"\n  gradient recovered from the four readings, sweep in the X-Z plane:")
     print(f"    |gx| max {np.abs(g['x']).max() * 1e3:8.4f} mV      "
           f"|gz| max {np.abs(g['z']).max() * 1e3:8.4f} mV")
-    print(f"    |gy| max {np.abs(g['y']).max() * 1e9:8.4f} nV   <- tiene que ser cero")
+    print(f"    |gy| max {np.abs(g['y']).max() * 1e9:8.4f} nV   <- must be zero")
     print(f"    angulo reconstruido contra el pedido: |error| max {np.abs(err).max():.4f} grados")
 
 
 # --------------------------------------------------------------------------- #
 def cadena(dg) -> None:
-    titulo(2, "La cadena, etapa por etapa: que hace cada bloque y como se mide")
-    print("  Se mide sobre la cadena G2 (esquematico con OPAM_LIN, que es la del")
-    print("  navegador) y G4 (su layout extraido con RC), de datos/ancho.csv.\n")
-    for g, nom in ((2, "G2 esquematico"), (4, "G4 layout con RC")):
+    titulo(2, "The chain, stage by stage: what each block does and how it is measured")
+    print("  Measured on chain G2 (schematic with OPAM_LIN, the navigator one)")
+    print("  and G4 (its RC-extracted layout), from datos/ancho.csv.\n")
+    for g, nom in ((2, "G2 schematic"), (4, "G4 layout with RC")):
         SX, SY, SZ = dg[f"SX{g}"], dg[f"SY{g}"], dg[f"SZ{g}"]
         print(f"  --- {nom}")
         for eje, S, b in (("X", SX, dg["bx"]), ("Y", SY, dg["by"]), ("Z", SZ, dg["bz"])):
@@ -125,21 +125,21 @@ def cadena(dg) -> None:
                   f"   excursion {S.min():.3f} .. {S.max():.3f} V")
         for nombre, A, B in (("XY", SX, SY), ("XZ", SX, SZ), ("YZ", SY, SZ)):
             alto = dg[f"{nombre}{g}"] > UMBRAL
-            print(f"     comparador {nombre}: alto coincide con INP>INN en "
+            print(f"     comparator {nombre}: high agrees with INP>INN on "
                   f"{100 * np.mean(alto == (B > A)):5.1f} %")
         v = np.stack([SX, SY, SZ])
         sal = np.stack([dg[f"X{g}"], dg[f"Y{g}"], dg[f"Z{g}"]]) > UMBRAL
         una = sal.sum(0) == 1
         idx = np.argmax(sal, 0)
         print(f"     decodificador: senala el MINIMO en "
-              f"{100 * np.mean(idx[una] == np.argmin(v, 0)[una]):5.1f} %  y el MAXIMO en "
+              f"{100 * np.mean(idx[una] == np.argmin(v, 0)[una]):5.1f} %  and the MAXIMUM on "
               f"{100 * np.mean(idx[una] == np.argmax(v, 0)[una]):5.1f} %")
-        print(f"                    una sola salida alta en el {100 * np.mean(una):.1f} % "
+        print(f"                    exactly one output high on {100 * np.mean(una):.1f} % "
               f"del barrido\n")
 
 
 def entradas_del_top(pts, lineas) -> None:
-    titulo(3, "Las entradas del top: cada P a su P y cada N a su N")
+    titulo(3, "The top inputs: each P to its P and each N to its N")
     ok = True
     for inst, pin in instancias(lineas, pts, "GRADIENT2", dentro="GRADIENT_NAV2"):
         pares = [(a, pin[a]) for a in ("SXP", "SXN", "SYP", "SYN", "SZP", "SZN")]
@@ -147,11 +147,11 @@ def entradas_del_top(pts, lineas) -> None:
         ok &= bien
         print(f"  {inst}: " + "  ".join(f"{p}={n}" for p, n in pares)
               + ("   OK" if bien else "   <-- CRUZADO"))
-    print(f"\n  -> {'ninguna entrada del top esta cruzada' if ok else 'HAY ENTRADAS CRUZADAS'}")
+    print(f"\n  -> {'no top input is crossed' if ok else 'THERE ARE CROSSED INPUTS'}")
 
 
 def logica_decoder(pts, lineas, dg) -> None:
-    titulo(4, "La logica del decodificador, leida del netlist")
+    titulo(4, "The decoder logic, read from the netlist")
     print("  Deducida puerta a puerta (andGate = AND, invertor = NOT, Z = NOR):")
     print("     X = XY . XZ            = (SY>SX).(SZ>SX)   -> SX es el menor")
     print("     Y = YZ . ~XY           = (SZ>SY).(SX>=SY)  -> SY es el menor")
@@ -182,12 +182,12 @@ def pesos(d) -> None:
                   f"{e}N alto {100 * np.mean(d[f'{e}N'][m] > UMBRAL):5.1f} %")
         print(f"     correlacion votos/tension {np.corrcoef(v[i], d[e])[0, 1]:+.3f}"
               f"  -> {'INVERSOR' if np.corrcoef(v[i], d[e])[0, 1] < 0 else 'no inversor'}\n")
-    print("  -> mas votos = MENOS tension. Como COMP_OUT es un buffer no inversor,")
-    print("     la salida llamada 'P' esta alta cuando el eje NO gana.")
+    print("  -> more votes = LESS voltage. As COMP_OUT is a non-inverting buffer,")
+    print("     the output called 'P' is high when the axis does NOT win.")
 
 
 def umbral(d) -> None:
-    titulo(6, "El umbral de decision: mal para X e Y, y para Z no hay ninguno bueno")
+    titulo(6, "The decision threshold: wrong for X and Y, and for Z there is no good one")
     v = votos_de(d)
     gana = np.argmax(v, 0)
     print(f"  {'eje':4s} {'>=1':>8s} {'>=2':>8s} {'>=3':>8s} {'>=4':>8s}   dispara hoy   deberia")
@@ -196,12 +196,12 @@ def umbral(d) -> None:
         print(f"  {e:4s} " + " ".join(f"{a:7.1f}%" for a in ac)
               + f"   {100 * np.mean(d[f'{e}N'] > UMBRAL):8.1f} %"
               + f"   {100 * np.mean(gana == i):7.1f} %")
-    print("\n  (el de hoy es >=3 votos; el acierto es contra 'este eje es el mas votado')")
+    print("\n  (today it is >=3 votes; accuracy is against 'this axis has the most votes')")
 
 
 # --------------------------------------------------------------------------- #
 def reparto(pts, lineas) -> None:
-    titulo(7, "Por que Z no puede ganar: el reparto de sensores entre las ranuras")
+    titulo(7, "Why Z cannot win: how the sensors are shared across the slots")
     trio = {}
     for inst, pin in instancias(lineas, pts, "GRADIENT2", dentro="GRADIENT_NAV2"):
         trio[inst] = tuple(int(pin[f"S{e}P"][1]) - 1 for e in "XYZ")
@@ -210,9 +210,9 @@ def reparto(pts, lineas) -> None:
         vistos = [trio[i][r] for i in orden]
         print(f"  ranura {nom}: " + "  ".join(f"{i}=S{trio[i][r] + 1}" for i in orden)
               + f"   -> {len(set(vistos))} sensor(es) distinto(s)")
-    print("\n  Cada cadena elige el MINIMO de su trio, asi que un sensor que este en la")
-    print("  misma ranura de DOS cadenas se lleva dos votos de golpe. Los de la ranura")
-    print("  que ve los cuatro sensores se reparten y nunca se juntan.\n")
+    print("\n  Each chain picks the MINIMUM of its triad, so a sensor sitting in the")
+    print("  same slot of TWO chains takes two votes at once. Those in the slot")
+    print("  that sees all four sensors are split up and never add up.\n")
 
     V = [POSICION[k] for k in ("S1", "S2", "S3", "S4")]
     TR = [trio[i] for i in orden]
@@ -233,43 +233,43 @@ def reparto(pts, lineas) -> None:
     for plano in ("xz", "xy"):
         print(f"  cableado de hoy, gradiente en el plano {plano.upper()}: "
               f"gana X/Y/Z = {np.round(evalua(TR, plano), 1)}")
-    print("\n  Los cuatro trios ya son los cuatro subconjuntos de tres -- cada cadena")
-    print("  omite un sensor, eso esta bien. Lo que falla es el ORDEN dentro del trio.")
-    print("  Asignaciones en que cada ranura ve los cuatro sensores una vez:\n")
+    print("\n  The four triads are already the four subsets of three -- each chain")
+    print("  omits one sensor, that is fine. What fails is the ORDER within the triad.")
+    print("  Assignments where each slot sees the four sensors once:\n")
     sub = [tuple(s) for s in itertools.combinations(range(4), 3)]
     hallados = []
     for perms in itertools.product(*[list(itertools.permutations(s)) for s in sub]):
         if not all(sorted(perms[k][r] for k in range(4)) == [0, 1, 2, 3] for r in range(3)):
             continue
         hallados.append((perms, evalua(perms, "xz"), evalua(perms, "xy")))
-    #  **No vale cualquiera de las 24.** Que cada ranura vea los cuatro sensores
-    #  es necesario pero no suficiente: hay asignaciones que arreglan un plano y
-    #  matan una ranura en el otro. Se ordenan por la ranura MAS FLOJA de los DOS
-    #  planos, que es la cifra que importa.
+    #  **Not just any of the 24 will do.** Each slot seeing the four sensors is
+    #  necessary but not sufficient: there are assignments that fix one plane and
+    #  kill a slot in the other. They are sorted by the WEAKEST slot of BOTH
+    #  planes, which is the figure that matters.
     hallados.sort(key=lambda h: -min(list(h[1]) + list(h[2])))
     buenas = [h for h in hallados if min(list(h[1]) + list(h[2])) > 1.0]
-    print(f"    hay {len(hallados)} con cada ranura viendo los cuatro sensores, pero solo")
-    print(f"    {len(buenas)} dejan viva a las tres ranuras EN LOS DOS PLANOS. La mejor:\n")
+    print(f"    there are {len(hallados)} with each slot seeing all four sensors, but only")
+    print(f"    {len(buenas)} keep all three slots alive IN BOTH PLANES. The best:\n")
     perms, rxz, rxy = hallados[0]
     for k in range(4):
         print(f"      G{k + 1} (X,Y,Z) = " + " ".join(f"S{i + 1}" for i in perms[k]))
     print(f"\n    gana X/Y/Z = {np.round(rxz, 1)} en X-Z  y  {np.round(rxy, 1)} en X-Y")
-    print(f"    la ranura mas floja se queda con "
+    print(f"    the weakest slot is left with "
           f"{min(list(rxz) + list(rxy)):.1f} %   (hoy, 0.0 %)")
-    print(f"\n    las tres siguientes, por si conviene otra por cableado:")
+    print(f"\n    the next three, in case another suits the wiring better:")
     for perms, rxz, rxy in hallados[1:4]:
         print("      " + "  ".join("".join(f"S{i + 1}" for i in perms[k]) for k in range(4))
               + f"   X-Z {np.round(rxz, 1)}   X-Y {np.round(rxy, 1)}")
 
 
 def no_roto() -> None:
-    titulo(8, "Que NO esta roto")
+    titulo(8, "What is NOT broken")
     for x in ("los puentes: Vcm clavado en VEXC/2, independiente de la senal",
-              "las entradas del top: cada P a su P y cada N a su N",
-              "los amplificadores: no inversores, y con la excursion entera",
-              "los comparadores: alto cuando INP > INN, en las dos versiones",
+              "the top inputs: each P to its P and each N to its N",
+              "the amplifiers: non-inverting, and with the full swing",
+              "the comparators: high when INP > INN, in both versions",
               "la logica del decodificador: selector de minimo correcto y completo",
-              "el bloque de pesos, como CONTADOR: monotono y con escalones iguales"):
+              "the weight block, as a COUNTER: monotonic with equal steps"):
         print(f"  * {x}")
 
 

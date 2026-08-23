@@ -3,39 +3,39 @@
 #
 #   ./run_nav2.sh
 #
-# LOS DOS NAVEGADORES. El de hoy y el de XSCHEM_v2, sobre los MISMOS sensores:
+# THE TWO NAVIGATORS. Today's and the XSCHEM_v2 one, on the SAME sensors:
 #
 #   hoy   `XSCHEM/GRADIENT_NAV2.sch`         alimentacion VDDS  salidas X Y Z XP ...
 #   v2    `XSCHEM_v2/GRADIENT_NAV2_V2.sch`   alimentacion VDDV  salidas Xv .. ZNv
 #
-# El v2 lleva los dos arreglos del analisis funcional: el reparto de sensores
-# entre las ranuras X/Y/Z de las cuatro cadenas, y la decision de salida hecha
-# con un comparador contra una referencia sacada de dos replicas del propio
+# v2 carries the two fixes from the functional analysis: the sensor allocation
+# across the X/Y/Z slots of the four chains, and the output decision made with a
+# comparator against a reference taken from two replicas of the
 # bloque de pesos. Ver XSCHEM_v2/README.md.
 #
-# Los dos cuelgan de los MISMOS ocho nodos de sensor y cada uno lleva su propia
-# fuente, para que el consumo se pueda comparar sin mezclarlo.
+# Both hang off the SAME eight sensor nodes and each carries its own supply, so
+# that current draw can be compared without mixing the two.
 #
 # QUE MIDE. Cuatro sensores a 0, 90, 180 y 270 grados y el campo girando de 0 a
-# 360. Cada una de las cuatro cadenas del navegador lee TRES de los cuatro
+# 360. Each of the four navigator chains reads THREE of the four
 # sensores, en combinaciones distintas, y los tres pesos combinan sus salidas. La
-# cifra que sale de aqui es **en que porcentaje del barrido coinciden las nueve
-# salidas del esquematico con las del layout**, y donde no coinciden, cuantos
-# grados de ancho tiene el desacuerdo.
+# figure that comes out is **on what percentage of the sweep the nine schematic
+# outputs agree with the layout ones**, and where they do not, how many degrees
+# wide the disagreement is.
 #
-# COMO SE MODELA EL SENSOR. Puente completo, las cuatro ramas de 1 Mohm variando
+# HOW THE SENSOR IS MODELLED. Full bridge, the four 1 Mohm arms varying
 # a la vez:
 #
 #     VEXC --R(1-b)-- SkP --R(1+b)-- GND      V(SkP) = VEXC*(1+b)/2
 #     VEXC --R(1+b)-- SkN --R(1-b)-- GND      V(SkN) = VEXC*(1-b)/2
 #
-# de donde Vdiff = VEXC*b y **Vcm = VEXC/2 exacto, independiente de b**. Lo
-# segundo hace falta: si el modo comun se moviera con la senal se mezclaria con
-# la sensibilidad al modo comun de estas celdas y no habria forma de separar las
+# from which Vdiff = VEXC*b and **Vcm = VEXC/2 exactly, independent of b**. The
+# second matters: if the common mode moved with the signal it would mix with
+# these cells' common-mode sensitivity and there would be no way to separate the
 # dos cosas al leer la curva. `b` es literalmente dR/R.
 #
-# Tarda unos minutos: el navegador rehecho son 31 bloques extraidos con RC, y
-# son 721 puntos por barrido y dos barridos.
+# It takes a few minutes: the rebuilt navigator is 31 blocks extracted with RC,
+# and there are 721 points per sweep and two sweeps.
 
 set -euo pipefail
 
@@ -44,9 +44,9 @@ SIM="$AQUI/simulation/test_NAV2_v2.sch"
 DAT="$AQUI/datos_nav2_v2"
 mkdir -p "$SIM" "$DAT"
 
-#  Los extraidos de la v2 hay que prepararlos antes: renombrar su subcircuito
-#  -- la v1 y la v2 declaran el mismo nombre y no se pueden incluir juntas -- y
-#  normalizar el orden de sus puertos. magic los emite en el orden en que los
+#  The v2 extractions have to be prepared first: rename their subcircuit -- v1
+#  and v2 declare the same name and cannot be included together -- and normalise
+#  their port order. magic emits them in the order it
 #  encuentra en el layout, y ese orden cambia con el layout.
 echo "==> preparando los extraidos de la v2"
 /foss/designs/a_zonetic2026/XSCHEM/TEST/preparar_extraidos.sh \
@@ -54,17 +54,17 @@ echo "==> preparando los extraidos de la v2"
 
 echo "==> netlist"
 #  xschem devuelve a veces codigo 10 aunque escriba el netlist perfectamente, y
-#  sin decir nada. Con `set -e` eso mataba el script a mitad, asi que no se mira
-#  su codigo de salida: se comprueba que el fichero esta y es mas nuevo que el
-#  esquematico, que es lo que de verdad importa.
+#  without a word. With `set -e` that killed the script halfway, so its exit
+#  code is not checked: instead we check the file is there and newer than the
+#  schematic, which is what actually matters.
 rm -f "$SIM/test_NAV2_v2.spice"
 ( cd "$AQUI" && xschem -n -s -q -o "$SIM" test_NAV2_v2.sch ) || true
 if [ ! -s "$SIM/test_NAV2_v2.spice" ] || [ "$AQUI/test_NAV2_v2.sch" -nt "$SIM/test_NAV2_v2.spice" ]; then
     echo "  xschem no regenero $SIM/test_NAV2_v2.spice" >&2; exit 1
 fi
 
-#  GUARDA: las dos instancias, cableadas a los mismos sensores y con salidas
-#  separadas. Se conectan con etiquetas puestas sobre las patas del simbolo y ahi
+#  GUARD: the two instances, wired to the same sensors and with separate
+#  outputs. They connect with labels dropped on the symbol's pins and there it
 #  es facilisimo correr una posicion; no daria ningun error, simularia.
 for e in "xnav VDDS GND XP X XN YP Y YN ZP Z ZN S2P S2N S4P S4N S3P S3N S1P S1N GRADIENT_NAV2" \
          "xnav2 VDDV GND XPv Xv XNv YPv Yv YNv ZPv Zv ZNv S2P S2N S4P S4N S3P S3N S1P S1N GRADIENT_NAV2_V2"; do
@@ -77,9 +77,9 @@ for e in "xnav VDDS GND XP X XN YP Y YN ZP Z ZN S2P S2N S4P S4N S3P S3N S1P S1N 
         exit 1
     fi
 done
-echo "    las dos instancias, sobre los mismos sensores y con salidas separadas"
+echo "    the two instances, on the same sensors and with separate outputs"
 
-echo "==> simulando  (unos minutos: el rehecho son 31 bloques extraidos con RC)"
+echo "==> simulating  (a few minutes: the rebuild is 31 blocks extracted with RC)"
 ( cd "$SIM" && ngspice -b test_NAV2_v2.spice > ngspice.log 2>&1 ) || true
 if grep -iqE "error|singular|no DC path" "$SIM/ngspice.log"; then
     echo "  ngspice se ha quejado:" >&2

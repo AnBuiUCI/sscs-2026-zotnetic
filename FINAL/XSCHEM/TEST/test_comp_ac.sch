@@ -92,23 +92,23 @@ Xextrc GND VDD1 OUT1 vcm fb1 COMP
 C {devices/code_shown.sym} 700 -320 0 0 {name=DUT2 only_toplevel=true
 format="tcleval( @value )"
 value="
-* La v2 del layout, con su propio lazo de autopolarizacion (L3/C3, nodo fb2) y
-* su propia alimentacion, para poder medirla igual que a la v1.
+* The v2 layout, with its own self-biasing loop (L3/C3, node fb2) and its own
+* supply, so it can be measured just like v1.
 .include "../../../../layouts_v2/COMP/mag/COMP_V2_pex_rc.spice"
 Xextrc2 GND VDD2 OUT2 vcm fb2 COMP_V2
 "}
 C {devices/code_shown.sym} 700 -100 0 0 {name=s1
 only_toplevel=false
 value="
-* OJO: ni una llave en este texto. xschem las cuenta para saber donde acaba el
-* bloque de atributos y una sola dentro de un comentario lo corta por la mitad,
-* dejando el netlist con el 'blabla' de la plantilla y sin dar ningun error.
+* CAREFUL: not one brace in this text. xschem counts them to find where the
+* attribute block ends and a single one inside a comment cuts it in half,
+* leaving the netlist with the template 'blabla' and raising no error.
 *
 * No se puede atar la entrada en continua y lanzar un .ac: el punto de
-* operacion cae saturado y linealizar ahi no significa nada. Cada rama lleva su
+* operating point sits saturated and linearising there means nothing. Each branch
 * lazo de L de 1 GH y C de 1 GF: en continua la L es un corto y el lazo unitario
-* coloca al comparador en su propio offset; en alterna la L abre y la C
-* cortocircuita, y lo que se mide es la ganancia en lazo abierto.
+* places the comparator at its own offset; in AC the L opens and the C
+* shorts, and what is measured is the open-loop gain.
 .save all
 .control
 ac dec 100 0.001 10G

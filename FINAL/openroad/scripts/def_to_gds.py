@@ -118,12 +118,12 @@ def etiquetar_nets(layout, top, def_path) -> int:
         origenes[p.stem] = lef_origin(p)
 
     #  The ones already labelled are the top pins: they are not duplicated.
-    puestas = {s.text.string for li in layout.layer_indexes()
+    placed = {s.text.string for li in layout.layer_indexes()
                for s in top.shapes(li).each() if s.is_text()}
-    capa = layout.layer(*_M3_LABEL)
+    layer = layout.layer(*_M3_LABEL)
     n = 0
     for net, pins in sorted(nets.items()):
-        if net in puestas:
+        if net in placed:
             continue
         for iname, pin in pins:
             if iname not in inst:
@@ -134,7 +134,7 @@ def etiquetar_nets(layout, top, def_path) -> int:
                 continue
             a = place(rects[0], x / units, y / units, orient,
                       sizes[cell], origenes[cell])
-            top.shapes(capa).insert(kdb.DText(
+            top.shapes(layer).insert(kdb.DText(
                 net, (a[0] + a[2]) / 2, (a[1] + a[3]) / 2))
             n += 1
             break
@@ -241,7 +241,7 @@ def main() -> int:
     #  Only macros the DEF USES are required to be substituted. The collateral
     #  covers every block with a layout, and a given top instantiates some and
     #  not others: GRADIENT_NAV uses OPAM and GRADIENT_NAV2 uses OPAM_LIN_flat.
-    #  Un macro ausente del DEF no es un fallo; uno presente en el DEF que no se
+    #  A macro absent from the DEF is no failure; one present in the DEF that was
     #  haya sustituido, si.
     usados = set(re.findall(r"^\s*-\s+\S+\s+(\S+)", def_path.read_text(), re.M))
     ok = True
@@ -269,7 +269,7 @@ def main() -> int:
     layout.cleanup()
     gds_path.parent.mkdir(parents=True, exist_ok=True)
     layout.write(str(gds_path))
-    print(f"  aplanado   {layout.cells()} celda(s), "
+    print(f"  flattened  {layout.cells()} cell(s), "
           f"{sum(top.shapes(i).size() for i in layout.layer_indexes())} formas")
     return 0 if ok else 1
 

@@ -109,15 +109,15 @@ def read_def_ports(path: Path):
     out: dict[str, list] = {}
     for blk in body.split("\n    - ")[1:]:
         m = re.search(r"NET\s+(\S+)", blk)
-        capa = re.search(r"LAYER\s+(\S+)\s*\(", blk)
+        layer = re.search(r"LAYER\s+(\S+)\s*\(", blk)
         #  `FIXED` too, not just `PLACED`: the two power ones are placed by hand
         #  with `place_pin` and OpenROAD writes them as FIXED. Looking only at
         #  PLACED silently skipped the only two worth watching.
         loc = re.search(r"(?:PLACED|FIXED|COVER)\s*\(\s*(-?\d+)\s+(-?\d+)\s*\)", blk)
-        if not (m and capa and loc):
+        if not (m and layer and loc):
             continue
         out.setdefault(m.group(1), []).append(
-            (capa.group(1), int(loc.group(1)) / units, int(loc.group(2)) / units))
+            (layer.group(1), int(loc.group(1)) / units, int(loc.group(2)) / units))
     #  That ALL the ones the DEF declares were read. A port the regex does not
     #  understand raises no error: it vanishes, and with it the check that it is
     #  connected. That is how `VDD` and `VSS` slipped through -- OpenROAD writes
@@ -207,11 +207,11 @@ def main() -> int:
         seen, missing = set(), []
         #  The top's own pin goes in the same bag as the macro ones: if it lands
         #  on a different extracted net, the port is floating.
-        for capa, px, py in puertos.get(net, []):
-            n = l2n.probe_net(regions.get(capa, regions["Metal3"]),
+        for layer, px, py in puertos.get(net, []):
+            n = l2n.probe_net(regions.get(layer, regions["Metal3"]),
                               kdb.DPoint(px, py))
             if not n:
-                missing.append(f"PIN {net} ({capa})")
+                missing.append(f"PIN {net} ({layer})")
                 continue
             seen.add(n.expanded_name())
             donde.setdefault(n.expanded_name(), set()).add(net)
@@ -231,7 +231,7 @@ def main() -> int:
                 donde.setdefault(n.expanded_name(), set()).add(net)
         if len(seen) > 1 or missing:
             abiertas += 1
-            print(f"  ABIERTA  {net:14s} {len(pins)} terminales -> {len(seen)} nets"
+            print(f"  OPEN     {net:14s} {len(pins)} terminals -> {len(seen)} nets"
                   + (f", sin metal: {', '.join(missing)}" if missing else ""))
 
     cortos = sorted((v for v in donde.values() if len(v) > 1), key=len, reverse=True)

@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""El navegador de hoy contra el de XSCHEM_v2, sobre el mismo estimulo.
+"""Today's navigator against the XSCHEM_v2 one, on the same stimulus.
 
     python3 analizar_nav2_v2.py <carpeta_simulacion> <carpeta_datos>
 
-`wrdata` no escribe cabeceras, asi que el registro VECTORES de aqui abajo es la
-unica forma de saber que columna es que. Hay que mantenerlo a la par con el
+`wrdata` writes no headers, so the VECTORES record below is the only way to
+know which column is which. It has to be kept in step with the
 bloque .control de test_NAV2_v2.sch.
 """
 
@@ -42,8 +42,8 @@ def main() -> int:
         v = {n: d[:, COL[n]] for n in VECTORES}
         print(f"\n{'=' * 78}\n  {titulo}   ({len(ang)} puntos)\n{'=' * 78}")
 
-        #  Los votos de cada version salen de SUS cuatro cadenas: el reparto de
-        #  sensores es distinto, asi que no son los mismos numeros.
+        #  Each version's votes come from ITS four chains: the sensor
+        #  allocation is different, so they are not the same numbers.
         votos = {v_: np.stack([sum((v[f"{v_}_{e}{k}"] > UMBRAL).astype(int)
                                    for k in (1, 2, 3, 4)) for e in "XYZ"])
                  for v_ in ("h", "v")}

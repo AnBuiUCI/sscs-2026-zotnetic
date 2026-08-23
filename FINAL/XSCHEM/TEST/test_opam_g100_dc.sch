@@ -64,9 +64,9 @@ C {devices/code_shown.sym} 1500 -420 0 0 {name=DUTL only_toplevel=true
 format="tcleval( @value )"
 value="
 * El layout de OPAM_LIN, extraido con parasitos RC, en sus dos versiones. Es la
-* comparacion que faltaba: hasta ahora el banco solo tenia el esquematico, asi
-* que nada decia si el layout se come la linealidad o el margen de fase.
-* Los puertos del extraido van en este orden: VSS VDD INP OUT INN.
+* comparison that was missing: until now the bench only had the schematic, so
+* nothing said whether the layout eats the linearity or the phase margin.
+* The extraction ports go in this order: VSS VDD INP OUT INN.
 .include "../../../../Layouts/OPAM_LIN_flat/mag/OPAM_LIN_flat_pex_rc.spice"
 XextrcL GND VDDL1 va OUTL1 vb OPAM_LIN_flat
 .include "../../../../layouts_v2/OPAM_LIN_flat/mag/OPAM_LIN_flat_V2_pex_rc.spice"

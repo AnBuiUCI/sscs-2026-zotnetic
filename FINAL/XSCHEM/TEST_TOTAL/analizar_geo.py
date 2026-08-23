@@ -3,9 +3,9 @@
 
     python3 analizar_geo.py <carpeta_simulacion> <carpeta_datos>
 
-Lee el manifiesto que dejo `run_nav2_geo.sh` y los 84 ficheros de barrido, y saca
-las tablas del PDF. `wrdata` no escribe cabeceras: el orden de VECTORES de aqui
-abajo es la unica forma de saber que columna es que, y tiene que ir a la par con
+Reads the manifest left by `run_nav2_geo.sh` and the 84 sweep files, and produces
+the PDF tables. `wrdata` writes no headers: the VECTORES order below is the only
+way to know which column is which, and it has to stay in step with
 la variable VEC del runner.
 """
 
@@ -16,14 +16,14 @@ from pathlib import Path
 
 import numpy as np
 
-#  `limites` vive en figuras_geo: la interpolacion del cruce con el liston tiene
-#  que ser LA MISMA en la tabla y en la figura, o el PDF se contradice consigo
+#  `limites` lives in figuras_geo: the interpolation of the threshold crossing
+#  must be THE SAME in the table and in the figure, or the PDF contradicts
 #  mismo.
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import figuras_geo                                          # noqa: E402
 
-#: Que sensores lee cada cadena, en el orden (X, Y, Z). Es el cableado de
-#: XSCHEM_v2: cada ranura ve los cuatro sensores una vez.
+#: Which sensors each chain reads, in (X, Y, Z) order. It is the XSCHEM_v2
+#: wiring: each slot sees the four sensors once.
 TRIO = {1: (0, 1, 2), 2: (3, 0, 1), 3: (2, 3, 0), 4: (1, 2, 3)}
 
 VECTORES = ([f"S{k}{s}" for k in (1, 2, 3, 4) for s in "PN"]
@@ -33,7 +33,7 @@ VECTORES = ([f"S{k}{s}" for k in (1, 2, 3, 4) for s in "PN"]
 COL = {n: 2 * i + 1 for i, n in enumerate(VECTORES)}
 UMBRAL = 2.5
 VEXC = 5.0
-#: Donde se pone el listón para decir "aqui ya resuelve".
+#: Where the bar is set for saying "it resolves from here".
 ACIERTO_MIN = 95.0
 
 
@@ -52,11 +52,11 @@ def veredicto(ang, v, lxy, lz, tilt):
     """(acierto en %, empates en %, respuesta ideal, respuesta del chip).
 
     **La respuesta ideal se calcula de la GEOMETRIA, no de las lecturas.** Es la
-    correccion que hace que la medida signifique algo: sacandola de los propios
+    correction that makes the measurement mean something: taking it from the
     nodos de sensor, el desajuste entra en los dos lados de la comparacion y el
-    acierto sale del 98.9 % aunque el offset sea tres mil veces mayor que la
+    accuracy comes out at 98.9 % even when the offset is three thousand times
     senal -- el chip contesta mal, pero la referencia contesta igual de mal.
-    Aqui la referencia es lo que diria un navegador perfecto puesto en el
+    Here the reference is what a perfect navigator placed in the
     gradiente de verdad.
     """
     r = np.radians(ang)
@@ -68,8 +68,8 @@ def veredicto(ang, v, lxy, lz, tilt):
     for k, tri in TRIO.items():
         m = np.stack([b[i] for i in tri])
         votos[np.argmin(m, 0), np.arange(len(ang))] += 1
-    #  Un empate no tiene respuesta correcta: se saca del denominador y se
-    #  reporta aparte, en vez de contarlo como fallo o como acierto.
+    #  A tie has no correct answer: it is taken out of the denominator and
+    #  reported separately, instead of counting as a hit or a miss.
     empate = (votos.max(0)[None, :] == votos).sum(0) > 1
     ideal = np.argmax(votos, 0)
     alto = np.stack([v[f"{e}P"] > UMBRAL for e in "XYZ"])
@@ -78,7 +78,7 @@ def veredicto(ang, v, lxy, lz, tilt):
     bueno = ~empate
     ac = 100.0 * np.mean(chip[bueno] == ideal[bueno]) if bueno.any() else 0.0
 
-    #  Y NAV3, que compara COMPONENTES y saca los SEIS SENTIDOS. Se mide contra
+    #  And NAV3, which compares COMPONENTS and gives the SIX SENSES. Measured
     #  el gradiente de verdad, no contra las lecturas.
     g3 = np.stack([gx, gy, gz])
     neg = np.stack([v[f"{e}N3"] > UMBRAL for e in "XYZ"])
@@ -86,12 +86,12 @@ def veredicto(ang, v, lxy, lz, tilt):
     una_n, una_p = neg.sum(0) == 1, pos.sum(0) == 1
     cn = np.where(una_n, np.argmax(neg, 0), -1)
     cp = np.where(una_p, np.argmax(pos, 0), -1)
-    #  El eje dominante de verdad, con su signo: seis estados.
+    #  The true dominant axis, with its sign: six states.
     dom = np.argmax(np.abs(g3), 0)
     sig = np.sign(g3[dom, np.arange(len(ang))])
-    #  Lo que el chip puede decir con sus seis patas: el eje dominante tiene que
-    #  ser uno de los dos candidatos (el de la componente mas negativa y el de la
-    #  mas positiva). Resolver CUAL de los dos pide una comparacion mas.
+    #  What the chip can say with its six pins: the dominant axis has to be one
+    #  of the two candidates (that of the most negative component and that of the
+    #  most positive). Resolving WHICH of the two needs one more comparison.
     entre = (cn == dom) | (cp == dom)
     acierta_min = 100.0 * np.mean(cn == np.argmin(g3, 0))
     acierta_max = 100.0 * np.mean(cp == np.argmax(g3, 0))
@@ -137,8 +137,8 @@ def main() -> int:
             ac = [next(f["acierto"] for f in filas if f["tipo"] == tipo
                        and f["lxy"] == lxy and f["lz"] == lz and f["gmm"] == g)
                   for g in niveles]
-            #  El minimo resoluble: el primer nivel que llega al liston y del que
-            #  no se vuelve a bajar. Interpolado en log entre los dos vecinos.
+            #  The smallest resolvable: the first level reaching the bar that it
+            #  never drops below again. Log-interpolated between the two neighbours.
             g95 = None
             for i in range(len(niveles)):
                 if ac[i] >= ACIERTO_MIN:
@@ -158,7 +158,7 @@ def main() -> int:
 
     ref = umbral_de.get(("res_xy", 1000, 1000))
     if ref:
-        print(f"\n  Lo que deberia salir si manda la GEOMETRIA: el minimo va como 1/L.")
+        print(f"\n  What should come out if GEOMETRY rules: the minimum goes as 1/L.")
     if ref:
         for lxy in (1000, 2000, 3000):
             g = umbral_de.get(("res_xy", lxy, 1000))
@@ -168,9 +168,9 @@ def main() -> int:
                       f"razon {g / (ref * 1000 / lxy):.2f}")
 
     # ------------------------------------------- 1b. los dos limites de verdad
-    print(f"\n{'=' * 78}\n  LOS DOS LIMITES: sin desajuste solo hay techo; con el, aparece suelo"
+    print(f"\n{'=' * 78}\n  THE TWO LIMITS: without mismatch there is only a ceiling; with it, a floor appears"
           f"\n{'=' * 78}")
-    print(f"  {'caja':>10s} {'sin desajuste':>28s} {'con 200 ppm de desajuste':>34s}")
+    print(f"  {'box':>10s} {'no mismatch':>28s} {'with 200 ppm mismatch':>34s}")
     print(f"  {'':>10s} {'suelo':>13s} {'techo':>14s} {'suelo':>16s} {'techo':>17s}"
           f" {'rango':>8s}   ppm/mm")
     for lxy, lz in sorted({(f["lxy"], f["lz"]) for f in filas if f["tipo"] == "res_xz"}):
@@ -183,7 +183,7 @@ def main() -> int:
                 col += ["-", "-"]; continue
             lo, hi = figuras_geo.limites([f["gmm"] for f in sel],
                                          [f["acierto"] for f in sel])
-            col.append(f"{lo * 1e6:.0f}" if lo else "nunca")
+            col.append(f"{lo * 1e6:.0f}" if lo else "never")
             col.append(f"{hi * 1e6:.0f}" if hi else "nunca")
         rango = ""
         try:
@@ -196,10 +196,10 @@ def main() -> int:
     # ------------------------------------------- 1b bis. el SENTIDO
     sent = [f for f in filas if f["tipo"] == "sentido"]
     if sent:
-        print(f"\n{'=' * 78}\n  EL SENTIDO DEL GRADIENTE: que se puede sacar de las seis salidas"
+        print(f"\n{'=' * 78}\n  THE SENSE OF THE GRADIENT: what the six outputs can give"
               f"\n{'=' * 78}")
         print(f"  {'caja':>10s} {'gradiente':>11s} {'hoy (3 sal.)':>13s} "
-              f"{'N acierta':>10s} {'P acierta':>10s} {'eje entre los 2':>16s} "
+              f"{'N right':>10s} {'P right':>10s} {'axis among 2':>16s} "
               f"{'SENTIDO':>9s}")
         for f in sorted(sent, key=lambda f: (f["lxy"], f["lz"], f["gmm"])):
             print(f"  {f['lxy']:5d}x{f['lz']:<4d} {f['gmm'] * 1e6:8.0f} ppm "
@@ -219,7 +219,7 @@ def main() -> int:
 
     # ---------------------------------------------------------- 2. isotropia
     if niveles:
-      print(f"\n{'=' * 78}\n  ISOTROPIA: donde caen las fronteras, y quien gana\n{'=' * 78}")
+      print(f"\n{'=' * 78}\n  ISOTROPY: where the boundaries fall, and who wins\n{'=' * 78}")
       print(f"  {'caja':>10s} {'Lxy/Lz':>7s} {'frontera atan(Lxy/Lz)':>22s} "
             f"{'medida':>9s}   gana X / Y / Z  (% del barrido)")
       medio = niveles[len(niveles) // 2]
@@ -237,11 +237,11 @@ def main() -> int:
               f"{cerca:8.2f}    {rep}")  # noqa: E128
 
     # ---------------------------------------------------------- 3. fondo
-    print(f"\n{'=' * 78}\n  CAMPO DE FONDO: comun a los cuatro, pero el amplificador lo ve\n{'=' * 78}")
+    print(f"\n{'=' * 78}\n  BACKGROUND FIELD: common to all four, but the amplifier sees it\n{'=' * 78}")
     fondos = sorted({f["bg"] for f in filas if f["tipo"] == "fondo"})
     if not fondos:
         fondos = []
-    print("  caja (um)  " if fondos else "  (sin barrido de fondo en esta corrida)" + " ".join(f"{b * 1e6:7.0f}" for b in fondos) + "   ppm de dR/R")
+    print("  box (um)  " if fondos else "  (no background sweep in this run)" + " ".join(f"{b * 1e6:7.0f}" for b in fondos) + "   ppm of dR/R")
     for lxy, lz in sorted({(f["lxy"], f["lz"]) for f in filas if f["tipo"] == "fondo"}):
         ac = [next(f["acierto"] for f in filas if f["tipo"] == "fondo"
                    and f["lxy"] == lxy and f["lz"] == lz and f["bg"] == b) for b in fondos]

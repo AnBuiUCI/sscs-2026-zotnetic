@@ -32,11 +32,11 @@ C {devices/gnd.sym} 270 -490 0 0 {name=lV3 lab=GND
 value=5}
 C {devices/code_shown.sym} -700 -700 0 0 {name=ESTIMULO only_toplevel=true
 value="
-* LOS CUATRO SENSORES EN EL ESPACIO, Y EL GRADIENTE QUE MIDEN.
+* THE FOUR SENSORS IN SPACE, AND THE GRADIENT THEY MEASURE.
 *
-* No son cuatro ejes en un plano: son cuatro POSICIONES. Van en los vertices de
+* They are not four axes in a plane: they are four POSITIONS. They sit at the
 * un tetraedro regular inscrito en un cubo -- dos en esquinas opuestas del plano
-* z de abajo y los otros dos en las dos esquinas contrarias del de arriba:
+* lower z plane and the other two on the opposite corners of the upper one:
 *
 *                S1 .--------. .              z ^   y
 *                  /|       /| .                |  /
@@ -52,28 +52,28 @@ value="
 *     S3     (0, 0, 0)        (-1, -1, -1)        inferior
 *     S4     (1, 1, 0)        (+1, +1, -1)        inferior
 *
-* Las seis aristas miden lo mismo (2*raiz(2) en medios lados de cubo), o sea que
-* es un tetraedro REGULAR y el centroide cae en el origen. Eso es lo que hace
-* util la disposicion: los cuatro vectores de posicion son ORTOGONALES entre si
+* All six edges are the same length (2*sqrt(2) in half cube sides), so it is a
+* REGULAR tetrahedron and the centroid falls on the origin. That is what makes
+* the arrangement useful: the four position vectors are mutually ORTHOGONAL
 * componente a componente -- suma(u_a * u_b) sale diagonal, 4 en la traza y 0
-* fuera --, asi que de las cuatro lecturas se recuperan las tres componentes del
+* out -- so from the four readings the three components of the
 * gradiente sin resolver ningun sistema:
 *
 *     gx = (-b1 +b2 -b3 +b4)/4
 *     gy = (+b1 -b2 -b3 +b4)/4
 *     gz = (+b1 +b2 -b3 -b4)/4
 *
-* EL ESTIMULO. Un campo con gradiente uniforme: lo que cada sensor lee es la
-* proyeccion de SU POSICION sobre la direccion del gradiente. Barriendo `ang` de
+* THE STIMULUS. A field with a uniform gradient: what each sensor reads is the
+* projection of ITS POSITION onto the gradient direction. Sweeping `ang` from
 * 0 a 360 esa direccion da una vuelta entera dentro de un plano, y `tilt` elige
 * cual:
 *
-*     tilt = 0   -> el gradiente gira en el plano X-Z   (lo que se quiere medir)
+*     tilt = 0   -> the gradient turns in the X-Z plane   (what we want to measure)
 *     tilt = 90  -> gira en el plano X-Y
 *
-* La normalizacion por raiz(2) es para que, girando dentro de un plano
+* The sqrt(2) normalisation is so that, turning within a plane
 * coordenado, el maximo de b sea exactamente v(amp): asi `amp` sigue siendo dR/R
-* de punta a punta, como en los demas bancos, y las cifras son comparables.
+* end to end, as in the other benches, and the figures are comparable.
 Vamp amp 0 0.02
 Vang ang 0 0
 Vtilt tilt 0 0
@@ -87,19 +87,19 @@ Bb2 b2 0 v='v(amp)*( v(gx) -v(gy) +v(gz))/1.41421356237'
 Bb3 b3 0 v='v(amp)*(-v(gx) -v(gy) -v(gz))/1.41421356237'
 Bb4 b4 0 v='v(amp)*( v(gx) +v(gy) -v(gz))/1.41421356237'
 
-* LOS CUATRO PUENTES, de 1 Mohm por rama y las cuatro ramas moviendose a la vez:
+* THE FOUR BRIDGES, 1 Mohm per arm and all four arms moving at once:
 *
 *     VEXC --R(1-b)-- SkP --R(1+b)-- GND      V(SkP) = VEXC*(1+b)/2
 *     VEXC --R(1+b)-- SkN --R(1-b)-- GND      V(SkN) = VEXC*(1-b)/2
 *
-* de donde Vdiff = VEXC*b y **Vcm = VEXC/2 exacto, independiente de b**. Lo
-* segundo hace falta: si el modo comun se moviera con la senal se mezclaria con
-* la sensibilidad al modo comun de estas celdas y no habria forma de separar las
+* from which Vdiff = VEXC*b and **Vcm = VEXC/2 exactly, independent of b**. The
+* second matters: if the common mode moved with the signal it would mix with
+* these cells' common-mode sensitivity and there would be no way to separate the
 * dos cosas al leer la curva.
 *
-* Van como resistencias de comportamiento y en bloque de codigo, no como
-* simbolos barridos: `dc` admite dos fuentes anidadas como mucho y aqui hay
-* DIECISEIS resistencias que se tienen que mover a la vez y de forma coherente.
+* They go as behavioural resistors in a code block, not as swept symbols:
+* `dc` takes two nested sources at most and here there are
+* SIXTEEN resistors that must all move at once and consistently.
 R1a VEXC S1P r='1meg*(1-v(b1))'
 R1b S1P  GND r='1meg*(1+v(b1))'
 R1c VEXC S1N r='1meg*(1+v(b1))'
@@ -140,13 +140,13 @@ C {devices/gnd.sym} 0 90 0 0 {name=lVSS lab=GND
 value=5}
 C {devices/code_shown.sym} 900 -700 0 0 {name=RECONSTRUCCION only_toplevel=true
 value="
-* EL MISMO NAVEGADOR, REHECHO CON LOS BLOQUES EXTRAIDOS DEL LAYOUT v2 CON RC.
+* THE SAME NAVIGATOR, REBUILT FROM THE v2 LAYOUT BLOCKS EXTRACTED WITH RC.
 *
-* Cuelga de los MISMOS ocho nodos de sensor que el esquematico y lleva su propia
-* alimentacion (VDDR contra VDDS), para poder comparar tambien el consumo. Todos
+* It hangs off the SAME eight sensor nodes as the schematic and carries its own
+* supply (VDDR against VDDS), so current draw can be compared too. All
 * sus nodos acaban en 'r'.
 *
-* La topologia se copia LINEA A LINEA del netlist del top, no de memoria:
+* The topology is copied LINE BY LINE from the top netlist, not from memory:
 *
 *   x1 S1N S1P VDD X1 S2N Y1 Z1 S2P VSS S3N S3P GRADIENT2
 *   x2 S1N S1P VDD X2 S2N Y2 Z2 S2P VSS S4N S4P GRADIENT2
@@ -154,20 +154,20 @@ value="
 *   x4 S3N S3P VDD X4 S4N Y4 Z4 S4P VSS S2N S2P GRADIENT2
 *   x5 VDD VSS X X1 X2 X3 X4 WEIGHT   +   x8 VDD XP X XN VSS COMP_OUT
 *
-* con .subckt GRADIENT2 SXN SXP VDD X SYN Y Z SYP VSS SZN SZP, o sea que cada
+* with .subckt GRADIENT2 SXN SXP VDD X SYN Y Z SYP VSS SZN SZP, i.e. each
 * cadena k lee tres sensores en el orden (X, Y, Z) y saca Xk Yk Zk.
 *
-* OJO CON EL ORDEN DE PUERTOS. xschem los emite en el orden de las lineas B del
-* simbolo y magic en el orden en que los encuentra en el layout, y NO coinciden.
-* Encima de cada grupo va el orden de verdad, y los ficheros son los _V2_ que
+* CAREFUL WITH THE PORT ORDER. xschem emits them in the order of the symbol B
+* lines and magic in the order it finds them in the layout, and they do NOT agree.
+* Above each group is the real order, and the files are the _V2_ ones that
 * produce TEST/preparar_extraidos.sh, que renombra el subcircuito y normaliza el
-* orden. Fijate en que el OPAM_LIN_flat lleva OUT en medio y los otros no, y en
-* que el WEIGHT_COMP tiene los suyos completamente desordenados.
+* order. Note that OPAM_LIN_flat has OUT in the middle and the others do not, and
+* that WEIGHT_COMP has its own completely out of order.
 *
-* Y OJO CON EL WEIGHT. El WEIGHT_COMP alimenta su VB al pin VC del WEIGHT y al
+* AND CAREFUL WITH THE WEIGHT. WEIGHT_COMP feeds its VB to the WEIGHT's VC pin
 * reves -- se ve en su propio netlist, x1 VDD VSS WE VA VB VC VD WEIGHT contra
-* .subckt WEIGHT VDD GND OUT VA VC VB VD --, asi que las cadenas 2 y 3 van
-* cruzadas respecto a lo que uno escribiria a mano. Cablearlo 'en orden' pesa mal
+* .subckt WEIGHT VDD GND OUT VA VC VB VD -- so chains 2 and 3 are
+* crossed relative to what one would write by hand. Wiring it 'in order' weighs
 * dos cadenas y no da ningun error.
 .include ../../../../layouts_v2/OPAM_LIN_flat/mag/OPAM_LIN_flat_V2_pex_rc.spice
 .include ../../../../layouts_v2/COMP/mag/COMP_V2_pex_rc.spice
@@ -249,12 +249,12 @@ value=5}
 C {devices/code_shown.sym} 520 -700 0 0 {name=s1
 only_toplevel=false
 value="
-* OJO: ni una llave en este texto. xschem las cuenta para saber donde acaba el
-* bloque de atributos y una sola dentro de un comentario lo corta por la mitad.
+* CAREFUL: not one brace in this text. xschem counts them to find where the
+* attribute block ends and a single one inside a comment cuts it in half.
 *
-* Los dos navegadores cuelgan de los MISMOS ocho nodos de sensor y cada uno lleva
+* Both navigators hang off the SAME eight sensor nodes and each carries
 * su propia fuente. El de hoy es `xnav` y saca X..ZN; el de XSCHEM_v2 es `xnav2`
-* y saca Xv..ZNv. La referencia del comparador de v2 sale por nombre jerarquico.
+* and gives Xv..ZNv. The v2 comparator reference comes out by hierarchical name.
 .save all
 .control
 alter Vamp = 0.02
