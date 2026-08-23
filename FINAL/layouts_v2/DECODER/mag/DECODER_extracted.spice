@@ -1,0 +1,27 @@
+* Nodos de bulk atados: 1 de pozo n -> VDD, 1 de sustrato -> VSS.
+*   magic no extrae los taps de este layout y los dejaba flotando;
+*   la conexion si existe (el LVS de KLayout da 'match uniquely').
+*   Quien detecta un tap que falte de verdad es el LVS, no esto.
+* NGSPICE file created from DECODER.ext - technology: gf180mcuD
+
+.subckt DECODER VSS VDD Z XZ YZ X XY Y
+X0 a_278_2052# YZ Z VDD pfet_06v0 ad=0.75p pd=3.5u as=1.32p ps=6.88u w=3u l=1u
+X1 VDD XZ a_3598_332# VDD pfet_06v0 ad=1.32p pd=6.88u as=0.99p ps=3.66u w=3u l=1u
+X2 VSS a_1834_332# Y VSS nfet_06v0 ad=0.44p pd=2.88u as=0.44p ps=2.88u w=1u l=1u
+X3 a_3598_332# XY VDD VDD pfet_06v0 ad=0.99p pd=3.66u as=1.32p ps=6.88u w=3u l=1u
+X4 a_1014_376# XY VDD VDD pfet_06v0 ad=1.32p pd=6.88u as=1.32p ps=6.88u w=3u l=1u
+X5 a_4530_376# XZ a_3598_332# VSS nfet_06v0 ad=0.25p pd=1.5u as=0.44p ps=2.88u w=1u l=1u
+X6 VSS XY a_4530_376# VSS nfet_06v0 ad=0.44p pd=2.88u as=0.25p ps=1.5u w=1u l=1u
+X7 a_2766_376# a_1014_376# a_1834_332# VSS nfet_06v0 ad=0.25p pd=1.5u as=0.44p ps=2.88u w=1u l=1u
+X8 X a_3598_332# VDD VDD pfet_06v0 ad=1.32p pd=6.88u as=1.32p ps=6.88u w=3u l=1u
+X9 VDD XZ a_278_2052# VDD pfet_06v0 ad=1.32p pd=6.88u as=0.75p ps=3.5u w=3u l=1u
+X10 VSS YZ a_2766_376# VSS nfet_06v0 ad=0.44p pd=2.88u as=0.25p ps=1.5u w=1u l=1u
+X11 Z YZ VSS VSS nfet_06v0 ad=0.33p pd=1.66u as=0.44p ps=2.88u w=1u l=1u
+X12 VDD a_1014_376# a_1834_332# VDD pfet_06v0 ad=1.32p pd=6.88u as=0.99p ps=3.66u w=3u l=1u
+X13 VSS XY a_1014_376# VSS nfet_06v0 ad=0.44p pd=2.88u as=0.44p ps=2.88u w=1u l=1u
+X14 a_1834_332# YZ VDD VDD pfet_06v0 ad=0.99p pd=3.66u as=1.32p ps=6.88u w=3u l=1u
+X15 VSS a_3598_332# X VSS nfet_06v0 ad=0.44p pd=2.88u as=0.44p ps=2.88u w=1u l=1u
+X16 Y a_1834_332# VDD VDD pfet_06v0 ad=1.32p pd=6.88u as=1.32p ps=6.88u w=3u l=1u
+X17 VSS XZ Z VSS nfet_06v0 ad=0.44p pd=2.88u as=0.33p ps=1.66u w=1u l=1u
+.ends
+

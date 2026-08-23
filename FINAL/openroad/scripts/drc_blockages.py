@@ -1,22 +1,22 @@
 #!/usr/bin/env python3
-"""Convierte las violaciones del deck de firma en obstrucciones para el router.
+"""Turns sign-off deck violations into routing blockages.
 
-Las que quedan en el top no tienen ya causa comun: son sitios sueltos donde el
-router deja el cable a centesimas del metal de un macro. Subir margenes globales
-—el crecimiento de las obstrucciones, el espaciado del techlef— cerro las que si
-tenian patron, pero de ahi para abajo solo baraja: cada tanda cambia de sitio sin
-bajar de la decena.
+The ones left on the top no longer share a cause: they are isolated spots where
+the router leaves a wire hundredths away from a macro's metal. Raising global
+margins -- blockage growth, techlef spacing -- closed the ones that did have a
+pattern, but below that it only reshuffles: each run moves them around without
+ever dropping below ten.
 
-Asi que se le dice al router exactamente donde no puede volver a poner metal.
-Es un lazo dirigido por DRC, entero dentro de OpenROAD:
+So the router is told exactly where it may not put metal again.
+It is a DRC-driven loop, entirely inside OpenROAD:
 
-    ruteo -> GDS -> DRC de firma -> este script -> obstrucciones -> ruteo
+    route -> GDS -> sign-off DRC -> this script -> blockages -> route
 
-El fichero es acumulativo a proposito: lo prohibido en una vuelta sigue estandolo
-en la siguiente, que es lo que hace que el lazo converja en vez de oscilar.
+The file is cumulative on purpose: what was forbidden on one pass stays
+forbidden on the next, which is what makes the loop converge instead of ring.
 
-    python3 scripts/drc_blockages.py        # anade lo de la ultima tanda de DRC
-    python3 scripts/drc_blockages.py --reset   # empieza de cero
+    python3 scripts/drc_blockages.py        # add the latest DRC run
+    python3 scripts/drc_blockages.py --reset   # start from scratch
 """
 
 from __future__ import annotations
@@ -31,13 +31,13 @@ ROOT = Path(__file__).resolve().parent.parent
 RUN = ROOT / "out" / "drc_GRADIENT_NAV"
 OUT = ROOT / "out" / "drc_blockages.txt"
 
-#: Margen alrededor del sitio marcado. El hueco que el deck mide es de decimas de
-#: micra; con menos de esto el router vuelve a colarse por el mismo sitio con un
-#: desplazamiento de una pista.
+#: Margin around the marked spot. The gap the deck measures is tenths of a
+#: micron; with any less the router slips back through the same place, one
+#: track over.
 _HALO = 0.10
 
-#: De que regla sale cada capa. Solo las de senal: la alimentacion la pone
-#: `pdngen` y no la rutea el router.
+#: Which rule maps to which layer. Signal layers only: power is placed by
+#: `pdngen` and never routed by the router.
 _LAYER = {"M2": "Metal2", "M3": "Metal3", "M4": "Metal4"}
 
 

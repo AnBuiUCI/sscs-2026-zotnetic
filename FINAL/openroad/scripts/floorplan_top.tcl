@@ -12,6 +12,16 @@
 #  the database, so the floorplan re-arranges itself when a block changes size.
 # -----------------------------------------------------------------------------
 
+#  Directorio de salida. Por defecto `out`, que es el del top de la v1.
+#  `TOP_OUT` lo cambia para poder construir el top con las celdas de otra
+#  version sin pisar el anterior: los dos tienen que poder coexistir para
+#  compararlos.
+set OUT [expr {[info exists env(TOP_OUT)] ? $env(TOP_OUT) : "out"}]
+file mkdir $OUT
+
+#  Nombre de la celda de arriba. Ver scripts/load_design.tcl.
+set TOPCELL [expr {[info exists env(TOP_CELL)] ? $env(TOP_CELL) : "GRADIENT_NAV"}]
+
 source scripts/load_design.tcl
 
 set block [ord::get_db_block]
@@ -29,6 +39,8 @@ set STRIPE_W  3.0
 set BUDGET  500.0   ;# lado maximo del die
 set ASPECT    1.2   ;# proporcion maxima; dentro de eso se minimiza el AREA
 set SNAP_PAD  3.0   ;# holgura para el ajuste del core a la rejilla del site
+set PIN_GAP   5.0   ;# separacion minima entre pines del top, en micras
+set PIN_CORNER 10.0 ;# y cuanto se apartan de las esquinas del die
 
 #: Everything handed to pdngen has to land on the 0.005 um manufacturing grid;
 #: a band centred between two obstructions lands on 66.3875 as easily as not,
@@ -317,7 +329,12 @@ puts "Bloqueos de Metal4 alrededor de los MIM: $nblock"
 #  esto las nets que van a ellos no tienen donde terminar y el router no puede
 #  cerrarlas. Metal3 es horizontal y Metal2 vertical, asi que los de los lados
 #  izquierdo y derecho salen en Metal3 y los de arriba y abajo en Metal2.
-place_pins -hor_layers Metal3 -ver_layers Metal2
+#  `-min_distance` en micras. Sin el, `place_pins` los apretaba al paso de la
+#  rejilla y salian a **1.12 um** uno de otro (S1N/S1P abajo, y los seis de la
+#  izquierda). No es ilegal, pero deja al integrador del padframe abriendo el
+#  abanico desde un paso de pista; 5 um es holgado y siguen cabiendo de sobra.
+place_pins -hor_layers Metal3 -ver_layers Metal2 -min_distance $PIN_GAP \
+           -corner_avoidance $PIN_CORNER
 
 #  ...pero los DOS de alimentacion hay que ponerlos a mano, encima de su propia
 #  tira de Metal5. `place_pins` los trata como una senal mas y los deja en el
@@ -349,8 +366,31 @@ proc tira_de {block nombre capa} {
 }
 
 set dbu_pin [[ord::get_db_tech] getDbUnitsPerMicron]
+
+#: Prolonga la tira hasta el borde IZQUIERDO del die y devuelve la caja nueva.
+#:
+#: Sin esto la tira de Metal5 se queda a ~20 um del borde y el pin cae **dentro**
+#: del die: un padframe que conecte por abutment no llega. Un puerto es
+#: precisamente lo que si tiene que tocar el contorno -- el resto de la
+#: geometria se retira de el (ver `decap_fill.BORDE_DIE` y
+#: `fill_density.BORDE_DIE`).
+proc alargar_al_borde {block nombre capa} {
+    set net [$block findNet $nombre]
+    if {$net eq "NULL" || $net eq ""} { return {} }
+    foreach sw [$net getSWires] {
+        foreach caja [$sw getWires] {
+            if {[$caja isVia]} { continue }
+            set l [$caja getTechLayer]
+            if {$l eq "NULL" || [$l getName] ne $capa} { continue }
+            odb::dbSBox_create $sw $l 0 [$caja yMin] [$caja xMax] [$caja yMax] "STRIPE"
+            return [list 0 [$caja yMin] [$caja xMax] [$caja yMax]]
+        }
+    }
+    return {}
+}
+
 foreach nombre {VDD VSS} {
-    set caja [tira_de $block $nombre Metal5]
+    set caja [alargar_al_borde $block $nombre Metal5]
     if {[llength $caja] != 4} {
         puts "  AVISO: $nombre no tiene tira de Metal5; el pin se queda donde estaba"
         continue
@@ -358,19 +398,24 @@ foreach nombre {VDD VSS} {
     lassign $caja x0 y0 x1 y1
     set alto  [expr {($y1 - $y0) / double($dbu_pin)}]
     set ancho $alto
-    #  Cerca del extremo izquierdo de la tira, no en mitad del die: el pin sigue
-    #  siendo el sitio por donde se entra, aunque aqui no haya anillo de pads.
-    set cx [expr {($x0 / double($dbu_pin)) + $ancho}]
+    #  Pegado al borde izquierdo del die, encima de la tira ya prolongada.
+    set cx [expr {$ancho / 2.0}]
     set cy [expr {(($y0 + $y1) / 2.0) / $dbu_pin}]
     place_pin -pin_name $nombre -layer Metal5 \
               -location [list $cx $cy] -pin_size [list $ancho $alto]
-    puts [format "  pin %s sobre su tira de Metal5 en (%.3f, %.3f), %.3f x %.3f" \
+    #  Y que se declaren como lo que son. `place_pins` los deja en `USE SIGNAL`,
+    #  y el integrador del padframe distingue las alimentaciones por ahi.
+    set bt [$block findBTerm $nombre]
+    if {$bt ne "NULL" && $bt ne ""} {
+        $bt setSigType [expr {$nombre eq "VDD" ? "POWER" : "GROUND"}]
+    }
+    puts [format "  pin %s en el borde del die, sobre su tira de Metal5: (%.3f, %.3f), %.3f x %.3f" \
               $nombre $cx $cy $ancho $alto]
 }
 
 # --- output ------------------------------------------------------------------
 file mkdir out
-write_def out/GRADIENT_NAV.def
+write_def $OUT/$TOPCELL.def
 
 puts "--------------------------------------------------------------"
 puts [format "Die       %.2f x %.2f um   (budget %.0f)" $die_w $die_h $BUDGET]
@@ -382,5 +427,5 @@ foreach s $shelves {
               [join [lmap m [lindex $s 1] {lindex $m 0}] " "]]
 }
 report_design_area
-puts "DEF written to out/GRADIENT_NAV.def"
+puts "DEF written to $OUT/$TOPCELL.def"
 puts "--------------------------------------------------------------"

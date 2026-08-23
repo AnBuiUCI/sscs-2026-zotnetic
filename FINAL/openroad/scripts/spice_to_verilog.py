@@ -23,21 +23,32 @@ annotations that Xschem writes, which is why the schematic pin type matters.
 
 from __future__ import annotations
 
+import os
 import re
 import sys
 from datetime import datetime
 from pathlib import Path
 
 XSCHEM = Path("/foss/designs/a_zonetic2026/XSCHEM")
-NETLIST = XSCHEM / "simulation/GRADIENT_NAV.sch/GRADIENT_NAV.spice"
 VERILOG = Path(__file__).resolve().parent.parent / "verilog"
-OUT = VERILOG / "GRADIENT_NAV.v"
-OUT_FLAT = VERILOG / "top_macros.v"
 
-TOP = "GRADIENT_NAV"
+#: Which top gets translated. `GRADIENT_NAV` builds four GRADIENT blocks, with
+#: the 98 dB OPAM; `GRADIENT_NAV2` is the same schematic with GRADIENT2, that is
+#: with the linear amplifier. Both have to coexist, so everything generated
+#: carries the name of its top.
+TOP = os.environ.get("TOP_CELL", "GRADIENT_NAV")
+NETLIST = XSCHEM / f"simulation/{TOP}.sch/{TOP}.spice"
+OUT = VERILOG / f"{TOP}.v"
+OUT_FLAT = VERILOG / f"{TOP}_macros.v"
 
 #: Blocks that have a layout, so they are hard macros no matter what is inside.
-MACROS = {"COMP", "OPAM", "DECODER", "WEIGHT_COMP"}
+MACROS = {"COMP", "OPAM", "OPAM_LIN_flat", "DECODER", "WEIGHT_COMP",
+          "DECODER_MAX", "OPAM_SUMA"}
+
+#: Schematic cell -> layout macro, when the two are not named the same.
+#: `OPAM_LIN_flat.sch` is the flattened version of `OPAM_LIN.sch` drawn for the
+#: layout: same circuit, different cell name.
+ALIAS = {"OPAM_LIN": "OPAM_LIN_flat"}
 
 #: A macro that is not instantiated as such in the top: its schematic packs two
 #: of the top's sub-circuits into one cell. See `find_fusions`.
@@ -121,7 +132,10 @@ def parse(text: str) -> tuple[dict[str, Subckt], Subckt]:
 
         if low.startswith(".subckt "):
             tok = stripped.split()
-            cur = Subckt(tok[1], tok[2:])
+            #  The alias applies both when DEFINING and when INSTANTIATING, so
+            #  that from here on the whole file speaks the macro name and not
+            #  celda del esquematico.
+            cur = Subckt(ALIAS.get(tok[1], tok[1]), tok[2:])
             subckts[cur.name] = cur
             continue
         if low.startswith(".ends"):
@@ -146,7 +160,7 @@ def parse(text: str) -> tuple[dict[str, Subckt], Subckt]:
         args = [t for t in tok[1:] if "=" not in t]
         if not args:
             continue
-        cell, nets = args[-1], args[:-1]
+        cell, nets = ALIAS.get(args[-1], args[-1]), args[:-1]
         if cell in MACROS or not any(c in cell for c in "=."):
             cur.insts.append((inst, cell, nets))
 
@@ -376,6 +390,14 @@ def emit_flat(top: Subckt, insts: list[tuple[str, str, dict]],
 def main() -> None:
     text = NETLIST.read_text()
     subckts, top = parse(text)
+    #  The top level is never a black box, even when it carries loose devices.
+    #  Since `decap_fill.py` started writing the decoupling capacitor block into
+    #  the schematic, `parse` sets `has_devices` on the top and `emit_module`
+    #  would write it with no body. OpenROAD reads `<TOP>_macros.v`, which comes
+    #  from `emit_flat` and ignores this, so the flow never broke -- but it left
+    #  `<TOP>.v` lying. The capacitors stay out of the Verilog on purpose: they
+    #  are not macros, not placed and not routed; they go onto the GDS after.
+    top.has_devices = False
     subckts_all = dict(subckts)
     subckts_all[top.name] = top
 

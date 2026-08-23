@@ -1,0 +1,267 @@
+v {xschem version=3.4.8RC file_version=1.3}
+G {}
+K {}
+V {}
+S {}
+F {}
+E {}
+C {devices/code_shown.sym} 570 -700 0 0 {name=MODELS1 only_toplevel=true
+format="tcleval( @value )"
+value="
+.include $::180MCU_MODELS/design.ngspice
+.lib $::180MCU_MODELS/sm141064.ngspice typical
+.lib $::180MCU_MODELS/sm141064.ngspice cap_mim
+.lib $::180MCU_MODELS/sm141064.ngspice res_typical
+.lib $::180MCU_MODELS/sm141064.ngspice moscap_typical
+.lib $::180MCU_MODELS/sm141064.ngspice mimcap_typical
+"}
+C {devices/vsource.sym} 110 -520 0 0 {name=V1 value=5
+}
+C {devices/lab_wire.sym} 110 -550 0 0 {name=pV1a sig_type=std_logic lab=VEXC}
+C {devices/gnd.sym} 110 -490 0 0 {name=lV1 lab=GND
+value=5}
+C {devices/vsource.sym} 190 -520 0 0 {name=V2 value=5
+}
+C {devices/lab_wire.sym} 190 -550 0 0 {name=pV2a sig_type=std_logic lab=VDDS}
+C {devices/gnd.sym} 190 -490 0 0 {name=lV2 lab=GND
+value=5}
+C {devices/vsource.sym} 270 -520 0 0 {name=V3 value=5
+}
+C {devices/lab_wire.sym} 270 -550 0 0 {name=pV3a sig_type=std_logic lab=VDDR}
+C {devices/gnd.sym} 270 -490 0 0 {name=lV3 lab=GND
+value=5}
+C {devices/code_shown.sym} -700 -700 0 0 {name=ESTIMULO only_toplevel=true
+value="
+* LOS CUATRO SENSORES EN EL ESPACIO, Y EL GRADIENTE QUE MIDEN.
+*
+* No son cuatro ejes en un plano: son cuatro POSICIONES. Van en los vertices de
+* un tetraedro regular inscrito en un cubo -- dos en esquinas opuestas del plano
+* z de abajo y los otros dos en las dos esquinas contrarias del de arriba:
+*
+*                S1 .--------. .              z ^   y
+*                  /|       /| .                |  /
+*             S2 .  |    . '  |                 | /
+*                |  |  '      |                 +----> x
+*                |  '---------|--. S4
+*                | /          | /
+*             S3 '------------'
+*
+*   sensor   cubo [0,1]      centrado en +-1     plano z
+*     S1     (0, 1, 1)        (-1, +1, +1)        superior
+*     S2     (1, 0, 1)        (+1, -1, +1)        superior
+*     S3     (0, 0, 0)        (-1, -1, -1)        inferior
+*     S4     (1, 1, 0)        (+1, +1, -1)        inferior
+*
+* Las seis aristas miden lo mismo (2*raiz(2) en medios lados de cubo), o sea que
+* es un tetraedro REGULAR y el centroide cae en el origen. Eso es lo que hace
+* util la disposicion: los cuatro vectores de posicion son ORTOGONALES entre si
+* componente a componente -- suma(u_a * u_b) sale diagonal, 4 en la traza y 0
+* fuera --, asi que de las cuatro lecturas se recuperan las tres componentes del
+* gradiente sin resolver ningun sistema:
+*
+*     gx = (-b1 +b2 -b3 +b4)/4
+*     gy = (+b1 -b2 -b3 +b4)/4
+*     gz = (+b1 +b2 -b3 -b4)/4
+*
+* EL ESTIMULO. Un campo con gradiente uniforme: lo que cada sensor lee es la
+* proyeccion de SU POSICION sobre la direccion del gradiente. Barriendo `ang` de
+* 0 a 360 esa direccion da una vuelta entera dentro de un plano, y `tilt` elige
+* cual:
+*
+*     tilt = 0   -> el gradiente gira en el plano X-Z   (lo que se quiere medir)
+*     tilt = 90  -> gira en el plano X-Y
+*
+* La normalizacion por raiz(2) es para que, girando dentro de un plano
+* coordenado, el maximo de b sea exactamente v(amp): asi `amp` sigue siendo dR/R
+* de punta a punta, como en los demas bancos, y las cifras son comparables.
+Vamp amp 0 0.02
+Vang ang 0 0
+Vtilt tilt 0 0
+
+Bgx gx 0 v='cos(v(ang)*3.14159265358979/180)'
+Bgy gy 0 v='sin(v(ang)*3.14159265358979/180)*sin(v(tilt)*3.14159265358979/180)'
+Bgz gz 0 v='sin(v(ang)*3.14159265358979/180)*cos(v(tilt)*3.14159265358979/180)'
+
+Bb1 b1 0 v='v(amp)*(-v(gx) +v(gy) +v(gz))/1.41421356237'
+Bb2 b2 0 v='v(amp)*( v(gx) -v(gy) +v(gz))/1.41421356237'
+Bb3 b3 0 v='v(amp)*(-v(gx) -v(gy) -v(gz))/1.41421356237'
+Bb4 b4 0 v='v(amp)*( v(gx) +v(gy) -v(gz))/1.41421356237'
+
+* LOS CUATRO PUENTES, de 1 Mohm por rama y las cuatro ramas moviendose a la vez:
+*
+*     VEXC --R(1-b)-- SkP --R(1+b)-- GND      V(SkP) = VEXC*(1+b)/2
+*     VEXC --R(1+b)-- SkN --R(1-b)-- GND      V(SkN) = VEXC*(1-b)/2
+*
+* de donde Vdiff = VEXC*b y **Vcm = VEXC/2 exacto, independiente de b**. Lo
+* segundo hace falta: si el modo comun se moviera con la senal se mezclaria con
+* la sensibilidad al modo comun de estas celdas y no habria forma de separar las
+* dos cosas al leer la curva.
+*
+* Van como resistencias de comportamiento y en bloque de codigo, no como
+* simbolos barridos: `dc` admite dos fuentes anidadas como mucho y aqui hay
+* DIECISEIS resistencias que se tienen que mover a la vez y de forma coherente.
+R1a VEXC S1P r='1meg*(1-v(b1))'
+R1b S1P  GND r='1meg*(1+v(b1))'
+R1c VEXC S1N r='1meg*(1+v(b1))'
+R1d S1N  GND r='1meg*(1-v(b1))'
+R2a VEXC S2P r='1meg*(1-v(b2))'
+R2b S2P  GND r='1meg*(1+v(b2))'
+R2c VEXC S2N r='1meg*(1+v(b2))'
+R2d S2N  GND r='1meg*(1-v(b2))'
+R3a VEXC S3P r='1meg*(1-v(b3))'
+R3b S3P  GND r='1meg*(1+v(b3))'
+R3c VEXC S3N r='1meg*(1+v(b3))'
+R3d S3N  GND r='1meg*(1-v(b3))'
+R4a VEXC S4P r='1meg*(1-v(b4))'
+R4b S4P  GND r='1meg*(1+v(b4))'
+R4c VEXC S4N r='1meg*(1+v(b4))'
+R4d S4N  GND r='1meg*(1-v(b4))'
+"}
+C {a_zonetic2026/XSCHEM/GRADIENT_NAV2.sym} 0 0 0 0 {name=xnav}
+C {devices/lab_wire.sym} -150 -100 0 0 {name=pS1P sig_type=std_logic lab=S1P}
+C {devices/lab_wire.sym} -150 -80 0 0 {name=pS1N sig_type=std_logic lab=S1N}
+C {devices/lab_wire.sym} -150 -60 0 0 {name=pS2P sig_type=std_logic lab=S2P}
+C {devices/lab_wire.sym} -150 -40 0 0 {name=pS2N sig_type=std_logic lab=S2N}
+C {devices/lab_wire.sym} -150 0 0 0 {name=pS3P sig_type=std_logic lab=S3P}
+C {devices/lab_wire.sym} -150 20 0 0 {name=pS3N sig_type=std_logic lab=S3N}
+C {devices/lab_wire.sym} -150 40 0 0 {name=pS4P sig_type=std_logic lab=S4P}
+C {devices/lab_wire.sym} -150 60 0 0 {name=pS4N sig_type=std_logic lab=S4N}
+C {devices/lab_wire.sym} 150 -100 2 0 {name=pXP sig_type=std_logic lab=XP}
+C {devices/lab_wire.sym} 150 -80 2 0 {name=pX sig_type=std_logic lab=X}
+C {devices/lab_wire.sym} 150 -60 2 0 {name=pXN sig_type=std_logic lab=XN}
+C {devices/lab_wire.sym} 150 -40 2 0 {name=pYP sig_type=std_logic lab=YP}
+C {devices/lab_wire.sym} 150 -20 2 0 {name=pY sig_type=std_logic lab=Y}
+C {devices/lab_wire.sym} 150 0 2 0 {name=pYN sig_type=std_logic lab=YN}
+C {devices/lab_wire.sym} 150 20 2 0 {name=pZP sig_type=std_logic lab=ZP}
+C {devices/lab_wire.sym} 150 40 2 0 {name=pZ sig_type=std_logic lab=Z}
+C {devices/lab_wire.sym} 150 60 2 0 {name=pZN sig_type=std_logic lab=ZN}
+C {devices/lab_wire.sym} 0 -130 1 0 {name=pVDD sig_type=std_logic lab=VDDS}
+C {devices/gnd.sym} 0 90 0 0 {name=lVSS lab=GND
+value=5}
+C {devices/code_shown.sym} 900 -700 0 0 {name=RECONSTRUCCION only_toplevel=true
+value="
+* EL MISMO NAVEGADOR, REHECHO CON LOS BLOQUES EXTRAIDOS DEL LAYOUT v2 CON RC.
+*
+* Cuelga de los MISMOS ocho nodos de sensor que el esquematico y lleva su propia
+* alimentacion (VDDR contra VDDS), para poder comparar tambien el consumo. Todos
+* sus nodos acaban en 'r'.
+*
+* La topologia se copia LINEA A LINEA del netlist del top, no de memoria:
+*
+*   x1 S1N S1P VDD X1 S2N Y1 Z1 S2P VSS S3N S3P GRADIENT2
+*   x2 S1N S1P VDD X2 S2N Y2 Z2 S2P VSS S4N S4P GRADIENT2
+*   x3 S3N S3P VDD X3 S4N Y3 Z3 S4P VSS S1N S1P GRADIENT2
+*   x4 S3N S3P VDD X4 S4N Y4 Z4 S4P VSS S2N S2P GRADIENT2
+*   x5 VDD VSS X X1 X2 X3 X4 WEIGHT   +   x8 VDD XP X XN VSS COMP_OUT
+*
+* con .subckt GRADIENT2 SXN SXP VDD X SYN Y Z SYP VSS SZN SZP, o sea que cada
+* cadena k lee tres sensores en el orden (X, Y, Z) y saca Xk Yk Zk.
+*
+* OJO CON EL ORDEN DE PUERTOS. xschem los emite en el orden de las lineas B del
+* simbolo y magic en el orden en que los encuentra en el layout, y NO coinciden.
+* Encima de cada grupo va el orden de verdad, y los ficheros son los _V2_ que
+* produce TEST/preparar_extraidos.sh, que renombra el subcircuito y normaliza el
+* orden. Fijate en que el OPAM_LIN_flat lleva OUT en medio y los otros no, y en
+* que el WEIGHT_COMP tiene los suyos completamente desordenados.
+*
+* Y OJO CON EL WEIGHT. El WEIGHT_COMP alimenta su VB al pin VC del WEIGHT y al
+* reves -- se ve en su propio netlist, x1 VDD VSS WE VA VB VC VD WEIGHT contra
+* .subckt WEIGHT VDD GND OUT VA VC VB VD --, asi que las cadenas 2 y 3 van
+* cruzadas respecto a lo que uno escribiria a mano. Cablearlo 'en orden' pesa mal
+* dos cadenas y no da ningun error.
+.include ../../../../layouts_v2/OPAM_LIN_flat/mag/OPAM_LIN_flat_V2_pex_rc.spice
+.include ../../../../layouts_v2/COMP/mag/COMP_V2_pex_rc.spice
+.include ../../../../layouts_v2/DECODER/mag/DECODER_V2_pex_rc.spice
+.include ../../../../layouts_v2/WEIGHT_COMP/mag/WEIGHT_COMP_V2_pex_rc.spice
+
+* .subckt OPAM_LIN_flat_V2  VSS VDD INP OUT INN
+* .subckt COMP_V2           VSS VDD OUT INP INN
+* .subckt DECODER_V2        VSS VDD YZ Z XY XZ Y X
+
+* --- cadena 1: X=S1  Y=S2  Z=S3
+XA11 GND VDDR S1P SX1r S1N OPAM_LIN_flat_V2
+XA12 GND VDDR S2P SY1r S2N OPAM_LIN_flat_V2
+XA13 GND VDDR S3P SZ1r S3N OPAM_LIN_flat_V2
+XC11 GND VDDR XY1r SY1r SX1r COMP_V2
+XC12 GND VDDR XZ1r SZ1r SX1r COMP_V2
+XC13 GND VDDR YZ1r SZ1r SY1r COMP_V2
+XD1  GND VDDR YZ1r Z1r XY1r XZ1r Y1r X1r DECODER_V2
+
+* --- cadena 2: X=S1  Y=S2  Z=S4
+XA21 GND VDDR S1P SX2r S1N OPAM_LIN_flat_V2
+XA22 GND VDDR S2P SY2r S2N OPAM_LIN_flat_V2
+XA23 GND VDDR S4P SZ2r S4N OPAM_LIN_flat_V2
+XC21 GND VDDR XY2r SY2r SX2r COMP_V2
+XC22 GND VDDR XZ2r SZ2r SX2r COMP_V2
+XC23 GND VDDR YZ2r SZ2r SY2r COMP_V2
+XD2  GND VDDR YZ2r Z2r XY2r XZ2r Y2r X2r DECODER_V2
+
+* --- cadena 3: X=S3  Y=S4  Z=S1
+XA31 GND VDDR S3P SX3r S3N OPAM_LIN_flat_V2
+XA32 GND VDDR S4P SY3r S4N OPAM_LIN_flat_V2
+XA33 GND VDDR S1P SZ3r S1N OPAM_LIN_flat_V2
+XC31 GND VDDR XY3r SY3r SX3r COMP_V2
+XC32 GND VDDR XZ3r SZ3r SX3r COMP_V2
+XC33 GND VDDR YZ3r SZ3r SY3r COMP_V2
+XD3  GND VDDR YZ3r Z3r XY3r XZ3r Y3r X3r DECODER_V2
+
+* --- cadena 4: X=S3  Y=S4  Z=S2
+XA41 GND VDDR S3P SX4r S3N OPAM_LIN_flat_V2
+XA42 GND VDDR S4P SY4r S4N OPAM_LIN_flat_V2
+XA43 GND VDDR S2P SZ4r S2N OPAM_LIN_flat_V2
+XC41 GND VDDR XY4r SY4r SX4r COMP_V2
+XC42 GND VDDR XZ4r SZ4r SX4r COMP_V2
+XC43 GND VDDR YZ4r SZ4r SY4r COMP_V2
+XD4  GND VDDR YZ4r Z4r XY4r XZ4r Y4r X4r DECODER_V2
+
+* --- los tres pesos y sus comparadores de salida
+* .subckt WEIGHT_COMP_V2 VSS VDD VD WE VA VB OUT OUT_N VC
+XW1 GND VDDR X4r Xr X1r X2r XPr XNr X3r WEIGHT_COMP_V2
+XW2 GND VDDR Y4r Yr Y1r Y2r YPr YNr Y3r WEIGHT_COMP_V2
+XW3 GND VDDR Z4r Zr Z1r Z2r ZPr ZNr Z3r WEIGHT_COMP_V2
+"}
+C {a_zonetic2026/XSCHEM_v2/GRADIENT_NAV2_V2.sym} 0 400 0 0 {name=xnav2}
+C {devices/lab_wire.sym} -150 300 0 0 {name=qS1P sig_type=std_logic lab=S1P}
+C {devices/lab_wire.sym} -150 320 0 0 {name=qS1N sig_type=std_logic lab=S1N}
+C {devices/lab_wire.sym} -150 340 0 0 {name=qS2P sig_type=std_logic lab=S2P}
+C {devices/lab_wire.sym} -150 360 0 0 {name=qS2N sig_type=std_logic lab=S2N}
+C {devices/lab_wire.sym} -150 400 0 0 {name=qS3P sig_type=std_logic lab=S3P}
+C {devices/lab_wire.sym} -150 420 0 0 {name=qS3N sig_type=std_logic lab=S3N}
+C {devices/lab_wire.sym} -150 440 0 0 {name=qS4P sig_type=std_logic lab=S4P}
+C {devices/lab_wire.sym} -150 460 0 0 {name=qS4N sig_type=std_logic lab=S4N}
+C {devices/lab_wire.sym} 150 300 2 0 {name=qXPv sig_type=std_logic lab=XPv}
+C {devices/lab_wire.sym} 150 320 2 0 {name=qXv sig_type=std_logic lab=Xv}
+C {devices/lab_wire.sym} 150 340 2 0 {name=qXNv sig_type=std_logic lab=XNv}
+C {devices/lab_wire.sym} 150 360 2 0 {name=qYPv sig_type=std_logic lab=YPv}
+C {devices/lab_wire.sym} 150 380 2 0 {name=qYv sig_type=std_logic lab=Yv}
+C {devices/lab_wire.sym} 150 400 2 0 {name=qYNv sig_type=std_logic lab=YNv}
+C {devices/lab_wire.sym} 150 420 2 0 {name=qZPv sig_type=std_logic lab=ZPv}
+C {devices/lab_wire.sym} 150 440 2 0 {name=qZv sig_type=std_logic lab=Zv}
+C {devices/lab_wire.sym} 150 460 2 0 {name=qZNv sig_type=std_logic lab=ZNv}
+C {devices/lab_wire.sym} 0 270 1 0 {name=qVDD sig_type=std_logic lab=VDDV}
+C {devices/gnd.sym} 0 490 0 0 {name=qVSS lab=GND
+value=5}
+C {devices/vsource.sym} 350 -520 0 0 {name=V4 value=5
+}
+C {devices/lab_wire.sym} 350 -550 0 0 {name=pV4a sig_type=std_logic lab=VDDV}
+C {devices/gnd.sym} 350 -490 0 0 {name=lV4 lab=GND
+value=5}
+C {devices/code_shown.sym} 520 -700 0 0 {name=s1
+only_toplevel=false
+value="
+* OJO: ni una llave en este texto. xschem las cuenta para saber donde acaba el
+* bloque de atributos y una sola dentro de un comentario lo corta por la mitad.
+*
+* Los dos navegadores cuelgan de los MISMOS ocho nodos de sensor y cada uno lleva
+* su propia fuente. El de hoy es `xnav` y saca X..ZN; el de XSCHEM_v2 es `xnav2`
+* y saca Xv..ZNv. La referencia del comparador de v2 sale por nombre jerarquico.
+.save all
+.control
+alter Vamp = 0.02
+dc Vang 0 360 0.5
+wrdata ancho.txt v(X) v(Y) v(Z) v(XP) v(XN) v(YP) v(YN) v(ZP) v(ZN) v(Xv) v(Yv) v(Zv) v(XPv) v(XNv) v(YPv) v(YNv) v(ZPv) v(ZNv) v(xnav.X1) v(xnav.X2) v(xnav.X3) v(xnav.X4) v(xnav.Y1) v(xnav.Y2) v(xnav.Y3) v(xnav.Y4) v(xnav.Z1) v(xnav.Z2) v(xnav.Z3) v(xnav.Z4) v(xnav2.X1) v(xnav2.X2) v(xnav2.X3) v(xnav2.X4) v(xnav2.Y1) v(xnav2.Y2) v(xnav2.Y3) v(xnav2.Y4) v(xnav2.Z1) v(xnav2.Z2) v(xnav2.Z3) v(xnav2.Z4) v(S1P) v(S1N) v(S2P) v(S2N) v(S3P) v(S3N) v(S4P) v(S4N) v(xnav2.VREF) v(VEXC)*i(V1) v(VDDS)*i(V2) v(VDDV)*i(V4)
+alter Vamp = 50u
+dc Vang 0 360 0.5
+wrdata fino.txt v(X) v(Y) v(Z) v(XP) v(XN) v(YP) v(YN) v(ZP) v(ZN) v(Xv) v(Yv) v(Zv) v(XPv) v(XNv) v(YPv) v(YNv) v(ZPv) v(ZNv) v(xnav.X1) v(xnav.X2) v(xnav.X3) v(xnav.X4) v(xnav.Y1) v(xnav.Y2) v(xnav.Y3) v(xnav.Y4) v(xnav.Z1) v(xnav.Z2) v(xnav.Z3) v(xnav.Z4) v(xnav2.X1) v(xnav2.X2) v(xnav2.X3) v(xnav2.X4) v(xnav2.Y1) v(xnav2.Y2) v(xnav2.Y3) v(xnav2.Y4) v(xnav2.Z1) v(xnav2.Z2) v(xnav2.Z3) v(xnav2.Z4) v(S1P) v(S1N) v(S2P) v(S2N) v(S3P) v(S3N) v(S4P) v(S4N) v(xnav2.VREF) v(VEXC)*i(V1) v(VDDS)*i(V2) v(VDDV)*i(V4)
+.endc
+"}

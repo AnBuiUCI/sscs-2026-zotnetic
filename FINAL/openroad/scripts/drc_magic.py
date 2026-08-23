@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
-"""DRC con magic sobre los bloques y el top.
+"""magic DRC on the blocks and on the top.
 
-Es una **segunda opinión**, no un sustituto: el deck de KLayout
-(`libs.tech/klayout/tech/drc`) y el de magic (la sección `drc` de
-`gf180mcuD.tech`) no cubren exactamente las mismas reglas. Lo interesante de
-correr los dos es justamente lo que sale en uno y no en el otro.
+This is a **second opinion**, not a replacement: the KLayout deck
+(`libs.tech/klayout/tech/drc`) and the magic one (the `drc` section of
+`gf180mcuD.tech`) do not cover exactly the same rules. What makes running
+both worthwhile is precisely what shows up in one and not in the other.
 
     python3 scripts/drc_magic.py [bloque ...]
 
-Sin argumentos corre los cuatro bloques y el top. Devuelve un código distinto de
-cero si algún GDS tiene violaciones, para que `make` se entere.
+With no arguments it runs the blocks and the top. Returns a non-zero exit
+code if any GDS has violations, so that `make` notices.
 """
 
 from __future__ import annotations
@@ -17,6 +17,7 @@ from __future__ import annotations
 import re
 import shutil
 import subprocess
+import os
 import sys
 from pathlib import Path
 
@@ -25,20 +26,29 @@ PROJECT = ROOT.parent
 MAGIC = "/foss/tools/bin/magic"
 MAGICRC = "/foss/pdks/gf180mcuD/libs.tech/magic/gf180mcuD.magicrc"
 
+#: As in drc_klayout: output directory and top cell are chosen from outside.
+OUT = ROOT / os.environ.get("TOP_OUT", "out")
+#: Which top cell gets checked. `GRADIENT_NAV` builds four GRADIENT blocks
+#: (the 98 dB OPAM); `GRADIENT_NAV2` is the same schematic with GRADIENT2,
+#: that is with OPAM_LIN_flat. The Makefile sets it with `T=`, like `TOP_OUT`.
+TOP = os.environ.get("TOP_CELL", "GRADIENT_NAV")
+
 TARGETS = {
     "COMP": ROOT / "gds/COMP.gds",
     "OPAM": ROOT / "gds/OPAM.gds",
     "DECODER": ROOT / "gds/DECODER.gds",
     "WEIGHT_COMP": ROOT / "gds/WEIGHT_COMP.gds",
-    "GRADIENT_NAV": ROOT / "out/GRADIENT_NAV.gds",
-    #  El mismo top con el relleno de densidad (`scripts/fill_density.py`). Es el
-    #  entregable de submision; el de arriba se queda para el lazo de depuracion.
-    "GRADIENT_NAV_FILLED": ROOT / "out/GRADIENT_NAV_filled.gds",
+    "OPAM_LIN_flat": ROOT / "gds/OPAM_LIN_flat.gds",
+    TOP: OUT / f"{TOP}.gds",
+    #  The same top with the density fill (`scripts/fill_density.py`). This is
+    #  the submission deliverable; the one above stays for the debug loop.
+    f"{TOP}_FILLED": OUT / f"{TOP}_filled.gds",
+    f"{TOP}_DECAP": OUT / f"{TOP}_decap.gds",
 }
 
 
-#: El GDS con relleno conserva el nombre de celda del original.
-TOPCELL = {"GRADIENT_NAV_FILLED": "GRADIENT_NAV"}
+#: The filled GDS keeps the cell name of the original.
+TOPCELL = {f"{TOP}_FILLED": TOP, f"{TOP}_DECAP": TOP}
 
 
 def run(cell: str, gds: Path, work: Path) -> tuple[int, str]:
@@ -46,12 +56,12 @@ def run(cell: str, gds: Path, work: Path) -> tuple[int, str]:
     script = work / f"{cell}_drc.tcl"
     celda = TOPCELL.get(cell, cell)
     script.write_text(
-        # `-noconsole -dnull` para que no intente abrir ventana ninguna.
+        # `-noconsole -dnull` so it never tries to open any window.
         f"gds read {gds}\n"
         f"load {celda}\n"
         "select top cell\n"
-        # Euclidiano, como el deck de KLayout: con la métrica por defecto
-        # (Manhattan) magic es más permisivo y los dos no serían comparables.
+        # Euclidean, like the KLayout deck: with the default metric
+        # (Manhattan) magic is more permissive and the two would not compare.
         "drc euclidean on\n"
         "drc check\n"
         "drc catchup\n"
@@ -66,8 +76,8 @@ def run(cell: str, gds: Path, work: Path) -> tuple[int, str]:
     out = r.stdout + r.stderr
     m = re.search(r"MAGIC_DRC_COUNT (\d+)", out)
     if not m:
-        # Sin la cuenta no se puede decir que esté limpio: se trata como fallo en
-        # vez de dar por bueno un silencio.
+        # Without the count there is no claiming it is clean: treated as a
+        # failure rather than taking silence for a pass.
         return -1, out
     return int(m.group(1)), out
 
@@ -79,7 +89,7 @@ def main() -> int:
     for name in names:
         gds = TARGETS.get(name)
         if gds is None:
-            sys.exit(f"no sé qué es {name}; conozco {', '.join(TARGETS)}")
+            sys.exit(f"unknown target {name}; I know {', '.join(TARGETS)}")
         if not gds.exists() or not gds.resolve().exists():
             print(f"  {name:14s} sin GDS todavía — saltado")
             continue
@@ -88,7 +98,7 @@ def main() -> int:
         rpt.parent.mkdir(parents=True, exist_ok=True)
         rpt.write_text(out)
         if n < 0:
-            print(f"  {name:14s} magic no dio la cuenta — ver {rpt}")
+            print(f"  {name:14s} magic gave no count -- see {rpt}")
             bad += 1
         elif n:
             print(f"  {name:14s} {n} violaciones — ver {rpt}")

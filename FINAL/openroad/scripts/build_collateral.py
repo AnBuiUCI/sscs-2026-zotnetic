@@ -44,7 +44,12 @@ BLOCKS = {
     "COMP": PROJECT / "XSCHEM/OPAM/simulation/COMP.sch/COMP.spice",
     "WEIGHT_COMP": PROJECT / "XSCHEM/WEIGTH/simulation/WEIGHT_COMP.sch/WEIGHT_COMP.spice",
     "OPAM": PROJECT / "XSCHEM/OPAM/simulation/OPAM.sch/OPAM.spice",
+    "OPAM_LIN_flat": PROJECT / "XSCHEM/OPAM/simulation/OPAM_LIN_flat.sch/OPAM_LIN_flat.spice",
     "DECODER": PROJECT / "XSCHEM/DECODER/simulation/DECODER.sch/DECODER.spice",
+    #  Las dos de la v2. Viven en XSCHEM_v2 porque el top GRADIENT_NAV3 no toca
+    #  nada del que ya esta verificado.
+    "DECODER_MAX": PROJECT / "XSCHEM_v2/simulation/DECODER_MAX.sch/DECODER_MAX.spice",
+    "OPAM_SUMA": PROJECT / "XSCHEM_v2/simulation/OPAM_SUMA.sch/OPAM_SUMA.spice",
 }
 
 #: Blocks whose layout does not exist yet. They are reported and skipped instead
@@ -391,6 +396,107 @@ def drop_trapped_pads(lef_text: str):
     return "\n".join(out) + "\n", exacta
 
 
+#: Pila de metales para saber que esta unido con que dentro del bloque. Es la
+#: misma que usa scripts/check_connectivity.py, y a proposito NO lleva poly: lo
+#: que hace falta aqui es precisamente que el cuerpo de una resistencia de poly
+#: NO una sus dos extremos.
+PILA = [("Metal1", (34, 0)), ("Via1", (35, 0)), ("Metal2", (36, 0)),
+        ("Via2", (38, 0)), ("Metal3", (42, 0)), ("Via3", (40, 0)),
+        ("Metal4", (46, 0)), ("Via4", (41, 0)), ("Metal5", (81, 0))]
+
+
+def _extraer(gds: Path):
+    """(l2n, regiones, etiquetas) del layout de un bloque."""
+    ly = kdb.Layout()
+    ly.read(str(gds))
+    top = ly.top_cell()
+    l2n = kdb.LayoutToNetlist(kdb.RecursiveShapeIterator(ly, top, []))
+    reg = {n: l2n.make_polygon_layer(ly.layer(*gl), n) for n, gl in PILA}
+    for i in range(0, len(PILA) - 1, 2):
+        m, v, u = PILA[i][0], PILA[i + 1][0], PILA[i + 2][0]
+        l2n.connect(reg[m])
+        l2n.connect(reg[m], reg[v])
+        l2n.connect(reg[v], reg[u])
+    l2n.connect(reg["Metal5"])
+    l2n.extract_netlist()
+    etiquetas = {}
+    for li in ly.layer_indexes():
+        capa = next((n for n, gl in PILA if ly.get_info(li).layer == gl[0]
+                     and ly.get_info(li).datatype == gl[1]), None)
+        if capa is None:
+            continue
+        for sh in top.shapes(li).each():
+            if sh.is_text():
+                etiquetas.setdefault(sh.text.string,
+                                     (capa, sh.text.x * ly.dbu, sh.text.y * ly.dbu))
+    return l2n, reg, etiquetas
+
+
+def podar_islas_ajenas(lef_text: str, gds: Path, dirs: dict[str, str]):
+    """Quita de cada PIN el metal que NO esta unido electricamente a su etiqueta.
+
+    magic escribe el puerto con toda la geometria que su modelo de conectividad
+    da por unida, **y ese modelo atraviesa el cuerpo de una resistencia de
+    poly**. En `OPAM_LIN_flat`, que es el unico bloque con resistencia, el pin
+    `OUT` salia con metal de los DOS lados de la realimentacion: el de `OUT` y el
+    de `G_OUT_P`, que es un nodo interno.
+
+    Eso no da ningun error en ningun sitio. El router del top aterrizo en el lado
+    equivocado y los tres comparadores de cada GRADIENT2 quedaron colgados de
+    `G_OUT_P` en vez de `OUT`. El DRC no ve nada -- no hay regla que se viole --
+    y el propio informe del router sale vacio.
+
+    Aqui se sondea cada rectangulo del puerto contra la extraccion de metal del
+    bloque y se deja solo el grupo que contiene la ETIQUETA del pin. Lo que se
+    quita se devuelve para que entre como obstruccion: sigue siendo metal y nadie
+    debe fundirse con el.
+
+    Los pines de alimentacion se saltan: su metal se une por taps de sustrato y
+    de pozo, que no estan en la pila, asi que ahi partirse en islas es normal.
+    """
+    #  Las coordenadas del LEF que escribe magic SON las del GDS, sin desplazar:
+    #  el bloque declara `ORIGIN 1.26 0` y `SIZE 87.31` justamente porque su
+    #  geometria va de -1.26 a 86.05, que es el bbox del GDS. El ORIGIN se suma
+    #  mas tarde, al colocar el macro (ver check_connectivity.place); aqui no.
+    l2n, reg, etiquetas = _extraer(gds)
+
+    def net_en(capa, x, y):
+        n = l2n.probe_net(reg[capa], kdb.DPoint(x, y))
+        return n.expanded_name() if n else None
+
+    podado: dict[str, list] = {}
+    out, pin, capa, alimentacion = [], None, None, False
+    for line in lef_text.splitlines():
+        m = re.match(r"\s*PIN\s+(\S+)\s*$", line)
+        if m:
+            pin, capa, alimentacion = m.group(1), None, False
+            out.append(line)
+            continue
+        if pin and re.match(rf"\s*END\s+{re.escape(pin)}\s*$", line):
+            pin = None
+            out.append(line)
+            continue
+        if pin and re.match(r"\s*USE\s+(POWER|GROUND)\s*;", line):
+            alimentacion = True
+        m = re.match(r"\s*LAYER\s+(\S+)\s*;", line)
+        if m:
+            capa = m.group(1)
+        m = re.match(r"\s*RECT ([-\d.]+) ([-\d.]+) ([-\d.]+) ([-\d.]+) ;", line)
+        if not (pin and not alimentacion and capa in reg and m
+                and pin in etiquetas):
+            out.append(line)
+            continue
+        x0, y0, x1, y1 = (float(v) for v in m.groups())
+        cap_et, ex, ey = etiquetas[pin]
+        buena = net_en(cap_et, ex, ey)
+        suya = net_en(capa, (x0 + x1) / 2, (y0 + y1) / 2)
+        if buena is None or suya == buena:
+            out.append(line)
+        else:
+            podado.setdefault(capa, []).append((x0, y0, x1, y1))
+    return "\n".join(out) + "\n", podado
+
+
 def keep_top_access(lef_text: str, dirs: dict[str, str], gds=None):
     """Deja en cada pin de senal solo el metal por el que el top puede entrar.
 
@@ -605,8 +711,14 @@ def main() -> None:
         raw = write_lef(block, gds.resolve(), work)
         # Primero se recortan los pines, y lo que se quita de ellos entra como
         # obstruccion: el orden inverso perderia la placa del MIM.
-        text, dropped = keep_top_access(
-            patch_directions(raw.read_text(), dirs), dirs, gds.resolve())
+        text, podado = podar_islas_ajenas(
+            patch_directions(raw.read_text(), dirs), gds.resolve(), dirs)
+        for capa, rs in podado.items():
+            print(f"               isla ajena fuera del pin: {len(rs)} rect(s)"
+                  f" de {capa}")
+        text, dropped = keep_top_access(text, dirs, gds.resolve())
+        for capa, rs in podado.items():
+            dropped.setdefault(capa, []).extend(rs)
         text, atrapados = drop_trapped_pads(text)
         text = add_via_obstructions(text, dropped, atrapados)
         for r in atrapados.get("Metal3", []):

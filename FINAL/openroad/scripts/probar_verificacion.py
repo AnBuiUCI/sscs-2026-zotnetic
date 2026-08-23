@@ -1,19 +1,19 @@
 #!/usr/bin/env python3
-"""Comprueba que las comprobaciones fallan cuando tienen que fallar.
+"""Checks that the checks fail when they are supposed to.
 
-Un "limpio" solo vale si sabes que esa herramienta habria cantado el fallo. En
-este proyecto eso no es teoria: `check_connectivity.py` daba **55/55 pasara lo
-que pasara** durante dias, porque usaba `net.name` como identidad de la net y ese
-campo esta vacio en casi todas. No fallaba: mentia.
+A "clean" is only worth something if you know that tool would have flagged the
+fault. In this project that is not theory: `check_connectivity.py` reported
+**55/55 no matter what** for days, because it used `net.name` as net identity
+and that field is empty on almost all of them. It did not fail: it lied.
 
-Asi que aqui se rompe el layout **a proposito**, de tres formas conocidas, y se
-mira quien se entera. Es la unica forma de demostrar que un "limpio" significa
+So here the layout is broken **on purpose**, in three known ways, and we watch
+who notices. It is the only way to show that a "clean" means
 algo.
 
-    python3 scripts/probar_verificacion.py            # los tres, sin DRC
-    python3 scripts/probar_verificacion.py --con-drc  # ademas el DRC (mas lento)
+    python3 scripts/probar_verificacion.py            # all three, without DRC
+    python3 scripts/probar_verificacion.py --con-drc  # plus DRC (slower)
 
-Los ficheros rotos se escriben en `work_prueba/` y no los usa nadie mas.
+The broken files are written to `work_prueba/` and nobody else uses them.
 """
 
 from __future__ import annotations
@@ -27,7 +27,7 @@ import klayout.db as kdb
 
 ROOT = Path(__file__).resolve().parent.parent
 GDS = ROOT / "out/GRADIENT_NAV.gds"
-#: Todo lo de esta prueba es desechable y NO se sube: `make clean` se lo lleva.
+#: Everything here is disposable and NOT uploaded: `make clean` takes it away.
 TMP = ROOT / "work_prueba"
 DEF = ROOT / "out/GRADIENT_NAV_routed.def"
 PY = sys.executable
@@ -38,7 +38,7 @@ VIA2 = (38, 0)
 
 
 def conectividad(gds: Path) -> tuple[int, int]:
-    """(abiertas, cortos) que reporta la comprobacion sobre ese GDS."""
+    """(opens, shorts) the check reports on that GDS."""
     r = subprocess.run([PY, str(ROOT / "scripts/check_connectivity.py"),
                         str(DEF), f"--gds={gds}"],
                        capture_output=True, text=True, check=False)
@@ -49,7 +49,7 @@ def conectividad(gds: Path) -> tuple[int, int]:
 
 
 def _pads_de_dos_nets():
-    """Dos pads de Metal3 de nets DISTINTAS que esten cerca, para poder unirlos."""
+    """Two Metal3 pads of DIFFERENT nets that are close, so they can be joined."""
     sys.path.insert(0, str(ROOT / "scripts"))
     from check_connectivity import lef_pins, macro_size, place, read_def
     from def_to_gds import lef_origin
@@ -75,7 +75,7 @@ def _pads_de_dos_nets():
                 puntos.append((net, (a[0] + a[2]) / 2, (a[1] + a[3]) / 2))
                 break
             break
-    #  El par mas cercano de nets distintas: cuanto mas corto el puente, menos se
+    #  The closest pair of different nets: the shorter the bridge, the less it
     #  parece a "he redibujado medio chip".
     mejor = None
     for i, (na, xa, ya) in enumerate(puntos):
@@ -89,7 +89,7 @@ def _pads_de_dos_nets():
 
 
 def romper_corto(dst: Path):
-    """Une dos nets con una tira de Metal3. **Esto no viola ninguna regla de DRC.**"""
+    """Joins two nets with a Metal3 strip. **This breaks no DRC rule.**"""
     d, (na, xa, ya), (nb, xb, yb) = _pads_de_dos_nets()
     ly = kdb.Layout()
     ly.read(str(GDS))
@@ -98,11 +98,11 @@ def romper_corto(dst: Path):
     caja = caja.enlarged(0.19, 0.19)
     top.shapes(ly.layer(*M3)).insert(caja.to_itype(ly.dbu))
     ly.write(str(dst))
-    return f"{na} y {nb} unidas con Metal3 ({d:.1f} um de puente)"
+    return f"{na} and {nb} joined with Metal3 ({d:.1f} um bridge)"
 
 
 def romper_abierto(dst: Path):
-    """Borra las Via2 de una ventana: corta la subida de una net a Metal3."""
+    """Deletes the Via2 in a window: cuts a net's climb to Metal3."""
     ly = kdb.Layout()
     ly.read(str(GDS))
     top = ly.top_cell()
@@ -117,7 +117,7 @@ def romper_abierto(dst: Path):
             top.shapes(capa).erase(s)
             n += 1
     ly.write(str(dst))
-    return f"{n} via2 borradas alrededor de {na} ({xa:.1f}, {ya:.1f})"
+    return f"{n} via2 deleted around {na} ({xa:.1f}, {ya:.1f})"
 
 
 def romper_drc(dst: Path):
@@ -136,13 +136,13 @@ def romper_drc(dst: Path):
 
 
 def drc_limpio(gds: Path, celda: str) -> bool:
-    """True si el DRC de KLayout no saca ni una violacion. Aborta si no corrio.
+    """True if the KLayout DRC reports not one violation. Aborts if it did not run.
 
-    La primera version daba "limpio" cuando el deck **no llegaba a arrancar**
-    —`klayout` no estaba en el PATH— porque sumaba violaciones sobre cero
-    ficheros. Esta prueba existe justo para cazar eso, asi que empezo cazandose a
-    si misma. El PATH tiene que llevar `/foss/tools/klayout`, y `PDK_ROOT` tiene
-    que estar puesto: es lo mismo que hace `drc_klayout.py`.
+    The first version said "clean" when the deck **never even started** --
+    `klayout` was not on PATH -- because it summed violations over zero files.
+    This test exists precisely to catch that, so it began by catching itself.
+    PATH must carry `/foss/tools/klayout`, and `PDK_ROOT` must be set: same as
+    what `drc_klayout.py` does.
     """
     run = TMP / f"drc_{celda}"
     subprocess.run(["rm", "-rf", str(run)], check=False)
@@ -156,7 +156,7 @@ def drc_limpio(gds: Path, celda: str) -> bool:
              "HOME": "/tmp", "PDK_ROOT": "/foss/pdks"})
     dbs = list(run.glob("*.lyrdb"))
     if not dbs:
-        sys.exit(f"el DRC no llego a correr sobre {gds} — ni un .lyrdb en {run}")
+        sys.exit(f"DRC never ran on {gds} -- not one .lyrdb in {run}")
     return sum(len(re.findall(r"<item>", f.read_text(errors="replace")))
                for f in dbs) == 0
 
@@ -164,7 +164,7 @@ def drc_limpio(gds: Path, celda: str) -> bool:
 def main() -> int:
     TMP.mkdir(parents=True, exist_ok=True)
     con_drc = "--con-drc" in sys.argv
-    print("Referencia: el layout de verdad\n")
+    print("Baseline: the real layout\n")
     ab, co = conectividad(GDS)
     print(f"  conectividad sobre el GDS bueno: {ab} abiertas, {co} cortos"
           f"   {'OK' if (ab, co) == (0, 0) else 'OJO: ya venia roto'}\n")
@@ -177,7 +177,7 @@ def main() -> int:
     ab, co = conectividad(dst)
     bien = co > 0
     print(f"     conectividad: {ab} abiertas, {co} cortos"
-          f"      -> {'LO VE' if bien else 'NO LO VE  <-- MAL'}")
+          f"      -> {'SEES IT' if bien else 'MISSES IT  <-- BAD'}")
     fallos += 0 if bien else 1
 
     dst = TMP / "roto_abierto.gds"
@@ -185,7 +185,7 @@ def main() -> int:
     ab, co = conectividad(dst)
     bien = ab > 0
     print(f"     conectividad: {ab} abiertas, {co} cortos"
-          f"      -> {'LO VE' if bien else 'NO LO VE  <-- MAL'}")
+          f"      -> {'SEES IT' if bien else 'MISSES IT  <-- BAD'}")
     fallos += 0 if bien else 1
 
     if con_drc:
@@ -193,18 +193,18 @@ def main() -> int:
         print(f"  3. DRC        {romper_drc(dst)}")
         bien = not drc_limpio(dst, "COMP")
         print(f"     DRC de KLayout sobre COMP roto: "
-              f"{'LO VE' if bien else 'NO LO VE  <-- MAL'}")
+              f"{'SEES IT' if bien else 'MISSES IT  <-- BAD'}")
         fallos += 0 if bien else 1
 
-        print("\n  Y el control que mas dice de todo esto:")
+        print("\n  And the control that says the most about all this:")
         limpio = drc_limpio(TMP / "roto_corto.gds", "GRADIENT_NAV")
-        print(f"     DRC sobre el GDS CON EL CORTO: "
+        print(f"     DRC on the GDS WITH THE SHORT: "
               f"{'limpio' if limpio else 'saca violaciones'}"
-              f"   <- limpio es lo ESPERADO: el DRC no ve un corto")
+              f"   <- clean is EXPECTED: DRC does not see a short")
     else:
-        print("\n  (con --con-drc se anaden las dos pruebas de DRC)")
+        print("\n  (--con-drc adds the two DRC tests)")
 
-    print(f"\n{'todas las comprobaciones reaccionan' if not fallos else str(fallos) + ' comprobacion(es) NO reaccionan'}")
+    print(f"\n{'every check reacts' if not fallos else str(fallos) + ' check(s) do NOT react'}")
     return 1 if fallos else 0
 
 

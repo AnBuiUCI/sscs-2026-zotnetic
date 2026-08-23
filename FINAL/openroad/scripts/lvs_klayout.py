@@ -14,6 +14,7 @@ canta un corto con nombres y coordenadas es el LVS.
 from __future__ import annotations
 
 import subprocess
+import os
 import sys
 import re
 from pathlib import Path
@@ -21,17 +22,40 @@ from pathlib import Path
 import klayout.db as kdb
 
 ROOT = Path(__file__).resolve().parent.parent
+#: Directorio de salida del top. Por defecto `out`, que es el de la v1.
+#: `TOP_OUT` lo cambia para poder verificar el top de la v2 sin pisar el de la
+#: v1: los dos tienen que poder coexistir para compararlos.
+OUT = ROOT / os.environ.get("TOP_OUT", "out")
+
+#: Celda de arriba que se verifica. `GRADIENT_NAV` monta cuatro bloques
+#: GRADIENT (OPAM de 98 dB) y `GRADIENT_NAV2` los monta con GRADIENT2
+#: (OPAM_LIN_flat). Lo pone el Makefile con `T=`, igual que `TOP_OUT`.
+TOP = os.environ.get("TOP_CELL", "GRADIENT_NAV")
+
 PROJECT = ROOT.parent
 RUNNER = "/foss/pdks/gf180mcuD/libs.tech/klayout/tech/lvs/run_lvs.py"
 
+#: Referencia del top: la netlist que exporta xschem del esquematico.
+REF_TOP = PROJECT / f"XSCHEM/simulation/{TOP}.sch/{TOP}.spice"
+
 TARGETS = {
-    "GRADIENT_NAV": (ROOT / "out/GRADIENT_NAV.gds",
-                     PROJECT / "XSCHEM/simulation/GRADIENT_NAV.sch/GRADIENT_NAV.spice"),
+    TOP: (OUT / f"{TOP}.gds", REF_TOP),
+    #  El top con el desacople y el top con el relleno de densidad. Los tres
+    #  comparten celda y referencia: lo que cambia es el GDS.
+    f"{TOP}_DECAP": (OUT / f"{TOP}_decap.gds", REF_TOP),
+    f"{TOP}_FILLED": (OUT / f"{TOP}_filled.gds", REF_TOP),
     "COMP": (ROOT / "gds/COMP.gds", PROJECT / "layouts/COMP/COMP_lvs.spice"),
     "OPAM": (ROOT / "gds/OPAM.gds", PROJECT / "layouts/OPAM/OPAM_lvs.spice"),
     "DECODER": (ROOT / "gds/DECODER.gds", PROJECT / "layouts/DECODER/DECODER_lvs.spice"),
     "WEIGHT_COMP": (ROOT / "gds/WEIGHT_COMP.gds",
                     PROJECT / "layouts/WEIGHT_COMP/WEIGHT_COMP_lvs.spice"),
+    "OPAM_LIN_flat": (ROOT / "gds/OPAM_LIN_flat.gds",
+                      PROJECT / "layouts/OPAM_LIN_flat/OPAM_LIN_flat_lvs.spice"),
+    #  Las dos de la v2, que solo existen en layouts_v2/.
+    "DECODER_MAX": (ROOT / "gds/DECODER_MAX.gds",
+                    PROJECT / "layouts_v2/DECODER_MAX/DECODER_MAX_lvs.spice"),
+    "OPAM_SUMA": (ROOT / "gds/OPAM_SUMA.gds",
+                  PROJECT / "layouts_v2/OPAM_SUMA/OPAM_SUMA_lvs.spice"),
 }
 
 
@@ -108,6 +132,11 @@ def prepare(ref: Path, cell: str, work: Path) -> Path:
     return dst
 
 
+#: Limites del comparador conducido a mano. `--hondo` los sube, para distinguir
+#: un empate de simetria (doce rebanadas analogicas iguales) de una diferencia
+#: de circuito de verdad.
+LIMITES = (60, 200000) if "--hondo" in sys.argv else (30, 10000)
+
 #: Capacidad por area del MIM de este PDK: `cap_mim_2f0fF` son 2.0 fF/um2. El deck
 #: extrae 4e-13 F para una placa de 20 x 10 um, que es exactamente eso.
 _MIM_FF_UM2 = 2.0e-15
@@ -135,15 +164,59 @@ def _legible_por_spice(ref: Path, work: Path) -> Path:
     return dst
 
 
+#: Las tres hojas de resistencia de poly, que se dibujan IGUAL.
+_RE_POLY = re.compile(r"\bppolyf_u_([123])k\b")
+
+
+def ajustar_hoja(cir: Path, ref: Path, work: Path) -> Path:
+    """Pone en la extraccion la hoja de poly que declara la referencia.
+
+    1k, 2k y 3k **no se dibujan distinto**: son la misma capa y lo que cambia es
+    una opcion de proceso. `run_lvs.py` **fija `poly_res=1k` en su tabla de
+    variantes** -- en las cuatro, A, B, C y D -- asi que la extraccion del top
+    salia con 60 `ppolyf_u_1k` contra los 12 `ppolyf_u_3k` de la referencia:
+    clases distintas, y de ahi 1801 nets sin pareja de 1828.
+
+    El deck si admite el interruptor (`gf180mcu.lvs` hace `POLY_RES = $poly_res
+    || '1k'`), y asi lo llama `zotnetic_layout/run_lvs.sh` con los bloques. **Con
+    el top no sirve**: llamandolo a pelo con `poly_res=3k` la comparacion del
+    propio deck se queda dando vueltas -- 6 horas sin terminar, contra los 12
+    segundos que tarda por `run_lvs.py` -- y no escribe la netlist extraida hasta
+    el final, asi que un timeout no deja ni eso. Aqui el veredicto no lo da el
+    deck de todas formas, sino `comparar()`; lo unico que hace falta del deck es
+    la extraccion, y para eso el nombre de la hoja da igual.
+
+    Asi que se cambia el nombre despues, que es donde la diferencia vive.
+    `comparar()` compara topologia con los parametros desactivados, o sea que lo
+    unico que separaba las dos netlists era la etiqueta.
+    """
+    hojas = set(_RE_POLY.findall(ref.read_text()))
+    if len(hojas) != 1 or hojas == {"1"}:
+        return cir
+    modelo = f"ppolyf_u_{hojas.pop()}k"
+    txt, n = re.subn(r"\bppolyf_u_1k\b", modelo, cir.read_text())
+    if not n:
+        return cir
+    work.mkdir(parents=True, exist_ok=True)
+    dst = work / (cir.stem + "_hoja.cir")
+    dst.write_text(txt)
+    print(f"                 hoja de poly: {n} `ppolyf_u_1k` -> `{modelo}`")
+    return dst
+
+
 class _Cuenta(kdb.GenericNetlistCompareLogger):
     def __init__(self):
         super().__init__()
         self.nets = self.disp = self.pines = self.ok = 0
+        self.clases: list[str] = []
 
     def net_mismatch(self, a, b, *extra):
         self.nets += 1
 
     def device_mismatch(self, a, b, *extra):
+        #  Solo se cuentan. Tocar `a.device_class()` aqui **revienta el proceso**
+        #  (segmentation fault): los objetos que pasa el comparador solo son
+        #  validos mientras dura la llamada y el binding no lo protege.
         self.disp += 1
 
     def pin_mismatch(self, a, b, *extra):
@@ -184,6 +257,14 @@ def comparar(cir: Path, ref: Path, work: Path,
         for dc in nl.each_device_class():
             for pd in dc.parameter_definitions():
                 dc.enable_parameter(pd.name, False)
+        #  Fusionar los que esten en PARALELO, en los dos lados. Los 280
+        #  transistores de desacople cuelgan todos de las mismas dos nets, o sea
+        #  que son intercambiables entre si: un empate de 146 ramas que el
+        #  comparador no acaba de deshacer y que dejaba **6 dispositivos sin
+        #  pareja** con 0 nets y 0 pines sin pareja -- la firma de un empate, no
+        #  de una diferencia de circuito. Fundidos, el empate desaparece.
+        #  netgen hace lo mismo (`property parallel enable` en el setup del PDK).
+        nl.combine_devices()
         return nl
 
     log = _Cuenta()
@@ -191,23 +272,58 @@ def comparar(cir: Path, ref: Path, work: Path,
     cmp.max_depth = profundidad
     cmp.max_branch_complexity = ramas
     ok = cmp.compare(leer(cir), leer(ref))
-    return ok, (f"max_depth={profundidad} max_branch_complexity={ramas}: "
-                f"{log.ok} nets emparejadas, sin pareja: {log.nets} nets, "
-                f"{log.disp} dispositivos, {log.pines} pines")
+    detalle = (f"max_depth={profundidad} max_branch_complexity={ramas}: "
+               f"{log.ok} nets emparejadas, sin pareja: {log.nets} nets, "
+               f"{log.disp} dispositivos, {log.pines} pines")
+    if log.clases:
+        from collections import Counter
+        detalle += "\n                 sin pareja: " + "  ".join(
+            f"{k} x{v}" for k, v in Counter(log.clases).most_common())
+    return ok, detalle
+
+
+def comparar_aparte(cir: Path, ref: Path, work: Path) -> tuple[bool, str]:
+    """`comparar()`, pero en OTRO proceso.
+
+    El comparador de KLayout **revienta el proceso** (segmentation fault) en dos
+    casos vistos: llamandolo dos veces seguidas, y sobre la netlist extraida del
+    GDS con relleno de densidad. Un fallo suyo no puede llevarse por delante la
+    corrida entera ni dejarla sin veredicto, asi que se lanza aparte y si se cae
+    se dice que se cayo.
+    """
+    r = subprocess.run([sys.executable, __file__, "--comparar", str(cir), str(ref),
+                        str(work)] + (["--hondo"] if LIMITES[0] != 30 else []),
+                       capture_output=True, text=True, timeout=7200, check=False)
+    salida = (r.stdout or "").strip()
+    if r.returncode < 0 or not salida:
+        return False, (f"el comparador de KLayout se cayo (codigo {r.returncode}); "
+                       f"sin veredicto por esta via")
+    ok, _, detalle = salida.partition("|")
+    return ok.strip() == "MATCH", detalle.strip()
 
 
 def main() -> int:
+    if "--comparar" in sys.argv:
+        i = sys.argv.index("--comparar")
+        cir, ref, work = (Path(x) for x in sys.argv[i + 1:i + 4])
+        ok, detalle = comparar(cir, ref, work, *LIMITES)
+        print(f"{'MATCH' if ok else 'NO'}|{detalle}")
+        return 0
+
     bad = 0
-    for name in (sys.argv[1:] or ["GRADIENT_NAV"]):
+    for name in ([a for a in sys.argv[1:] if not a.startswith("-")] or [TOP]):
         gds, ref = TARGETS[name]
+        #  El nombre del objetivo no es el de la celda: `GRADIENT_NAV2_DECAP` y
+        #  `_FILLED` son el mismo `GRADIENT_NAV2` con mas cosas dentro.
+        celda = TOP if name.startswith(TOP) else name
         run = ROOT / "out" / f"lvs_klayout_{name}"
         subprocess.run(["rm", "-rf", str(run)], check=False)
         run.mkdir(parents=True, exist_ok=True)
-        if name == "GRADIENT_NAV":
-            ref = prepare(ref, name, ROOT / "work_lvs")
+        if celda == TOP:
+            ref = prepare(ref, celda, ROOT / "work_lvs")
         r = subprocess.run(
             [sys.executable, RUNNER, f"--layout={gds.resolve()}",
-             f"--netlist={ref}", "--variant=D", f"--topcell={name}",
+             f"--netlist={ref}", "--variant=D", f"--topcell={celda}",
              f"--run_dir={run}", "--run_mode=deep", "--thr=4",
              #  Sin esto el netlist extraido sale como `.SUBCKT GRADIENT_NAV` a
              #  secas, sin un solo pin, y el emparejamiento no tiene por donde
@@ -222,7 +338,9 @@ def main() -> int:
              #  defecto del deck (`gf180mcu_gnd`) el nodo sale como `SUB`, sin
              #  correspondencia en la referencia.
              "--lvs_sub=VSS"],
-            capture_output=True, text=True, timeout=21600, check=False)
+            capture_output=True, text=True, timeout=21600, check=False,
+            env={**os.environ, "PATH": "/foss/tools/klayout:/usr/bin:/bin",
+                 "HOME": "/tmp", "PDK_ROOT": "/foss/pdks"})
         log = run / "run.log"
         log.write_text(r.stdout + r.stderr)
         ok = "Congratulations! Netlists match." in (r.stdout + r.stderr)
@@ -235,7 +353,10 @@ def main() -> int:
             print(f"  {name:14s} {'match' if ok else 'NO CUADRA'}   -> {log}")
             bad += 0 if ok else 1
             continue
-        ok2, detalle = comparar(cir, ref, ROOT / "work_lvs")
+        cir = ajustar_hoja(cir, ref, ROOT / "work_lvs")
+        #  UNA sola comparacion por proceso, y en un proceso APARTE: ver
+        #  `comparar_aparte`.
+        ok2, detalle = comparar_aparte(cir, ref, ROOT / "work_lvs")
         print(f"  {name:14s} deck: NO CUADRA  |  comparador a mano: "
               f"{'MATCH' if ok2 else 'NO CUADRA'}")
         print(f"                 {detalle}")

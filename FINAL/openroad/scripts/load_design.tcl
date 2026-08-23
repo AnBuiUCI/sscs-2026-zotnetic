@@ -13,22 +13,29 @@ set SC_LIB   gf180mcu_fd_sc_mcu9t5v0
 set SC_REF   $PDK/libs.ref/$SC_LIB
 set CORNER   nom
 
-#: The design OpenROAD places. `verilog/top_macros.v` is generated from the
+#: The design OpenROAD places. `verilog/<TOP>_macros.v` is generated from the
 #: xschem netlist and contains nothing but hard macros. `verilog/top.v` is the
 #: hand-written template from before there was a real netlist-derived top; it is
 #: kept for reference and is not read by anything.
-if {![info exists DESIGN_V]}   { set DESIGN_V   verilog/top_macros.v }
-if {![info exists DESIGN_TOP]} { set DESIGN_TOP GRADIENT_NAV }
+#:
+#: `TOP_CELL` picks which top gets built. `GRADIENT_NAV` builds four GRADIENT
+#: blocks, with the 98 dB OPAM; `GRADIENT_NAV2` is the same schematic with
+#: GRADIENT2, that is with the linear amplifier. Each has its own Verilog and
+#: output directory, so both can coexist and be compared.
+if {![info exists DESIGN_TOP]} {
+    set DESIGN_TOP [expr {[info exists env(TOP_CELL)] ? $env(TOP_CELL) : "GRADIENT_NAV"}]
+}
+if {![info exists DESIGN_V]}   { set DESIGN_V verilog/${DESIGN_TOP}_macros.v }
 
 # --- technology --------------------------------------------------------------
-#  El techlef va PARCHEADO: las `VIARULE ... GENERATE` del PDK dejan un recuadro
-#  de via de 0.38 x 0.28, por debajo del area minima y con un escalon de 0.05
-#  contra el cable. Ver scripts/patch_techlef.py.
+#  The techlef is PATCHED: the PDK `VIARULE ... GENERATE` leave a via pad of
+#  0.38 x 0.28, below minimum area and with a 0.05 step against the wire.
+#  See scripts/patch_techlef.py.
 read_lef lef/techlef_patched.tlef
 read_lef $SC_REF/lef/$SC_LIB.lef
 
-#  Vias propias, con recuadro suficiente para el area minima del metal: las del
-#  techlef dejan un pad de 0.1064 um2 y `Mn.3` pide 0.1444 (ver lef/vias.lef).
+#  Our own vias, with enough enclosure for the metal minimum area: the techlef
+#  ones leave a 0.1064 um2 pad and `Mn.3` asks for 0.1444 (see lef/vias.lef).
 read_lef lef/vias.lef
 
 # --- analog macros -----------------------------------------------------------

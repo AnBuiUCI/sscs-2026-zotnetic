@@ -13,10 +13,99 @@
 # ======================================================
 project:
   title: "Magnetic Gradient Navigation and Control IC"
-  team: "B26 Zotnetic"         
+  team: "B26 Zotnetic"
   discord: "teareverie"                   # Optional: Discord username (for support / communication)
-  description: "PDK test data"  # Short one-line description
+  description: "Four magnetoresistive bridges resolve the gradient of the field magnitude"
   lvs_config: "lvs_config.json"
-  # El GDS de submision es FINAL/openroad/out/GRADIENT_NAV_filled.gds, celda top
-  # GRADIENT_NAV. Sale de lvs_config.json -> LAYOUT_FILE.
 
+# ======================================================
+# Pin definitions
+# ======================================================
+#
+# Top cell: GRADIENT_NAV2       die 418.24 x 413.53 um
+# GDS:      FINAL/openroad/out_v2_GRADIENT_NAV2/GRADIENT_NAV2_filled.gds
+#           (also reached through lvs_config.json -> LAYOUT_FILE)
+#
+# The project is assumed to sit in the TOP-LEFT quadrant of the padframe, so the
+# pins are listed CLOCKWISE FROM BOTTOM-LEFT: up the left edge, across the top,
+# down the right edge and back along the bottom. This order is not written by
+# hand -- it is read from the placed pin coordinates in
+# out_v2_GRADIENT_NAV2/GRADIENT_NAV2_routed.def.
+#
+# TWO CHOICES WORTH REVIEWING BEFORE SUBMISSION:
+#
+#   1. The nine outputs (X/Y/Z and the six XP..ZN) carry DIGITAL levels but are
+#      declared `analog`. The io_type list has no plain digital output: the only
+#      digital type that drives a signal out is `bidirectional`, and that pad
+#      needs an output-enable this block does not have. An `analog` pad passes
+#      the signal straight through, which is what is needed here.
+#   2. VSS is declared even though the announcement says ground is common and no
+#      ground pin is required. It is kept because the block does have its own
+#      ground port; drop this entry if the padframe shorts them anyway.
+#
+# WHAT THE SIGNALS MEAN. Each sensor reads the MAGNITUDE of the field, |B|, at
+# its position. The four of them sample that scalar field at the vertices of a
+# tetrahedron, and the chip reconstructs grad|B| -- which points towards where
+# the magnitude grows, i.e. towards the source.
+
+pins:
+  # --- left edge, bottom to top ----------------------------------------------
+  - name: S4P            # sensor 4, positive leg of the bridge
+    io_type: analog
+    secondary_esd: true
+  - name: S4N            # sensor 4, negative leg
+    io_type: analog
+    secondary_esd: true
+  - name: VSS            # block ground (see note 2 above)
+    io_type: ground
+  - name: VDD            # 6 V supply
+    io_type: power
+
+  # --- right edge, top to bottom ---------------------------------------------
+  - name: Z              # decoded Z axis, analog vote node
+    io_type: analog
+    secondary_esd: true
+  - name: ZN             # Z comparator, negative output
+    io_type: analog
+    secondary_esd: true
+  - name: ZP             # Z comparator, positive output
+    io_type: analog
+    secondary_esd: true
+  - name: Y
+    io_type: analog
+    secondary_esd: true
+  - name: YN
+    io_type: analog
+    secondary_esd: true
+  - name: YP
+    io_type: analog
+    secondary_esd: true
+  - name: X
+    io_type: analog
+    secondary_esd: true
+  - name: XN
+    io_type: analog
+    secondary_esd: true
+  - name: XP
+    io_type: analog
+    secondary_esd: true
+
+  # --- bottom edge, right to left --------------------------------------------
+  - name: S1N            # sensor 1, negative leg
+    io_type: analog
+    secondary_esd: true
+  - name: S1P
+    io_type: analog
+    secondary_esd: true
+  - name: S3P            # sensor 3
+    io_type: analog
+    secondary_esd: true
+  - name: S3N
+    io_type: analog
+    secondary_esd: true
+  - name: S2N            # sensor 2
+    io_type: analog
+    secondary_esd: true
+  - name: S2P
+    io_type: analog
+    secondary_esd: true
