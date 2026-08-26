@@ -1,76 +1,87 @@
 magic
 tech gf180mcuD
-magscale 1 10
-timestamp 1786336161
-<< error_s >>
-rect 1911 795 1935 841
-rect 1909 692 1935 740
-rect 1957 692 1981 795
-rect 591 576 615 577
-rect 1297 576 1321 577
-rect 591 531 660 576
-rect 592 476 661 531
-rect 589 428 661 476
-rect 1252 476 1321 576
-rect 592 80 663 428
-rect 592 -23 661 80
-rect 1252 12 1323 476
-rect 592 -68 660 -23
-rect 1252 -91 1321 12
-rect 1957 -56 1983 692
-rect 2571 372 2595 373
-rect 2571 327 2640 372
-rect 2572 272 2641 327
-rect 2569 224 2641 272
-rect 3231 259 3255 305
-rect 1252 -136 1320 -91
-rect 1957 -159 1981 -56
-rect 2572 -124 2643 224
-rect 3229 156 3255 204
-rect 3277 156 3301 259
-rect 2572 -227 2641 -124
-rect 3277 -192 3303 156
-rect 2572 -272 2640 -227
-rect 3277 -295 3301 -192
+magscale 1 5
+timestamp 1787712954
+<< nwell >>
+rect 420 2685 515 3165
+rect 1300 2685 1400 3165
+rect 1305 2680 1400 2685
 << metal1 >>
-rect -390 1100 -190 1300
-rect -430 820 -230 1020
-rect -480 550 -280 750
-rect -510 240 -310 440
-rect -590 -40 -390 160
-use pfet_06v0_S8DJS9  XM1
-timestamp 1786313772
-transform 1 0 2276 0 1 284
-box -364 -556 364 556
-use pfet_06v0_S8DJS9  XM2
-timestamp 1786313772
-transform 1 0 1616 0 1 352
-box -364 -556 364 556
-use nfet_06v0_A4FXXT  XM3
-timestamp 1786313772
-transform 1 0 2936 0 1 16
-box -364 -356 364 356
-use pfet_06v0_S8DJS9  XM4
-timestamp 1786313772
-transform 1 0 296 0 1 488
-box -364 -556 364 556
-use nfet_06v0_A4FXXT  XM5
-timestamp 1786313772
-transform 1 0 956 0 1 220
-box -364 -356 364 356
-use nfet_06v0_A4FXXT  XM6
-timestamp 1786313772
-transform 1 0 3596 0 1 -52
-box -364 -356 364 356
+rect 370 3330 1455 3335
+rect 270 3230 1455 3330
+rect 370 3225 1455 3230
+rect 540 2905 600 3225
+rect 540 2900 580 2905
+rect 415 2585 515 2600
+rect 625 2585 655 2755
+rect 415 2545 655 2585
+rect 415 2500 515 2545
+rect 625 2380 655 2545
+rect 710 2580 740 2950
+rect 820 2790 890 3225
+rect 985 2765 1030 2960
+rect 1085 2870 1145 3225
+rect 905 2640 930 2740
+rect 880 2635 950 2640
+rect 880 2605 890 2635
+rect 940 2605 950 2635
+rect 1000 2580 1025 2765
+rect 710 2575 1025 2580
+rect 1140 2575 1180 2755
+rect 710 2535 1180 2575
+rect 575 2145 625 2315
+rect 730 2280 835 2305
+rect 995 2300 1020 2535
+rect 1140 2380 1180 2535
+rect 1245 2595 1270 2940
+rect 1245 2495 1345 2595
+rect 375 2140 625 2145
+rect 1075 2140 1120 2340
+rect 1245 2295 1275 2495
+rect 375 2050 1445 2140
+rect 375 2045 475 2050
+rect -240 275 -140 375
+<< via1 >>
+rect 890 2605 940 2635
+<< metal2 >>
+rect 885 2635 945 2640
+rect 885 2605 890 2635
+rect 940 2605 945 2635
+rect 885 2600 945 2605
+rect 905 2365 940 2600
+use pfet_06v0_T36BST  XM1
+timestamp 1787712954
+transform 1 0 911 0 1 2918
+box -137 -239 137 239
+use pfet_06v0_T36BST  XM2
+timestamp 1787712954
+transform 1 0 637 0 1 2924
+box -137 -239 137 239
+use nfet_06v0_2EPQUN  XM3
+timestamp 1787712954
+transform 1 0 655 0 1 2297
+box -110 -112 110 112
+use pfet_06v0_T36BST  XM4
+timestamp 1787712954
+transform 1 0 1171 0 1 2923
+box -137 -239 137 239
+use nfet_06v0_2EPQUN  XM5
+timestamp 1787712954
+transform 1 0 1165 0 1 2302
+box -110 -112 110 112
+use nfet_06v0_2EPQUN  XM6
+timestamp 1787712954
+transform 1 0 920 0 1 2297
+box -110 -112 110 112
 << labels >>
-rlabel metal1 -390 1100 -190 1300 1 A
-port 1 n default input
-rlabel metal1 -430 820 -230 1020 1 VDD
-port 2 n power bidirectional
-rlabel metal1 -480 550 -280 750 1 B
+rlabel metal1 -240 275 -140 375 1 B
 port 3 n default input
-rlabel metal1 -590 -40 -390 160 1 VSS
-port 5 n ground bidirectional
-rlabel metal1 -510 240 -310 440 1 output
+rlabel metal1 415 2500 515 2600 1 A
+port 1 n default input
+rlabel metal1 1245 2495 1345 2595 1 output
 port 4 n default output
+rlabel metal1 270 3230 370 3330 1 VDD
+port 2 n power bidirectional
+rlabel metal1 375 2045 475 2145 1 VSS
+port 5 n ground bidirectional
 << end >>
