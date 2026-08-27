@@ -5,7 +5,7 @@
 //      python3 scripts/spice_to_verilog.py
 //
 //  source: /foss/designs/a_zonetic2026/XSCHEM/simulation/GRADIENT_NAV2.sch/GRADIENT_NAV2.spice
-//  built:  2026-08-21 08:14
+//  built:  2026-08-27 15:53
 //
 //  Black-box modules have ports and no body. OpenROAD binds them to the
 //  LEF MACRO of the same name; giving it a body would make OpenROAD
@@ -47,6 +47,20 @@ module DECODER (
     inout  Y;
     input  YZ;
     inout  Z;
+    inout  VSS;
+
+endmodule
+
+// ESD_CDM (black box)
+module ESD_CDM (
+    PAD,
+    CORE,
+    VDD,
+    VSS
+);
+    input  PAD;
+    output CORE;
+    inout  VDD;
     inout  VSS;
 
 endmodule
@@ -268,23 +282,34 @@ module GRADIENT_NAV2 (
     input  S1P;
     input  S1N;
 
+    wire   X_I;
     wire   X1;
     wire   X2;
     wire   X3;
     wire   X4;
+    wire   Y_I;
     wire   Y1;
     wire   Y2;
     wire   Y3;
     wire   Y4;
+    wire   Z_I;
     wire   Z1;
     wire   Z2;
     wire   Z3;
     wire   Z4;
+    wire   S1N_I;
+    wire   S1P_I;
+    wire   S2N_I;
+    wire   S2P_I;
+    wire   S3N_I;
+    wire   S3P_I;
+    wire   S4N_I;
+    wire   S4P_I;
 
     WEIGHT x5 (
         .VDD(VDD),
         .GND(VSS),
-        .OUT(X),
+        .OUT(X_I),
         .VA(X1),
         .VC(X2),
         .VB(X3),
@@ -293,7 +318,7 @@ module GRADIENT_NAV2 (
     WEIGHT x6 (
         .VDD(VDD),
         .GND(VSS),
-        .OUT(Y),
+        .OUT(Y_I),
         .VA(Y1),
         .VC(Y2),
         .VB(Y3),
@@ -302,7 +327,7 @@ module GRADIENT_NAV2 (
     WEIGHT x7 (
         .VDD(VDD),
         .GND(VSS),
-        .OUT(Z),
+        .OUT(Z_I),
         .VA(Z1),
         .VC(Z2),
         .VB(Z3),
@@ -311,75 +336,141 @@ module GRADIENT_NAV2 (
     COMP_OUT x8 (
         .VDD(VDD),
         .OUT(XP),
-        .IN(X),
+        .IN(X_I),
         .OUT_N(XN),
         .VSS(VSS)
     );
     COMP_OUT x9 (
         .VDD(VDD),
         .OUT(YP),
-        .IN(Y),
+        .IN(Y_I),
         .OUT_N(YN),
         .VSS(VSS)
     );
     COMP_OUT x10 (
         .VDD(VDD),
         .OUT(ZP),
-        .IN(Z),
+        .IN(Z_I),
         .OUT_N(ZN),
         .VSS(VSS)
     );
     GRADIENT2 x1 (
-        .SXN(S1N),
-        .SXP(S1P),
+        .SXN(S1N_I),
+        .SXP(S1P_I),
         .VDD(VDD),
         .X(X1),
-        .SYN(S2N),
+        .SYN(S2N_I),
         .Y(Y1),
         .Z(Z1),
-        .SYP(S2P),
+        .SYP(S2P_I),
         .VSS(VSS),
-        .SZN(S3N),
-        .SZP(S3P)
+        .SZN(S3N_I),
+        .SZP(S3P_I)
     );
     GRADIENT2 x2 (
-        .SXN(S1N),
-        .SXP(S1P),
+        .SXN(S1N_I),
+        .SXP(S1P_I),
         .VDD(VDD),
         .X(X2),
-        .SYN(S2N),
+        .SYN(S2N_I),
         .Y(Y2),
         .Z(Z2),
-        .SYP(S2P),
+        .SYP(S2P_I),
         .VSS(VSS),
-        .SZN(S4N),
-        .SZP(S4P)
+        .SZN(S4N_I),
+        .SZP(S4P_I)
     );
     GRADIENT2 x3 (
-        .SXN(S3N),
-        .SXP(S3P),
+        .SXN(S3N_I),
+        .SXP(S3P_I),
         .VDD(VDD),
         .X(X3),
-        .SYN(S4N),
+        .SYN(S4N_I),
         .Y(Y3),
         .Z(Z3),
-        .SYP(S4P),
+        .SYP(S4P_I),
         .VSS(VSS),
-        .SZN(S1N),
-        .SZP(S1P)
+        .SZN(S1N_I),
+        .SZP(S1P_I)
     );
     GRADIENT2 x4 (
-        .SXN(S3N),
-        .SXP(S3P),
+        .SXN(S3N_I),
+        .SXP(S3P_I),
         .VDD(VDD),
         .X(X4),
-        .SYN(S4N),
+        .SYN(S4N_I),
         .Y(Y4),
         .Z(Z4),
-        .SYP(S4P),
+        .SYP(S4P_I),
         .VSS(VSS),
-        .SZN(S2N),
-        .SZP(S2P)
+        .SZN(S2N_I),
+        .SZP(S2P_I)
+    );
+    ESD_CDM xesdS1P (
+        .PAD(S1P),
+        .CORE(S1P_I),
+        .VDD(VDD),
+        .VSS(VSS)
+    );
+    ESD_CDM xesdS1N (
+        .PAD(S1N),
+        .CORE(S1N_I),
+        .VDD(VDD),
+        .VSS(VSS)
+    );
+    ESD_CDM xesdS2P (
+        .PAD(S2P),
+        .CORE(S2P_I),
+        .VDD(VDD),
+        .VSS(VSS)
+    );
+    ESD_CDM xesdS2N (
+        .PAD(S2N),
+        .CORE(S2N_I),
+        .VDD(VDD),
+        .VSS(VSS)
+    );
+    ESD_CDM xesdS3P (
+        .PAD(S3P),
+        .CORE(S3P_I),
+        .VDD(VDD),
+        .VSS(VSS)
+    );
+    ESD_CDM xesdS3N (
+        .PAD(S3N),
+        .CORE(S3N_I),
+        .VDD(VDD),
+        .VSS(VSS)
+    );
+    ESD_CDM xesdS4P (
+        .PAD(S4P),
+        .CORE(S4P_I),
+        .VDD(VDD),
+        .VSS(VSS)
+    );
+    ESD_CDM xesdS4N (
+        .PAD(S4N),
+        .CORE(S4N_I),
+        .VDD(VDD),
+        .VSS(VSS)
+    );
+    ESD_CDM xesdX (
+        .PAD(X),
+        .CORE(X_I),
+        .VDD(VDD),
+        .VSS(VSS)
+    );
+    ESD_CDM xesdY (
+        .PAD(Y),
+        .CORE(Y_I),
+        .VDD(VDD),
+        .VSS(VSS)
+    );
+    ESD_CDM xesdZ (
+        .PAD(Z),
+        .CORE(Z_I),
+        .VDD(VDD),
+        .VSS(VSS)
     );
 
 endmodule

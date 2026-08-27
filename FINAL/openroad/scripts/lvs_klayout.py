@@ -54,6 +54,8 @@ TARGETS = {
     #  The two v2 ones, which only exist in layouts_v2/.
     "DECODER_MAX": (ROOT / "gds/DECODER_MAX.gds",
                     PROJECT / "layouts_v2/DECODER_MAX/DECODER_MAX_lvs.spice"),
+    "ESD_CDM": (ROOT / "gds/ESD_CDM.gds",
+                PROJECT / "layouts_v2/ESD_CDM/ESD_CDM_lvs.spice"),
     "OPAM_SUMA": (ROOT / "gds/OPAM_SUMA.gds",
                   PROJECT / "layouts_v2/OPAM_SUMA/OPAM_SUMA_lvs.spice"),
 }
@@ -193,14 +195,14 @@ with 60 `ppolyf_u_1k` against the 12 `ppolyf_u_3k` of the reference:
     sheets = set(_RE_POLY.findall(ref.read_text()))
     if len(sheets) != 1 or sheets == {"1"}:
         return cir
-    modelo = f"ppolyf_u_{sheets.pop()}k"
-    txt, n = re.subn(r"\bppolyf_u_1k\b", modelo, cir.read_text())
+    model = f"ppolyf_u_{sheets.pop()}k"
+    txt, n = re.subn(r"\bppolyf_u_1k\b", model, cir.read_text())
     if not n:
         return cir
     work.mkdir(parents=True, exist_ok=True)
     dst = work / (cir.stem + "_hoja.cir")
     dst.write_text(txt)
-    print(f"                 poly sheet: {n} `ppolyf_u_1k` -> `{modelo}`")
+    print(f"                 poly sheet: {n} `ppolyf_u_1k` -> `{model}`")
     return dst
 
 
@@ -294,11 +296,11 @@ def comparar_aparte(cir: Path, ref: Path, work: Path) -> tuple[bool, str]:
     r = subprocess.run([sys.executable, __file__, "--comparar", str(cir), str(ref),
                         str(work)] + (["--hondo"] if LIMITES[0] != 30 else []),
                        capture_output=True, text=True, timeout=7200, check=False)
-    salida = (r.stdout or "").strip()
-    if r.returncode < 0 or not salida:
+    output = (r.stdout or "").strip()
+    if r.returncode < 0 or not output:
         return False, (f"el comparador de KLayout se cayo (codigo {r.returncode}); "
                        f"no verdict by this route")
-    ok, _, detalle = salida.partition("|")
+    ok, _, detalle = output.partition("|")
     return ok.strip() == "MATCH", detalle.strip()
 
 

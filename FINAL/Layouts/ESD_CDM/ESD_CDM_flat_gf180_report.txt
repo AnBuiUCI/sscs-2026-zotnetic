@@ -1,0 +1,21 @@
+# Reporte de layout: ESD_CDM
+PDK: gf180
+Transistores: 4
+Nets: 6
+Nets abutidas (difusion compartida): []
+Ancho de la celda: 14.16 um
+Tamano total: 16.61 x 43.57 um
+
+## Transistores
+  XMDN   NFET nfet_06v0                W=9u L=1u nf=4
+  XMDP   PFET pfet_06v0                W=9u L=1u nf=2
+  XMDP2  PFET pfet_06v0                W=8u L=1u nf=2
+  XMDPAD NFET nfet_06v0                W=4u L=1u nf=2
+
+## Conexiones (net -> pines)
+  VSS      [POWER]: XMDN.source, XMDN.bulk, XMDPAD.source, XMDPAD.bulk
+  VDD      [POWER]: XMDP.source, XMDP.bulk, XMDP2.source, XMDP2.bulk
+  CORE    : XMDN.drain, XMDP.drain, XMDP2.drain
+  GN      : XMDN.gate, XMDPAD.gate
+  GP      : XMDP.gate, XMDP2.gate
+  PAD     : XMDPAD.drain

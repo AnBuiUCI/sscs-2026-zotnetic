@@ -1,0 +1,11 @@
+# Reporte de layout: RED_SUMA
+PDK: gf180
+Transistores: 0
+Nets: 0
+Nets abutidas (difusion compartida): []
+Ancho de la celda: 1.00 um
+Tamano total: 3.00 x 121.30 um
+
+## Transistores
+
+## Conexiones (net -> pines)

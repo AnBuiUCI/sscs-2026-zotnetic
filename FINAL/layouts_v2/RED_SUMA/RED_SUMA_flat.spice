@@ -1,0 +1,23 @@
+* fuente: /foss/designs/a_zonetic2026/XSCHEM_v2/simulation/RED_SUMA.sch/RED_SUMA.spice
+* leida via enlace: /foss/designs/a_zonetic2026/spice_blocks/RED_SUMA.spice
+* fecha de la fuente: 2026-08-23 03:02   sha1: d66c587438
+* generado por flatten_spice.py — NO editar a mano
+* netlist plana generada por flatten_spice.py (top: RED_SUMA)
+* 0 MOSFETs; nets fusionadas por V=0: ninguna
+* nombres: los del esquematico; solo llevan la ruta de instancias (Mx1_M4) los 0 que chocaban
+* m -> fingers: ninguno
+* para generar el layout: nf = numero de dedos
+.subckt RED_SUMA XP1 XP2 XN1 XN2 YP1 YP2 YN1 YN2 ZP1 ZP2 ZN1 ZN2 GXP GXN GYP GYN GZP GZN VSS
+XRXP1 GXP XP1 VSS ppolyf_u_3k r_width=1e-6 r_length=55.56e-6 m=1 s=3
+XRXP2 GXP XP2 VSS ppolyf_u_3k r_width=1e-6 r_length=55.56e-6 m=1 s=3
+XRXN1 GXN XN1 VSS ppolyf_u_3k r_width=1e-6 r_length=55.56e-6 m=1 s=3
+XRXN2 GXN XN2 VSS ppolyf_u_3k r_width=1e-6 r_length=55.56e-6 m=1 s=3
+XRYP1 GYP YP1 VSS ppolyf_u_3k r_width=1e-6 r_length=55.56e-6 m=1 s=3
+XRYP2 GYP YP2 VSS ppolyf_u_3k r_width=1e-6 r_length=55.56e-6 m=1 s=3
+XRYN1 GYN YN1 VSS ppolyf_u_3k r_width=1e-6 r_length=55.56e-6 m=1 s=3
+XRYN2 GYN YN2 VSS ppolyf_u_3k r_width=1e-6 r_length=55.56e-6 m=1 s=3
+XRZP1 GZP ZP1 VSS ppolyf_u_3k r_width=1e-6 r_length=55.56e-6 m=1 s=3
+XRZP2 GZP ZP2 VSS ppolyf_u_3k r_width=1e-6 r_length=55.56e-6 m=1 s=3
+XRZN1 GZN ZN1 VSS ppolyf_u_3k r_width=1e-6 r_length=55.56e-6 m=1 s=3
+XRZN2 GZN ZN2 VSS ppolyf_u_3k r_width=1e-6 r_length=55.56e-6 m=1 s=3
+.ends

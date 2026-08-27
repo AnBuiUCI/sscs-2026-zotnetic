@@ -1,0 +1,98 @@
+# Reporte de layout: OPAM
+PDK: gf180
+Transistores: 50
+Nets: 37
+Nets abutidas (difusion compartida): ['net10', 'net13', 'net14', 'net16', 'net17', 'net18', 'net19', 'net2', 'net20', 'net21', 'net22', 'net23', 'net24', 'net26', 'net27', 'net28', 'net29', 'net30', 'net31', 'net32', 'net5', 'net7', 'net8', 'net9']
+Ancho de la celda: 74.78 um
+Tamano total: 77.27 x 31.42 um
+
+## Transistores
+  M11    PFET pfet_06v0                W=10u L=1u nf=1
+  M12    PFET pfet_06v0                W=10u L=1u nf=1
+  M13    PFET pfet_06v0                W=10u L=1u nf=1
+  M14    PFET pfet_06v0                W=10u L=1u nf=1
+  M15    PFET pfet_06v0                W=10u L=1u nf=1
+  M16    PFET pfet_06v0                W=10u L=1u nf=1
+  M17    NFET nfet_06v0                W=5u L=1u nf=1
+  M18    NFET nfet_06v0                W=5u L=1u nf=1
+  M19    NFET nfet_06v0                W=5u L=1u nf=1
+  M20    NFET nfet_06v0                W=5u L=1u nf=1
+  M21    NFET nfet_06v0                W=5u L=1u nf=1
+  M22    NFET nfet_06v0                W=5u L=1u nf=1
+  M29    PFET pfet_06v0                W=5u L=1u nf=1
+  M30    PFET pfet_06v0                W=5u L=1u nf=1
+  M31    PFET pfet_06v0                W=5u L=1u nf=1
+  M35    PFET pfet_06v0                W=5u L=1u nf=1
+  M32    PFET pfet_06v0                W=5u L=1u nf=1
+  M33    PFET pfet_06v0                W=5u L=1u nf=1
+  M23    NFET nfet_06v0                W=2.5u L=1u nf=1
+  M24    NFET nfet_06v0                W=2.5u L=1u nf=1
+  M25    NFET nfet_06v0                W=2.5u L=1u nf=1
+  M26    NFET nfet_06v0                W=2.5u L=1u nf=1
+  M27    NFET nfet_06v0                W=2.5u L=1u nf=1
+  M28    NFET nfet_06v0                W=2.5u L=1u nf=1
+  M34    PFET pfet_06v0                W=10u L=1u nf=1
+  M36    PFET pfet_06v0                W=10u L=1u nf=1
+  M37    PFET pfet_06v0                W=10u L=1u nf=1
+  M38    NFET nfet_06v0                W=5u L=1u nf=1
+  M39    NFET nfet_06v0                W=5u L=1u nf=1
+  M45    PFET pfet_06v0                W=10u L=1u nf=1
+  M46    PFET pfet_06v0                W=10u L=1u nf=1
+  M40    NFET nfet_06v0                W=5u L=1u nf=1
+  M41    NFET nfet_06v0                W=5u L=1u nf=1
+  M42    NFET nfet_06v0                W=5u L=1u nf=1
+  M43    PFET pfet_06v0                W=0.7u L=20u nf=1
+  M44    NFET nfet_06v0                W=1u L=1u nf=1
+  M4     PFET pfet_06v0                W=10u L=1u nf=1
+  M5     PFET pfet_06v0                W=10u L=1u nf=1
+  M6     NFET nfet_06v0                W=1u L=1u nf=1
+  M7     PFET pfet_06v0                W=10u L=1u nf=1
+  M8     PFET pfet_06v0                W=10u L=1u nf=1
+  M9     NFET nfet_06v0                W=5u L=1u nf=1
+  M10    NFET nfet_06v0                W=5u L=1u nf=1
+  M1     PFET pfet_06v0                W=2u L=1u nf=1
+  M2     PFET pfet_06v0                W=10u L=1u nf=1
+  M3     PFET pfet_06v0                W=10u L=1u nf=1
+  M47    NFET nfet_06v0                W=1u L=1u nf=1
+  M48    NFET nfet_06v0                W=1u L=1u nf=1
+  M49    NFET nfet_06v0                W=1u L=1u nf=1
+  M50    NFET nfet_06v0                W=1u L=1u nf=1
+
+## Conexiones (net -> pines)
+  VDD      [POWER]: M11.source, M11.bulk, M12.bulk, M13.source, M13.bulk, M14.bulk, M15.bulk, M16.bulk, M29.bulk, M30.bulk, M31.source, M31.bulk, M35.source, M35.bulk, M32.bulk, M33.bulk, M34.source, M34.bulk, M36.bulk, M37.bulk, M45.source, M45.bulk, M46.bulk, M43.source, M43.bulk, M4.source, M4.bulk, M5.bulk, M7.source, M7.bulk, M8.bulk, M1.source, M1.bulk, M2.source, M2.bulk, M3.bulk
+  VSS      [POWER]: M17.bulk, M18.source, M18.bulk, M19.bulk, M20.source, M20.bulk, M21.bulk, M22.bulk, M23.bulk, M24.bulk, M25.source, M25.bulk, M26.source, M26.bulk, M27.bulk, M28.bulk, M38.bulk, M39.source, M39.bulk, M40.bulk, M41.bulk, M42.source, M42.bulk, M44.source, M44.bulk, M6.source, M6.bulk, M9.bulk, M10.source, M10.bulk, M47.source, M47.bulk, M48.source, M48.bulk, M49.bulk, M50.bulk
+  net6    : M12.gate, M14.gate, M29.gate, M30.gate, M36.gate, M46.gate, M5.gate, M8.gate, M1.drain, M1.gate, M3.gate, M47.gate, M48.gate, M49.drain, M49.gate, M50.gate
+  net4    : M17.gate, M19.gate, M23.gate, M24.gate, M38.gate, M41.gate, M5.drain, M6.drain, M6.gate, M9.gate
+  net1    : M11.gate, M13.gate, M45.gate, M4.gate, M7.gate, M2.gate, M3.drain, M50.drain
+  net3    : M18.gate, M20.gate, M39.gate, M8.drain, M9.drain, M10.gate
+  net13    [ABUTIDA]: M29.drain, M31.gate, M35.gate, M32.source, M27.drain
+  net14    [ABUTIDA]: M32.drain, M23.drain, M25.gate, M26.gate, M27.source
+  net25   : M32.gate, M33.gate, M37.drain, M37.gate, M38.drain
+  net15   : M27.gate, M28.gate, M46.drain, M40.drain, M40.gate
+  net11   : M12.drain, M14.drain, M15.source, M16.source
+  net12   : M17.drain, M19.drain, M21.source, M22.source
+  net16    [ABUTIDA]: M30.drain, M33.source, M28.drain, M43.gate
+  net26    [ABUTIDA]: M33.drain, M24.drain, M28.source, M44.gate
+  net9     [ABUTIDA]: M15.drain, M24.source, M26.drain
+  net8     [ABUTIDA]: M16.drain, M23.source, M25.drain
+  net10    [ABUTIDA]: M21.drain, M30.source, M35.drain
+  net7     [ABUTIDA]: M22.drain, M29.source, M31.drain
+  net18    [ABUTIDA]: M34.gate, M36.drain, M37.source
+  net22    [ABUTIDA]: M40.source, M41.drain, M42.gate
+  net5     [ABUTIDA]: M11.drain, M12.source
+  net23    [ABUTIDA]: M13.drain, M14.source
+  INP     : M15.gate, M21.gate
+  INN     : M16.gate, M22.gate
+  net2     [ABUTIDA]: M17.source, M18.drain
+  net24    [ABUTIDA]: M19.source, M20.drain
+  net17    [ABUTIDA]: M34.drain, M36.source
+  net19    [ABUTIDA]: M38.source, M39.drain
+  net20    [ABUTIDA]: M45.drain, M46.source
+  net21    [ABUTIDA]: M41.source, M42.drain
+  OUT     : M43.drain, M44.drain
+  net29    [ABUTIDA]: M4.drain, M5.source
+  net28    [ABUTIDA]: M7.drain, M8.source
+  net27    [ABUTIDA]: M9.source, M10.drain
+  net30    [ABUTIDA]: M2.drain, M3.source
+  net31    [ABUTIDA]: M47.drain, M50.source
+  net32    [ABUTIDA]: M48.drain, M49.source

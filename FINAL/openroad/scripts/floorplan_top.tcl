@@ -355,7 +355,7 @@ proc strap_of {block pin_name layer} {
     set net [$block findNet $pin_name]
     if {$net eq "NULL" || $net eq ""} { return {} }
     foreach sw [$net getSWires] {
-        foreach caja [$sw getWires] {
+        foreach box [$sw getWires] {
             if {[$box isVia]} { continue }
             set l [$box getTechLayer]
             if {$l eq "NULL" || [$l getName] ne $layer} { continue }
@@ -378,7 +378,7 @@ proc extend_to_edge {block pin_name layer} {
     set net [$block findNet $pin_name]
     if {$net eq "NULL" || $net eq ""} { return {} }
     foreach sw [$net getSWires] {
-        foreach caja [$sw getWires] {
+        foreach box [$sw getWires] {
             if {[$box isVia]} { continue }
             set l [$box getTechLayer]
             if {$l eq "NULL" || [$l getName] ne $layer} { continue }

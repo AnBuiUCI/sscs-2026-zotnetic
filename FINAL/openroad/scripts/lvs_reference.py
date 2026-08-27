@@ -37,24 +37,24 @@ from pathlib import Path
 from lvs_klayout import OUT, ROOT, TARGETS, TOP, prepare
 
 #: Cell and directory come from the environment, as everywhere else in the flow.
-CELDA = TOP
-DESTINO = OUT / f"{CELDA}_lvs.spice"
+CELL = TOP
+DESTINO = OUT / f"{CELL}_lvs.spice"
 
 
 def main() -> int:
-    _, ref = TARGETS[CELDA]
+    _, ref = TARGETS[CELL]
     if not ref.exists():
         sys.exit(f"xschem netlist missing: {ref}\n"
                  f"  export it from the schematic before running this")
 
-    clean = prepare(ref, CELDA, ROOT / "work_lvs")
+    clean = prepare(ref, CELL, ROOT / "work_lvs")
     DESTINO.parent.mkdir(parents=True, exist_ok=True)
     DESTINO.write_text(clean.read_text())
 
     lines = DESTINO.read_text().splitlines()
     cabecera = next((l for l in lines if l.lower().startswith(".subckt")), "")
-    if CELDA not in cabecera:
-        sys.exit(f"the generated netlist does not declare '.subckt {CELDA}' -- "
+    if CELL not in cabecera:
+        sys.exit(f"the generated netlist does not declare '.subckt {CELL}' -- "
                  f"algo cambio en xschem o en prepare()")
     device_lines = sum(1 for l in lines
                        if l[:1] in "MmXxCcRrDdQq" and not l.startswith("*"))

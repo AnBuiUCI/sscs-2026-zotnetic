@@ -27,10 +27,11 @@ esac
 #  OPAM_LIN_flat is the linear amplifier, the one GRADIENT2 uses. It is on the
 #  list even though the GRADIENT top does not instantiate it: a spare LEF
 #  bothers nobody, and a missing one breaks the top that does use it.
-#  DECODER_MAX and OPAM_SUMA only exist in v2 (they belong to the GRADIENT_NAV3
+#  DECODER_MAX, OPAM_SUMA and ESD_CDM only exist in v2 (the first two belong
+#  to the GRADIENT_NAV3
 #  top), so v1 does not link them and nothing is missed.
 BLOQUES="COMP DECODER OPAM OPAM_LIN_flat WEIGHT_COMP"
-[ "$V" = v2 ] && BLOQUES="$BLOQUES DECODER_MAX OPAM_SUMA"
+[ "$V" = v2 ] && BLOQUES="$BLOQUES DECODER_MAX OPAM_SUMA ESD_CDM"
 for B in $BLOQUES; do
     DST=../../$DIR/$B/${B}_flat_gf180.gds
     REAL=$AQUI/../$DIR/$B/${B}_flat_gf180.gds

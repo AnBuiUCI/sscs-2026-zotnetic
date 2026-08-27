@@ -50,13 +50,23 @@ BLOCKS = {
     #  touches nothing of the already verified one.
     "DECODER_MAX": PROJECT / "XSCHEM_v2/simulation/DECODER_MAX.sch/DECODER_MAX.spice",
     "OPAM_SUMA": PROJECT / "XSCHEM_v2/simulation/OPAM_SUMA.sch/OPAM_SUMA.spice",
+    #  The secondary ESD cell. Its layout is not built by coil_layout but by
+    #  openroad/scripts/esd_layout.py -- see that file for why.
+    "ESD_CDM": PROJECT / "XSCHEM_v2/simulation/ESD_CDM.sch/ESD_CDM.spice",
 }
 
-#: Blocks whose layout does not exist yet. They are reported and skipped instead
-#: of failing the run, so the rest of the collateral can still be rebuilt; every
-#: other missing piece is an error, because a silently incomplete collateral is
-#: how you end up floorplanning a chip that is missing a block.
-PENDING = {"OPAM"}
+#: Blocks that are NOT FINISHED. They are reported and let through instead of
+#: failing the run, so the rest of the collateral can still be rebuilt; every
+#: other missing or broken piece is an error, because a silently incomplete
+#: collateral is how you end up floorplanning a chip that is missing a block.
+#: A block in here must not appear in the top being built -- if it does, the
+#: floorplan will place a macro whose LEF does not describe it.
+#: `OPAM_SUMA` is here for a different reason: its layout EXISTS but is not
+#: closed -- the generator could not route four of its seven ports, so magic
+#: writes three LEF pins against seven in the netlist. It belongs to
+#: GRADIENT_NAV3, which is not being built, and leaving it in the list stopped
+#: the whole collateral. Take it out of here the day it closes.
+PENDING = {"OPAM", "OPAM_SUMA"}
 
 POWER = {"VDD", "VCC", "VPWR"}
 GROUND = {"VSS", "VGND", "GND"}
@@ -200,7 +210,18 @@ def add_via_obstructions(lef_text: str, extra: dict[str, list] | None = None,
     would have them eat the neighbour's pin, which is right beside -- that is what
     made them useless as an access point in the first place.
     """
-    body = lef_text[lef_text.index("  OBS"):]
+    #  A cell can legitimately have NO obstruction: ESD_CDM is rails, devices
+    #  and pins with nothing left over, so magic writes no OBS block at all and
+    #  slicing on it raised ValueError. Cut before the closing END instead, and
+    #  the block below gets built from scratch.
+    #  ...cut before the macro's OWN closing END, found by name. `rindex("END ")`
+    #  is not it: magic writes an `END LIBRARY` after it, so the cut landed past
+    #  `END ESD_CDM` and the OBS block came out AFTER the macro had closed --
+    #  which OpenROAD rejects with `LEFPARS-1 ... on token OBS`.
+    _macro = re.search(r"MACRO (\S+)", lef_text).group(1)
+    cut = (lef_text.index("  OBS") if "  OBS" in lef_text
+           else lef_text.index(f"END {_macro}"))
+    body = lef_text[cut:]
     by_layer: dict[str, kdb.Region] = {}
     for name, boxes in (extra or {}).items():
         for x0, y0, x1, y1 in boxes:
@@ -266,9 +287,11 @@ def add_via_obstructions(lef_text: str, extra: dict[str, list] | None = None,
             extra.append(f"        RECT {b.left / 1000:.3f} {b.bottom / 1000:.3f} "
                          f"{b.right / 1000:.3f} {b.top / 1000:.3f} ;")
 
-    head = lef_text[:lef_text.index("  OBS")]
-    return head + "  OBS\n" + "\n".join(extra) + "\n  END\n" + "END " + \
-        re.search(r"MACRO (\S+)", lef_text).group(1) + "\n"
+    head = lef_text[:cut]
+    end = f"END {_macro}\n"
+    if not extra:
+        return head + end
+    return head + "  OBS\n" + "\n".join(extra) + "\n  END\n" + end
 
 
 #: GDS layer number of each metal, so the real geometry can be inspected.
@@ -733,7 +756,10 @@ def main() -> None:
         w, h = macro_size(text)
         flag = "OK " if n_lef == n_net else "PIN COUNT MISMATCH"
         if n_lef != n_net:
-            ok = False
+            if block in PENDING:
+                flag += "  (unfinished block, let through)"
+            else:
+                ok = False
         print(f"  {block:12} {w:8.2f} x {h:6.2f} um   "
               f"{n_lef} LEF pins / {n_net} netlist pins   {flag}")
         short = {"INPUT": "in", "OUTPUT": "out", "INOUT": "inout"}

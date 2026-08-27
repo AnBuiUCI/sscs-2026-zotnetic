@@ -958,3 +958,42 @@ Two things worth keeping in mind when using this:
 * **`make gds` starts from the ROUTED DEF.** The floorplan DEF yields a GDS with the macros
   placed and without a single connection, and that **passes DRC** and passes the fill. Only
   LVS. Ver `zotnetic_layout/DRC_KLAYOUT.md` §15.2.
+
+---
+
+## The schematic is AHEAD of the GDS. Read this before running LVS.
+
+As of 2026-08-27 the design in `XSCHEM/` carries three fixes that are **not in
+the GDS**, because rebuilding the top was deliberately deferred until the
+organisers send a padring generated from the reordered `info.yaml`. Rebuilding
+it twice would waste a full flow.
+
+What is in the schematic and not in the layout:
+
+1. **`WEIGHT` decides with TWO votes.** It is a current-mode vote counter and
+   the buffer behind it was tripping between 2 and 3. A fifth branch, always on
+   and an exact copy of a vote branch, drops every level by one whole step.
+   Measured over the 16 input combinations, VDD 4.5..5.5 V and 0..85 C: the
+   buffer used to flip at 3 votes in all 15 corners and now flips at 2 in all
+   15. See `XSCHEM/TEST/run_umbral.sh`.
+2. **The output polarity.** With the threshold moved, `COMP_OUT`'s `OUT` is LOW
+   when the axis wins, so `XP` now comes from `OUT_N` and `XN` from `OUT`. The
+   pin NAMES do not change, so `info.yaml` is unaffected.
+3. **The chain wiring.** The four chains used to be two pairs sharing two of
+   their three legs, which correlated the votes and pushed the ideal ties to
+   36 %. They are now the four rotations and the ties drop to 1.3 %.
+
+Measured over the whole sphere, the three together take the top from **0 % right
+and 100 % undecided** to **69.96 / 83.68 / 90.70 %** at the three gradient
+levels, matching the reference implementation digit for digit.
+
+### What that means for the files here
+
+`out_v2_GRADIENT_NAV2/GRADIENT_NAV2_lvs.spice` and `verilog/GRADIENT_NAV2.v` are
+generated from the schematic **as it was when the GDS was built**, so that they
+match `GRADIENT_NAV2_filled.gds` and the external LVS in `lvs_config.json`
+passes. They are NOT what `make lvs-ref` produces from today's schematic --
+that one has 2139 devices against these 2130.
+
+So: **do not regenerate them until the top is rebuilt.** When it is, everything
+regenerates together and this section goes away.

@@ -93,7 +93,7 @@ GDS_IN = OUT / f"{TOP}.gds"
 GDS_OUT = OUT / f"{TOP}_decap.gds"
 DEF = OUT / f"{TOP}_routed.def"
 DEV_TXT = OUT / "decap_devices.txt"
-HUECOS_TXT = OUT / "decap_huecos.txt"
+GAPS_TXT = OUT / "decap_gaps.txt"
 SCH = PROJECT / "XSCHEM" / f"{TOP}.sch"
 
 # --- capas de GF180 -----------------------------------------------------------
@@ -103,8 +103,8 @@ COMP, POLY, PPLUS, NPLUS, CONT, M1, NWELL = (22, 0), (30, 0), (31, 0), (32, 0), 
 RAIL_W = 0.9        # block rail width; the fill continues them
 CLR = 0.40          # metal1 clearance to another net's metal1 (M1.2a: 0.23)
 L_CANAL = 2.0       # long channel: more oxide area per device
-ALTO_MIN = 12.0     # below this no device fits between the two rails
-ANCHO_MIN = 6.0
+MIN_HEIGHT = 12.0     # below this no device fits between the two rails
+MIN_WIDTH = 6.0
 GRID = 0.005
 TAP_W = 0.48        # DF.9 asks 0.2025 um2 of COMP; 0.45 is the minimum side
 IMP_ENC = 0.18      # NP.5di/PP.5di piden 0.16
@@ -153,10 +153,10 @@ def _reg(cell, layer) -> kdb.Region:
     return kdb.Region(cell.kdb_cell.begin_shapes_rec(ly.layer(*layer)))
 
 
-_HECHOS: dict = {}
+_MADE: dict = {}
 
 
-def device(tipo: str, w_gate: float):
+def device(kind: str, w_gate: float):
     """The device, wrapped by the SAME code the blocks use.
 
     The PCell is not called raw. `coil_layout.device_map.map_device` already puts
@@ -169,11 +169,11 @@ def device(tipo: str, w_gate: float):
     `bulk` is not included: `map_device` always asks for them without a guard
     ring, and bulk and well are tied by `_tap`'s tap strips.
     """
-    clave = (tipo, round(w_gate, 3))
-    if clave in _HECHOS:
-        return _HECHOS[clave]
-    dev = Device(name=f"{tipo}{len(_HECHOS)}",
-                 model=("nfet_06v0" if tipo == "n" else "pfet_06v0"),
+    clave = (kind, round(w_gate, 3))
+    if clave in _MADE:
+        return _MADE[clave]
+    dev = Device(name=f"{kind}{len(_MADE)}",
+                 model=("nfet_06v0" if kind == "n" else "pfet_06v0"),
                  nodes={"drain": "d", "gate": "g", "source": "s", "bulk": "b"},
                  params={"L": f"{L_CANAL}u", "W": f"{w_gate}u", "nf": "1", "m": "1"})
     #  BOTH with the gate contact ON TOP. In this structure every device has its
@@ -182,11 +182,11 @@ def device(tipo: str, w_gate: float):
     #  had to climb back up around the drain and
     #  pasaba a 0.07 um de el.
     wd = map_device(dev, "gf180", gate_con="top")
-    _HECHOS[clave] = wd.component
+    _MADE[clave] = wd.component
     return wd.component
 
 
-def copiar_dispositivo(pc, destino, layout: kdb.Layout) -> None:
+def copy_device(pc, destino, layout: kdb.Layout) -> None:
     """Vuelca la geometria de un PCell en `destino`, reescalando el dbu.
 
     The PCells live in a `coil_layout` layout with dbu 0.001 and the top's GDS
@@ -216,32 +216,32 @@ def sn(v: float) -> float:
     return round(v / GRID) * GRID
 
 
-def _tap(cell, layers, x, y, implante):
+def _tap(cell, layers, x, y, implant):
     """A tap: COMP + implant + contact + metal1, with the generator dimensions."""
     cell.shapes(layers[COMP]).insert(kdb.DBox(x, y, x + TAP_W, y + TAP_W))
-    cell.shapes(layers[implante]).insert(
+    cell.shapes(layers[implant]).insert(
         kdb.DBox(x - IMP_ENC, y - IMP_ENC, x + TAP_W + IMP_ENC, y + TAP_W + IMP_ENC))
     cx = sn(x + (TAP_W - CO_S) / 2)
     cy = sn(y + (TAP_W - CO_S) / 2)
     cell.shapes(layers[CONT]).insert(kdb.DBox(cx, cy, cx + CO_S, cy + CO_S))
 
 
-def _alto_pcell(tipo: str, w: float) -> float:
-    return device(tipo, w).kdb_cell.dbbox().height()
+def _pcell_height(kind: str, w: float) -> float:
+    return device(kind, w).kdb_cell.dbbox().height()
 
 
-def _alto_fila(tipo: str, w: float) -> float:
+def _row_height(kind: str, w: float) -> float:
     """Height of a row: bar + bottom tap + device + top tap."""
-    return (BAR + 0.10 + TAP_W + CLR_TAP + _alto_pcell(tipo, w)
+    return (BAR + 0.10 + TAP_W + CLR_TAP + _pcell_height(kind, w)
             + CLR_TAP + TAP_W + 0.10)
 
 
-def _alto_banda(w: float) -> float:
+def _band_height(w: float) -> float:
     """Exact height of the whole band: one NMOS row and one PMOS row."""
-    return _alto_fila("n", w) + _alto_fila("p", w)
+    return _row_height("n", w) + _row_height("p", w)
 
 
-def _plan(util: float) -> tuple[int, float]:
+def _plan(usable: float) -> tuple[int, float]:
     """With what channel width, in **a single band**.
 
     One NMOS row and one PMOS row, nothing else. The height used to be split
@@ -256,7 +256,7 @@ across several stacked bands, choosing the combination that gave the most oxide
     """
     mejor, w = 0.0, 0.5
     while w <= W_MAX + 1e-9:
-        if _alto_banda(w) + BAR <= util:
+        if _band_height(w) + BAR <= usable:
             mejor = w
         else:
             break
@@ -271,8 +271,8 @@ def tile(layout: kdb.Layout, width: float, height: float, name: str,
 
     Estructura, de abajo arriba y repetida tantas veces como quepa:
 
-        bar VSS / taps p+ / fila NMOS (puerta arriba) / bar VDD
-                  / taps n+ en el pozo / fila PMOS (puerta arriba) / [bar VSS...]
+        bar VSS / taps p+ / row NMOS (puerta arriba) / bar VDD
+                  / taps n+ en el pozo / row PMOS (puerta arriba) / [bar VSS...]
 
     **Every metal crossing is within the SAME net**: the NMOS source and drain
     come down to their VSS bar crossing the p+ taps, which are VSS; the PMOS ones
@@ -298,10 +298,10 @@ def tile(layout: kdb.Layout, width: float, height: float, name: str,
     m1(-vdd_i, height - RAIL_W, width + vdd_d, height)           # VDD, same
 
     margen_p = (nw[0] + NWELL_ENC, nw[1] + NWELL_ENC)
-    util = height - 2 * RAIL_W - 2 * CLR
-    if util <= 0 or width - margen_p[0] - margen_p[1] < 3.0:
+    usable = height - 2 * RAIL_W - 2 * CLR
+    if usable <= 0 or width - margen_p[0] - margen_p[1] < 3.0:
         return top, []
-    n_per, w_gate = _plan(util)
+    n_per, w_gate = _plan(usable)
     if n_per == 0:
         return top, []
 
@@ -333,7 +333,7 @@ def _banda(layout, top, L, m1, y, w_gate, width, devices, name, idx,
            nw=(NWELL_BORDE, NWELL_BORDE), margen_p=(MARGEN_P, MARGEN_P)):
     """Dibuja una banda a partir de `y`. Devuelve la `y` de la barra de arriba."""
     izq, der = 2 * CLR + CARRIL, width - 2 * CLR - CARRIL
-    h_n, h_p = _alto_pcell("n", w_gate), _alto_pcell("p", w_gate)
+    h_n, h_p = _pcell_height("n", w_gate), _pcell_height("p", w_gate)
 
     #  All the dimensions BEFORE drawing: the NMOS gate has to know where its VDD
     #  bar is, and that bar runs above it.
@@ -360,7 +360,7 @@ def _banda(layout, top, L, m1, y, w_gate, width, devices, name, idx,
         else:
             m1(izq, y0, width - CLR, y0 + BAR)
 
-    def taps(y_tap, implante, y_barra, sites):
+    def taps(y_tap, implant, y_bar, sites):
         """One tap per device, **between its source and drain pads**.
 
         There are 2.14 um free there -- the channel width minus the two pads --
@@ -378,16 +378,16 @@ def _banda(layout, top, L, m1, y, w_gate, width, devices, name, idx,
         a device's metal1. Since source and tap are the SAME net there is no
         short, but `M1.2a` is checked on geometry and fires anyway.
         """
-        ultimo = -1e9
+        last = -1e9
         for a, b in sites:
-            if b - a < TAP_W or (a + b) / 2 - ultimo < TAP_PITCH:
+            if b - a < TAP_W or (a + b) / 2 - last < TAP_PITCH:
                 continue
             x = sn((a + b - TAP_W) / 2)
-            _tap(top, L, x, sn(y_tap), implante)
-            m1(x, min(y_tap, y_barra), x + TAP_W, max(y_tap + TAP_W, y_barra + BAR))
-            ultimo = (a + b) / 2
+            _tap(top, L, x, sn(y_tap), implant)
+            m1(x, min(y_tap, y_bar), x + TAP_W, max(y_tap + TAP_W, y_bar + BAR))
+            last = (a + b) / 2
 
-    def fila(tipo, y_base, y_sd, y_g):
+    def row(kind, y_base, y_sd, y_g):
         """A row of devices, with their metal1 stretched to the bars.
 
         The metal1 pads are already placed by `map_device`; here they are only
@@ -399,7 +399,7 @@ def _banda(layout, top, L, m1, y, w_gate, width, devices, name, idx,
         for the PMOS took a drain for a gate and gave four `M1.2a` per tile, with
         the PMOS cut off on top of that.
         """
-        pc = device(tipo, w_gate)
+        pc = device(kind, w_gate)
         bb = pc.kdb_cell.dbbox()
         #  To MICRONS with the PCell's dbu, not the destination layout's. The
         #  boxes come out in integer units of the source layout (0.001) and here
@@ -415,8 +415,8 @@ def _banda(layout, top, L, m1, y, w_gate, width, devices, name, idx,
         g = boxes[-1]
         sd = [b for b in boxes if b is not g]
 
-        x0 = MARGEN_N if tipo == "n" else margen_p[0]
-        x1 = width - (MARGEN_N if tipo == "n" else margen_p[1])
+        x0 = MARGEN_N if kind == "n" else margen_p[0]
+        x1 = width - (MARGEN_N if kind == "n" else margen_p[1])
         #  Two tap sites per device, in PCell coordinates:
         #
         #  * the BOTTOM one goes in the internal gap, between the two S/D pads,
@@ -424,14 +424,14 @@ def _banda(layout, top, L, m1, y, w_gate, width, devices, name, idx,
         #  * the TOP one goes **over an S/D pad**, because up there the only
         #    thing of its own net within reach is that pad: in the middle sits
         #    de puerta, que es de la net contraria.
-        sd_orden = sorted(sd, key=lambda b: b.left)
-        interno = (sd_orden[0].right, sd_orden[-1].left)
-        sobre_pad = (sd_orden[0].left, sd_orden[0].right)
+        sd_sorted = sorted(sd, key=lambda b: b.left)
+        interno = (sd_sorted[0].right, sd_sorted[-1].left)
+        over_pad = (sd_sorted[0].left, sd_sorted[0].right)
         x = x0
-        sites, sitios_alto = [], []
+        sites, high_sites = [], []
         while x + bb.width() <= x1:
-            cell = layout.create_cell(f"{name}_{idx}{tipo}{len(devices)}")
-            copiar_dispositivo(pc, cell, layout)
+            cell = layout.create_cell(f"{name}_{idx}{kind}{len(devices)}")
+            copy_device(pc, cell, layout)
             dx, dy = x - bb.left, y_base - bb.bottom
             top.insert(kdb.DCellInstArray(cell.cell_index(),
                                           kdb.DTrans(kdb.DVector(dx, dy))))
@@ -449,24 +449,24 @@ def _banda(layout, top, L, m1, y, w_gate, width, devices, name, idx,
                     a0, a1 = c - RISER_W / 2, c + RISER_W / 2
                     m1(b.left + dx, b.bottom + dy, b.right + dx, b.top + dy)
                 m1(a0, min(b.bottom + dy, destino), a1, max(b.top + dy, destino))
-            devices.append((tipo, w_gate, L_CANAL))
+            devices.append((kind, w_gate, L_CANAL))
             sites.append((interno[0] + dx, interno[1] + dx))
-            sitios_alto.append((sobre_pad[0] + dx, sobre_pad[1] + dx))
+            high_sites.append((over_pad[0] + dx, over_pad[1] + dx))
             x += bb.width() + DEVICE_GAP
-        return sites, sitios_alto
+        return sites, high_sites
 
     #  Rows first: the taps go into the gaps they leave.
     bar(y_vss, "VSS")
     bar(y_vdd, "VDD")
-    sitios_n, altos_n = fila("n", y_n0, y_vss + BAR, y_vdd) or ([], [])
-    sitios_p, altos_p = fila("p", y_p0, y_vdd + BAR, y_fin + BAR) or ([], [])
-    taps(y_ptap0, PPLUS, y_vss, sitios_n)
-    taps(y_ntap0, NPLUS, y_vdd, sitios_p)
+    sites_n, high_n = row("n", y_n0, y_vss + BAR, y_vdd) or ([], [])
+    sites_p, high_p = row("p", y_p0, y_vdd + BAR, y_fin + BAR) or ([], [])
+    taps(y_ptap0, PPLUS, y_vss, sites_n)
+    taps(y_ntap0, NPLUS, y_vdd, sites_p)
     #  The top strips tie to the pad right below them, which is of their own net
     #  (the NMOS source/drain is VSS like the p+ tap; the PMOS one is VDD like
     #  the n+ tap). There is no need to reach any bar.
-    taps(y_ptap1, PPLUS, y_ptap1 - CLR_TAP - BAR, altos_n)
-    taps(y_ntap1, NPLUS, y_ntap1 - CLR_TAP - BAR, altos_p)
+    taps(y_ptap1, PPLUS, y_ptap1 - CLR_TAP - BAR, high_n)
+    taps(y_ntap1, NPLUS, y_ntap1 - CLR_TAP - BAR, high_p)
 
     #  The well covers BOTH n+ tap strips and the whole p row, with its
     #  enclosure, but stays `NWELL_BORDE` from the tile edge: without
@@ -509,7 +509,7 @@ def gaps(macros, die: kdb.DBox):
     """
     out = []
     for (y, h), _ in sorted(shelves(macros).items()):
-        if h < ALTO_MIN:
+        if h < MIN_HEIGHT:
             continue
         #  Any macro overlapping this shelf in `y` blocks its slice of x.
         tapado = sorted((mx, mx + mw) for _, _, mx, my, mw, mh in macros
@@ -523,7 +523,7 @@ def gaps(macros, die: kdb.DBox):
         edges = ([[die.left, die.left]] + fundido + [[die.right, die.right]])
         for i in range(len(edges) - 1):
             x0, x1 = edges[i][1], edges[i + 1][0]
-            if x1 - x0 < ANCHO_MIN:
+            if x1 - x0 < MIN_WIDTH:
                 continue
             out.append((x0, x1, y, h, i > 0, i + 1 < len(edges) - 1))
     return out
@@ -617,12 +617,12 @@ def lineas_spice(devices) -> list[str]:
     Node order is the model's: `d g s b`.
     """
     out = []
-    for i, (tipo, w, l) in enumerate(devices):
-        if tipo == "n":
-            nodos, modelo = "VSS VDD VSS VSS", "nfet_06v0"
+    for i, (kind, w, l) in enumerate(devices):
+        if kind == "n":
+            nodes, model = "VSS VDD VSS VSS", "nfet_06v0"
         else:
-            nodos, modelo = "VDD VSS VDD VDD", "pfet_06v0"
-        out.append(f"XMdec{tipo}{i} {nodos} {modelo} "
+            nodes, model = "VDD VSS VDD VDD", "pfet_06v0"
+        out.append(f"XMdec{kind}{i} {nodes} {model} "
                    f"L={l}u W={w}u nf=1 m=1")
     return out
 
@@ -643,7 +643,7 @@ def parchear_sch(lines: list[str]) -> bool:
     if not SCH.exists():
         print(f"  WARNING: {SCH} not found; leaving the schematic alone")
         return False
-    texto = SCH.read_text()
+    text = SCH.read_text()
     cuerpo = "\n".join(lines)
     block = ("C {devices/code_shown.sym} 700 700 0 0 {name=" + NOMBRE_BLOQUE
               + " only_toplevel=true value=\"\n"
@@ -653,9 +653,9 @@ def parchear_sch(lines: list[str]) -> bool:
               + cuerpo + "\n\"}\n")
     patron = re.compile(r"^C \{devices/code_shown\.sym\}[^\n]*name=" + NOMBRE_BLOQUE
                         + r"\b.*?\"\}\n", re.S | re.M)
-    nuevo, n = patron.subn(block, texto)
+    nuevo, n = patron.subn(block, text)
     if not n:
-        nuevo = texto.rstrip("\n") + "\n" + block
+        nuevo = text.rstrip("\n") + "\n" + block
     SCH.write_text(nuevo)
     return True
 
@@ -692,10 +692,10 @@ def main() -> int:
     macros = colocacion(DEF)
     libres = gaps(macros, die)
 
-    #  The tiles are built INSIDE the top layout: `copiar_dispositivo` handles
+    #  The tiles are built INSIDE the top layout: `copy_device` handles
     #  the PCells' dbu change, so no intermediate file is needed (which changed
     #  the top's dbu; see there).
-    specs, devs_por_baldosa, ext_de = [], {}, {}
+    specs, devs_per_tile, ext_de = [], {}, {}
     skipped = []
     #  Largest first, discarding anything overlapping a tile already placed: the
     #  shelves **overlap in `y`** (WEIGHT_COMP takes 202.15..227.15 and the COMP
@@ -718,7 +718,7 @@ def main() -> int:
         if x1 >= die.right - 1e-6:
             x1 -= BORDE_DIE
             nw[1] = NWELL_BORDE_DIE
-        if x1 - x0 < ANCHO_MIN:
+        if x1 - x0 < MIN_WIDTH:
             skipped.append((x0, x1, y, h, "does not fit after the die margin"))
             continue
         width = round(x1 - x0, 3)
@@ -748,7 +748,7 @@ def main() -> int:
             skipped.append((x0, x1, y, h, "not even one band fits"))
             continue
         specs.append((name, x0, x1, y, h, hay_izq, hay_der))
-        devs_por_baldosa[name] = devices
+        devs_per_tile[name] = devices
         ext_de[name] = ext
         placed.append((x0, x1, y, y + h))
 
@@ -773,10 +773,10 @@ def main() -> int:
     fallos = comprobar(m1_final, ly2.dbu, specs, ext_de)
 
     #  --- salidas --------------------------------------------------------------
-    devices = [d for name, *_ in specs for d in devs_por_baldosa[name]]
+    devices = [d for name, *_ in specs for d in devs_per_tile[name]]
     lines = lineas_spice(devices)
     DEV_TXT.write_text("\n".join(lines) + "\n")
-    HUECOS_TXT.write_text("\n".join(
+    GAPS_TXT.write_text("\n".join(
         f"{x0:.3f} {y:.3f} {x1:.3f} {y + h:.3f}" for _, x0, x1, y, h, _, _ in specs) + "\n")
     parchear_sch(lines)
 

@@ -39,6 +39,7 @@ TARGETS = {
     "WEIGHT_COMP": ROOT / "gds/WEIGHT_COMP.gds",
     "OPAM_LIN_flat": ROOT / "gds/OPAM_LIN_flat.gds",
     "DECODER_MAX": ROOT / "gds/DECODER_MAX.gds",
+    "ESD_CDM": ROOT / "gds/ESD_CDM.gds",
     "OPAM_SUMA": ROOT / "gds/OPAM_SUMA.gds",
     TOP: OUT / f"{TOP}.gds",
     #  The same top with the decoupling capacitors dropped into the gaps

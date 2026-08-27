@@ -62,7 +62,7 @@ def _pads_de_dos_nets():
         lefs[p.stem], sizes[p.stem], orig[p.stem] = (
             lef_pins(p), macro_size(p), lef_origin(p))
 
-    puntos = []
+    points = []
     for net, pins in sorted(nets.items()):
         if net in ("VDD", "VSS"):
             continue
@@ -72,14 +72,14 @@ def _pads_de_dos_nets():
             cell, x, y, o = inst[iname]
             for r in lefs.get(cell, {}).get(pin, []):
                 a = place(r, x / units, y / units, o, sizes[cell], orig[cell])
-                puntos.append((net, (a[0] + a[2]) / 2, (a[1] + a[3]) / 2))
+                points.append((net, (a[0] + a[2]) / 2, (a[1] + a[3]) / 2))
                 break
             break
     #  The closest pair of different nets: the shorter the bridge, the less it
     #  parece a "he redibujado medio chip".
     mejor = None
-    for i, (na, xa, ya) in enumerate(puntos):
-        for nb, xb, yb in puntos[i + 1:]:
+    for i, (na, xa, ya) in enumerate(points):
+        for nb, xb, yb in points[i + 1:]:
             if na == nb:
                 continue
             d = abs(xa - xb) + abs(ya - yb)

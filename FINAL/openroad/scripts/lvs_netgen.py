@@ -44,10 +44,10 @@ MAGIC = "/foss/tools/bin/magic"
 MAGICRC = "/foss/pdks/gf180mcuD/libs.tech/magic/gf180mcuD.magicrc"
 
 BLOCKS = ("COMP", "OPAM", "OPAM_LIN_flat", "DECODER", "WEIGHT_COMP",
-          "DECODER_MAX", "OPAM_SUMA")
+          "DECODER_MAX", "OPAM_SUMA", "ESD_CDM")
 
 #: Blocks that only exist in v2, if any.
-SOLO_V2: set[str] = {"DECODER_MAX", "OPAM_SUMA"}
+SOLO_V2: set[str] = {"DECODER_MAX", "OPAM_SUMA", "ESD_CDM"}
 
 
 def block_pair(name: str) -> tuple[Path, Path]:
@@ -163,7 +163,7 @@ def hoja_poly(ref: Path) -> str | None:
     return f"ppolyf_u_{sheets.pop()}k" if len(sheets) == 1 else None
 
 
-def _hoja_resistencia(layout: Path, modelo: str, work: Path) -> Path:
+def _hoja_resistencia(layout: Path, model: str, work: Path) -> Path:
     """Sets on the extracted netlist the poly sheet the reference asks for.
 
     It is what `build_block.py::_hoja_resistencia` does to each block, and what
@@ -177,7 +177,7 @@ def _hoja_resistencia(layout: Path, modelo: str, work: Path) -> Path:
     The original on disk is untouched: the copy goes to `work/`.
     """
     txt = layout.read_text()
-    nuevo, n = re.subn(r"\bppolyf_u_1k\b", modelo, txt)
+    nuevo, n = re.subn(r"\bppolyf_u_1k\b", model, txt)
     if not n:
         return layout
     work.mkdir(parents=True, exist_ok=True)
@@ -248,7 +248,7 @@ def align_ports(layout: Path, ref: Path, cell: str, work: Path) -> Path:
     return out
 
 
-def _modelos_mim(path: Path) -> list[str]:
+def _mim_models(path: Path) -> list[str]:
     """Under what name the MIM appears in a netlist."""
     return sorted(set(re.findall(r"\bcap_mim\w*", path.read_text())))
 
@@ -280,8 +280,8 @@ does, and it reports `Netlists match` on these very netlists.
     base = SETUP_POLYRES if (hoja_poly(ref) or "1k") != "ppolyf_u_1k" else SETUP
     lines = [f"source {base}"]
     for n, path in ((1, layout), (2, ref)):
-        for modelo in _modelos_mim(path):
-            lines.append(f'permute "-circuit{n} {modelo}" 1 2')
+        for model in _mim_models(path):
+            lines.append(f'permute "-circuit{n} {model}" 1 2')
     dst = work / "setup_con_permute.tcl"
     dst.write_text("\n".join(lines) + "\n")
     return dst
@@ -324,9 +324,9 @@ def main() -> int:
         else:
             work = ROOT / "work_lvs"
             ref = as_subckt_calls(ref, work)
-            modelo = hoja_poly(ref)
-            if modelo and modelo != "ppolyf_u_1k":
-                layout = _hoja_resistencia(layout, modelo, work)
+            model = hoja_poly(ref)
+            if model and model != "ppolyf_u_1k":
+                layout = _hoja_resistencia(layout, model, work)
             layout = align_ports(layout, ref, name, work)
             report = outdir / f"lvs_netgen_{name}.rpt"
             ok, log = compare(layout, ref, name, report,

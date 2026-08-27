@@ -5,6 +5,16 @@ V {}
 S {}
 F {}
 E {}
+T {THE FIFTH BRANCH, ALWAYS ON.
+WEIGHT is a current-mode vote counter: a diode-connected PMOS load against
+four identical branches, one per chain, so the output only sees the SUM of
+the branch currents. This branch is an exact copy of one of them with its
+gate on VDD, so N real votes now behave exactly as N+1 did: every level
+drops by one whole step and the buffer behind stops tripping between 2 and
+3 votes and trips between 1 and 2, which is the decision the chip has to
+make -- an axis wins from TWO votes on.
+Measured before and after over VDD 4.5..5.5 V and 0..85 C; see
+XSCHEM/TEST/run_umbral.sh.} 110 -730 0 0 0.4 0.4 {}
 N 1250 -410 1310 -410 {
 lab=VDD}
 N 1300 -280 1310 -280 {
@@ -113,6 +123,11 @@ N 400 -370 410 -370 {lab=#net9}
 N 400 -370 410 -370 {lab=#net9}
 N 370 -440 370 -410 {lab=IN}
 N 370 -440 440 -440 {lab=IN}
+N 220 -190 220 -180 {lab=netF}
+N 220 -220 230 -220 {lab=GND}
+N 220 -280 420 -280 {lab=OUT}
+N 220 -280 220 -250 {lab=OUT}
+N 220 -150 250 -150 {lab=GND}
 C {devices/lab_wire.sym} 1310 -410 2 0 {name=p20 sig_type=std_logic lab=VDD}
 C {symbols/pfet_06v0.sym} 1230 -320 0 0 {name=M2
 L=1u
@@ -395,3 +410,37 @@ C {ammeter.sym} 420 -90 0 0 {name=Vmeas savecurrent=true spice_ignore=0}
 C {ammeter.sym} 630 -90 0 0 {name=Vmeas1 savecurrent=true spice_ignore=0}
 C {ammeter.sym} 840 -90 0 0 {name=Vmeas2 savecurrent=true spice_ignore=0}
 C {ammeter.sym} 1080 -90 0 0 {name=Vmeas3 savecurrent=true spice_ignore=0}
+C {symbols/nfet_06v0.sym} 200 -220 0 0 {name=MF1
+L=1u
+W=2.48u
+nf=1
+m=2
+ad="'int((nf+1)/2) * W/nf * 0.18u'"
+pd="'2*int((nf+1)/2) * (W/nf + 0.18u)'"
+as="'int((nf+2)/2) * W/nf * 0.18u'"
+ps="'2*int((nf+2)/2) * (W/nf + 0.18u)'"
+nrd="'0.18u / W'" nrs="'0.18u / W'"
+sa=0 sb=0 sd=0
+model=nfet_06v0
+spiceprefix=X
+}
+C {lab_pin.sym} 220 -250 0 0 {name=l_MF1_D sig_type=std_logic lab=OUT}
+C {lab_pin.sym} 180 -220 0 0 {name=l_MF1_G sig_type=std_logic lab=VDD}
+C {lab_pin.sym} 230 -220 2 0 {name=l_MF1_B sig_type=std_logic lab=GND}
+C {symbols/nfet_06v0.sym} 200 -150 0 0 {name=MF2
+L=1u
+W=1.24u
+nf=1
+ad="'int((nf+1)/2) * W/nf * 0.18u'"
+pd="'2*int((nf+1)/2) * (W/nf + 0.18u)'"
+as="'int((nf+2)/2) * W/nf * 0.18u'"
+ps="'2*int((nf+2)/2) * (W/nf + 0.18u)'"
+nrd="'0.18u / W'" nrs="'0.18u / W'"
+sa=0 sb=0 sd=0
+model=nfet_06v0
+spiceprefix=X
+}
+C {lab_pin.sym} 220 -180 0 0 {name=l_MF2_D sig_type=std_logic lab=netF}
+C {lab_pin.sym} 180 -150 0 0 {name=l_MF2_G sig_type=std_logic lab=IN}
+C {lab_pin.sym} 220 -120 0 0 {name=l_MF2_S sig_type=std_logic lab=GND}
+C {lab_pin.sym} 250 -150 2 0 {name=l_MF2_B sig_type=std_logic lab=GND}

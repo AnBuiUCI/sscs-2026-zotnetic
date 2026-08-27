@@ -56,7 +56,7 @@ GDS_OUT = OUT / f"{TOP}_filled.gds"
 DEF = OUT / f"{TOP}_routed.def"
 #: Rectangles of the decoupling tiles, which must be treated as macros: fill
 #: cannot put COMP inside their well nor poly over their gates.
-HUECOS = OUT / "decap_huecos.txt"
+GAPS = OUT / "decap_gaps.txt"
 
 #: (name, GDS layer, minimum in %, spacing to real metal, spacing between
 #: fill squares, minimum square side, rule).
@@ -72,7 +72,7 @@ HUECOS = OUT / "decap_huecos.txt"
 #: so the `MT.*` rules apply and not the `M5.*` ones -- 0.36 minimum width,
 #: 0.46 spacing and 0.5625 um2 area (exactly a 0.75 square). 0.80 a side is used
 #: so as not to depend on rounding.
-CAPAS = [
+LAYERS = [
     ("COMP",   22, 25.0, 0.40, 0.40, 1.00, "DCF.1b"),
     ("Poly2",  30, 14.0, 5.00, 2.40, 5.60, "PL.8 / DPF.1 / DPF.2a / DPF.5"),
     ("Metal1", 34, 30.0, 0.23, 0.23, 0.40, "M1.4"),
@@ -124,8 +124,8 @@ def colocacion(defpath: Path | None = None) -> list[tuple[str, str, float, float
     shelf if they share `y` and height, which is the condition for their power
     rails to sit at the same level.
     """
-    texto = (defpath or DEF).read_text()
-    unidades = float(re.search(r"UNITS DISTANCE MICRONS (\d+)", texto).group(1))
+    text = (defpath or DEF).read_text()
+    unidades = float(re.search(r"UNITS DISTANCE MICRONS (\d+)", text).group(1))
     tam = {}
     for lef in (ROOT / "lef").glob("*.lef"):
         if lef.name in ("vias.lef", "techlef_patched.tlef"):
@@ -134,7 +134,7 @@ def colocacion(defpath: Path | None = None) -> list[tuple[str, str, float, float
         if m:
             tam[lef.stem] = (float(m.group(1)), float(m.group(2)))
     out = []
-    block = texto[texto.index("COMPONENTS"):texto.index("END COMPONENTS")]
+    block = text[text.index("COMPONENTS"):text.index("END COMPONENTS")]
     for m in re.finditer(r"-\s+(\S+)\s+(\S+)\s*\+\s+\S+\s+"
                          r"\(\s*(-?\d+)\s+(-?\d+)\s*\)\s+(\w+)", block):
         cell = m.group(2)
@@ -157,8 +157,8 @@ def huella_macros() -> kdb.Region:
     out = kdb.Region()
     for _, _, x, y, w, h in colocacion():
         out.insert(kdb.DBox(x, y, x + w, y + h).to_itype(1e-3))
-    if HUECOS.exists():
-        for line in HUECOS.read_text().split("\n"):
+    if GAPS.exists():
+        for line in GAPS.read_text().split("\n"):
             if line.strip():
                 x0, y0, x1, y1 = (float(v) for v in line.split())
                 out.insert(kdb.DBox(x0, y0, x1, y1).to_itype(1e-3))
@@ -211,7 +211,7 @@ def main() -> int:
     print(f"    {'layer':7s} {'regla':12s} {'antes':>7s} {'despues':>8s} {'pide':>5s}   estado")
 
     corto = []
-    for name, gl, minimo, guarda, sep_relleno, lado_min, regla in CAPAS:
+    for name, gl, minimo, guarda, sep_relleno, lado_min, regla in LAYERS:
         idx = layout.layer(gl, 0)
         real = region(top, idx, layout.dbu)
         antes = 100 * real.area() / 1e6 / area_die

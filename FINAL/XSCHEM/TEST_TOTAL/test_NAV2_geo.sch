@@ -14,6 +14,7 @@ value="
 .lib $::180MCU_MODELS/sm141064.ngspice res_typical
 .lib $::180MCU_MODELS/sm141064.ngspice moscap_typical
 .lib $::180MCU_MODELS/sm141064.ngspice mimcap_typical
+.lib $::180MCU_MODELS/sm141064.ngspice diode_typical
 "}
 C {devices/vsource.sym} 110 -520 0 0 {name=V1 value=5
 }
@@ -29,39 +30,15 @@ C {devices/gnd.sym} 270 -490 0 0 {name=lV3 lab=GND
 value=5}
 C {devices/code_shown.sym} -700 -700 0 0 {name=ESTIMULO only_toplevel=true
 value="
-* THE FOUR SENSORS, WITH THE BOX AS A PARAMETER.
 *
-* Vertices en (+-Lxy/2, +-Lxy/2, +-Lz/2), con la asignacion de la foto:
 *
-*     S1 (-Lxy/2, +Lxy/2, +Lz/2)      S2 (+Lxy/2, -Lxy/2, +Lz/2)   plano z de arriba
-*     S3 (-Lxy/2, -Lxy/2, -Lz/2)      S4 (+Lxy/2, +Lxy/2, -Lz/2)   plano z de abajo
 *
-* What each sensor reads is the projection of ITS POSITION onto the gradient
-* direction, plus the background field, which is COMMON to all four:
 *
-*     b_k = bg + gmm * (r_k . direccion) ,  con r_k en mm
 *
-* `gmm` va en dR/R POR MILIMETRO. No se convierte a campo: eso pide la
-* AMR sensitivity, which is not fixed yet.
 *
-* La caja, el gradiente, el fondo y el plano de barrido son FUENTES DE CONTINUA,
-* not numbers from this text: that way the six boxes and every level fit in one
-* single ngspice run, with `alter` between sweeps. The netlist is 31 blocks
-* extracted with RC and the cost is building it, not sweeping it.
-* SENSOR MISMATCH. Without it, resolution from below DOES NOT EXIST: the four
-* bridges and three amplifiers in the simulation are identical, so the
-* comparison is exact however small the signal, and accuracy stays pinned
-* at 98.9 % down to the lowest level swept. That is a property of the
-* model, not of the chip.
 *
-* What really sets the floor is the bridge offset, which in a real AMR is large
-* and different in each one. It is modelled as a fixed dR/R per sensor, with an
-* arbitrary but FIXED and documented pattern, scaled by `Voff`:
 *
-*     p = (+1.00, -0.62, +0.31, -0.85)
 *
-* El patron no es simetrico a proposito: un offset que se parezca a un gradiente
-* biases the response towards that direction, which is exactly what it does in reality.
 Voff  off  0 0
 Vlxy  lxy  0 1000
 Vlz   lz   0 1000
@@ -79,9 +56,6 @@ Bb2 b2 0 v='v(bg) -0.62*v(off) + v(gmm)*( v(lxy)*v(gx) -v(lxy)*v(gy) +v(lz)*v(gz
 Bb3 b3 0 v='v(bg) +0.31*v(off) + v(gmm)*(-v(lxy)*v(gx) -v(lxy)*v(gy) -v(lz)*v(gz))/2000'
 Bb4 b4 0 v='v(bg) -0.85*v(off) + v(gmm)*( v(lxy)*v(gx) +v(lxy)*v(gy) -v(lz)*v(gz))/2000'
 
-* The four bridges, 1 Mohm per arm and all four arms moving at once.
-* Vcm = VEXC/2 exactly and independent of b, which is what allows reading the
-* curve without mixing it with these cells' common-mode sensitivity.
 R1a VEXC S1P r='1meg*(1-v(b1))'
 R1b S1P  GND r='1meg*(1+v(b1))'
 R1c VEXC S1N r='1meg*(1+v(b1))'
@@ -125,28 +99,40 @@ C {devices/vsource.sym} 350 -520 0 0 {name=V4 value=5
 C {devices/lab_wire.sym} 350 -550 0 0 {name=pV4a sig_type=std_logic lab=VDDV}
 C {devices/gnd.sym} 350 -490 0 0 {name=lV4 lab=GND
 value=5}
-C {a_zonetic2026/XSCHEM_v2/GRADIENT_NAV3.sym} 0 800 0 0 {name=xnav3}
-C {devices/lab_wire.sym} -150 700 0 0 {name=rS1P sig_type=std_logic lab=S1P}
-C {devices/lab_wire.sym} -150 720 0 0 {name=rS1N sig_type=std_logic lab=S1N}
-C {devices/lab_wire.sym} -150 740 0 0 {name=rS2P sig_type=std_logic lab=S2P}
-C {devices/lab_wire.sym} -150 760 0 0 {name=rS2N sig_type=std_logic lab=S2N}
-C {devices/lab_wire.sym} -150 800 0 0 {name=rS3P sig_type=std_logic lab=S3P}
-C {devices/lab_wire.sym} -150 820 0 0 {name=rS3N sig_type=std_logic lab=S3N}
-C {devices/lab_wire.sym} -150 840 0 0 {name=rS4P sig_type=std_logic lab=S4P}
-C {devices/lab_wire.sym} -150 860 0 0 {name=rS4N sig_type=std_logic lab=S4N}
-C {devices/lab_wire.sym} -150 880 0 0 {name=rLXY sig_type=std_logic lab=lxy}
-C {devices/lab_wire.sym} -150 900 0 0 {name=rLZ sig_type=std_logic lab=lz}
-C {devices/lab_wire.sym} 150 700 2 0 {name=rXP3 sig_type=std_logic lab=XP3}
-C {devices/lab_wire.sym} 150 740 2 0 {name=rXN3 sig_type=std_logic lab=XN3}
-C {devices/lab_wire.sym} 150 760 2 0 {name=rYP3 sig_type=std_logic lab=YP3}
-C {devices/lab_wire.sym} 150 800 2 0 {name=rYN3 sig_type=std_logic lab=YN3}
-C {devices/lab_wire.sym} 150 820 2 0 {name=rZP3 sig_type=std_logic lab=ZP3}
-C {devices/lab_wire.sym} 150 860 2 0 {name=rZN3 sig_type=std_logic lab=ZN3}
-C {devices/lab_wire.sym} 0 670 1 0 {name=rVDD sig_type=std_logic lab=VDD3}
-C {devices/gnd.sym} 0 890 0 0 {name=rVSS lab=GND
 value=5}
-C {devices/vsource.sym} 430 -520 0 0 {name=V5 value=5
 }
-C {devices/lab_wire.sym} 430 -550 0 0 {name=pV5a sig_type=std_logic lab=VDD3}
-C {devices/gnd.sym} 430 -490 0 0 {name=lV5 lab=GND
+value=5}
+
+T {THE TOP AS IT IS IN THE GDS. Same four sensors as the other one, so the
+comparison between the two output decisions is at equal stimulus: this one
+still has the three COMP_OUT, whose inverter pair does not switch in the
+range the Z weight output lives in. Its own supply, so its current can be
+told apart. The decoupling block is only_toplevel and does not come in here;
+the eleven ESD cells DO, which is what puts their series resistor and their
+diode capacitance on the sensor inputs.} -600 1000 0 0 0.4 0.4 {}
+C {a_zonetic2026/XSCHEM/GRADIENT_NAV2.sym} 0 1200 0 0 {name=xnavt}
+C {devices/lab_wire.sym} -150 1100 0 0 {name=tIS1P sig_type=std_logic lab=S1P}
+C {devices/lab_wire.sym} -150 1120 0 0 {name=tIS1N sig_type=std_logic lab=S1N}
+C {devices/lab_wire.sym} -150 1140 0 0 {name=tIS2P sig_type=std_logic lab=S2P}
+C {devices/lab_wire.sym} -150 1160 0 0 {name=tIS2N sig_type=std_logic lab=S2N}
+C {devices/lab_wire.sym} -150 1200 0 0 {name=tIS3P sig_type=std_logic lab=S3P}
+C {devices/lab_wire.sym} -150 1220 0 0 {name=tIS3N sig_type=std_logic lab=S3N}
+C {devices/lab_wire.sym} -150 1240 0 0 {name=tIS4P sig_type=std_logic lab=S4P}
+C {devices/lab_wire.sym} -150 1260 0 0 {name=tIS4N sig_type=std_logic lab=S4N}
+C {devices/lab_wire.sym} 150 1100 2 0 {name=tOXP sig_type=std_logic lab=XPt}
+C {devices/lab_wire.sym} 150 1120 2 0 {name=tOX sig_type=std_logic lab=Xt}
+C {devices/lab_wire.sym} 150 1140 2 0 {name=tOXN sig_type=std_logic lab=XNt}
+C {devices/lab_wire.sym} 150 1160 2 0 {name=tOYP sig_type=std_logic lab=YPt}
+C {devices/lab_wire.sym} 150 1180 2 0 {name=tOY sig_type=std_logic lab=Yt}
+C {devices/lab_wire.sym} 150 1200 2 0 {name=tOYN sig_type=std_logic lab=YNt}
+C {devices/lab_wire.sym} 150 1220 2 0 {name=tOZP sig_type=std_logic lab=ZPt}
+C {devices/lab_wire.sym} 150 1240 2 0 {name=tOZ sig_type=std_logic lab=Zt}
+C {devices/lab_wire.sym} 150 1260 2 0 {name=tOZN sig_type=std_logic lab=ZNt}
+C {devices/lab_wire.sym} 0 1070 1 0 {name=tVDD sig_type=std_logic lab=VDDT}
+C {devices/gnd.sym} 0 1290 0 0 {name=tVSS lab=GND
+value=5}
+C {devices/vsource.sym} 510 -520 0 0 {name=V6 value=5
+}
+C {devices/lab_wire.sym} 510 -550 0 0 {name=pV6a sig_type=std_logic lab=VDDT}
+C {devices/gnd.sym} 510 -490 0 0 {name=lV6 lab=GND
 value=5}

@@ -1,0 +1,58 @@
+* fuente: /foss/designs/a_zonetic2026/XSCHEM_v2/simulation/RED_SUMA.sch/RED_SUMA.spice
+* leida via enlace: /foss/designs/a_zonetic2026/spice_blocks/RED_SUMA.spice
+* fecha de la fuente: 2026-08-23 03:02   sha1: d66c587438
+* generado por flatten_spice.py — NO editar a mano
+* netlist plana generada por flatten_spice.py (top: RED_SUMA)
+* 0 MOSFETs; nets fusionadas por V=0: ninguna
+* nombres: los del esquematico; solo llevan la ruta de instancias (Mx1_M4) los 0 que chocaban
+* m -> fingers: ninguno
+* para LVS: cada dedo, un transistor en paralelo
+.subckt RED_SUMA XP1 XP2 XN1 XN2 YP1 YP2 YN1 YN2 ZP1 ZP2 ZN1 ZN2 GXP GXN GYP GYN GZP GZN VSS
+* resistencias: elemento 'R' con W/L/S en METROS, no 'X' con r_width/r_length.
+*   Mismo motivo que los condensadores: el delegate del deck (custom_classes.lvs,
+*   SubcircuitModelsReader#element) solo entra por la primera letra, y para 'R' de tres
+*   nodos monta un DeviceClassResistorWithBulk con los terminales A, B, W.
+*   El deck hace W=W*PAR*1e6 y L=L*S*1e6, o sea que la 'S' MULTIPLICA el largo.
+*   Aun asi la serie se escribe TRAMO A TRAMO, no con un 'S=5': el layout dibuja
+*   `s` cuerpos de poly encadenados por metal1 y las dos herramientas los extraen
+*   como `s` dispositivos. Juntarlos en uno exige la reduccion en serie, y netgen no
+*   la aplica aqui porque lee la resistencia de tres nodos como si tuviera dos y le
+*   pone de modelo el nodo de sustrato: la clase le sale 'VSS' y su setup no la
+*   reconoce. Escribiendo los tramos, las dos partes cuentan lo mismo y no hace falta.
+RXP1_1 GXP RXP1$1 VSS ppolyf_u_3k W=1e-06 L=5.556e-05 R=166680
+RXP1_2 RXP1$1 RXP1$2 VSS ppolyf_u_3k W=1e-06 L=5.556e-05 R=166680
+RXP1_3 RXP1$2 XP1 VSS ppolyf_u_3k W=1e-06 L=5.556e-05 R=166680
+RXP2_1 GXP RXP2$1 VSS ppolyf_u_3k W=1e-06 L=5.556e-05 R=166680
+RXP2_2 RXP2$1 RXP2$2 VSS ppolyf_u_3k W=1e-06 L=5.556e-05 R=166680
+RXP2_3 RXP2$2 XP2 VSS ppolyf_u_3k W=1e-06 L=5.556e-05 R=166680
+RXN1_1 GXN RXN1$1 VSS ppolyf_u_3k W=1e-06 L=5.556e-05 R=166680
+RXN1_2 RXN1$1 RXN1$2 VSS ppolyf_u_3k W=1e-06 L=5.556e-05 R=166680
+RXN1_3 RXN1$2 XN1 VSS ppolyf_u_3k W=1e-06 L=5.556e-05 R=166680
+RXN2_1 GXN RXN2$1 VSS ppolyf_u_3k W=1e-06 L=5.556e-05 R=166680
+RXN2_2 RXN2$1 RXN2$2 VSS ppolyf_u_3k W=1e-06 L=5.556e-05 R=166680
+RXN2_3 RXN2$2 XN2 VSS ppolyf_u_3k W=1e-06 L=5.556e-05 R=166680
+RYP1_1 GYP RYP1$1 VSS ppolyf_u_3k W=1e-06 L=5.556e-05 R=166680
+RYP1_2 RYP1$1 RYP1$2 VSS ppolyf_u_3k W=1e-06 L=5.556e-05 R=166680
+RYP1_3 RYP1$2 YP1 VSS ppolyf_u_3k W=1e-06 L=5.556e-05 R=166680
+RYP2_1 GYP RYP2$1 VSS ppolyf_u_3k W=1e-06 L=5.556e-05 R=166680
+RYP2_2 RYP2$1 RYP2$2 VSS ppolyf_u_3k W=1e-06 L=5.556e-05 R=166680
+RYP2_3 RYP2$2 YP2 VSS ppolyf_u_3k W=1e-06 L=5.556e-05 R=166680
+RYN1_1 GYN RYN1$1 VSS ppolyf_u_3k W=1e-06 L=5.556e-05 R=166680
+RYN1_2 RYN1$1 RYN1$2 VSS ppolyf_u_3k W=1e-06 L=5.556e-05 R=166680
+RYN1_3 RYN1$2 YN1 VSS ppolyf_u_3k W=1e-06 L=5.556e-05 R=166680
+RYN2_1 GYN RYN2$1 VSS ppolyf_u_3k W=1e-06 L=5.556e-05 R=166680
+RYN2_2 RYN2$1 RYN2$2 VSS ppolyf_u_3k W=1e-06 L=5.556e-05 R=166680
+RYN2_3 RYN2$2 YN2 VSS ppolyf_u_3k W=1e-06 L=5.556e-05 R=166680
+RZP1_1 GZP RZP1$1 VSS ppolyf_u_3k W=1e-06 L=5.556e-05 R=166680
+RZP1_2 RZP1$1 RZP1$2 VSS ppolyf_u_3k W=1e-06 L=5.556e-05 R=166680
+RZP1_3 RZP1$2 ZP1 VSS ppolyf_u_3k W=1e-06 L=5.556e-05 R=166680
+RZP2_1 GZP RZP2$1 VSS ppolyf_u_3k W=1e-06 L=5.556e-05 R=166680
+RZP2_2 RZP2$1 RZP2$2 VSS ppolyf_u_3k W=1e-06 L=5.556e-05 R=166680
+RZP2_3 RZP2$2 ZP2 VSS ppolyf_u_3k W=1e-06 L=5.556e-05 R=166680
+RZN1_1 GZN RZN1$1 VSS ppolyf_u_3k W=1e-06 L=5.556e-05 R=166680
+RZN1_2 RZN1$1 RZN1$2 VSS ppolyf_u_3k W=1e-06 L=5.556e-05 R=166680
+RZN1_3 RZN1$2 ZN1 VSS ppolyf_u_3k W=1e-06 L=5.556e-05 R=166680
+RZN2_1 GZN RZN2$1 VSS ppolyf_u_3k W=1e-06 L=5.556e-05 R=166680
+RZN2_2 RZN2$1 RZN2$2 VSS ppolyf_u_3k W=1e-06 L=5.556e-05 R=166680
+RZN2_3 RZN2$2 ZN2 VSS ppolyf_u_3k W=1e-06 L=5.556e-05 R=166680
+.ends

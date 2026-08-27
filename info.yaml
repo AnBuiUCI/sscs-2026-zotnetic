@@ -1,3 +1,14 @@
+# ==============================================================================
+#  CAREFUL: THE PADRING IN openroad/padframe/ PREDATES THIS FILE.
+#
+#  B26_A.def, attached by the organisers to issue #58 on 2026-08-23, was built
+#  from the previous list, which had VSS third and VDD fourth. This one puts VSS
+#  first and VDD last, so THE PADRING HAS TO BE REGENERATED before the slot
+#  assignment in that DEF means anything.
+#
+#  openroad/scripts/padframe_def.py notices and says so.
+# ==============================================================================
+
 # ----- ------ ----- ----- ------ ----- ----- ------ -----
 # Chipathon 2026: Project configuration
 # LICENSE: Apache License Version 2.0
@@ -22,26 +33,41 @@ project:
 # Pin definitions
 # ======================================================
 #
-# Top cell: GRADIENT_NAV2       die 418.24 x 413.53 um
+# Top cell: GRADIENT_NAV2
 # GDS:      FINAL/openroad/out_v2_GRADIENT_NAV2/GRADIENT_NAV2_filled.gds
 #           (also reached through lvs_config.json -> LAYOUT_FILE)
 #
-# The project is assumed to sit in the TOP-LEFT quadrant of the padframe, so the
-# pins are listed CLOCKWISE FROM BOTTOM-LEFT: up the left edge, across the top,
-# down the right edge and back along the bottom. This order is not written by
-# hand -- it is read from the placed pin coordinates in
-# out_v2_GRADIENT_NAV2/GRADIENT_NAV2_routed.def.
+# ORDER. The padring assigns one slot per entry, in this order, so the list is
+# the pad map. Two rules from resources/info.yaml of the chipathon repo:
 #
-# TWO CHOICES WORTH REVIEWING BEFORE SUBMISSION:
+#   * the FIRST pin must be a ground connection  -> VSS opens the list;
+#   * a power/ground cell breaks the I/O power rails, so the supplies go at the
+#     two ENDS, where the project boundary already breaks them -> VDD closes it.
 #
-#   1. The nine outputs (X/Y/Z and the six XP..ZN) carry DIGITAL levels but are
-#      declared `analog`. The io_type list has no plain digital output: the only
-#      digital type that drives a signal out is `bidirectional`, and that pad
-#      needs an output-enable this block does not have. An `analog` pad passes
-#      the signal straight through, which is what is needed here.
-#   2. VSS is declared even though the announcement says ground is common and no
-#      ground pin is required. It is kept because the block does have its own
-#      ground port; drop this entry if the padframe shorts them anyway.
+# The seventeen signal pins keep the relative order they had in the padring the
+# organisers generated on 23 August (B26_A_pad_map.yaml), so that moving the two
+# supplies is the ONLY change they have to re-run.
+#
+# TYPES. The nine outputs are not all of a kind:
+#
+#   * XP XN YP YN ZP ZN are DIGITAL. They come out of the inverter behind the
+#     decision comparator and swing rail to rail, so they take a digital pad.
+#     Declared `bidirectional`; `secondary_esd` does not apply to them.
+#   * X Y Z are genuinely ANALOGUE: each is the weight block's vote counter, and
+#     it lives between 1.814 V (three chains voting) and 3.035 V (none).
+#   * S1P..S4N are the eight bridge nodes.
+#
+# That is 11 analogue + 6 digital + 2 supplies = 19, which is the split the
+# proposal already announced: "11 Analog Pads (8 inputs, 3 test points),
+# 7 Digital Pads (6 outputs, 1 input)".
+#
+# ONE THING TO CONFIRM WITH THE ORGANISERS: a bidirectional pad has an
+# output-enable and this block has no such port. These six are permanent
+# outputs, so the enable should be tied to "always driving".
+#
+# SECONDARY ESD. The analogue pads carry HBM diodes only (gf180mcu_fd_io 4.5),
+# so the CDM network -- series poly resistor plus the two diodes -- is inside
+# the block, next to the protected gates, one per analogue pin.
 #
 # WHAT THE SIGNALS MEAN. Each sensor reads the MAGNITUDE of the field, |B|, at
 # its position. The four of them sample that scalar field at the vertices of a
@@ -49,48 +75,38 @@ project:
 # the magnitude grows, i.e. towards the source.
 
 pins:
-  # --- left edge, bottom to top ----------------------------------------------
+  # --- ground opens the list ---------------------------------------------------
+  - name: VSS            # block ground
+    io_type: ground
+
+  # --- the seventeen signal pins, in the order the padring already uses --------
   - name: S4P            # sensor 4, positive leg of the bridge
     io_type: analog
     secondary_esd: true
   - name: S4N            # sensor 4, negative leg
     io_type: analog
     secondary_esd: true
-  - name: VSS            # block ground (see note 2 above)
-    io_type: ground
-  - name: VDD            # 6 V supply
-    io_type: power
-
-  # --- right edge, top to bottom ---------------------------------------------
-  - name: Z              # decoded Z axis, analog vote node
+  - name: Z              # Z vote counter, analogue test point
     io_type: analog
     secondary_esd: true
-  - name: ZN             # Z comparator, negative output
-    io_type: analog
-    secondary_esd: true
-  - name: ZP             # Z comparator, positive output
-    io_type: analog
-    secondary_esd: true
+  - name: ZN             # Z decision, negated
+    io_type: bidirectional
+  - name: ZP             # Z decision
+    io_type: bidirectional
   - name: Y
     io_type: analog
     secondary_esd: true
   - name: YN
-    io_type: analog
-    secondary_esd: true
+    io_type: bidirectional
   - name: YP
-    io_type: analog
-    secondary_esd: true
+    io_type: bidirectional
   - name: X
     io_type: analog
     secondary_esd: true
   - name: XN
-    io_type: analog
-    secondary_esd: true
+    io_type: bidirectional
   - name: XP
-    io_type: analog
-    secondary_esd: true
-
-  # --- bottom edge, right to left --------------------------------------------
+    io_type: bidirectional
   - name: S1N            # sensor 1, negative leg
     io_type: analog
     secondary_esd: true
@@ -109,3 +125,7 @@ pins:
   - name: S2P
     io_type: analog
     secondary_esd: true
+
+  # --- and power closes it -----------------------------------------------------
+  - name: VDD            # 6 V supply
+    io_type: power

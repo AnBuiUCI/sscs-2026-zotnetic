@@ -1,0 +1,49 @@
+* Nodos de bulk atados: 0 de pozo n -> VDD, 1 de sustrato -> VSS.
+*   magic no extrae los taps de este layout y los dejaba flotando;
+*   la conexion si existe (el LVS de KLayout da 'match uniquely').
+*   Quien detecta un tap que falte de verdad es el LVS, no esto.
+* NGSPICE file created from ESD_CDM.ext - technology: gf180mcuD
+
+.subckt ESD_CDM VSS VDD PAD CORE
+X0 VDD a_16_6352# CORE VDD pfet_06v0 ad=3.52p pd=16.88u as=2.08p ps=8.52u w=8u l=1u
+X1 CORE a_14_330# VSS VSS nfet_06v0 ad=2.34p pd=9.52u as=3.96p ps=18.88u w=9u l=1u
+X2 VSS a_14_330# CORE VSS nfet_06v0 ad=3.96p pd=18.88u as=2.34p ps=9.52u w=9u l=1u
+X3 a_408_4912# a_836_4912# VSS ppolyf_u_3k r_width=1u r_length=1.5u
+X4 PAD a_14_330# VSS VSS nfet_06v0 ad=1.04p pd=4.52u as=1.76p ps=8.88u w=4u l=1u
+X5 CORE a_14_330# VSS VSS nfet_06v0 ad=2.34p pd=9.52u as=2.34p ps=9.52u w=9u l=1u
+X6 a_408_5392# a_836_5392# VSS ppolyf_u_3k r_width=1u r_length=1.5u
+X7 VSS a_14_330# CORE VSS nfet_06v0 ad=2.34p pd=9.52u as=2.34p ps=9.52u w=9u l=1u
+X8 VDD a_16_6352# CORE VDD pfet_06v0 ad=3.96p pd=18.88u as=2.34p ps=9.52u w=9u l=1u
+X9 CORE PAD VSS ppolyf_u_3k r_width=1u r_length=1.5u
+X10 CORE a_16_6352# VDD VDD pfet_06v0 ad=2.34p pd=9.52u as=3.96p ps=18.88u w=9u l=1u
+X11 CORE a_16_6352# VDD VDD pfet_06v0 ad=2.08p pd=8.52u as=3.52p ps=16.88u w=8u l=1u
+X12 VSS a_14_330# PAD VSS nfet_06v0 ad=1.76p pd=8.88u as=1.04p ps=4.52u w=4u l=1u
+C0 VDD PAD 0.08983f
+C1 VDD CORE 5.4761f
+C2 a_408_5392# CORE 0.07505f
+C3 CORE PAD 0.3062f
+C4 a_836_4912# CORE 0.05401f
+C5 VDD a_16_6352# 4.33302f
+C6 a_16_6352# PAD 0.08229f
+C7 a_836_5392# PAD 0.02239f
+C8 a_408_5392# a_408_4912# 0.01679f
+C9 a_836_4912# a_16_6352# 0.03307f
+C10 a_14_330# PAD 0.89427f
+C11 a_16_6352# CORE 3.66482f
+C12 a_836_4912# a_836_5392# 0.01679f
+C13 CORE a_836_5392# 0.05401f
+C14 a_14_330# CORE 2.65882f
+C15 CORE a_408_4912# 0.05474f
+C16 a_16_6352# a_836_5392# 0.03307f
+C17 a_16_6352# a_14_330# 0.03294f
+C18 PAD VSS 3.73494f
+C19 CORE VSS 7.84412f
+C20 VDD VSS 18.9192f
+C21 a_14_330# VSS 6.12043f
+C22 a_836_4912# VSS 0.22423f
+C23 a_408_4912# VSS 0.27827f
+C24 a_836_5392# VSS 0.20909f
+C25 a_408_5392# VSS 0.26313f
+C26 a_16_6352# VSS 3.04794f
+.ends
+

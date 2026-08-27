@@ -1,0 +1,11 @@
+* Nodos de bulk atados: 0 de pozo n -> VPWR, 1 de sustrato -> VSS.
+*   magic no extrae los taps de este layout y los dejaba flotando;
+*   la conexion si existe (el LVS de KLayout da 'match uniquely').
+*   Quien detecta un tap que falte de verdad es el LVS, no esto.
+* NGSPICE file created from RED_SUMA.ext - technology: gf180mcuD
+
+.subckt RED_SUMA VSS VPWR
+C0 VSS w_n200_0# 0.66676f
+C1 VPWR w_n200_0# 0.66676f
+.ends
+

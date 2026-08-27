@@ -1,0 +1,43 @@
+# Reporte de layout: DECODER
+PDK: gf180
+Transistores: 18
+Nets: 14
+Nets abutidas (difusion compartida): ['Z', 'x1_net1', 'x2_x3_net1', 'x2_x3_net2', 'x3_x2_net1', 'x3_x2_net2']
+Ancho de la celda: 30.78 um
+Tamano total: 32.92 x 15.14 um
+
+## Transistores
+  Mx1_XM4 PFET pfet_06v0                W=3u L=1u nf=1
+  Mx1_XM5 PFET pfet_06v0                W=3u L=1u nf=1
+  XM7    NFET nfet_06v0                W=1u L=1u nf=1
+  Mx1_XM1 NFET nfet_06v0                W=1u L=1u nf=1
+  Mx2_x2_XM4 PFET pfet_06v0                W=3u L=1u nf=1
+  Mx2_x2_XM5 NFET nfet_06v0                W=1u L=1u nf=1
+  Mx2_x3_XM4 PFET pfet_06v0                W=3u L=1u nf=1
+  Mx2_x3_XM5 NFET nfet_06v0                W=1u L=1u nf=1
+  Mx2_x3_XM2 PFET pfet_06v0                W=3u L=1u nf=1
+  Mx2_x3_XM1 PFET pfet_06v0                W=3u L=1u nf=1
+  Mx2_x3_XM3 NFET nfet_06v0                W=1u L=1u nf=1
+  Mx2_x3_XM6 NFET nfet_06v0                W=1u L=1u nf=1
+  Mx3_x2_XM4 PFET pfet_06v0                W=3u L=1u nf=1
+  Mx3_x2_XM5 NFET nfet_06v0                W=1u L=1u nf=1
+  Mx3_x2_XM2 PFET pfet_06v0                W=3u L=1u nf=1
+  Mx3_x2_XM1 PFET pfet_06v0                W=3u L=1u nf=1
+  Mx3_x2_XM3 NFET nfet_06v0                W=1u L=1u nf=1
+  Mx3_x2_XM6 NFET nfet_06v0                W=1u L=1u nf=1
+
+## Conexiones (net -> pines)
+  VDD      [POWER]: Mx1_XM4.bulk, Mx1_XM5.drain, Mx1_XM5.bulk, Mx2_x2_XM4.source, Mx2_x2_XM4.bulk, Mx2_x3_XM4.source, Mx2_x3_XM4.bulk, Mx2_x3_XM2.drain, Mx2_x3_XM2.bulk, Mx2_x3_XM1.drain, Mx2_x3_XM1.bulk, Mx3_x2_XM4.source, Mx3_x2_XM4.bulk, Mx3_x2_XM2.drain, Mx3_x2_XM2.bulk, Mx3_x2_XM1.drain, Mx3_x2_XM1.bulk
+  VSS      [POWER]: XM7.drain, XM7.bulk, Mx1_XM1.drain, Mx1_XM1.bulk, Mx2_x2_XM5.drain, Mx2_x2_XM5.bulk, Mx2_x3_XM5.drain, Mx2_x3_XM5.bulk, Mx2_x3_XM3.drain, Mx2_x3_XM3.bulk, Mx2_x3_XM6.bulk, Mx3_x2_XM5.drain, Mx3_x2_XM5.bulk, Mx3_x2_XM3.drain, Mx3_x2_XM3.bulk, Mx3_x2_XM6.bulk
+  x2_x3_net1 [ABUTIDA]: Mx2_x3_XM4.gate, Mx2_x3_XM5.gate, Mx2_x3_XM2.source, Mx2_x3_XM1.source, Mx2_x3_XM6.source
+  x3_x2_net1 [ABUTIDA]: Mx3_x2_XM4.gate, Mx3_x2_XM5.gate, Mx3_x2_XM2.source, Mx3_x2_XM1.source, Mx3_x2_XM6.source
+  YZ      : Mx1_XM4.gate, XM7.gate, Mx2_x3_XM2.gate, Mx2_x3_XM3.gate
+  XZ      : Mx1_XM5.gate, Mx1_XM1.gate, Mx3_x2_XM1.gate, Mx3_x2_XM6.gate
+  x2_net1 : Mx2_x2_XM4.drain, Mx2_x2_XM5.source, Mx2_x3_XM1.gate, Mx2_x3_XM6.gate
+  XY      : Mx2_x2_XM4.gate, Mx2_x2_XM5.gate, Mx3_x2_XM2.gate, Mx3_x2_XM3.gate
+  Z        [ABUTIDA]: Mx1_XM4.source, XM7.source, Mx1_XM1.source
+  x1_net1  [ABUTIDA]: Mx1_XM4.drain, Mx1_XM5.source
+  Y       : Mx2_x3_XM4.drain, Mx2_x3_XM5.source
+  x2_x3_net2 [ABUTIDA]: Mx2_x3_XM3.source, Mx2_x3_XM6.drain
+  X       : Mx3_x2_XM4.drain, Mx3_x2_XM5.source
+  x3_x2_net2 [ABUTIDA]: Mx3_x2_XM3.source, Mx3_x2_XM6.drain

@@ -29,7 +29,8 @@ import sys
 from datetime import datetime
 from pathlib import Path
 
-XSCHEM = Path("/foss/designs/a_zonetic2026/XSCHEM")
+PROJECT = Path("/foss/designs/a_zonetic2026")
+XSCHEM = PROJECT / "XSCHEM"
 VERILOG = Path(__file__).resolve().parent.parent / "verilog"
 
 #: Which top gets translated. `GRADIENT_NAV` builds four GRADIENT blocks, with
@@ -43,7 +44,7 @@ OUT_FLAT = VERILOG / f"{TOP}_macros.v"
 
 #: Blocks that have a layout, so they are hard macros no matter what is inside.
 MACROS = {"COMP", "OPAM", "OPAM_LIN_flat", "DECODER", "WEIGHT_COMP",
-          "DECODER_MAX", "OPAM_SUMA"}
+          "DECODER_MAX", "OPAM_SUMA", "ESD_CDM"}
 
 #: Schematic cell -> layout macro, when the two are not named the same.
 #: `OPAM_LIN_flat.sch` is the flattened version of `OPAM_LIN.sch` drawn for the
@@ -400,6 +401,31 @@ def main() -> None:
     top.has_devices = False
     subckts_all = dict(subckts)
     subckts_all[top.name] = top
+
+    #  A macro the top calls WITHOUT xschem having inlined its .subckt. That
+    #  happens when the instance is written as text -- the eleven ESD_CDM cells
+    #  are a code block, not eleven drawn symbols -- so the netlist carries the
+    #  calls and no definition, and `flatten` died on a KeyError with no clue
+    #  what was missing. The ports are read from the macro's OWN netlist in
+    #  spice_blocks/, which is the source of truth for them anyway.
+    for cell in sorted(MACROS):
+        if cell in subckts_all:
+            continue
+        if not any(c == cell for _, c, _ in top.insts):
+            continue
+        src = PROJECT / "spice_blocks" / f"{cell}.spice"
+        if not src.exists():
+            sys.exit(f"  {cell} is instantiated in the top and has no .subckt; "
+                     f"expected its ports in {src}")
+        for line in join_continuations(src.read_text()):
+            m = re.match(r"\*?\*?\.subckt\s+(\S+)\s+(.*)", line, re.I)
+            if m and m.group(1) == cell:
+                subckts_all[cell] = Subckt(cell, m.group(2).split())
+                print(f"  {cell}: ports read from {src.name} "
+                      f"({' '.join(subckts_all[cell].ports)})")
+                break
+        else:
+            sys.exit(f"  no .subckt {cell} in {src}")
 
     # Only what the top actually reaches: the netlist carries every symbol the
     # schematic ever referenced, and unused ones are noise in the Verilog.
