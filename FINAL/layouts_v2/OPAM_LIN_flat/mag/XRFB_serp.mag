@@ -1,0 +1,120 @@
+magic
+tech gf180mcuD
+magscale 1 5
+timestamp 2083213696
+<< checkpaint >>
+rect -1178 -1040 8711 2000
+<< polycontact >>
+rect -57 964 -35 986
+rect 7680 964 7702 986
+rect -57 914 -35 936
+rect 7680 914 7702 936
+rect -57 739 -35 761
+rect 7680 739 7702 761
+rect -57 689 -35 711
+rect 7680 689 7702 711
+rect -57 514 -35 536
+rect 7680 514 7702 536
+rect -57 464 -35 486
+rect 7680 464 7702 486
+rect -57 289 -35 311
+rect 7680 289 7702 311
+rect -57 239 -35 261
+rect 7680 239 7702 261
+rect -57 64 -35 86
+rect 7680 64 7702 86
+rect -57 14 -35 36
+rect 7680 14 7702 36
+<< metal1 >>
+rect -175 905 -135 995
+rect -66 986 -26 995
+rect -66 964 -57 986
+rect -35 964 -26 986
+rect -66 936 -26 964
+rect -66 914 -57 936
+rect -35 914 -26 936
+rect -175 680 -135 770
+rect -66 761 -26 914
+rect 7671 986 7711 995
+rect 7671 964 7680 986
+rect 7702 964 7711 986
+rect 7671 936 7711 964
+rect 7671 914 7680 936
+rect 7702 914 7711 936
+rect 7671 905 7711 914
+rect -66 739 -57 761
+rect -35 739 -26 761
+rect -66 711 -26 739
+rect -66 689 -57 711
+rect -35 689 -26 711
+rect -66 680 -26 689
+rect 7671 761 7711 770
+rect 7671 739 7680 761
+rect 7702 739 7711 761
+rect 7671 711 7711 739
+rect 7671 689 7680 711
+rect 7702 689 7711 711
+rect -175 455 -135 545
+rect -66 536 -26 545
+rect -66 514 -57 536
+rect -35 514 -26 536
+rect -66 486 -26 514
+rect -66 464 -57 486
+rect -35 464 -26 486
+rect -175 230 -135 320
+rect -66 311 -26 464
+rect 7671 536 7711 689
+rect 7671 514 7680 536
+rect 7702 514 7711 536
+rect 7671 486 7711 514
+rect 7671 464 7680 486
+rect 7702 464 7711 486
+rect 7671 455 7711 464
+rect -66 289 -57 311
+rect -35 289 -26 311
+rect -66 261 -26 289
+rect -66 239 -57 261
+rect -35 239 -26 261
+rect -66 230 -26 239
+rect 7671 311 7711 320
+rect 7671 289 7680 311
+rect 7702 289 7711 311
+rect 7671 261 7711 289
+rect 7671 239 7680 261
+rect 7702 239 7711 261
+rect -175 5 -135 95
+rect -66 86 -26 95
+rect -66 64 -57 86
+rect -35 64 -26 86
+rect -66 36 -26 64
+rect -66 14 -57 36
+rect -35 14 -26 36
+rect -66 5 -26 14
+rect 7671 86 7711 239
+rect 7671 64 7680 86
+rect 7702 64 7711 86
+rect 7671 36 7711 64
+rect 7671 14 7680 36
+rect 7702 14 7711 36
+rect 7671 5 7711 14
+use ppolyf_u_high_Rs_res_LR_65a792a1  ppolyf_u_high_Rs_res_LR_65a792a1_0
+timestamp 2083213696
+transform 1 0 0 0 1 900
+box -178 -40 7709 100
+use ppolyf_u_high_Rs_res_LR_65a792a1  ppolyf_u_high_Rs_res_LR_65a792a1_1
+timestamp 2083213696
+transform 1 0 0 0 1 675
+box -178 -40 7709 100
+use ppolyf_u_high_Rs_res_LR_65a792a1  ppolyf_u_high_Rs_res_LR_65a792a1_2
+timestamp 2083213696
+transform 1 0 0 0 1 450
+box -178 -40 7709 100
+use ppolyf_u_high_Rs_res_LR_65a792a1  ppolyf_u_high_Rs_res_LR_65a792a1_3
+timestamp 2083213696
+transform 1 0 0 0 1 225
+box -178 -40 7709 100
+use ppolyf_u_high_Rs_res_LR_65a792a1  ppolyf_u_high_Rs_res_LR_65a792a1_4
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box -178 -40 7709 100
+<< end >>

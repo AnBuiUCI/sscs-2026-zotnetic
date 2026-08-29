@@ -5,6 +5,43 @@ V {}
 S {}
 F {}
 E {}
+T {THE 1 kOHM SHEET, AND WHY THE RESISTOR DID NOT GROW.
+This shuttle only offers the 1 kohm HRES implant (ppolyf_u_1k), not the 3 kohm
+one. In the PDK's LVS deck the three values are a SWITCH, not a drawing --
+`case POLY_RES when '1k'` over the same RES_MK on the same poly -- so the same
+382 squares that were 1.147 Mohm are 382 kohm here. No polygon changes; the
+GAIN does, from 103 to 33 V/V, because this stage's gain is Gm x RFB.
+Tripling the drawn resistor would have meant 15 strips instead of 5, +22.5 um
+of channel and a cell 47 % bigger, twelve times over. So the factor of three
+was bought back in the transistors instead:
+  M21 1u -> 7.5u, M22 1u -> 8.5u   the nfet pair carries the transconductance,
+                                   and its asymmetry rebuilds the positive
+                                   offset that M15/M16 used to set
+  M29, M30 5u -> 10u               THE ONE THAT FIXES LINEARITY. With RFB
+                                   divided by three the summing node G_OUT_P
+                                   is asked for three times the current, and
+                                   the cascode was what ran out: INL 0.53 %
+                                   without this, 0.38 % with it
+  M43 0.5u -> 1.0u (m=4)           the top of the output swing: the last
+                                   -12 mV of residual at OUT = 4 V
+  C1, C3 4x25 -> 8x25 um           the Miller capacitors. GBW goes as Gm/Cc,
+                                   so tripling Gm without touching them made
+                                   the cell three times faster and cost 18 deg
+                                   of phase margin in the worst corner. These
+                                   cost NO silicon -- a MIM sits on Metal4/5,
+                                   over everything else -- and they put it back
+  M15 1.1u -> 0.55u, M16 -> 0.5u   the pfet pair no longer carries any
+  M27, M28 2.5u -> 2u              transconductance, so narrowing it and the
+  M32, M33 5u -> 4u                class-AB drivers gives back the 0.24 mW the
+                                   changes above cost. Its mismatch matters
+                                   less for the same reason, and the offset is
+                                   now set by a pair 8x wider than the old one.
+Measured against the cell it replaces: gain 103.3 vs 103.4 V/V, INL 0.10 vs
+0.12 %, offset +20 vs +24 mV, 2.673 vs 2.550 mW -- and under the 2.753 mW of
+the OPAMt this family is not allowed to exceed. Over 27 corners of process,
+temperature and supply: gain 50.1 to 189.4 against 47.5 to 188.0, INL never
+worse than 0.68 % against 3.10 %, phase margin never under 73.8 deg against
+75.3. The INL is better in every single corner.} 110 -1180 0 0 0.4 0.4 {}
 P 4 1 -800 -300 {}
 N -580 -460 -560 -460 {
 lab=VDD}
@@ -745,7 +782,7 @@ spiceprefix=X
 }
 C {symbols/pfet_06v0.sym} -600 -460 0 0 {name=M15
 L=1.0u
-W=1.1u
+W=0.55u
 nf=1
 m=1
 ad="'int((nf+1)/2) * W/nf * 0.18u'"
@@ -759,7 +796,7 @@ spiceprefix=X
 }
 C {symbols/pfet_06v0.sym} -360 -460 0 1 {name=M16
 L=1.0u
-W=1.0u
+W=0.5u
 nf=1
 m=1
 ad="'int((nf+1)/2) * W/nf * 0.18u'"
@@ -829,7 +866,7 @@ spiceprefix=X
 }
 C {symbols/nfet_06v0.sym} -210 -360 0 0 {name=M21
 L=1.0u
-W=1u
+W=7.5u
 nf=1
 m=1
 ad="'int((nf+1)/2) * W/nf * 0.18u'"
@@ -843,7 +880,7 @@ spiceprefix=X
 }
 C {symbols/nfet_06v0.sym} 30 -360 0 1 {name=M22
 L=1.0u
-W=1u
+W=8.5u
 nf=1
 m=1
 ad="'int((nf+1)/2) * W/nf * 0.18u'"
@@ -857,7 +894,7 @@ spiceprefix=X
 }
 C {symbols/pfet_06v0.sym} 180 -520 0 1 {name=M29
 L=1.0u
-W=5u
+W=10u
 nf=1
 m=1
 ad="'int((nf+1)/2) * W/nf * 0.18u'"
@@ -871,7 +908,7 @@ spiceprefix=X
 }
 C {symbols/pfet_06v0.sym} 380 -520 0 0 {name=M30
 L=1.0u
-W=5u
+W=10u
 nf=1
 m=1
 ad="'int((nf+1)/2) * W/nf * 0.18u'"
@@ -913,7 +950,7 @@ spiceprefix=X
 }
 C {symbols/pfet_06v0.sym} 180 -450 0 1 {name=M32
 L=1.0u
-W=5.0u
+W=4.0u
 nf=1
 m=1
 ad="'int((nf+1)/2) * W/nf * 0.18u'"
@@ -927,7 +964,7 @@ spiceprefix=X
 }
 C {symbols/pfet_06v0.sym} 380 -450 0 0 {name=M33
 L=1.0u
-W=5.0u
+W=4.0u
 nf=1
 m=1
 ad="'int((nf+1)/2) * W/nf * 0.18u'"
@@ -997,7 +1034,7 @@ spiceprefix=X
 }
 C {symbols/nfet_06v0.sym} 240 -370 0 1 {name=M27
 L=1.0u
-W=2.5u
+W=2.0u
 nf=1
 m=1
 ad="'int((nf+1)/2) * W/nf * 0.18u'"
@@ -1011,7 +1048,7 @@ spiceprefix=X
 }
 C {symbols/nfet_06v0.sym} 320 -370 0 0 {name=M28
 L=1.0u
-W=2.5u
+W=2.0u
 nf=1
 m=1
 ad="'int((nf+1)/2) * W/nf * 0.18u'"
@@ -1165,7 +1202,7 @@ spiceprefix=X
 }
 C {symbols/pfet_06v0.sym} 870 -490 0 0 {name=M43
 L=1.0u
-W=0.5u
+W=1.0u
 nf=1
 m=4
 ad="'int((nf+1)/2) * W/nf * 0.18u'"
@@ -1192,13 +1229,13 @@ model=nfet_06v0
 spiceprefix=X
 }
 C {symbols/cap_mim_2f0fF.sym} 800 -460 0 0 {name=C3
-W=4e-6
+W=8e-6
 L=25e-6
 model=cap_mim_2f0fF
 spiceprefix=X
 m=1}
 C {symbols/cap_mim_2f0fF.sym} 800 -360 0 0 {name=C1
-W=4e-6
+W=8e-6
 L=25e-6
 model=cap_mim_2f0fF
 spiceprefix=X
@@ -1403,10 +1440,10 @@ C {devices/lab_pin.sym} 850 -490 0 0 {name=pRF0 sig_type=std_logic lab=G_OUT_P}
 C {devices/lab_pin.sym} 1000 -430 0 0 {name=pRF1 sig_type=std_logic lab=OUT}
 C {devices/lab_pin.sym} 1000 -370 0 0 {name=pRF2 sig_type=std_logic lab=G_OUT_P}
 C {devices/lab_pin.sym} 980 -400 0 0 {name=pRF3 sig_type=std_logic lab=VSS}
-C {symbols/ppolyf_u_3k.sym} 1000 -400 0 0 {name=RFB
+C {symbols/ppolyf_u_1k.sym} 1000 -400 0 0 {name=RFB
 W=1e-6
 L=76.45e-6
-model=ppolyf_u_3k
+model=ppolyf_u_1k
 spiceprefix=X
 m=1
 s=5

@@ -39,6 +39,7 @@ TARGETS = {
     "DECODER": ROOT / "gds/DECODER.gds",
     "WEIGHT_COMP": ROOT / "gds/WEIGHT_COMP.gds",
     "OPAM_LIN_flat": ROOT / "gds/OPAM_LIN_flat.gds",
+    "io_secondary_5p0": ROOT / "gds/io_secondary_5p0.gds",
     TOP: OUT / f"{TOP}.gds",
     #  The same top with the density fill (`scripts/fill_density.py`). This is
     #  the submission deliverable; the one above stays for the debug loop.

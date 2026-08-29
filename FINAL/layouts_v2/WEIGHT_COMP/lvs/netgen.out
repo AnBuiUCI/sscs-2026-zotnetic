@@ -1,0 +1,52 @@
+
+Class WEIGHT_COMP (0):  Merged 11 parallel devices.
+Class WEIGHT_COMP (1):  Merged 11 parallel devices.
+Subcircuit summary:
+Circuit 1: WEIGHT_COMP                     |Circuit 2: WEIGHT_COMP                     
+-------------------------------------------|-------------------------------------------
+nfet_06v0 (23->17)                         |nfet_06v0 (23->17)                         
+nfet_05v0 (3)                              |nfet_05v0 (3)                              
+pfet_06v0 (7->2)                           |pfet_06v0 (7->2)                           
+pfet_05v0 (3)                              |pfet_05v0 (3)                              
+Number of devices: 25                      |Number of devices: 25                      
+Number of nets: 22 **Mismatch**            |Number of nets: 21 **Mismatch**            
+---------------------------------------------------------------------------------------
+NET mismatches: Class fragments follow (with fanout counts):
+Circuit 1: WEIGHT_COMP                     |Circuit 2: WEIGHT_COMP                     
+
+---------------------------------------------------------------------------------------
+Net: \$74                                  |Net: x1_net1                               
+  nfet_06v0/(drain|source) = 2             |  nfet_06v0/(drain|source) = 2             
+                                           |                                           
+Net: \$3                                   |Net: x1_net2                               
+  nfet_06v0/(drain|source) = 2             |  nfet_06v0/(drain|source) = 2             
+                                           |                                           
+Net: \$62                                  |Net: x1_net5                               
+  nfet_06v0/(drain|source) = 2             |  nfet_06v0/(drain|source) = 2             
+                                           |                                           
+Net: \$9                                   |Net: x1_net6                               
+  nfet_06v0/(drain|source) = 1             |  nfet_06v0/(drain|source) = 2             
+                                           |                                           
+Net: \$58                                  |(no matching net)                          
+  nfet_06v0/(drain|source) = 1             |                                           
+---------------------------------------------------------------------------------------
+Netlists do not match.
+Port matching may fail to disambiguate symmetries.
+
+Subcircuit pins:
+Circuit 1: WEIGHT_COMP                     |Circuit 2: WEIGHT_COMP                     
+-------------------------------------------|-------------------------------------------
+VC                                         |VD **Mismatch**                            
+VA                                         |VB **Mismatch**                            
+VB                                         |VA **Mismatch**                            
+VD                                         |VC **Mismatch**                            
+OUT_N                                      |OUT_N                                      
+VDD                                        |VDD                                        
+OUT                                        |OUT                                        
+VSS                                        |VSS                                        
+WE                                         |WE                                         
+---------------------------------------------------------------------------------------
+Cell pin lists for WEIGHT_COMP and WEIGHT_COMP altered to match.
+Device classes WEIGHT_COMP and WEIGHT_COMP are equivalent.
+
+Final result: Top level cell failed pin matching.

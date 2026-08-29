@@ -37,12 +37,20 @@ value="
 * and there are two per direction: 60 um.
 *
 * R1..R5 are the series resistor: five 1 x 2 um bodies of high-sheet poly in
-* PARALLEL, about 1.3 kohm. The floor the PDK sets is 50 ohm, so this is
+* PARALLEL, about 400 ohm. The floor the PDK sets is 50 ohm, so this is
 * generous on purpose -- the pin drives a MOS gate, no DC flows, and the bridge
-* outside is a 500 kohm Thevenin source, so a couple of kohm divide nothing,
+* outside is a 500 kohm Thevenin source, so a few hundred ohm divide nothing,
 * while more series resistance is less current into the gate during a CDM event.
 *
-* The model is `ppolyf_u_3k` and not the plain `ppolyf_u` of the first draft,
+* The sheet is 1 kohm/sq and not 3 k because that is the HRES implant this
+* shuttle runs (`Resistor HRES | 1k`, integration README). NOTHING IS REDRAWN
+* for it: in the PDK's LVS deck the three values are a switch and not a layer
+* -- `case POLY_RES when '1k'` over the same RES_MK on the same poly -- so the
+* same five bodies just come out at 400 ohm instead of 1.3 k. Eight times the
+* floor either way, which is why this cell needed no redesign while OPAM_LIN,
+* whose gain IS its resistor, needed one.
+*
+* The model is a high-sheet one and not the plain `ppolyf_u` of the first draft,
 * because that is what the PDK can DRAW clean: measured on the PCells alone,
 * `ppolyf_u_high_Rs_res` comes out with no violation of its own, while
 * `ppolyf_res(ppolyf_u)` brings SB.4, PP.2 and PRES.7 with it. It is also the
@@ -55,11 +63,11 @@ D1 VSS PAD diode_nd2ps_06v0 AREA=50p PJ=30u
 D2 VSS PAD diode_nd2ps_06v0 AREA=50p PJ=30u
 D3 PAD VDD diode_pd2nw_06v0 AREA=50p PJ=30u
 D4 PAD VDD diode_pd2nw_06v0 AREA=50p PJ=30u
-XR1 CORE PAD VSS ppolyf_u_3k r_width=1e-6 r_length=2e-6 m=1 s=1
-XR2 CORE PAD VSS ppolyf_u_3k r_width=1e-6 r_length=2e-6 m=1 s=1
-XR3 CORE PAD VSS ppolyf_u_3k r_width=1e-6 r_length=2e-6 m=1 s=1
-XR4 CORE PAD VSS ppolyf_u_3k r_width=1e-6 r_length=2e-6 m=1 s=1
-XR5 CORE PAD VSS ppolyf_u_3k r_width=1e-6 r_length=2e-6 m=1 s=1
+XR1 CORE PAD VSS ppolyf_u_1k r_width=1e-6 r_length=2e-6 m=1 s=1
+XR2 CORE PAD VSS ppolyf_u_1k r_width=1e-6 r_length=2e-6 m=1 s=1
+XR3 CORE PAD VSS ppolyf_u_1k r_width=1e-6 r_length=2e-6 m=1 s=1
+XR4 CORE PAD VSS ppolyf_u_1k r_width=1e-6 r_length=2e-6 m=1 s=1
+XR5 CORE PAD VSS ppolyf_u_1k r_width=1e-6 r_length=2e-6 m=1 s=1
 "}
 C {devices/ipin.sym} -400 0 0 0 {name=p1 lab=PAD}
 C {devices/opin.sym} 400 0 0 0 {name=p2 lab=CORE}

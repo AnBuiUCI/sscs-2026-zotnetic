@@ -1,6 +1,6 @@
 * fuente: /foss/designs/a_zonetic2026/XSCHEM/DECODER/simulation/DECODER.sch/DECODER.spice
 * leida via enlace: /foss/designs/a_zonetic2026/spice_blocks/DECODER.spice
-* fecha de la fuente: 2026-08-08 04:02   sha1: bccadde21e
+* fecha de la fuente: 2026-08-14 21:13   sha1: bccadde21e
 * generado por flatten_spice.py — NO editar a mano
 * netlist plana generada por flatten_spice.py (top: DECODER)
 * 18 MOSFETs; nets fusionadas por V=0: ninguna

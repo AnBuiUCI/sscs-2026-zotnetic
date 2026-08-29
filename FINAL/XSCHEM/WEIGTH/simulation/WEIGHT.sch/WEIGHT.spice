@@ -1,6 +1,12 @@
 ** sch_path: /foss/designs/a_zonetic2026/XSCHEM/WEIGTH/WEIGHT.sch
-.subckt WEIGHT VDD GND OUT VA VC VB VD
-*.PININFO VDD:B GND:B VA:I VB:I VC:I VD:I OUT:B
+**.subckt WEIGHT VDD GND OUT VA VC VB VD
+*.iopin VDD
+*.iopin GND
+*.ipin VA
+*.ipin VB
+*.ipin VC
+*.ipin VD
+*.iopin OUT
 XM2 OUT OUT VDD VDD pfet_06v0 L=1u W=2u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
 + ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0 m=6
 XM3 OUT VD net1 GND nfet_06v0 L=1u W=2.48u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
@@ -43,4 +49,9 @@ Vmeas2 net10 GND 0
 .save i(vmeas2)
 Vmeas3 net13 GND 0
 .save i(vmeas3)
-.ends
+XMF1 OUT VDD netF GND nfet_06v0 L=1u W=2.48u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0 m=2
+XMF2 netF IN GND GND nfet_06v0 L=1u W=1.24u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+**.ends
+.end

@@ -52,7 +52,14 @@ BLOCKS = {
     "OPAM_SUMA": PROJECT / "XSCHEM_v2/simulation/OPAM_SUMA.sch/OPAM_SUMA.spice",
     #  The secondary ESD cell. Its layout is not built by coil_layout but by
     #  openroad/scripts/esd_layout.py -- see that file for why.
+    #  KEPT, BUT NOT FABRICATED: what goes on silicon is io_secondary_5p0 below.
     "ESD_CDM": PROJECT / "XSCHEM_v2/simulation/ESD_CDM.sch/ESD_CDM.spice",
+    #  The organisers' secondary ESD, adopted as drawn (see
+    #  layouts_v2/io_secondary_5p0/README_ORIGEN.txt). It has no schematic of
+    #  ours, so the pin names and directions come from the same file that is its
+    #  LVS reference -- which is the file that describes what is drawn, and
+    #  therefore the only one that can be right about the ports.
+    "io_secondary_5p0": PROJECT / f"layouts_v2/io_secondary_5p0/io_secondary_5p0_lvs.spice",
 }
 
 #: Blocks that are NOT FINISHED. They are reported and let through instead of

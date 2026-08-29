@@ -1,0 +1,13 @@
+** sch_path: /foss/designs/a_zonetic2026/XSCHEM_v2/ESD_CDM2.sch
+**.subckt ESD_CDM2 PAD CORE VDD VSS
+*.ipin PAD
+*.opin CORE
+*.iopin VDD
+*.iopin VSS
+D1 VSS PAD diode_pd2nw_06v0 area='10u * 5u ' pj='2*10u + 2*5u '
+D2 PAD VDD diode_nd2ps_06v0 area='10u * 5u ' pj='2*10u + 2*5u '
+D3 VSS PAD diode_nd2ps_06v0 area='10u * 5u ' pj='2*10u + 2*5u '
+D4 PAD VDD diode_pd2nw_06v0 area='10u * 5u ' pj='2*10u + 2*5u '
+XR1 CORE PAD VSS ppolyf_u r_width=1e-6 r_length=10e-6 m=5
+**.ends
+.end

@@ -1,28 +1,18 @@
 ** sch_path: /foss/designs/a_zonetic2026/XSCHEM/TEST/test_comp_ac.sch
 **.subckt test_comp_ac
 V1 VDD GND 5
-V5 va vb 5
-x1 VDD vb OUT va GND COMP_sc
 V2 VDD1 GND 5
+Vin vin GND dc 0 ac 1
+Vcm vcm GND 2.5
+x1 VDD fb OUT vcm GND COMP_sc
+L1 OUT fb 1G
+C1 vin fb 1G
+L2 OUT1 fb1 1G
+C2 vin fb1 1G
+L3 OUT2 fb2 1G
+C3 vin fb2 1G
+V6 VDD2 GND 5
 **** begin user architecture code
-
-
-*.tran 1m 1
-.dc V5 -5m 5m 50u
-.save all
-.control
-run
-display
-*wrdata OUT4.txt v(WE) v(OUT) v(OUT_N)
-*wrdata CURR4.txt i(v.x1.Vmeas) i(v.x1.Vmeas1) i(v.x1.Vmeas2) i(v.x1.Vmeas3)
-*plot i(v.x1.Vmeas) i(v.x1.Vmeas1) i(v.x1.Vmeas2) i(v.x1.Vmeas3)
-plot v(OUT) v(OUT1)
-plot v(OUT)
-plot v(OUT1)
-*plot i(v.x1.v4)
-.endc
-
-
 
 .include /foss/pdks/gf180mcuD/libs.tech/ngspice/design.ngspice
 .lib /foss/pdks/gf180mcuD/libs.tech/ngspice/sm141064.ngspice typical
@@ -30,12 +20,34 @@ plot v(OUT1)
 .lib /foss/pdks/gf180mcuD/libs.tech/ngspice/sm141064.ngspice res_typical
 .lib /foss/pdks/gf180mcuD/libs.tech/ngspice/sm141064.ngspice moscap_typical
 .lib /foss/pdks/gf180mcuD/libs.tech/ngspice/sm141064.ngspice mimcap_typical
-* .lib /foss/pdks/gf180mcuD/libs.tech/ngspice/sm141064.ngspice res_statistical
 
 
 .include ../../../../Layouts/COMP/mag/COMP_pex_rc.spice
-Xextrc GND VDD1 OUT1 va vb COMP
-*Xextrc VSS VDD OUT IN+ IN- COMP
+Xextrc GND VDD1 OUT1 vcm fb1 COMP
+*COMP VSS VDD OUT INP INN
+
+
+* La v2 del layout, con su propio lazo de autopolarizacion (L3/C3, nodo fb2) y
+* su propia alimentacion, para poder medirla igual que a la v1.
+.include ../../../../layouts_v2/COMP/mag/COMP_V2_pex_rc.spice
+Xextrc2 GND VDD2 OUT2 vcm fb2 COMP_V2
+
+
+
+* OJO: ni una llave en este texto. xschem las cuenta para saber donde acaba el
+* bloque de atributos y una sola dentro de un comentario lo corta por la mitad,
+* dejando el netlist con el 'blabla' de la plantilla y sin dar ningun error.
+*
+* No se puede atar la entrada en continua y lanzar un .ac: el punto de
+* operacion cae saturado y linealizar ahi no significa nada. Cada rama lleva su
+* lazo de L de 1 GH y C de 1 GF: en continua la L es un corto y el lazo unitario
+* coloca al comparador en su propio offset; en alterna la L abre y la C
+* cortocircuita, y lo que se mide es la ganancia en lazo abierto.
+.save all
+.control
+ac dec 100 0.001 10G
+wrdata ac.txt v(OUT) v(OUT1) v(OUT2)
+.endc
 
 
 **** end user architecture code
@@ -44,20 +56,20 @@ Xextrc GND VDD1 OUT1 va vb COMP
 * expanding   symbol:  a_zonetic2026/XSCHEM/OPAM/COMP_sc.sym # of pins=5
 ** sym_path: /foss/designs/a_zonetic2026/XSCHEM/OPAM/COMP_sc.sym
 ** sch_path: /foss/designs/a_zonetic2026/XSCHEM/OPAM/COMP_sc.sch
-.subckt COMP_sc VDD IN- OUT IN+ VSS
-*.ipin IN-
-*.ipin IN+
+.subckt COMP_sc VDD INN OUT INP VSS
+*.ipin INN
+*.ipin INP
 *.iopin VDD
 *.iopin VSS
 *.iopin OUT
 x1 VDD net4 net3 net2 net1 VSS bias
-x2 VDD net4 net3 IN- OUT IN+ net2 net1 VSS sub_diff
+x2 VDD net4 net3 INN OUT INP net2 net1 VSS sub_diff
 .ends
 
 
-* expanding   symbol:  DESIGN/FINAL/OPAM/bias.sym # of pins=6
-** sym_path: /foss/designs/DESIGN/FINAL/OPAM/bias.sym
-** sch_path: /foss/designs/DESIGN/FINAL/OPAM/bias.sch
+* expanding   symbol:  a_zonetic2026/XSCHEM/OPAM/bias.sym # of pins=6
+** sym_path: /foss/designs/a_zonetic2026/XSCHEM/OPAM/bias.sym
+** sch_path: /foss/designs/a_zonetic2026/XSCHEM/OPAM/bias.sch
 .subckt bias vdd bias1 bias2 bias3 bias4 vss
 *.opin bias1
 *.opin bias2
@@ -96,9 +108,9 @@ XM50 bias1 bias2 net5 vss nfet_06v0 L=1.0u W=1.0u nf=1 ad='int((nf+1)/2) * W/nf 
 .ends
 
 
-* expanding   symbol:  DESIGN/FINAL/OPAM/sub_diff.sym # of pins=9
-** sym_path: /foss/designs/DESIGN/FINAL/OPAM/sub_diff.sym
-** sch_path: /foss/designs/DESIGN/FINAL/OPAM/sub_diff.sch
+* expanding   symbol:  a_zonetic2026/XSCHEM/OPAM/sub_diff.sym # of pins=9
+** sym_path: /foss/designs/a_zonetic2026/XSCHEM/OPAM/sub_diff.sym
+** sch_path: /foss/designs/a_zonetic2026/XSCHEM/OPAM/sub_diff.sch
 .subckt sub_diff vdd bias1 bias2 vinn out vinp bias3 bias4 vss
 *.opin out
 *.iopin vdd

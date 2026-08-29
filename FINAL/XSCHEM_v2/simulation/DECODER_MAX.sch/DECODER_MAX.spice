@@ -1,0 +1,118 @@
+** sch_path: /foss/designs/a_zonetic2026/XSCHEM_v2/DECODER_MAX.sch
+.subckt DECODER_MAX VDD XY XZ X Y YZ Z VSS
+*.ipin XY
+*.ipin XZ
+*.ipin YZ
+*.iopin VDD
+*.iopin VSS
+*.opin X
+*.opin Y
+*.opin Z
+x3 VDD XZ Z YZ VSS xGates
+x2 XY YZ VDD Y VSS yGates
+x1 VSS VDD XY XZ X Z
+**** begin user architecture code
+
+
+* EL DECODIFICADOR DEL MAXIMO. Mismas tres puertas que el DECODER de hoy, con
+* las entradas permutadas: no hace falta ninguna celda nueva.
+*
+*   xGates  = AND(a,b)        -> Z = XZ . YZ
+*   yGates  = AND(a,~b)       -> Y = XY . ~YZ
+*   Z       = NOR(a,b)        -> X = ~XY . ~XZ
+*
+* Con las componentes del gradiente a la entrada, esto senala cual es la MAS
+* POSITIVA, o sea hacia que sentido apunta el gradiente. El DECODER de hoy
+* senala la mas negativa. Los dos salen de los MISMOS tres comparadores, que es
+* lo que hace que el sentido cueste tres puertas y no una cadena entera.
+
+
+**** end user architecture code
+.ends
+
+* expanding   symbol:  a_zonetic2026/XSCHEM/DECODER/xGates.sym # of pins=5
+** sym_path: /foss/designs/a_zonetic2026/XSCHEM/DECODER/xGates.sym
+** sch_path: /foss/designs/a_zonetic2026/XSCHEM/DECODER/xGates.sch
+.subckt xGates VDD XY output XZ VSS
+*.ipin XY
+*.opin output
+*.ipin VDD
+*.ipin VSS
+*.ipin XZ
+x2 XY VDD XZ output VSS andGate
+.ends
+
+
+* expanding   symbol:  a_zonetic2026/XSCHEM/DECODER/yGates.sym # of pins=5
+** sym_path: /foss/designs/a_zonetic2026/XSCHEM/DECODER/yGates.sym
+** sch_path: /foss/designs/a_zonetic2026/XSCHEM/DECODER/yGates.sch
+.subckt yGates YZ XY VDD output VSS
+*.ipin VDD
+*.ipin VSS
+*.ipin YZ
+*.ipin XY
+*.opin output
+x2 VDD net1 XY VSS invertor
+x3 YZ VDD net1 output VSS andGate
+.ends
+
+
+* expanding   symbol:  a_zonetic2026/XSCHEM/DECODER/Z.sym # of pins=5
+** sym_path: /foss/designs/a_zonetic2026/XSCHEM/DECODER/Z.sym
+** sch_path: /foss/designs/a_zonetic2026/XSCHEM/DECODER/Z.sch
+.subckt Z VSS VDD XZ YZ out
+*.iopin VSS
+*.iopin VDD
+*.ipin XZ
+*.ipin YZ
+*.opin out
+XM4 net1 YZ out VDD pfet_06v0 L=1.0u W=3.0u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+XM5 VDD XZ net1 VDD pfet_06v0 L=1.0u W=3.0u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+XM7 VSS YZ out VSS nfet_06v0 L=1u W=1u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+XM1 VSS XZ out VSS nfet_06v0 L=1u W=1u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+.ends
+
+
+* expanding   symbol:  a_zonetic2026/XSCHEM/DECODER/andGate.sym # of pins=5
+** sym_path: /foss/designs/a_zonetic2026/XSCHEM/DECODER/andGate.sym
+** sch_path: /foss/designs/a_zonetic2026/XSCHEM/DECODER/andGate.sch
+.subckt andGate A VDD B output VSS
+*.ipin VDD
+*.ipin B
+*.ipin A
+*.ipin VSS
+*.opin output
+XM4 output net1 VDD VDD pfet_06v0 L=1.0u W=3.0u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+XM5 VSS net1 output VSS nfet_06v0 L=1u W=1u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+XM2 VDD A net1 VDD pfet_06v0 L=1.0u W=3.0u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+XM1 VDD B net1 VDD pfet_06v0 L=1.0u W=3.0u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+XM3 VSS A net2 VSS nfet_06v0 L=1u W=1u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+XM6 net2 B net1 VSS nfet_06v0 L=1u W=1u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+.ends
+
+
+* expanding   symbol:  a_zonetic2026/XSCHEM/DECODER/invertor.sym # of pins=4
+** sym_path: /foss/designs/a_zonetic2026/XSCHEM/DECODER/invertor.sym
+** sch_path: /foss/designs/a_zonetic2026/XSCHEM/DECODER/invertor.sch
+.subckt invertor VDD output In VSS
+*.opin output
+*.ipin In
+*.ipin VDD
+*.ipin VSS
+XM4 output In VDD VDD pfet_06v0 L=1.0u W=3.0u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+XM5 VSS In output VSS nfet_06v0 L=1u W=1u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+.ends
+
+.end

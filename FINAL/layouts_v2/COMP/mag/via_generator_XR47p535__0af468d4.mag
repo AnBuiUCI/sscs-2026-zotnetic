@@ -1,0 +1,11 @@
+magic
+tech gf180mcuD
+magscale 1 10
+timestamp 2083213696
+<< checkpaint >>
+rect 7505 1982 11561 6038
+use rectangle_S0p26_0p26_L3_05880557  rectangle_S0p26_0p26_L3_05880557_0
+timestamp 2083213696
+transform 1 0 9507 0 1 3984
+box -2 -2 54 54
+<< end >>

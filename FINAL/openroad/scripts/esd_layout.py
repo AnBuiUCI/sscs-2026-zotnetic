@@ -380,10 +380,12 @@ def write_lvs(path=None):
          for i in (1, 2)] +
         [f"D{i} PAD VDD diode_pd2nw_06v0 AREA={D_WA * D_LA:.0f}p PJ={2 * (D_WA + D_LA):.0f}u"
          for i in (3, 4)])
-    #  3000 ohm/square is the sheet the KLayout deck uses for ppolyf_u_3k, and
+    #  1000 ohm/square is the sheet the KLayout deck uses for ppolyf_u_1k, and
     #  netgen is given the same number through gf180mcuD_setup_polyres.tcl.
+    #  It is the implant this shuttle runs; the GEOMETRY is the same for 1k, 2k
+    #  and 3k, so nothing above this line changes with it.
     res = "\n".join(
-        f"R{i} CORE PAD VSS ppolyf_u_3k W={R_W}e-06 L={R_L}e-06 R={R_L / R_W * 3000:.0f}"
+        f"R{i} CORE PAD VSS ppolyf_u_1k W={R_W}e-06 L={R_L}e-06 R={R_L / R_W * 1000:.0f}"
         for i in range(1, R_N + 1))
     p = path or (OUT / f"{CELL}_lvs.spice")
     p.write_text(LVS_TEMPLATE.format(diodes=dio, resistors=res))

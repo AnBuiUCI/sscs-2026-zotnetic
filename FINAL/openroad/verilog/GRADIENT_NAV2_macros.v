@@ -5,7 +5,7 @@
 //      python3 scripts/spice_to_verilog.py
 //
 //  source: /foss/designs/a_zonetic2026/XSCHEM/simulation/GRADIENT_NAV2.sch/GRADIENT_NAV2.spice
-//  built:  2026-08-27 15:53
+//  built:  2026-08-29 06:36
 //
 //  This is what OpenROAD reads. Every instance below has a LEF MACRO,
 //  so there is nothing left to elaborate and nothing to place but the
@@ -64,12 +64,6 @@ module GRADIENT_NAV2 (
     wire   X1;
     wire   Y1;
     wire   Z1;
-    wire   S1N_I;
-    wire   S1P_I;
-    wire   S2N_I;
-    wire   S2P_I;
-    wire   S3N_I;
-    wire   S3P_I;
     wire   x2_SX;
     wire   x2_net1;
     wire   x2_SY;
@@ -79,8 +73,6 @@ module GRADIENT_NAV2 (
     wire   X2;
     wire   Y2;
     wire   Z2;
-    wire   S4N_I;
-    wire   S4P_I;
     wire   x3_SX;
     wire   x3_net1;
     wire   x3_SY;
@@ -99,9 +91,6 @@ module GRADIENT_NAV2 (
     wire   X4;
     wire   Y4;
     wire   Z4;
-    wire   X_I;
-    wire   Y_I;
-    wire   Z_I;
 
     COMP x1_x4 (
         .VDD(VDD),
@@ -227,154 +216,88 @@ module GRADIENT_NAV2 (
         .Z(Z4),
         .VSS(VSS)
     );
-    ESD_CDM xesdS1N (
-        .PAD(S1N),
-        .CORE(S1N_I),
-        .VDD(VDD),
-        .VSS(VSS)
-    );
-    ESD_CDM xesdS1P (
-        .PAD(S1P),
-        .CORE(S1P_I),
-        .VDD(VDD),
-        .VSS(VSS)
-    );
-    ESD_CDM xesdS2N (
-        .PAD(S2N),
-        .CORE(S2N_I),
-        .VDD(VDD),
-        .VSS(VSS)
-    );
-    ESD_CDM xesdS2P (
-        .PAD(S2P),
-        .CORE(S2P_I),
-        .VDD(VDD),
-        .VSS(VSS)
-    );
-    ESD_CDM xesdS3N (
-        .PAD(S3N),
-        .CORE(S3N_I),
-        .VDD(VDD),
-        .VSS(VSS)
-    );
-    ESD_CDM xesdS3P (
-        .PAD(S3P),
-        .CORE(S3P_I),
-        .VDD(VDD),
-        .VSS(VSS)
-    );
-    ESD_CDM xesdS4N (
-        .PAD(S4N),
-        .CORE(S4N_I),
-        .VDD(VDD),
-        .VSS(VSS)
-    );
-    ESD_CDM xesdS4P (
-        .PAD(S4P),
-        .CORE(S4P_I),
-        .VDD(VDD),
-        .VSS(VSS)
-    );
-    ESD_CDM xesdX (
-        .PAD(X),
-        .CORE(X_I),
-        .VDD(VDD),
-        .VSS(VSS)
-    );
-    ESD_CDM xesdY (
-        .PAD(Y),
-        .CORE(Y_I),
-        .VDD(VDD),
-        .VSS(VSS)
-    );
-    ESD_CDM xesdZ (
-        .PAD(Z),
-        .CORE(Z_I),
-        .VDD(VDD),
-        .VSS(VSS)
-    );
     OPAM_LIN_flat x1_x1 (
         .VDD(VDD),
-        .INN(S2N_I),
+        .INN(S2N),
         .OUT(x1_SY),
-        .INP(S2P_I),
+        .INP(S2P),
         .VSS(VSS)
     );
     OPAM_LIN_flat x1_x2 (
         .VDD(VDD),
-        .INN(S3N_I),
+        .INN(S3N),
         .OUT(x1_SZ),
-        .INP(S3P_I),
+        .INP(S3P),
         .VSS(VSS)
     );
     OPAM_LIN_flat x1_x8 (
         .VDD(VDD),
-        .INN(S1N_I),
+        .INN(S1N),
         .OUT(x1_SX),
-        .INP(S1P_I),
+        .INP(S1P),
         .VSS(VSS)
     );
     OPAM_LIN_flat x2_x1 (
         .VDD(VDD),
-        .INN(S2N_I),
+        .INN(S1N),
         .OUT(x2_SY),
-        .INP(S2P_I),
+        .INP(S1P),
         .VSS(VSS)
     );
     OPAM_LIN_flat x2_x2 (
         .VDD(VDD),
-        .INN(S4N_I),
+        .INN(S2N),
         .OUT(x2_SZ),
-        .INP(S4P_I),
+        .INP(S2P),
         .VSS(VSS)
     );
     OPAM_LIN_flat x2_x8 (
         .VDD(VDD),
-        .INN(S1N_I),
+        .INN(S4N),
         .OUT(x2_SX),
-        .INP(S1P_I),
+        .INP(S4P),
         .VSS(VSS)
     );
     OPAM_LIN_flat x3_x1 (
         .VDD(VDD),
-        .INN(S4N_I),
+        .INN(S4N),
         .OUT(x3_SY),
-        .INP(S4P_I),
+        .INP(S4P),
         .VSS(VSS)
     );
     OPAM_LIN_flat x3_x2 (
         .VDD(VDD),
-        .INN(S1N_I),
+        .INN(S1N),
         .OUT(x3_SZ),
-        .INP(S1P_I),
+        .INP(S1P),
         .VSS(VSS)
     );
     OPAM_LIN_flat x3_x8 (
         .VDD(VDD),
-        .INN(S3N_I),
+        .INN(S3N),
         .OUT(x3_SX),
-        .INP(S3P_I),
+        .INP(S3P),
         .VSS(VSS)
     );
     OPAM_LIN_flat x4_x1 (
         .VDD(VDD),
-        .INN(S4N_I),
+        .INN(S3N),
         .OUT(x4_SY),
-        .INP(S4P_I),
+        .INP(S3P),
         .VSS(VSS)
     );
     OPAM_LIN_flat x4_x2 (
         .VDD(VDD),
-        .INN(S2N_I),
+        .INN(S4N),
         .OUT(x4_SZ),
-        .INP(S2P_I),
+        .INP(S4P),
         .VSS(VSS)
     );
     OPAM_LIN_flat x4_x8 (
         .VDD(VDD),
-        .INN(S3N_I),
+        .INN(S2N),
         .OUT(x4_SX),
-        .INP(S3P_I),
+        .INP(S2P),
         .VSS(VSS)
     );
     WEIGHT_COMP x5_weight_comp (
@@ -384,9 +307,9 @@ module GRADIENT_NAV2 (
         .VB(X2),
         .VC(X3),
         .VD(X4),
-        .WE(X_I),
-        .OUT(XP),
-        .OUT_N(XN)
+        .WE(X),
+        .OUT(XN),
+        .OUT_N(XP)
     );
     WEIGHT_COMP x6_weight_comp (
         .VDD(VDD),
@@ -395,9 +318,9 @@ module GRADIENT_NAV2 (
         .VB(Y2),
         .VC(Y3),
         .VD(Y4),
-        .WE(Y_I),
-        .OUT(YP),
-        .OUT_N(YN)
+        .WE(Y),
+        .OUT(YN),
+        .OUT_N(YP)
     );
     WEIGHT_COMP x7_weight_comp (
         .VDD(VDD),
@@ -406,9 +329,9 @@ module GRADIENT_NAV2 (
         .VB(Z2),
         .VC(Z3),
         .VD(Z4),
-        .WE(Z_I),
-        .OUT(ZP),
-        .OUT_N(ZN)
+        .WE(Z),
+        .OUT(ZN),
+        .OUT_N(ZP)
     );
 
 endmodule

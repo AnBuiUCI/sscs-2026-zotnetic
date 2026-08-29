@@ -1,0 +1,61 @@
+** sch_path: /foss/designs/a_zonetic2026/XSCHEM_v2/RED_SUMA.sch
+**.subckt RED_SUMA XP1 XP2 XN1 XN2 YP1 YP2 YN1 YN2 ZP1 ZP2 ZN1 ZN2 GXP GXN GYP GYN GZP GZN VSS
+*.ipin XP1
+*.ipin XP2
+*.ipin XN1
+*.ipin XN2
+*.ipin YP1
+*.ipin YP2
+*.ipin YN1
+*.ipin YN2
+*.ipin ZP1
+*.ipin ZP2
+*.ipin ZN1
+*.ipin ZN2
+*.opin GXP
+*.opin GXN
+*.opin GYP
+*.opin GYN
+*.opin GZP
+*.opin GZN
+*.iopin VSS
+XRXP1 GXP XP1 VSS ppolyf_u_3k r_width=1e-6 r_length=55.56e-6 m=1 s=3
+XRXP2 GXP XP2 VSS ppolyf_u_3k r_width=1e-6 r_length=55.56e-6 m=1 s=3
+XRXN1 GXN XN1 VSS ppolyf_u_3k r_width=1e-6 r_length=55.56e-6 m=1 s=3
+XRXN2 GXN XN2 VSS ppolyf_u_3k r_width=1e-6 r_length=55.56e-6 m=1 s=3
+XRYP1 GYP YP1 VSS ppolyf_u_3k r_width=1e-6 r_length=55.56e-6 m=1 s=3
+XRYP2 GYP YP2 VSS ppolyf_u_3k r_width=1e-6 r_length=55.56e-6 m=1 s=3
+XRYN1 GYN YN1 VSS ppolyf_u_3k r_width=1e-6 r_length=55.56e-6 m=1 s=3
+XRYN2 GYN YN2 VSS ppolyf_u_3k r_width=1e-6 r_length=55.56e-6 m=1 s=3
+XRZP1 GZP ZP1 VSS ppolyf_u_3k r_width=1e-6 r_length=55.56e-6 m=1 s=3
+XRZP2 GZP ZP2 VSS ppolyf_u_3k r_width=1e-6 r_length=55.56e-6 m=1 s=3
+XRZN1 GZN ZN1 VSS ppolyf_u_3k r_width=1e-6 r_length=55.56e-6 m=1 s=3
+XRZN2 GZN ZN2 VSS ppolyf_u_3k r_width=1e-6 r_length=55.56e-6 m=1 s=3
+**** begin user architecture code
+
+
+* RED SUMADORA. Doce resistencias de poly de 500 kohm en seis pares: cada par
+* promedia dos nodos de puente en un nodo de salida, y de ahi salen las tres
+* componentes del gradiente en diferencial.
+*
+* POR QUE 500 kohm. El puente tiene 500 kohm de impedancia de salida (dos ramas
+* de 1 Mohm en paralelo), asi que la red lo carga. Resolviendo el circuito
+* entero: con 100 kohm la senal se atenua 10.5 veces y con 1 Mohm solo 1.5, pero
+* 1 Mohm son 333 um de poly por resistencia y 28k um2 en total, casi un tercio
+* del area de macros del top. 500 kohm deja la atenuacion en 2.5 veces por 14k
+* um2, y subir mas da rendimientos decrecientes.
+*
+* La carga ATENUA pero no mezcla: la red es simetrica y el acoplo entre puentes
+* se cancela en diferencial. Comprobado resolviendo la red: la ganancia sale
+* identica para las tres componentes de las cuatro cadenas, asi que tampoco mete
+* anisotropia por la puerta de atras.
+*
+* Que sensor va a cada entrada, y con que signo, lo decide el TOP. Los cuatro
+* trios usan pares distintos de sensores, pero la FORMA es la misma -- dos
+* sensores por componente con peso +-0.5 -- asi que esta celda sirve para los
+* cuatro y el signo se hace eligiendo si va la pata P o la N.
+
+
+**** end user architecture code
+**.ends
+.end

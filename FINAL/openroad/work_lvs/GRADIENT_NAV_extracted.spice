@@ -1,6 +1,6 @@
 * NGSPICE file created from GRADIENT_NAV.ext - technology: gf180mcuD
 
-.subckt GRADIENT_NAV S2N S2P X XP S1N S1P S3N S3P S4N S4P XN Y YN YP Z ZN ZP VDD VSS
+.subckt GRADIENT_NAV S2N S2P X XN XP S1N S1P S3N S3P S4N S4P Y YN YP Z ZN ZP VDD VSS
 X0 a_27480_4860# a_23302_4744# a_25466_8260# VSS nfet_06v0 ad=1.1p pd=5.88u as=1.1p ps=5.88u w=2.5u l=1u
 X1 a_31310_31016# a_26982_30900# VSS VSS nfet_06v0 ad=1.25p pd=5.5u as=2.2p ps=10.88u w=5u l=1u
 X2 a_6648_57052# a_9306_60336# a_7070_60452# VDD pfet_06v0 ad=2.2p pd=10.88u as=2.2p ps=10.88u w=5u l=1u

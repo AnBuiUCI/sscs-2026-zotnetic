@@ -3,3 +3,14 @@
 __pycache__/
 *.pyc
 .ext/
+
+#  Documents, and the scripts whose only job is to make them. These are the
+#  team's own working material and are shared through another channel; the
+#  repository is the DESIGN. Knowledge documents -- HANDOFF.md, the READMEs --
+#  do go up: they are what lets someone pick the flow back up.
+*.pdf
+hacer_pdf*
+documento.py
+figuras*.py
+graficas.py
+capturar*.py

@@ -1,5 +1,10 @@
 # OpenROAD collateral
 
+> **Coming to this cold? Read `../HANDOFF.md` first.** It carries the state of
+> every block as of 2026-08-29, the one thing to do next, and every fact in this
+> flow that cost a build to learn. This file is the long logbook underneath it.
+
+
 Everything OpenROAD needs to assemble the analog blocks of this project into the
 top level, `GRADIENT_NAV`. Nothing here is a source: it is all generated from the
 layouts and the xschem netlist, and it is regenerated with one command.
@@ -963,7 +968,7 @@ Two things worth keeping in mind when using this:
 
 ## The schematic is AHEAD of the GDS. Read this before running LVS.
 
-As of 2026-08-27 the design in `XSCHEM/` carries three fixes that are **not in
+As of 2026-08-28 the design in `XSCHEM/` carries four changes that are **not in
 the GDS**, because rebuilding the top was deliberately deferred until the
 organisers send a padring generated from the reordered `info.yaml`. Rebuilding
 it twice would waste a full flow.
@@ -983,9 +988,49 @@ What is in the schematic and not in the layout:
    their three legs, which correlated the votes and pushed the ideal ties to
    36 %. They are now the four rotations and the ties drop to 1.3 %.
 
-Measured over the whole sphere, the three together take the top from **0 % right
-and 100 % undecided** to **69.96 / 83.68 / 90.70 %** at the three gradient
-levels, matching the reference implementation digit for digit.
+4. **`OPAM_LIN` runs on the 1 kohm HRES sheet.** The integration README fixes
+   `ppolyf_u_1k` for this shuttle and the cell was written for `ppolyf_u_3k`.
+   In the PDK's LVS deck the three values are a SWITCH and not a layer --
+   `case POLY_RES when '1k'` over the same `RES_MK` on the same poly -- so
+   **not one polygon of the resistor changes**: the same 382 squares are
+   382 kohm instead of 1.147 Mohm. What changes is the gain, from 103 to
+   33 V/V, because this stage's gain is Gm x RFB. Redrawing the resistor three
+   times longer would have been 15 strips instead of 5, +22.5 um of channel
+   and a cell 47 % bigger, twelve times over, so the factor of three was bought
+   back in the transistors:
+
+       M21 1u -> 7.5u, M22 1u -> 8.5u   the nfet pair takes over Gm, and its
+                                        asymmetry the positive offset
+       M29, M30 5u -> 10u               the cascode: with RFB/3 the summing
+                                        node asks for 3x the current, and this
+                                        is what fixes the linearity
+       M43 0.5u -> 1.0u (m=4)           the top of the output swing
+       M15 1.1u -> 0.55u, M16 -> 0.5u   the pfet pair carries no Gm any more,
+       M27, M28 2.5u -> 2u              so narrowing it and the class-AB
+       M32, M33 5u -> 4u                drivers gives the power back
+       C1, C3 4x25 -> 8x25 um           Miller: 3x the Gm on the same Cc cost
+                                        18 deg of phase margin. A MIM is on
+                                        Metal4/5, so it costs no silicon.
+
+   Measured: gain 103.3 vs 103.4 V/V, INL **0.10 vs 0.12 %**, offset +20.0 vs
+   +23.9 mV, phase margin 76.0 vs 76.6 deg, 2.673 vs 2.550 mW -- under the
+   2.753 mW of the OPAMt this family may not exceed. Over 27 corners of
+   process, temperature and supply: gain 50.1..189.4 against 47.5..188.0, INL
+   never worse than 0.68 % against 3.10 %, phase margin never under 73.8
+   against 75.3. See `XSCHEM/TEST/run_opam_rfb.sh`.
+
+Measured over the whole sphere, the first three together take the top from
+**0 % right and 100 % undecided** to **69.96 / 83.68 / 90.70 %** at the three
+gradient levels, matching the reference implementation digit for digit.
+
+**What this means for LVS.** Both LVS scripts read the sheet from the REFERENCE
+netlist and rename the extraction to match, and the extraction always comes out
+as `ppolyf_u_1k`; with the schematic now on 1k the rename is a no-op and
+`lvs_klayout.ajustar_hoja` / `lvs_netgen._hoja_resistencia` do nothing. Nothing
+to configure. But `Layouts/OPAM_LIN_flat/` and `layouts_v2/OPAM_LIN_flat/` still
+hold the OLD transistor sizes, so **do not regenerate their reference netlists
+until the cell is rebuilt** -- the reference would move and the extraction would
+not, and LVS would fail on a layout that is merely out of date.
 
 ### What that means for the files here
 

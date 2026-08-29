@@ -1,0 +1,9 @@
+bloque : OPAM
+fecha  : 2026-08-18 18:02:48
+GDS    : /foss/designs/a_zonetic2026/layouts/OPAM/OPAM_flat_gf180.gds
+ref    : /foss/designs/a_zonetic2026/layouts/OPAM/OPAM_lvs.spice
+sustrato: VSS
+hoja poly: n/a
+setup netgen: /foss/pdks/gf180mcuD/libs.tech/netgen/gf180mcuD_setup.tcl
+KLayout: LIMPIO
+netgen : CASAN (con avisos de propiedad)

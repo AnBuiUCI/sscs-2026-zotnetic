@@ -1,0 +1,42 @@
+magic
+tech gf180mcuD
+magscale 1 10
+timestamp 2083213696
+<< checkpaint >>
+rect -2356 -2080 17419 2200
+<< polycontact >>
+rect -114 128 -70 172
+rect 15361 128 15405 172
+rect -114 28 -70 72
+rect 15361 28 15405 72
+use rectangle_S0p4599999999_adde4bd2  rectangle_S0p4599999999_adde4bd2_0
+timestamp 2083213696
+transform 1 0 -356 0 1 -4
+box 0 0 1 1
+use rectangle_S0p8200000000_9964749d  rectangle_S0p8200000000_9964749d_0
+array 0 1 15455 0 0 0
+timestamp 2083213696
+transform 1 0 -164 0 1 -36
+box 0 0 1 1
+use rectangle_S76p455_1_Lre_bc4df2db  rectangle_S76p455_1_Lre_bc4df2db_0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box 0 0 1 1
+use rectangle_S76p656_1p56__2167bb64  rectangle_S76p656_1p56__2167bb64_0
+timestamp 2083213696
+transform 1 0 -20 0 1 -56
+box 0 0 1 1
+use rectangle_S77p736_1_Lpo_a57af4d5  rectangle_S77p736_1_Lpo_a57af4d5_0
+timestamp 2083213696
+transform 1 0 -128 0 1 0
+box 0 0 15547 200
+use rectangle_S78p536_1p8_L_081affc1  rectangle_S78p536_1p8_L_081affc1_0
+timestamp 2083213696
+transform 1 0 -208 0 1 -80
+box 0 0 1 1
+use via_stack_XRm0p64_m0p28_1fd7b39f  via_stack_XRm0p64_m0p28_1fd7b39f_0
+array 0 1 15475 0 0 0
+timestamp 2083213696
+transform 1 0 0 0 1 0
+box -126 16 -58 184
+<< end >>

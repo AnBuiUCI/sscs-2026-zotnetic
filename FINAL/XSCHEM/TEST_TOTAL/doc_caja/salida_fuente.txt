@@ -1,0 +1,40 @@
+
+====================================================================================
+  DOES IT POINT AT THE SOURCE?   angle between the gradient recovered from the
+  four bridges and the direction to the source
+====================================================================================
+  model       distance        chip   perfect chip   what the chip adds
+  dipolo         3000um     16.531d        16.405d               0.126d
+  dipolo         6000um     12.309d        11.659d               0.650d
+  dipolo        12000um     12.410d         9.917d               2.493d
+  simetrico      3000um     14.460d        14.208d               0.252d
+  simetrico      6000um      9.016d         7.557d               1.458d
+  simetrico     12000um     11.318d         3.840d               7.477d
+
+  'perfect chip' is the same reconstruction from the IDEAL readings,
+  so it is what GEOMETRY AND PHYSICS put in and no circuit can remove:
+  the four sensors take a finite difference over a 1 mm box, and over
+  that box the field of a source 3 mm away is far from linear. It gets
+  better as the source moves away. The last column, what the chip adds,
+  gets WORSE as it moves away, because the signal weakens while the
+  200 ppm of sensor offset stays. The two cross: there is a best
+  distance, not a monotonic 'closer is better'.
+
+====================================================================================
+  AND THE DECISION
+====================================================================================
+  model       distance  version          hit   undecided  ideal_read ties
+  dipolo         3000um  NAV2 (top)    93.21%       0.00%        0.00%
+  dipolo         3000um  NAV2_V2       93.21%       0.00%        0.00%
+  dipolo         6000um  NAV2 (top)    90.57%       0.00%        0.00%
+  dipolo         6000um  NAV2_V2       90.57%       0.00%        0.00%
+  dipolo        12000um  NAV2 (top)    84.31%       0.00%        0.00%
+  dipolo        12000um  NAV2_V2       84.31%       0.00%        0.00%
+  simetrico      3000um  NAV2 (top)    90.77%       0.00%        0.00%
+  simetrico      3000um  NAV2_V2       90.77%       0.00%        0.00%
+  simetrico      6000um  NAV2 (top)    86.86%       0.00%        0.00%
+  simetrico      6000um  NAV2_V2       86.86%       0.00%        0.00%
+  simetrico     12000um  NAV2 (top)    76.12%       0.00%        0.00%
+  simetrico     12000um  NAV2_V2       76.12%       0.00%        0.00%
+
+  data -> datos_fuente/fuente.csv

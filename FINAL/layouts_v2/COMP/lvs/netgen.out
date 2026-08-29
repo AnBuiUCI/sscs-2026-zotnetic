@@ -1,0 +1,54 @@
+
+Class COMP (0):  Merged 24 parallel devices.
+Class COMP (1):  Merged 24 parallel devices.
+Subcircuit summary:
+Circuit 1: COMP                            |Circuit 2: COMP                            
+-------------------------------------------|-------------------------------------------
+pfet_06v0 (37->25)                         |pfet_06v0 (37->25)                         
+nfet_06v0 (37->25)                         |nfet_06v0 (37->25)                         
+cap_mim_2f0fF (2)                          |cap_mim_2f0fF (2)                          
+Number of devices: 52                      |Number of devices: 52                      
+Number of nets: 37                         |Number of nets: 37                         
+---------------------------------------------------------------------------------------
+Resolving symmetries by property value.
+Resolving symmetries by pin name.
+Resolving symmetries by net name.
+Netlists match with 6 symmetries with property errors.
+cap_mim_2f0fF:$32 vs. cap_mim_2f0fF:3:
+Property P in circuit1 has no matching property in circuit2
+cap_mim_2f0fF:$32 vs. cap_mim_2f0fF:3:
+Property A in circuit1 has no matching property in circuit2
+cap_mim_2f0fF:$32 vs. cap_mim_2f0fF:3:
+Property value in circuit1 has no matching property in circuit2
+cap_mim_2f0fF:$32 vs. cap_mim_2f0fF:3:
+Property L in circuit2 has no matching property in circuit1
+cap_mim_2f0fF:$32 vs. cap_mim_2f0fF:3:
+Property W in circuit2 has no matching property in circuit1
+cap_mim_2f0fF:$31 vs. cap_mim_2f0fF:2:
+Property P in circuit1 has no matching property in circuit2
+cap_mim_2f0fF:$31 vs. cap_mim_2f0fF:2:
+Property A in circuit1 has no matching property in circuit2
+cap_mim_2f0fF:$31 vs. cap_mim_2f0fF:2:
+Property value in circuit1 has no matching property in circuit2
+cap_mim_2f0fF:$31 vs. cap_mim_2f0fF:2:
+Property L in circuit2 has no matching property in circuit1
+cap_mim_2f0fF:$31 vs. cap_mim_2f0fF:2:
+Property W in circuit2 has no matching property in circuit1
+
+Subcircuit pins:
+Circuit 1: COMP                            |Circuit 2: COMP                            
+-------------------------------------------|-------------------------------------------
+OUT                                        |OUT                                        
+VDD                                        |VDD                                        
+VSS                                        |VSS                                        
+INP                                        |INP                                        
+INN                                        |INN                                        
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes COMP and COMP are equivalent.
+
+Final result: Circuits match uniquely.
+Property errors were found.
+
+The following cells had property errors:
+ COMP

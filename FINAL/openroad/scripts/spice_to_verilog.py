@@ -44,7 +44,7 @@ OUT_FLAT = VERILOG / f"{TOP}_macros.v"
 
 #: Blocks that have a layout, so they are hard macros no matter what is inside.
 MACROS = {"COMP", "OPAM", "OPAM_LIN_flat", "DECODER", "WEIGHT_COMP",
-          "DECODER_MAX", "OPAM_SUMA", "ESD_CDM"}
+          "DECODER_MAX", "OPAM_SUMA", "ESD_CDM", "io_secondary_5p0"}
 
 #: Schematic cell -> layout macro, when the two are not named the same.
 #: `OPAM_LIN_flat.sch` is the flattened version of `OPAM_LIN.sch` drawn for the
