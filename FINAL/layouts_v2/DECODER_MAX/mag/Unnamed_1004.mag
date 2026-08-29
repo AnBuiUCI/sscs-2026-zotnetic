@@ -3,34 +3,40 @@ tech gf180mcuD
 magscale 1 10
 timestamp 2083213696
 << checkpaint >>
-rect -2192 -2120 2420 2720
-<< nwell >>
-rect -192 -120 420 720
-<< hvpmos >>
-rect 14 0 214 600
-<< mvpdiff >>
-rect -74 573 14 600
-rect -74 27 -61 573
-rect -15 27 14 573
+rect -2074 -2044 2302 2316
+<< hvnmos >>
+rect 14 0 214 200
+<< mvndiff >>
+rect -74 173 14 200
+rect -74 27 -61 173
+rect -15 27 14 173
 rect -74 0 14 27
-rect 214 0 302 600
-<< mvpdiffc >>
-rect -61 27 -15 573
+rect 214 173 302 200
+rect 214 27 243 173
+rect 289 27 302 173
+rect 214 0 302 27
+<< mvndiffc >>
+rect -61 27 -15 173
+rect 243 27 289 173
 << polysilicon >>
-rect 14 600 214 644
-rect 14 -57 214 0
-rect 14 -103 41 -57
-rect 187 -103 214 -57
-rect 14 -116 214 -103
+rect 14 303 214 316
+rect 14 257 41 303
+rect 187 257 214 303
+rect 14 200 214 257
+rect 14 -44 214 0
 << polycontact >>
-rect 41 -103 187 -57
+rect 41 257 187 303
 << metal1 >>
-rect -72 573 0 600
-rect -72 27 -61 573
-rect -15 27 0 573
+rect 14 303 214 316
+rect 14 257 41 303
+rect 187 257 214 303
+rect 14 244 214 257
+rect -72 173 0 200
+rect -72 27 -61 173
+rect -15 27 0 173
 rect -72 0 0 27
-rect 14 -57 214 -44
-rect 14 -103 41 -57
-rect 187 -103 214 -57
-rect 14 -116 214 -103
+rect 228 173 300 200
+rect 228 27 243 173
+rect 289 27 300 173
+rect 228 0 300 27
 << end >>

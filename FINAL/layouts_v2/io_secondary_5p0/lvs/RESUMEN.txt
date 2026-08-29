@@ -1,0 +1,9 @@
+bloque : io_secondary_5p0
+fecha  : 2026-08-29 22:04:40
+GDS    : /foss/designs/a_zonetic2026/layouts_v2/io_secondary_5p0/io_secondary_5p0_flat_gf180.gds
+ref    : /foss/designs/a_zonetic2026/layouts_v2/io_secondary_5p0/io_secondary_5p0_lvs.spice
+sustrato: VSS
+hoja poly: n/a
+setup netgen: /foss/pdks/gf180mcuD/libs.tech/netgen/gf180mcuD_setup.tcl
+KLayout: LIMPIO
+netgen : CASAN (con avisos de propiedad)

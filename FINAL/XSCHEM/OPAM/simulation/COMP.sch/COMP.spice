@@ -9,9 +9,9 @@ x1 VDD net4 net3 net2 net1 VSS bias
 x2 VDD net4 net3 INN OUT INP net2 net1 VSS sub_diff
 **.ends
 
-* expanding   symbol:  DESIGN/FINAL/OPAM/bias.sym # of pins=6
-** sym_path: /foss/designs/DESIGN/FINAL/OPAM/bias.sym
-** sch_path: /foss/designs/DESIGN/FINAL/OPAM/bias.sch
+* expanding   symbol:  a_zonetic2026/XSCHEM/OPAM/bias.sym # of pins=6
+** sym_path: /foss/designs/a_zonetic2026/XSCHEM/OPAM/bias.sym
+** sch_path: /foss/designs/a_zonetic2026/XSCHEM/OPAM/bias.sch
 .subckt bias vdd bias1 bias2 bias3 bias4 vss
 *.opin bias1
 *.opin bias2
@@ -50,9 +50,9 @@ XM50 bias1 bias2 net5 vss nfet_06v0 L=1.0u W=1.0u nf=1 ad='int((nf+1)/2) * W/nf 
 .ends
 
 
-* expanding   symbol:  DESIGN/FINAL/OPAM/sub_diff.sym # of pins=9
-** sym_path: /foss/designs/DESIGN/FINAL/OPAM/sub_diff.sym
-** sch_path: /foss/designs/DESIGN/FINAL/OPAM/sub_diff.sch
+* expanding   symbol:  a_zonetic2026/XSCHEM/OPAM/sub_diff.sym # of pins=9
+** sym_path: /foss/designs/a_zonetic2026/XSCHEM/OPAM/sub_diff.sym
+** sch_path: /foss/designs/a_zonetic2026/XSCHEM/OPAM/sub_diff.sch
 .subckt sub_diff vdd bias1 bias2 vinn out vinp bias3 bias4 vss
 *.opin out
 *.iopin vdd

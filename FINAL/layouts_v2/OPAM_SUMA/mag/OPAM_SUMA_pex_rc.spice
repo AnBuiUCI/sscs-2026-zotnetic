@@ -2,6 +2,14 @@
 *   magic no extrae los taps de este layout y los dejaba flotando;
 *   la conexion si existe (el LVS de KLayout da 'match uniquely').
 *   Quien detecta un tap que falte de verdad es el LVS, no esto.
+* Nodos de bulk atados: 0 de pozo n -> VDD, 1 de sustrato -> VSS.
+*   magic no extrae los taps de este layout y los dejaba flotando;
+*   la conexion si existe (el LVS de KLayout da 'match uniquely').
+*   Quien detecta un tap que falte de verdad es el LVS, no esto.
+* Nodos de bulk atados: 0 de pozo n -> VDD, 1 de sustrato -> VSS.
+*   magic no extrae los taps de este layout y los dejaba flotando;
+*   la conexion si existe (el LVS de KLayout da 'match uniquely').
+*   Quien detecta un tap que falte de verdad es el LVS, no esto.
 * Nodos de bulk atados: 28 de pozo n -> VDD, 26 de sustrato -> VSS.
 *   magic no extrae los taps de este layout y los dejaba flotando;
 *   la conexion si existe (el LVS de KLayout da 'match uniquely').

@@ -1,0 +1,26 @@
+PARTIAL RUN -- 48 of 63 rule tables. NOT a sign-off.
+=====================================================
+
+Stopped on purpose on 2026-08-29: the run was eating the machine and the GDS it
+was checking is due to be rebuilt anyway (out_integration/B26_A.gds predates the
+1 kohm amplifier and the adopted io_secondary_5p0).
+
+What the 48 tables that DID run found:  0 violations.
+
+That includes metal1..metal5 and metaltop_30k, which is the point: the previous
+run on this cell reported 57 x M2.2b, caused by the density fill using the
+MINIMUM metal spacing (0.28 um) where the rule wants the WIDE one (0.30, and
+0.50 on the top metal) next to the padring's 44 x 55 um Metal2 pin ports.
+fill_density.LAYERS now uses the wide spacing and the metal tables come out
+clean.
+
+Tables that never ran: dummy_exclude, layers_def, lvpwell, metaltop, and the
+rest of the 63.
+
+DO NOT read this directory as a clean DRC. Counting violations over whichever
+.lyrdb happen to be there is exactly how a run that died reads as zero. The full
+sign-off has to be re-run on the rebuilt GDS:
+
+    cd /foss/designs/a_zonetic2026/openroad
+    TOP_OUT=out_integration TOP_CELL=B26_A \
+      env -u PYTHONPATH python3 scripts/drc_klayout.py B26_A_FILLED

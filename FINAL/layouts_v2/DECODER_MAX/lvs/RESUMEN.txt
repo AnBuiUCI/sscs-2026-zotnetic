@@ -1,5 +1,5 @@
 bloque : DECODER_MAX
-fecha  : 2026-08-29 10:32:07
+fecha  : 2026-08-29 18:10:25
 GDS    : /foss/designs/a_zonetic2026/layouts_v2/DECODER_MAX/DECODER_MAX_flat_gf180.gds
 ref    : /foss/designs/a_zonetic2026/layouts_v2/DECODER_MAX/DECODER_MAX_lvs.spice
 sustrato: VSS

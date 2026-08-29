@@ -28,7 +28,7 @@ X19 VDD WE WE VDD pfet_06v0 ad=0.52p pd=2.52u as=0.52p ps=2.52u w=2u l=1u
 X20 a_n74_1208# VD WE VSS nfet_06v0 ad=1.0912p pd=5.84u as=0.6448p ps=3u w=2.48u l=1u
 X21 a_2882_1208# WE a_4282_1138# VSS nfet_06v0 ad=0.88p pd=4.88u as=0.5p ps=2.5u w=2u l=1u
 X22 a_3260_3548# WE VDD VDD pfet_05v0 ad=0.8052p pd=4.54u as=0.8052p ps=4.54u w=1.83u l=0.5u
-X23 a_908_0# a_n24_n116# VSS VSS nfet_06v0 ad=0.5456p pd=3.36u as=0.5456p ps=3.36u w=1.24u l=1u
+X23 a_n74_1208# a_n24_n116# VSS VSS nfet_06v0 ad=0.5456p pd=3.36u as=0.5456p ps=3.36u w=1.24u l=1u
 X24 WE VB a_1038_1208# VSS nfet_06v0 ad=0.6448p pd=3u as=1.0912p ps=5.84u w=2.48u l=1u
 X25 WE WE a_2882_1208# VSS nfet_06v0 ad=0.52p pd=2.52u as=0.88p ps=4.88u w=2u l=1u
 X26 a_176_0# VC WE VSS nfet_06v0 ad=1.0912p pd=5.84u as=0.6448p ps=3u w=2.48u l=1u

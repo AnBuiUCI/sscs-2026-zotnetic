@@ -5,7 +5,7 @@
 //      python3 scripts/spice_to_verilog.py
 //
 //  source: /foss/designs/a_zonetic2026/XSCHEM/simulation/GRADIENT_NAV2.sch/GRADIENT_NAV2.spice
-//  built:  2026-08-29 06:36
+//  built:  2026-08-29 18:13
 //
 //  This is what OpenROAD reads. Every instance below has a LEF MACRO,
 //  so there is nothing left to elaborate and nothing to place but the

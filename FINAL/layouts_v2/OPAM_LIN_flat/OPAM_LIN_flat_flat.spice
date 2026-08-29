@@ -1,6 +1,6 @@
 * fuente: /foss/designs/a_zonetic2026/XSCHEM/OPAM/simulation/OPAM_LIN_flat.sch/OPAM_LIN_flat.spice
 * leida via enlace: /foss/designs/a_zonetic2026/spice_blocks/OPAM_LIN_flat.spice
-* fecha de la fuente: 2026-08-29 05:39   sha1: 7bf8b67967
+* fecha de la fuente: 2026-08-29 17:58   sha1: 7bf8b67967
 * generado por flatten_spice.py — NO editar a mano
 * netlist plana generada por flatten_spice.py (top: OPAM_LIN_flat)
 * 53 MOSFETs; nets fusionadas por V=0: ninguna

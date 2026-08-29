@@ -33,15 +33,15 @@ value="
 C {a_zonetic2026/XSCHEM/GRADIENT_NAV2.sym} 0 0 0 0 {name=x_core}
 C {lab_pin.sym} 0 -130 1 0 {name=p_core_VDD sig_type=std_logic lab=VDD}
 C {lab_pin.sym} 0 90 1 0 {name=p_core_VSS sig_type=std_logic lab=VSS}
-C {lab_pin.sym} 150 -100 0 0 {name=p_core_XP sig_type=std_logic lab=XP}
+C {lab_pin.sym} 150 -100 0 0 {name=p_core_XP sig_type=std_logic lab=XP_OUT}
 C {lab_pin.sym} 150 -80 0 0 {name=p_core_X sig_type=std_logic lab=X_I}
-C {lab_pin.sym} 150 -60 0 0 {name=p_core_XN sig_type=std_logic lab=XN}
-C {lab_pin.sym} 150 -40 0 0 {name=p_core_YP sig_type=std_logic lab=YP}
+C {lab_pin.sym} 150 -60 0 0 {name=p_core_XN sig_type=std_logic lab=XN_OUT}
+C {lab_pin.sym} 150 -40 0 0 {name=p_core_YP sig_type=std_logic lab=YP_OUT}
 C {lab_pin.sym} 150 -20 0 0 {name=p_core_Y sig_type=std_logic lab=Y_I}
-C {lab_pin.sym} 150 0 0 0 {name=p_core_YN sig_type=std_logic lab=YN}
-C {lab_pin.sym} 150 20 0 0 {name=p_core_ZP sig_type=std_logic lab=ZP}
+C {lab_pin.sym} 150 0 0 0 {name=p_core_YN sig_type=std_logic lab=YN_OUT}
+C {lab_pin.sym} 150 20 0 0 {name=p_core_ZP sig_type=std_logic lab=ZP_OUT}
 C {lab_pin.sym} 150 40 0 0 {name=p_core_Z sig_type=std_logic lab=Z_I}
-C {lab_pin.sym} 150 60 0 0 {name=p_core_ZN sig_type=std_logic lab=ZN}
+C {lab_pin.sym} 150 60 0 0 {name=p_core_ZN sig_type=std_logic lab=ZN_OUT}
 C {lab_pin.sym} -150 -60 0 0 {name=p_core_S2P sig_type=std_logic lab=S2P_I}
 C {lab_pin.sym} -150 -40 0 0 {name=p_core_S2N sig_type=std_logic lab=S2N_I}
 C {lab_pin.sym} -150 40 0 0 {name=p_core_S4P sig_type=std_logic lab=S4P_I}
@@ -113,14 +113,181 @@ C {devices/ipin.sym} -1600 -720 0 0 {name=port_S3P lab=S3P}
 C {devices/ipin.sym} -1600 -700 0 0 {name=port_S3N lab=S3N}
 C {devices/ipin.sym} -1600 -680 0 0 {name=port_S4P lab=S4P}
 C {devices/ipin.sym} -1600 -660 0 0 {name=port_S4N lab=S4N}
-C {devices/opin.sym} -1600 -640 0 0 {name=port_XP lab=XP}
+C {devices/opin.sym} -1600 -640 0 0 {name=port_XP_OUT lab=XP_OUT}
 C {devices/opin.sym} -1600 -620 0 0 {name=port_X lab=X}
-C {devices/opin.sym} -1600 -600 0 0 {name=port_XN lab=XN}
-C {devices/opin.sym} -1600 -580 0 0 {name=port_YP lab=YP}
+C {devices/opin.sym} -1600 -600 0 0 {name=port_XN_OUT lab=XN_OUT}
+C {devices/opin.sym} -1600 -580 0 0 {name=port_YP_OUT lab=YP_OUT}
 C {devices/opin.sym} -1600 -560 0 0 {name=port_Y lab=Y}
-C {devices/opin.sym} -1600 -540 0 0 {name=port_YN lab=YN}
-C {devices/opin.sym} -1600 -520 0 0 {name=port_ZP lab=ZP}
+C {devices/opin.sym} -1600 -540 0 0 {name=port_YN_OUT lab=YN_OUT}
+C {devices/opin.sym} -1600 -520 0 0 {name=port_ZP_OUT lab=ZP_OUT}
 C {devices/opin.sym} -1600 -500 0 0 {name=port_Z lab=Z}
-C {devices/opin.sym} -1600 -480 0 0 {name=port_ZN lab=ZN}
+C {devices/opin.sym} -1600 -480 0 0 {name=port_ZN_OUT lab=ZN_OUT}
 C {devices/iopin.sym} -1600 -460 0 0 {name=port_VDD lab=VDD}
 C {devices/iopin.sym} -1600 -440 0 0 {name=port_VSS lab=VSS}
+C {devices/code_shown.sym} 700 700 0 0 {name=DESACOPLE only_toplevel=true value="
+* Decoupling capacitors: NMOS and PMOS in inversion dropped into
+* the gaps between macros. WRITTEN BY scripts/decap_fill.py -- do
+* not edit by hand: it must be exactly what is in the GDS.
+XMdecn0 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.0u nf=1 m=1
+XMdecn1 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.0u nf=1 m=1
+XMdecn2 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.0u nf=1 m=1
+XMdecn3 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.0u nf=1 m=1
+XMdecn4 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.0u nf=1 m=1
+XMdecn5 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.0u nf=1 m=1
+XMdecn6 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.0u nf=1 m=1
+XMdecn7 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.0u nf=1 m=1
+XMdecn8 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.0u nf=1 m=1
+XMdecn9 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.0u nf=1 m=1
+XMdecn10 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.0u nf=1 m=1
+XMdecn11 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.0u nf=1 m=1
+XMdecn12 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.0u nf=1 m=1
+XMdecp13 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.0u nf=1 m=1
+XMdecp14 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.0u nf=1 m=1
+XMdecp15 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.0u nf=1 m=1
+XMdecp16 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.0u nf=1 m=1
+XMdecp17 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.0u nf=1 m=1
+XMdecp18 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.0u nf=1 m=1
+XMdecp19 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.0u nf=1 m=1
+XMdecp20 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.0u nf=1 m=1
+XMdecp21 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.0u nf=1 m=1
+XMdecp22 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.0u nf=1 m=1
+XMdecp23 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.0u nf=1 m=1
+XMdecp24 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.0u nf=1 m=1
+XMdecn25 VSS VDD VSS VSS nfet_06v0 L=2.0u W=18.0u nf=1 m=1
+XMdecn26 VSS VDD VSS VSS nfet_06v0 L=2.0u W=18.0u nf=1 m=1
+XMdecn27 VSS VDD VSS VSS nfet_06v0 L=2.0u W=18.0u nf=1 m=1
+XMdecp28 VDD VSS VDD VDD pfet_06v0 L=2.0u W=18.0u nf=1 m=1
+XMdecp29 VDD VSS VDD VDD pfet_06v0 L=2.0u W=18.0u nf=1 m=1
+XMdecn30 VSS VDD VSS VSS nfet_06v0 L=2.0u W=18.0u nf=1 m=1
+XMdecn31 VSS VDD VSS VSS nfet_06v0 L=2.0u W=18.0u nf=1 m=1
+XMdecn32 VSS VDD VSS VSS nfet_06v0 L=2.0u W=18.0u nf=1 m=1
+XMdecp33 VDD VSS VDD VDD pfet_06v0 L=2.0u W=18.0u nf=1 m=1
+XMdecp34 VDD VSS VDD VDD pfet_06v0 L=2.0u W=18.0u nf=1 m=1
+XMdecn35 VSS VDD VSS VSS nfet_06v0 L=2.0u W=18.0u nf=1 m=1
+XMdecn36 VSS VDD VSS VSS nfet_06v0 L=2.0u W=18.0u nf=1 m=1
+XMdecn37 VSS VDD VSS VSS nfet_06v0 L=2.0u W=18.0u nf=1 m=1
+XMdecp38 VDD VSS VDD VDD pfet_06v0 L=2.0u W=18.0u nf=1 m=1
+XMdecp39 VDD VSS VDD VDD pfet_06v0 L=2.0u W=18.0u nf=1 m=1
+XMdecn40 VSS VDD VSS VSS nfet_06v0 L=2.0u W=18.0u nf=1 m=1
+XMdecn41 VSS VDD VSS VSS nfet_06v0 L=2.0u W=18.0u nf=1 m=1
+XMdecp42 VDD VSS VDD VDD pfet_06v0 L=2.0u W=18.0u nf=1 m=1
+XMdecp43 VDD VSS VDD VDD pfet_06v0 L=2.0u W=18.0u nf=1 m=1
+XMdecn44 VSS VDD VSS VSS nfet_06v0 L=2.0u W=18.0u nf=1 m=1
+XMdecn45 VSS VDD VSS VSS nfet_06v0 L=2.0u W=18.0u nf=1 m=1
+XMdecp46 VDD VSS VDD VDD pfet_06v0 L=2.0u W=18.0u nf=1 m=1
+XMdecp47 VDD VSS VDD VDD pfet_06v0 L=2.0u W=18.0u nf=1 m=1
+XMdecn48 VSS VDD VSS VSS nfet_06v0 L=2.0u W=18.0u nf=1 m=1
+XMdecn49 VSS VDD VSS VSS nfet_06v0 L=2.0u W=18.0u nf=1 m=1
+XMdecp50 VDD VSS VDD VDD pfet_06v0 L=2.0u W=18.0u nf=1 m=1
+XMdecp51 VDD VSS VDD VDD pfet_06v0 L=2.0u W=18.0u nf=1 m=1
+XMdecn52 VSS VDD VSS VSS nfet_06v0 L=2.0u W=18.0u nf=1 m=1
+XMdecn53 VSS VDD VSS VSS nfet_06v0 L=2.0u W=18.0u nf=1 m=1
+XMdecp54 VDD VSS VDD VDD pfet_06v0 L=2.0u W=18.0u nf=1 m=1
+XMdecp55 VDD VSS VDD VDD pfet_06v0 L=2.0u W=18.0u nf=1 m=1
+XMdecn56 VSS VDD VSS VSS nfet_06v0 L=2.0u W=18.0u nf=1 m=1
+XMdecn57 VSS VDD VSS VSS nfet_06v0 L=2.0u W=18.0u nf=1 m=1
+XMdecp58 VDD VSS VDD VDD pfet_06v0 L=2.0u W=18.0u nf=1 m=1
+XMdecp59 VDD VSS VDD VDD pfet_06v0 L=2.0u W=18.0u nf=1 m=1
+XMdecn60 VSS VDD VSS VSS nfet_06v0 L=2.0u W=18.0u nf=1 m=1
+XMdecn61 VSS VDD VSS VSS nfet_06v0 L=2.0u W=18.0u nf=1 m=1
+XMdecp62 VDD VSS VDD VDD pfet_06v0 L=2.0u W=18.0u nf=1 m=1
+XMdecp63 VDD VSS VDD VDD pfet_06v0 L=2.0u W=18.0u nf=1 m=1
+XMdecn64 VSS VDD VSS VSS nfet_06v0 L=2.0u W=18.0u nf=1 m=1
+XMdecn65 VSS VDD VSS VSS nfet_06v0 L=2.0u W=18.0u nf=1 m=1
+XMdecp66 VDD VSS VDD VDD pfet_06v0 L=2.0u W=18.0u nf=1 m=1
+XMdecp67 VDD VSS VDD VDD pfet_06v0 L=2.0u W=18.0u nf=1 m=1
+XMdecn68 VSS VDD VSS VSS nfet_06v0 L=2.0u W=18.0u nf=1 m=1
+XMdecn69 VSS VDD VSS VSS nfet_06v0 L=2.0u W=18.0u nf=1 m=1
+XMdecp70 VDD VSS VDD VDD pfet_06v0 L=2.0u W=18.0u nf=1 m=1
+XMdecp71 VDD VSS VDD VDD pfet_06v0 L=2.0u W=18.0u nf=1 m=1
+XMdecn72 VSS VDD VSS VSS nfet_06v0 L=2.0u W=18.0u nf=1 m=1
+XMdecn73 VSS VDD VSS VSS nfet_06v0 L=2.0u W=18.0u nf=1 m=1
+XMdecp74 VDD VSS VDD VDD pfet_06v0 L=2.0u W=18.0u nf=1 m=1
+XMdecp75 VDD VSS VDD VDD pfet_06v0 L=2.0u W=18.0u nf=1 m=1
+XMdecn76 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u nf=1 m=1
+XMdecn77 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u nf=1 m=1
+XMdecp78 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u nf=1 m=1
+XMdecp79 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u nf=1 m=1
+XMdecn80 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u nf=1 m=1
+XMdecn81 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u nf=1 m=1
+XMdecp82 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u nf=1 m=1
+XMdecp83 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u nf=1 m=1
+XMdecn84 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u nf=1 m=1
+XMdecn85 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u nf=1 m=1
+XMdecp86 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u nf=1 m=1
+XMdecp87 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u nf=1 m=1
+XMdecn88 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u nf=1 m=1
+XMdecn89 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u nf=1 m=1
+XMdecp90 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u nf=1 m=1
+XMdecp91 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u nf=1 m=1
+XMdecn92 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u nf=1 m=1
+XMdecn93 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u nf=1 m=1
+XMdecp94 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u nf=1 m=1
+XMdecp95 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u nf=1 m=1
+XMdecn96 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u nf=1 m=1
+XMdecn97 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u nf=1 m=1
+XMdecp98 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u nf=1 m=1
+XMdecp99 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u nf=1 m=1
+XMdecn100 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u nf=1 m=1
+XMdecn101 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u nf=1 m=1
+XMdecp102 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u nf=1 m=1
+XMdecp103 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u nf=1 m=1
+XMdecn104 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u nf=1 m=1
+XMdecn105 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u nf=1 m=1
+XMdecp106 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u nf=1 m=1
+XMdecp107 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u nf=1 m=1
+XMdecn108 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u nf=1 m=1
+XMdecn109 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u nf=1 m=1
+XMdecp110 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u nf=1 m=1
+XMdecp111 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u nf=1 m=1
+XMdecn112 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u nf=1 m=1
+XMdecn113 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u nf=1 m=1
+XMdecp114 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u nf=1 m=1
+XMdecp115 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u nf=1 m=1
+XMdecn116 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u nf=1 m=1
+XMdecn117 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u nf=1 m=1
+XMdecp118 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u nf=1 m=1
+XMdecp119 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u nf=1 m=1
+XMdecn120 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u nf=1 m=1
+XMdecn121 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u nf=1 m=1
+XMdecp122 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u nf=1 m=1
+XMdecp123 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u nf=1 m=1
+XMdecn124 VSS VDD VSS VSS nfet_06v0 L=2.0u W=18.0u nf=1 m=1
+XMdecp125 VDD VSS VDD VDD pfet_06v0 L=2.0u W=18.0u nf=1 m=1
+XMdecn126 VSS VDD VSS VSS nfet_06v0 L=2.0u W=18.0u nf=1 m=1
+XMdecp127 VDD VSS VDD VDD pfet_06v0 L=2.0u W=18.0u nf=1 m=1
+XMdecn128 VSS VDD VSS VSS nfet_06v0 L=2.0u W=18.0u nf=1 m=1
+XMdecp129 VDD VSS VDD VDD pfet_06v0 L=2.0u W=18.0u nf=1 m=1
+XMdecn130 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u nf=1 m=1
+XMdecp131 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u nf=1 m=1
+XMdecn132 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u nf=1 m=1
+XMdecp133 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u nf=1 m=1
+XMdecn134 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u nf=1 m=1
+XMdecp135 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u nf=1 m=1
+XMdecn136 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u nf=1 m=1
+XMdecp137 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u nf=1 m=1
+XMdecn138 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.0u nf=1 m=1
+XMdecn139 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.0u nf=1 m=1
+XMdecp140 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.0u nf=1 m=1
+XMdecp141 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.0u nf=1 m=1
+XMdecn142 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.0u nf=1 m=1
+XMdecn143 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.0u nf=1 m=1
+XMdecp144 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.0u nf=1 m=1
+XMdecp145 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.0u nf=1 m=1
+XMdecn146 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.0u nf=1 m=1
+XMdecn147 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.0u nf=1 m=1
+XMdecp148 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.0u nf=1 m=1
+XMdecp149 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.0u nf=1 m=1
+XMdecn150 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.0u nf=1 m=1
+XMdecp151 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.0u nf=1 m=1
+XMdecn152 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.0u nf=1 m=1
+XMdecp153 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.0u nf=1 m=1
+XMdecn154 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.0u nf=1 m=1
+XMdecp155 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.0u nf=1 m=1
+"}
+C {devices/ipin.sym} -2000 -2000 0 0 {name=port_XP_IN lab=XP_IN}
+C {devices/ipin.sym} -2000 -2040 0 0 {name=port_XN_IN lab=XN_IN}
+C {devices/ipin.sym} -2000 -2080 0 0 {name=port_YP_IN lab=YP_IN}
+C {devices/ipin.sym} -2000 -2120 0 0 {name=port_YN_IN lab=YN_IN}
+C {devices/ipin.sym} -2000 -2160 0 0 {name=port_ZP_IN lab=ZP_IN}
+C {devices/ipin.sym} -2000 -2200 0 0 {name=port_ZN_IN lab=ZN_IN}

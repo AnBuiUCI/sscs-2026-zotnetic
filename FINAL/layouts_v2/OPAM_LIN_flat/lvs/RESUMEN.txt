@@ -1,5 +1,5 @@
 bloque : OPAM_LIN_flat
-fecha  : 2026-08-29 06:41:37
+fecha  : 2026-08-29 18:10:42
 GDS    : /foss/designs/a_zonetic2026/layouts_v2/OPAM_LIN_flat/OPAM_LIN_flat_flat_gf180.gds
 ref    : /foss/designs/a_zonetic2026/layouts_v2/OPAM_LIN_flat/OPAM_LIN_flat_lvs.spice
 sustrato: VSS

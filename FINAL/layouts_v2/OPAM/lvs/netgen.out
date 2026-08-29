@@ -6,22 +6,32 @@ pfet_06v0 (25)                             |pfet_06v0 (25)
 nfet_06v0 (25)                             |nfet_06v0 (25)                             
 cap_mim_2f0fF (2)                          |cap_mim_2f0fF (2)                          
 Number of devices: 52                      |Number of devices: 52                      
-Number of nets: 38 **Mismatch**            |Number of nets: 37 **Mismatch**            
+Number of nets: 37                         |Number of nets: 37                         
 ---------------------------------------------------------------------------------------
-NET mismatches: Class fragments follow (with fanout counts):
-Circuit 1: OPAM                            |Circuit 2: OPAM                            
-
----------------------------------------------------------------------------------------
-Net: \$46                                  |Net: net1                                  
-  pfet_06v0/gate = 6                       |  pfet_06v0/gate = 6                       
-  nfet_06v0/(drain|source) = 1             |  pfet_06v0/(drain|source) = 1             
-                                           |  nfet_06v0/(drain|source) = 1             
-                                           |                                           
-Net: \$634                                 |(no matching net)                          
-  pfet_06v0/(drain|source) = 1             |                                           
----------------------------------------------------------------------------------------
-Netlists do not match.
-Port matching may fail to disambiguate symmetries.
+Resolving symmetries by property value.
+Resolving symmetries by pin name.
+Resolving symmetries by net name.
+Netlists match with 6 symmetries with property errors.
+cap_mim_2f0fF:$44 vs. cap_mim_2f0fF:1:
+Property P in circuit1 has no matching property in circuit2
+cap_mim_2f0fF:$44 vs. cap_mim_2f0fF:1:
+Property A in circuit1 has no matching property in circuit2
+cap_mim_2f0fF:$44 vs. cap_mim_2f0fF:1:
+Property value in circuit1 has no matching property in circuit2
+cap_mim_2f0fF:$44 vs. cap_mim_2f0fF:1:
+Property L in circuit2 has no matching property in circuit1
+cap_mim_2f0fF:$44 vs. cap_mim_2f0fF:1:
+Property W in circuit2 has no matching property in circuit1
+cap_mim_2f0fF:$43 vs. cap_mim_2f0fF:3:
+Property P in circuit1 has no matching property in circuit2
+cap_mim_2f0fF:$43 vs. cap_mim_2f0fF:3:
+Property A in circuit1 has no matching property in circuit2
+cap_mim_2f0fF:$43 vs. cap_mim_2f0fF:3:
+Property value in circuit1 has no matching property in circuit2
+cap_mim_2f0fF:$43 vs. cap_mim_2f0fF:3:
+Property L in circuit2 has no matching property in circuit1
+cap_mim_2f0fF:$43 vs. cap_mim_2f0fF:3:
+Property W in circuit2 has no matching property in circuit1
 
 Subcircuit pins:
 Circuit 1: OPAM                            |Circuit 2: OPAM                            
@@ -35,5 +45,8 @@ INN                                        |INN
 Cell pin lists are equivalent.
 Device classes OPAM and OPAM are equivalent.
 
-Final result: Netlists do not match.
-Port matching may fail to disambiguate symmetries.
+Final result: Circuits match uniquely.
+Property errors were found.
+
+The following cells had property errors:
+ OPAM

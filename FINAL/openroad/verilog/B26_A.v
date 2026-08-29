@@ -209,25 +209,51 @@ module B26_A (
   assign XP_PDRV0 = VSS;
   assign XP_PDRV1 = VSS;
 
+  // Secondary ESD, one io_secondary_5p0 per analogue pin.
+  // Series resistor plus the two diodes, NEXT TO THE PAD:
+  // anything between the pad and the clamp is unprotected.
+  wire S4P_I;
+  wire S4N_I;
+  wire Z_I;
+  wire Y_I;
+  wire X_I;
+  wire S1N_I;
+  wire S1P_I;
+  wire S3P_I;
+  wire S3N_I;
+  wire S2N_I;
+  wire S2P_I;
+  io_secondary_5p0 x_esd_S4P (.VDD(VDD), .to_gate(S4P_I), .ASIG5V(S4P), .VSS(VSS));
+  io_secondary_5p0 x_esd_S4N (.VDD(VDD), .to_gate(S4N_I), .ASIG5V(S4N), .VSS(VSS));
+  io_secondary_5p0 x_esd_Z (.VDD(VDD), .to_gate(Z_I), .ASIG5V(Z), .VSS(VSS));
+  io_secondary_5p0 x_esd_Y (.VDD(VDD), .to_gate(Y_I), .ASIG5V(Y), .VSS(VSS));
+  io_secondary_5p0 x_esd_X (.VDD(VDD), .to_gate(X_I), .ASIG5V(X), .VSS(VSS));
+  io_secondary_5p0 x_esd_S1N (.VDD(VDD), .to_gate(S1N_I), .ASIG5V(S1N), .VSS(VSS));
+  io_secondary_5p0 x_esd_S1P (.VDD(VDD), .to_gate(S1P_I), .ASIG5V(S1P), .VSS(VSS));
+  io_secondary_5p0 x_esd_S3P (.VDD(VDD), .to_gate(S3P_I), .ASIG5V(S3P), .VSS(VSS));
+  io_secondary_5p0 x_esd_S3N (.VDD(VDD), .to_gate(S3N_I), .ASIG5V(S3N), .VSS(VSS));
+  io_secondary_5p0 x_esd_S2N (.VDD(VDD), .to_gate(S2N_I), .ASIG5V(S2N), .VSS(VSS));
+  io_secondary_5p0 x_esd_S2P (.VDD(VDD), .to_gate(S2P_I), .ASIG5V(S2P), .VSS(VSS));
+
   GRADIENT_NAV2 x_core (
       .VSS(VSS),
-      .S4P(S4P),
-      .S4N(S4N),
-      .Z(Z),
+      .S4P(S4P_I),
+      .S4N(S4N_I),
+      .Z(Z_I),
       .ZN(ZN_OUT),
       .ZP(ZP_OUT),
-      .Y(Y),
+      .Y(Y_I),
       .YN(YN_OUT),
       .YP(YP_OUT),
-      .X(X),
+      .X(X_I),
       .XN(XN_OUT),
       .XP(XP_OUT),
-      .S1N(S1N),
-      .S1P(S1P),
-      .S3P(S3P),
-      .S3N(S3N),
-      .S2N(S2N),
-      .S2P(S2P),
+      .S1N(S1N_I),
+      .S1P(S1P_I),
+      .S3P(S3P_I),
+      .S3N(S3N_I),
+      .S2N(S2N_I),
+      .S2P(S2P_I),
       .VDD(VDD));
 
 endmodule

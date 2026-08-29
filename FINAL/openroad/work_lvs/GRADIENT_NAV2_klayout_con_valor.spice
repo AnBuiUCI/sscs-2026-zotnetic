@@ -1,29 +1,29 @@
 * netlist plana generada por flatten_spice.py (top: GRADIENT_NAV2)
-* 1605 MOSFETs; nets fusionadas por V=0: x5_net11->VSS, x5_net12->VSS, x5_net10->VSS, x5_net13->VSS, x6_net11->VSS, x6_net12->VSS, x6_net10->VSS, x6_net13->VSS, x7_net11->VSS, x7_net12->VSS, x7_net10->VSS, x7_net13->VSS
-* nombres: los del esquematico; solo llevan la ruta de instancias (Mx1_M4) los 1377 que chocaban
-* m -> fingers: Mx5_XM2: m=6 nf=1 -> nf=6; Mx5_XM3: m=2 nf=1 -> nf=2; Mx5_XM5: m=2 nf=1 -> nf=2; Mx5_XM1: m=2 nf=1 -> nf=2; Mx5_XM9: m=2 nf=1 -> nf=2; Mx5_XM11: m=2 nf=1 -> nf=2; Mx6_XM2: m=6 nf=1 -> nf=6; Mx6_XM3: m=2 nf=1 -> nf=2; Mx6_XM5: m=2 nf=1 -> nf=2; Mx6_XM1: m=2 nf=1 -> nf=2; Mx6_XM9: m=2 nf=1 -> nf=2; Mx6_XM11: m=2 nf=1 -> nf=2; Mx7_XM2: m=6 nf=1 -> nf=6; Mx7_XM3: m=2 nf=1 -> nf=2; Mx7_XM5: m=2 nf=1 -> nf=2; Mx7_XM1: m=2 nf=1 -> nf=2; Mx7_XM9: m=2 nf=1 -> nf=2; Mx7_XM11: m=2 nf=1 -> nf=2; Mx1_x4_x2_XM15: m=2 nf=1 -> nf=2; Mx1_x4_x2_XM16: m=2 nf=1 -> nf=2; Mx1_x4_x2_XM21: m=2 nf=1 -> nf=2; Mx1_x4_x2_XM22: m=2 nf=1 -> nf=2; Mx1_x4_x2_XM29: m=2 nf=1 -> nf=2; Mx1_x4_x2_XM30: m=2 nf=1 -> nf=2; Mx1_x4_x2_XM31: m=4 nf=1 -> nf=4; Mx1_x4_x2_XM35: m=4 nf=1 -> nf=4; Mx1_x4_x2_XM23: m=2 nf=1 -> nf=2; Mx1_x4_x2_XM24: m=2 nf=1 -> nf=2; Mx1_x4_x2_XM25: m=4 nf=1 -> nf=4; Mx1_x4_x2_XM26: m=4 nf=1 -> nf=4; Mx1_x4_x2_XM43: m=3 nf=1 -> nf=3; Mx1_x4_x2_XM44: m=3 nf=1 -> nf=3; Mx1_x5_x2_XM15: m=2 nf=1 -> nf=2; Mx1_x5_x2_XM16: m=2 nf=1 -> nf=2; Mx1_x5_x2_XM21: m=2 nf=1 -> nf=2; Mx1_x5_x2_XM22: m=2 nf=1 -> nf=2; Mx1_x5_x2_XM29: m=2 nf=1 -> nf=2; Mx1_x5_x2_XM30: m=2 nf=1 -> nf=2; Mx1_x5_x2_XM31: m=4 nf=1 -> nf=4; Mx1_x5_x2_XM35: m=4 nf=1 -> nf=4; Mx1_x5_x2_XM23: m=2 nf=1 -> nf=2; Mx1_x5_x2_XM24: m=2 nf=1 -> nf=2; Mx1_x5_x2_XM25: m=4 nf=1 -> nf=4; Mx1_x5_x2_XM26: m=4 nf=1 -> nf=4; Mx1_x5_x2_XM43: m=3 nf=1 -> nf=3; Mx1_x5_x2_XM44: m=3 nf=1 -> nf=3; Mx1_x6_x2_XM15: m=2 nf=1 -> nf=2; Mx1_x6_x2_XM16: m=2 nf=1 -> nf=2; Mx1_x6_x2_XM21: m=2 nf=1 -> nf=2; Mx1_x6_x2_XM22: m=2 nf=1 -> nf=2; Mx1_x6_x2_XM29: m=2 nf=1 -> nf=2; Mx1_x6_x2_XM30: m=2 nf=1 -> nf=2; Mx1_x6_x2_XM31: m=4 nf=1 -> nf=4; Mx1_x6_x2_XM35: m=4 nf=1 -> nf=4; Mx1_x6_x2_XM23: m=2 nf=1 -> nf=2; Mx1_x6_x2_XM24: m=2 nf=1 -> nf=2; Mx1_x6_x2_XM25: m=4 nf=1 -> nf=4; Mx1_x6_x2_XM26: m=4 nf=1 -> nf=4; Mx1_x6_x2_XM43: m=3 nf=1 -> nf=3; Mx1_x6_x2_XM44: m=3 nf=1 -> nf=3; Mx2_x4_x2_XM15: m=2 nf=1 -> nf=2; Mx2_x4_x2_XM16: m=2 nf=1 -> nf=2; Mx2_x4_x2_XM21: m=2 nf=1 -> nf=2; Mx2_x4_x2_XM22: m=2 nf=1 -> nf=2; Mx2_x4_x2_XM29: m=2 nf=1 -> nf=2; Mx2_x4_x2_XM30: m=2 nf=1 -> nf=2; Mx2_x4_x2_XM31: m=4 nf=1 -> nf=4; Mx2_x4_x2_XM35: m=4 nf=1 -> nf=4; Mx2_x4_x2_XM23: m=2 nf=1 -> nf=2; Mx2_x4_x2_XM24: m=2 nf=1 -> nf=2; Mx2_x4_x2_XM25: m=4 nf=1 -> nf=4; Mx2_x4_x2_XM26: m=4 nf=1 -> nf=4; Mx2_x4_x2_XM43: m=3 nf=1 -> nf=3; Mx2_x4_x2_XM44: m=3 nf=1 -> nf=3; Mx2_x5_x2_XM15: m=2 nf=1 -> nf=2; Mx2_x5_x2_XM16: m=2 nf=1 -> nf=2; Mx2_x5_x2_XM21: m=2 nf=1 -> nf=2; Mx2_x5_x2_XM22: m=2 nf=1 -> nf=2; Mx2_x5_x2_XM29: m=2 nf=1 -> nf=2; Mx2_x5_x2_XM30: m=2 nf=1 -> nf=2; Mx2_x5_x2_XM31: m=4 nf=1 -> nf=4; Mx2_x5_x2_XM35: m=4 nf=1 -> nf=4; Mx2_x5_x2_XM23: m=2 nf=1 -> nf=2; Mx2_x5_x2_XM24: m=2 nf=1 -> nf=2; Mx2_x5_x2_XM25: m=4 nf=1 -> nf=4; Mx2_x5_x2_XM26: m=4 nf=1 -> nf=4; Mx2_x5_x2_XM43: m=3 nf=1 -> nf=3; Mx2_x5_x2_XM44: m=3 nf=1 -> nf=3; Mx2_x6_x2_XM15: m=2 nf=1 -> nf=2; Mx2_x6_x2_XM16: m=2 nf=1 -> nf=2; Mx2_x6_x2_XM21: m=2 nf=1 -> nf=2; Mx2_x6_x2_XM22: m=2 nf=1 -> nf=2; Mx2_x6_x2_XM29: m=2 nf=1 -> nf=2; Mx2_x6_x2_XM30: m=2 nf=1 -> nf=2; Mx2_x6_x2_XM31: m=4 nf=1 -> nf=4; Mx2_x6_x2_XM35: m=4 nf=1 -> nf=4; Mx2_x6_x2_XM23: m=2 nf=1 -> nf=2; Mx2_x6_x2_XM24: m=2 nf=1 -> nf=2; Mx2_x6_x2_XM25: m=4 nf=1 -> nf=4; Mx2_x6_x2_XM26: m=4 nf=1 -> nf=4; Mx2_x6_x2_XM43: m=3 nf=1 -> nf=3; Mx2_x6_x2_XM44: m=3 nf=1 -> nf=3; Mx3_x4_x2_XM15: m=2 nf=1 -> nf=2; Mx3_x4_x2_XM16: m=2 nf=1 -> nf=2; Mx3_x4_x2_XM21: m=2 nf=1 -> nf=2; Mx3_x4_x2_XM22: m=2 nf=1 -> nf=2; Mx3_x4_x2_XM29: m=2 nf=1 -> nf=2; Mx3_x4_x2_XM30: m=2 nf=1 -> nf=2; Mx3_x4_x2_XM31: m=4 nf=1 -> nf=4; Mx3_x4_x2_XM35: m=4 nf=1 -> nf=4; Mx3_x4_x2_XM23: m=2 nf=1 -> nf=2; Mx3_x4_x2_XM24: m=2 nf=1 -> nf=2; Mx3_x4_x2_XM25: m=4 nf=1 -> nf=4; Mx3_x4_x2_XM26: m=4 nf=1 -> nf=4; Mx3_x4_x2_XM43: m=3 nf=1 -> nf=3; Mx3_x4_x2_XM44: m=3 nf=1 -> nf=3; Mx3_x5_x2_XM15: m=2 nf=1 -> nf=2; Mx3_x5_x2_XM16: m=2 nf=1 -> nf=2; Mx3_x5_x2_XM21: m=2 nf=1 -> nf=2; Mx3_x5_x2_XM22: m=2 nf=1 -> nf=2; Mx3_x5_x2_XM29: m=2 nf=1 -> nf=2; Mx3_x5_x2_XM30: m=2 nf=1 -> nf=2; Mx3_x5_x2_XM31: m=4 nf=1 -> nf=4; Mx3_x5_x2_XM35: m=4 nf=1 -> nf=4; Mx3_x5_x2_XM23: m=2 nf=1 -> nf=2; Mx3_x5_x2_XM24: m=2 nf=1 -> nf=2; Mx3_x5_x2_XM25: m=4 nf=1 -> nf=4; Mx3_x5_x2_XM26: m=4 nf=1 -> nf=4; Mx3_x5_x2_XM43: m=3 nf=1 -> nf=3; Mx3_x5_x2_XM44: m=3 nf=1 -> nf=3; Mx3_x6_x2_XM15: m=2 nf=1 -> nf=2; Mx3_x6_x2_XM16: m=2 nf=1 -> nf=2; Mx3_x6_x2_XM21: m=2 nf=1 -> nf=2; Mx3_x6_x2_XM22: m=2 nf=1 -> nf=2; Mx3_x6_x2_XM29: m=2 nf=1 -> nf=2; Mx3_x6_x2_XM30: m=2 nf=1 -> nf=2; Mx3_x6_x2_XM31: m=4 nf=1 -> nf=4; Mx3_x6_x2_XM35: m=4 nf=1 -> nf=4; Mx3_x6_x2_XM23: m=2 nf=1 -> nf=2; Mx3_x6_x2_XM24: m=2 nf=1 -> nf=2; Mx3_x6_x2_XM25: m=4 nf=1 -> nf=4; Mx3_x6_x2_XM26: m=4 nf=1 -> nf=4; Mx3_x6_x2_XM43: m=3 nf=1 -> nf=3; Mx3_x6_x2_XM44: m=3 nf=1 -> nf=3; Mx4_x4_x2_XM15: m=2 nf=1 -> nf=2; Mx4_x4_x2_XM16: m=2 nf=1 -> nf=2; Mx4_x4_x2_XM21: m=2 nf=1 -> nf=2; Mx4_x4_x2_XM22: m=2 nf=1 -> nf=2; Mx4_x4_x2_XM29: m=2 nf=1 -> nf=2; Mx4_x4_x2_XM30: m=2 nf=1 -> nf=2; Mx4_x4_x2_XM31: m=4 nf=1 -> nf=4; Mx4_x4_x2_XM35: m=4 nf=1 -> nf=4; Mx4_x4_x2_XM23: m=2 nf=1 -> nf=2; Mx4_x4_x2_XM24: m=2 nf=1 -> nf=2; Mx4_x4_x2_XM25: m=4 nf=1 -> nf=4; Mx4_x4_x2_XM26: m=4 nf=1 -> nf=4; Mx4_x4_x2_XM43: m=3 nf=1 -> nf=3; Mx4_x4_x2_XM44: m=3 nf=1 -> nf=3; Mx4_x5_x2_XM15: m=2 nf=1 -> nf=2; Mx4_x5_x2_XM16: m=2 nf=1 -> nf=2; Mx4_x5_x2_XM21: m=2 nf=1 -> nf=2; Mx4_x5_x2_XM22: m=2 nf=1 -> nf=2; Mx4_x5_x2_XM29: m=2 nf=1 -> nf=2; Mx4_x5_x2_XM30: m=2 nf=1 -> nf=2; Mx4_x5_x2_XM31: m=4 nf=1 -> nf=4; Mx4_x5_x2_XM35: m=4 nf=1 -> nf=4; Mx4_x5_x2_XM23: m=2 nf=1 -> nf=2; Mx4_x5_x2_XM24: m=2 nf=1 -> nf=2; Mx4_x5_x2_XM25: m=4 nf=1 -> nf=4; Mx4_x5_x2_XM26: m=4 nf=1 -> nf=4; Mx4_x5_x2_XM43: m=3 nf=1 -> nf=3; Mx4_x5_x2_XM44: m=3 nf=1 -> nf=3; Mx4_x6_x2_XM15: m=2 nf=1 -> nf=2; Mx4_x6_x2_XM16: m=2 nf=1 -> nf=2; Mx4_x6_x2_XM21: m=2 nf=1 -> nf=2; Mx4_x6_x2_XM22: m=2 nf=1 -> nf=2; Mx4_x6_x2_XM29: m=2 nf=1 -> nf=2; Mx4_x6_x2_XM30: m=2 nf=1 -> nf=2; Mx4_x6_x2_XM31: m=4 nf=1 -> nf=4; Mx4_x6_x2_XM35: m=4 nf=1 -> nf=4; Mx4_x6_x2_XM23: m=2 nf=1 -> nf=2; Mx4_x6_x2_XM24: m=2 nf=1 -> nf=2; Mx4_x6_x2_XM25: m=4 nf=1 -> nf=4; Mx4_x6_x2_XM26: m=4 nf=1 -> nf=4; Mx4_x6_x2_XM43: m=3 nf=1 -> nf=3; Mx4_x6_x2_XM44: m=3 nf=1 -> nf=3
+* 1539 MOSFETs; nets fusionadas por V=0: x5_net11->VSS, x5_net12->VSS, x5_net10->VSS, x5_net13->VSS, x6_net11->VSS, x6_net12->VSS, x6_net10->VSS, x6_net13->VSS, x7_net11->VSS, x7_net12->VSS, x7_net10->VSS, x7_net13->VSS
+* nombres: los del esquematico; solo llevan la ruta de instancias (Mx1_M4) los 1383 que chocaban
+* m -> fingers: Mx5_XM2: m=6 nf=1 -> nf=6; Mx5_XM3: m=2 nf=1 -> nf=2; Mx5_XM5: m=2 nf=1 -> nf=2; Mx5_XM1: m=2 nf=1 -> nf=2; Mx5_XM9: m=2 nf=1 -> nf=2; Mx5_XM11: m=2 nf=1 -> nf=2; Mx5_XMF1: m=2 nf=1 -> nf=2; Mx6_XM2: m=6 nf=1 -> nf=6; Mx6_XM3: m=2 nf=1 -> nf=2; Mx6_XM5: m=2 nf=1 -> nf=2; Mx6_XM1: m=2 nf=1 -> nf=2; Mx6_XM9: m=2 nf=1 -> nf=2; Mx6_XM11: m=2 nf=1 -> nf=2; Mx6_XMF1: m=2 nf=1 -> nf=2; Mx7_XM2: m=6 nf=1 -> nf=6; Mx7_XM3: m=2 nf=1 -> nf=2; Mx7_XM5: m=2 nf=1 -> nf=2; Mx7_XM1: m=2 nf=1 -> nf=2; Mx7_XM9: m=2 nf=1 -> nf=2; Mx7_XM11: m=2 nf=1 -> nf=2; Mx7_XMF1: m=2 nf=1 -> nf=2; Mx1_x4_x2_XM15: m=2 nf=1 -> nf=2; Mx1_x4_x2_XM16: m=2 nf=1 -> nf=2; Mx1_x4_x2_XM21: m=2 nf=1 -> nf=2; Mx1_x4_x2_XM22: m=2 nf=1 -> nf=2; Mx1_x4_x2_XM29: m=2 nf=1 -> nf=2; Mx1_x4_x2_XM30: m=2 nf=1 -> nf=2; Mx1_x4_x2_XM31: m=4 nf=1 -> nf=4; Mx1_x4_x2_XM35: m=4 nf=1 -> nf=4; Mx1_x4_x2_XM23: m=2 nf=1 -> nf=2; Mx1_x4_x2_XM24: m=2 nf=1 -> nf=2; Mx1_x4_x2_XM25: m=4 nf=1 -> nf=4; Mx1_x4_x2_XM26: m=4 nf=1 -> nf=4; Mx1_x4_x2_XM43: m=3 nf=1 -> nf=3; Mx1_x4_x2_XM44: m=3 nf=1 -> nf=3; Mx1_x5_x2_XM15: m=2 nf=1 -> nf=2; Mx1_x5_x2_XM16: m=2 nf=1 -> nf=2; Mx1_x5_x2_XM21: m=2 nf=1 -> nf=2; Mx1_x5_x2_XM22: m=2 nf=1 -> nf=2; Mx1_x5_x2_XM29: m=2 nf=1 -> nf=2; Mx1_x5_x2_XM30: m=2 nf=1 -> nf=2; Mx1_x5_x2_XM31: m=4 nf=1 -> nf=4; Mx1_x5_x2_XM35: m=4 nf=1 -> nf=4; Mx1_x5_x2_XM23: m=2 nf=1 -> nf=2; Mx1_x5_x2_XM24: m=2 nf=1 -> nf=2; Mx1_x5_x2_XM25: m=4 nf=1 -> nf=4; Mx1_x5_x2_XM26: m=4 nf=1 -> nf=4; Mx1_x5_x2_XM43: m=3 nf=1 -> nf=3; Mx1_x5_x2_XM44: m=3 nf=1 -> nf=3; Mx1_x6_x2_XM15: m=2 nf=1 -> nf=2; Mx1_x6_x2_XM16: m=2 nf=1 -> nf=2; Mx1_x6_x2_XM21: m=2 nf=1 -> nf=2; Mx1_x6_x2_XM22: m=2 nf=1 -> nf=2; Mx1_x6_x2_XM29: m=2 nf=1 -> nf=2; Mx1_x6_x2_XM30: m=2 nf=1 -> nf=2; Mx1_x6_x2_XM31: m=4 nf=1 -> nf=4; Mx1_x6_x2_XM35: m=4 nf=1 -> nf=4; Mx1_x6_x2_XM23: m=2 nf=1 -> nf=2; Mx1_x6_x2_XM24: m=2 nf=1 -> nf=2; Mx1_x6_x2_XM25: m=4 nf=1 -> nf=4; Mx1_x6_x2_XM26: m=4 nf=1 -> nf=4; Mx1_x6_x2_XM43: m=3 nf=1 -> nf=3; Mx1_x6_x2_XM44: m=3 nf=1 -> nf=3; Mx2_x4_x2_XM15: m=2 nf=1 -> nf=2; Mx2_x4_x2_XM16: m=2 nf=1 -> nf=2; Mx2_x4_x2_XM21: m=2 nf=1 -> nf=2; Mx2_x4_x2_XM22: m=2 nf=1 -> nf=2; Mx2_x4_x2_XM29: m=2 nf=1 -> nf=2; Mx2_x4_x2_XM30: m=2 nf=1 -> nf=2; Mx2_x4_x2_XM31: m=4 nf=1 -> nf=4; Mx2_x4_x2_XM35: m=4 nf=1 -> nf=4; Mx2_x4_x2_XM23: m=2 nf=1 -> nf=2; Mx2_x4_x2_XM24: m=2 nf=1 -> nf=2; Mx2_x4_x2_XM25: m=4 nf=1 -> nf=4; Mx2_x4_x2_XM26: m=4 nf=1 -> nf=4; Mx2_x4_x2_XM43: m=3 nf=1 -> nf=3; Mx2_x4_x2_XM44: m=3 nf=1 -> nf=3; Mx2_x5_x2_XM15: m=2 nf=1 -> nf=2; Mx2_x5_x2_XM16: m=2 nf=1 -> nf=2; Mx2_x5_x2_XM21: m=2 nf=1 -> nf=2; Mx2_x5_x2_XM22: m=2 nf=1 -> nf=2; Mx2_x5_x2_XM29: m=2 nf=1 -> nf=2; Mx2_x5_x2_XM30: m=2 nf=1 -> nf=2; Mx2_x5_x2_XM31: m=4 nf=1 -> nf=4; Mx2_x5_x2_XM35: m=4 nf=1 -> nf=4; Mx2_x5_x2_XM23: m=2 nf=1 -> nf=2; Mx2_x5_x2_XM24: m=2 nf=1 -> nf=2; Mx2_x5_x2_XM25: m=4 nf=1 -> nf=4; Mx2_x5_x2_XM26: m=4 nf=1 -> nf=4; Mx2_x5_x2_XM43: m=3 nf=1 -> nf=3; Mx2_x5_x2_XM44: m=3 nf=1 -> nf=3; Mx2_x6_x2_XM15: m=2 nf=1 -> nf=2; Mx2_x6_x2_XM16: m=2 nf=1 -> nf=2; Mx2_x6_x2_XM21: m=2 nf=1 -> nf=2; Mx2_x6_x2_XM22: m=2 nf=1 -> nf=2; Mx2_x6_x2_XM29: m=2 nf=1 -> nf=2; Mx2_x6_x2_XM30: m=2 nf=1 -> nf=2; Mx2_x6_x2_XM31: m=4 nf=1 -> nf=4; Mx2_x6_x2_XM35: m=4 nf=1 -> nf=4; Mx2_x6_x2_XM23: m=2 nf=1 -> nf=2; Mx2_x6_x2_XM24: m=2 nf=1 -> nf=2; Mx2_x6_x2_XM25: m=4 nf=1 -> nf=4; Mx2_x6_x2_XM26: m=4 nf=1 -> nf=4; Mx2_x6_x2_XM43: m=3 nf=1 -> nf=3; Mx2_x6_x2_XM44: m=3 nf=1 -> nf=3; Mx3_x4_x2_XM15: m=2 nf=1 -> nf=2; Mx3_x4_x2_XM16: m=2 nf=1 -> nf=2; Mx3_x4_x2_XM21: m=2 nf=1 -> nf=2; Mx3_x4_x2_XM22: m=2 nf=1 -> nf=2; Mx3_x4_x2_XM29: m=2 nf=1 -> nf=2; Mx3_x4_x2_XM30: m=2 nf=1 -> nf=2; Mx3_x4_x2_XM31: m=4 nf=1 -> nf=4; Mx3_x4_x2_XM35: m=4 nf=1 -> nf=4; Mx3_x4_x2_XM23: m=2 nf=1 -> nf=2; Mx3_x4_x2_XM24: m=2 nf=1 -> nf=2; Mx3_x4_x2_XM25: m=4 nf=1 -> nf=4; Mx3_x4_x2_XM26: m=4 nf=1 -> nf=4; Mx3_x4_x2_XM43: m=3 nf=1 -> nf=3; Mx3_x4_x2_XM44: m=3 nf=1 -> nf=3; Mx3_x5_x2_XM15: m=2 nf=1 -> nf=2; Mx3_x5_x2_XM16: m=2 nf=1 -> nf=2; Mx3_x5_x2_XM21: m=2 nf=1 -> nf=2; Mx3_x5_x2_XM22: m=2 nf=1 -> nf=2; Mx3_x5_x2_XM29: m=2 nf=1 -> nf=2; Mx3_x5_x2_XM30: m=2 nf=1 -> nf=2; Mx3_x5_x2_XM31: m=4 nf=1 -> nf=4; Mx3_x5_x2_XM35: m=4 nf=1 -> nf=4; Mx3_x5_x2_XM23: m=2 nf=1 -> nf=2; Mx3_x5_x2_XM24: m=2 nf=1 -> nf=2; Mx3_x5_x2_XM25: m=4 nf=1 -> nf=4; Mx3_x5_x2_XM26: m=4 nf=1 -> nf=4; Mx3_x5_x2_XM43: m=3 nf=1 -> nf=3; Mx3_x5_x2_XM44: m=3 nf=1 -> nf=3; Mx3_x6_x2_XM15: m=2 nf=1 -> nf=2; Mx3_x6_x2_XM16: m=2 nf=1 -> nf=2; Mx3_x6_x2_XM21: m=2 nf=1 -> nf=2; Mx3_x6_x2_XM22: m=2 nf=1 -> nf=2; Mx3_x6_x2_XM29: m=2 nf=1 -> nf=2; Mx3_x6_x2_XM30: m=2 nf=1 -> nf=2; Mx3_x6_x2_XM31: m=4 nf=1 -> nf=4; Mx3_x6_x2_XM35: m=4 nf=1 -> nf=4; Mx3_x6_x2_XM23: m=2 nf=1 -> nf=2; Mx3_x6_x2_XM24: m=2 nf=1 -> nf=2; Mx3_x6_x2_XM25: m=4 nf=1 -> nf=4; Mx3_x6_x2_XM26: m=4 nf=1 -> nf=4; Mx3_x6_x2_XM43: m=3 nf=1 -> nf=3; Mx3_x6_x2_XM44: m=3 nf=1 -> nf=3; Mx4_x4_x2_XM15: m=2 nf=1 -> nf=2; Mx4_x4_x2_XM16: m=2 nf=1 -> nf=2; Mx4_x4_x2_XM21: m=2 nf=1 -> nf=2; Mx4_x4_x2_XM22: m=2 nf=1 -> nf=2; Mx4_x4_x2_XM29: m=2 nf=1 -> nf=2; Mx4_x4_x2_XM30: m=2 nf=1 -> nf=2; Mx4_x4_x2_XM31: m=4 nf=1 -> nf=4; Mx4_x4_x2_XM35: m=4 nf=1 -> nf=4; Mx4_x4_x2_XM23: m=2 nf=1 -> nf=2; Mx4_x4_x2_XM24: m=2 nf=1 -> nf=2; Mx4_x4_x2_XM25: m=4 nf=1 -> nf=4; Mx4_x4_x2_XM26: m=4 nf=1 -> nf=4; Mx4_x4_x2_XM43: m=3 nf=1 -> nf=3; Mx4_x4_x2_XM44: m=3 nf=1 -> nf=3; Mx4_x5_x2_XM15: m=2 nf=1 -> nf=2; Mx4_x5_x2_XM16: m=2 nf=1 -> nf=2; Mx4_x5_x2_XM21: m=2 nf=1 -> nf=2; Mx4_x5_x2_XM22: m=2 nf=1 -> nf=2; Mx4_x5_x2_XM29: m=2 nf=1 -> nf=2; Mx4_x5_x2_XM30: m=2 nf=1 -> nf=2; Mx4_x5_x2_XM31: m=4 nf=1 -> nf=4; Mx4_x5_x2_XM35: m=4 nf=1 -> nf=4; Mx4_x5_x2_XM23: m=2 nf=1 -> nf=2; Mx4_x5_x2_XM24: m=2 nf=1 -> nf=2; Mx4_x5_x2_XM25: m=4 nf=1 -> nf=4; Mx4_x5_x2_XM26: m=4 nf=1 -> nf=4; Mx4_x5_x2_XM43: m=3 nf=1 -> nf=3; Mx4_x5_x2_XM44: m=3 nf=1 -> nf=3; Mx4_x6_x2_XM15: m=2 nf=1 -> nf=2; Mx4_x6_x2_XM16: m=2 nf=1 -> nf=2; Mx4_x6_x2_XM21: m=2 nf=1 -> nf=2; Mx4_x6_x2_XM22: m=2 nf=1 -> nf=2; Mx4_x6_x2_XM29: m=2 nf=1 -> nf=2; Mx4_x6_x2_XM30: m=2 nf=1 -> nf=2; Mx4_x6_x2_XM31: m=4 nf=1 -> nf=4; Mx4_x6_x2_XM35: m=4 nf=1 -> nf=4; Mx4_x6_x2_XM23: m=2 nf=1 -> nf=2; Mx4_x6_x2_XM24: m=2 nf=1 -> nf=2; Mx4_x6_x2_XM25: m=4 nf=1 -> nf=4; Mx4_x6_x2_XM26: m=4 nf=1 -> nf=4; Mx4_x6_x2_XM43: m=3 nf=1 -> nf=3; Mx4_x6_x2_XM44: m=3 nf=1 -> nf=3
 * para LVS: cada dedo, un transistor en paralelo
 .subckt GRADIENT_NAV2 VDD VSS XP X XN YP Y YN ZP Z ZN S2P S2N S4P S4N S3P S3N S1P S1N
-Mx5_XM2_f1 X_I X_I VDD VDD pfet_06v0 L=1u W=2u
-Mx5_XM2_f2 X_I X_I VDD VDD pfet_06v0 L=1u W=2u
-Mx5_XM2_f3 X_I X_I VDD VDD pfet_06v0 L=1u W=2u
-Mx5_XM2_f4 X_I X_I VDD VDD pfet_06v0 L=1u W=2u
-Mx5_XM2_f5 X_I X_I VDD VDD pfet_06v0 L=1u W=2u
-Mx5_XM2_f6 X_I X_I VDD VDD pfet_06v0 L=1u W=2u
-Mx5_XM3_f1 X_I X4 x5_net1 VSS nfet_06v0 L=1u W=2.48u
-Mx5_XM3_f2 X_I X4 x5_net1 VSS nfet_06v0 L=1u W=2.48u
-Mx5_XM5_f1 X_I X2 x5_net2 VSS nfet_06v0 L=1u W=2.48u
-Mx5_XM5_f2 X_I X2 x5_net2 VSS nfet_06v0 L=1u W=2.48u
+Mx5_XM2_f1 X X VDD VDD pfet_06v0 L=1u W=2u
+Mx5_XM2_f2 X X VDD VDD pfet_06v0 L=1u W=2u
+Mx5_XM2_f3 X X VDD VDD pfet_06v0 L=1u W=2u
+Mx5_XM2_f4 X X VDD VDD pfet_06v0 L=1u W=2u
+Mx5_XM2_f5 X X VDD VDD pfet_06v0 L=1u W=2u
+Mx5_XM2_f6 X X VDD VDD pfet_06v0 L=1u W=2u
+Mx5_XM3_f1 X X4 x5_net1 VSS nfet_06v0 L=1u W=2.48u
+Mx5_XM3_f2 X X4 x5_net1 VSS nfet_06v0 L=1u W=2.48u
+Mx5_XM5_f1 X X2 x5_net2 VSS nfet_06v0 L=1u W=2.48u
+Mx5_XM5_f2 X X2 x5_net2 VSS nfet_06v0 L=1u W=2.48u
 Mx5_XM6 x5_net2 x5_IN VSS VSS nfet_06v0 L=1u W=1.24u
-Mx5_XM1_f1 X_I X_I x5_net3 VSS nfet_06v0 L=1u W=2u
-Mx5_XM1_f2 X_I X_I x5_net3 VSS nfet_06v0 L=1u W=2u
-Mx5_XM7 x5_net3 X_I x5_net4 VSS nfet_06v0 L=1u W=2u
-Mx5_XM8 x5_net4 X_I VSS VSS nfet_06v0 L=1u W=2u
-Mx5_XM9_f1 X_I X1 x5_net5 VSS nfet_06v0 L=1u W=2.48u
-Mx5_XM9_f2 X_I X1 x5_net5 VSS nfet_06v0 L=1u W=2.48u
+Mx5_XM1_f1 X X x5_net3 VSS nfet_06v0 L=1u W=2u
+Mx5_XM1_f2 X X x5_net3 VSS nfet_06v0 L=1u W=2u
+Mx5_XM7 x5_net3 X x5_net4 VSS nfet_06v0 L=1u W=2u
+Mx5_XM8 x5_net4 X VSS VSS nfet_06v0 L=1u W=2u
+Mx5_XM9_f1 X X1 x5_net5 VSS nfet_06v0 L=1u W=2.48u
+Mx5_XM9_f2 X X1 x5_net5 VSS nfet_06v0 L=1u W=2.48u
 Mx5_XM10 x5_net5 x5_IN VSS VSS nfet_06v0 L=1u W=1.24u
-Mx5_XM11_f1 X_I X3 x5_net6 VSS nfet_06v0 L=1u W=2.48u
-Mx5_XM11_f2 X_I X3 x5_net6 VSS nfet_06v0 L=1u W=2.48u
+Mx5_XM11_f1 X X3 x5_net6 VSS nfet_06v0 L=1u W=2.48u
+Mx5_XM11_f2 X X3 x5_net6 VSS nfet_06v0 L=1u W=2.48u
 Mx5_XM12 x5_net6 x5_IN VSS VSS nfet_06v0 L=1u W=1.24u
 Mx5_XM4 x5_net1 x5_IN VSS VSS nfet_06v0 L=1u W=1.24u
 Mx5_XM13 x5_IN x5_IN VDD VDD pfet_06v0 L=1u W=2u
@@ -31,26 +31,29 @@ Mx5_XM14 x5_net8 x5_IN x5_net9 VSS nfet_06v0 L=1u W=0.7u
 Mx5_XM15 x5_net7 x5_IN x5_net8 VSS nfet_06v0 L=1u W=0.7u
 Mx5_XM16 x5_IN x5_IN x5_net7 VSS nfet_06v0 L=1u W=0.7u
 Mx5_XM17 x5_net9 x5_IN VSS VSS nfet_06v0 L=1u W=0.7u
-Mx6_XM2_f1 Y_I Y_I VDD VDD pfet_06v0 L=1u W=2u
-Mx6_XM2_f2 Y_I Y_I VDD VDD pfet_06v0 L=1u W=2u
-Mx6_XM2_f3 Y_I Y_I VDD VDD pfet_06v0 L=1u W=2u
-Mx6_XM2_f4 Y_I Y_I VDD VDD pfet_06v0 L=1u W=2u
-Mx6_XM2_f5 Y_I Y_I VDD VDD pfet_06v0 L=1u W=2u
-Mx6_XM2_f6 Y_I Y_I VDD VDD pfet_06v0 L=1u W=2u
-Mx6_XM3_f1 Y_I Y4 x6_net1 VSS nfet_06v0 L=1u W=2.48u
-Mx6_XM3_f2 Y_I Y4 x6_net1 VSS nfet_06v0 L=1u W=2.48u
-Mx6_XM5_f1 Y_I Y2 x6_net2 VSS nfet_06v0 L=1u W=2.48u
-Mx6_XM5_f2 Y_I Y2 x6_net2 VSS nfet_06v0 L=1u W=2.48u
+Mx5_XMF1_f1 X VDD x5_netF VSS nfet_06v0 L=1u W=2.48u
+Mx5_XMF1_f2 X VDD x5_netF VSS nfet_06v0 L=1u W=2.48u
+Mx5_XMF2 x5_netF x5_IN VSS VSS nfet_06v0 L=1u W=1.24u
+Mx6_XM2_f1 Y Y VDD VDD pfet_06v0 L=1u W=2u
+Mx6_XM2_f2 Y Y VDD VDD pfet_06v0 L=1u W=2u
+Mx6_XM2_f3 Y Y VDD VDD pfet_06v0 L=1u W=2u
+Mx6_XM2_f4 Y Y VDD VDD pfet_06v0 L=1u W=2u
+Mx6_XM2_f5 Y Y VDD VDD pfet_06v0 L=1u W=2u
+Mx6_XM2_f6 Y Y VDD VDD pfet_06v0 L=1u W=2u
+Mx6_XM3_f1 Y Y4 x6_net1 VSS nfet_06v0 L=1u W=2.48u
+Mx6_XM3_f2 Y Y4 x6_net1 VSS nfet_06v0 L=1u W=2.48u
+Mx6_XM5_f1 Y Y2 x6_net2 VSS nfet_06v0 L=1u W=2.48u
+Mx6_XM5_f2 Y Y2 x6_net2 VSS nfet_06v0 L=1u W=2.48u
 Mx6_XM6 x6_net2 x6_IN VSS VSS nfet_06v0 L=1u W=1.24u
-Mx6_XM1_f1 Y_I Y_I x6_net3 VSS nfet_06v0 L=1u W=2u
-Mx6_XM1_f2 Y_I Y_I x6_net3 VSS nfet_06v0 L=1u W=2u
-Mx6_XM7 x6_net3 Y_I x6_net4 VSS nfet_06v0 L=1u W=2u
-Mx6_XM8 x6_net4 Y_I VSS VSS nfet_06v0 L=1u W=2u
-Mx6_XM9_f1 Y_I Y1 x6_net5 VSS nfet_06v0 L=1u W=2.48u
-Mx6_XM9_f2 Y_I Y1 x6_net5 VSS nfet_06v0 L=1u W=2.48u
+Mx6_XM1_f1 Y Y x6_net3 VSS nfet_06v0 L=1u W=2u
+Mx6_XM1_f2 Y Y x6_net3 VSS nfet_06v0 L=1u W=2u
+Mx6_XM7 x6_net3 Y x6_net4 VSS nfet_06v0 L=1u W=2u
+Mx6_XM8 x6_net4 Y VSS VSS nfet_06v0 L=1u W=2u
+Mx6_XM9_f1 Y Y1 x6_net5 VSS nfet_06v0 L=1u W=2.48u
+Mx6_XM9_f2 Y Y1 x6_net5 VSS nfet_06v0 L=1u W=2.48u
 Mx6_XM10 x6_net5 x6_IN VSS VSS nfet_06v0 L=1u W=1.24u
-Mx6_XM11_f1 Y_I Y3 x6_net6 VSS nfet_06v0 L=1u W=2.48u
-Mx6_XM11_f2 Y_I Y3 x6_net6 VSS nfet_06v0 L=1u W=2.48u
+Mx6_XM11_f1 Y Y3 x6_net6 VSS nfet_06v0 L=1u W=2.48u
+Mx6_XM11_f2 Y Y3 x6_net6 VSS nfet_06v0 L=1u W=2.48u
 Mx6_XM12 x6_net6 x6_IN VSS VSS nfet_06v0 L=1u W=1.24u
 Mx6_XM4 x6_net1 x6_IN VSS VSS nfet_06v0 L=1u W=1.24u
 Mx6_XM13 x6_IN x6_IN VDD VDD pfet_06v0 L=1u W=2u
@@ -58,26 +61,29 @@ Mx6_XM14 x6_net8 x6_IN x6_net9 VSS nfet_06v0 L=1u W=0.7u
 Mx6_XM15 x6_net7 x6_IN x6_net8 VSS nfet_06v0 L=1u W=0.7u
 Mx6_XM16 x6_IN x6_IN x6_net7 VSS nfet_06v0 L=1u W=0.7u
 Mx6_XM17 x6_net9 x6_IN VSS VSS nfet_06v0 L=1u W=0.7u
-Mx7_XM2_f1 Z_I Z_I VDD VDD pfet_06v0 L=1u W=2u
-Mx7_XM2_f2 Z_I Z_I VDD VDD pfet_06v0 L=1u W=2u
-Mx7_XM2_f3 Z_I Z_I VDD VDD pfet_06v0 L=1u W=2u
-Mx7_XM2_f4 Z_I Z_I VDD VDD pfet_06v0 L=1u W=2u
-Mx7_XM2_f5 Z_I Z_I VDD VDD pfet_06v0 L=1u W=2u
-Mx7_XM2_f6 Z_I Z_I VDD VDD pfet_06v0 L=1u W=2u
-Mx7_XM3_f1 Z_I Z4 x7_net1 VSS nfet_06v0 L=1u W=2.48u
-Mx7_XM3_f2 Z_I Z4 x7_net1 VSS nfet_06v0 L=1u W=2.48u
-Mx7_XM5_f1 Z_I Z2 x7_net2 VSS nfet_06v0 L=1u W=2.48u
-Mx7_XM5_f2 Z_I Z2 x7_net2 VSS nfet_06v0 L=1u W=2.48u
+Mx6_XMF1_f1 Y VDD x6_netF VSS nfet_06v0 L=1u W=2.48u
+Mx6_XMF1_f2 Y VDD x6_netF VSS nfet_06v0 L=1u W=2.48u
+Mx6_XMF2 x6_netF x6_IN VSS VSS nfet_06v0 L=1u W=1.24u
+Mx7_XM2_f1 Z Z VDD VDD pfet_06v0 L=1u W=2u
+Mx7_XM2_f2 Z Z VDD VDD pfet_06v0 L=1u W=2u
+Mx7_XM2_f3 Z Z VDD VDD pfet_06v0 L=1u W=2u
+Mx7_XM2_f4 Z Z VDD VDD pfet_06v0 L=1u W=2u
+Mx7_XM2_f5 Z Z VDD VDD pfet_06v0 L=1u W=2u
+Mx7_XM2_f6 Z Z VDD VDD pfet_06v0 L=1u W=2u
+Mx7_XM3_f1 Z Z4 x7_net1 VSS nfet_06v0 L=1u W=2.48u
+Mx7_XM3_f2 Z Z4 x7_net1 VSS nfet_06v0 L=1u W=2.48u
+Mx7_XM5_f1 Z Z2 x7_net2 VSS nfet_06v0 L=1u W=2.48u
+Mx7_XM5_f2 Z Z2 x7_net2 VSS nfet_06v0 L=1u W=2.48u
 Mx7_XM6 x7_net2 x7_IN VSS VSS nfet_06v0 L=1u W=1.24u
-Mx7_XM1_f1 Z_I Z_I x7_net3 VSS nfet_06v0 L=1u W=2u
-Mx7_XM1_f2 Z_I Z_I x7_net3 VSS nfet_06v0 L=1u W=2u
-Mx7_XM7 x7_net3 Z_I x7_net4 VSS nfet_06v0 L=1u W=2u
-Mx7_XM8 x7_net4 Z_I VSS VSS nfet_06v0 L=1u W=2u
-Mx7_XM9_f1 Z_I Z1 x7_net5 VSS nfet_06v0 L=1u W=2.48u
-Mx7_XM9_f2 Z_I Z1 x7_net5 VSS nfet_06v0 L=1u W=2.48u
+Mx7_XM1_f1 Z Z x7_net3 VSS nfet_06v0 L=1u W=2u
+Mx7_XM1_f2 Z Z x7_net3 VSS nfet_06v0 L=1u W=2u
+Mx7_XM7 x7_net3 Z x7_net4 VSS nfet_06v0 L=1u W=2u
+Mx7_XM8 x7_net4 Z VSS VSS nfet_06v0 L=1u W=2u
+Mx7_XM9_f1 Z Z1 x7_net5 VSS nfet_06v0 L=1u W=2.48u
+Mx7_XM9_f2 Z Z1 x7_net5 VSS nfet_06v0 L=1u W=2.48u
 Mx7_XM10 x7_net5 x7_IN VSS VSS nfet_06v0 L=1u W=1.24u
-Mx7_XM11_f1 Z_I Z3 x7_net6 VSS nfet_06v0 L=1u W=2.48u
-Mx7_XM11_f2 Z_I Z3 x7_net6 VSS nfet_06v0 L=1u W=2.48u
+Mx7_XM11_f1 Z Z3 x7_net6 VSS nfet_06v0 L=1u W=2.48u
+Mx7_XM11_f2 Z Z3 x7_net6 VSS nfet_06v0 L=1u W=2.48u
 Mx7_XM12 x7_net6 x7_IN VSS VSS nfet_06v0 L=1u W=1.24u
 Mx7_XM4 x7_net1 x7_IN VSS VSS nfet_06v0 L=1u W=1.24u
 Mx7_XM13 x7_IN x7_IN VDD VDD pfet_06v0 L=1u W=2u
@@ -85,24 +91,27 @@ Mx7_XM14 x7_net8 x7_IN x7_net9 VSS nfet_06v0 L=1u W=0.7u
 Mx7_XM15 x7_net7 x7_IN x7_net8 VSS nfet_06v0 L=1u W=0.7u
 Mx7_XM16 x7_IN x7_IN x7_net7 VSS nfet_06v0 L=1u W=0.7u
 Mx7_XM17 x7_net9 x7_IN VSS VSS nfet_06v0 L=1u W=0.7u
-Mx8_x1_XM3 x8_net1 X_I VDD VDD pfet_05v0 L=0.5u W=1.83u
-Mx8_x1_XM4 x8_net1 X_I VSS VSS nfet_05v0 L=0.6u W=1.32u
-Mx8_x2_XM3 XP x8_net1 VDD VDD pfet_05v0 L=0.5u W=1.83u
-Mx8_x2_XM4 XP x8_net1 VSS VSS nfet_05v0 L=0.6u W=1.32u
-Mx8_x3_XM3 XN XP VDD VDD pfet_05v0 L=0.5u W=1.83u
-Mx8_x3_XM4 XN XP VSS VSS nfet_05v0 L=0.6u W=1.32u
-Mx9_x1_XM3 x9_net1 Y_I VDD VDD pfet_05v0 L=0.5u W=1.83u
-Mx9_x1_XM4 x9_net1 Y_I VSS VSS nfet_05v0 L=0.6u W=1.32u
-Mx9_x2_XM3 YP x9_net1 VDD VDD pfet_05v0 L=0.5u W=1.83u
-Mx9_x2_XM4 YP x9_net1 VSS VSS nfet_05v0 L=0.6u W=1.32u
-Mx9_x3_XM3 YN YP VDD VDD pfet_05v0 L=0.5u W=1.83u
-Mx9_x3_XM4 YN YP VSS VSS nfet_05v0 L=0.6u W=1.32u
-Mx10_x1_XM3 x10_net1 Z_I VDD VDD pfet_05v0 L=0.5u W=1.83u
-Mx10_x1_XM4 x10_net1 Z_I VSS VSS nfet_05v0 L=0.6u W=1.32u
-Mx10_x2_XM3 ZP x10_net1 VDD VDD pfet_05v0 L=0.5u W=1.83u
-Mx10_x2_XM4 ZP x10_net1 VSS VSS nfet_05v0 L=0.6u W=1.32u
-Mx10_x3_XM3 ZN ZP VDD VDD pfet_05v0 L=0.5u W=1.83u
-Mx10_x3_XM4 ZN ZP VSS VSS nfet_05v0 L=0.6u W=1.32u
+Mx7_XMF1_f1 Z VDD x7_netF VSS nfet_06v0 L=1u W=2.48u
+Mx7_XMF1_f2 Z VDD x7_netF VSS nfet_06v0 L=1u W=2.48u
+Mx7_XMF2 x7_netF x7_IN VSS VSS nfet_06v0 L=1u W=1.24u
+Mx8_x1_XM3 x8_net1 X VDD VDD pfet_05v0 L=0.5u W=1.83u
+Mx8_x1_XM4 x8_net1 X VSS VSS nfet_05v0 L=0.6u W=1.32u
+Mx8_x2_XM3 XN x8_net1 VDD VDD pfet_05v0 L=0.5u W=1.83u
+Mx8_x2_XM4 XN x8_net1 VSS VSS nfet_05v0 L=0.6u W=1.32u
+Mx8_x3_XM3 XP XN VDD VDD pfet_05v0 L=0.5u W=1.83u
+Mx8_x3_XM4 XP XN VSS VSS nfet_05v0 L=0.6u W=1.32u
+Mx9_x1_XM3 x9_net1 Y VDD VDD pfet_05v0 L=0.5u W=1.83u
+Mx9_x1_XM4 x9_net1 Y VSS VSS nfet_05v0 L=0.6u W=1.32u
+Mx9_x2_XM3 YN x9_net1 VDD VDD pfet_05v0 L=0.5u W=1.83u
+Mx9_x2_XM4 YN x9_net1 VSS VSS nfet_05v0 L=0.6u W=1.32u
+Mx9_x3_XM3 YP YN VDD VDD pfet_05v0 L=0.5u W=1.83u
+Mx9_x3_XM4 YP YN VSS VSS nfet_05v0 L=0.6u W=1.32u
+Mx10_x1_XM3 x10_net1 Z VDD VDD pfet_05v0 L=0.5u W=1.83u
+Mx10_x1_XM4 x10_net1 Z VSS VSS nfet_05v0 L=0.6u W=1.32u
+Mx10_x2_XM3 ZN x10_net1 VDD VDD pfet_05v0 L=0.5u W=1.83u
+Mx10_x2_XM4 ZN x10_net1 VSS VSS nfet_05v0 L=0.6u W=1.32u
+Mx10_x3_XM3 ZP ZN VDD VDD pfet_05v0 L=0.5u W=1.83u
+Mx10_x3_XM4 ZP ZN VSS VSS nfet_05v0 L=0.6u W=1.32u
 Mx1_x4_x1_XM4 x1_x4_x1_net3 x1_x4_net4 VDD VDD pfet_06v0 L=1.0u W=10.0u
 Mx1_x4_x1_XM5 x1_x4_net2 x1_x4_net3 x1_x4_x1_net3 VDD pfet_06v0 L=1.0u W=10.0u
 Mx1_x4_x1_XM6 x1_x4_net2 x1_x4_net2 VSS VSS nfet_06v0 L=1.0u W=1.0u
@@ -361,26 +370,26 @@ Mx1_x8_x2_XM11 x1_x8_x2_net2 x1_x8_net3 VDD VDD pfet_06v0 L=1.0u W=10.0u
 Mx1_x8_x2_XM12 x1_x8_x2_net7 x1_x8_net4 x1_x8_x2_net2 VDD pfet_06v0 L=1.0u W=10.0u
 Mx1_x8_x2_XM13 x1_x8_x2_net18 x1_x8_net3 VDD VDD pfet_06v0 L=1.0u W=10.0u
 Mx1_x8_x2_XM14 x1_x8_x2_net7 x1_x8_net4 x1_x8_x2_net18 VDD pfet_06v0 L=1.0u W=10.0u
-Mx1_x8_x2_XM15 x1_x8_x2_net5 S1P_I x1_x8_x2_net7 VDD pfet_06v0 L=1.0u W=1.1u
-Mx1_x8_x2_XM16 x1_x8_x2_net4 S1N_I x1_x8_x2_net7 VDD pfet_06v0 L=1.0u W=1.0u
+Mx1_x8_x2_XM15 x1_x8_x2_net5 S1P x1_x8_x2_net7 VDD pfet_06v0 L=1.0u W=0.55u
+Mx1_x8_x2_XM16 x1_x8_x2_net4 S1N x1_x8_x2_net7 VDD pfet_06v0 L=1.0u W=0.5u
 Mx1_x8_x2_XM17 x1_x8_x2_net8 x1_x8_net2 x1_x8_x2_net1 VSS nfet_06v0 L=1.0u W=5.0u
 Mx1_x8_x2_XM18 x1_x8_x2_net1 x1_x8_net1 VSS VSS nfet_06v0 L=1.0u W=5.0u
 Mx1_x8_x2_XM19 x1_x8_x2_net8 x1_x8_net2 x1_x8_x2_net19 VSS nfet_06v0 L=1.0u W=5.0u
 Mx1_x8_x2_XM20 x1_x8_x2_net19 x1_x8_net1 VSS VSS nfet_06v0 L=1.0u W=5.0u
-Mx1_x8_x2_XM21 x1_x8_x2_net6 S1P_I x1_x8_x2_net8 VSS nfet_06v0 L=1.0u W=1u
-Mx1_x8_x2_XM22 x1_x8_x2_net3 S1N_I x1_x8_x2_net8 VSS nfet_06v0 L=1.0u W=1u
-Mx1_x8_x2_XM29 x1_x8_x2_net9 x1_x8_net4 x1_x8_x2_net3 VDD pfet_06v0 L=1.0u W=5u
-Mx1_x8_x2_XM30 x1_x8_x2_G_OUT_P x1_x8_net4 x1_x8_x2_net6 VDD pfet_06v0 L=1.0u W=5u
+Mx1_x8_x2_XM21 x1_x8_x2_net6 S1P x1_x8_x2_net8 VSS nfet_06v0 L=1.0u W=7.5u
+Mx1_x8_x2_XM22 x1_x8_x2_net3 S1N x1_x8_x2_net8 VSS nfet_06v0 L=1.0u W=8.5u
+Mx1_x8_x2_XM29 x1_x8_x2_net9 x1_x8_net4 x1_x8_x2_net3 VDD pfet_06v0 L=1.0u W=10u
+Mx1_x8_x2_XM30 x1_x8_x2_G_OUT_P x1_x8_net4 x1_x8_x2_net6 VDD pfet_06v0 L=1.0u W=10u
 Mx1_x8_x2_XM31 x1_x8_x2_net3 x1_x8_x2_net9 VDD VDD pfet_06v0 L=1.0u W=5u
 Mx1_x8_x2_XM35 x1_x8_x2_net6 x1_x8_x2_net9 VDD VDD pfet_06v0 L=1.0u W=5u
-Mx1_x8_x2_XM32 x1_x8_x2_net10 x1_x8_x2_net20 x1_x8_x2_net9 VDD pfet_06v0 L=1.0u W=5.0u
-Mx1_x8_x2_XM33 x1_x8_x2_net21 x1_x8_x2_net20 x1_x8_x2_G_OUT_P VDD pfet_06v0 L=1.0u W=5.0u
+Mx1_x8_x2_XM32 x1_x8_x2_net10 x1_x8_x2_net20 x1_x8_x2_net9 VDD pfet_06v0 L=1.0u W=4.0u
+Mx1_x8_x2_XM33 x1_x8_x2_net21 x1_x8_x2_net20 x1_x8_x2_G_OUT_P VDD pfet_06v0 L=1.0u W=4.0u
 Mx1_x8_x2_XM23 x1_x8_x2_net10 x1_x8_net2 x1_x8_x2_net4 VSS nfet_06v0 L=1.0u W=2.5u
 Mx1_x8_x2_XM24 x1_x8_x2_net21 x1_x8_net2 x1_x8_x2_net5 VSS nfet_06v0 L=1.0u W=2.5u
 Mx1_x8_x2_XM25 x1_x8_x2_net4 x1_x8_x2_net10 VSS VSS nfet_06v0 L=1.0u W=2.5u
 Mx1_x8_x2_XM26 x1_x8_x2_net5 x1_x8_x2_net10 VSS VSS nfet_06v0 L=1.0u W=2.5u
-Mx1_x8_x2_XM27 x1_x8_x2_net9 x1_x8_x2_net11 x1_x8_x2_net10 VSS nfet_06v0 L=1.0u W=2.5u
-Mx1_x8_x2_XM28 x1_x8_x2_G_OUT_P x1_x8_x2_net11 x1_x8_x2_net21 VSS nfet_06v0 L=1.0u W=2.5u
+Mx1_x8_x2_XM27 x1_x8_x2_net9 x1_x8_x2_net11 x1_x8_x2_net10 VSS nfet_06v0 L=1.0u W=2.0u
+Mx1_x8_x2_XM28 x1_x8_x2_G_OUT_P x1_x8_x2_net11 x1_x8_x2_net21 VSS nfet_06v0 L=1.0u W=2.0u
 Mx1_x8_x2_XM34 x1_x8_x2_net12 x1_x8_x2_net13 VDD VDD pfet_06v0 L=1.0u W=10.0u
 Mx1_x8_x2_XM36 x1_x8_x2_net13 x1_x8_net4 x1_x8_x2_net12 VDD pfet_06v0 L=1.0u W=10.0u
 Mx1_x8_x2_XM37 x1_x8_x2_net20 x1_x8_x2_net20 x1_x8_x2_net13 VDD pfet_06v0 L=1.0u W=10.0u
@@ -391,10 +400,10 @@ Mx1_x8_x2_XM46 x1_x8_x2_net11 x1_x8_net4 x1_x8_x2_net15 VDD pfet_06v0 L=1.0u W=1
 Mx1_x8_x2_XM40 x1_x8_x2_net11 x1_x8_x2_net11 x1_x8_x2_net17 VSS nfet_06v0 L=1.0u W=5.0u
 Mx1_x8_x2_XM41 x1_x8_x2_net17 x1_x8_net2 x1_x8_x2_net16 VSS nfet_06v0 L=1.0u W=5.0u
 Mx1_x8_x2_XM42 x1_x8_x2_net16 x1_x8_x2_net17 VSS VSS nfet_06v0 L=1.0u W=5.0u
-Mx1_x8_x2_XM43_m1 x1_SX x1_x8_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=0.5u
-Mx1_x8_x2_XM43_m2 x1_SX x1_x8_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=0.5u
-Mx1_x8_x2_XM43_m3 x1_SX x1_x8_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=0.5u
-Mx1_x8_x2_XM43_m4 x1_SX x1_x8_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=0.5u
+Mx1_x8_x2_XM43_m1 x1_SX x1_x8_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=1.0u
+Mx1_x8_x2_XM43_m2 x1_SX x1_x8_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=1.0u
+Mx1_x8_x2_XM43_m3 x1_SX x1_x8_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=1.0u
+Mx1_x8_x2_XM43_m4 x1_SX x1_x8_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=1.0u
 Mx1_x8_x2_XM44 x1_SX x1_x8_x2_net21 VSS VSS nfet_06v0 L=1.0u W=1.0u
 Mx1_x1_x1_XM4 x1_x1_x1_net3 x1_x1_net3 VDD VDD pfet_06v0 L=1.0u W=10.0u
 Mx1_x1_x1_XM5 x1_x1_net2 x1_x1_net4 x1_x1_x1_net3 VDD pfet_06v0 L=1.0u W=10.0u
@@ -414,26 +423,26 @@ Mx1_x1_x2_XM11 x1_x1_x2_net2 x1_x1_net3 VDD VDD pfet_06v0 L=1.0u W=10.0u
 Mx1_x1_x2_XM12 x1_x1_x2_net7 x1_x1_net4 x1_x1_x2_net2 VDD pfet_06v0 L=1.0u W=10.0u
 Mx1_x1_x2_XM13 x1_x1_x2_net18 x1_x1_net3 VDD VDD pfet_06v0 L=1.0u W=10.0u
 Mx1_x1_x2_XM14 x1_x1_x2_net7 x1_x1_net4 x1_x1_x2_net18 VDD pfet_06v0 L=1.0u W=10.0u
-Mx1_x1_x2_XM15 x1_x1_x2_net5 S2P_I x1_x1_x2_net7 VDD pfet_06v0 L=1.0u W=1.1u
-Mx1_x1_x2_XM16 x1_x1_x2_net4 S2N_I x1_x1_x2_net7 VDD pfet_06v0 L=1.0u W=1.0u
+Mx1_x1_x2_XM15 x1_x1_x2_net5 S2P x1_x1_x2_net7 VDD pfet_06v0 L=1.0u W=0.55u
+Mx1_x1_x2_XM16 x1_x1_x2_net4 S2N x1_x1_x2_net7 VDD pfet_06v0 L=1.0u W=0.5u
 Mx1_x1_x2_XM17 x1_x1_x2_net8 x1_x1_net2 x1_x1_x2_net1 VSS nfet_06v0 L=1.0u W=5.0u
 Mx1_x1_x2_XM18 x1_x1_x2_net1 x1_x1_net1 VSS VSS nfet_06v0 L=1.0u W=5.0u
 Mx1_x1_x2_XM19 x1_x1_x2_net8 x1_x1_net2 x1_x1_x2_net19 VSS nfet_06v0 L=1.0u W=5.0u
 Mx1_x1_x2_XM20 x1_x1_x2_net19 x1_x1_net1 VSS VSS nfet_06v0 L=1.0u W=5.0u
-Mx1_x1_x2_XM21 x1_x1_x2_net6 S2P_I x1_x1_x2_net8 VSS nfet_06v0 L=1.0u W=1u
-Mx1_x1_x2_XM22 x1_x1_x2_net3 S2N_I x1_x1_x2_net8 VSS nfet_06v0 L=1.0u W=1u
-Mx1_x1_x2_XM29 x1_x1_x2_net9 x1_x1_net4 x1_x1_x2_net3 VDD pfet_06v0 L=1.0u W=5u
-Mx1_x1_x2_XM30 x1_x1_x2_G_OUT_P x1_x1_net4 x1_x1_x2_net6 VDD pfet_06v0 L=1.0u W=5u
+Mx1_x1_x2_XM21 x1_x1_x2_net6 S2P x1_x1_x2_net8 VSS nfet_06v0 L=1.0u W=7.5u
+Mx1_x1_x2_XM22 x1_x1_x2_net3 S2N x1_x1_x2_net8 VSS nfet_06v0 L=1.0u W=8.5u
+Mx1_x1_x2_XM29 x1_x1_x2_net9 x1_x1_net4 x1_x1_x2_net3 VDD pfet_06v0 L=1.0u W=10u
+Mx1_x1_x2_XM30 x1_x1_x2_G_OUT_P x1_x1_net4 x1_x1_x2_net6 VDD pfet_06v0 L=1.0u W=10u
 Mx1_x1_x2_XM31 x1_x1_x2_net3 x1_x1_x2_net9 VDD VDD pfet_06v0 L=1.0u W=5u
 Mx1_x1_x2_XM35 x1_x1_x2_net6 x1_x1_x2_net9 VDD VDD pfet_06v0 L=1.0u W=5u
-Mx1_x1_x2_XM32 x1_x1_x2_net10 x1_x1_x2_net20 x1_x1_x2_net9 VDD pfet_06v0 L=1.0u W=5.0u
-Mx1_x1_x2_XM33 x1_x1_x2_net21 x1_x1_x2_net20 x1_x1_x2_G_OUT_P VDD pfet_06v0 L=1.0u W=5.0u
+Mx1_x1_x2_XM32 x1_x1_x2_net10 x1_x1_x2_net20 x1_x1_x2_net9 VDD pfet_06v0 L=1.0u W=4.0u
+Mx1_x1_x2_XM33 x1_x1_x2_net21 x1_x1_x2_net20 x1_x1_x2_G_OUT_P VDD pfet_06v0 L=1.0u W=4.0u
 Mx1_x1_x2_XM23 x1_x1_x2_net10 x1_x1_net2 x1_x1_x2_net4 VSS nfet_06v0 L=1.0u W=2.5u
 Mx1_x1_x2_XM24 x1_x1_x2_net21 x1_x1_net2 x1_x1_x2_net5 VSS nfet_06v0 L=1.0u W=2.5u
 Mx1_x1_x2_XM25 x1_x1_x2_net4 x1_x1_x2_net10 VSS VSS nfet_06v0 L=1.0u W=2.5u
 Mx1_x1_x2_XM26 x1_x1_x2_net5 x1_x1_x2_net10 VSS VSS nfet_06v0 L=1.0u W=2.5u
-Mx1_x1_x2_XM27 x1_x1_x2_net9 x1_x1_x2_net11 x1_x1_x2_net10 VSS nfet_06v0 L=1.0u W=2.5u
-Mx1_x1_x2_XM28 x1_x1_x2_G_OUT_P x1_x1_x2_net11 x1_x1_x2_net21 VSS nfet_06v0 L=1.0u W=2.5u
+Mx1_x1_x2_XM27 x1_x1_x2_net9 x1_x1_x2_net11 x1_x1_x2_net10 VSS nfet_06v0 L=1.0u W=2.0u
+Mx1_x1_x2_XM28 x1_x1_x2_G_OUT_P x1_x1_x2_net11 x1_x1_x2_net21 VSS nfet_06v0 L=1.0u W=2.0u
 Mx1_x1_x2_XM34 x1_x1_x2_net12 x1_x1_x2_net13 VDD VDD pfet_06v0 L=1.0u W=10.0u
 Mx1_x1_x2_XM36 x1_x1_x2_net13 x1_x1_net4 x1_x1_x2_net12 VDD pfet_06v0 L=1.0u W=10.0u
 Mx1_x1_x2_XM37 x1_x1_x2_net20 x1_x1_x2_net20 x1_x1_x2_net13 VDD pfet_06v0 L=1.0u W=10.0u
@@ -444,10 +453,10 @@ Mx1_x1_x2_XM46 x1_x1_x2_net11 x1_x1_net4 x1_x1_x2_net15 VDD pfet_06v0 L=1.0u W=1
 Mx1_x1_x2_XM40 x1_x1_x2_net11 x1_x1_x2_net11 x1_x1_x2_net17 VSS nfet_06v0 L=1.0u W=5.0u
 Mx1_x1_x2_XM41 x1_x1_x2_net17 x1_x1_net2 x1_x1_x2_net16 VSS nfet_06v0 L=1.0u W=5.0u
 Mx1_x1_x2_XM42 x1_x1_x2_net16 x1_x1_x2_net17 VSS VSS nfet_06v0 L=1.0u W=5.0u
-Mx1_x1_x2_XM43_m1 x1_SY x1_x1_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=0.5u
-Mx1_x1_x2_XM43_m2 x1_SY x1_x1_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=0.5u
-Mx1_x1_x2_XM43_m3 x1_SY x1_x1_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=0.5u
-Mx1_x1_x2_XM43_m4 x1_SY x1_x1_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=0.5u
+Mx1_x1_x2_XM43_m1 x1_SY x1_x1_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=1.0u
+Mx1_x1_x2_XM43_m2 x1_SY x1_x1_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=1.0u
+Mx1_x1_x2_XM43_m3 x1_SY x1_x1_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=1.0u
+Mx1_x1_x2_XM43_m4 x1_SY x1_x1_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=1.0u
 Mx1_x1_x2_XM44 x1_SY x1_x1_x2_net21 VSS VSS nfet_06v0 L=1.0u W=1.0u
 Mx1_x2_x1_XM4 x1_x2_x1_net3 x1_x2_net3 VDD VDD pfet_06v0 L=1.0u W=10.0u
 Mx1_x2_x1_XM5 x1_x2_net2 x1_x2_net4 x1_x2_x1_net3 VDD pfet_06v0 L=1.0u W=10.0u
@@ -467,26 +476,26 @@ Mx1_x2_x2_XM11 x1_x2_x2_net2 x1_x2_net3 VDD VDD pfet_06v0 L=1.0u W=10.0u
 Mx1_x2_x2_XM12 x1_x2_x2_net7 x1_x2_net4 x1_x2_x2_net2 VDD pfet_06v0 L=1.0u W=10.0u
 Mx1_x2_x2_XM13 x1_x2_x2_net18 x1_x2_net3 VDD VDD pfet_06v0 L=1.0u W=10.0u
 Mx1_x2_x2_XM14 x1_x2_x2_net7 x1_x2_net4 x1_x2_x2_net18 VDD pfet_06v0 L=1.0u W=10.0u
-Mx1_x2_x2_XM15 x1_x2_x2_net5 S3P_I x1_x2_x2_net7 VDD pfet_06v0 L=1.0u W=1.1u
-Mx1_x2_x2_XM16 x1_x2_x2_net4 S3N_I x1_x2_x2_net7 VDD pfet_06v0 L=1.0u W=1.0u
+Mx1_x2_x2_XM15 x1_x2_x2_net5 S3P x1_x2_x2_net7 VDD pfet_06v0 L=1.0u W=0.55u
+Mx1_x2_x2_XM16 x1_x2_x2_net4 S3N x1_x2_x2_net7 VDD pfet_06v0 L=1.0u W=0.5u
 Mx1_x2_x2_XM17 x1_x2_x2_net8 x1_x2_net2 x1_x2_x2_net1 VSS nfet_06v0 L=1.0u W=5.0u
 Mx1_x2_x2_XM18 x1_x2_x2_net1 x1_x2_net1 VSS VSS nfet_06v0 L=1.0u W=5.0u
 Mx1_x2_x2_XM19 x1_x2_x2_net8 x1_x2_net2 x1_x2_x2_net19 VSS nfet_06v0 L=1.0u W=5.0u
 Mx1_x2_x2_XM20 x1_x2_x2_net19 x1_x2_net1 VSS VSS nfet_06v0 L=1.0u W=5.0u
-Mx1_x2_x2_XM21 x1_x2_x2_net6 S3P_I x1_x2_x2_net8 VSS nfet_06v0 L=1.0u W=1u
-Mx1_x2_x2_XM22 x1_x2_x2_net3 S3N_I x1_x2_x2_net8 VSS nfet_06v0 L=1.0u W=1u
-Mx1_x2_x2_XM29 x1_x2_x2_net9 x1_x2_net4 x1_x2_x2_net3 VDD pfet_06v0 L=1.0u W=5u
-Mx1_x2_x2_XM30 x1_x2_x2_G_OUT_P x1_x2_net4 x1_x2_x2_net6 VDD pfet_06v0 L=1.0u W=5u
+Mx1_x2_x2_XM21 x1_x2_x2_net6 S3P x1_x2_x2_net8 VSS nfet_06v0 L=1.0u W=7.5u
+Mx1_x2_x2_XM22 x1_x2_x2_net3 S3N x1_x2_x2_net8 VSS nfet_06v0 L=1.0u W=8.5u
+Mx1_x2_x2_XM29 x1_x2_x2_net9 x1_x2_net4 x1_x2_x2_net3 VDD pfet_06v0 L=1.0u W=10u
+Mx1_x2_x2_XM30 x1_x2_x2_G_OUT_P x1_x2_net4 x1_x2_x2_net6 VDD pfet_06v0 L=1.0u W=10u
 Mx1_x2_x2_XM31 x1_x2_x2_net3 x1_x2_x2_net9 VDD VDD pfet_06v0 L=1.0u W=5u
 Mx1_x2_x2_XM35 x1_x2_x2_net6 x1_x2_x2_net9 VDD VDD pfet_06v0 L=1.0u W=5u
-Mx1_x2_x2_XM32 x1_x2_x2_net10 x1_x2_x2_net20 x1_x2_x2_net9 VDD pfet_06v0 L=1.0u W=5.0u
-Mx1_x2_x2_XM33 x1_x2_x2_net21 x1_x2_x2_net20 x1_x2_x2_G_OUT_P VDD pfet_06v0 L=1.0u W=5.0u
+Mx1_x2_x2_XM32 x1_x2_x2_net10 x1_x2_x2_net20 x1_x2_x2_net9 VDD pfet_06v0 L=1.0u W=4.0u
+Mx1_x2_x2_XM33 x1_x2_x2_net21 x1_x2_x2_net20 x1_x2_x2_G_OUT_P VDD pfet_06v0 L=1.0u W=4.0u
 Mx1_x2_x2_XM23 x1_x2_x2_net10 x1_x2_net2 x1_x2_x2_net4 VSS nfet_06v0 L=1.0u W=2.5u
 Mx1_x2_x2_XM24 x1_x2_x2_net21 x1_x2_net2 x1_x2_x2_net5 VSS nfet_06v0 L=1.0u W=2.5u
 Mx1_x2_x2_XM25 x1_x2_x2_net4 x1_x2_x2_net10 VSS VSS nfet_06v0 L=1.0u W=2.5u
 Mx1_x2_x2_XM26 x1_x2_x2_net5 x1_x2_x2_net10 VSS VSS nfet_06v0 L=1.0u W=2.5u
-Mx1_x2_x2_XM27 x1_x2_x2_net9 x1_x2_x2_net11 x1_x2_x2_net10 VSS nfet_06v0 L=1.0u W=2.5u
-Mx1_x2_x2_XM28 x1_x2_x2_G_OUT_P x1_x2_x2_net11 x1_x2_x2_net21 VSS nfet_06v0 L=1.0u W=2.5u
+Mx1_x2_x2_XM27 x1_x2_x2_net9 x1_x2_x2_net11 x1_x2_x2_net10 VSS nfet_06v0 L=1.0u W=2.0u
+Mx1_x2_x2_XM28 x1_x2_x2_G_OUT_P x1_x2_x2_net11 x1_x2_x2_net21 VSS nfet_06v0 L=1.0u W=2.0u
 Mx1_x2_x2_XM34 x1_x2_x2_net12 x1_x2_x2_net13 VDD VDD pfet_06v0 L=1.0u W=10.0u
 Mx1_x2_x2_XM36 x1_x2_x2_net13 x1_x2_net4 x1_x2_x2_net12 VDD pfet_06v0 L=1.0u W=10.0u
 Mx1_x2_x2_XM37 x1_x2_x2_net20 x1_x2_x2_net20 x1_x2_x2_net13 VDD pfet_06v0 L=1.0u W=10.0u
@@ -497,10 +506,10 @@ Mx1_x2_x2_XM46 x1_x2_x2_net11 x1_x2_net4 x1_x2_x2_net15 VDD pfet_06v0 L=1.0u W=1
 Mx1_x2_x2_XM40 x1_x2_x2_net11 x1_x2_x2_net11 x1_x2_x2_net17 VSS nfet_06v0 L=1.0u W=5.0u
 Mx1_x2_x2_XM41 x1_x2_x2_net17 x1_x2_net2 x1_x2_x2_net16 VSS nfet_06v0 L=1.0u W=5.0u
 Mx1_x2_x2_XM42 x1_x2_x2_net16 x1_x2_x2_net17 VSS VSS nfet_06v0 L=1.0u W=5.0u
-Mx1_x2_x2_XM43_m1 x1_SZ x1_x2_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=0.5u
-Mx1_x2_x2_XM43_m2 x1_SZ x1_x2_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=0.5u
-Mx1_x2_x2_XM43_m3 x1_SZ x1_x2_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=0.5u
-Mx1_x2_x2_XM43_m4 x1_SZ x1_x2_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=0.5u
+Mx1_x2_x2_XM43_m1 x1_SZ x1_x2_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=1.0u
+Mx1_x2_x2_XM43_m2 x1_SZ x1_x2_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=1.0u
+Mx1_x2_x2_XM43_m3 x1_SZ x1_x2_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=1.0u
+Mx1_x2_x2_XM43_m4 x1_SZ x1_x2_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=1.0u
 Mx1_x2_x2_XM44 x1_SZ x1_x2_x2_net21 VSS VSS nfet_06v0 L=1.0u W=1.0u
 Mx2_x4_x1_XM4 x2_x4_x1_net3 x2_x4_net4 VDD VDD pfet_06v0 L=1.0u W=10.0u
 Mx2_x4_x1_XM5 x2_x4_net2 x2_x4_net3 x2_x4_x1_net3 VDD pfet_06v0 L=1.0u W=10.0u
@@ -760,26 +769,26 @@ Mx2_x8_x2_XM11 x2_x8_x2_net2 x2_x8_net3 VDD VDD pfet_06v0 L=1.0u W=10.0u
 Mx2_x8_x2_XM12 x2_x8_x2_net7 x2_x8_net4 x2_x8_x2_net2 VDD pfet_06v0 L=1.0u W=10.0u
 Mx2_x8_x2_XM13 x2_x8_x2_net18 x2_x8_net3 VDD VDD pfet_06v0 L=1.0u W=10.0u
 Mx2_x8_x2_XM14 x2_x8_x2_net7 x2_x8_net4 x2_x8_x2_net18 VDD pfet_06v0 L=1.0u W=10.0u
-Mx2_x8_x2_XM15 x2_x8_x2_net5 S1P_I x2_x8_x2_net7 VDD pfet_06v0 L=1.0u W=1.1u
-Mx2_x8_x2_XM16 x2_x8_x2_net4 S1N_I x2_x8_x2_net7 VDD pfet_06v0 L=1.0u W=1.0u
+Mx2_x8_x2_XM15 x2_x8_x2_net5 S4P x2_x8_x2_net7 VDD pfet_06v0 L=1.0u W=0.55u
+Mx2_x8_x2_XM16 x2_x8_x2_net4 S4N x2_x8_x2_net7 VDD pfet_06v0 L=1.0u W=0.5u
 Mx2_x8_x2_XM17 x2_x8_x2_net8 x2_x8_net2 x2_x8_x2_net1 VSS nfet_06v0 L=1.0u W=5.0u
 Mx2_x8_x2_XM18 x2_x8_x2_net1 x2_x8_net1 VSS VSS nfet_06v0 L=1.0u W=5.0u
 Mx2_x8_x2_XM19 x2_x8_x2_net8 x2_x8_net2 x2_x8_x2_net19 VSS nfet_06v0 L=1.0u W=5.0u
 Mx2_x8_x2_XM20 x2_x8_x2_net19 x2_x8_net1 VSS VSS nfet_06v0 L=1.0u W=5.0u
-Mx2_x8_x2_XM21 x2_x8_x2_net6 S1P_I x2_x8_x2_net8 VSS nfet_06v0 L=1.0u W=1u
-Mx2_x8_x2_XM22 x2_x8_x2_net3 S1N_I x2_x8_x2_net8 VSS nfet_06v0 L=1.0u W=1u
-Mx2_x8_x2_XM29 x2_x8_x2_net9 x2_x8_net4 x2_x8_x2_net3 VDD pfet_06v0 L=1.0u W=5u
-Mx2_x8_x2_XM30 x2_x8_x2_G_OUT_P x2_x8_net4 x2_x8_x2_net6 VDD pfet_06v0 L=1.0u W=5u
+Mx2_x8_x2_XM21 x2_x8_x2_net6 S4P x2_x8_x2_net8 VSS nfet_06v0 L=1.0u W=7.5u
+Mx2_x8_x2_XM22 x2_x8_x2_net3 S4N x2_x8_x2_net8 VSS nfet_06v0 L=1.0u W=8.5u
+Mx2_x8_x2_XM29 x2_x8_x2_net9 x2_x8_net4 x2_x8_x2_net3 VDD pfet_06v0 L=1.0u W=10u
+Mx2_x8_x2_XM30 x2_x8_x2_G_OUT_P x2_x8_net4 x2_x8_x2_net6 VDD pfet_06v0 L=1.0u W=10u
 Mx2_x8_x2_XM31 x2_x8_x2_net3 x2_x8_x2_net9 VDD VDD pfet_06v0 L=1.0u W=5u
 Mx2_x8_x2_XM35 x2_x8_x2_net6 x2_x8_x2_net9 VDD VDD pfet_06v0 L=1.0u W=5u
-Mx2_x8_x2_XM32 x2_x8_x2_net10 x2_x8_x2_net20 x2_x8_x2_net9 VDD pfet_06v0 L=1.0u W=5.0u
-Mx2_x8_x2_XM33 x2_x8_x2_net21 x2_x8_x2_net20 x2_x8_x2_G_OUT_P VDD pfet_06v0 L=1.0u W=5.0u
+Mx2_x8_x2_XM32 x2_x8_x2_net10 x2_x8_x2_net20 x2_x8_x2_net9 VDD pfet_06v0 L=1.0u W=4.0u
+Mx2_x8_x2_XM33 x2_x8_x2_net21 x2_x8_x2_net20 x2_x8_x2_G_OUT_P VDD pfet_06v0 L=1.0u W=4.0u
 Mx2_x8_x2_XM23 x2_x8_x2_net10 x2_x8_net2 x2_x8_x2_net4 VSS nfet_06v0 L=1.0u W=2.5u
 Mx2_x8_x2_XM24 x2_x8_x2_net21 x2_x8_net2 x2_x8_x2_net5 VSS nfet_06v0 L=1.0u W=2.5u
 Mx2_x8_x2_XM25 x2_x8_x2_net4 x2_x8_x2_net10 VSS VSS nfet_06v0 L=1.0u W=2.5u
 Mx2_x8_x2_XM26 x2_x8_x2_net5 x2_x8_x2_net10 VSS VSS nfet_06v0 L=1.0u W=2.5u
-Mx2_x8_x2_XM27 x2_x8_x2_net9 x2_x8_x2_net11 x2_x8_x2_net10 VSS nfet_06v0 L=1.0u W=2.5u
-Mx2_x8_x2_XM28 x2_x8_x2_G_OUT_P x2_x8_x2_net11 x2_x8_x2_net21 VSS nfet_06v0 L=1.0u W=2.5u
+Mx2_x8_x2_XM27 x2_x8_x2_net9 x2_x8_x2_net11 x2_x8_x2_net10 VSS nfet_06v0 L=1.0u W=2.0u
+Mx2_x8_x2_XM28 x2_x8_x2_G_OUT_P x2_x8_x2_net11 x2_x8_x2_net21 VSS nfet_06v0 L=1.0u W=2.0u
 Mx2_x8_x2_XM34 x2_x8_x2_net12 x2_x8_x2_net13 VDD VDD pfet_06v0 L=1.0u W=10.0u
 Mx2_x8_x2_XM36 x2_x8_x2_net13 x2_x8_net4 x2_x8_x2_net12 VDD pfet_06v0 L=1.0u W=10.0u
 Mx2_x8_x2_XM37 x2_x8_x2_net20 x2_x8_x2_net20 x2_x8_x2_net13 VDD pfet_06v0 L=1.0u W=10.0u
@@ -790,10 +799,10 @@ Mx2_x8_x2_XM46 x2_x8_x2_net11 x2_x8_net4 x2_x8_x2_net15 VDD pfet_06v0 L=1.0u W=1
 Mx2_x8_x2_XM40 x2_x8_x2_net11 x2_x8_x2_net11 x2_x8_x2_net17 VSS nfet_06v0 L=1.0u W=5.0u
 Mx2_x8_x2_XM41 x2_x8_x2_net17 x2_x8_net2 x2_x8_x2_net16 VSS nfet_06v0 L=1.0u W=5.0u
 Mx2_x8_x2_XM42 x2_x8_x2_net16 x2_x8_x2_net17 VSS VSS nfet_06v0 L=1.0u W=5.0u
-Mx2_x8_x2_XM43_m1 x2_SX x2_x8_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=0.5u
-Mx2_x8_x2_XM43_m2 x2_SX x2_x8_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=0.5u
-Mx2_x8_x2_XM43_m3 x2_SX x2_x8_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=0.5u
-Mx2_x8_x2_XM43_m4 x2_SX x2_x8_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=0.5u
+Mx2_x8_x2_XM43_m1 x2_SX x2_x8_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=1.0u
+Mx2_x8_x2_XM43_m2 x2_SX x2_x8_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=1.0u
+Mx2_x8_x2_XM43_m3 x2_SX x2_x8_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=1.0u
+Mx2_x8_x2_XM43_m4 x2_SX x2_x8_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=1.0u
 Mx2_x8_x2_XM44 x2_SX x2_x8_x2_net21 VSS VSS nfet_06v0 L=1.0u W=1.0u
 Mx2_x1_x1_XM4 x2_x1_x1_net3 x2_x1_net3 VDD VDD pfet_06v0 L=1.0u W=10.0u
 Mx2_x1_x1_XM5 x2_x1_net2 x2_x1_net4 x2_x1_x1_net3 VDD pfet_06v0 L=1.0u W=10.0u
@@ -813,26 +822,26 @@ Mx2_x1_x2_XM11 x2_x1_x2_net2 x2_x1_net3 VDD VDD pfet_06v0 L=1.0u W=10.0u
 Mx2_x1_x2_XM12 x2_x1_x2_net7 x2_x1_net4 x2_x1_x2_net2 VDD pfet_06v0 L=1.0u W=10.0u
 Mx2_x1_x2_XM13 x2_x1_x2_net18 x2_x1_net3 VDD VDD pfet_06v0 L=1.0u W=10.0u
 Mx2_x1_x2_XM14 x2_x1_x2_net7 x2_x1_net4 x2_x1_x2_net18 VDD pfet_06v0 L=1.0u W=10.0u
-Mx2_x1_x2_XM15 x2_x1_x2_net5 S2P_I x2_x1_x2_net7 VDD pfet_06v0 L=1.0u W=1.1u
-Mx2_x1_x2_XM16 x2_x1_x2_net4 S2N_I x2_x1_x2_net7 VDD pfet_06v0 L=1.0u W=1.0u
+Mx2_x1_x2_XM15 x2_x1_x2_net5 S1P x2_x1_x2_net7 VDD pfet_06v0 L=1.0u W=0.55u
+Mx2_x1_x2_XM16 x2_x1_x2_net4 S1N x2_x1_x2_net7 VDD pfet_06v0 L=1.0u W=0.5u
 Mx2_x1_x2_XM17 x2_x1_x2_net8 x2_x1_net2 x2_x1_x2_net1 VSS nfet_06v0 L=1.0u W=5.0u
 Mx2_x1_x2_XM18 x2_x1_x2_net1 x2_x1_net1 VSS VSS nfet_06v0 L=1.0u W=5.0u
 Mx2_x1_x2_XM19 x2_x1_x2_net8 x2_x1_net2 x2_x1_x2_net19 VSS nfet_06v0 L=1.0u W=5.0u
 Mx2_x1_x2_XM20 x2_x1_x2_net19 x2_x1_net1 VSS VSS nfet_06v0 L=1.0u W=5.0u
-Mx2_x1_x2_XM21 x2_x1_x2_net6 S2P_I x2_x1_x2_net8 VSS nfet_06v0 L=1.0u W=1u
-Mx2_x1_x2_XM22 x2_x1_x2_net3 S2N_I x2_x1_x2_net8 VSS nfet_06v0 L=1.0u W=1u
-Mx2_x1_x2_XM29 x2_x1_x2_net9 x2_x1_net4 x2_x1_x2_net3 VDD pfet_06v0 L=1.0u W=5u
-Mx2_x1_x2_XM30 x2_x1_x2_G_OUT_P x2_x1_net4 x2_x1_x2_net6 VDD pfet_06v0 L=1.0u W=5u
+Mx2_x1_x2_XM21 x2_x1_x2_net6 S1P x2_x1_x2_net8 VSS nfet_06v0 L=1.0u W=7.5u
+Mx2_x1_x2_XM22 x2_x1_x2_net3 S1N x2_x1_x2_net8 VSS nfet_06v0 L=1.0u W=8.5u
+Mx2_x1_x2_XM29 x2_x1_x2_net9 x2_x1_net4 x2_x1_x2_net3 VDD pfet_06v0 L=1.0u W=10u
+Mx2_x1_x2_XM30 x2_x1_x2_G_OUT_P x2_x1_net4 x2_x1_x2_net6 VDD pfet_06v0 L=1.0u W=10u
 Mx2_x1_x2_XM31 x2_x1_x2_net3 x2_x1_x2_net9 VDD VDD pfet_06v0 L=1.0u W=5u
 Mx2_x1_x2_XM35 x2_x1_x2_net6 x2_x1_x2_net9 VDD VDD pfet_06v0 L=1.0u W=5u
-Mx2_x1_x2_XM32 x2_x1_x2_net10 x2_x1_x2_net20 x2_x1_x2_net9 VDD pfet_06v0 L=1.0u W=5.0u
-Mx2_x1_x2_XM33 x2_x1_x2_net21 x2_x1_x2_net20 x2_x1_x2_G_OUT_P VDD pfet_06v0 L=1.0u W=5.0u
+Mx2_x1_x2_XM32 x2_x1_x2_net10 x2_x1_x2_net20 x2_x1_x2_net9 VDD pfet_06v0 L=1.0u W=4.0u
+Mx2_x1_x2_XM33 x2_x1_x2_net21 x2_x1_x2_net20 x2_x1_x2_G_OUT_P VDD pfet_06v0 L=1.0u W=4.0u
 Mx2_x1_x2_XM23 x2_x1_x2_net10 x2_x1_net2 x2_x1_x2_net4 VSS nfet_06v0 L=1.0u W=2.5u
 Mx2_x1_x2_XM24 x2_x1_x2_net21 x2_x1_net2 x2_x1_x2_net5 VSS nfet_06v0 L=1.0u W=2.5u
 Mx2_x1_x2_XM25 x2_x1_x2_net4 x2_x1_x2_net10 VSS VSS nfet_06v0 L=1.0u W=2.5u
 Mx2_x1_x2_XM26 x2_x1_x2_net5 x2_x1_x2_net10 VSS VSS nfet_06v0 L=1.0u W=2.5u
-Mx2_x1_x2_XM27 x2_x1_x2_net9 x2_x1_x2_net11 x2_x1_x2_net10 VSS nfet_06v0 L=1.0u W=2.5u
-Mx2_x1_x2_XM28 x2_x1_x2_G_OUT_P x2_x1_x2_net11 x2_x1_x2_net21 VSS nfet_06v0 L=1.0u W=2.5u
+Mx2_x1_x2_XM27 x2_x1_x2_net9 x2_x1_x2_net11 x2_x1_x2_net10 VSS nfet_06v0 L=1.0u W=2.0u
+Mx2_x1_x2_XM28 x2_x1_x2_G_OUT_P x2_x1_x2_net11 x2_x1_x2_net21 VSS nfet_06v0 L=1.0u W=2.0u
 Mx2_x1_x2_XM34 x2_x1_x2_net12 x2_x1_x2_net13 VDD VDD pfet_06v0 L=1.0u W=10.0u
 Mx2_x1_x2_XM36 x2_x1_x2_net13 x2_x1_net4 x2_x1_x2_net12 VDD pfet_06v0 L=1.0u W=10.0u
 Mx2_x1_x2_XM37 x2_x1_x2_net20 x2_x1_x2_net20 x2_x1_x2_net13 VDD pfet_06v0 L=1.0u W=10.0u
@@ -843,10 +852,10 @@ Mx2_x1_x2_XM46 x2_x1_x2_net11 x2_x1_net4 x2_x1_x2_net15 VDD pfet_06v0 L=1.0u W=1
 Mx2_x1_x2_XM40 x2_x1_x2_net11 x2_x1_x2_net11 x2_x1_x2_net17 VSS nfet_06v0 L=1.0u W=5.0u
 Mx2_x1_x2_XM41 x2_x1_x2_net17 x2_x1_net2 x2_x1_x2_net16 VSS nfet_06v0 L=1.0u W=5.0u
 Mx2_x1_x2_XM42 x2_x1_x2_net16 x2_x1_x2_net17 VSS VSS nfet_06v0 L=1.0u W=5.0u
-Mx2_x1_x2_XM43_m1 x2_SY x2_x1_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=0.5u
-Mx2_x1_x2_XM43_m2 x2_SY x2_x1_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=0.5u
-Mx2_x1_x2_XM43_m3 x2_SY x2_x1_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=0.5u
-Mx2_x1_x2_XM43_m4 x2_SY x2_x1_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=0.5u
+Mx2_x1_x2_XM43_m1 x2_SY x2_x1_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=1.0u
+Mx2_x1_x2_XM43_m2 x2_SY x2_x1_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=1.0u
+Mx2_x1_x2_XM43_m3 x2_SY x2_x1_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=1.0u
+Mx2_x1_x2_XM43_m4 x2_SY x2_x1_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=1.0u
 Mx2_x1_x2_XM44 x2_SY x2_x1_x2_net21 VSS VSS nfet_06v0 L=1.0u W=1.0u
 Mx2_x2_x1_XM4 x2_x2_x1_net3 x2_x2_net3 VDD VDD pfet_06v0 L=1.0u W=10.0u
 Mx2_x2_x1_XM5 x2_x2_net2 x2_x2_net4 x2_x2_x1_net3 VDD pfet_06v0 L=1.0u W=10.0u
@@ -866,26 +875,26 @@ Mx2_x2_x2_XM11 x2_x2_x2_net2 x2_x2_net3 VDD VDD pfet_06v0 L=1.0u W=10.0u
 Mx2_x2_x2_XM12 x2_x2_x2_net7 x2_x2_net4 x2_x2_x2_net2 VDD pfet_06v0 L=1.0u W=10.0u
 Mx2_x2_x2_XM13 x2_x2_x2_net18 x2_x2_net3 VDD VDD pfet_06v0 L=1.0u W=10.0u
 Mx2_x2_x2_XM14 x2_x2_x2_net7 x2_x2_net4 x2_x2_x2_net18 VDD pfet_06v0 L=1.0u W=10.0u
-Mx2_x2_x2_XM15 x2_x2_x2_net5 S4P_I x2_x2_x2_net7 VDD pfet_06v0 L=1.0u W=1.1u
-Mx2_x2_x2_XM16 x2_x2_x2_net4 S4N_I x2_x2_x2_net7 VDD pfet_06v0 L=1.0u W=1.0u
+Mx2_x2_x2_XM15 x2_x2_x2_net5 S2P x2_x2_x2_net7 VDD pfet_06v0 L=1.0u W=0.55u
+Mx2_x2_x2_XM16 x2_x2_x2_net4 S2N x2_x2_x2_net7 VDD pfet_06v0 L=1.0u W=0.5u
 Mx2_x2_x2_XM17 x2_x2_x2_net8 x2_x2_net2 x2_x2_x2_net1 VSS nfet_06v0 L=1.0u W=5.0u
 Mx2_x2_x2_XM18 x2_x2_x2_net1 x2_x2_net1 VSS VSS nfet_06v0 L=1.0u W=5.0u
 Mx2_x2_x2_XM19 x2_x2_x2_net8 x2_x2_net2 x2_x2_x2_net19 VSS nfet_06v0 L=1.0u W=5.0u
 Mx2_x2_x2_XM20 x2_x2_x2_net19 x2_x2_net1 VSS VSS nfet_06v0 L=1.0u W=5.0u
-Mx2_x2_x2_XM21 x2_x2_x2_net6 S4P_I x2_x2_x2_net8 VSS nfet_06v0 L=1.0u W=1u
-Mx2_x2_x2_XM22 x2_x2_x2_net3 S4N_I x2_x2_x2_net8 VSS nfet_06v0 L=1.0u W=1u
-Mx2_x2_x2_XM29 x2_x2_x2_net9 x2_x2_net4 x2_x2_x2_net3 VDD pfet_06v0 L=1.0u W=5u
-Mx2_x2_x2_XM30 x2_x2_x2_G_OUT_P x2_x2_net4 x2_x2_x2_net6 VDD pfet_06v0 L=1.0u W=5u
+Mx2_x2_x2_XM21 x2_x2_x2_net6 S2P x2_x2_x2_net8 VSS nfet_06v0 L=1.0u W=7.5u
+Mx2_x2_x2_XM22 x2_x2_x2_net3 S2N x2_x2_x2_net8 VSS nfet_06v0 L=1.0u W=8.5u
+Mx2_x2_x2_XM29 x2_x2_x2_net9 x2_x2_net4 x2_x2_x2_net3 VDD pfet_06v0 L=1.0u W=10u
+Mx2_x2_x2_XM30 x2_x2_x2_G_OUT_P x2_x2_net4 x2_x2_x2_net6 VDD pfet_06v0 L=1.0u W=10u
 Mx2_x2_x2_XM31 x2_x2_x2_net3 x2_x2_x2_net9 VDD VDD pfet_06v0 L=1.0u W=5u
 Mx2_x2_x2_XM35 x2_x2_x2_net6 x2_x2_x2_net9 VDD VDD pfet_06v0 L=1.0u W=5u
-Mx2_x2_x2_XM32 x2_x2_x2_net10 x2_x2_x2_net20 x2_x2_x2_net9 VDD pfet_06v0 L=1.0u W=5.0u
-Mx2_x2_x2_XM33 x2_x2_x2_net21 x2_x2_x2_net20 x2_x2_x2_G_OUT_P VDD pfet_06v0 L=1.0u W=5.0u
+Mx2_x2_x2_XM32 x2_x2_x2_net10 x2_x2_x2_net20 x2_x2_x2_net9 VDD pfet_06v0 L=1.0u W=4.0u
+Mx2_x2_x2_XM33 x2_x2_x2_net21 x2_x2_x2_net20 x2_x2_x2_G_OUT_P VDD pfet_06v0 L=1.0u W=4.0u
 Mx2_x2_x2_XM23 x2_x2_x2_net10 x2_x2_net2 x2_x2_x2_net4 VSS nfet_06v0 L=1.0u W=2.5u
 Mx2_x2_x2_XM24 x2_x2_x2_net21 x2_x2_net2 x2_x2_x2_net5 VSS nfet_06v0 L=1.0u W=2.5u
 Mx2_x2_x2_XM25 x2_x2_x2_net4 x2_x2_x2_net10 VSS VSS nfet_06v0 L=1.0u W=2.5u
 Mx2_x2_x2_XM26 x2_x2_x2_net5 x2_x2_x2_net10 VSS VSS nfet_06v0 L=1.0u W=2.5u
-Mx2_x2_x2_XM27 x2_x2_x2_net9 x2_x2_x2_net11 x2_x2_x2_net10 VSS nfet_06v0 L=1.0u W=2.5u
-Mx2_x2_x2_XM28 x2_x2_x2_G_OUT_P x2_x2_x2_net11 x2_x2_x2_net21 VSS nfet_06v0 L=1.0u W=2.5u
+Mx2_x2_x2_XM27 x2_x2_x2_net9 x2_x2_x2_net11 x2_x2_x2_net10 VSS nfet_06v0 L=1.0u W=2.0u
+Mx2_x2_x2_XM28 x2_x2_x2_G_OUT_P x2_x2_x2_net11 x2_x2_x2_net21 VSS nfet_06v0 L=1.0u W=2.0u
 Mx2_x2_x2_XM34 x2_x2_x2_net12 x2_x2_x2_net13 VDD VDD pfet_06v0 L=1.0u W=10.0u
 Mx2_x2_x2_XM36 x2_x2_x2_net13 x2_x2_net4 x2_x2_x2_net12 VDD pfet_06v0 L=1.0u W=10.0u
 Mx2_x2_x2_XM37 x2_x2_x2_net20 x2_x2_x2_net20 x2_x2_x2_net13 VDD pfet_06v0 L=1.0u W=10.0u
@@ -896,10 +905,10 @@ Mx2_x2_x2_XM46 x2_x2_x2_net11 x2_x2_net4 x2_x2_x2_net15 VDD pfet_06v0 L=1.0u W=1
 Mx2_x2_x2_XM40 x2_x2_x2_net11 x2_x2_x2_net11 x2_x2_x2_net17 VSS nfet_06v0 L=1.0u W=5.0u
 Mx2_x2_x2_XM41 x2_x2_x2_net17 x2_x2_net2 x2_x2_x2_net16 VSS nfet_06v0 L=1.0u W=5.0u
 Mx2_x2_x2_XM42 x2_x2_x2_net16 x2_x2_x2_net17 VSS VSS nfet_06v0 L=1.0u W=5.0u
-Mx2_x2_x2_XM43_m1 x2_SZ x2_x2_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=0.5u
-Mx2_x2_x2_XM43_m2 x2_SZ x2_x2_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=0.5u
-Mx2_x2_x2_XM43_m3 x2_SZ x2_x2_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=0.5u
-Mx2_x2_x2_XM43_m4 x2_SZ x2_x2_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=0.5u
+Mx2_x2_x2_XM43_m1 x2_SZ x2_x2_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=1.0u
+Mx2_x2_x2_XM43_m2 x2_SZ x2_x2_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=1.0u
+Mx2_x2_x2_XM43_m3 x2_SZ x2_x2_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=1.0u
+Mx2_x2_x2_XM43_m4 x2_SZ x2_x2_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=1.0u
 Mx2_x2_x2_XM44 x2_SZ x2_x2_x2_net21 VSS VSS nfet_06v0 L=1.0u W=1.0u
 Mx3_x4_x1_XM4 x3_x4_x1_net3 x3_x4_net4 VDD VDD pfet_06v0 L=1.0u W=10.0u
 Mx3_x4_x1_XM5 x3_x4_net2 x3_x4_net3 x3_x4_x1_net3 VDD pfet_06v0 L=1.0u W=10.0u
@@ -1159,26 +1168,26 @@ Mx3_x8_x2_XM11 x3_x8_x2_net2 x3_x8_net3 VDD VDD pfet_06v0 L=1.0u W=10.0u
 Mx3_x8_x2_XM12 x3_x8_x2_net7 x3_x8_net4 x3_x8_x2_net2 VDD pfet_06v0 L=1.0u W=10.0u
 Mx3_x8_x2_XM13 x3_x8_x2_net18 x3_x8_net3 VDD VDD pfet_06v0 L=1.0u W=10.0u
 Mx3_x8_x2_XM14 x3_x8_x2_net7 x3_x8_net4 x3_x8_x2_net18 VDD pfet_06v0 L=1.0u W=10.0u
-Mx3_x8_x2_XM15 x3_x8_x2_net5 S3P_I x3_x8_x2_net7 VDD pfet_06v0 L=1.0u W=1.1u
-Mx3_x8_x2_XM16 x3_x8_x2_net4 S3N_I x3_x8_x2_net7 VDD pfet_06v0 L=1.0u W=1.0u
+Mx3_x8_x2_XM15 x3_x8_x2_net5 S3P x3_x8_x2_net7 VDD pfet_06v0 L=1.0u W=0.55u
+Mx3_x8_x2_XM16 x3_x8_x2_net4 S3N x3_x8_x2_net7 VDD pfet_06v0 L=1.0u W=0.5u
 Mx3_x8_x2_XM17 x3_x8_x2_net8 x3_x8_net2 x3_x8_x2_net1 VSS nfet_06v0 L=1.0u W=5.0u
 Mx3_x8_x2_XM18 x3_x8_x2_net1 x3_x8_net1 VSS VSS nfet_06v0 L=1.0u W=5.0u
 Mx3_x8_x2_XM19 x3_x8_x2_net8 x3_x8_net2 x3_x8_x2_net19 VSS nfet_06v0 L=1.0u W=5.0u
 Mx3_x8_x2_XM20 x3_x8_x2_net19 x3_x8_net1 VSS VSS nfet_06v0 L=1.0u W=5.0u
-Mx3_x8_x2_XM21 x3_x8_x2_net6 S3P_I x3_x8_x2_net8 VSS nfet_06v0 L=1.0u W=1u
-Mx3_x8_x2_XM22 x3_x8_x2_net3 S3N_I x3_x8_x2_net8 VSS nfet_06v0 L=1.0u W=1u
-Mx3_x8_x2_XM29 x3_x8_x2_net9 x3_x8_net4 x3_x8_x2_net3 VDD pfet_06v0 L=1.0u W=5u
-Mx3_x8_x2_XM30 x3_x8_x2_G_OUT_P x3_x8_net4 x3_x8_x2_net6 VDD pfet_06v0 L=1.0u W=5u
+Mx3_x8_x2_XM21 x3_x8_x2_net6 S3P x3_x8_x2_net8 VSS nfet_06v0 L=1.0u W=7.5u
+Mx3_x8_x2_XM22 x3_x8_x2_net3 S3N x3_x8_x2_net8 VSS nfet_06v0 L=1.0u W=8.5u
+Mx3_x8_x2_XM29 x3_x8_x2_net9 x3_x8_net4 x3_x8_x2_net3 VDD pfet_06v0 L=1.0u W=10u
+Mx3_x8_x2_XM30 x3_x8_x2_G_OUT_P x3_x8_net4 x3_x8_x2_net6 VDD pfet_06v0 L=1.0u W=10u
 Mx3_x8_x2_XM31 x3_x8_x2_net3 x3_x8_x2_net9 VDD VDD pfet_06v0 L=1.0u W=5u
 Mx3_x8_x2_XM35 x3_x8_x2_net6 x3_x8_x2_net9 VDD VDD pfet_06v0 L=1.0u W=5u
-Mx3_x8_x2_XM32 x3_x8_x2_net10 x3_x8_x2_net20 x3_x8_x2_net9 VDD pfet_06v0 L=1.0u W=5.0u
-Mx3_x8_x2_XM33 x3_x8_x2_net21 x3_x8_x2_net20 x3_x8_x2_G_OUT_P VDD pfet_06v0 L=1.0u W=5.0u
+Mx3_x8_x2_XM32 x3_x8_x2_net10 x3_x8_x2_net20 x3_x8_x2_net9 VDD pfet_06v0 L=1.0u W=4.0u
+Mx3_x8_x2_XM33 x3_x8_x2_net21 x3_x8_x2_net20 x3_x8_x2_G_OUT_P VDD pfet_06v0 L=1.0u W=4.0u
 Mx3_x8_x2_XM23 x3_x8_x2_net10 x3_x8_net2 x3_x8_x2_net4 VSS nfet_06v0 L=1.0u W=2.5u
 Mx3_x8_x2_XM24 x3_x8_x2_net21 x3_x8_net2 x3_x8_x2_net5 VSS nfet_06v0 L=1.0u W=2.5u
 Mx3_x8_x2_XM25 x3_x8_x2_net4 x3_x8_x2_net10 VSS VSS nfet_06v0 L=1.0u W=2.5u
 Mx3_x8_x2_XM26 x3_x8_x2_net5 x3_x8_x2_net10 VSS VSS nfet_06v0 L=1.0u W=2.5u
-Mx3_x8_x2_XM27 x3_x8_x2_net9 x3_x8_x2_net11 x3_x8_x2_net10 VSS nfet_06v0 L=1.0u W=2.5u
-Mx3_x8_x2_XM28 x3_x8_x2_G_OUT_P x3_x8_x2_net11 x3_x8_x2_net21 VSS nfet_06v0 L=1.0u W=2.5u
+Mx3_x8_x2_XM27 x3_x8_x2_net9 x3_x8_x2_net11 x3_x8_x2_net10 VSS nfet_06v0 L=1.0u W=2.0u
+Mx3_x8_x2_XM28 x3_x8_x2_G_OUT_P x3_x8_x2_net11 x3_x8_x2_net21 VSS nfet_06v0 L=1.0u W=2.0u
 Mx3_x8_x2_XM34 x3_x8_x2_net12 x3_x8_x2_net13 VDD VDD pfet_06v0 L=1.0u W=10.0u
 Mx3_x8_x2_XM36 x3_x8_x2_net13 x3_x8_net4 x3_x8_x2_net12 VDD pfet_06v0 L=1.0u W=10.0u
 Mx3_x8_x2_XM37 x3_x8_x2_net20 x3_x8_x2_net20 x3_x8_x2_net13 VDD pfet_06v0 L=1.0u W=10.0u
@@ -1189,10 +1198,10 @@ Mx3_x8_x2_XM46 x3_x8_x2_net11 x3_x8_net4 x3_x8_x2_net15 VDD pfet_06v0 L=1.0u W=1
 Mx3_x8_x2_XM40 x3_x8_x2_net11 x3_x8_x2_net11 x3_x8_x2_net17 VSS nfet_06v0 L=1.0u W=5.0u
 Mx3_x8_x2_XM41 x3_x8_x2_net17 x3_x8_net2 x3_x8_x2_net16 VSS nfet_06v0 L=1.0u W=5.0u
 Mx3_x8_x2_XM42 x3_x8_x2_net16 x3_x8_x2_net17 VSS VSS nfet_06v0 L=1.0u W=5.0u
-Mx3_x8_x2_XM43_m1 x3_SX x3_x8_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=0.5u
-Mx3_x8_x2_XM43_m2 x3_SX x3_x8_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=0.5u
-Mx3_x8_x2_XM43_m3 x3_SX x3_x8_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=0.5u
-Mx3_x8_x2_XM43_m4 x3_SX x3_x8_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=0.5u
+Mx3_x8_x2_XM43_m1 x3_SX x3_x8_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=1.0u
+Mx3_x8_x2_XM43_m2 x3_SX x3_x8_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=1.0u
+Mx3_x8_x2_XM43_m3 x3_SX x3_x8_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=1.0u
+Mx3_x8_x2_XM43_m4 x3_SX x3_x8_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=1.0u
 Mx3_x8_x2_XM44 x3_SX x3_x8_x2_net21 VSS VSS nfet_06v0 L=1.0u W=1.0u
 Mx3_x1_x1_XM4 x3_x1_x1_net3 x3_x1_net3 VDD VDD pfet_06v0 L=1.0u W=10.0u
 Mx3_x1_x1_XM5 x3_x1_net2 x3_x1_net4 x3_x1_x1_net3 VDD pfet_06v0 L=1.0u W=10.0u
@@ -1212,26 +1221,26 @@ Mx3_x1_x2_XM11 x3_x1_x2_net2 x3_x1_net3 VDD VDD pfet_06v0 L=1.0u W=10.0u
 Mx3_x1_x2_XM12 x3_x1_x2_net7 x3_x1_net4 x3_x1_x2_net2 VDD pfet_06v0 L=1.0u W=10.0u
 Mx3_x1_x2_XM13 x3_x1_x2_net18 x3_x1_net3 VDD VDD pfet_06v0 L=1.0u W=10.0u
 Mx3_x1_x2_XM14 x3_x1_x2_net7 x3_x1_net4 x3_x1_x2_net18 VDD pfet_06v0 L=1.0u W=10.0u
-Mx3_x1_x2_XM15 x3_x1_x2_net5 S4P_I x3_x1_x2_net7 VDD pfet_06v0 L=1.0u W=1.1u
-Mx3_x1_x2_XM16 x3_x1_x2_net4 S4N_I x3_x1_x2_net7 VDD pfet_06v0 L=1.0u W=1.0u
+Mx3_x1_x2_XM15 x3_x1_x2_net5 S4P x3_x1_x2_net7 VDD pfet_06v0 L=1.0u W=0.55u
+Mx3_x1_x2_XM16 x3_x1_x2_net4 S4N x3_x1_x2_net7 VDD pfet_06v0 L=1.0u W=0.5u
 Mx3_x1_x2_XM17 x3_x1_x2_net8 x3_x1_net2 x3_x1_x2_net1 VSS nfet_06v0 L=1.0u W=5.0u
 Mx3_x1_x2_XM18 x3_x1_x2_net1 x3_x1_net1 VSS VSS nfet_06v0 L=1.0u W=5.0u
 Mx3_x1_x2_XM19 x3_x1_x2_net8 x3_x1_net2 x3_x1_x2_net19 VSS nfet_06v0 L=1.0u W=5.0u
 Mx3_x1_x2_XM20 x3_x1_x2_net19 x3_x1_net1 VSS VSS nfet_06v0 L=1.0u W=5.0u
-Mx3_x1_x2_XM21 x3_x1_x2_net6 S4P_I x3_x1_x2_net8 VSS nfet_06v0 L=1.0u W=1u
-Mx3_x1_x2_XM22 x3_x1_x2_net3 S4N_I x3_x1_x2_net8 VSS nfet_06v0 L=1.0u W=1u
-Mx3_x1_x2_XM29 x3_x1_x2_net9 x3_x1_net4 x3_x1_x2_net3 VDD pfet_06v0 L=1.0u W=5u
-Mx3_x1_x2_XM30 x3_x1_x2_G_OUT_P x3_x1_net4 x3_x1_x2_net6 VDD pfet_06v0 L=1.0u W=5u
+Mx3_x1_x2_XM21 x3_x1_x2_net6 S4P x3_x1_x2_net8 VSS nfet_06v0 L=1.0u W=7.5u
+Mx3_x1_x2_XM22 x3_x1_x2_net3 S4N x3_x1_x2_net8 VSS nfet_06v0 L=1.0u W=8.5u
+Mx3_x1_x2_XM29 x3_x1_x2_net9 x3_x1_net4 x3_x1_x2_net3 VDD pfet_06v0 L=1.0u W=10u
+Mx3_x1_x2_XM30 x3_x1_x2_G_OUT_P x3_x1_net4 x3_x1_x2_net6 VDD pfet_06v0 L=1.0u W=10u
 Mx3_x1_x2_XM31 x3_x1_x2_net3 x3_x1_x2_net9 VDD VDD pfet_06v0 L=1.0u W=5u
 Mx3_x1_x2_XM35 x3_x1_x2_net6 x3_x1_x2_net9 VDD VDD pfet_06v0 L=1.0u W=5u
-Mx3_x1_x2_XM32 x3_x1_x2_net10 x3_x1_x2_net20 x3_x1_x2_net9 VDD pfet_06v0 L=1.0u W=5.0u
-Mx3_x1_x2_XM33 x3_x1_x2_net21 x3_x1_x2_net20 x3_x1_x2_G_OUT_P VDD pfet_06v0 L=1.0u W=5.0u
+Mx3_x1_x2_XM32 x3_x1_x2_net10 x3_x1_x2_net20 x3_x1_x2_net9 VDD pfet_06v0 L=1.0u W=4.0u
+Mx3_x1_x2_XM33 x3_x1_x2_net21 x3_x1_x2_net20 x3_x1_x2_G_OUT_P VDD pfet_06v0 L=1.0u W=4.0u
 Mx3_x1_x2_XM23 x3_x1_x2_net10 x3_x1_net2 x3_x1_x2_net4 VSS nfet_06v0 L=1.0u W=2.5u
 Mx3_x1_x2_XM24 x3_x1_x2_net21 x3_x1_net2 x3_x1_x2_net5 VSS nfet_06v0 L=1.0u W=2.5u
 Mx3_x1_x2_XM25 x3_x1_x2_net4 x3_x1_x2_net10 VSS VSS nfet_06v0 L=1.0u W=2.5u
 Mx3_x1_x2_XM26 x3_x1_x2_net5 x3_x1_x2_net10 VSS VSS nfet_06v0 L=1.0u W=2.5u
-Mx3_x1_x2_XM27 x3_x1_x2_net9 x3_x1_x2_net11 x3_x1_x2_net10 VSS nfet_06v0 L=1.0u W=2.5u
-Mx3_x1_x2_XM28 x3_x1_x2_G_OUT_P x3_x1_x2_net11 x3_x1_x2_net21 VSS nfet_06v0 L=1.0u W=2.5u
+Mx3_x1_x2_XM27 x3_x1_x2_net9 x3_x1_x2_net11 x3_x1_x2_net10 VSS nfet_06v0 L=1.0u W=2.0u
+Mx3_x1_x2_XM28 x3_x1_x2_G_OUT_P x3_x1_x2_net11 x3_x1_x2_net21 VSS nfet_06v0 L=1.0u W=2.0u
 Mx3_x1_x2_XM34 x3_x1_x2_net12 x3_x1_x2_net13 VDD VDD pfet_06v0 L=1.0u W=10.0u
 Mx3_x1_x2_XM36 x3_x1_x2_net13 x3_x1_net4 x3_x1_x2_net12 VDD pfet_06v0 L=1.0u W=10.0u
 Mx3_x1_x2_XM37 x3_x1_x2_net20 x3_x1_x2_net20 x3_x1_x2_net13 VDD pfet_06v0 L=1.0u W=10.0u
@@ -1242,10 +1251,10 @@ Mx3_x1_x2_XM46 x3_x1_x2_net11 x3_x1_net4 x3_x1_x2_net15 VDD pfet_06v0 L=1.0u W=1
 Mx3_x1_x2_XM40 x3_x1_x2_net11 x3_x1_x2_net11 x3_x1_x2_net17 VSS nfet_06v0 L=1.0u W=5.0u
 Mx3_x1_x2_XM41 x3_x1_x2_net17 x3_x1_net2 x3_x1_x2_net16 VSS nfet_06v0 L=1.0u W=5.0u
 Mx3_x1_x2_XM42 x3_x1_x2_net16 x3_x1_x2_net17 VSS VSS nfet_06v0 L=1.0u W=5.0u
-Mx3_x1_x2_XM43_m1 x3_SY x3_x1_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=0.5u
-Mx3_x1_x2_XM43_m2 x3_SY x3_x1_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=0.5u
-Mx3_x1_x2_XM43_m3 x3_SY x3_x1_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=0.5u
-Mx3_x1_x2_XM43_m4 x3_SY x3_x1_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=0.5u
+Mx3_x1_x2_XM43_m1 x3_SY x3_x1_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=1.0u
+Mx3_x1_x2_XM43_m2 x3_SY x3_x1_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=1.0u
+Mx3_x1_x2_XM43_m3 x3_SY x3_x1_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=1.0u
+Mx3_x1_x2_XM43_m4 x3_SY x3_x1_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=1.0u
 Mx3_x1_x2_XM44 x3_SY x3_x1_x2_net21 VSS VSS nfet_06v0 L=1.0u W=1.0u
 Mx3_x2_x1_XM4 x3_x2_x1_net3 x3_x2_net3 VDD VDD pfet_06v0 L=1.0u W=10.0u
 Mx3_x2_x1_XM5 x3_x2_net2 x3_x2_net4 x3_x2_x1_net3 VDD pfet_06v0 L=1.0u W=10.0u
@@ -1265,26 +1274,26 @@ Mx3_x2_x2_XM11 x3_x2_x2_net2 x3_x2_net3 VDD VDD pfet_06v0 L=1.0u W=10.0u
 Mx3_x2_x2_XM12 x3_x2_x2_net7 x3_x2_net4 x3_x2_x2_net2 VDD pfet_06v0 L=1.0u W=10.0u
 Mx3_x2_x2_XM13 x3_x2_x2_net18 x3_x2_net3 VDD VDD pfet_06v0 L=1.0u W=10.0u
 Mx3_x2_x2_XM14 x3_x2_x2_net7 x3_x2_net4 x3_x2_x2_net18 VDD pfet_06v0 L=1.0u W=10.0u
-Mx3_x2_x2_XM15 x3_x2_x2_net5 S1P_I x3_x2_x2_net7 VDD pfet_06v0 L=1.0u W=1.1u
-Mx3_x2_x2_XM16 x3_x2_x2_net4 S1N_I x3_x2_x2_net7 VDD pfet_06v0 L=1.0u W=1.0u
+Mx3_x2_x2_XM15 x3_x2_x2_net5 S1P x3_x2_x2_net7 VDD pfet_06v0 L=1.0u W=0.55u
+Mx3_x2_x2_XM16 x3_x2_x2_net4 S1N x3_x2_x2_net7 VDD pfet_06v0 L=1.0u W=0.5u
 Mx3_x2_x2_XM17 x3_x2_x2_net8 x3_x2_net2 x3_x2_x2_net1 VSS nfet_06v0 L=1.0u W=5.0u
 Mx3_x2_x2_XM18 x3_x2_x2_net1 x3_x2_net1 VSS VSS nfet_06v0 L=1.0u W=5.0u
 Mx3_x2_x2_XM19 x3_x2_x2_net8 x3_x2_net2 x3_x2_x2_net19 VSS nfet_06v0 L=1.0u W=5.0u
 Mx3_x2_x2_XM20 x3_x2_x2_net19 x3_x2_net1 VSS VSS nfet_06v0 L=1.0u W=5.0u
-Mx3_x2_x2_XM21 x3_x2_x2_net6 S1P_I x3_x2_x2_net8 VSS nfet_06v0 L=1.0u W=1u
-Mx3_x2_x2_XM22 x3_x2_x2_net3 S1N_I x3_x2_x2_net8 VSS nfet_06v0 L=1.0u W=1u
-Mx3_x2_x2_XM29 x3_x2_x2_net9 x3_x2_net4 x3_x2_x2_net3 VDD pfet_06v0 L=1.0u W=5u
-Mx3_x2_x2_XM30 x3_x2_x2_G_OUT_P x3_x2_net4 x3_x2_x2_net6 VDD pfet_06v0 L=1.0u W=5u
+Mx3_x2_x2_XM21 x3_x2_x2_net6 S1P x3_x2_x2_net8 VSS nfet_06v0 L=1.0u W=7.5u
+Mx3_x2_x2_XM22 x3_x2_x2_net3 S1N x3_x2_x2_net8 VSS nfet_06v0 L=1.0u W=8.5u
+Mx3_x2_x2_XM29 x3_x2_x2_net9 x3_x2_net4 x3_x2_x2_net3 VDD pfet_06v0 L=1.0u W=10u
+Mx3_x2_x2_XM30 x3_x2_x2_G_OUT_P x3_x2_net4 x3_x2_x2_net6 VDD pfet_06v0 L=1.0u W=10u
 Mx3_x2_x2_XM31 x3_x2_x2_net3 x3_x2_x2_net9 VDD VDD pfet_06v0 L=1.0u W=5u
 Mx3_x2_x2_XM35 x3_x2_x2_net6 x3_x2_x2_net9 VDD VDD pfet_06v0 L=1.0u W=5u
-Mx3_x2_x2_XM32 x3_x2_x2_net10 x3_x2_x2_net20 x3_x2_x2_net9 VDD pfet_06v0 L=1.0u W=5.0u
-Mx3_x2_x2_XM33 x3_x2_x2_net21 x3_x2_x2_net20 x3_x2_x2_G_OUT_P VDD pfet_06v0 L=1.0u W=5.0u
+Mx3_x2_x2_XM32 x3_x2_x2_net10 x3_x2_x2_net20 x3_x2_x2_net9 VDD pfet_06v0 L=1.0u W=4.0u
+Mx3_x2_x2_XM33 x3_x2_x2_net21 x3_x2_x2_net20 x3_x2_x2_G_OUT_P VDD pfet_06v0 L=1.0u W=4.0u
 Mx3_x2_x2_XM23 x3_x2_x2_net10 x3_x2_net2 x3_x2_x2_net4 VSS nfet_06v0 L=1.0u W=2.5u
 Mx3_x2_x2_XM24 x3_x2_x2_net21 x3_x2_net2 x3_x2_x2_net5 VSS nfet_06v0 L=1.0u W=2.5u
 Mx3_x2_x2_XM25 x3_x2_x2_net4 x3_x2_x2_net10 VSS VSS nfet_06v0 L=1.0u W=2.5u
 Mx3_x2_x2_XM26 x3_x2_x2_net5 x3_x2_x2_net10 VSS VSS nfet_06v0 L=1.0u W=2.5u
-Mx3_x2_x2_XM27 x3_x2_x2_net9 x3_x2_x2_net11 x3_x2_x2_net10 VSS nfet_06v0 L=1.0u W=2.5u
-Mx3_x2_x2_XM28 x3_x2_x2_G_OUT_P x3_x2_x2_net11 x3_x2_x2_net21 VSS nfet_06v0 L=1.0u W=2.5u
+Mx3_x2_x2_XM27 x3_x2_x2_net9 x3_x2_x2_net11 x3_x2_x2_net10 VSS nfet_06v0 L=1.0u W=2.0u
+Mx3_x2_x2_XM28 x3_x2_x2_G_OUT_P x3_x2_x2_net11 x3_x2_x2_net21 VSS nfet_06v0 L=1.0u W=2.0u
 Mx3_x2_x2_XM34 x3_x2_x2_net12 x3_x2_x2_net13 VDD VDD pfet_06v0 L=1.0u W=10.0u
 Mx3_x2_x2_XM36 x3_x2_x2_net13 x3_x2_net4 x3_x2_x2_net12 VDD pfet_06v0 L=1.0u W=10.0u
 Mx3_x2_x2_XM37 x3_x2_x2_net20 x3_x2_x2_net20 x3_x2_x2_net13 VDD pfet_06v0 L=1.0u W=10.0u
@@ -1295,10 +1304,10 @@ Mx3_x2_x2_XM46 x3_x2_x2_net11 x3_x2_net4 x3_x2_x2_net15 VDD pfet_06v0 L=1.0u W=1
 Mx3_x2_x2_XM40 x3_x2_x2_net11 x3_x2_x2_net11 x3_x2_x2_net17 VSS nfet_06v0 L=1.0u W=5.0u
 Mx3_x2_x2_XM41 x3_x2_x2_net17 x3_x2_net2 x3_x2_x2_net16 VSS nfet_06v0 L=1.0u W=5.0u
 Mx3_x2_x2_XM42 x3_x2_x2_net16 x3_x2_x2_net17 VSS VSS nfet_06v0 L=1.0u W=5.0u
-Mx3_x2_x2_XM43_m1 x3_SZ x3_x2_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=0.5u
-Mx3_x2_x2_XM43_m2 x3_SZ x3_x2_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=0.5u
-Mx3_x2_x2_XM43_m3 x3_SZ x3_x2_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=0.5u
-Mx3_x2_x2_XM43_m4 x3_SZ x3_x2_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=0.5u
+Mx3_x2_x2_XM43_m1 x3_SZ x3_x2_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=1.0u
+Mx3_x2_x2_XM43_m2 x3_SZ x3_x2_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=1.0u
+Mx3_x2_x2_XM43_m3 x3_SZ x3_x2_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=1.0u
+Mx3_x2_x2_XM43_m4 x3_SZ x3_x2_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=1.0u
 Mx3_x2_x2_XM44 x3_SZ x3_x2_x2_net21 VSS VSS nfet_06v0 L=1.0u W=1.0u
 Mx4_x4_x1_XM4 x4_x4_x1_net3 x4_x4_net4 VDD VDD pfet_06v0 L=1.0u W=10.0u
 Mx4_x4_x1_XM5 x4_x4_net2 x4_x4_net3 x4_x4_x1_net3 VDD pfet_06v0 L=1.0u W=10.0u
@@ -1558,26 +1567,26 @@ Mx4_x8_x2_XM11 x4_x8_x2_net2 x4_x8_net3 VDD VDD pfet_06v0 L=1.0u W=10.0u
 Mx4_x8_x2_XM12 x4_x8_x2_net7 x4_x8_net4 x4_x8_x2_net2 VDD pfet_06v0 L=1.0u W=10.0u
 Mx4_x8_x2_XM13 x4_x8_x2_net18 x4_x8_net3 VDD VDD pfet_06v0 L=1.0u W=10.0u
 Mx4_x8_x2_XM14 x4_x8_x2_net7 x4_x8_net4 x4_x8_x2_net18 VDD pfet_06v0 L=1.0u W=10.0u
-Mx4_x8_x2_XM15 x4_x8_x2_net5 S3P_I x4_x8_x2_net7 VDD pfet_06v0 L=1.0u W=1.1u
-Mx4_x8_x2_XM16 x4_x8_x2_net4 S3N_I x4_x8_x2_net7 VDD pfet_06v0 L=1.0u W=1.0u
+Mx4_x8_x2_XM15 x4_x8_x2_net5 S2P x4_x8_x2_net7 VDD pfet_06v0 L=1.0u W=0.55u
+Mx4_x8_x2_XM16 x4_x8_x2_net4 S2N x4_x8_x2_net7 VDD pfet_06v0 L=1.0u W=0.5u
 Mx4_x8_x2_XM17 x4_x8_x2_net8 x4_x8_net2 x4_x8_x2_net1 VSS nfet_06v0 L=1.0u W=5.0u
 Mx4_x8_x2_XM18 x4_x8_x2_net1 x4_x8_net1 VSS VSS nfet_06v0 L=1.0u W=5.0u
 Mx4_x8_x2_XM19 x4_x8_x2_net8 x4_x8_net2 x4_x8_x2_net19 VSS nfet_06v0 L=1.0u W=5.0u
 Mx4_x8_x2_XM20 x4_x8_x2_net19 x4_x8_net1 VSS VSS nfet_06v0 L=1.0u W=5.0u
-Mx4_x8_x2_XM21 x4_x8_x2_net6 S3P_I x4_x8_x2_net8 VSS nfet_06v0 L=1.0u W=1u
-Mx4_x8_x2_XM22 x4_x8_x2_net3 S3N_I x4_x8_x2_net8 VSS nfet_06v0 L=1.0u W=1u
-Mx4_x8_x2_XM29 x4_x8_x2_net9 x4_x8_net4 x4_x8_x2_net3 VDD pfet_06v0 L=1.0u W=5u
-Mx4_x8_x2_XM30 x4_x8_x2_G_OUT_P x4_x8_net4 x4_x8_x2_net6 VDD pfet_06v0 L=1.0u W=5u
+Mx4_x8_x2_XM21 x4_x8_x2_net6 S2P x4_x8_x2_net8 VSS nfet_06v0 L=1.0u W=7.5u
+Mx4_x8_x2_XM22 x4_x8_x2_net3 S2N x4_x8_x2_net8 VSS nfet_06v0 L=1.0u W=8.5u
+Mx4_x8_x2_XM29 x4_x8_x2_net9 x4_x8_net4 x4_x8_x2_net3 VDD pfet_06v0 L=1.0u W=10u
+Mx4_x8_x2_XM30 x4_x8_x2_G_OUT_P x4_x8_net4 x4_x8_x2_net6 VDD pfet_06v0 L=1.0u W=10u
 Mx4_x8_x2_XM31 x4_x8_x2_net3 x4_x8_x2_net9 VDD VDD pfet_06v0 L=1.0u W=5u
 Mx4_x8_x2_XM35 x4_x8_x2_net6 x4_x8_x2_net9 VDD VDD pfet_06v0 L=1.0u W=5u
-Mx4_x8_x2_XM32 x4_x8_x2_net10 x4_x8_x2_net20 x4_x8_x2_net9 VDD pfet_06v0 L=1.0u W=5.0u
-Mx4_x8_x2_XM33 x4_x8_x2_net21 x4_x8_x2_net20 x4_x8_x2_G_OUT_P VDD pfet_06v0 L=1.0u W=5.0u
+Mx4_x8_x2_XM32 x4_x8_x2_net10 x4_x8_x2_net20 x4_x8_x2_net9 VDD pfet_06v0 L=1.0u W=4.0u
+Mx4_x8_x2_XM33 x4_x8_x2_net21 x4_x8_x2_net20 x4_x8_x2_G_OUT_P VDD pfet_06v0 L=1.0u W=4.0u
 Mx4_x8_x2_XM23 x4_x8_x2_net10 x4_x8_net2 x4_x8_x2_net4 VSS nfet_06v0 L=1.0u W=2.5u
 Mx4_x8_x2_XM24 x4_x8_x2_net21 x4_x8_net2 x4_x8_x2_net5 VSS nfet_06v0 L=1.0u W=2.5u
 Mx4_x8_x2_XM25 x4_x8_x2_net4 x4_x8_x2_net10 VSS VSS nfet_06v0 L=1.0u W=2.5u
 Mx4_x8_x2_XM26 x4_x8_x2_net5 x4_x8_x2_net10 VSS VSS nfet_06v0 L=1.0u W=2.5u
-Mx4_x8_x2_XM27 x4_x8_x2_net9 x4_x8_x2_net11 x4_x8_x2_net10 VSS nfet_06v0 L=1.0u W=2.5u
-Mx4_x8_x2_XM28 x4_x8_x2_G_OUT_P x4_x8_x2_net11 x4_x8_x2_net21 VSS nfet_06v0 L=1.0u W=2.5u
+Mx4_x8_x2_XM27 x4_x8_x2_net9 x4_x8_x2_net11 x4_x8_x2_net10 VSS nfet_06v0 L=1.0u W=2.0u
+Mx4_x8_x2_XM28 x4_x8_x2_G_OUT_P x4_x8_x2_net11 x4_x8_x2_net21 VSS nfet_06v0 L=1.0u W=2.0u
 Mx4_x8_x2_XM34 x4_x8_x2_net12 x4_x8_x2_net13 VDD VDD pfet_06v0 L=1.0u W=10.0u
 Mx4_x8_x2_XM36 x4_x8_x2_net13 x4_x8_net4 x4_x8_x2_net12 VDD pfet_06v0 L=1.0u W=10.0u
 Mx4_x8_x2_XM37 x4_x8_x2_net20 x4_x8_x2_net20 x4_x8_x2_net13 VDD pfet_06v0 L=1.0u W=10.0u
@@ -1588,10 +1597,10 @@ Mx4_x8_x2_XM46 x4_x8_x2_net11 x4_x8_net4 x4_x8_x2_net15 VDD pfet_06v0 L=1.0u W=1
 Mx4_x8_x2_XM40 x4_x8_x2_net11 x4_x8_x2_net11 x4_x8_x2_net17 VSS nfet_06v0 L=1.0u W=5.0u
 Mx4_x8_x2_XM41 x4_x8_x2_net17 x4_x8_net2 x4_x8_x2_net16 VSS nfet_06v0 L=1.0u W=5.0u
 Mx4_x8_x2_XM42 x4_x8_x2_net16 x4_x8_x2_net17 VSS VSS nfet_06v0 L=1.0u W=5.0u
-Mx4_x8_x2_XM43_m1 x4_SX x4_x8_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=0.5u
-Mx4_x8_x2_XM43_m2 x4_SX x4_x8_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=0.5u
-Mx4_x8_x2_XM43_m3 x4_SX x4_x8_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=0.5u
-Mx4_x8_x2_XM43_m4 x4_SX x4_x8_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=0.5u
+Mx4_x8_x2_XM43_m1 x4_SX x4_x8_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=1.0u
+Mx4_x8_x2_XM43_m2 x4_SX x4_x8_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=1.0u
+Mx4_x8_x2_XM43_m3 x4_SX x4_x8_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=1.0u
+Mx4_x8_x2_XM43_m4 x4_SX x4_x8_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=1.0u
 Mx4_x8_x2_XM44 x4_SX x4_x8_x2_net21 VSS VSS nfet_06v0 L=1.0u W=1.0u
 Mx4_x1_x1_XM4 x4_x1_x1_net3 x4_x1_net3 VDD VDD pfet_06v0 L=1.0u W=10.0u
 Mx4_x1_x1_XM5 x4_x1_net2 x4_x1_net4 x4_x1_x1_net3 VDD pfet_06v0 L=1.0u W=10.0u
@@ -1611,26 +1620,26 @@ Mx4_x1_x2_XM11 x4_x1_x2_net2 x4_x1_net3 VDD VDD pfet_06v0 L=1.0u W=10.0u
 Mx4_x1_x2_XM12 x4_x1_x2_net7 x4_x1_net4 x4_x1_x2_net2 VDD pfet_06v0 L=1.0u W=10.0u
 Mx4_x1_x2_XM13 x4_x1_x2_net18 x4_x1_net3 VDD VDD pfet_06v0 L=1.0u W=10.0u
 Mx4_x1_x2_XM14 x4_x1_x2_net7 x4_x1_net4 x4_x1_x2_net18 VDD pfet_06v0 L=1.0u W=10.0u
-Mx4_x1_x2_XM15 x4_x1_x2_net5 S4P_I x4_x1_x2_net7 VDD pfet_06v0 L=1.0u W=1.1u
-Mx4_x1_x2_XM16 x4_x1_x2_net4 S4N_I x4_x1_x2_net7 VDD pfet_06v0 L=1.0u W=1.0u
+Mx4_x1_x2_XM15 x4_x1_x2_net5 S3P x4_x1_x2_net7 VDD pfet_06v0 L=1.0u W=0.55u
+Mx4_x1_x2_XM16 x4_x1_x2_net4 S3N x4_x1_x2_net7 VDD pfet_06v0 L=1.0u W=0.5u
 Mx4_x1_x2_XM17 x4_x1_x2_net8 x4_x1_net2 x4_x1_x2_net1 VSS nfet_06v0 L=1.0u W=5.0u
 Mx4_x1_x2_XM18 x4_x1_x2_net1 x4_x1_net1 VSS VSS nfet_06v0 L=1.0u W=5.0u
 Mx4_x1_x2_XM19 x4_x1_x2_net8 x4_x1_net2 x4_x1_x2_net19 VSS nfet_06v0 L=1.0u W=5.0u
 Mx4_x1_x2_XM20 x4_x1_x2_net19 x4_x1_net1 VSS VSS nfet_06v0 L=1.0u W=5.0u
-Mx4_x1_x2_XM21 x4_x1_x2_net6 S4P_I x4_x1_x2_net8 VSS nfet_06v0 L=1.0u W=1u
-Mx4_x1_x2_XM22 x4_x1_x2_net3 S4N_I x4_x1_x2_net8 VSS nfet_06v0 L=1.0u W=1u
-Mx4_x1_x2_XM29 x4_x1_x2_net9 x4_x1_net4 x4_x1_x2_net3 VDD pfet_06v0 L=1.0u W=5u
-Mx4_x1_x2_XM30 x4_x1_x2_G_OUT_P x4_x1_net4 x4_x1_x2_net6 VDD pfet_06v0 L=1.0u W=5u
+Mx4_x1_x2_XM21 x4_x1_x2_net6 S3P x4_x1_x2_net8 VSS nfet_06v0 L=1.0u W=7.5u
+Mx4_x1_x2_XM22 x4_x1_x2_net3 S3N x4_x1_x2_net8 VSS nfet_06v0 L=1.0u W=8.5u
+Mx4_x1_x2_XM29 x4_x1_x2_net9 x4_x1_net4 x4_x1_x2_net3 VDD pfet_06v0 L=1.0u W=10u
+Mx4_x1_x2_XM30 x4_x1_x2_G_OUT_P x4_x1_net4 x4_x1_x2_net6 VDD pfet_06v0 L=1.0u W=10u
 Mx4_x1_x2_XM31 x4_x1_x2_net3 x4_x1_x2_net9 VDD VDD pfet_06v0 L=1.0u W=5u
 Mx4_x1_x2_XM35 x4_x1_x2_net6 x4_x1_x2_net9 VDD VDD pfet_06v0 L=1.0u W=5u
-Mx4_x1_x2_XM32 x4_x1_x2_net10 x4_x1_x2_net20 x4_x1_x2_net9 VDD pfet_06v0 L=1.0u W=5.0u
-Mx4_x1_x2_XM33 x4_x1_x2_net21 x4_x1_x2_net20 x4_x1_x2_G_OUT_P VDD pfet_06v0 L=1.0u W=5.0u
+Mx4_x1_x2_XM32 x4_x1_x2_net10 x4_x1_x2_net20 x4_x1_x2_net9 VDD pfet_06v0 L=1.0u W=4.0u
+Mx4_x1_x2_XM33 x4_x1_x2_net21 x4_x1_x2_net20 x4_x1_x2_G_OUT_P VDD pfet_06v0 L=1.0u W=4.0u
 Mx4_x1_x2_XM23 x4_x1_x2_net10 x4_x1_net2 x4_x1_x2_net4 VSS nfet_06v0 L=1.0u W=2.5u
 Mx4_x1_x2_XM24 x4_x1_x2_net21 x4_x1_net2 x4_x1_x2_net5 VSS nfet_06v0 L=1.0u W=2.5u
 Mx4_x1_x2_XM25 x4_x1_x2_net4 x4_x1_x2_net10 VSS VSS nfet_06v0 L=1.0u W=2.5u
 Mx4_x1_x2_XM26 x4_x1_x2_net5 x4_x1_x2_net10 VSS VSS nfet_06v0 L=1.0u W=2.5u
-Mx4_x1_x2_XM27 x4_x1_x2_net9 x4_x1_x2_net11 x4_x1_x2_net10 VSS nfet_06v0 L=1.0u W=2.5u
-Mx4_x1_x2_XM28 x4_x1_x2_G_OUT_P x4_x1_x2_net11 x4_x1_x2_net21 VSS nfet_06v0 L=1.0u W=2.5u
+Mx4_x1_x2_XM27 x4_x1_x2_net9 x4_x1_x2_net11 x4_x1_x2_net10 VSS nfet_06v0 L=1.0u W=2.0u
+Mx4_x1_x2_XM28 x4_x1_x2_G_OUT_P x4_x1_x2_net11 x4_x1_x2_net21 VSS nfet_06v0 L=1.0u W=2.0u
 Mx4_x1_x2_XM34 x4_x1_x2_net12 x4_x1_x2_net13 VDD VDD pfet_06v0 L=1.0u W=10.0u
 Mx4_x1_x2_XM36 x4_x1_x2_net13 x4_x1_net4 x4_x1_x2_net12 VDD pfet_06v0 L=1.0u W=10.0u
 Mx4_x1_x2_XM37 x4_x1_x2_net20 x4_x1_x2_net20 x4_x1_x2_net13 VDD pfet_06v0 L=1.0u W=10.0u
@@ -1641,10 +1650,10 @@ Mx4_x1_x2_XM46 x4_x1_x2_net11 x4_x1_net4 x4_x1_x2_net15 VDD pfet_06v0 L=1.0u W=1
 Mx4_x1_x2_XM40 x4_x1_x2_net11 x4_x1_x2_net11 x4_x1_x2_net17 VSS nfet_06v0 L=1.0u W=5.0u
 Mx4_x1_x2_XM41 x4_x1_x2_net17 x4_x1_net2 x4_x1_x2_net16 VSS nfet_06v0 L=1.0u W=5.0u
 Mx4_x1_x2_XM42 x4_x1_x2_net16 x4_x1_x2_net17 VSS VSS nfet_06v0 L=1.0u W=5.0u
-Mx4_x1_x2_XM43_m1 x4_SY x4_x1_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=0.5u
-Mx4_x1_x2_XM43_m2 x4_SY x4_x1_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=0.5u
-Mx4_x1_x2_XM43_m3 x4_SY x4_x1_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=0.5u
-Mx4_x1_x2_XM43_m4 x4_SY x4_x1_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=0.5u
+Mx4_x1_x2_XM43_m1 x4_SY x4_x1_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=1.0u
+Mx4_x1_x2_XM43_m2 x4_SY x4_x1_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=1.0u
+Mx4_x1_x2_XM43_m3 x4_SY x4_x1_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=1.0u
+Mx4_x1_x2_XM43_m4 x4_SY x4_x1_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=1.0u
 Mx4_x1_x2_XM44 x4_SY x4_x1_x2_net21 VSS VSS nfet_06v0 L=1.0u W=1.0u
 Mx4_x2_x1_XM4 x4_x2_x1_net3 x4_x2_net3 VDD VDD pfet_06v0 L=1.0u W=10.0u
 Mx4_x2_x1_XM5 x4_x2_net2 x4_x2_net4 x4_x2_x1_net3 VDD pfet_06v0 L=1.0u W=10.0u
@@ -1664,26 +1673,26 @@ Mx4_x2_x2_XM11 x4_x2_x2_net2 x4_x2_net3 VDD VDD pfet_06v0 L=1.0u W=10.0u
 Mx4_x2_x2_XM12 x4_x2_x2_net7 x4_x2_net4 x4_x2_x2_net2 VDD pfet_06v0 L=1.0u W=10.0u
 Mx4_x2_x2_XM13 x4_x2_x2_net18 x4_x2_net3 VDD VDD pfet_06v0 L=1.0u W=10.0u
 Mx4_x2_x2_XM14 x4_x2_x2_net7 x4_x2_net4 x4_x2_x2_net18 VDD pfet_06v0 L=1.0u W=10.0u
-Mx4_x2_x2_XM15 x4_x2_x2_net5 S2P_I x4_x2_x2_net7 VDD pfet_06v0 L=1.0u W=1.1u
-Mx4_x2_x2_XM16 x4_x2_x2_net4 S2N_I x4_x2_x2_net7 VDD pfet_06v0 L=1.0u W=1.0u
+Mx4_x2_x2_XM15 x4_x2_x2_net5 S4P x4_x2_x2_net7 VDD pfet_06v0 L=1.0u W=0.55u
+Mx4_x2_x2_XM16 x4_x2_x2_net4 S4N x4_x2_x2_net7 VDD pfet_06v0 L=1.0u W=0.5u
 Mx4_x2_x2_XM17 x4_x2_x2_net8 x4_x2_net2 x4_x2_x2_net1 VSS nfet_06v0 L=1.0u W=5.0u
 Mx4_x2_x2_XM18 x4_x2_x2_net1 x4_x2_net1 VSS VSS nfet_06v0 L=1.0u W=5.0u
 Mx4_x2_x2_XM19 x4_x2_x2_net8 x4_x2_net2 x4_x2_x2_net19 VSS nfet_06v0 L=1.0u W=5.0u
 Mx4_x2_x2_XM20 x4_x2_x2_net19 x4_x2_net1 VSS VSS nfet_06v0 L=1.0u W=5.0u
-Mx4_x2_x2_XM21 x4_x2_x2_net6 S2P_I x4_x2_x2_net8 VSS nfet_06v0 L=1.0u W=1u
-Mx4_x2_x2_XM22 x4_x2_x2_net3 S2N_I x4_x2_x2_net8 VSS nfet_06v0 L=1.0u W=1u
-Mx4_x2_x2_XM29 x4_x2_x2_net9 x4_x2_net4 x4_x2_x2_net3 VDD pfet_06v0 L=1.0u W=5u
-Mx4_x2_x2_XM30 x4_x2_x2_G_OUT_P x4_x2_net4 x4_x2_x2_net6 VDD pfet_06v0 L=1.0u W=5u
+Mx4_x2_x2_XM21 x4_x2_x2_net6 S4P x4_x2_x2_net8 VSS nfet_06v0 L=1.0u W=7.5u
+Mx4_x2_x2_XM22 x4_x2_x2_net3 S4N x4_x2_x2_net8 VSS nfet_06v0 L=1.0u W=8.5u
+Mx4_x2_x2_XM29 x4_x2_x2_net9 x4_x2_net4 x4_x2_x2_net3 VDD pfet_06v0 L=1.0u W=10u
+Mx4_x2_x2_XM30 x4_x2_x2_G_OUT_P x4_x2_net4 x4_x2_x2_net6 VDD pfet_06v0 L=1.0u W=10u
 Mx4_x2_x2_XM31 x4_x2_x2_net3 x4_x2_x2_net9 VDD VDD pfet_06v0 L=1.0u W=5u
 Mx4_x2_x2_XM35 x4_x2_x2_net6 x4_x2_x2_net9 VDD VDD pfet_06v0 L=1.0u W=5u
-Mx4_x2_x2_XM32 x4_x2_x2_net10 x4_x2_x2_net20 x4_x2_x2_net9 VDD pfet_06v0 L=1.0u W=5.0u
-Mx4_x2_x2_XM33 x4_x2_x2_net21 x4_x2_x2_net20 x4_x2_x2_G_OUT_P VDD pfet_06v0 L=1.0u W=5.0u
+Mx4_x2_x2_XM32 x4_x2_x2_net10 x4_x2_x2_net20 x4_x2_x2_net9 VDD pfet_06v0 L=1.0u W=4.0u
+Mx4_x2_x2_XM33 x4_x2_x2_net21 x4_x2_x2_net20 x4_x2_x2_G_OUT_P VDD pfet_06v0 L=1.0u W=4.0u
 Mx4_x2_x2_XM23 x4_x2_x2_net10 x4_x2_net2 x4_x2_x2_net4 VSS nfet_06v0 L=1.0u W=2.5u
 Mx4_x2_x2_XM24 x4_x2_x2_net21 x4_x2_net2 x4_x2_x2_net5 VSS nfet_06v0 L=1.0u W=2.5u
 Mx4_x2_x2_XM25 x4_x2_x2_net4 x4_x2_x2_net10 VSS VSS nfet_06v0 L=1.0u W=2.5u
 Mx4_x2_x2_XM26 x4_x2_x2_net5 x4_x2_x2_net10 VSS VSS nfet_06v0 L=1.0u W=2.5u
-Mx4_x2_x2_XM27 x4_x2_x2_net9 x4_x2_x2_net11 x4_x2_x2_net10 VSS nfet_06v0 L=1.0u W=2.5u
-Mx4_x2_x2_XM28 x4_x2_x2_G_OUT_P x4_x2_x2_net11 x4_x2_x2_net21 VSS nfet_06v0 L=1.0u W=2.5u
+Mx4_x2_x2_XM27 x4_x2_x2_net9 x4_x2_x2_net11 x4_x2_x2_net10 VSS nfet_06v0 L=1.0u W=2.0u
+Mx4_x2_x2_XM28 x4_x2_x2_G_OUT_P x4_x2_x2_net11 x4_x2_x2_net21 VSS nfet_06v0 L=1.0u W=2.0u
 Mx4_x2_x2_XM34 x4_x2_x2_net12 x4_x2_x2_net13 VDD VDD pfet_06v0 L=1.0u W=10.0u
 Mx4_x2_x2_XM36 x4_x2_x2_net13 x4_x2_net4 x4_x2_x2_net12 VDD pfet_06v0 L=1.0u W=10.0u
 Mx4_x2_x2_XM37 x4_x2_x2_net20 x4_x2_x2_net20 x4_x2_x2_net13 VDD pfet_06v0 L=1.0u W=10.0u
@@ -1694,59 +1703,59 @@ Mx4_x2_x2_XM46 x4_x2_x2_net11 x4_x2_net4 x4_x2_x2_net15 VDD pfet_06v0 L=1.0u W=1
 Mx4_x2_x2_XM40 x4_x2_x2_net11 x4_x2_x2_net11 x4_x2_x2_net17 VSS nfet_06v0 L=1.0u W=5.0u
 Mx4_x2_x2_XM41 x4_x2_x2_net17 x4_x2_net2 x4_x2_x2_net16 VSS nfet_06v0 L=1.0u W=5.0u
 Mx4_x2_x2_XM42 x4_x2_x2_net16 x4_x2_x2_net17 VSS VSS nfet_06v0 L=1.0u W=5.0u
-Mx4_x2_x2_XM43_m1 x4_SZ x4_x2_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=0.5u
-Mx4_x2_x2_XM43_m2 x4_SZ x4_x2_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=0.5u
-Mx4_x2_x2_XM43_m3 x4_SZ x4_x2_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=0.5u
-Mx4_x2_x2_XM43_m4 x4_SZ x4_x2_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=0.5u
+Mx4_x2_x2_XM43_m1 x4_SZ x4_x2_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=1.0u
+Mx4_x2_x2_XM43_m2 x4_SZ x4_x2_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=1.0u
+Mx4_x2_x2_XM43_m3 x4_SZ x4_x2_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=1.0u
+Mx4_x2_x2_XM43_m4 x4_SZ x4_x2_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=1.0u
 Mx4_x2_x2_XM44 x4_SZ x4_x2_x2_net21 VSS VSS nfet_06v0 L=1.0u W=1.0u
-Mdecn0 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.5u
-Mdecn1 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.5u
-Mdecn2 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.5u
-Mdecn3 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.5u
-Mdecn4 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.5u
-Mdecn5 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.5u
-Mdecn6 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.5u
-Mdecn7 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.5u
-Mdecn8 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.5u
-Mdecn9 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.5u
-Mdecn10 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.5u
-Mdecn11 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.5u
-Mdecn12 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.5u
-Mdecn13 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.5u
-Mdecn14 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.5u
-Mdecn15 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.5u
-Mdecn16 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.5u
-Mdecn17 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.5u
-Mdecn18 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.5u
-Mdecn19 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.5u
-Mdecn20 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.5u
-Mdecn21 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.5u
-Mdecn22 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.5u
-Mdecn23 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.5u
-Mdecn24 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.5u
-Mdecp25 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.5u
-Mdecp26 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.5u
-Mdecp27 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.5u
-Mdecp28 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.5u
-Mdecp29 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.5u
-Mdecp30 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.5u
-Mdecp31 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.5u
-Mdecp32 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.5u
-Mdecp33 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.5u
-Mdecp34 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.5u
-Mdecp35 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.5u
-Mdecp36 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.5u
-Mdecp37 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.5u
-Mdecp38 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.5u
-Mdecp39 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.5u
-Mdecp40 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.5u
-Mdecp41 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.5u
-Mdecp42 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.5u
-Mdecp43 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.5u
-Mdecp44 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.5u
-Mdecp45 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.5u
-Mdecp46 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.5u
-Mdecp47 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.5u
+Mdecn0 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.0u
+Mdecn1 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.0u
+Mdecn2 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.0u
+Mdecn3 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.0u
+Mdecn4 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.0u
+Mdecn5 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.0u
+Mdecn6 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.0u
+Mdecn7 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.0u
+Mdecn8 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.0u
+Mdecn9 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.0u
+Mdecn10 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.0u
+Mdecn11 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.0u
+Mdecn12 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.0u
+Mdecp13 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.0u
+Mdecp14 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.0u
+Mdecp15 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.0u
+Mdecp16 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.0u
+Mdecp17 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.0u
+Mdecp18 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.0u
+Mdecp19 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.0u
+Mdecp20 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.0u
+Mdecp21 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.0u
+Mdecp22 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.0u
+Mdecp23 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.0u
+Mdecp24 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.0u
+Mdecn25 VSS VDD VSS VSS nfet_06v0 L=2.0u W=18.0u
+Mdecn26 VSS VDD VSS VSS nfet_06v0 L=2.0u W=18.0u
+Mdecn27 VSS VDD VSS VSS nfet_06v0 L=2.0u W=18.0u
+Mdecp28 VDD VSS VDD VDD pfet_06v0 L=2.0u W=18.0u
+Mdecp29 VDD VSS VDD VDD pfet_06v0 L=2.0u W=18.0u
+Mdecn30 VSS VDD VSS VSS nfet_06v0 L=2.0u W=18.0u
+Mdecn31 VSS VDD VSS VSS nfet_06v0 L=2.0u W=18.0u
+Mdecn32 VSS VDD VSS VSS nfet_06v0 L=2.0u W=18.0u
+Mdecp33 VDD VSS VDD VDD pfet_06v0 L=2.0u W=18.0u
+Mdecp34 VDD VSS VDD VDD pfet_06v0 L=2.0u W=18.0u
+Mdecn35 VSS VDD VSS VSS nfet_06v0 L=2.0u W=18.0u
+Mdecn36 VSS VDD VSS VSS nfet_06v0 L=2.0u W=18.0u
+Mdecn37 VSS VDD VSS VSS nfet_06v0 L=2.0u W=18.0u
+Mdecp38 VDD VSS VDD VDD pfet_06v0 L=2.0u W=18.0u
+Mdecp39 VDD VSS VDD VDD pfet_06v0 L=2.0u W=18.0u
+Mdecn40 VSS VDD VSS VSS nfet_06v0 L=2.0u W=18.0u
+Mdecn41 VSS VDD VSS VSS nfet_06v0 L=2.0u W=18.0u
+Mdecp42 VDD VSS VDD VDD pfet_06v0 L=2.0u W=18.0u
+Mdecp43 VDD VSS VDD VDD pfet_06v0 L=2.0u W=18.0u
+Mdecn44 VSS VDD VSS VSS nfet_06v0 L=2.0u W=18.0u
+Mdecn45 VSS VDD VSS VSS nfet_06v0 L=2.0u W=18.0u
+Mdecp46 VDD VSS VDD VDD pfet_06v0 L=2.0u W=18.0u
+Mdecp47 VDD VSS VDD VDD pfet_06v0 L=2.0u W=18.0u
 Mdecn48 VSS VDD VSS VSS nfet_06v0 L=2.0u W=18.0u
 Mdecn49 VSS VDD VSS VSS nfet_06v0 L=2.0u W=18.0u
 Mdecp50 VDD VSS VDD VDD pfet_06v0 L=2.0u W=18.0u
@@ -1775,204 +1784,86 @@ Mdecn72 VSS VDD VSS VSS nfet_06v0 L=2.0u W=18.0u
 Mdecn73 VSS VDD VSS VSS nfet_06v0 L=2.0u W=18.0u
 Mdecp74 VDD VSS VDD VDD pfet_06v0 L=2.0u W=18.0u
 Mdecp75 VDD VSS VDD VDD pfet_06v0 L=2.0u W=18.0u
-Mdecn76 VSS VDD VSS VSS nfet_06v0 L=2.0u W=18.0u
-Mdecn77 VSS VDD VSS VSS nfet_06v0 L=2.0u W=18.0u
-Mdecp78 VDD VSS VDD VDD pfet_06v0 L=2.0u W=18.0u
-Mdecp79 VDD VSS VDD VDD pfet_06v0 L=2.0u W=18.0u
-Mdecn80 VSS VDD VSS VSS nfet_06v0 L=2.0u W=18.0u
-Mdecn81 VSS VDD VSS VSS nfet_06v0 L=2.0u W=18.0u
-Mdecp82 VDD VSS VDD VDD pfet_06v0 L=2.0u W=18.0u
-Mdecp83 VDD VSS VDD VDD pfet_06v0 L=2.0u W=18.0u
-Mdecn84 VSS VDD VSS VSS nfet_06v0 L=2.0u W=2.0u
-Mdecn85 VSS VDD VSS VSS nfet_06v0 L=2.0u W=2.0u
-Mdecn86 VSS VDD VSS VSS nfet_06v0 L=2.0u W=2.0u
-Mdecn87 VSS VDD VSS VSS nfet_06v0 L=2.0u W=2.0u
-Mdecn88 VSS VDD VSS VSS nfet_06v0 L=2.0u W=2.0u
-Mdecn89 VSS VDD VSS VSS nfet_06v0 L=2.0u W=2.0u
-Mdecn90 VSS VDD VSS VSS nfet_06v0 L=2.0u W=2.0u
-Mdecn91 VSS VDD VSS VSS nfet_06v0 L=2.0u W=2.0u
-Mdecp92 VDD VSS VDD VDD pfet_06v0 L=2.0u W=2.0u
-Mdecp93 VDD VSS VDD VDD pfet_06v0 L=2.0u W=2.0u
-Mdecp94 VDD VSS VDD VDD pfet_06v0 L=2.0u W=2.0u
-Mdecp95 VDD VSS VDD VDD pfet_06v0 L=2.0u W=2.0u
-Mdecp96 VDD VSS VDD VDD pfet_06v0 L=2.0u W=2.0u
-Mdecp97 VDD VSS VDD VDD pfet_06v0 L=2.0u W=2.0u
-Mdecp98 VDD VSS VDD VDD pfet_06v0 L=2.0u W=2.0u
-Mdecn99 VSS VDD VSS VSS nfet_06v0 L=2.0u W=18.0u
-Mdecp100 VDD VSS VDD VDD pfet_06v0 L=2.0u W=18.0u
-Mdecn101 VSS VDD VSS VSS nfet_06v0 L=2.0u W=18.0u
-Mdecp102 VDD VSS VDD VDD pfet_06v0 L=2.0u W=18.0u
-Mdecn103 VSS VDD VSS VSS nfet_06v0 L=2.0u W=18.0u
-Mdecp104 VDD VSS VDD VDD pfet_06v0 L=2.0u W=18.0u
+Mdecn76 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u
+Mdecn77 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u
+Mdecp78 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u
+Mdecp79 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u
+Mdecn80 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u
+Mdecn81 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u
+Mdecp82 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u
+Mdecp83 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u
+Mdecn84 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u
+Mdecn85 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u
+Mdecp86 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u
+Mdecp87 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u
+Mdecn88 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u
+Mdecn89 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u
+Mdecp90 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u
+Mdecp91 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u
+Mdecn92 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u
+Mdecn93 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u
+Mdecp94 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u
+Mdecp95 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u
+Mdecn96 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u
+Mdecn97 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u
+Mdecp98 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u
+Mdecp99 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u
+Mdecn100 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u
+Mdecn101 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u
+Mdecp102 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u
+Mdecp103 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u
+Mdecn104 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u
 Mdecn105 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u
-Mdecn106 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u
+Mdecp106 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u
 Mdecp107 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u
-Mdecp108 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u
+Mdecn108 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u
 Mdecn109 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u
-Mdecn110 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u
+Mdecp110 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u
 Mdecp111 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u
-Mdecp112 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u
+Mdecn112 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u
 Mdecn113 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u
-Mdecn114 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u
+Mdecp114 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u
 Mdecp115 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u
-Mdecp116 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u
+Mdecn116 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u
 Mdecn117 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u
-Mdecn118 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u
+Mdecp118 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u
 Mdecp119 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u
-Mdecp120 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u
+Mdecn120 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u
 Mdecn121 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u
-Mdecn122 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u
+Mdecp122 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u
 Mdecp123 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u
-Mdecp124 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u
-Mdecn125 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u
-Mdecn126 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u
-Mdecp127 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u
-Mdecp128 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u
-Mdecn129 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u
+Mdecn124 VSS VDD VSS VSS nfet_06v0 L=2.0u W=18.0u
+Mdecp125 VDD VSS VDD VDD pfet_06v0 L=2.0u W=18.0u
+Mdecn126 VSS VDD VSS VSS nfet_06v0 L=2.0u W=18.0u
+Mdecp127 VDD VSS VDD VDD pfet_06v0 L=2.0u W=18.0u
+Mdecn128 VSS VDD VSS VSS nfet_06v0 L=2.0u W=18.0u
+Mdecp129 VDD VSS VDD VDD pfet_06v0 L=2.0u W=18.0u
 Mdecn130 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u
 Mdecp131 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u
-Mdecp132 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u
-Mdecn133 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u
+Mdecn132 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u
+Mdecp133 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u
 Mdecn134 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u
 Mdecp135 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u
-Mdecp136 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u
-Mdecn137 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u
-Mdecn138 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u
-Mdecp139 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u
-Mdecp140 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u
-Mdecn141 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u
-Mdecn142 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u
-Mdecp143 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u
-Mdecp144 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u
-Mdecn145 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u
-Mdecn146 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u
-Mdecp147 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u
-Mdecp148 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u
-Mdecn149 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u
-Mdecn150 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u
-Mdecp151 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u
-Mdecp152 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u
-Mdecn153 VSS VDD VSS VSS nfet_06v0 L=2.0u W=2.0u
-Mdecn154 VSS VDD VSS VSS nfet_06v0 L=2.0u W=2.0u
-Mdecn155 VSS VDD VSS VSS nfet_06v0 L=2.0u W=2.0u
-Mdecn156 VSS VDD VSS VSS nfet_06v0 L=2.0u W=2.0u
-Mdecn157 VSS VDD VSS VSS nfet_06v0 L=2.0u W=2.0u
-Mdecp158 VDD VSS VDD VDD pfet_06v0 L=2.0u W=2.0u
-Mdecp159 VDD VSS VDD VDD pfet_06v0 L=2.0u W=2.0u
-Mdecp160 VDD VSS VDD VDD pfet_06v0 L=2.0u W=2.0u
-Mdecp161 VDD VSS VDD VDD pfet_06v0 L=2.0u W=2.0u
-Mdecn162 VSS VDD VSS VSS nfet_06v0 L=2.0u W=18.0u
-Mdecp163 VDD VSS VDD VDD pfet_06v0 L=2.0u W=18.0u
-Mdecn164 VSS VDD VSS VSS nfet_06v0 L=2.0u W=18.0u
-Mdecp165 VDD VSS VDD VDD pfet_06v0 L=2.0u W=18.0u
-Mdecn166 VSS VDD VSS VSS nfet_06v0 L=2.0u W=18.0u
-Mdecp167 VDD VSS VDD VDD pfet_06v0 L=2.0u W=18.0u
-Mdecn168 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u
-Mdecp169 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u
-Mdecn170 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u
-Mdecp171 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u
-Mdecn172 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u
-Mdecp173 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u
-Mdecn174 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u
-Mdecp175 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u
-Mdecn176 VSS VDD VSS VSS nfet_06v0 L=2.0u W=2.0u
-Mdecn177 VSS VDD VSS VSS nfet_06v0 L=2.0u W=2.0u
-Mdecp178 VDD VSS VDD VDD pfet_06v0 L=2.0u W=2.0u
-Mdecp179 VDD VSS VDD VDD pfet_06v0 L=2.0u W=2.0u
-Mdecn180 VSS VDD VSS VSS nfet_06v0 L=2.0u W=2.0u
-Mdecn181 VSS VDD VSS VSS nfet_06v0 L=2.0u W=2.0u
-Mdecp182 VDD VSS VDD VDD pfet_06v0 L=2.0u W=2.0u
-Mdecp183 VDD VSS VDD VDD pfet_06v0 L=2.0u W=2.0u
-Mdecn184 VSS VDD VSS VSS nfet_06v0 L=2.0u W=2.0u
-Mdecn185 VSS VDD VSS VSS nfet_06v0 L=2.0u W=2.0u
-Mdecp186 VDD VSS VDD VDD pfet_06v0 L=2.0u W=2.0u
-Mdecp187 VDD VSS VDD VDD pfet_06v0 L=2.0u W=2.0u
-Mdecn188 VSS VDD VSS VSS nfet_06v0 L=2.0u W=2.0u
-Mdecn189 VSS VDD VSS VSS nfet_06v0 L=2.0u W=2.0u
-Mdecp190 VDD VSS VDD VDD pfet_06v0 L=2.0u W=2.0u
-Mdecp191 VDD VSS VDD VDD pfet_06v0 L=2.0u W=2.0u
-Mdecn192 VSS VDD VSS VSS nfet_06v0 L=2.0u W=2.0u
-Mdecn193 VSS VDD VSS VSS nfet_06v0 L=2.0u W=2.0u
-Mdecp194 VDD VSS VDD VDD pfet_06v0 L=2.0u W=2.0u
-Mdecp195 VDD VSS VDD VDD pfet_06v0 L=2.0u W=2.0u
-Mdecn196 VSS VDD VSS VSS nfet_06v0 L=2.0u W=2.0u
-Mdecn197 VSS VDD VSS VSS nfet_06v0 L=2.0u W=2.0u
-Mdecp198 VDD VSS VDD VDD pfet_06v0 L=2.0u W=2.0u
-Mdecp199 VDD VSS VDD VDD pfet_06v0 L=2.0u W=2.0u
-Mdecn200 VSS VDD VSS VSS nfet_06v0 L=2.0u W=2.0u
-Mdecn201 VSS VDD VSS VSS nfet_06v0 L=2.0u W=2.0u
-Mdecp202 VDD VSS VDD VDD pfet_06v0 L=2.0u W=2.0u
-Mdecp203 VDD VSS VDD VDD pfet_06v0 L=2.0u W=2.0u
-Mdecn204 VSS VDD VSS VSS nfet_06v0 L=2.0u W=2.0u
-Mdecn205 VSS VDD VSS VSS nfet_06v0 L=2.0u W=2.0u
-Mdecp206 VDD VSS VDD VDD pfet_06v0 L=2.0u W=2.0u
-Mdecp207 VDD VSS VDD VDD pfet_06v0 L=2.0u W=2.0u
-Mdecn208 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.5u
-Mdecn209 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.5u
-Mdecp210 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.5u
-Mdecp211 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.5u
-Mdecn212 VSS VDD VSS VSS nfet_06v0 L=2.0u W=2.0u
-Mdecn213 VSS VDD VSS VSS nfet_06v0 L=2.0u W=2.0u
-Mdecp214 VDD VSS VDD VDD pfet_06v0 L=2.0u W=2.0u
-Mdecp215 VDD VSS VDD VDD pfet_06v0 L=2.0u W=2.0u
-Mdecn216 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.5u
-Mdecn217 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.5u
-Mdecp218 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.5u
-Mdecp219 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.5u
-Mdecn220 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.5u
-Mdecn221 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.5u
-Mdecp222 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.5u
-Mdecp223 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.5u
-Mdecn224 VSS VDD VSS VSS nfet_06v0 L=2.0u W=2.0u
-Mdecp225 VDD VSS VDD VDD pfet_06v0 L=2.0u W=2.0u
-Mdecn226 VSS VDD VSS VSS nfet_06v0 L=2.0u W=2.0u
-Mdecp227 VDD VSS VDD VDD pfet_06v0 L=2.0u W=2.0u
-* diodos: la linea tal cual. El deck de KLayout los lee con 'A=' y 'P=', que es lo que el simulador llama
-*   area y pj; se escriben como numeros y no como la expresion de xschem porque el lector no evalua.
-D1_xesdS1P VSS S1P diode_nd2ps_06v0 AREA=50p PJ=30u
-D2_xesdS1P VSS S1P diode_nd2ps_06v0 AREA=50p PJ=30u
-D3_xesdS1P S1P VDD diode_pd2nw_06v0 AREA=50p PJ=30u
-D4_xesdS1P S1P VDD diode_pd2nw_06v0 AREA=50p PJ=30u
-D1_xesdS1N VSS S1N diode_nd2ps_06v0 AREA=50p PJ=30u
-D2_xesdS1N VSS S1N diode_nd2ps_06v0 AREA=50p PJ=30u
-D3_xesdS1N S1N VDD diode_pd2nw_06v0 AREA=50p PJ=30u
-D4_xesdS1N S1N VDD diode_pd2nw_06v0 AREA=50p PJ=30u
-D1_xesdS2P VSS S2P diode_nd2ps_06v0 AREA=50p PJ=30u
-D2_xesdS2P VSS S2P diode_nd2ps_06v0 AREA=50p PJ=30u
-D3_xesdS2P S2P VDD diode_pd2nw_06v0 AREA=50p PJ=30u
-D4_xesdS2P S2P VDD diode_pd2nw_06v0 AREA=50p PJ=30u
-D1_xesdS2N VSS S2N diode_nd2ps_06v0 AREA=50p PJ=30u
-D2_xesdS2N VSS S2N diode_nd2ps_06v0 AREA=50p PJ=30u
-D3_xesdS2N S2N VDD diode_pd2nw_06v0 AREA=50p PJ=30u
-D4_xesdS2N S2N VDD diode_pd2nw_06v0 AREA=50p PJ=30u
-D1_xesdS3P VSS S3P diode_nd2ps_06v0 AREA=50p PJ=30u
-D2_xesdS3P VSS S3P diode_nd2ps_06v0 AREA=50p PJ=30u
-D3_xesdS3P S3P VDD diode_pd2nw_06v0 AREA=50p PJ=30u
-D4_xesdS3P S3P VDD diode_pd2nw_06v0 AREA=50p PJ=30u
-D1_xesdS3N VSS S3N diode_nd2ps_06v0 AREA=50p PJ=30u
-D2_xesdS3N VSS S3N diode_nd2ps_06v0 AREA=50p PJ=30u
-D3_xesdS3N S3N VDD diode_pd2nw_06v0 AREA=50p PJ=30u
-D4_xesdS3N S3N VDD diode_pd2nw_06v0 AREA=50p PJ=30u
-D1_xesdS4P VSS S4P diode_nd2ps_06v0 AREA=50p PJ=30u
-D2_xesdS4P VSS S4P diode_nd2ps_06v0 AREA=50p PJ=30u
-D3_xesdS4P S4P VDD diode_pd2nw_06v0 AREA=50p PJ=30u
-D4_xesdS4P S4P VDD diode_pd2nw_06v0 AREA=50p PJ=30u
-D1_xesdS4N VSS S4N diode_nd2ps_06v0 AREA=50p PJ=30u
-D2_xesdS4N VSS S4N diode_nd2ps_06v0 AREA=50p PJ=30u
-D3_xesdS4N S4N VDD diode_pd2nw_06v0 AREA=50p PJ=30u
-D4_xesdS4N S4N VDD diode_pd2nw_06v0 AREA=50p PJ=30u
-D1_xesdX VSS X diode_nd2ps_06v0 AREA=50p PJ=30u
-D2_xesdX VSS X diode_nd2ps_06v0 AREA=50p PJ=30u
-D3_xesdX X VDD diode_pd2nw_06v0 AREA=50p PJ=30u
-D4_xesdX X VDD diode_pd2nw_06v0 AREA=50p PJ=30u
-D1_xesdY VSS Y diode_nd2ps_06v0 AREA=50p PJ=30u
-D2_xesdY VSS Y diode_nd2ps_06v0 AREA=50p PJ=30u
-D3_xesdY Y VDD diode_pd2nw_06v0 AREA=50p PJ=30u
-D4_xesdY Y VDD diode_pd2nw_06v0 AREA=50p PJ=30u
-D1_xesdZ VSS Z diode_nd2ps_06v0 AREA=50p PJ=30u
-D2_xesdZ VSS Z diode_nd2ps_06v0 AREA=50p PJ=30u
-D3_xesdZ Z VDD diode_pd2nw_06v0 AREA=50p PJ=30u
-D4_xesdZ Z VDD diode_pd2nw_06v0 AREA=50p PJ=30u
+Mdecn136 VSS VDD VSS VSS nfet_06v0 L=2.0u W=9.75u
+Mdecp137 VDD VSS VDD VDD pfet_06v0 L=2.0u W=9.75u
+Mdecn138 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.0u
+Mdecn139 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.0u
+Mdecp140 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.0u
+Mdecp141 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.0u
+Mdecn142 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.0u
+Mdecn143 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.0u
+Mdecp144 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.0u
+Mdecp145 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.0u
+Mdecn146 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.0u
+Mdecn147 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.0u
+Mdecp148 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.0u
+Mdecp149 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.0u
+Mdecn150 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.0u
+Mdecp151 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.0u
+Mdecn152 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.0u
+Mdecp153 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.0u
+Mdecn154 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.0u
+Mdecp155 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.0u
 * condensadores: elemento 'C' con W/L en METROS, no 'X' con c_width/c_length.
 *   El deck de KLayout los lee con un delegate (custom_classes.lvs, SubcircuitModelsReader#element)
 *   que SOLO actua si el elemento empieza por 'C', y de ahi saca A=W*L*1e12 y P=2*(W+L)*1e6.
@@ -1983,48 +1874,48 @@ Cx1_x5_x2_XC2 x1_net2 x1_x5_x2_net5 4e-13 cap_mim_2f0fF
 Cx1_x5_x2_XC3 x1_x5_x2_net6 x1_net2 4e-13 cap_mim_2f0fF
 Cx1_x6_x2_XC2 x1_net3 x1_x6_x2_net5 4e-13 cap_mim_2f0fF
 Cx1_x6_x2_XC3 x1_x6_x2_net6 x1_net3 4e-13 cap_mim_2f0fF
-Cx1_x8_x2_XC3 x1_x8_x2_net6 x1_SX 2e-13 cap_mim_2f0fF
-Cx1_x8_x2_XC1 x1_SX x1_x8_x2_net5 2e-13 cap_mim_2f0fF
-Cx1_x1_x2_XC3 x1_x1_x2_net6 x1_SY 2e-13 cap_mim_2f0fF
-Cx1_x1_x2_XC1 x1_SY x1_x1_x2_net5 2e-13 cap_mim_2f0fF
-Cx1_x2_x2_XC3 x1_x2_x2_net6 x1_SZ 2e-13 cap_mim_2f0fF
-Cx1_x2_x2_XC1 x1_SZ x1_x2_x2_net5 2e-13 cap_mim_2f0fF
+Cx1_x8_x2_XC3 x1_x8_x2_net6 x1_SX 4e-13 cap_mim_2f0fF
+Cx1_x8_x2_XC1 x1_SX x1_x8_x2_net5 4e-13 cap_mim_2f0fF
+Cx1_x1_x2_XC3 x1_x1_x2_net6 x1_SY 4e-13 cap_mim_2f0fF
+Cx1_x1_x2_XC1 x1_SY x1_x1_x2_net5 4e-13 cap_mim_2f0fF
+Cx1_x2_x2_XC3 x1_x2_x2_net6 x1_SZ 4e-13 cap_mim_2f0fF
+Cx1_x2_x2_XC1 x1_SZ x1_x2_x2_net5 4e-13 cap_mim_2f0fF
 Cx2_x4_x2_XC2 x2_net1 x2_x4_x2_net5 4e-13 cap_mim_2f0fF
 Cx2_x4_x2_XC3 x2_x4_x2_net6 x2_net1 4e-13 cap_mim_2f0fF
 Cx2_x5_x2_XC2 x2_net2 x2_x5_x2_net5 4e-13 cap_mim_2f0fF
 Cx2_x5_x2_XC3 x2_x5_x2_net6 x2_net2 4e-13 cap_mim_2f0fF
 Cx2_x6_x2_XC2 x2_net3 x2_x6_x2_net5 4e-13 cap_mim_2f0fF
 Cx2_x6_x2_XC3 x2_x6_x2_net6 x2_net3 4e-13 cap_mim_2f0fF
-Cx2_x8_x2_XC3 x2_x8_x2_net6 x2_SX 2e-13 cap_mim_2f0fF
-Cx2_x8_x2_XC1 x2_SX x2_x8_x2_net5 2e-13 cap_mim_2f0fF
-Cx2_x1_x2_XC3 x2_x1_x2_net6 x2_SY 2e-13 cap_mim_2f0fF
-Cx2_x1_x2_XC1 x2_SY x2_x1_x2_net5 2e-13 cap_mim_2f0fF
-Cx2_x2_x2_XC3 x2_x2_x2_net6 x2_SZ 2e-13 cap_mim_2f0fF
-Cx2_x2_x2_XC1 x2_SZ x2_x2_x2_net5 2e-13 cap_mim_2f0fF
+Cx2_x8_x2_XC3 x2_x8_x2_net6 x2_SX 4e-13 cap_mim_2f0fF
+Cx2_x8_x2_XC1 x2_SX x2_x8_x2_net5 4e-13 cap_mim_2f0fF
+Cx2_x1_x2_XC3 x2_x1_x2_net6 x2_SY 4e-13 cap_mim_2f0fF
+Cx2_x1_x2_XC1 x2_SY x2_x1_x2_net5 4e-13 cap_mim_2f0fF
+Cx2_x2_x2_XC3 x2_x2_x2_net6 x2_SZ 4e-13 cap_mim_2f0fF
+Cx2_x2_x2_XC1 x2_SZ x2_x2_x2_net5 4e-13 cap_mim_2f0fF
 Cx3_x4_x2_XC2 x3_net1 x3_x4_x2_net5 4e-13 cap_mim_2f0fF
 Cx3_x4_x2_XC3 x3_x4_x2_net6 x3_net1 4e-13 cap_mim_2f0fF
 Cx3_x5_x2_XC2 x3_net2 x3_x5_x2_net5 4e-13 cap_mim_2f0fF
 Cx3_x5_x2_XC3 x3_x5_x2_net6 x3_net2 4e-13 cap_mim_2f0fF
 Cx3_x6_x2_XC2 x3_net3 x3_x6_x2_net5 4e-13 cap_mim_2f0fF
 Cx3_x6_x2_XC3 x3_x6_x2_net6 x3_net3 4e-13 cap_mim_2f0fF
-Cx3_x8_x2_XC3 x3_x8_x2_net6 x3_SX 2e-13 cap_mim_2f0fF
-Cx3_x8_x2_XC1 x3_SX x3_x8_x2_net5 2e-13 cap_mim_2f0fF
-Cx3_x1_x2_XC3 x3_x1_x2_net6 x3_SY 2e-13 cap_mim_2f0fF
-Cx3_x1_x2_XC1 x3_SY x3_x1_x2_net5 2e-13 cap_mim_2f0fF
-Cx3_x2_x2_XC3 x3_x2_x2_net6 x3_SZ 2e-13 cap_mim_2f0fF
-Cx3_x2_x2_XC1 x3_SZ x3_x2_x2_net5 2e-13 cap_mim_2f0fF
+Cx3_x8_x2_XC3 x3_x8_x2_net6 x3_SX 4e-13 cap_mim_2f0fF
+Cx3_x8_x2_XC1 x3_SX x3_x8_x2_net5 4e-13 cap_mim_2f0fF
+Cx3_x1_x2_XC3 x3_x1_x2_net6 x3_SY 4e-13 cap_mim_2f0fF
+Cx3_x1_x2_XC1 x3_SY x3_x1_x2_net5 4e-13 cap_mim_2f0fF
+Cx3_x2_x2_XC3 x3_x2_x2_net6 x3_SZ 4e-13 cap_mim_2f0fF
+Cx3_x2_x2_XC1 x3_SZ x3_x2_x2_net5 4e-13 cap_mim_2f0fF
 Cx4_x4_x2_XC2 x4_net1 x4_x4_x2_net5 4e-13 cap_mim_2f0fF
 Cx4_x4_x2_XC3 x4_x4_x2_net6 x4_net1 4e-13 cap_mim_2f0fF
 Cx4_x5_x2_XC2 x4_net2 x4_x5_x2_net5 4e-13 cap_mim_2f0fF
 Cx4_x5_x2_XC3 x4_x5_x2_net6 x4_net2 4e-13 cap_mim_2f0fF
 Cx4_x6_x2_XC2 x4_net3 x4_x6_x2_net5 4e-13 cap_mim_2f0fF
 Cx4_x6_x2_XC3 x4_x6_x2_net6 x4_net3 4e-13 cap_mim_2f0fF
-Cx4_x8_x2_XC3 x4_x8_x2_net6 x4_SX 2e-13 cap_mim_2f0fF
-Cx4_x8_x2_XC1 x4_SX x4_x8_x2_net5 2e-13 cap_mim_2f0fF
-Cx4_x1_x2_XC3 x4_x1_x2_net6 x4_SY 2e-13 cap_mim_2f0fF
-Cx4_x1_x2_XC1 x4_SY x4_x1_x2_net5 2e-13 cap_mim_2f0fF
-Cx4_x2_x2_XC3 x4_x2_x2_net6 x4_SZ 2e-13 cap_mim_2f0fF
-Cx4_x2_x2_XC1 x4_SZ x4_x2_x2_net5 2e-13 cap_mim_2f0fF
+Cx4_x8_x2_XC3 x4_x8_x2_net6 x4_SX 4e-13 cap_mim_2f0fF
+Cx4_x8_x2_XC1 x4_SX x4_x8_x2_net5 4e-13 cap_mim_2f0fF
+Cx4_x1_x2_XC3 x4_x1_x2_net6 x4_SY 4e-13 cap_mim_2f0fF
+Cx4_x1_x2_XC1 x4_SY x4_x1_x2_net5 4e-13 cap_mim_2f0fF
+Cx4_x2_x2_XC3 x4_x2_x2_net6 x4_SZ 4e-13 cap_mim_2f0fF
+Cx4_x2_x2_XC1 x4_SZ x4_x2_x2_net5 4e-13 cap_mim_2f0fF
 * resistencias: elemento 'R' con W/L/S en METROS, no 'X' con r_width/r_length.
 *   Mismo motivo que los condensadores: el delegate del deck (custom_classes.lvs,
 *   SubcircuitModelsReader#element) solo entra por la primera letra, y para 'R' de tres
@@ -2036,119 +1927,64 @@ Cx4_x2_x2_XC1 x4_SZ x4_x2_x2_net5 2e-13 cap_mim_2f0fF
 *   la aplica aqui porque lee la resistencia de tres nodos como si tuviera dos y le
 *   pone de modelo el nodo de sustrato: la clase le sale 'VSS' y su setup no la
 *   reconoce. Escribiendo los tramos, las dos partes cuentan lo mismo y no hace falta.
-RFB_x1_x8_x2_1 x1_x8_x2_G_OUT_P RFB_x1_x8_x2$1 VSS ppolyf_u_3k W=1e-06 L=7.645e-05 R=229350
-RFB_x1_x8_x2_2 RFB_x1_x8_x2$1 RFB_x1_x8_x2$2 VSS ppolyf_u_3k W=1e-06 L=7.645e-05 R=229350
-RFB_x1_x8_x2_3 RFB_x1_x8_x2$2 RFB_x1_x8_x2$3 VSS ppolyf_u_3k W=1e-06 L=7.645e-05 R=229350
-RFB_x1_x8_x2_4 RFB_x1_x8_x2$3 RFB_x1_x8_x2$4 VSS ppolyf_u_3k W=1e-06 L=7.645e-05 R=229350
-RFB_x1_x8_x2_5 RFB_x1_x8_x2$4 x1_SX VSS ppolyf_u_3k W=1e-06 L=7.645e-05 R=229350
-RFB_x1_x1_x2_1 x1_x1_x2_G_OUT_P RFB_x1_x1_x2$1 VSS ppolyf_u_3k W=1e-06 L=7.645e-05 R=229350
-RFB_x1_x1_x2_2 RFB_x1_x1_x2$1 RFB_x1_x1_x2$2 VSS ppolyf_u_3k W=1e-06 L=7.645e-05 R=229350
-RFB_x1_x1_x2_3 RFB_x1_x1_x2$2 RFB_x1_x1_x2$3 VSS ppolyf_u_3k W=1e-06 L=7.645e-05 R=229350
-RFB_x1_x1_x2_4 RFB_x1_x1_x2$3 RFB_x1_x1_x2$4 VSS ppolyf_u_3k W=1e-06 L=7.645e-05 R=229350
-RFB_x1_x1_x2_5 RFB_x1_x1_x2$4 x1_SY VSS ppolyf_u_3k W=1e-06 L=7.645e-05 R=229350
-RFB_x1_x2_x2_1 x1_x2_x2_G_OUT_P RFB_x1_x2_x2$1 VSS ppolyf_u_3k W=1e-06 L=7.645e-05 R=229350
-RFB_x1_x2_x2_2 RFB_x1_x2_x2$1 RFB_x1_x2_x2$2 VSS ppolyf_u_3k W=1e-06 L=7.645e-05 R=229350
-RFB_x1_x2_x2_3 RFB_x1_x2_x2$2 RFB_x1_x2_x2$3 VSS ppolyf_u_3k W=1e-06 L=7.645e-05 R=229350
-RFB_x1_x2_x2_4 RFB_x1_x2_x2$3 RFB_x1_x2_x2$4 VSS ppolyf_u_3k W=1e-06 L=7.645e-05 R=229350
-RFB_x1_x2_x2_5 RFB_x1_x2_x2$4 x1_SZ VSS ppolyf_u_3k W=1e-06 L=7.645e-05 R=229350
-RFB_x2_x8_x2_1 x2_x8_x2_G_OUT_P RFB_x2_x8_x2$1 VSS ppolyf_u_3k W=1e-06 L=7.645e-05 R=229350
-RFB_x2_x8_x2_2 RFB_x2_x8_x2$1 RFB_x2_x8_x2$2 VSS ppolyf_u_3k W=1e-06 L=7.645e-05 R=229350
-RFB_x2_x8_x2_3 RFB_x2_x8_x2$2 RFB_x2_x8_x2$3 VSS ppolyf_u_3k W=1e-06 L=7.645e-05 R=229350
-RFB_x2_x8_x2_4 RFB_x2_x8_x2$3 RFB_x2_x8_x2$4 VSS ppolyf_u_3k W=1e-06 L=7.645e-05 R=229350
-RFB_x2_x8_x2_5 RFB_x2_x8_x2$4 x2_SX VSS ppolyf_u_3k W=1e-06 L=7.645e-05 R=229350
-RFB_x2_x1_x2_1 x2_x1_x2_G_OUT_P RFB_x2_x1_x2$1 VSS ppolyf_u_3k W=1e-06 L=7.645e-05 R=229350
-RFB_x2_x1_x2_2 RFB_x2_x1_x2$1 RFB_x2_x1_x2$2 VSS ppolyf_u_3k W=1e-06 L=7.645e-05 R=229350
-RFB_x2_x1_x2_3 RFB_x2_x1_x2$2 RFB_x2_x1_x2$3 VSS ppolyf_u_3k W=1e-06 L=7.645e-05 R=229350
-RFB_x2_x1_x2_4 RFB_x2_x1_x2$3 RFB_x2_x1_x2$4 VSS ppolyf_u_3k W=1e-06 L=7.645e-05 R=229350
-RFB_x2_x1_x2_5 RFB_x2_x1_x2$4 x2_SY VSS ppolyf_u_3k W=1e-06 L=7.645e-05 R=229350
-RFB_x2_x2_x2_1 x2_x2_x2_G_OUT_P RFB_x2_x2_x2$1 VSS ppolyf_u_3k W=1e-06 L=7.645e-05 R=229350
-RFB_x2_x2_x2_2 RFB_x2_x2_x2$1 RFB_x2_x2_x2$2 VSS ppolyf_u_3k W=1e-06 L=7.645e-05 R=229350
-RFB_x2_x2_x2_3 RFB_x2_x2_x2$2 RFB_x2_x2_x2$3 VSS ppolyf_u_3k W=1e-06 L=7.645e-05 R=229350
-RFB_x2_x2_x2_4 RFB_x2_x2_x2$3 RFB_x2_x2_x2$4 VSS ppolyf_u_3k W=1e-06 L=7.645e-05 R=229350
-RFB_x2_x2_x2_5 RFB_x2_x2_x2$4 x2_SZ VSS ppolyf_u_3k W=1e-06 L=7.645e-05 R=229350
-RFB_x3_x8_x2_1 x3_x8_x2_G_OUT_P RFB_x3_x8_x2$1 VSS ppolyf_u_3k W=1e-06 L=7.645e-05 R=229350
-RFB_x3_x8_x2_2 RFB_x3_x8_x2$1 RFB_x3_x8_x2$2 VSS ppolyf_u_3k W=1e-06 L=7.645e-05 R=229350
-RFB_x3_x8_x2_3 RFB_x3_x8_x2$2 RFB_x3_x8_x2$3 VSS ppolyf_u_3k W=1e-06 L=7.645e-05 R=229350
-RFB_x3_x8_x2_4 RFB_x3_x8_x2$3 RFB_x3_x8_x2$4 VSS ppolyf_u_3k W=1e-06 L=7.645e-05 R=229350
-RFB_x3_x8_x2_5 RFB_x3_x8_x2$4 x3_SX VSS ppolyf_u_3k W=1e-06 L=7.645e-05 R=229350
-RFB_x3_x1_x2_1 x3_x1_x2_G_OUT_P RFB_x3_x1_x2$1 VSS ppolyf_u_3k W=1e-06 L=7.645e-05 R=229350
-RFB_x3_x1_x2_2 RFB_x3_x1_x2$1 RFB_x3_x1_x2$2 VSS ppolyf_u_3k W=1e-06 L=7.645e-05 R=229350
-RFB_x3_x1_x2_3 RFB_x3_x1_x2$2 RFB_x3_x1_x2$3 VSS ppolyf_u_3k W=1e-06 L=7.645e-05 R=229350
-RFB_x3_x1_x2_4 RFB_x3_x1_x2$3 RFB_x3_x1_x2$4 VSS ppolyf_u_3k W=1e-06 L=7.645e-05 R=229350
-RFB_x3_x1_x2_5 RFB_x3_x1_x2$4 x3_SY VSS ppolyf_u_3k W=1e-06 L=7.645e-05 R=229350
-RFB_x3_x2_x2_1 x3_x2_x2_G_OUT_P RFB_x3_x2_x2$1 VSS ppolyf_u_3k W=1e-06 L=7.645e-05 R=229350
-RFB_x3_x2_x2_2 RFB_x3_x2_x2$1 RFB_x3_x2_x2$2 VSS ppolyf_u_3k W=1e-06 L=7.645e-05 R=229350
-RFB_x3_x2_x2_3 RFB_x3_x2_x2$2 RFB_x3_x2_x2$3 VSS ppolyf_u_3k W=1e-06 L=7.645e-05 R=229350
-RFB_x3_x2_x2_4 RFB_x3_x2_x2$3 RFB_x3_x2_x2$4 VSS ppolyf_u_3k W=1e-06 L=7.645e-05 R=229350
-RFB_x3_x2_x2_5 RFB_x3_x2_x2$4 x3_SZ VSS ppolyf_u_3k W=1e-06 L=7.645e-05 R=229350
-RFB_x4_x8_x2_1 x4_x8_x2_G_OUT_P RFB_x4_x8_x2$1 VSS ppolyf_u_3k W=1e-06 L=7.645e-05 R=229350
-RFB_x4_x8_x2_2 RFB_x4_x8_x2$1 RFB_x4_x8_x2$2 VSS ppolyf_u_3k W=1e-06 L=7.645e-05 R=229350
-RFB_x4_x8_x2_3 RFB_x4_x8_x2$2 RFB_x4_x8_x2$3 VSS ppolyf_u_3k W=1e-06 L=7.645e-05 R=229350
-RFB_x4_x8_x2_4 RFB_x4_x8_x2$3 RFB_x4_x8_x2$4 VSS ppolyf_u_3k W=1e-06 L=7.645e-05 R=229350
-RFB_x4_x8_x2_5 RFB_x4_x8_x2$4 x4_SX VSS ppolyf_u_3k W=1e-06 L=7.645e-05 R=229350
-RFB_x4_x1_x2_1 x4_x1_x2_G_OUT_P RFB_x4_x1_x2$1 VSS ppolyf_u_3k W=1e-06 L=7.645e-05 R=229350
-RFB_x4_x1_x2_2 RFB_x4_x1_x2$1 RFB_x4_x1_x2$2 VSS ppolyf_u_3k W=1e-06 L=7.645e-05 R=229350
-RFB_x4_x1_x2_3 RFB_x4_x1_x2$2 RFB_x4_x1_x2$3 VSS ppolyf_u_3k W=1e-06 L=7.645e-05 R=229350
-RFB_x4_x1_x2_4 RFB_x4_x1_x2$3 RFB_x4_x1_x2$4 VSS ppolyf_u_3k W=1e-06 L=7.645e-05 R=229350
-RFB_x4_x1_x2_5 RFB_x4_x1_x2$4 x4_SY VSS ppolyf_u_3k W=1e-06 L=7.645e-05 R=229350
-RFB_x4_x2_x2_1 x4_x2_x2_G_OUT_P RFB_x4_x2_x2$1 VSS ppolyf_u_3k W=1e-06 L=7.645e-05 R=229350
-RFB_x4_x2_x2_2 RFB_x4_x2_x2$1 RFB_x4_x2_x2$2 VSS ppolyf_u_3k W=1e-06 L=7.645e-05 R=229350
-RFB_x4_x2_x2_3 RFB_x4_x2_x2$2 RFB_x4_x2_x2$3 VSS ppolyf_u_3k W=1e-06 L=7.645e-05 R=229350
-RFB_x4_x2_x2_4 RFB_x4_x2_x2$3 RFB_x4_x2_x2$4 VSS ppolyf_u_3k W=1e-06 L=7.645e-05 R=229350
-RFB_x4_x2_x2_5 RFB_x4_x2_x2$4 x4_SZ VSS ppolyf_u_3k W=1e-06 L=7.645e-05 R=229350
-R1_xesdS1P_1 S1P_I S1P VSS ppolyf_u_3k W=1e-06 L=2e-06 R=6000
-R2_xesdS1P_1 S1P_I S1P VSS ppolyf_u_3k W=1e-06 L=2e-06 R=6000
-R3_xesdS1P_1 S1P_I S1P VSS ppolyf_u_3k W=1e-06 L=2e-06 R=6000
-R4_xesdS1P_1 S1P_I S1P VSS ppolyf_u_3k W=1e-06 L=2e-06 R=6000
-R5_xesdS1P_1 S1P_I S1P VSS ppolyf_u_3k W=1e-06 L=2e-06 R=6000
-R1_xesdS1N_1 S1N_I S1N VSS ppolyf_u_3k W=1e-06 L=2e-06 R=6000
-R2_xesdS1N_1 S1N_I S1N VSS ppolyf_u_3k W=1e-06 L=2e-06 R=6000
-R3_xesdS1N_1 S1N_I S1N VSS ppolyf_u_3k W=1e-06 L=2e-06 R=6000
-R4_xesdS1N_1 S1N_I S1N VSS ppolyf_u_3k W=1e-06 L=2e-06 R=6000
-R5_xesdS1N_1 S1N_I S1N VSS ppolyf_u_3k W=1e-06 L=2e-06 R=6000
-R1_xesdS2P_1 S2P_I S2P VSS ppolyf_u_3k W=1e-06 L=2e-06 R=6000
-R2_xesdS2P_1 S2P_I S2P VSS ppolyf_u_3k W=1e-06 L=2e-06 R=6000
-R3_xesdS2P_1 S2P_I S2P VSS ppolyf_u_3k W=1e-06 L=2e-06 R=6000
-R4_xesdS2P_1 S2P_I S2P VSS ppolyf_u_3k W=1e-06 L=2e-06 R=6000
-R5_xesdS2P_1 S2P_I S2P VSS ppolyf_u_3k W=1e-06 L=2e-06 R=6000
-R1_xesdS2N_1 S2N_I S2N VSS ppolyf_u_3k W=1e-06 L=2e-06 R=6000
-R2_xesdS2N_1 S2N_I S2N VSS ppolyf_u_3k W=1e-06 L=2e-06 R=6000
-R3_xesdS2N_1 S2N_I S2N VSS ppolyf_u_3k W=1e-06 L=2e-06 R=6000
-R4_xesdS2N_1 S2N_I S2N VSS ppolyf_u_3k W=1e-06 L=2e-06 R=6000
-R5_xesdS2N_1 S2N_I S2N VSS ppolyf_u_3k W=1e-06 L=2e-06 R=6000
-R1_xesdS3P_1 S3P_I S3P VSS ppolyf_u_3k W=1e-06 L=2e-06 R=6000
-R2_xesdS3P_1 S3P_I S3P VSS ppolyf_u_3k W=1e-06 L=2e-06 R=6000
-R3_xesdS3P_1 S3P_I S3P VSS ppolyf_u_3k W=1e-06 L=2e-06 R=6000
-R4_xesdS3P_1 S3P_I S3P VSS ppolyf_u_3k W=1e-06 L=2e-06 R=6000
-R5_xesdS3P_1 S3P_I S3P VSS ppolyf_u_3k W=1e-06 L=2e-06 R=6000
-R1_xesdS3N_1 S3N_I S3N VSS ppolyf_u_3k W=1e-06 L=2e-06 R=6000
-R2_xesdS3N_1 S3N_I S3N VSS ppolyf_u_3k W=1e-06 L=2e-06 R=6000
-R3_xesdS3N_1 S3N_I S3N VSS ppolyf_u_3k W=1e-06 L=2e-06 R=6000
-R4_xesdS3N_1 S3N_I S3N VSS ppolyf_u_3k W=1e-06 L=2e-06 R=6000
-R5_xesdS3N_1 S3N_I S3N VSS ppolyf_u_3k W=1e-06 L=2e-06 R=6000
-R1_xesdS4P_1 S4P_I S4P VSS ppolyf_u_3k W=1e-06 L=2e-06 R=6000
-R2_xesdS4P_1 S4P_I S4P VSS ppolyf_u_3k W=1e-06 L=2e-06 R=6000
-R3_xesdS4P_1 S4P_I S4P VSS ppolyf_u_3k W=1e-06 L=2e-06 R=6000
-R4_xesdS4P_1 S4P_I S4P VSS ppolyf_u_3k W=1e-06 L=2e-06 R=6000
-R5_xesdS4P_1 S4P_I S4P VSS ppolyf_u_3k W=1e-06 L=2e-06 R=6000
-R1_xesdS4N_1 S4N_I S4N VSS ppolyf_u_3k W=1e-06 L=2e-06 R=6000
-R2_xesdS4N_1 S4N_I S4N VSS ppolyf_u_3k W=1e-06 L=2e-06 R=6000
-R3_xesdS4N_1 S4N_I S4N VSS ppolyf_u_3k W=1e-06 L=2e-06 R=6000
-R4_xesdS4N_1 S4N_I S4N VSS ppolyf_u_3k W=1e-06 L=2e-06 R=6000
-R5_xesdS4N_1 S4N_I S4N VSS ppolyf_u_3k W=1e-06 L=2e-06 R=6000
-R1_xesdX_1 X_I X VSS ppolyf_u_3k W=1e-06 L=2e-06 R=6000
-R2_xesdX_1 X_I X VSS ppolyf_u_3k W=1e-06 L=2e-06 R=6000
-R3_xesdX_1 X_I X VSS ppolyf_u_3k W=1e-06 L=2e-06 R=6000
-R4_xesdX_1 X_I X VSS ppolyf_u_3k W=1e-06 L=2e-06 R=6000
-R5_xesdX_1 X_I X VSS ppolyf_u_3k W=1e-06 L=2e-06 R=6000
-R1_xesdY_1 Y_I Y VSS ppolyf_u_3k W=1e-06 L=2e-06 R=6000
-R2_xesdY_1 Y_I Y VSS ppolyf_u_3k W=1e-06 L=2e-06 R=6000
-R3_xesdY_1 Y_I Y VSS ppolyf_u_3k W=1e-06 L=2e-06 R=6000
-R4_xesdY_1 Y_I Y VSS ppolyf_u_3k W=1e-06 L=2e-06 R=6000
-R5_xesdY_1 Y_I Y VSS ppolyf_u_3k W=1e-06 L=2e-06 R=6000
-R1_xesdZ_1 Z_I Z VSS ppolyf_u_3k W=1e-06 L=2e-06 R=6000
-R2_xesdZ_1 Z_I Z VSS ppolyf_u_3k W=1e-06 L=2e-06 R=6000
-R3_xesdZ_1 Z_I Z VSS ppolyf_u_3k W=1e-06 L=2e-06 R=6000
-R4_xesdZ_1 Z_I Z VSS ppolyf_u_3k W=1e-06 L=2e-06 R=6000
-R5_xesdZ_1 Z_I Z VSS ppolyf_u_3k W=1e-06 L=2e-06 R=6000
+RFB_x1_x8_x2_1 x1_x8_x2_G_OUT_P RFB_x1_x8_x2$1 VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+RFB_x1_x8_x2_2 RFB_x1_x8_x2$1 RFB_x1_x8_x2$2 VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+RFB_x1_x8_x2_3 RFB_x1_x8_x2$2 RFB_x1_x8_x2$3 VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+RFB_x1_x8_x2_4 RFB_x1_x8_x2$3 RFB_x1_x8_x2$4 VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+RFB_x1_x8_x2_5 RFB_x1_x8_x2$4 x1_SX VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+RFB_x1_x1_x2_1 x1_x1_x2_G_OUT_P RFB_x1_x1_x2$1 VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+RFB_x1_x1_x2_2 RFB_x1_x1_x2$1 RFB_x1_x1_x2$2 VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+RFB_x1_x1_x2_3 RFB_x1_x1_x2$2 RFB_x1_x1_x2$3 VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+RFB_x1_x1_x2_4 RFB_x1_x1_x2$3 RFB_x1_x1_x2$4 VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+RFB_x1_x1_x2_5 RFB_x1_x1_x2$4 x1_SY VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+RFB_x1_x2_x2_1 x1_x2_x2_G_OUT_P RFB_x1_x2_x2$1 VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+RFB_x1_x2_x2_2 RFB_x1_x2_x2$1 RFB_x1_x2_x2$2 VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+RFB_x1_x2_x2_3 RFB_x1_x2_x2$2 RFB_x1_x2_x2$3 VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+RFB_x1_x2_x2_4 RFB_x1_x2_x2$3 RFB_x1_x2_x2$4 VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+RFB_x1_x2_x2_5 RFB_x1_x2_x2$4 x1_SZ VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+RFB_x2_x8_x2_1 x2_x8_x2_G_OUT_P RFB_x2_x8_x2$1 VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+RFB_x2_x8_x2_2 RFB_x2_x8_x2$1 RFB_x2_x8_x2$2 VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+RFB_x2_x8_x2_3 RFB_x2_x8_x2$2 RFB_x2_x8_x2$3 VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+RFB_x2_x8_x2_4 RFB_x2_x8_x2$3 RFB_x2_x8_x2$4 VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+RFB_x2_x8_x2_5 RFB_x2_x8_x2$4 x2_SX VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+RFB_x2_x1_x2_1 x2_x1_x2_G_OUT_P RFB_x2_x1_x2$1 VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+RFB_x2_x1_x2_2 RFB_x2_x1_x2$1 RFB_x2_x1_x2$2 VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+RFB_x2_x1_x2_3 RFB_x2_x1_x2$2 RFB_x2_x1_x2$3 VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+RFB_x2_x1_x2_4 RFB_x2_x1_x2$3 RFB_x2_x1_x2$4 VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+RFB_x2_x1_x2_5 RFB_x2_x1_x2$4 x2_SY VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+RFB_x2_x2_x2_1 x2_x2_x2_G_OUT_P RFB_x2_x2_x2$1 VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+RFB_x2_x2_x2_2 RFB_x2_x2_x2$1 RFB_x2_x2_x2$2 VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+RFB_x2_x2_x2_3 RFB_x2_x2_x2$2 RFB_x2_x2_x2$3 VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+RFB_x2_x2_x2_4 RFB_x2_x2_x2$3 RFB_x2_x2_x2$4 VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+RFB_x2_x2_x2_5 RFB_x2_x2_x2$4 x2_SZ VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+RFB_x3_x8_x2_1 x3_x8_x2_G_OUT_P RFB_x3_x8_x2$1 VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+RFB_x3_x8_x2_2 RFB_x3_x8_x2$1 RFB_x3_x8_x2$2 VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+RFB_x3_x8_x2_3 RFB_x3_x8_x2$2 RFB_x3_x8_x2$3 VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+RFB_x3_x8_x2_4 RFB_x3_x8_x2$3 RFB_x3_x8_x2$4 VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+RFB_x3_x8_x2_5 RFB_x3_x8_x2$4 x3_SX VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+RFB_x3_x1_x2_1 x3_x1_x2_G_OUT_P RFB_x3_x1_x2$1 VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+RFB_x3_x1_x2_2 RFB_x3_x1_x2$1 RFB_x3_x1_x2$2 VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+RFB_x3_x1_x2_3 RFB_x3_x1_x2$2 RFB_x3_x1_x2$3 VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+RFB_x3_x1_x2_4 RFB_x3_x1_x2$3 RFB_x3_x1_x2$4 VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+RFB_x3_x1_x2_5 RFB_x3_x1_x2$4 x3_SY VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+RFB_x3_x2_x2_1 x3_x2_x2_G_OUT_P RFB_x3_x2_x2$1 VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+RFB_x3_x2_x2_2 RFB_x3_x2_x2$1 RFB_x3_x2_x2$2 VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+RFB_x3_x2_x2_3 RFB_x3_x2_x2$2 RFB_x3_x2_x2$3 VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+RFB_x3_x2_x2_4 RFB_x3_x2_x2$3 RFB_x3_x2_x2$4 VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+RFB_x3_x2_x2_5 RFB_x3_x2_x2$4 x3_SZ VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+RFB_x4_x8_x2_1 x4_x8_x2_G_OUT_P RFB_x4_x8_x2$1 VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+RFB_x4_x8_x2_2 RFB_x4_x8_x2$1 RFB_x4_x8_x2$2 VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+RFB_x4_x8_x2_3 RFB_x4_x8_x2$2 RFB_x4_x8_x2$3 VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+RFB_x4_x8_x2_4 RFB_x4_x8_x2$3 RFB_x4_x8_x2$4 VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+RFB_x4_x8_x2_5 RFB_x4_x8_x2$4 x4_SX VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+RFB_x4_x1_x2_1 x4_x1_x2_G_OUT_P RFB_x4_x1_x2$1 VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+RFB_x4_x1_x2_2 RFB_x4_x1_x2$1 RFB_x4_x1_x2$2 VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+RFB_x4_x1_x2_3 RFB_x4_x1_x2$2 RFB_x4_x1_x2$3 VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+RFB_x4_x1_x2_4 RFB_x4_x1_x2$3 RFB_x4_x1_x2$4 VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+RFB_x4_x1_x2_5 RFB_x4_x1_x2$4 x4_SY VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+RFB_x4_x2_x2_1 x4_x2_x2_G_OUT_P RFB_x4_x2_x2$1 VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+RFB_x4_x2_x2_2 RFB_x4_x2_x2$1 RFB_x4_x2_x2$2 VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+RFB_x4_x2_x2_3 RFB_x4_x2_x2$2 RFB_x4_x2_x2$3 VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+RFB_x4_x2_x2_4 RFB_x4_x2_x2$3 RFB_x4_x2_x2$4 VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+RFB_x4_x2_x2_5 RFB_x4_x2_x2$4 x4_SZ VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
 .ends

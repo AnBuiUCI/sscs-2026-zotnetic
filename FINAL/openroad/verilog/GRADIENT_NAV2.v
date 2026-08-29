@@ -5,7 +5,7 @@
 //      python3 scripts/spice_to_verilog.py
 //
 //  source: /foss/designs/a_zonetic2026/XSCHEM/simulation/GRADIENT_NAV2.sch/GRADIENT_NAV2.spice
-//  built:  2026-08-29 06:36
+//  built:  2026-08-29 18:13
 //
 //  Black-box modules have ports and no body. OpenROAD binds them to the
 //  LEF MACRO of the same name; giving it a body would make OpenROAD

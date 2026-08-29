@@ -46,7 +46,7 @@ X37 a_6558_376# a_14_332# VSS VSS nfet_06v0 ad=1.25p pd=5.5u as=2.2p ps=10.88u w
 X38 a_5494_376# a_4578_4660# a_5826_376# VDD pfet_06v0 ad=2.2p pd=10.88u as=1.65p ps=5.66u w=5u l=1u
 X39 a_1246_376# a_14_332# VSS VSS nfet_06v0 ad=1.25p pd=5.5u as=2.2p ps=10.88u w=5u l=1u
 X40 a_554_3776# a_354_3660# a_254_3776# VDD pfet_06v0 ad=4.4p pd=20.88u as=2.5p ps=10.5u w=10u l=1u
-X41 a_12982_3776# a_354_3660# a_12682_3776# VDD pfet_06v0 ad=4.4p pd=20.88u as=2.5p ps=10.5u w=10u l=1u
+X41 a_54_3660# a_354_3660# a_12682_3776# VDD pfet_06v0 ad=4.4p pd=20.88u as=2.5p ps=10.5u w=10u l=1u
 X42 a_10758_3776# a_54_3660# VDD VDD pfet_06v0 ad=2.5p pd=10.5u as=4.4p ps=20.88u w=10u l=1u
 X43 a_3010_376# INN a_514_376# VSS nfet_06v0 ad=2.2p pd=10.88u as=2.2p ps=10.88u w=5u l=1u
 X44 a_12494_376# a_354_3660# VSS VSS nfet_06v0 ad=0.25p pd=1.5u as=0.44p ps=2.88u w=1u l=1u

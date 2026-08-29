@@ -1,0 +1,503 @@
+
+Circuit 1 cell pfet_06v0 and Circuit 2 cell pfet_06v0 are black boxes.
+
+Subcircuit pins:
+Circuit 1: pfet_06v0                       |Circuit 2: pfet_06v0                       
+-------------------------------------------|-------------------------------------------
+1                                          |1                                          
+2                                          |2                                          
+3                                          |3                                          
+4                                          |4                                          
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes pfet_06v0 and pfet_06v0 are equivalent.
+
+Circuit 1 cell nfet_06v0 and Circuit 2 cell nfet_06v0 are black boxes.
+
+Subcircuit pins:
+Circuit 1: nfet_06v0                       |Circuit 2: nfet_06v0                       
+-------------------------------------------|-------------------------------------------
+1                                          |1                                          
+2                                          |2                                          
+3                                          |3                                          
+4                                          |4                                          
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes nfet_06v0 and nfet_06v0 are equivalent.
+
+Circuit 1 cell cap_mim_2f0_m4m5_noshield and Circuit 2 cell cap_mim_2f0fF are black boxes.
+
+Subcircuit pins:
+Circuit 1: cap_mim_2f0_m4m5_noshield       |Circuit 2: cap_mim_2f0fF                   
+-------------------------------------------|-------------------------------------------
+1                                          |1                                          
+2                                          |2                                          
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes cap_mim_2f0_m4m5_noshield and cap_mim_2f0fF are equivalent.
+
+Circuit 1 cell ppolyf_u_1k and Circuit 2 cell ppolyf_u_1k are black boxes.
+
+Subcircuit pins:
+Circuit 1: ppolyf_u_1k                     |Circuit 2: ppolyf_u_1k                     
+-------------------------------------------|-------------------------------------------
+1                                          |1                                          
+2                                          |2                                          
+3                                          |3                                          
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes ppolyf_u_1k and ppolyf_u_1k are equivalent.
+
+Circuit 1 cell pfet_05v0 and Circuit 2 cell pfet_05v0 are black boxes.
+
+Subcircuit pins:
+Circuit 1: pfet_05v0                       |Circuit 2: pfet_05v0                       
+-------------------------------------------|-------------------------------------------
+1                                          |1                                          
+2                                          |2                                          
+3                                          |3                                          
+4                                          |4                                          
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes pfet_05v0 and pfet_05v0 are equivalent.
+
+Circuit 1 cell nfet_05v0 and Circuit 2 cell nfet_05v0 are black boxes.
+
+Subcircuit pins:
+Circuit 1: nfet_05v0                       |Circuit 2: nfet_05v0                       
+-------------------------------------------|-------------------------------------------
+1                                          |1                                          
+2                                          |2                                          
+3                                          |3                                          
+4                                          |4                                          
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes nfet_05v0 and nfet_05v0 are equivalent.
+
+Circuit 1 cell ppolyf_u and Circuit 2 cell ppolyf_u are black boxes.
+
+Subcircuit pins:
+Circuit 1: ppolyf_u                        |Circuit 2: ppolyf_u                        
+-------------------------------------------|-------------------------------------------
+1                                          |1                                          
+2                                          |2                                          
+3                                          |3                                          
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes ppolyf_u and ppolyf_u are equivalent.
+Flattening unmatched subcell GRADIENT_NAV2 in circuit B26_A (1)(1 instance)
+Flattening unmatched subcell WEIGHT in circuit B26_A (1)(3 instances)
+Flattening unmatched subcell COMP_OUT in circuit B26_A (1)(3 instances)
+Flattening unmatched subcell INV_1 in circuit B26_A (1)(9 instances)
+Flattening unmatched subcell GRADIENT2 in circuit B26_A (1)(4 instances)
+Flattening unmatched subcell COMP in circuit B26_A (1)(12 instances)
+Flattening unmatched subcell bias in circuit B26_A (1)(12 instances)
+Flattening unmatched subcell sub_diff in circuit B26_A (1)(12 instances)
+Flattening unmatched subcell DECODER in circuit B26_A (1)(4 instances)
+Flattening unmatched subcell yGates in circuit B26_A (1)(4 instances)
+Flattening unmatched subcell invertor in circuit B26_A (1)(4 instances)
+Flattening unmatched subcell andGate in circuit B26_A (1)(4 instances)
+Flattening unmatched subcell Z in circuit B26_A (1)(4 instances)
+Flattening unmatched subcell xGates in circuit B26_A (1)(4 instances)
+Flattening unmatched subcell andGate in circuit B26_A (1)(4 instances)
+Flattening unmatched subcell OPAM_LIN in circuit B26_A (1)(12 instances)
+Flattening unmatched subcell bias in circuit B26_A (1)(12 instances)
+Flattening unmatched subcell sub_diff_2_LIN in circuit B26_A (1)(12 instances)
+Flattening unmatched subcell io_secondary_5p0 in circuit B26_A (1)(11 instances)
+
+Cell B26_A (0) disconnected node: XN_IN
+Cell B26_A (0) disconnected node: XP_IN
+Cell B26_A (0) disconnected node: YN_IN
+Cell B26_A (0) disconnected node: YP_IN
+Cell B26_A (0) disconnected node: ZN_IN
+Cell B26_A (0) disconnected node: ZP_IN
+Cell B26_A (1) disconnected node: XP_IN
+Cell B26_A (1) disconnected node: XN_IN
+Cell B26_A (1) disconnected node: YP_IN
+Cell B26_A (1) disconnected node: YN_IN
+Removing zero-valued device vsrc from cell B26_A (1) makes a better match
+Removing zero-valued device vsrc from cell B26_A (1) makes a better match
+Removing zero-valued device vsrc from cell B26_A (1) makes a better match
+Removing zero-valued device vsrc from cell B26_A (1) makes a better match
+Removing zero-valued device vsrc from cell B26_A (1) makes a better match
+Removing zero-valued device vsrc from cell B26_A (1) makes a better match
+Removing zero-valued device vsrc from cell B26_A (1) makes a better match
+Removing zero-valued device vsrc from cell B26_A (1) makes a better match
+Removing zero-valued device vsrc from cell B26_A (1) makes a better match
+Removing zero-valued device vsrc from cell B26_A (1) makes a better match
+Removing zero-valued device vsrc from cell B26_A (1) makes a better match
+Removing zero-valued device vsrc from cell B26_A (1) makes a better match
+Making another compare attempt.
+
+Cell B26_A (0) disconnected node: XN_IN
+Cell B26_A (0) disconnected node: XP_IN
+Cell B26_A (0) disconnected node: YN_IN
+Cell B26_A (0) disconnected node: YP_IN
+Cell B26_A (0) disconnected node: ZN_IN
+Cell B26_A (0) disconnected node: ZP_IN
+Cell B26_A (1) disconnected node: XP_IN
+Cell B26_A (1) disconnected node: XN_IN
+Cell B26_A (1) disconnected node: YP_IN
+Cell B26_A (1) disconnected node: YN_IN
+Class B26_A (0):  Merged 577 parallel devices.
+Class B26_A (0):  Merged 48 series devices.
+Class B26_A (1):  Merged 220 parallel devices.
+Cell B26_A (0) disconnected node: XN_IN
+Cell B26_A (0) disconnected node: XP_IN
+Cell B26_A (0) disconnected node: YN_IN
+Cell B26_A (0) disconnected node: YP_IN
+Cell B26_A (0) disconnected node: ZN_IN
+Cell B26_A (0) disconnected node: ZP_IN
+Cell B26_A (1) disconnected node: XP_IN
+Cell B26_A (1) disconnected node: XN_IN
+Cell B26_A (1) disconnected node: YP_IN
+Cell B26_A (1) disconnected node: YN_IN
+Subcircuit summary:
+Circuit 1: B26_A                           |Circuit 2: B26_A                           
+-------------------------------------------|-------------------------------------------
+nfet_06v0 (929->688)                       |nfet_06v0 (929->688)                       
+pfet_06v0 (913->643)                       |pfet_06v0 (913->643)                       
+nfet_05v0 (9)                              |nfet_05v0 (9)                              
+diode_pd2nw_06v0 (44->11)                  |diode_pd2nw_06v0 (44->11)                  
+diode_nd2ps_06v0 (44->11)                  |diode_nd2ps_06v0 (44->11)                  
+cap_mim_2f0_m4m5_noshield (48)             |cap_mim_2f0fF (48)                         
+pfet_05v0 (9)                              |pfet_05v0 (9)                              
+ppolyf_u_1k (60->12)                       |ppolyf_u_1k (12)                           
+ppolyf_u (11)                              |ppolyf_u (11)                              
+Number of devices: 1442                    |Number of devices: 1442                    
+Number of nets: 894                        |Number of nets: 894                        
+---------------------------------------------------------------------------------------
+Resolving symmetries by property value.
+Resolving symmetries by pin name.
+Resolving symmetries by net name.
+Netlists match with 144 symmetries with property errors.
+ppolyf_u:1819 vs. io_secondary_5p0:x_esd_S2P/ppolyf_u:RR1:
+Property r_length in circuit1 has no matching property in circuit2
+ppolyf_u:1819 vs. io_secondary_5p0:x_esd_S2P/ppolyf_u:RR1:
+Property r_width in circuit1 has no matching property in circuit2
+ppolyf_u:1819 vs. io_secondary_5p0:x_esd_S2P/ppolyf_u:RR1:
+Property L in circuit2 has no matching property in circuit1
+ppolyf_u:1819 vs. io_secondary_5p0:x_esd_S2P/ppolyf_u:RR1:
+Property W in circuit2 has no matching property in circuit1
+ppolyf_u:1801 vs. io_secondary_5p0:x_esd_S1P/ppolyf_u:RR1:
+Property r_length in circuit1 has no matching property in circuit2
+ppolyf_u:1801 vs. io_secondary_5p0:x_esd_S1P/ppolyf_u:RR1:
+Property r_width in circuit1 has no matching property in circuit2
+ppolyf_u:1801 vs. io_secondary_5p0:x_esd_S1P/ppolyf_u:RR1:
+Property L in circuit2 has no matching property in circuit1
+ppolyf_u:1801 vs. io_secondary_5p0:x_esd_S1P/ppolyf_u:RR1:
+Property W in circuit2 has no matching property in circuit1
+ppolyf_u:1261 vs. io_secondary_5p0:x_esd_S4P/ppolyf_u:RR1:
+Property r_length in circuit1 has no matching property in circuit2
+ppolyf_u:1261 vs. io_secondary_5p0:x_esd_S4P/ppolyf_u:RR1:
+Property r_width in circuit1 has no matching property in circuit2
+ppolyf_u:1261 vs. io_secondary_5p0:x_esd_S4P/ppolyf_u:RR1:
+Property L in circuit2 has no matching property in circuit1
+ppolyf_u:1261 vs. io_secondary_5p0:x_esd_S4P/ppolyf_u:RR1:
+Property W in circuit2 has no matching property in circuit1
+ppolyf_u:388 vs. io_secondary_5p0:x_esd_S3P/ppolyf_u:RR1:
+Property r_length in circuit1 has no matching property in circuit2
+ppolyf_u:388 vs. io_secondary_5p0:x_esd_S3P/ppolyf_u:RR1:
+Property r_width in circuit1 has no matching property in circuit2
+ppolyf_u:388 vs. io_secondary_5p0:x_esd_S3P/ppolyf_u:RR1:
+Property L in circuit2 has no matching property in circuit1
+ppolyf_u:388 vs. io_secondary_5p0:x_esd_S3P/ppolyf_u:RR1:
+Property W in circuit2 has no matching property in circuit1
+ppolyf_u:1464 vs. io_secondary_5p0:x_esd_S3N/ppolyf_u:RR1:
+Property r_length in circuit1 has no matching property in circuit2
+ppolyf_u:1464 vs. io_secondary_5p0:x_esd_S3N/ppolyf_u:RR1:
+Property r_width in circuit1 has no matching property in circuit2
+ppolyf_u:1464 vs. io_secondary_5p0:x_esd_S3N/ppolyf_u:RR1:
+Property L in circuit2 has no matching property in circuit1
+ppolyf_u:1464 vs. io_secondary_5p0:x_esd_S3N/ppolyf_u:RR1:
+Property W in circuit2 has no matching property in circuit1
+ppolyf_u:1299 vs. io_secondary_5p0:x_esd_S4N/ppolyf_u:RR1:
+Property r_length in circuit1 has no matching property in circuit2
+ppolyf_u:1299 vs. io_secondary_5p0:x_esd_S4N/ppolyf_u:RR1:
+Property r_width in circuit1 has no matching property in circuit2
+ppolyf_u:1299 vs. io_secondary_5p0:x_esd_S4N/ppolyf_u:RR1:
+Property L in circuit2 has no matching property in circuit1
+ppolyf_u:1299 vs. io_secondary_5p0:x_esd_S4N/ppolyf_u:RR1:
+Property W in circuit2 has no matching property in circuit1
+ppolyf_u:1253 vs. io_secondary_5p0:x_esd_S2N/ppolyf_u:RR1:
+Property r_length in circuit1 has no matching property in circuit2
+ppolyf_u:1253 vs. io_secondary_5p0:x_esd_S2N/ppolyf_u:RR1:
+Property r_width in circuit1 has no matching property in circuit2
+ppolyf_u:1253 vs. io_secondary_5p0:x_esd_S2N/ppolyf_u:RR1:
+Property L in circuit2 has no matching property in circuit1
+ppolyf_u:1253 vs. io_secondary_5p0:x_esd_S2N/ppolyf_u:RR1:
+Property W in circuit2 has no matching property in circuit1
+ppolyf_u:236 vs. io_secondary_5p0:x_esd_S1N/ppolyf_u:RR1:
+Property r_length in circuit1 has no matching property in circuit2
+ppolyf_u:236 vs. io_secondary_5p0:x_esd_S1N/ppolyf_u:RR1:
+Property r_width in circuit1 has no matching property in circuit2
+ppolyf_u:236 vs. io_secondary_5p0:x_esd_S1N/ppolyf_u:RR1:
+Property L in circuit2 has no matching property in circuit1
+ppolyf_u:236 vs. io_secondary_5p0:x_esd_S1N/ppolyf_u:RR1:
+Property W in circuit2 has no matching property in circuit1
+ppolyf_u:1679 vs. io_secondary_5p0:x_esd_Z/ppolyf_u:RR1:
+Property r_length in circuit1 has no matching property in circuit2
+ppolyf_u:1679 vs. io_secondary_5p0:x_esd_Z/ppolyf_u:RR1:
+Property r_width in circuit1 has no matching property in circuit2
+ppolyf_u:1679 vs. io_secondary_5p0:x_esd_Z/ppolyf_u:RR1:
+Property L in circuit2 has no matching property in circuit1
+ppolyf_u:1679 vs. io_secondary_5p0:x_esd_Z/ppolyf_u:RR1:
+Property W in circuit2 has no matching property in circuit1
+ppolyf_u:1893 vs. io_secondary_5p0:x_esd_X/ppolyf_u:RR1:
+Property r_length in circuit1 has no matching property in circuit2
+ppolyf_u:1893 vs. io_secondary_5p0:x_esd_X/ppolyf_u:RR1:
+Property r_width in circuit1 has no matching property in circuit2
+ppolyf_u:1893 vs. io_secondary_5p0:x_esd_X/ppolyf_u:RR1:
+Property L in circuit2 has no matching property in circuit1
+ppolyf_u:1893 vs. io_secondary_5p0:x_esd_X/ppolyf_u:RR1:
+Property W in circuit2 has no matching property in circuit1
+ppolyf_u:1513 vs. io_secondary_5p0:x_esd_Y/ppolyf_u:RR1:
+Property r_length in circuit1 has no matching property in circuit2
+ppolyf_u:1513 vs. io_secondary_5p0:x_esd_Y/ppolyf_u:RR1:
+Property r_width in circuit1 has no matching property in circuit2
+ppolyf_u:1513 vs. io_secondary_5p0:x_esd_Y/ppolyf_u:RR1:
+Property L in circuit2 has no matching property in circuit1
+ppolyf_u:1513 vs. io_secondary_5p0:x_esd_Y/ppolyf_u:RR1:
+Property W in circuit2 has no matching property in circuit1
+cap_mim_2f0_m4m5_noshield:1564 vs. GRADIENT_NAV2:_core/GRADIENT2:2/OPAM_LIN:2/sub_diff_2_LIN:2/cap_mim_2f0fF:C3:
+ c_length circuit1: 8e-06   circuit2: 2.5e-05   (delta=103%, cutoff=1%)
+ c_width circuit1: 2.5e-05   circuit2: 8e-06   (delta=103%, cutoff=1%)
+cap_mim_2f0_m4m5_noshield:1453 vs. GRADIENT_NAV2:_core/GRADIENT2:4/OPAM_LIN:2/sub_diff_2_LIN:2/cap_mim_2f0fF:C3:
+ c_length circuit1: 8e-06   circuit2: 2.5e-05   (delta=103%, cutoff=1%)
+ c_width circuit1: 2.5e-05   circuit2: 8e-06   (delta=103%, cutoff=1%)
+cap_mim_2f0_m4m5_noshield:885 vs. GRADIENT_NAV2:_core/GRADIENT2:1/OPAM_LIN:2/sub_diff_2_LIN:2/cap_mim_2f0fF:C3:
+ c_length circuit1: 8e-06   circuit2: 2.5e-05   (delta=103%, cutoff=1%)
+ c_width circuit1: 2.5e-05   circuit2: 8e-06   (delta=103%, cutoff=1%)
+cap_mim_2f0_m4m5_noshield:871 vs. GRADIENT_NAV2:_core/GRADIENT2:3/OPAM_LIN:2/sub_diff_2_LIN:2/cap_mim_2f0fF:C3:
+ c_length circuit1: 8e-06   circuit2: 2.5e-05   (delta=103%, cutoff=1%)
+ c_width circuit1: 2.5e-05   circuit2: 8e-06   (delta=103%, cutoff=1%)
+cap_mim_2f0_m4m5_noshield:1240 vs. GRADIENT_NAV2:_core/GRADIENT2:1/OPAM_LIN:2/sub_diff_2_LIN:2/cap_mim_2f0fF:C1:
+ c_length circuit1: 8e-06   circuit2: 2.5e-05   (delta=103%, cutoff=1%)
+ c_width circuit1: 2.5e-05   circuit2: 8e-06   (delta=103%, cutoff=1%)
+cap_mim_2f0_m4m5_noshield:1124 vs. GRADIENT_NAV2:_core/GRADIENT2:2/OPAM_LIN:2/sub_diff_2_LIN:2/cap_mim_2f0fF:C1:
+ c_length circuit1: 8e-06   circuit2: 2.5e-05   (delta=103%, cutoff=1%)
+ c_width circuit1: 2.5e-05   circuit2: 8e-06   (delta=103%, cutoff=1%)
+cap_mim_2f0_m4m5_noshield:901 vs. GRADIENT_NAV2:_core/GRADIENT2:4/OPAM_LIN:2/sub_diff_2_LIN:2/cap_mim_2f0fF:C1:
+ c_length circuit1: 8e-06   circuit2: 2.5e-05   (delta=103%, cutoff=1%)
+ c_width circuit1: 2.5e-05   circuit2: 8e-06   (delta=103%, cutoff=1%)
+cap_mim_2f0_m4m5_noshield:652 vs. GRADIENT_NAV2:_core/GRADIENT2:3/OPAM_LIN:2/sub_diff_2_LIN:2/cap_mim_2f0fF:C1:
+ c_length circuit1: 8e-06   circuit2: 2.5e-05   (delta=103%, cutoff=1%)
+ c_width circuit1: 2.5e-05   circuit2: 8e-06   (delta=103%, cutoff=1%)
+cap_mim_2f0_m4m5_noshield:1864 vs. GRADIENT_NAV2:_core/GRADIENT2:2/OPAM_LIN:1/sub_diff_2_LIN:2/cap_mim_2f0fF:C3:
+ c_length circuit1: 8e-06   circuit2: 2.5e-05   (delta=103%, cutoff=1%)
+ c_width circuit1: 2.5e-05   circuit2: 8e-06   (delta=103%, cutoff=1%)
+cap_mim_2f0_m4m5_noshield:958 vs. GRADIENT_NAV2:_core/GRADIENT2:3/OPAM_LIN:1/sub_diff_2_LIN:2/cap_mim_2f0fF:C3:
+ c_length circuit1: 8e-06   circuit2: 2.5e-05   (delta=103%, cutoff=1%)
+ c_width circuit1: 2.5e-05   circuit2: 8e-06   (delta=103%, cutoff=1%)
+cap_mim_2f0_m4m5_noshield:616 vs. GRADIENT_NAV2:_core/GRADIENT2:1/OPAM_LIN:1/sub_diff_2_LIN:2/cap_mim_2f0fF:C3:
+ c_length circuit1: 8e-06   circuit2: 2.5e-05   (delta=103%, cutoff=1%)
+ c_width circuit1: 2.5e-05   circuit2: 8e-06   (delta=103%, cutoff=1%)
+cap_mim_2f0_m4m5_noshield:343 vs. GRADIENT_NAV2:_core/GRADIENT2:4/OPAM_LIN:1/sub_diff_2_LIN:2/cap_mim_2f0fF:C3:
+ c_length circuit1: 8e-06   circuit2: 2.5e-05   (delta=103%, cutoff=1%)
+ c_width circuit1: 2.5e-05   circuit2: 8e-06   (delta=103%, cutoff=1%)
+cap_mim_2f0_m4m5_noshield:1609 vs. GRADIENT_NAV2:_core/GRADIENT2:3/OPAM_LIN:8/sub_diff_2_LIN:2/cap_mim_2f0fF:C1:
+ c_length circuit1: 8e-06   circuit2: 2.5e-05   (delta=103%, cutoff=1%)
+ c_width circuit1: 2.5e-05   circuit2: 8e-06   (delta=103%, cutoff=1%)
+cap_mim_2f0_m4m5_noshield:1414 vs. GRADIENT_NAV2:_core/GRADIENT2:1/OPAM_LIN:8/sub_diff_2_LIN:2/cap_mim_2f0fF:C1:
+ c_length circuit1: 8e-06   circuit2: 2.5e-05   (delta=103%, cutoff=1%)
+ c_width circuit1: 2.5e-05   circuit2: 8e-06   (delta=103%, cutoff=1%)
+cap_mim_2f0_m4m5_noshield:1128 vs. GRADIENT_NAV2:_core/GRADIENT2:4/OPAM_LIN:8/sub_diff_2_LIN:2/cap_mim_2f0fF:C1:
+ c_length circuit1: 8e-06   circuit2: 2.5e-05   (delta=103%, cutoff=1%)
+ c_width circuit1: 2.5e-05   circuit2: 8e-06   (delta=103%, cutoff=1%)
+cap_mim_2f0_m4m5_noshield:203 vs. GRADIENT_NAV2:_core/GRADIENT2:2/OPAM_LIN:8/sub_diff_2_LIN:2/cap_mim_2f0fF:C1:
+ c_length circuit1: 8e-06   circuit2: 2.5e-05   (delta=103%, cutoff=1%)
+ c_width circuit1: 2.5e-05   circuit2: 8e-06   (delta=103%, cutoff=1%)
+cap_mim_2f0_m4m5_noshield:1636 vs. GRADIENT_NAV2:_core/GRADIENT2:2/OPAM_LIN:1/sub_diff_2_LIN:2/cap_mim_2f0fF:C1:
+ c_length circuit1: 8e-06   circuit2: 2.5e-05   (delta=103%, cutoff=1%)
+ c_width circuit1: 2.5e-05   circuit2: 8e-06   (delta=103%, cutoff=1%)
+cap_mim_2f0_m4m5_noshield:747 vs. GRADIENT_NAV2:_core/GRADIENT2:4/OPAM_LIN:1/sub_diff_2_LIN:2/cap_mim_2f0fF:C1:
+ c_length circuit1: 8e-06   circuit2: 2.5e-05   (delta=103%, cutoff=1%)
+ c_width circuit1: 2.5e-05   circuit2: 8e-06   (delta=103%, cutoff=1%)
+cap_mim_2f0_m4m5_noshield:377 vs. GRADIENT_NAV2:_core/GRADIENT2:3/OPAM_LIN:1/sub_diff_2_LIN:2/cap_mim_2f0fF:C1:
+ c_length circuit1: 8e-06   circuit2: 2.5e-05   (delta=103%, cutoff=1%)
+ c_width circuit1: 2.5e-05   circuit2: 8e-06   (delta=103%, cutoff=1%)
+cap_mim_2f0_m4m5_noshield:138 vs. GRADIENT_NAV2:_core/GRADIENT2:1/OPAM_LIN:1/sub_diff_2_LIN:2/cap_mim_2f0fF:C1:
+ c_length circuit1: 8e-06   circuit2: 2.5e-05   (delta=103%, cutoff=1%)
+ c_width circuit1: 2.5e-05   circuit2: 8e-06   (delta=103%, cutoff=1%)
+cap_mim_2f0_m4m5_noshield:1957 vs. GRADIENT_NAV2:_core/GRADIENT2:1/OPAM_LIN:8/sub_diff_2_LIN:2/cap_mim_2f0fF:C3:
+ c_length circuit1: 8e-06   circuit2: 2.5e-05   (delta=103%, cutoff=1%)
+ c_width circuit1: 2.5e-05   circuit2: 8e-06   (delta=103%, cutoff=1%)
+cap_mim_2f0_m4m5_noshield:1849 vs. GRADIENT_NAV2:_core/GRADIENT2:2/OPAM_LIN:8/sub_diff_2_LIN:2/cap_mim_2f0fF:C3:
+ c_length circuit1: 8e-06   circuit2: 2.5e-05   (delta=103%, cutoff=1%)
+ c_width circuit1: 2.5e-05   circuit2: 8e-06   (delta=103%, cutoff=1%)
+cap_mim_2f0_m4m5_noshield:1361 vs. GRADIENT_NAV2:_core/GRADIENT2:4/OPAM_LIN:8/sub_diff_2_LIN:2/cap_mim_2f0fF:C3:
+ c_length circuit1: 8e-06   circuit2: 2.5e-05   (delta=103%, cutoff=1%)
+ c_width circuit1: 2.5e-05   circuit2: 8e-06   (delta=103%, cutoff=1%)
+cap_mim_2f0_m4m5_noshield:78 vs. GRADIENT_NAV2:_core/GRADIENT2:3/OPAM_LIN:8/sub_diff_2_LIN:2/cap_mim_2f0fF:C3:
+ c_length circuit1: 8e-06   circuit2: 2.5e-05   (delta=103%, cutoff=1%)
+ c_width circuit1: 2.5e-05   circuit2: 8e-06   (delta=103%, cutoff=1%)
+diode_nd2ps_06v0:41 vs. io_secondary_5p0:x_esd_S1N/diode_nd2ps_06v0:5:
+Property area in circuit1 has no matching property in circuit2
+diode_nd2ps_06v0:41 vs. io_secondary_5p0:x_esd_S1N/diode_nd2ps_06v0:5:
+Property P in circuit2 has no matching property in circuit1
+diode_nd2ps_06v0:41 vs. io_secondary_5p0:x_esd_S1N/diode_nd2ps_06v0:5:
+Property A in circuit2 has no matching property in circuit1
+diode_nd2ps_06v0:5 vs. io_secondary_5p0:x_esd_S2N/diode_nd2ps_06v0:5:
+Property area in circuit1 has no matching property in circuit2
+diode_nd2ps_06v0:5 vs. io_secondary_5p0:x_esd_S2N/diode_nd2ps_06v0:5:
+Property P in circuit2 has no matching property in circuit1
+diode_nd2ps_06v0:5 vs. io_secondary_5p0:x_esd_S2N/diode_nd2ps_06v0:5:
+Property A in circuit2 has no matching property in circuit1
+diode_nd2ps_06v0:25 vs. io_secondary_5p0:x_esd_S3N/diode_nd2ps_06v0:5:
+Property area in circuit1 has no matching property in circuit2
+diode_nd2ps_06v0:25 vs. io_secondary_5p0:x_esd_S3N/diode_nd2ps_06v0:5:
+Property P in circuit2 has no matching property in circuit1
+diode_nd2ps_06v0:25 vs. io_secondary_5p0:x_esd_S3N/diode_nd2ps_06v0:5:
+Property A in circuit2 has no matching property in circuit1
+diode_nd2ps_06v0:14 vs. io_secondary_5p0:x_esd_S4N/diode_nd2ps_06v0:5:
+Property area in circuit1 has no matching property in circuit2
+diode_nd2ps_06v0:14 vs. io_secondary_5p0:x_esd_S4N/diode_nd2ps_06v0:5:
+Property P in circuit2 has no matching property in circuit1
+diode_nd2ps_06v0:14 vs. io_secondary_5p0:x_esd_S4N/diode_nd2ps_06v0:5:
+Property A in circuit2 has no matching property in circuit1
+diode_nd2ps_06v0:21 vs. io_secondary_5p0:x_esd_S1P/diode_nd2ps_06v0:5:
+Property area in circuit1 has no matching property in circuit2
+diode_nd2ps_06v0:21 vs. io_secondary_5p0:x_esd_S1P/diode_nd2ps_06v0:5:
+Property P in circuit2 has no matching property in circuit1
+diode_nd2ps_06v0:21 vs. io_secondary_5p0:x_esd_S1P/diode_nd2ps_06v0:5:
+Property A in circuit2 has no matching property in circuit1
+diode_nd2ps_06v0:13 vs. io_secondary_5p0:x_esd_S2P/diode_nd2ps_06v0:5:
+Property area in circuit1 has no matching property in circuit2
+diode_nd2ps_06v0:13 vs. io_secondary_5p0:x_esd_S2P/diode_nd2ps_06v0:5:
+Property P in circuit2 has no matching property in circuit1
+diode_nd2ps_06v0:13 vs. io_secondary_5p0:x_esd_S2P/diode_nd2ps_06v0:5:
+Property A in circuit2 has no matching property in circuit1
+diode_nd2ps_06v0:3 vs. io_secondary_5p0:x_esd_S3P/diode_nd2ps_06v0:5:
+Property area in circuit1 has no matching property in circuit2
+diode_nd2ps_06v0:3 vs. io_secondary_5p0:x_esd_S3P/diode_nd2ps_06v0:5:
+Property P in circuit2 has no matching property in circuit1
+diode_nd2ps_06v0:3 vs. io_secondary_5p0:x_esd_S3P/diode_nd2ps_06v0:5:
+Property A in circuit2 has no matching property in circuit1
+diode_nd2ps_06v0:17 vs. io_secondary_5p0:x_esd_S4P/diode_nd2ps_06v0:5:
+Property area in circuit1 has no matching property in circuit2
+diode_nd2ps_06v0:17 vs. io_secondary_5p0:x_esd_S4P/diode_nd2ps_06v0:5:
+Property P in circuit2 has no matching property in circuit1
+diode_nd2ps_06v0:17 vs. io_secondary_5p0:x_esd_S4P/diode_nd2ps_06v0:5:
+Property A in circuit2 has no matching property in circuit1
+diode_nd2ps_06v0:12 vs. io_secondary_5p0:x_esd_Z/diode_nd2ps_06v0:5:
+Property area in circuit1 has no matching property in circuit2
+diode_nd2ps_06v0:12 vs. io_secondary_5p0:x_esd_Z/diode_nd2ps_06v0:5:
+Property P in circuit2 has no matching property in circuit1
+diode_nd2ps_06v0:12 vs. io_secondary_5p0:x_esd_Z/diode_nd2ps_06v0:5:
+Property A in circuit2 has no matching property in circuit1
+diode_nd2ps_06v0:15 vs. io_secondary_5p0:x_esd_X/diode_nd2ps_06v0:5:
+Property area in circuit1 has no matching property in circuit2
+diode_nd2ps_06v0:15 vs. io_secondary_5p0:x_esd_X/diode_nd2ps_06v0:5:
+Property P in circuit2 has no matching property in circuit1
+diode_nd2ps_06v0:15 vs. io_secondary_5p0:x_esd_X/diode_nd2ps_06v0:5:
+Property A in circuit2 has no matching property in circuit1
+diode_nd2ps_06v0:2 vs. io_secondary_5p0:x_esd_Y/diode_nd2ps_06v0:5:
+Property area in circuit1 has no matching property in circuit2
+diode_nd2ps_06v0:2 vs. io_secondary_5p0:x_esd_Y/diode_nd2ps_06v0:5:
+Property P in circuit2 has no matching property in circuit1
+diode_nd2ps_06v0:2 vs. io_secondary_5p0:x_esd_Y/diode_nd2ps_06v0:5:
+Property A in circuit2 has no matching property in circuit1
+diode_pd2nw_06v0:18 vs. io_secondary_5p0:x_esd_S1P/diode_pd2nw_06v0:1:
+Property area in circuit1 has no matching property in circuit2
+diode_pd2nw_06v0:18 vs. io_secondary_5p0:x_esd_S1P/diode_pd2nw_06v0:1:
+Property P in circuit2 has no matching property in circuit1
+diode_pd2nw_06v0:18 vs. io_secondary_5p0:x_esd_S1P/diode_pd2nw_06v0:1:
+Property A in circuit2 has no matching property in circuit1
+diode_pd2nw_06v0:9 vs. io_secondary_5p0:x_esd_S2P/diode_pd2nw_06v0:1:
+Property area in circuit1 has no matching property in circuit2
+diode_pd2nw_06v0:9 vs. io_secondary_5p0:x_esd_S2P/diode_pd2nw_06v0:1:
+Property P in circuit2 has no matching property in circuit1
+diode_pd2nw_06v0:9 vs. io_secondary_5p0:x_esd_S2P/diode_pd2nw_06v0:1:
+Property A in circuit2 has no matching property in circuit1
+diode_pd2nw_06v0:43 vs. io_secondary_5p0:x_esd_S3P/diode_pd2nw_06v0:1:
+Property area in circuit1 has no matching property in circuit2
+diode_pd2nw_06v0:43 vs. io_secondary_5p0:x_esd_S3P/diode_pd2nw_06v0:1:
+Property P in circuit2 has no matching property in circuit1
+diode_pd2nw_06v0:43 vs. io_secondary_5p0:x_esd_S3P/diode_pd2nw_06v0:1:
+Property A in circuit2 has no matching property in circuit1
+diode_pd2nw_06v0:10 vs. io_secondary_5p0:x_esd_S4P/diode_pd2nw_06v0:1:
+Property area in circuit1 has no matching property in circuit2
+diode_pd2nw_06v0:10 vs. io_secondary_5p0:x_esd_S4P/diode_pd2nw_06v0:1:
+Property P in circuit2 has no matching property in circuit1
+diode_pd2nw_06v0:10 vs. io_secondary_5p0:x_esd_S4P/diode_pd2nw_06v0:1:
+Property A in circuit2 has no matching property in circuit1
+diode_pd2nw_06v0:40 vs. io_secondary_5p0:x_esd_S1N/diode_pd2nw_06v0:1:
+Property area in circuit1 has no matching property in circuit2
+diode_pd2nw_06v0:40 vs. io_secondary_5p0:x_esd_S1N/diode_pd2nw_06v0:1:
+Property P in circuit2 has no matching property in circuit1
+diode_pd2nw_06v0:40 vs. io_secondary_5p0:x_esd_S1N/diode_pd2nw_06v0:1:
+Property A in circuit2 has no matching property in circuit1
+diode_pd2nw_06v0:8 vs. io_secondary_5p0:x_esd_S2N/diode_pd2nw_06v0:1:
+Property area in circuit1 has no matching property in circuit2
+diode_pd2nw_06v0:8 vs. io_secondary_5p0:x_esd_S2N/diode_pd2nw_06v0:1:
+Property P in circuit2 has no matching property in circuit1
+diode_pd2nw_06v0:8 vs. io_secondary_5p0:x_esd_S2N/diode_pd2nw_06v0:1:
+Property A in circuit2 has no matching property in circuit1
+diode_pd2nw_06v0:45 vs. io_secondary_5p0:x_esd_S3N/diode_pd2nw_06v0:1:
+Property area in circuit1 has no matching property in circuit2
+diode_pd2nw_06v0:45 vs. io_secondary_5p0:x_esd_S3N/diode_pd2nw_06v0:1:
+Property P in circuit2 has no matching property in circuit1
+diode_pd2nw_06v0:45 vs. io_secondary_5p0:x_esd_S3N/diode_pd2nw_06v0:1:
+Property A in circuit2 has no matching property in circuit1
+diode_pd2nw_06v0:6 vs. io_secondary_5p0:x_esd_S4N/diode_pd2nw_06v0:1:
+Property area in circuit1 has no matching property in circuit2
+diode_pd2nw_06v0:6 vs. io_secondary_5p0:x_esd_S4N/diode_pd2nw_06v0:1:
+Property P in circuit2 has no matching property in circuit1
+diode_pd2nw_06v0:6 vs. io_secondary_5p0:x_esd_S4N/diode_pd2nw_06v0:1:
+Property A in circuit2 has no matching property in circuit1
+diode_pd2nw_06v0:1 vs. io_secondary_5p0:x_esd_Z/diode_pd2nw_06v0:1:
+Property area in circuit1 has no matching property in circuit2
+diode_pd2nw_06v0:1 vs. io_secondary_5p0:x_esd_Z/diode_pd2nw_06v0:1:
+Property P in circuit2 has no matching property in circuit1
+diode_pd2nw_06v0:1 vs. io_secondary_5p0:x_esd_Z/diode_pd2nw_06v0:1:
+Property A in circuit2 has no matching property in circuit1
+diode_pd2nw_06v0:35 vs. io_secondary_5p0:x_esd_Y/diode_pd2nw_06v0:1:
+Property area in circuit1 has no matching property in circuit2
+diode_pd2nw_06v0:35 vs. io_secondary_5p0:x_esd_Y/diode_pd2nw_06v0:1:
+Property P in circuit2 has no matching property in circuit1
+diode_pd2nw_06v0:35 vs. io_secondary_5p0:x_esd_Y/diode_pd2nw_06v0:1:
+Property A in circuit2 has no matching property in circuit1
+diode_pd2nw_06v0:0 vs. io_secondary_5p0:x_esd_X/diode_pd2nw_06v0:1:
+Property area in circuit1 has no matching property in circuit2
+diode_pd2nw_06v0:0 vs. io_secondary_5p0:x_esd_X/diode_pd2nw_06v0:1:
+Property P in circuit2 has no matching property in circuit1
+diode_pd2nw_06v0:0 vs. io_secondary_5p0:x_esd_X/diode_pd2nw_06v0:1:
+Property A in circuit2 has no matching property in circuit1
+
+Subcircuit pins:
+Circuit 1: B26_A                           |Circuit 2: B26_A                           
+-------------------------------------------|-------------------------------------------
+S1P                                        |S1P                                        
+S2P                                        |S2P                                        
+S3P                                        |S3P                                        
+S4P                                        |S4P                                        
+S1N                                        |S1N                                        
+S2N                                        |S2N                                        
+S3N                                        |S3N                                        
+S4N                                        |S4N                                        
+Z                                          |Z                                          
+X                                          |X                                          
+Y                                          |Y                                          
+XN_OUT                                     |XN_OUT                                     
+YN_OUT                                     |YN_OUT                                     
+ZN_OUT                                     |ZN_OUT                                     
+VDD                                        |VDD                                        
+VSS                                        |VSS                                        
+ZP_OUT                                     |ZP_OUT                                     
+XP_OUT                                     |XP_OUT                                     
+YP_OUT                                     |YP_OUT                                     
+XN_IN                                      |XN_IN                                      
+XP_IN                                      |XP_IN                                      
+YN_IN                                      |YN_IN                                      
+YP_IN                                      |YP_IN                                      
+ZN_IN                                      |(no matching pin)                          
+ZP_IN                                      |(no matching pin)                          
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes B26_A and B26_A are equivalent.
+
+Final result: Circuits match uniquely.
+Property errors were found.
+
+The following cells had property errors:
+ B26_A

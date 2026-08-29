@@ -1,6 +1,6 @@
 * fuente: /foss/designs/a_zonetic2026/XSCHEM/OPAM/simulation/COMP.sch/COMP.spice
 * leida via enlace: /foss/designs/a_zonetic2026/spice_blocks/COMP.spice
-* fecha de la fuente: 2026-08-07 09:54   sha1: 4d36464aab
+* fecha de la fuente: 2026-08-29 17:57   sha1: 99e9d9f11a
 * generado por flatten_spice.py — NO editar a mano
 * netlist plana generada por flatten_spice.py (top: COMP)
 * 50 MOSFETs; nets fusionadas por V=0: ninguna

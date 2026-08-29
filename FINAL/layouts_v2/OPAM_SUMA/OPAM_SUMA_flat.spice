@@ -1,6 +1,6 @@
 * fuente: /foss/designs/a_zonetic2026/XSCHEM_v2/simulation/OPAM_SUMA.sch/OPAM_SUMA.spice
 * leida via enlace: /foss/designs/a_zonetic2026/spice_blocks/OPAM_SUMA.spice
-* fecha de la fuente: 2026-08-23 03:08   sha1: c912edf2e4
+* fecha de la fuente: 2026-08-29 17:59   sha1: 6880809c9c
 * generado por flatten_spice.py — NO editar a mano
 * netlist plana generada por flatten_spice.py (top: OPAM_SUMA)
 * 57 MOSFETs; nets fusionadas por V=0: ninguna
@@ -26,26 +26,26 @@ XM11 xamp_x2_net2 xamp_net3 VDD VDD pfet_06v0 L=1.0u W=10.0u nf=1
 XM12 xamp_x2_net7 xamp_net4 xamp_x2_net2 VDD pfet_06v0 L=1.0u W=10.0u nf=1
 XM13 xamp_x2_net18 xamp_net3 VDD VDD pfet_06v0 L=1.0u W=10.0u nf=1
 XM14 xamp_x2_net7 xamp_net4 xamp_x2_net18 VDD pfet_06v0 L=1.0u W=10.0u nf=1
-XM15 xamp_x2_net5 NSP xamp_x2_net7 VDD pfet_06v0 L=1.0u W=1.1u nf=1
-XM16 xamp_x2_net4 NSN xamp_x2_net7 VDD pfet_06v0 L=1.0u W=1.0u nf=1
+XM15 xamp_x2_net5 NSP xamp_x2_net7 VDD pfet_06v0 L=1.0u W=0.55u nf=1
+XM16 xamp_x2_net4 NSN xamp_x2_net7 VDD pfet_06v0 L=1.0u W=0.5u nf=1
 XM17 xamp_x2_net8 xamp_net2 xamp_x2_net1 VSS nfet_06v0 L=1.0u W=5.0u nf=1
 XM18 xamp_x2_net1 xamp_net1 VSS VSS nfet_06v0 L=1.0u W=5.0u nf=1
 XM19 xamp_x2_net8 xamp_net2 xamp_x2_net19 VSS nfet_06v0 L=1.0u W=5.0u nf=1
 XM20 xamp_x2_net19 xamp_net1 VSS VSS nfet_06v0 L=1.0u W=5.0u nf=1
-XM21 xamp_x2_net6 NSP xamp_x2_net8 VSS nfet_06v0 L=1.0u W=1u nf=1
-XM22 xamp_x2_net3 NSN xamp_x2_net8 VSS nfet_06v0 L=1.0u W=1u nf=1
-XM29 xamp_x2_net9 xamp_net4 xamp_x2_net3 VDD pfet_06v0 L=1.0u W=5u nf=1
-XM30 xamp_x2_G_OUT_P xamp_net4 xamp_x2_net6 VDD pfet_06v0 L=1.0u W=5u nf=1
+XM21 xamp_x2_net6 NSP xamp_x2_net8 VSS nfet_06v0 L=1.0u W=7.5u nf=1
+XM22 xamp_x2_net3 NSN xamp_x2_net8 VSS nfet_06v0 L=1.0u W=8.5u nf=1
+XM29 xamp_x2_net9 xamp_net4 xamp_x2_net3 VDD pfet_06v0 L=1.0u W=10u nf=1
+XM30 xamp_x2_G_OUT_P xamp_net4 xamp_x2_net6 VDD pfet_06v0 L=1.0u W=10u nf=1
 XM31 xamp_x2_net3 xamp_x2_net9 VDD VDD pfet_06v0 L=1.0u W=5u nf=1
 XM35 xamp_x2_net6 xamp_x2_net9 VDD VDD pfet_06v0 L=1.0u W=5u nf=1
-XM32 xamp_x2_net10 xamp_x2_net20 xamp_x2_net9 VDD pfet_06v0 L=1.0u W=5.0u nf=1
-XM33 xamp_x2_net21 xamp_x2_net20 xamp_x2_G_OUT_P VDD pfet_06v0 L=1.0u W=5.0u nf=1
+XM32 xamp_x2_net10 xamp_x2_net20 xamp_x2_net9 VDD pfet_06v0 L=1.0u W=4.0u nf=1
+XM33 xamp_x2_net21 xamp_x2_net20 xamp_x2_G_OUT_P VDD pfet_06v0 L=1.0u W=4.0u nf=1
 XM23 xamp_x2_net10 xamp_net2 xamp_x2_net4 VSS nfet_06v0 L=1.0u W=2.5u nf=1
 XM24 xamp_x2_net21 xamp_net2 xamp_x2_net5 VSS nfet_06v0 L=1.0u W=2.5u nf=1
 XM25 xamp_x2_net4 xamp_x2_net10 VSS VSS nfet_06v0 L=1.0u W=2.5u nf=1
 XM26 xamp_x2_net5 xamp_x2_net10 VSS VSS nfet_06v0 L=1.0u W=2.5u nf=1
-XM27 xamp_x2_net9 xamp_x2_net11 xamp_x2_net10 VSS nfet_06v0 L=1.0u W=2.5u nf=1
-XM28 xamp_x2_G_OUT_P xamp_x2_net11 xamp_x2_net21 VSS nfet_06v0 L=1.0u W=2.5u nf=1
+XM27 xamp_x2_net9 xamp_x2_net11 xamp_x2_net10 VSS nfet_06v0 L=1.0u W=2.0u nf=1
+XM28 xamp_x2_G_OUT_P xamp_x2_net11 xamp_x2_net21 VSS nfet_06v0 L=1.0u W=2.0u nf=1
 XM34 xamp_x2_net12 xamp_x2_net13 VDD VDD pfet_06v0 L=1.0u W=10.0u nf=1
 XM36 xamp_x2_net13 xamp_net4 xamp_x2_net12 VDD pfet_06v0 L=1.0u W=10.0u nf=1
 XM37 xamp_x2_net20 xamp_x2_net20 xamp_x2_net13 VDD pfet_06v0 L=1.0u W=10.0u nf=1
@@ -56,18 +56,18 @@ XM46 xamp_x2_net11 xamp_net4 xamp_x2_net15 VDD pfet_06v0 L=1.0u W=10.0u nf=1
 XM40 xamp_x2_net11 xamp_x2_net11 xamp_x2_net17 VSS nfet_06v0 L=1.0u W=5.0u nf=1
 XM41 xamp_x2_net17 xamp_net2 xamp_x2_net16 VSS nfet_06v0 L=1.0u W=5.0u nf=1
 XM42 xamp_x2_net16 xamp_x2_net17 VSS VSS nfet_06v0 L=1.0u W=5.0u nf=1
-XM43_m1 OUT xamp_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=0.5u nf=1
-XM43_m2 OUT xamp_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=0.5u nf=1
-XM43_m3 OUT xamp_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=0.5u nf=1
-XM43_m4 OUT xamp_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=0.5u nf=1
+XM43_m1 OUT xamp_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=1.0u nf=1
+XM43_m2 OUT xamp_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=1.0u nf=1
+XM43_m3 OUT xamp_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=1.0u nf=1
+XM43_m4 OUT xamp_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=1.0u nf=1
 XM44 OUT xamp_x2_net21 VSS VSS nfet_06v0 L=1.0u W=1.0u nf=1
 XxmcA1 VSS A1 VSS VSS nfet_06v0 L=2u W=2u nf=1
 XxmcA2 VSS A2 VSS VSS nfet_06v0 L=2u W=2u nf=1
 XxmcB1 VSS B1 VSS VSS nfet_06v0 L=2u W=2u nf=1
 XxmcB2 VSS B2 VSS VSS nfet_06v0 L=2u W=2u nf=1
-XC3 xamp_x2_net6 OUT cap_mim_2f0fF c_width=4.0u c_length=25.0u
-XC1 OUT xamp_x2_net5 cap_mim_2f0fF c_width=4.0u c_length=25.0u
-XRFB_xamp_x2 xamp_x2_G_OUT_P OUT VSS ppolyf_u_3k r_width=1e-6 r_length=76.45e-6 m=1 s=5
+XC3 xamp_x2_net6 OUT cap_mim_2f0fF c_width=8.0u c_length=25.0u
+XC1 OUT xamp_x2_net5 cap_mim_2f0fF c_width=8.0u c_length=25.0u
+XRFB_xamp_x2 xamp_x2_G_OUT_P OUT VSS ppolyf_u_1k r_width=1e-6 r_length=76.45e-6 m=1 s=5
 XRA1 NSP A1 VSS ppolyf_u_3k r_width=1e-6 r_length=55.56e-6 m=1 s=3
 XRA2 NSP A2 VSS ppolyf_u_3k r_width=1e-6 r_length=55.56e-6 m=1 s=3
 XRB1 NSN B1 VSS ppolyf_u_3k r_width=1e-6 r_length=55.56e-6 m=1 s=3

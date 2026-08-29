@@ -9,16 +9,12 @@ rect -192 -120 420 720
 << hvpmos >>
 rect 14 0 214 600
 << mvpdiff >>
-rect -74 573 14 600
-rect -74 27 -61 573
-rect -15 27 14 573
-rect -74 0 14 27
+rect -74 0 14 600
 rect 214 573 302 600
 rect 214 27 243 573
 rect 289 27 302 573
 rect 214 0 302 27
 << mvpdiffc >>
-rect -61 27 -15 573
 rect 243 27 289 573
 << polysilicon >>
 rect 14 600 214 644
@@ -29,10 +25,6 @@ rect 14 -116 214 -103
 << polycontact >>
 rect 41 -103 187 -57
 << metal1 >>
-rect -72 573 0 600
-rect -72 27 -61 573
-rect -15 27 0 573
-rect -72 0 0 27
 rect 228 573 300 600
 rect 228 27 243 573
 rect 289 27 300 573

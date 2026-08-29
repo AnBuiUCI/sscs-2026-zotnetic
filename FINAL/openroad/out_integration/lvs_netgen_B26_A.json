@@ -1,0 +1,1189 @@
+[
+  {
+   "pins": [
+      [
+        "1",
+        "2",
+        "3",
+        "4"
+      ], [
+        "1",
+        "2",
+        "3",
+        "4"
+      ]
+   ]
+  },
+  {
+   "pins": [
+      [
+        "1",
+        "2",
+        "3",
+        "4"
+      ], [
+        "1",
+        "2",
+        "3",
+        "4"
+      ]
+   ]
+  },
+  {
+   "pins": [
+      [
+        "1",
+        "2"
+      ], [
+        "1",
+        "2"
+      ]
+   ]
+  },
+  {
+   "pins": [
+      [
+        "1",
+        "2",
+        "3"
+      ], [
+        "1",
+        "2",
+        "3"
+      ]
+   ]
+  },
+  {
+   "pins": [
+      [
+        "1",
+        "2",
+        "3",
+        "4"
+      ], [
+        "1",
+        "2",
+        "3",
+        "4"
+      ]
+   ]
+  },
+  {
+   "pins": [
+      [
+        "1",
+        "2",
+        "3",
+        "4"
+      ], [
+        "1",
+        "2",
+        "3",
+        "4"
+      ]
+   ]
+  },
+  {
+   "pins": [
+      [
+        "1",
+        "2",
+        "3"
+      ], [
+        "1",
+        "2",
+        "3"
+      ]
+   ]
+  },
+  {
+   "name": [
+      "B26_A",
+      "B26_A"
+   ],
+   "devices": [
+       [
+         ["nfet_06v0", 688],
+         ["pfet_06v0", 643],
+         ["nfet_05v0", 9],
+         ["diode_pd2nw_06v0", 11],
+         ["diode_nd2ps_06v0", 11],
+         ["cap_mim_2f0_m4m5_noshield", 48],
+         ["pfet_05v0", 9],
+         ["ppolyf_u_1k", 12],
+         ["ppolyf_u", 11 ]
+       ], [
+         ["nfet_06v0", 688 ],
+         ["pfet_06v0", 643 ],
+         ["nfet_05v0", 9 ],
+         ["diode_pd2nw_06v0", 11 ],
+         ["diode_nd2ps_06v0", 11 ],
+         ["cap_mim_2f0fF", 48 ],
+         ["pfet_05v0", 9 ],
+         ["ppolyf_u_1k", 12 ],
+         ["ppolyf_u", 11 ]
+       ]
+   ],
+   "nets": [
+    894,
+    894
+   ],
+   "badnets": [
+   ],
+   "badelements": [
+   ],
+   "properties": [
+      [
+         [
+           "ppolyf_u:1819",
+           [
+             ["r_length", "1e-5"],
+             ["r_width", "4e-5"],
+             ["(no matching parameter)", "(no value)"],
+             ["(no matching parameter)", "(no value)"]
+           ]
+         ],
+         [
+           "io_secondary_5p0:x_esd_S2P/ppolyf_u:RR1",
+           [
+             ["(no matching parameter)", "(no value)"],
+             ["(no matching parameter)", "(no value)"],
+             ["L", "1e-5"],
+             ["W", "4e-5"]
+           ]
+         ]
+      ],
+      [
+         [
+           "ppolyf_u:1801",
+           [
+             ["r_length", "1e-5"],
+             ["r_width", "4e-5"],
+             ["(no matching parameter)", "(no value)"],
+             ["(no matching parameter)", "(no value)"]
+           ]
+         ],
+         [
+           "io_secondary_5p0:x_esd_S1P/ppolyf_u:RR1",
+           [
+             ["(no matching parameter)", "(no value)"],
+             ["(no matching parameter)", "(no value)"],
+             ["L", "1e-5"],
+             ["W", "4e-5"]
+           ]
+         ]
+      ],
+      [
+         [
+           "ppolyf_u:1261",
+           [
+             ["r_length", "1e-5"],
+             ["r_width", "4e-5"],
+             ["(no matching parameter)", "(no value)"],
+             ["(no matching parameter)", "(no value)"]
+           ]
+         ],
+         [
+           "io_secondary_5p0:x_esd_S4P/ppolyf_u:RR1",
+           [
+             ["(no matching parameter)", "(no value)"],
+             ["(no matching parameter)", "(no value)"],
+             ["L", "1e-5"],
+             ["W", "4e-5"]
+           ]
+         ]
+      ],
+      [
+         [
+           "ppolyf_u:388",
+           [
+             ["r_length", "1e-5"],
+             ["r_width", "4e-5"],
+             ["(no matching parameter)", "(no value)"],
+             ["(no matching parameter)", "(no value)"]
+           ]
+         ],
+         [
+           "io_secondary_5p0:x_esd_S3P/ppolyf_u:RR1",
+           [
+             ["(no matching parameter)", "(no value)"],
+             ["(no matching parameter)", "(no value)"],
+             ["L", "1e-5"],
+             ["W", "4e-5"]
+           ]
+         ]
+      ],
+      [
+         [
+           "ppolyf_u:1464",
+           [
+             ["r_length", "1e-5"],
+             ["r_width", "4e-5"],
+             ["(no matching parameter)", "(no value)"],
+             ["(no matching parameter)", "(no value)"]
+           ]
+         ],
+         [
+           "io_secondary_5p0:x_esd_S3N/ppolyf_u:RR1",
+           [
+             ["(no matching parameter)", "(no value)"],
+             ["(no matching parameter)", "(no value)"],
+             ["L", "1e-5"],
+             ["W", "4e-5"]
+           ]
+         ]
+      ],
+      [
+         [
+           "ppolyf_u:1299",
+           [
+             ["r_length", "1e-5"],
+             ["r_width", "4e-5"],
+             ["(no matching parameter)", "(no value)"],
+             ["(no matching parameter)", "(no value)"]
+           ]
+         ],
+         [
+           "io_secondary_5p0:x_esd_S4N/ppolyf_u:RR1",
+           [
+             ["(no matching parameter)", "(no value)"],
+             ["(no matching parameter)", "(no value)"],
+             ["L", "1e-5"],
+             ["W", "4e-5"]
+           ]
+         ]
+      ],
+      [
+         [
+           "ppolyf_u:1253",
+           [
+             ["r_length", "1e-5"],
+             ["r_width", "4e-5"],
+             ["(no matching parameter)", "(no value)"],
+             ["(no matching parameter)", "(no value)"]
+           ]
+         ],
+         [
+           "io_secondary_5p0:x_esd_S2N/ppolyf_u:RR1",
+           [
+             ["(no matching parameter)", "(no value)"],
+             ["(no matching parameter)", "(no value)"],
+             ["L", "1e-5"],
+             ["W", "4e-5"]
+           ]
+         ]
+      ],
+      [
+         [
+           "ppolyf_u:236",
+           [
+             ["r_length", "1e-5"],
+             ["r_width", "4e-5"],
+             ["(no matching parameter)", "(no value)"],
+             ["(no matching parameter)", "(no value)"]
+           ]
+         ],
+         [
+           "io_secondary_5p0:x_esd_S1N/ppolyf_u:RR1",
+           [
+             ["(no matching parameter)", "(no value)"],
+             ["(no matching parameter)", "(no value)"],
+             ["L", "1e-5"],
+             ["W", "4e-5"]
+           ]
+         ]
+      ],
+      [
+         [
+           "ppolyf_u:1679",
+           [
+             ["r_length", "1e-5"],
+             ["r_width", "4e-5"],
+             ["(no matching parameter)", "(no value)"],
+             ["(no matching parameter)", "(no value)"]
+           ]
+         ],
+         [
+           "io_secondary_5p0:x_esd_Z/ppolyf_u:RR1",
+           [
+             ["(no matching parameter)", "(no value)"],
+             ["(no matching parameter)", "(no value)"],
+             ["L", "1e-5"],
+             ["W", "4e-5"]
+           ]
+         ]
+      ],
+      [
+         [
+           "ppolyf_u:1893",
+           [
+             ["r_length", "1e-5"],
+             ["r_width", "4e-5"],
+             ["(no matching parameter)", "(no value)"],
+             ["(no matching parameter)", "(no value)"]
+           ]
+         ],
+         [
+           "io_secondary_5p0:x_esd_X/ppolyf_u:RR1",
+           [
+             ["(no matching parameter)", "(no value)"],
+             ["(no matching parameter)", "(no value)"],
+             ["L", "1e-5"],
+             ["W", "4e-5"]
+           ]
+         ]
+      ],
+      [
+         [
+           "ppolyf_u:1513",
+           [
+             ["r_length", "1e-5"],
+             ["r_width", "4e-5"],
+             ["(no matching parameter)", "(no value)"],
+             ["(no matching parameter)", "(no value)"]
+           ]
+         ],
+         [
+           "io_secondary_5p0:x_esd_Y/ppolyf_u:RR1",
+           [
+             ["(no matching parameter)", "(no value)"],
+             ["(no matching parameter)", "(no value)"],
+             ["L", "1e-5"],
+             ["W", "4e-5"]
+           ]
+         ]
+      ],
+      [
+         [
+           "cap_mim_2f0_m4m5_noshield:1564",
+           [
+             ["c_length", "8e-6"],
+             ["c_width", "2.5e-5"]
+           ]
+         ],
+         [
+           "GRADIENT_NAV2:_core/GRADIENT2:2/OPAM_LIN:2/sub_diff_2_LIN:2/cap_mim_2f0fF:C3",
+           [
+             ["c_length", "2.5e-5"],
+             ["c_width", "8e-6"]
+           ]
+         ]
+      ],
+      [
+         [
+           "cap_mim_2f0_m4m5_noshield:1453",
+           [
+             ["c_length", "8e-6"],
+             ["c_width", "2.5e-5"]
+           ]
+         ],
+         [
+           "GRADIENT_NAV2:_core/GRADIENT2:4/OPAM_LIN:2/sub_diff_2_LIN:2/cap_mim_2f0fF:C3",
+           [
+             ["c_length", "2.5e-5"],
+             ["c_width", "8e-6"]
+           ]
+         ]
+      ],
+      [
+         [
+           "cap_mim_2f0_m4m5_noshield:885",
+           [
+             ["c_length", "8e-6"],
+             ["c_width", "2.5e-5"]
+           ]
+         ],
+         [
+           "GRADIENT_NAV2:_core/GRADIENT2:1/OPAM_LIN:2/sub_diff_2_LIN:2/cap_mim_2f0fF:C3",
+           [
+             ["c_length", "2.5e-5"],
+             ["c_width", "8e-6"]
+           ]
+         ]
+      ],
+      [
+         [
+           "cap_mim_2f0_m4m5_noshield:871",
+           [
+             ["c_length", "8e-6"],
+             ["c_width", "2.5e-5"]
+           ]
+         ],
+         [
+           "GRADIENT_NAV2:_core/GRADIENT2:3/OPAM_LIN:2/sub_diff_2_LIN:2/cap_mim_2f0fF:C3",
+           [
+             ["c_length", "2.5e-5"],
+             ["c_width", "8e-6"]
+           ]
+         ]
+      ],
+      [
+         [
+           "cap_mim_2f0_m4m5_noshield:1240",
+           [
+             ["c_length", "8e-6"],
+             ["c_width", "2.5e-5"]
+           ]
+         ],
+         [
+           "GRADIENT_NAV2:_core/GRADIENT2:1/OPAM_LIN:2/sub_diff_2_LIN:2/cap_mim_2f0fF:C1",
+           [
+             ["c_length", "2.5e-5"],
+             ["c_width", "8e-6"]
+           ]
+         ]
+      ],
+      [
+         [
+           "cap_mim_2f0_m4m5_noshield:1124",
+           [
+             ["c_length", "8e-6"],
+             ["c_width", "2.5e-5"]
+           ]
+         ],
+         [
+           "GRADIENT_NAV2:_core/GRADIENT2:2/OPAM_LIN:2/sub_diff_2_LIN:2/cap_mim_2f0fF:C1",
+           [
+             ["c_length", "2.5e-5"],
+             ["c_width", "8e-6"]
+           ]
+         ]
+      ],
+      [
+         [
+           "cap_mim_2f0_m4m5_noshield:901",
+           [
+             ["c_length", "8e-6"],
+             ["c_width", "2.5e-5"]
+           ]
+         ],
+         [
+           "GRADIENT_NAV2:_core/GRADIENT2:4/OPAM_LIN:2/sub_diff_2_LIN:2/cap_mim_2f0fF:C1",
+           [
+             ["c_length", "2.5e-5"],
+             ["c_width", "8e-6"]
+           ]
+         ]
+      ],
+      [
+         [
+           "cap_mim_2f0_m4m5_noshield:652",
+           [
+             ["c_length", "8e-6"],
+             ["c_width", "2.5e-5"]
+           ]
+         ],
+         [
+           "GRADIENT_NAV2:_core/GRADIENT2:3/OPAM_LIN:2/sub_diff_2_LIN:2/cap_mim_2f0fF:C1",
+           [
+             ["c_length", "2.5e-5"],
+             ["c_width", "8e-6"]
+           ]
+         ]
+      ],
+      [
+         [
+           "cap_mim_2f0_m4m5_noshield:1864",
+           [
+             ["c_length", "8e-6"],
+             ["c_width", "2.5e-5"]
+           ]
+         ],
+         [
+           "GRADIENT_NAV2:_core/GRADIENT2:2/OPAM_LIN:1/sub_diff_2_LIN:2/cap_mim_2f0fF:C3",
+           [
+             ["c_length", "2.5e-5"],
+             ["c_width", "8e-6"]
+           ]
+         ]
+      ],
+      [
+         [
+           "cap_mim_2f0_m4m5_noshield:958",
+           [
+             ["c_length", "8e-6"],
+             ["c_width", "2.5e-5"]
+           ]
+         ],
+         [
+           "GRADIENT_NAV2:_core/GRADIENT2:3/OPAM_LIN:1/sub_diff_2_LIN:2/cap_mim_2f0fF:C3",
+           [
+             ["c_length", "2.5e-5"],
+             ["c_width", "8e-6"]
+           ]
+         ]
+      ],
+      [
+         [
+           "cap_mim_2f0_m4m5_noshield:616",
+           [
+             ["c_length", "8e-6"],
+             ["c_width", "2.5e-5"]
+           ]
+         ],
+         [
+           "GRADIENT_NAV2:_core/GRADIENT2:1/OPAM_LIN:1/sub_diff_2_LIN:2/cap_mim_2f0fF:C3",
+           [
+             ["c_length", "2.5e-5"],
+             ["c_width", "8e-6"]
+           ]
+         ]
+      ],
+      [
+         [
+           "cap_mim_2f0_m4m5_noshield:343",
+           [
+             ["c_length", "8e-6"],
+             ["c_width", "2.5e-5"]
+           ]
+         ],
+         [
+           "GRADIENT_NAV2:_core/GRADIENT2:4/OPAM_LIN:1/sub_diff_2_LIN:2/cap_mim_2f0fF:C3",
+           [
+             ["c_length", "2.5e-5"],
+             ["c_width", "8e-6"]
+           ]
+         ]
+      ],
+      [
+         [
+           "cap_mim_2f0_m4m5_noshield:1609",
+           [
+             ["c_length", "8e-6"],
+             ["c_width", "2.5e-5"]
+           ]
+         ],
+         [
+           "GRADIENT_NAV2:_core/GRADIENT2:3/OPAM_LIN:8/sub_diff_2_LIN:2/cap_mim_2f0fF:C1",
+           [
+             ["c_length", "2.5e-5"],
+             ["c_width", "8e-6"]
+           ]
+         ]
+      ],
+      [
+         [
+           "cap_mim_2f0_m4m5_noshield:1414",
+           [
+             ["c_length", "8e-6"],
+             ["c_width", "2.5e-5"]
+           ]
+         ],
+         [
+           "GRADIENT_NAV2:_core/GRADIENT2:1/OPAM_LIN:8/sub_diff_2_LIN:2/cap_mim_2f0fF:C1",
+           [
+             ["c_length", "2.5e-5"],
+             ["c_width", "8e-6"]
+           ]
+         ]
+      ],
+      [
+         [
+           "cap_mim_2f0_m4m5_noshield:1128",
+           [
+             ["c_length", "8e-6"],
+             ["c_width", "2.5e-5"]
+           ]
+         ],
+         [
+           "GRADIENT_NAV2:_core/GRADIENT2:4/OPAM_LIN:8/sub_diff_2_LIN:2/cap_mim_2f0fF:C1",
+           [
+             ["c_length", "2.5e-5"],
+             ["c_width", "8e-6"]
+           ]
+         ]
+      ],
+      [
+         [
+           "cap_mim_2f0_m4m5_noshield:203",
+           [
+             ["c_length", "8e-6"],
+             ["c_width", "2.5e-5"]
+           ]
+         ],
+         [
+           "GRADIENT_NAV2:_core/GRADIENT2:2/OPAM_LIN:8/sub_diff_2_LIN:2/cap_mim_2f0fF:C1",
+           [
+             ["c_length", "2.5e-5"],
+             ["c_width", "8e-6"]
+           ]
+         ]
+      ],
+      [
+         [
+           "cap_mim_2f0_m4m5_noshield:1636",
+           [
+             ["c_length", "8e-6"],
+             ["c_width", "2.5e-5"]
+           ]
+         ],
+         [
+           "GRADIENT_NAV2:_core/GRADIENT2:2/OPAM_LIN:1/sub_diff_2_LIN:2/cap_mim_2f0fF:C1",
+           [
+             ["c_length", "2.5e-5"],
+             ["c_width", "8e-6"]
+           ]
+         ]
+      ],
+      [
+         [
+           "cap_mim_2f0_m4m5_noshield:747",
+           [
+             ["c_length", "8e-6"],
+             ["c_width", "2.5e-5"]
+           ]
+         ],
+         [
+           "GRADIENT_NAV2:_core/GRADIENT2:4/OPAM_LIN:1/sub_diff_2_LIN:2/cap_mim_2f0fF:C1",
+           [
+             ["c_length", "2.5e-5"],
+             ["c_width", "8e-6"]
+           ]
+         ]
+      ],
+      [
+         [
+           "cap_mim_2f0_m4m5_noshield:377",
+           [
+             ["c_length", "8e-6"],
+             ["c_width", "2.5e-5"]
+           ]
+         ],
+         [
+           "GRADIENT_NAV2:_core/GRADIENT2:3/OPAM_LIN:1/sub_diff_2_LIN:2/cap_mim_2f0fF:C1",
+           [
+             ["c_length", "2.5e-5"],
+             ["c_width", "8e-6"]
+           ]
+         ]
+      ],
+      [
+         [
+           "cap_mim_2f0_m4m5_noshield:138",
+           [
+             ["c_length", "8e-6"],
+             ["c_width", "2.5e-5"]
+           ]
+         ],
+         [
+           "GRADIENT_NAV2:_core/GRADIENT2:1/OPAM_LIN:1/sub_diff_2_LIN:2/cap_mim_2f0fF:C1",
+           [
+             ["c_length", "2.5e-5"],
+             ["c_width", "8e-6"]
+           ]
+         ]
+      ],
+      [
+         [
+           "cap_mim_2f0_m4m5_noshield:1957",
+           [
+             ["c_length", "8e-6"],
+             ["c_width", "2.5e-5"]
+           ]
+         ],
+         [
+           "GRADIENT_NAV2:_core/GRADIENT2:1/OPAM_LIN:8/sub_diff_2_LIN:2/cap_mim_2f0fF:C3",
+           [
+             ["c_length", "2.5e-5"],
+             ["c_width", "8e-6"]
+           ]
+         ]
+      ],
+      [
+         [
+           "cap_mim_2f0_m4m5_noshield:1849",
+           [
+             ["c_length", "8e-6"],
+             ["c_width", "2.5e-5"]
+           ]
+         ],
+         [
+           "GRADIENT_NAV2:_core/GRADIENT2:2/OPAM_LIN:8/sub_diff_2_LIN:2/cap_mim_2f0fF:C3",
+           [
+             ["c_length", "2.5e-5"],
+             ["c_width", "8e-6"]
+           ]
+         ]
+      ],
+      [
+         [
+           "cap_mim_2f0_m4m5_noshield:1361",
+           [
+             ["c_length", "8e-6"],
+             ["c_width", "2.5e-5"]
+           ]
+         ],
+         [
+           "GRADIENT_NAV2:_core/GRADIENT2:4/OPAM_LIN:8/sub_diff_2_LIN:2/cap_mim_2f0fF:C3",
+           [
+             ["c_length", "2.5e-5"],
+             ["c_width", "8e-6"]
+           ]
+         ]
+      ],
+      [
+         [
+           "cap_mim_2f0_m4m5_noshield:78",
+           [
+             ["c_length", "8e-6"],
+             ["c_width", "2.5e-5"]
+           ]
+         ],
+         [
+           "GRADIENT_NAV2:_core/GRADIENT2:3/OPAM_LIN:8/sub_diff_2_LIN:2/cap_mim_2f0fF:C3",
+           [
+             ["c_length", "2.5e-5"],
+             ["c_width", "8e-6"]
+           ]
+         ]
+      ],
+      [
+         [
+           "diode_nd2ps_06v0:41",
+           [
+             ["area", "9.999999e-11"],
+             ["(no matching parameter)", "(no value)"],
+             ["(no matching parameter)", "(no value)"]
+           ]
+         ],
+         [
+           "io_secondary_5p0:x_esd_S1N/diode_nd2ps_06v0:5",
+           [
+             ["(no matching parameter)", "(no value)"],
+             ["P", "4e-5"],
+             ["A", "1e-10"]
+           ]
+         ]
+      ],
+      [
+         [
+           "diode_nd2ps_06v0:5",
+           [
+             ["area", "9.999999e-11"],
+             ["(no matching parameter)", "(no value)"],
+             ["(no matching parameter)", "(no value)"]
+           ]
+         ],
+         [
+           "io_secondary_5p0:x_esd_S2N/diode_nd2ps_06v0:5",
+           [
+             ["(no matching parameter)", "(no value)"],
+             ["P", "4e-5"],
+             ["A", "1e-10"]
+           ]
+         ]
+      ],
+      [
+         [
+           "diode_nd2ps_06v0:25",
+           [
+             ["area", "9.999999e-11"],
+             ["(no matching parameter)", "(no value)"],
+             ["(no matching parameter)", "(no value)"]
+           ]
+         ],
+         [
+           "io_secondary_5p0:x_esd_S3N/diode_nd2ps_06v0:5",
+           [
+             ["(no matching parameter)", "(no value)"],
+             ["P", "4e-5"],
+             ["A", "1e-10"]
+           ]
+         ]
+      ],
+      [
+         [
+           "diode_nd2ps_06v0:14",
+           [
+             ["area", "9.999999e-11"],
+             ["(no matching parameter)", "(no value)"],
+             ["(no matching parameter)", "(no value)"]
+           ]
+         ],
+         [
+           "io_secondary_5p0:x_esd_S4N/diode_nd2ps_06v0:5",
+           [
+             ["(no matching parameter)", "(no value)"],
+             ["P", "4e-5"],
+             ["A", "1e-10"]
+           ]
+         ]
+      ],
+      [
+         [
+           "diode_nd2ps_06v0:21",
+           [
+             ["area", "9.999999e-11"],
+             ["(no matching parameter)", "(no value)"],
+             ["(no matching parameter)", "(no value)"]
+           ]
+         ],
+         [
+           "io_secondary_5p0:x_esd_S1P/diode_nd2ps_06v0:5",
+           [
+             ["(no matching parameter)", "(no value)"],
+             ["P", "4e-5"],
+             ["A", "1e-10"]
+           ]
+         ]
+      ],
+      [
+         [
+           "diode_nd2ps_06v0:13",
+           [
+             ["area", "9.999999e-11"],
+             ["(no matching parameter)", "(no value)"],
+             ["(no matching parameter)", "(no value)"]
+           ]
+         ],
+         [
+           "io_secondary_5p0:x_esd_S2P/diode_nd2ps_06v0:5",
+           [
+             ["(no matching parameter)", "(no value)"],
+             ["P", "4e-5"],
+             ["A", "1e-10"]
+           ]
+         ]
+      ],
+      [
+         [
+           "diode_nd2ps_06v0:3",
+           [
+             ["area", "9.999999e-11"],
+             ["(no matching parameter)", "(no value)"],
+             ["(no matching parameter)", "(no value)"]
+           ]
+         ],
+         [
+           "io_secondary_5p0:x_esd_S3P/diode_nd2ps_06v0:5",
+           [
+             ["(no matching parameter)", "(no value)"],
+             ["P", "4e-5"],
+             ["A", "1e-10"]
+           ]
+         ]
+      ],
+      [
+         [
+           "diode_nd2ps_06v0:17",
+           [
+             ["area", "9.999999e-11"],
+             ["(no matching parameter)", "(no value)"],
+             ["(no matching parameter)", "(no value)"]
+           ]
+         ],
+         [
+           "io_secondary_5p0:x_esd_S4P/diode_nd2ps_06v0:5",
+           [
+             ["(no matching parameter)", "(no value)"],
+             ["P", "4e-5"],
+             ["A", "1e-10"]
+           ]
+         ]
+      ],
+      [
+         [
+           "diode_nd2ps_06v0:12",
+           [
+             ["area", "9.999999e-11"],
+             ["(no matching parameter)", "(no value)"],
+             ["(no matching parameter)", "(no value)"]
+           ]
+         ],
+         [
+           "io_secondary_5p0:x_esd_Z/diode_nd2ps_06v0:5",
+           [
+             ["(no matching parameter)", "(no value)"],
+             ["P", "4e-5"],
+             ["A", "1e-10"]
+           ]
+         ]
+      ],
+      [
+         [
+           "diode_nd2ps_06v0:15",
+           [
+             ["area", "9.999999e-11"],
+             ["(no matching parameter)", "(no value)"],
+             ["(no matching parameter)", "(no value)"]
+           ]
+         ],
+         [
+           "io_secondary_5p0:x_esd_X/diode_nd2ps_06v0:5",
+           [
+             ["(no matching parameter)", "(no value)"],
+             ["P", "4e-5"],
+             ["A", "1e-10"]
+           ]
+         ]
+      ],
+      [
+         [
+           "diode_nd2ps_06v0:2",
+           [
+             ["area", "9.999999e-11"],
+             ["(no matching parameter)", "(no value)"],
+             ["(no matching parameter)", "(no value)"]
+           ]
+         ],
+         [
+           "io_secondary_5p0:x_esd_Y/diode_nd2ps_06v0:5",
+           [
+             ["(no matching parameter)", "(no value)"],
+             ["P", "4e-5"],
+             ["A", "1e-10"]
+           ]
+         ]
+      ],
+      [
+         [
+           "diode_pd2nw_06v0:18",
+           [
+             ["area", "9.999999e-11"],
+             ["(no matching parameter)", "(no value)"],
+             ["(no matching parameter)", "(no value)"]
+           ]
+         ],
+         [
+           "io_secondary_5p0:x_esd_S1P/diode_pd2nw_06v0:1",
+           [
+             ["(no matching parameter)", "(no value)"],
+             ["P", "4e-5"],
+             ["A", "1e-10"]
+           ]
+         ]
+      ],
+      [
+         [
+           "diode_pd2nw_06v0:9",
+           [
+             ["area", "9.999999e-11"],
+             ["(no matching parameter)", "(no value)"],
+             ["(no matching parameter)", "(no value)"]
+           ]
+         ],
+         [
+           "io_secondary_5p0:x_esd_S2P/diode_pd2nw_06v0:1",
+           [
+             ["(no matching parameter)", "(no value)"],
+             ["P", "4e-5"],
+             ["A", "1e-10"]
+           ]
+         ]
+      ],
+      [
+         [
+           "diode_pd2nw_06v0:43",
+           [
+             ["area", "9.999999e-11"],
+             ["(no matching parameter)", "(no value)"],
+             ["(no matching parameter)", "(no value)"]
+           ]
+         ],
+         [
+           "io_secondary_5p0:x_esd_S3P/diode_pd2nw_06v0:1",
+           [
+             ["(no matching parameter)", "(no value)"],
+             ["P", "4e-5"],
+             ["A", "1e-10"]
+           ]
+         ]
+      ],
+      [
+         [
+           "diode_pd2nw_06v0:10",
+           [
+             ["area", "9.999999e-11"],
+             ["(no matching parameter)", "(no value)"],
+             ["(no matching parameter)", "(no value)"]
+           ]
+         ],
+         [
+           "io_secondary_5p0:x_esd_S4P/diode_pd2nw_06v0:1",
+           [
+             ["(no matching parameter)", "(no value)"],
+             ["P", "4e-5"],
+             ["A", "1e-10"]
+           ]
+         ]
+      ],
+      [
+         [
+           "diode_pd2nw_06v0:40",
+           [
+             ["area", "9.999999e-11"],
+             ["(no matching parameter)", "(no value)"],
+             ["(no matching parameter)", "(no value)"]
+           ]
+         ],
+         [
+           "io_secondary_5p0:x_esd_S1N/diode_pd2nw_06v0:1",
+           [
+             ["(no matching parameter)", "(no value)"],
+             ["P", "4e-5"],
+             ["A", "1e-10"]
+           ]
+         ]
+      ],
+      [
+         [
+           "diode_pd2nw_06v0:8",
+           [
+             ["area", "9.999999e-11"],
+             ["(no matching parameter)", "(no value)"],
+             ["(no matching parameter)", "(no value)"]
+           ]
+         ],
+         [
+           "io_secondary_5p0:x_esd_S2N/diode_pd2nw_06v0:1",
+           [
+             ["(no matching parameter)", "(no value)"],
+             ["P", "4e-5"],
+             ["A", "1e-10"]
+           ]
+         ]
+      ],
+      [
+         [
+           "diode_pd2nw_06v0:45",
+           [
+             ["area", "9.999999e-11"],
+             ["(no matching parameter)", "(no value)"],
+             ["(no matching parameter)", "(no value)"]
+           ]
+         ],
+         [
+           "io_secondary_5p0:x_esd_S3N/diode_pd2nw_06v0:1",
+           [
+             ["(no matching parameter)", "(no value)"],
+             ["P", "4e-5"],
+             ["A", "1e-10"]
+           ]
+         ]
+      ],
+      [
+         [
+           "diode_pd2nw_06v0:6",
+           [
+             ["area", "9.999999e-11"],
+             ["(no matching parameter)", "(no value)"],
+             ["(no matching parameter)", "(no value)"]
+           ]
+         ],
+         [
+           "io_secondary_5p0:x_esd_S4N/diode_pd2nw_06v0:1",
+           [
+             ["(no matching parameter)", "(no value)"],
+             ["P", "4e-5"],
+             ["A", "1e-10"]
+           ]
+         ]
+      ],
+      [
+         [
+           "diode_pd2nw_06v0:1",
+           [
+             ["area", "9.999999e-11"],
+             ["(no matching parameter)", "(no value)"],
+             ["(no matching parameter)", "(no value)"]
+           ]
+         ],
+         [
+           "io_secondary_5p0:x_esd_Z/diode_pd2nw_06v0:1",
+           [
+             ["(no matching parameter)", "(no value)"],
+             ["P", "4e-5"],
+             ["A", "1e-10"]
+           ]
+         ]
+      ],
+      [
+         [
+           "diode_pd2nw_06v0:35",
+           [
+             ["area", "9.999999e-11"],
+             ["(no matching parameter)", "(no value)"],
+             ["(no matching parameter)", "(no value)"]
+           ]
+         ],
+         [
+           "io_secondary_5p0:x_esd_Y/diode_pd2nw_06v0:1",
+           [
+             ["(no matching parameter)", "(no value)"],
+             ["P", "4e-5"],
+             ["A", "1e-10"]
+           ]
+         ]
+      ],
+      [
+         [
+           "diode_pd2nw_06v0:0",
+           [
+             ["area", "9.999999e-11"],
+             ["(no matching parameter)", "(no value)"],
+             ["(no matching parameter)", "(no value)"]
+           ]
+         ],
+         [
+           "io_secondary_5p0:x_esd_X/diode_pd2nw_06v0:1",
+           [
+             ["(no matching parameter)", "(no value)"],
+             ["P", "4e-5"],
+             ["A", "1e-10"]
+           ]
+         ]
+      ]
+   ],
+   "pins": [
+      [
+        "S1P",
+        "S2P",
+        "S3P",
+        "S4P",
+        "S1N",
+        "S2N",
+        "S3N",
+        "S4N",
+        "Z",
+        "X",
+        "Y",
+        "XN_OUT",
+        "YN_OUT",
+        "ZN_OUT",
+        "VDD",
+        "VSS",
+        "ZP_OUT",
+        "XP_OUT",
+        "YP_OUT",
+        "XN_IN",
+        "XP_IN",
+        "YN_IN",
+        "YP_IN"
+      ], [
+        "S1P",
+        "S2P",
+        "S3P",
+        "S4P",
+        "S1N",
+        "S2N",
+        "S3N",
+        "S4N",
+        "Z",
+        "X",
+        "Y",
+        "XN_OUT",
+        "YN_OUT",
+        "ZN_OUT",
+        "VDD",
+        "VSS",
+        "ZP_OUT",
+        "XP_OUT",
+        "YP_OUT",
+        "XN_IN",
+        "XP_IN",
+        "YN_IN",
+        "YP_IN"
+      ]
+   ]
+  }
+]

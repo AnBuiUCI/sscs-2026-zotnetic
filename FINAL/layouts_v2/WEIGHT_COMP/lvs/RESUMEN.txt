@@ -1,9 +1,9 @@
 bloque : WEIGHT_COMP
-fecha  : 2026-08-29 15:03:54
+fecha  : 2026-08-29 18:11:01
 GDS    : /foss/designs/a_zonetic2026/layouts_v2/WEIGHT_COMP/WEIGHT_COMP_flat_gf180.gds
 ref    : /foss/designs/a_zonetic2026/layouts_v2/WEIGHT_COMP/WEIGHT_COMP_lvs.spice
 sustrato: VSS
 hoja poly: n/a
 setup netgen: /foss/pdks/gf180mcuD/libs.tech/netgen/gf180mcuD_setup.tcl
-KLayout: NO CASAN
-netgen : NO CASAN
+KLayout: LIMPIO
+netgen : CASAN

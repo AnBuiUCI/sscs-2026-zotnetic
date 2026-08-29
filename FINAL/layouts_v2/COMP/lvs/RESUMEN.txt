@@ -1,5 +1,5 @@
 bloque : COMP
-fecha  : 2026-08-29 10:31:51
+fecha  : 2026-08-29 18:10:11
 GDS    : /foss/designs/a_zonetic2026/layouts_v2/COMP/COMP_flat_gf180.gds
 ref    : /foss/designs/a_zonetic2026/layouts_v2/COMP/COMP_lvs.spice
 sustrato: VSS

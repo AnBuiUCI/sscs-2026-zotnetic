@@ -17,9 +17,9 @@ Z                                          |Z
 Y                                          |Y                                          
 X                                          |X                                          
 VDD                                        |VDD                                        
+XY                                         |XY                                         
 YZ                                         |YZ                                         
 XZ                                         |XZ                                         
-XY                                         |XY                                         
 ---------------------------------------------------------------------------------------
 Cell pin lists are equivalent.
 Device classes DECODER and DECODER are equivalent.
