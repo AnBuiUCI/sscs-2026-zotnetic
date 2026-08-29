@@ -33,9 +33,16 @@ project:
 # Pin definitions
 # ======================================================
 #
-# Top cell: GRADIENT_NAV2
-# GDS:      FINAL/openroad/out_v2_GRADIENT_NAV2/GRADIENT_NAV2_filled.gds
+# Top cell: B26_A -- the padring's user area, with GRADIENT_NAV2 inside it
+# GDS:      FINAL/openroad/out_integration/B26_A_filled.gds
 #           (also reached through lvs_config.json -> LAYOUT_FILE)
+#
+# The block on its own is still built and checked as GRADIENT_NAV2
+# (FINAL/openroad/out_v2_GRADIENT_NAV2/), but what is submitted is the
+# integrated area: our macro, the routing out to the 73 pins of the ring and
+# the tie-offs that program the six digital pads. The LVS reference is
+# verilog/B26_A.v, which carries that programming, plus the block's own
+# GRADIENT_NAV2_lvs.spice.
 #
 # ORDER. The padring assigns one slot per entry, in this order, so the list is
 # the pad map. Two rules from resources/info.yaml of the chipathon repo:

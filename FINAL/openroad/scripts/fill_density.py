@@ -174,15 +174,69 @@ def rejilla(zona: kdb.Region, lado: float, pitch: float, die: kdb.DBox) -> kdb.R
     failed before -- clipping produced 0.1 um necks and pieces below minimum
     area, and DRC flagged thousands of `M*.1` and `M*.3`.
     """
+    #  The coordinate comes from the INDEX, not from accumulating `pitch`.
+    #  Accumulating drifts by a nanometre here and there once the boxes are
+    #  snapped to the 1 nm grid, and `emitir()` then sees a step that is not
+    #  exactly the pitch and cannot fold the row into an array reference.
     cuadros = kdb.Region()
-    y = die.bottom + pitch / 2
-    while y + lado <= die.top:
-        x = die.left + pitch / 2
-        while x + lado <= die.right:
+    y0, x0 = die.bottom + pitch / 2, die.left + pitch / 2
+    j = 0
+    while y0 + j * pitch + lado <= die.top:
+        y = y0 + j * pitch
+        i = 0
+        while x0 + i * pitch + lado <= die.right:
+            x = x0 + i * pitch
             cuadros.insert(kdb.DBox(x, y, x + lado, y + lado).to_itype(1e-3))
-            x += pitch
-        y += pitch
+            i += 1
+        j += 1
     return cuadros.inside(zona)
+
+
+def emitir(top, layout, capa: int, puesto: kdb.Region, lado: float,
+           pitch: float, nombre: str) -> int:
+    """Write the fill as ARRAY REFERENCES, not as loose polygons.
+
+    Over the padring's whole 1110 x 1110 um user area the fill is 7.8 M
+    squares. Written one boundary record each that is a **510 MB** GDS: past
+    GitHub's 100 MB per-file limit, and slow for every tool that has to read
+    it. The squares sit on a regular grid by construction, so each run of
+    consecutive ones in a row collapses into a single AREF -- identical
+    geometry once flattened, two orders of magnitude smaller on disk.
+
+    Returns how many squares were written, so the caller can check nothing was
+    lost on the way.
+    """
+    #  Regions here are on the 1 nm grid; the layout may not be (B26_A is at
+    #  0.5 nm). `f` converts one into the other.
+    f = 0.001 / layout.dbu
+    dbu = lambda v: int(round(v * f))                              # noqa: E731
+    celda = layout.create_cell(f"FILL_{nombre}")
+    celda.shapes(capa).insert(kdb.Box(0, 0, dbu(lado * 1000), dbu(lado * 1000)))
+
+    paso = dbu(round(pitch * 1000))
+    filas: dict[int, list[int]] = {}
+    for p in puesto.each():
+        b = p.bbox()
+        filas.setdefault(dbu(b.bottom), []).append(dbu(b.left))
+
+    puestos = 0
+    for y, xs in sorted(filas.items()):
+        xs.sort()
+        i = 0
+        while i < len(xs):
+            j = i
+            #  Exact equality on purpose: an array whose vector is off by a
+            #  nanometre puts every square after the first in the wrong place.
+            #  A broken run just costs one more AREF.
+            while j + 1 < len(xs) and xs[j + 1] - xs[j] == paso:
+                j += 1
+            n = j - i + 1
+            top.insert(kdb.CellInstArray(
+                celda.cell_index(), kdb.Trans(kdb.Vector(xs[i], y)),
+                kdb.Vector(paso, 0), kdb.Vector(0, paso), n, 1))
+            puestos += n
+            i = j + 1
+    return puestos
 
 
 def main() -> int:
@@ -228,17 +282,18 @@ def main() -> int:
         #  The side is raised until the rule passes. The step is tied to the
         #  side, so a bigger square is more coverage and neighbour spacing always
         #  stays at the layer's spacing.
-        def buscar(z: kdb.Region) -> kdb.Region:
+        def buscar(z: kdb.Region) -> tuple[kdb.Region, float, float]:
             puesto, lado = kdb.Region(), lado_min
+            pitch = lado + sep_relleno + PASO_HOLGURA
             while lado <= lado_min * LADO_FACTOR + 1e-9:
                 pitch = lado + sep_relleno + PASO_HOLGURA
                 puesto = rejilla(z, lado, pitch, die)
                 if 100 * (real.area() + puesto.area()) / 1e6 / area_die >= minimo:
                     break
                 lado += 0.20
-            return puesto
+            return puesto, lado, pitch
 
-        puesto = buscar(zona)
+        puesto, lado, pitch = buscar(zona)
         #  If channels are not enough, fill also goes OVER the macros, but only
         #  on that layer and only where needed. GRADIENT_NAV2 is 22 % bigger than
         #  GRADIENT_NAV with the same macros inside, so its metals 2 to 5 fall
@@ -253,14 +308,14 @@ def main() -> int:
             ampliada = kdb.Region(dentro.to_itype(1e-3)) - real.sized(int(guarda * 1000))
             ampliada -= prohibido_mim
             ampliada.merge()
-            otro = buscar(ampliada)
+            otro, otro_lado, otro_pitch = buscar(ampliada)
             if otro.area() > puesto.area():
-                puesto, encima = otro, True
+                puesto, lado, pitch, encima = otro, otro_lado, otro_pitch, True
 
         capa_dummy = layout.layer(gl, 4)
-        for p in puesto.each():
-            top.shapes(capa_dummy).insert(p.transformed(
-                kdb.ICplxTrans(0.001 / layout.dbu)))
+        escritos = emitir(top, layout, capa_dummy, puesto, lado, pitch, name)
+        assert escritos == puesto.count(), (
+            f"{name}: {escritos} squares written of {puesto.count()}")
 
         despues = 100 * (real.area() + puesto.area()) / 1e6 / area_die
         ok = despues >= minimo

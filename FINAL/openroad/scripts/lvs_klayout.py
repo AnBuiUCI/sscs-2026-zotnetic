@@ -38,6 +38,14 @@ RUNNER = "/foss/pdks/gf180mcuD/libs.tech/klayout/tech/lvs/run_lvs.py"
 #: Top reference: the netlist xschem exports from the schematic.
 REF_TOP = PROJECT / f"XSCHEM/simulation/{TOP}.sch/{TOP}.spice"
 
+#  B26_A, the padring's user area, has NO schematic: it is derived by
+#  `scripts/integrate_padframe.py` from the ring and info.yaml. Its reference is
+#  written by `scripts/lvs_reference_integration.py` instead, and it is already
+#  flat and already patched, so `prepare()` must not run over it again.
+REF_GENERADA = OUT / f"{TOP}_lvs.spice"
+if not REF_TOP.exists() and REF_GENERADA.exists():
+    REF_TOP = REF_GENERADA
+
 TARGETS = {
     TOP: (OUT / f"{TOP}.gds", REF_TOP),
     #  The top with decoupling and the top with density fill. All three share
