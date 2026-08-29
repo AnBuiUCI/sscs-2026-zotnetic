@@ -3,8 +3,8 @@ PDK: gf180
 Transistores: 50
 Nets: 37
 Nets abutidas (difusion compartida): ['x1_net1', 'x1_net2', 'x1_net3', 'x1_net4', 'x1_net5', 'x1_net6', 'x2_net1', 'x2_net13', 'x2_net14', 'x2_net15', 'x2_net16', 'x2_net17', 'x2_net18', 'x2_net19', 'x2_net2', 'x2_net20', 'x2_net7', 'x2_net8']
-Ancho de la celda: 97.49 um
-Tamano total: 99.75 x 31.46 um
+Ancho de la celda: 97.37 um
+Tamano total: 99.63 x 31.46 um
 
 ## Transistores
   XM4    PFET pfet_06v0                W=10u L=1u nf=1

@@ -2,35 +2,35 @@
 PDK: gf180
 Transistores: 53
 Nets: 37
-Nets abutidas (difusion compartida): ['G_OUT_P', 'net10', 'net13', 'net14', 'net16', 'net17', 'net18', 'net19', 'net2', 'net20', 'net21', 'net22', 'net23', 'net25', 'net26', 'net27', 'net28', 'net29', 'net30', 'net31', 'net5', 'net7', 'net8', 'net9']
-Ancho de la celda: 85.05 um
-Tamano total: 87.31 x 47.85 um
+Nets abutidas (difusion compartida): ['net16', 'net17', 'net18', 'net19', 'net2', 'net20', 'net21', 'net22', 'net23', 'net26', 'net27', 'net28', 'net29', 'net30', 'net31', 'net5', 'net8', 'net9']
+Ancho de la celda: 93.62 um
+Tamano total: 95.88 x 48.05 um
 
 ## Transistores
   XM11   PFET pfet_06v0                W=10u L=1u nf=1
   XM12   PFET pfet_06v0                W=10u L=1u nf=1
   XM13   PFET pfet_06v0                W=10u L=1u nf=1
   XM14   PFET pfet_06v0                W=10u L=1u nf=1
-  XM15   PFET pfet_06v0                W=1.1u L=1u nf=1
-  XM16   PFET pfet_06v0                W=1u L=1u nf=1
+  XM15   PFET pfet_06v0                W=0.55u L=1u nf=1
+  XM16   PFET pfet_06v0                W=0.5u L=1u nf=1
   XM17   NFET nfet_06v0                W=5u L=1u nf=1
   XM18   NFET nfet_06v0                W=5u L=1u nf=1
   XM19   NFET nfet_06v0                W=5u L=1u nf=1
   XM20   NFET nfet_06v0                W=5u L=1u nf=1
-  XM21   NFET nfet_06v0                W=1u L=1u nf=1
-  XM22   NFET nfet_06v0                W=1u L=1u nf=1
-  XM29   PFET pfet_06v0                W=5u L=1u nf=1
-  XM30   PFET pfet_06v0                W=5u L=1u nf=1
+  XM21   NFET nfet_06v0                W=7.5u L=1u nf=1
+  XM22   NFET nfet_06v0                W=8.5u L=1u nf=1
+  XM29   PFET pfet_06v0                W=10u L=1u nf=1
+  XM30   PFET pfet_06v0                W=10u L=1u nf=1
   XM31   PFET pfet_06v0                W=5u L=1u nf=1
   XM35   PFET pfet_06v0                W=5u L=1u nf=1
-  XM32   PFET pfet_06v0                W=5u L=1u nf=1
-  XM33   PFET pfet_06v0                W=5u L=1u nf=1
+  XM32   PFET pfet_06v0                W=4u L=1u nf=1
+  XM33   PFET pfet_06v0                W=4u L=1u nf=1
   XM23   NFET nfet_06v0                W=2.5u L=1u nf=1
   XM24   NFET nfet_06v0                W=2.5u L=1u nf=1
   XM25   NFET nfet_06v0                W=2.5u L=1u nf=1
   XM26   NFET nfet_06v0                W=2.5u L=1u nf=1
-  XM27   NFET nfet_06v0                W=2.5u L=1u nf=1
-  XM28   NFET nfet_06v0                W=2.5u L=1u nf=1
+  XM27   NFET nfet_06v0                W=2u L=1u nf=1
+  XM28   NFET nfet_06v0                W=2u L=1u nf=1
   XM34   PFET pfet_06v0                W=10u L=1u nf=1
   XM36   PFET pfet_06v0                W=10u L=1u nf=1
   XM37   PFET pfet_06v0                W=10u L=1u nf=1
@@ -41,10 +41,10 @@ Tamano total: 87.31 x 47.85 um
   XM40   NFET nfet_06v0                W=5u L=1u nf=1
   XM41   NFET nfet_06v0                W=5u L=1u nf=1
   XM42   NFET nfet_06v0                W=5u L=1u nf=1
-  XM43_m1 PFET pfet_06v0                W=0.5u L=1u nf=1
-  XM43_m2 PFET pfet_06v0                W=0.5u L=1u nf=1
-  XM43_m3 PFET pfet_06v0                W=0.5u L=1u nf=1
-  XM43_m4 PFET pfet_06v0                W=0.5u L=1u nf=1
+  XM43_m1 PFET pfet_06v0                W=1u L=1u nf=1
+  XM43_m2 PFET pfet_06v0                W=1u L=1u nf=1
+  XM43_m3 PFET pfet_06v0                W=1u L=1u nf=1
+  XM43_m4 PFET pfet_06v0                W=1u L=1u nf=1
   XM44   NFET nfet_06v0                W=1u L=1u nf=1
   XM4    PFET pfet_06v0                W=10u L=1u nf=1
   XM5    PFET pfet_06v0                W=10u L=1u nf=1
@@ -67,20 +67,20 @@ Tamano total: 87.31 x 47.85 um
   net6    : XM12.gate, XM14.gate, XM29.gate, XM30.gate, XM36.gate, XM46.gate, XM5.gate, XM8.gate, XM1.drain, XM1.gate, XM3.gate, XM47.gate, XM48.gate, XM49.drain, XM49.gate, XM50.gate
   net4    : XM17.gate, XM19.gate, XM23.gate, XM24.gate, XM38.gate, XM41.gate, XM5.drain, XM6.drain, XM6.gate, XM9.gate
   net1    : XM11.gate, XM13.gate, XM45.gate, XM4.gate, XM7.gate, XM2.gate, XM3.drain, XM50.drain
-  G_OUT_P  [ABUTIDA]: XM30.drain, XM33.source, XM28.drain, XM43_m1.gate, XM43_m2.gate, XM43_m3.gate, XM43_m4.gate
+  G_OUT_P : XM30.drain, XM33.source, XM28.drain, XM43_m1.gate, XM43_m2.gate, XM43_m3.gate, XM43_m4.gate
   net3    : XM18.gate, XM20.gate, XM39.gate, XM8.drain, XM9.drain, XM10.gate
-  net13    [ABUTIDA]: XM29.drain, XM31.gate, XM35.gate, XM32.source, XM27.drain
-  net14    [ABUTIDA]: XM32.drain, XM23.drain, XM25.gate, XM26.gate, XM27.source
+  net13   : XM29.drain, XM31.gate, XM35.gate, XM32.source, XM27.drain
+  net14   : XM32.drain, XM23.drain, XM25.gate, XM26.gate, XM27.source
   net24   : XM32.gate, XM33.gate, XM37.drain, XM37.gate, XM38.drain
   net15   : XM27.gate, XM28.gate, XM46.drain, XM40.drain, XM40.gate
   OUT     : XM43_m1.drain, XM43_m2.drain, XM43_m3.drain, XM43_m4.drain, XM44.drain
   net11   : XM12.drain, XM14.drain, XM15.source, XM16.source
   net12   : XM17.drain, XM19.drain, XM21.source, XM22.source
-  net25    [ABUTIDA]: XM33.drain, XM24.drain, XM28.source, XM44.gate
+  net25   : XM33.drain, XM24.drain, XM28.source, XM44.gate
   net9     [ABUTIDA]: XM15.drain, XM24.source, XM26.drain
   net8     [ABUTIDA]: XM16.drain, XM23.source, XM25.drain
-  net10    [ABUTIDA]: XM21.drain, XM30.source, XM35.drain
-  net7     [ABUTIDA]: XM22.drain, XM29.source, XM31.drain
+  net10   : XM21.drain, XM30.source, XM35.drain
+  net7    : XM22.drain, XM29.source, XM31.drain
   net17    [ABUTIDA]: XM34.gate, XM36.drain, XM37.source
   net21    [ABUTIDA]: XM40.source, XM41.drain, XM42.gate
   net5     [ABUTIDA]: XM11.drain, XM12.source

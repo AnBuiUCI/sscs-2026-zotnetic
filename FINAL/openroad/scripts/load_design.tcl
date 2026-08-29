@@ -42,9 +42,16 @@ read_lef lef/vias.lef
 #  Globbed, not listed: a block with no layout yet has no LEF, and hard-coding
 #  the names would fail here instead of where the missing block actually is —
 #  link_design, which names the instance it cannot bind.
+#  AND NOT THE ABSTRACT OF THE TOP ITSELF. `scripts/macro_lef.py` writes
+#  lef/<TOP>.lef so the padring integration can place this design as a macro.
+#  Reading it back in while BUILDING that same design is worse than useless:
+#  OpenROAD binds every instance to the LEF MACRO of the same name, so the top
+#  would bind to a leaf cell of itself. It also has no lib/<TOP>.lib, which is
+#  how it announced itself -- "cannot read file lib/GRADIENT_NAV2.lib".
 foreach lef [lsort [glob -nocomplain lef/*.lef]] {
     if {[file tail $lef] eq "vias.lef"} { continue }   ;# ya leido arriba
     set macro [file rootname [file tail $lef]]
+    if {$macro eq $DESIGN_TOP} { continue }
     read_lef     $lef
     read_liberty lib/$macro.lib
 }

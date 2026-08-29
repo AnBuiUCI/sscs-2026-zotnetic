@@ -1,0 +1,25 @@
+2026-08-29_01 -- B26_A_filled.gds
+=================================
+
+source      openroad/out_integration/B26_A_filled.gds
+written     2026-08-29 03:21
+size        42,534,814 bytes raw, 7,772,197 gzipped
+sha256      ec44231e6bffd01ad2c1b572855c17582732dda3678c2cad155ce317555fdf78
+
+DRC         57 violations: M2.2b x57
+density     no ratios in the log
+LVS         not run
+
+what changed
+------------
+First integrated area on record, and the one that is on GitHub as of this
+commit. GRADIENT_NAV2 still had the eleven hand-drawn ESD_CDM clamps INSIDE it,
+the amplifier was on the 1 kohm sheet, and the density fill had been run.
+
+Its DRC is the reason the next version exists: 57 x M2.2b. The Metal2 fill was
+placed with 0.28 um of guard, which is M2.2a, the base spacing; the 73 pin ports
+of the ring are Metal2 of 44 x 55 um and therefore wide metal, where M2.2b asks
+0.30. Five rule tables (ldnmos, dnwell, nwell, ldpmos, mslot) also died with
+exit 137 -- out of memory -- under --mp=2 --run_mode=flat, and had to be re-run
+one at a time in deep mode to complete the 63.
+

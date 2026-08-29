@@ -1,0 +1,4 @@
+Versions of the integrated area, newest first.
+Written by openroad/scripts/archivar_integracion.py -- do not edit by hand.
+
+2026-08-29_01  B26_A_filled.gds       DRC 57 violations: M2.2b x57                 LVS not run

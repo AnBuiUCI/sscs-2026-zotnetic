@@ -72,14 +72,24 @@ GAPS = OUT / "decap_gaps.txt"
 #: so the `MT.*` rules apply and not the `M5.*` ones -- 0.36 minimum width,
 #: 0.46 spacing and 0.5625 um2 area (exactly a 0.75 square). 0.80 a side is used
 #: so as not to depend on rounding.
+#: THE GUARD IS THE **WIDE-METAL** SPACING, NOT THE BASE ONE. Every metal layer
+#: has two spacing rules and they differ: `M2.2a` asks 0.28 between any two
+#: shapes, but `M2.2b` asks **0.30 to metal wider than 10 um in both
+#: directions**. The 73 pin ports of the padring are Metal2 of 44 x 55 um, so
+#: they are "wide" by definition, and 57 fill squares landed at 0.28 of one --
+#: 57 x `M2.2b` on the integrated area, the only real DRC finding of the run.
+#: Metal1, 3 and 4 carry the same 0.30 (`M*.2b`); Metal5 carries 0.50, which is
+#: `MT.2b`, because for the 5-metal stack `top_metal = metal5`.
+#: The spacing BETWEEN fill squares (next column) stays at the base rule: a
+#: 0.40 square is not wide metal, so between them `M*.2a` is what applies.
 LAYERS = [
     ("COMP",   22, 25.0, 0.40, 0.40, 1.00, "DCF.1b"),
     ("Poly2",  30, 14.0, 5.00, 2.40, 5.60, "PL.8 / DPF.1 / DPF.2a / DPF.5"),
-    ("Metal1", 34, 30.0, 0.23, 0.23, 0.40, "M1.4"),
-    ("Metal2", 36, 30.0, 0.28, 0.28, 0.40, "M2.4"),
-    ("Metal3", 42, 30.0, 0.28, 0.28, 0.40, "M3.4"),
-    ("Metal4", 46, 30.0, 0.28, 0.28, 0.40, "M4.4"),
-    ("Metal5", 81, 30.0, 0.46, 0.46, 0.80, "M5.4 / MT.3 / MT.1"),
+    ("Metal1", 34, 30.0, 0.30, 0.23, 0.40, "M1.4 / M1.2b"),
+    ("Metal2", 36, 30.0, 0.30, 0.28, 0.40, "M2.4 / M2.2b"),
+    ("Metal3", 42, 30.0, 0.30, 0.28, 0.40, "M3.4 / M3.2b"),
+    ("Metal4", 46, 30.0, 0.30, 0.28, 0.40, "M4.4 / M4.2b"),
+    ("Metal5", 81, 30.0, 0.50, 0.46, 0.80, "M5.4 / MT.3 / MT.1 / MT.2b"),
 ]
 
 #: MIM markers. `MIMTM.1` asks 1.2 um from the plate to any other metal4, and
@@ -100,6 +110,20 @@ PASO_HOLGURA = 0.05
 #: touch the edge on purpose -- that is the way in -- but the fill has no
 #: no.
 BORDE_DIE = 2.0
+
+#: **NOTHING GETS FILLED NEAR A PAD.** Clearance from every top-level pin port,
+#: on every layer, over and above whatever the spacing rule asks for.
+#:
+#: The rules alone are not the point here. A pad is where the outside world
+#: touches the die: the wire bonds to it, the probe lands on it, and the ESD
+#: event arrives through it. Floating dummy metal parked half a micron away is
+#: capacitance onto the one node whose impedance matters, an extra edge for a
+#: discharge to jump to, and something for a probe tip to scrape into. It also
+#: was, literally, the DRC failure of this design: all 57 violations of the
+#: first filled integration were `M2.2b` between a fill square and a pin port.
+#: Widening the guard to 0.30 makes those legal; keeping the fill away from the
+#: pads altogether makes them not happen.
+PAD_CLEAR = 3.0
 
 
 def region(cell, layer_index, dbu: float) -> kdb.Region:
@@ -143,6 +167,34 @@ def colocacion(defpath: Path | None = None) -> list[tuple[str, str, float, float
         x, y = int(m.group(3)) / unidades, int(m.group(4)) / unidades
         w, h = tam[cell]
         out.append((m.group(1), cell, x, y, w, h))
+    return out
+
+
+def zona_pines(defpath: Path | None = None) -> kdb.Region:
+    """Every rectangle of every top-level PIN, from the DEF.
+
+    Read from the DEF and not from the GDS labels because a pin is a set of
+    boxes the padring dictates -- an analogue pad is a comb of eight of them --
+    and the GDS keeps only their union with everything else on the same metal.
+
+    Returns an empty region when there is no DEF, which is the block case: a
+    block's ports are not pads and this does not apply to them.
+    """
+    path = defpath or DEF
+    if not path.exists():
+        return kdb.Region()
+    texto = path.read_text()
+    if "PINS" not in texto:
+        return kdb.Region()
+    unidades = float(re.search(r"UNITS DISTANCE MICRONS (\d+)", texto).group(1))
+    bloque = texto[texto.index("\nPINS "):texto.index("END PINS")]
+    out = kdb.Region()
+    for m in re.finditer(r"\+ LAYER \S+ \(\s*(-?\d+)\s+(-?\d+)\s*\)"
+                         r"\s*\(\s*(-?\d+)\s+(-?\d+)\s*\)", bloque):
+        x0, y0, x1, y1 = (int(v) / unidades for v in m.groups())
+        out.insert(kdb.DBox(min(x0, x1), min(y0, y1),
+                            max(x0, x1), max(y0, y1)).to_itype(1e-3))
+    out.merge()
     return out
 
 
@@ -256,11 +308,18 @@ def main() -> int:
     macros = huella_macros()
     mim = region(top, layout.layer(*CAP_MK), layout.dbu)
     prohibido_mim = mim.sized(int(MIM_CLEAR * 1000))
+    #  The pads, and PAD_CLEAR around them. Placed relative to the DEF pins, so
+    #  the boxes are the ones the padring dictates and not our guess at them.
+    pines = zona_pines()
+    prohibido_pad = pines.sized(int(PAD_CLEAR * 1000))
 
     libre_total = kdb.Region(die.to_itype(1e-3)) - macros
     print(f"  parte de {GDS_IN.name}")
     print(f"  die {die.width():.2f} x {die.height():.2f} = {area_die:,.0f} um2   "
           f"macros {macros.area()/1e6:,.0f}   libre {libre_total.area()/1e6:,.0f}")
+    if not pines.is_empty():
+        print(f"  pads {pines.count()} rectangulos, {PAD_CLEAR} um de guarda "
+              f"-> {prohibido_pad.area()/1e6:,.0f} um2 vedados")
     print(f"  fill {'in channels AND over the macros' if sobre_macros else 'in channels only'}\n")
     print(f"    {'layer':7s} {'regla':12s} {'antes':>7s} {'despues':>8s} {'pide':>5s}   estado")
 
@@ -277,6 +336,7 @@ def main() -> int:
         if not sobre_macros:
             zona -= macros
         zona -= prohibido_mim
+        zona -= prohibido_pad
         zona.merge()
 
         #  The side is raised until the rule passes. The step is tied to the
@@ -307,6 +367,7 @@ def main() -> int:
                 and 100 * (real.area() + puesto.area()) / 1e6 / area_die < minimo):
             ampliada = kdb.Region(dentro.to_itype(1e-3)) - real.sized(int(guarda * 1000))
             ampliada -= prohibido_mim
+            ampliada -= prohibido_pad          # los pads no se pisan ni aqui
             ampliada.merge()
             otro, otro_lado, otro_pitch = buscar(ampliada)
             if otro.area() > puesto.area():

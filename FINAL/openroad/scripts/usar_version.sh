@@ -31,14 +31,46 @@ esac
 #  to the GRADIENT_NAV3
 #  top), so v1 does not link them and nothing is missed.
 BLOQUES="COMP DECODER OPAM OPAM_LIN_flat WEIGHT_COMP"
-[ "$V" = v2 ] && BLOQUES="$BLOQUES DECODER_MAX OPAM_SUMA ESD_CDM"
+#  io_secondary_5p0 is the organisers' cell, vendored (see
+#  layouts_v2/io_secondary_5p0/README_ORIGEN.txt). It is not instantiated by
+#  GRADIENT_NAV2 any more -- it goes one level up, next to the pads -- but
+#  def_to_gds.py demands a resolvable gds/<stem>.gds for EVERY lef/*.lef,
+#  used or not, so the link has to exist all the same.
+[ "$V" = v2 ] && BLOQUES="$BLOQUES DECODER_MAX OPAM_SUMA ESD_CDM io_secondary_5p0"
+#  BLOCKS PINNED TO v1, WHATEVER VERSION IS ASKED FOR. Empty, and here is the
+#  story of why it once was not, because the trap is easy to fall into again.
+#
+#  On 2026-08-29 the v2 OPAM_LIN_flat came out LVS-clean and DRC-DIRTY: 44
+#  violations, `PL.5a_MV` x6, `PL.5b_MV` x6, `CO.4` x26 and `M1.2a` x6, all at
+#  two places, x = 22.4 and x = 30.1 of the P row. v2's extra abutment had put
+#  two devices of DIFFERENT W into one shared block: the diffusion of the wider
+#  one runs past the narrower one's, and the narrower one's gate end cap -- 0.58
+#  um of poly beyond its own diffusion -- ends up as field poly 0.22 um from the
+#  wider one's COMP edge, where `PL.5*_MV` asks 0.30. LVS said nothing: it is
+#  geometry, not connectivity.
+#
+#  Pinning the block to v1 was tried first and DOES NOT WORK: `detailed_route`
+#  aborts with `DRT-0073 No access point for x1_x1/INN`. The Metal3 port pad is
+#  0.4 um tall against a 0.56 um track pitch, so whether a track crosses it
+#  depends on where the macro lands, and the two versions put that pad at
+#  different heights (20.69 in v1, 16.38 in v2).
+#
+#  The fix went where the problem was: `placement._can_join` now refuses to
+#  share a block between two devices of unequal W. v2 came back 95.88 x 48.05
+#  with 18 abutments instead of 24, 0 DRC violations and both LVS tools matching.
+PIN_V1=""
+
 for B in $BLOQUES; do
-    DST=../../$DIR/$B/${B}_flat_gf180.gds
-    REAL=$AQUI/../$DIR/$B/${B}_flat_gf180.gds
+    D=$DIR
+    case " $PIN_V1 " in *" $B "*) D=Layouts ;; esac
+    DST=../../$D/$B/${B}_flat_gf180.gds
+    REAL=$AQUI/../$D/$B/${B}_flat_gf180.gds
     if [ ! -s "$REAL" ]; then
         echo "  ERROR: $REAL does not exist" >&2; exit 1
     fi
     ln -sfn "$DST" "$AQUI/gds/$B.gds"
-    printf "  %-14s -> %s\n" "$B.gds" "$DST"
+    aviso=""
+    [ "$D" != "$DIR" ] && aviso="   (pinned to v1, see PIN_V1)"
+    printf "  %-18s -> %s%s\n" "$B.gds" "$DST" "$aviso"
 done
 echo "$V" > "$AQUI/gds/.version"

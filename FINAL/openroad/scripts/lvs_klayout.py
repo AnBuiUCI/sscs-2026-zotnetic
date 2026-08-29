@@ -35,16 +35,14 @@ TOP = os.environ.get("TOP_CELL", "GRADIENT_NAV")
 PROJECT = ROOT.parent
 RUNNER = "/foss/pdks/gf180mcuD/libs.tech/klayout/tech/lvs/run_lvs.py"
 
+#: Threads for the deck. Two, not four, for the same reason `drc_klayout.MP` is
+#: two: extracting the integrated area with its 7.8 M fill shapes does not fit
+#: four times over in 7 GB. `LVS_THR` raises it on a bigger machine.
+THR = os.environ.get("LVS_THR", "2")
+
 #: Top reference: the netlist xschem exports from the schematic.
 REF_TOP = PROJECT / f"XSCHEM/simulation/{TOP}.sch/{TOP}.spice"
 
-#  B26_A, the padring's user area, has NO schematic: it is derived by
-#  `scripts/integrate_padframe.py` from the ring and info.yaml. Its reference is
-#  written by `scripts/lvs_reference_integration.py` instead, and it is already
-#  flat and already patched, so `prepare()` must not run over it again.
-REF_GENERADA = OUT / f"{TOP}_lvs.spice"
-if not REF_TOP.exists() and REF_GENERADA.exists():
-    REF_TOP = REF_GENERADA
 
 TARGETS = {
     TOP: (OUT / f"{TOP}.gds", REF_TOP),
@@ -66,6 +64,8 @@ TARGETS = {
                 PROJECT / "layouts_v2/ESD_CDM/ESD_CDM_lvs.spice"),
     "OPAM_SUMA": (ROOT / "gds/OPAM_SUMA.gds",
                   PROJECT / "layouts_v2/OPAM_SUMA/OPAM_SUMA_lvs.spice"),
+    "io_secondary_5p0": (ROOT / "gds/io_secondary_5p0.gds",
+                        PROJECT / "layouts_v2/io_secondary_5p0/io_secondary_5p0_lvs.spice"),
 }
 
 
@@ -334,7 +334,7 @@ def main() -> int:
         r = subprocess.run(
             [sys.executable, RUNNER, f"--layout={gds.resolve()}",
              f"--netlist={ref}", "--variant=D", f"--topcell={cell}",
-             f"--run_dir={run}", "--run_mode=deep", "--thr=4",
+             f"--run_dir={run}", "--run_mode=deep", f"--thr={THR}",
              #  Without this the extracted netlist comes out as a bare `.SUBCKT
              #  GRADIENT_NAV`, without a single pin, and matching has nowhere to
              #  start: 1815 nets and 3414 devices, all unmatched.

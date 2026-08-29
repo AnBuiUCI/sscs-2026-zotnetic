@@ -1,10 +1,10 @@
 # Reporte de layout: WEIGHT_COMP
 PDK: gf180
-Transistores: 23
-Nets: 20
+Transistores: 25
+Nets: 21
 Nets abutidas (difusion compartida): ['x1_net4', 'x1_net7', 'x1_net8', 'x1_net9']
-Ancho de la celda: 34.72 um
-Tamano total: 37.17 x 25.00 um
+Ancho de la celda: 40.28 um
+Tamano total: 45.34 x 25.00 um
 
 ## Transistores
   XM2    PFET pfet_06v0                W=2u L=1u nf=6
@@ -24,6 +24,8 @@ Tamano total: 37.17 x 25.00 um
   XM15   NFET nfet_06v0                W=0.7u L=1u nf=1
   XM16   NFET nfet_06v0                W=0.7u L=1u nf=1
   XM17   NFET nfet_06v0                W=0.7u L=1u nf=1
+  XMF1   NFET nfet_06v0                W=2.48u L=1u nf=2
+  XMF2   NFET nfet_06v0                W=1.24u L=1u nf=1
   Mx2_x1_XM3 PFET pfet_05v0                W=1.83u L=0.5u nf=1
   Mx2_x1_XM4 NFET nfet_05v0                W=1.32u L=0.6u nf=1
   Mx2_x2_XM3 PFET pfet_05v0                W=1.83u L=0.5u nf=1
@@ -32,10 +34,10 @@ Tamano total: 37.17 x 25.00 um
   Mx2_x3_XM4 NFET nfet_05v0                W=1.32u L=0.6u nf=1
 
 ## Conexiones (net -> pines)
-  VSS      [POWER]: Mx1_XM3.bulk, XM5.bulk, XM6.source, XM6.bulk, XM1.bulk, XM7.bulk, XM8.source, XM8.bulk, XM9.bulk, XM10.source, XM10.bulk, XM11.bulk, XM12.source, XM12.bulk, Mx1_XM4.source, Mx1_XM4.bulk, XM14.bulk, XM15.bulk, XM16.bulk, XM17.source, XM17.bulk, Mx2_x1_XM4.source, Mx2_x1_XM4.bulk, Mx2_x2_XM4.source, Mx2_x2_XM4.bulk, Mx2_x3_XM4.source, Mx2_x3_XM4.bulk
-  VDD      [POWER]: XM2.source, XM2.bulk, XM13.source, XM13.bulk, Mx2_x1_XM3.source, Mx2_x1_XM3.bulk, Mx2_x2_XM3.source, Mx2_x2_XM3.bulk, Mx2_x3_XM3.source, Mx2_x3_XM3.bulk
-  WE      : XM2.drain, XM2.gate, Mx1_XM3.drain, XM5.drain, XM1.drain, XM1.gate, XM7.gate, XM8.gate, XM9.drain, XM11.drain, Mx2_x1_XM3.gate, Mx2_x1_XM4.gate
-  x1_IN   : XM6.gate, XM10.gate, XM12.gate, Mx1_XM4.gate, XM13.drain, XM13.gate, XM14.gate, XM15.gate, XM16.drain, XM16.gate, XM17.gate
+  VSS      [POWER]: Mx1_XM3.bulk, XM5.bulk, XM6.source, XM6.bulk, XM1.bulk, XM7.bulk, XM8.source, XM8.bulk, XM9.bulk, XM10.source, XM10.bulk, XM11.bulk, XM12.source, XM12.bulk, Mx1_XM4.source, Mx1_XM4.bulk, XM14.bulk, XM15.bulk, XM16.bulk, XM17.source, XM17.bulk, XMF1.bulk, XMF2.source, XMF2.bulk, Mx2_x1_XM4.source, Mx2_x1_XM4.bulk, Mx2_x2_XM4.source, Mx2_x2_XM4.bulk, Mx2_x3_XM4.source, Mx2_x3_XM4.bulk
+  VDD      [POWER]: XM2.source, XM2.bulk, XM13.source, XM13.bulk, XMF1.gate, Mx2_x1_XM3.source, Mx2_x1_XM3.bulk, Mx2_x2_XM3.source, Mx2_x2_XM3.bulk, Mx2_x3_XM3.source, Mx2_x3_XM3.bulk
+  WE      : XM2.drain, XM2.gate, Mx1_XM3.drain, XM5.drain, XM1.drain, XM1.gate, XM7.gate, XM8.gate, XM9.drain, XM11.drain, XMF1.drain, Mx2_x1_XM3.gate, Mx2_x1_XM4.gate
+  x1_IN   : XM6.gate, XM10.gate, XM12.gate, Mx1_XM4.gate, XM13.drain, XM13.gate, XM14.gate, XM15.gate, XM16.drain, XM16.gate, XM17.gate, XMF2.gate
   x2_net1 : Mx2_x1_XM3.drain, Mx2_x1_XM4.drain, Mx2_x2_XM3.gate, Mx2_x2_XM4.gate
   OUT     : Mx2_x2_XM3.drain, Mx2_x2_XM4.drain, Mx2_x3_XM3.gate, Mx2_x3_XM4.gate
   x1_net1 : Mx1_XM3.source, Mx1_XM4.drain
@@ -47,6 +49,7 @@ Tamano total: 37.17 x 25.00 um
   x1_net8  [ABUTIDA]: XM14.drain, XM15.source
   x1_net9  [ABUTIDA]: XM14.source, XM17.drain
   x1_net7  [ABUTIDA]: XM15.drain, XM16.source
+  x1_netF : XMF1.source, XMF2.drain
   OUT_N   : Mx2_x3_XM3.drain, Mx2_x3_XM4.drain
   VD      : Mx1_XM3.gate
   VB      : XM5.gate

@@ -1,5 +1,18 @@
 #!/usr/bin/env python3
-"""Reference netlist of the INTEGRATED area, for the external LVS.
+"""SUPERSEDED -- kept only so the history is legible. Do not run it.
+
+    Use instead:  make lvs-ref T=B26_A TOP_OUT=out_integration
+
+This existed for one day, while `B26_A` had no schematic of its own and its LVS
+reference had to be faked by renaming the block's. `XSCHEM/B26_A.sch` now exists
+-- the block plus its eleven io_secondary_5p0 clamps -- so the reference comes
+out of xschem through `lvs_reference.py`, like every other cell's. Renaming a
+netlist to stand in for a different circuit is exactly how an LVS is made to
+agree with something that is not what will be fabricated.
+
+--- what it used to say ---
+
+Reference netlist of the INTEGRATED area, for the external LVS.
 
     python3 scripts/lvs_reference_integration.py   # -> out_integration/B26_A_lvs.spice
 

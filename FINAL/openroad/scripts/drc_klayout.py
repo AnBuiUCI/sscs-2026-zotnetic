@@ -32,6 +32,14 @@ OUT = ROOT / os.environ.get("TOP_OUT", "out")
 #: that is with OPAM_LIN_flat. The Makefile sets it with `T=`, like `TOP_OUT`.
 TOP = os.environ.get("TOP_CELL", "GRADIENT_NAV")
 
+#: How many deck files KLayout runs at once. **Not 4 any more.** The density
+#: pass on the integrated area (1110 x 1110 um, 7.8 M fill shapes) peaks near
+#: 3 GB on its own; with four of those in flight this 7 GB machine OOM-kills
+#: one and the deck writes not a single `.lyrdb`, which arrives here as
+#: "THE DECK DID NOT RUN" and reads like a broken GDS. Two is what fits.
+#: `DRC_MP` raises it again on a machine with the memory for it.
+MP = os.environ.get("DRC_MP", "2")
+
 TARGETS = {
     "COMP": ROOT / "gds/COMP.gds",
     "OPAM": ROOT / "gds/OPAM.gds",
@@ -41,6 +49,7 @@ TARGETS = {
     "DECODER_MAX": ROOT / "gds/DECODER_MAX.gds",
     "ESD_CDM": ROOT / "gds/ESD_CDM.gds",
     "OPAM_SUMA": ROOT / "gds/OPAM_SUMA.gds",
+    "io_secondary_5p0": ROOT / "gds/io_secondary_5p0.gds",
     TOP: OUT / f"{TOP}.gds",
     #  The same top with the decoupling capacitors dropped into the gaps
     #  (`scripts/decap_fill.py`). This is the intermediate step: the file that
@@ -70,6 +79,39 @@ def counts(run_dir: Path) -> collections.Counter:
     return c
 
 
+def completo(run_dir: Path) -> tuple[bool, str]:
+    """Did the deck actually finish, or did some of it die on the way?
+
+    `.lyrdb` files are written one per rule table, and **a table that raises
+    writes none**. Counting violations over whatever files happen to be there
+    therefore reports a partial run as a full one: on the integrated area five
+    tables (`ldnmos`, `dnwell`, `nwell`, `ldpmos`, `mslot`) died with an
+    exception, 59 of 63 files were written, and this function's absence made
+    that read exactly like 63 clean ones.
+
+    The runner's own log is the witness: it prints one `Running Global
+    Foundries ... on design <table>` per table it starts, and one `| ERROR |`
+    per table that blows up. Both numbers are compared against the files.
+    """
+    logs = sorted(run_dir.glob("drc_run_*.log"))
+    if not logs:
+        return False, "no runner log: the deck never started"
+    txt = logs[-1].read_text(errors="replace")
+    lanzados = txt.count("Running Global Foundries")
+    errores = [l for l in txt.splitlines() if "| ERROR   |" in l
+               and "generated an exception" in l]
+    escritos = len(list(run_dir.glob("*.lyrdb")))
+    if errores:
+        cuales = ", ".join(l.split("|")[2].split("generated")[0].strip()
+                           for l in errores)
+        return False, f"{len(errores)} table(s) raised: {cuales}"
+    if not escritos:
+        return False, f"no .lyrdb in {run_dir}"
+    if escritos < lanzados:
+        return False, f"only {escritos} .lyrdb of {lanzados} tables started"
+    return True, f"{escritos} tables"
+
+
 def main() -> int:
     #  DENSITY rules are a separate pass: the deck does not run them unless
     #  asked, so until now they had never been checked in this flow at all.
@@ -90,23 +132,25 @@ def main() -> int:
         run_dir.mkdir(parents=True, exist_ok=True)
         subprocess.run(
             ["python3", RUNNER, f"--path={gds.resolve()}", "--variant=D",
-             f"--topcell={TOPCELL.get(name, name)}", f"--run_dir={run_dir}", "--mp=4"]
+             f"--topcell={TOPCELL.get(name, name)}", f"--run_dir={run_dir}", f"--mp={MP}"]
             + (["--density_only"] if densidad else []),
             capture_output=True, text=True, timeout=14400, check=False,
             env={"PATH": "/foss/tools/klayout:/usr/bin:/bin",
                  "HOME": "/tmp", "PDK_ROOT": "/foss/pdks"})
-        #  **If there is not one `.lyrdb`, the deck never ran.** Without this, a
-        #  tool failure -- a `klayout` missing from PATH, an unreadable GDS --
-        #  counted as zero violations and printed as "clean". Same mistake as
-        #  the empty `net.name` in `check_connectivity`: the check does not
-        #  fail, it lies.
-        if not list(run_dir.glob("*.lyrdb")):
-            print(f"  {name:14s} THE DECK DID NOT RUN -- no .lyrdb in {run_dir}")
+        #  **A partial run is not a clean one.** Without this, a tool failure --
+        #  a `klayout` missing from PATH, an unreadable GDS, a table that ran
+        #  out of memory -- counted as zero violations and printed as "clean".
+        #  Same mistake as the empty `net.name` in `check_connectivity` and as
+        #  `run_lvs.py` returning 0 on a mismatch: the check does not fail, it
+        #  lies. See `completo()`.
+        entero, porque = completo(run_dir)
+        if not entero:
+            print(f"  {name:14s} INCOMPLETO -- {porque}")
             bad += 1
             continue
         c = counts(run_dir)
         if not c:
-            print(f"  {name:14s} limpio")
+            print(f"  {name:14s} limpio ({porque})")
             continue
         bad += 1
         total = sum(c.values())

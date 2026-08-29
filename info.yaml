@@ -73,8 +73,13 @@ project:
 # outputs, so the enable should be tied to "always driving".
 #
 # SECONDARY ESD. The analogue pads carry HBM diodes only (gf180mcu_fd_io 4.5),
-# so the CDM network -- series poly resistor plus the two diodes -- is inside
-# the block, next to the protected gates, one per analogue pin.
+# so a CDM network -- series poly resistor plus diodes -- sits on each analogue
+# pin. It is the organisers' own io_secondary_5p0 cell, adopted as drawn (see
+# layouts_v2/io_secondary_5p0/README_ORIGEN.txt), and it lives in the USER AREA
+# next to the pad it protects, NOT inside GRADIENT_NAV2. Two reasons: the path
+# pad -> clamp -> gate is what the clamp is for and out here it is short, and
+# the eleven cells take 71,027 um2 of user area that was empty anyway, where
+# inside the block they would have grown it by 35 %.
 #
 # WHAT THE SIGNALS MEAN. Each sensor reads the MAGNITUDE of the field, |B|, at
 # its position. The four of them sample that scalar field at the vertices of a
