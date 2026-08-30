@@ -1,0 +1,22 @@
+* Nodos de bulk atados: 0 de pozo n -> VDD, 1 de sustrato -> VSS.
+*   magic no extrae los taps de este layout y los dejaba flotando;
+*   la conexion si existe (el LVS de KLayout da 'match uniquely').
+*   Quien detecta un tap que falte de verdad es el LVS, no esto.
+* NGSPICE file created from ESD_CDM.ext - technology: gf180mcuD
+
+.subckt ESD_CDM VSS VDD PAD CORE
+X0 VDD a_16_6352# CORE VDD pfet_06v0 ad=3.52p pd=16.88u as=2.08p ps=8.52u w=8u l=1u
+X1 CORE a_14_330# VSS VSS nfet_06v0 ad=2.34p pd=9.52u as=3.96p ps=18.88u w=9u l=1u
+X2 VSS a_14_330# CORE VSS nfet_06v0 ad=3.96p pd=18.88u as=2.34p ps=9.52u w=9u l=1u
+X3 a_408_4912# a_836_4912# VSS ppolyf_u_3k r_width=1u r_length=1.5u
+X4 PAD a_14_330# VSS VSS nfet_06v0 ad=1.04p pd=4.52u as=1.76p ps=8.88u w=4u l=1u
+X5 CORE a_14_330# VSS VSS nfet_06v0 ad=2.34p pd=9.52u as=2.34p ps=9.52u w=9u l=1u
+X6 a_408_5392# a_836_5392# VSS ppolyf_u_3k r_width=1u r_length=1.5u
+X7 VSS a_14_330# CORE VSS nfet_06v0 ad=2.34p pd=9.52u as=2.34p ps=9.52u w=9u l=1u
+X8 VDD a_16_6352# CORE VDD pfet_06v0 ad=3.96p pd=18.88u as=2.34p ps=9.52u w=9u l=1u
+X9 CORE PAD VSS ppolyf_u_3k r_width=1u r_length=1.5u
+X10 CORE a_16_6352# VDD VDD pfet_06v0 ad=2.34p pd=9.52u as=3.96p ps=18.88u w=9u l=1u
+X11 CORE a_16_6352# VDD VDD pfet_06v0 ad=2.08p pd=8.52u as=3.52p ps=16.88u w=8u l=1u
+X12 VSS a_14_330# PAD VSS nfet_06v0 ad=1.76p pd=8.88u as=1.04p ps=4.52u w=4u l=1u
+.ends
+

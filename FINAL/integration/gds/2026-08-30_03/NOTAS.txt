@@ -1,0 +1,18 @@
+2026-08-30_03 -- B26_A_filled.gds
+=================================
+
+source      openroad/out_integration/B26_A_filled.gds
+written     2026-08-30 08:14
+size        13,250,394 bytes raw, 2,472,400 gzipped
+sha256      5982dfe4091d9e31141d7efce5d9515ef7661850b8d2ba862e3fb77c7301def2
+
+DRC filled  STALE -- the run predates this GDS
+DRC circuit clean (63 tables)
+density     clean
+LVS klayout not run
+LVS netgen  match uniquely
+
+what changed
+------------
+Los once clamps pasan a ESD_CDM, nuestro dibujo de SU circuito exacto: 4+4 diodos de 10x10 (su m=4) y ppolyf_u W=16 L=4 con el bulk en VDD sobre pozo n. 1.762 um2 por clamp contra los 6.457 de io_secondary_5p0 -- unos 52.000 um2 en total -- y sin la MSLOT.1 que arrastran las tres variantes suyas. La celda de ellos se queda en el repo, sin instanciar.
+

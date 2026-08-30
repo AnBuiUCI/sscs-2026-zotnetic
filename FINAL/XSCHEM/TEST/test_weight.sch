@@ -5,47 +5,85 @@ V {}
 S {}
 F {}
 E {}
-N 110 -100 110 -80 {
+N 230 -100 230 -80 {
 lab=GND}
-N 110 -220 110 -160 {
+N 230 -220 230 -160 {
 lab=VDD}
-N 170 -220 170 -160 {
-lab=IN}
-N 170 -100 170 -80 {
+N 70 -100 70 -80 {
 lab=GND}
-N 40 -100 40 -80 {
+N 70 -220 70 -160 {
+lab=VA}
+N 190 40 220 40 {lab=OUT}
+N 60 50 80 50 {lab=WE}
+N -150 30 -120 30 {lab=VA}
+N -150 50 -120 50 {lab=VB}
+N -150 70 -120 70 {lab=VC}
+N -150 90 -120 90 {lab=VD}
+N 190 60 220 60 {lab=OUT_N}
+N 70 50 70 80 {lab=WE}
+N -30 -100 -30 -80 {
 lab=GND}
-N 40 -220 40 -160 {
-lab=va}
-N 390 60 420 60 {lab=OUT}
-N 160 70 180 70 {lab=WE}
-N -50 50 -20 50 {lab=va}
-N -50 70 -20 70 {lab=va}
-N -50 90 -20 90 {lab=va}
-N -50 110 -20 110 {lab=va}
-N 390 80 420 80 {lab=OUT_N}
-N 170 70 170 100 {lab=WE}
-C {devices/vsource.sym} 110 -130 0 0 {name=V1 value=5
+N -30 -220 -30 -160 {
+lab=VB}
+N -90 -100 -90 -80 {
+lab=GND}
+N -90 -220 -90 -160 {
+lab=VC}
+N -160 -100 -160 -80 {
+lab=GND}
+N -160 -220 -160 -160 {
+lab=VD}
+N 290 -100 290 -80 {
+lab=GND}
+N 290 -220 290 -160 {
+lab=VDD1}
+N 370 -100 370 -80 {
+lab=GND}
+N 370 -220 370 -160 {
+lab=VDD2}
+C {devices/vsource.sym} 230 -130 0 0 {name=V1 value=5
 }
-C {devices/gnd.sym} 110 -80 0 0 {name=l1 lab=GND
+C {devices/gnd.sym} 230 -80 0 0 {name=l1 lab=GND
 value=5}
-C {devices/lab_wire.sym} 110 -200 0 0 {name=p7 sig_type=std_logic lab=VDD}
+C {devices/lab_wire.sym} 230 -200 0 0 {name=p7 sig_type=std_logic lab=VDD}
 C {devices/code_shown.sym} 475 -45 0 0 {name=s1
 only_toplevel=false
 value="
+* CAREFUL: no braces in this text. xschem counts them to find where the
+* attribute block ends and a single one cuts it in half.
+*
+* CORRIENTES DE RAMA EN EL LAYOUT.
+* In the schematic they are measured with the four 0 V sources Vmeas..Vmeas3
+* inside WEIGHT, in series with each branch tail. The extracted netlist has no
+* such sources, but ngspice can give a transistor drain current if asked with
+* .save BEFORE running -- device internal variables cannot be asked for
+* afterwards. The trailing .m0 is needed because
+* el modelo del PDK es un subcircuito y el MOS de dentro se llama m0.
+*
+* Which transistor is which branch is traced through the nodes: the four tails
+* of the extraction are the w=1.24u ones, and each hangs off the intermediate
+* llegan los dos transistores de entrada de esa rama.
+*
+*   rama   esquematico   nodo intermedio   cola en el layout
+*   VA     Vmeas         a_5026_1208       X31
+*   VB     Vmeas1        a_1038_1208       X16
+*   VC     Vmeas2        a_n74_0           X23
+*   VD     Vmeas3        a_n74_1208        X24
 .tran 1m 1
-*.dc V2 0 5 0.01
 .save all
+.save @m.xextrc.x31.m0[id] @m.xextrc.x16.m0[id]
++ @m.xextrc.x23.m0[id] @m.xextrc.x24.m0[id]
 .control
 run
-display
-wrdata OUT4.txt v(WE) v(OUT) v(OUT_N)
-wrdata CURR4.txt i(v.x1.Vmeas) i(v.x1.Vmeas1) i(v.x1.Vmeas2) i(v.x1.Vmeas3)
-plot i(v.x1.Vmeas) i(v.x1.Vmeas1) i(v.x1.Vmeas2) i(v.x1.Vmeas3)
-*plot v(WE)
-plot v(WE) v(OUT) v(OUT_N)
-plot v(WE2) v(OUT2) v(OUT_N2)
-*plot i(v.x1.v4)
+wrdata input.txt   v(VA) v(VB) V(VC) V(VD)
+wrdata middle.txt  v(WE) v(WE1) v(WE2)
+wrdata power.txt   v(VDD)*i(V1) v(VDD1)*i(V6) v(VDD2)*i(V9)
+wrdata out.txt     v(OUT) v(OUT1) v(OUT2) v(OUT_N) v(OUT_N1) v(OUT_N2)
+* The eight branch currents: first the four schematic ones and then the four
+* layout ones, in the same VA VB VC VD order.
+wrdata current.txt i(v.x1.Vmeas) i(v.x1.Vmeas1) i(v.x1.Vmeas2) i(v.x1.Vmeas3)
++ @m.xextrc.x31.m0[id] @m.xextrc.x16.m0[id]
++ @m.xextrc.x23.m0[id] @m.xextrc.x24.m0[id]
 .endc
 "}
 C {devices/code_shown.sym} 335 -225 0 0 {name=MODELS1 only_toplevel=true
@@ -59,37 +97,61 @@ value="
 .lib $::180MCU_MODELS/sm141064.ngspice mimcap_typical
 * .lib $::180MCU_MODELS/sm141064.ngspice res_statistical
 "}
-C {devices/lab_wire.sym} 170 -210 0 0 {name=p5 sig_type=std_logic lab=IN
+C {devices/vsource.sym} 70 -130 0 0 {name=V5 value="pulse(0 5 0 5m 
++ 5m 0.5 1)"
 }
-C {devices/gnd.sym} 170 -80 0 0 {name=l2 lab=GND
+C {devices/gnd.sym} 70 -80 0 0 {name=l3 lab=GND
 value=5}
-C {devices/vsource.sym} 170 -130 0 0 {name=V2 value=5
-}
-C {devices/vsource.sym} 40 -130 0 0 {name=V5 value=5
-}
-C {devices/gnd.sym} 40 -80 0 0 {name=l3 lab=GND
+C {devices/lab_wire.sym} 70 -200 0 0 {name=p13 sig_type=std_logic lab=VA}
+C {devices/lab_wire.sym} -30 0 0 0 {name=p8 sig_type=std_logic lab=VDD}
+C {devices/lab_wire.sym} 220 40 2 0 {name=p9 sig_type=std_logic lab=OUT}
+C {a_zonetic2026/XSCHEM/WEIGTH/WEIGHT.sym} 30 70 0 0 {name=x1}
+C {a_zonetic2026/XSCHEM/WEIGTH/COMP_OUT.sym} 230 70 0 0 {name=x2}
+C {devices/lab_wire.sym} 120 0 0 0 {name=p4 sig_type=std_logic lab=VDD}
+C {devices/gnd.sym} -30 120 0 0 {name=l6 lab=GND
 value=5}
-C {devices/lab_wire.sym} 40 -200 0 0 {name=p13 sig_type=std_logic lab=va}
-C {devices/lab_wire.sym} 70 20 0 0 {name=p8 sig_type=std_logic lab=VDD}
-C {devices/lab_wire.sym} 420 60 2 0 {name=p9 sig_type=std_logic lab=OUT}
-C {a_zonetic2026/XSCHEM/WEIGTH/WEIGHT.sym} 130 90 0 0 {name=x1}
-C {a_zonetic2026/XSCHEM/WEIGTH/COMP_OUT.sym} 330 90 0 0 {name=x2}
-C {devices/lab_wire.sym} 230 30 0 0 {name=p4 sig_type=std_logic lab=VDD}
-C {devices/gnd.sym} 70 140 0 0 {name=l6 lab=GND
+C {devices/gnd.sym} 120 100 0 0 {name=l7 lab=GND
 value=5}
-C {devices/gnd.sym} 230 110 0 0 {name=l7 lab=GND
-value=5}
-C {devices/lab_wire.sym} 420 80 2 0 {name=p17 sig_type=std_logic lab=OUT_N}
-C {devices/lab_wire.sym} 170 100 2 0 {name=p1 sig_type=std_logic lab=WE}
-C {devices/lab_wire.sym} -50 50 0 0 {name=p3 sig_type=std_logic lab=va}
-C {devices/lab_wire.sym} -50 70 0 0 {name=p6 sig_type=std_logic lab=va}
-C {devices/lab_wire.sym} -50 90 0 0 {name=p2 sig_type=std_logic lab=va}
-C {devices/lab_wire.sym} -50 110 0 0 {name=p10 sig_type=std_logic lab=va}
-C {devices/code_shown.sym} -30 250 0 0 {name=DUT1 only_toplevel=true
+C {devices/lab_wire.sym} 220 60 2 0 {name=p17 sig_type=std_logic lab=OUT_N}
+C {devices/lab_wire.sym} 70 80 2 0 {name=p1 sig_type=std_logic lab=WE}
+C {devices/lab_wire.sym} -150 50 0 0 {name=p3 sig_type=std_logic lab=VB}
+C {devices/lab_wire.sym} -150 30 0 0 {name=p6 sig_type=std_logic lab=VA}
+C {devices/lab_wire.sym} -150 70 0 0 {name=p2 sig_type=std_logic lab=VC}
+C {devices/lab_wire.sym} -150 90 0 0 {name=p10 sig_type=std_logic lab=VD}
+C {devices/code_shown.sym} -180 230 0 0 {name=DUT1 only_toplevel=true
 format="tcleval( @value )"
 value="
 .include "../../../../Layouts/WEIGHT_COMP/mag/WEIGHT_COMP_pex_rc.spice"
-Xextrc GND VDD WE2 OUT2 OUT_N2 va va va va WEIGHT_COMP
-
-
+Xextrc GND VDD1 VD WE1 VA VB OUT1 OUT_N1 VC WEIGHT_COMP
+.include "../../../../layouts_v2/WEIGHT_COMP/mag/WEIGHT_COMP_V2_pex_rc.spice"
+Xextrc2 GND VDD2 VD WE2 VA VB OUT2 OUT_N2 VC WEIGHT_COMP_V2
+*WEIGHT_COMP VSS VDD VD WE VA VB OUT OUT_N VC
 "}
+C {devices/gnd.sym} -30 -80 0 0 {name=l2 lab=GND
+value=5}
+C {devices/lab_wire.sym} -30 -200 0 0 {name=p5 sig_type=std_logic lab=VB}
+C {devices/gnd.sym} -90 -80 0 0 {name=l4 lab=GND
+value=5}
+C {devices/lab_wire.sym} -90 -200 0 0 {name=p11 sig_type=std_logic lab=VC}
+C {devices/gnd.sym} -160 -80 0 0 {name=l5 lab=GND
+value=5}
+C {devices/lab_wire.sym} -160 -200 0 0 {name=p12 sig_type=std_logic lab=VD}
+C {devices/vsource.sym} 290 -130 0 0 {name=V6 value=5
+}
+C {devices/gnd.sym} 290 -80 0 0 {name=l8 lab=GND
+value=5}
+C {devices/lab_wire.sym} 290 -200 0 0 {name=p14 sig_type=std_logic lab=VDD1}
+C {devices/vsource.sym} 370 -130 0 0 {name=V9 value=5
+}
+C {devices/gnd.sym} 370 -80 0 0 {name=l9 lab=GND
+value=5}
+C {devices/lab_wire.sym} 370 -200 0 0 {name=p14b sig_type=std_logic lab=VDD2}
+C {devices/vsource.sym} -30 -130 0 0 {name=V2 value="pulse(0 5 0 5m 
++ 5m 0.25 0.5)"
+}
+C {devices/vsource.sym} -90 -130 0 0 {name=V3 value="pulse(0 5 0 5m 
++ 5m 0.125 0.25)"
+}
+C {devices/vsource.sym} -160 -130 0 0 {name=V4 value="pulse(0 5 0 5m 
++ 5m 0.0625 0.125)"
+}

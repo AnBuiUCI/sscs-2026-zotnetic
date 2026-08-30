@@ -1,0 +1,64 @@
+* BANCO DE GRADIENT_NAV3: barrido uniforme sobre la esfera.
+.include /foss/pdks/gf180mcuD/libs.tech/ngspice/design.ngspice
+.lib /foss/pdks/gf180mcuD/libs.tech/ngspice/sm141064.ngspice typical
+.lib /foss/pdks/gf180mcuD/libs.tech/ngspice/sm141064.ngspice cap_mim
+.lib /foss/pdks/gf180mcuD/libs.tech/ngspice/sm141064.ngspice res_typical
+.lib /foss/pdks/gf180mcuD/libs.tech/ngspice/sm141064.ngspice moscap_typical
+.lib /foss/pdks/gf180mcuD/libs.tech/ngspice/sm141064.ngspice mimcap_typical
+.include nav3.inc
+
+V1 VEXC GND 5
+V2 VDD  GND 5
+
+* Direccion del gradiente: espiral de Fibonacci, que reparte los N puntos
+* uniformemente sobre la esfera en un SOLO barrido.
+.param N=400
+Vi idx 0 0
+Bgz gz 0 v='1 - 2*(v(idx)+0.5)/N'
+Brr rr 0 v='sqrt(max(0, 1 - v(gz)*v(gz)))'
+Bgx gx 0 v='v(rr)*cos(v(idx)*2.39996322973)'
+Bgy gy 0 v='v(rr)*sin(v(idx)*2.39996322973)'
+
+* LO QUE MIDE CADA SENSOR: la MAGNITUD del campo, |B|, en su posicion. Es un
+* escalar, no una componente vectorial. Los cuatro muestrean ese campo escalar en
+* cuatro puntos, y la diferencia entre lecturas es el desarrollo de primer orden
+*
+*     |B|(r_i) = |B|(0) + grad|B| . r_i
+*
+* asi que lo que se reconstruye es grad|B|, cuyo sentido apunta hacia donde la
+* magnitud CRECE: hacia la fuente. Por eso aqui b_i es la proyeccion del
+* gradiente sobre la posicion unitaria del sensor y no una medida de componente.
+.param amp=0.02
+Bb1 b1 0 v='amp*(-v(gx) +v(gy) +v(gz))/1.41421356237'
+Bb2 b2 0 v='amp*( v(gx) -v(gy) +v(gz))/1.41421356237'
+Bb3 b3 0 v='amp*(-v(gx) -v(gy) -v(gz))/1.41421356237'
+Bb4 b4 0 v='amp*( v(gx) +v(gy) -v(gz))/1.41421356237'
+
+* Los cuatro puentes de Wheatstone, iguales a los del banco de hoy.
+R1a VEXC S1P r='1meg*(1-v(b1))'
+R1b S1P  GND r='1meg*(1+v(b1))'
+R1c VEXC S1N r='1meg*(1+v(b1))'
+R1d S1N  GND r='1meg*(1-v(b1))'
+R2a VEXC S2P r='1meg*(1-v(b2))'
+R2b S2P  GND r='1meg*(1+v(b2))'
+R2c VEXC S2N r='1meg*(1+v(b2))'
+R2d S2N  GND r='1meg*(1-v(b2))'
+R3a VEXC S3P r='1meg*(1-v(b3))'
+R3b S3P  GND r='1meg*(1+v(b3))'
+R3c VEXC S3N r='1meg*(1+v(b3))'
+R3d S3N  GND r='1meg*(1-v(b3))'
+R4a VEXC S4P r='1meg*(1-v(b4))'
+R4b S4P  GND r='1meg*(1+v(b4))'
+R4c VEXC S4N r='1meg*(1+v(b4))'
+R4d S4N  GND r='1meg*(1-v(b4))'
+
+xnav S1P S1N S2P S2N S3P S3N S4P S4N
++    XAP XAN YAP YAN ZAP ZAN XBP XBN YBP YBN ZBP ZBN VDD GND GRADIENT_NAV3
+
+.control
+save all
+dc Vi 0 399 1
+set filetype=ascii
+write salidas.raw
+.endc
+.end

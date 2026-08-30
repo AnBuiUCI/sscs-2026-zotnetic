@@ -1,26 +1,52 @@
 ** sch_path: /foss/designs/a_zonetic2026/XSCHEM/TEST/test_weight.sch
 **.subckt test_weight
 V1 VDD GND 5
-V2 IN GND 5
-V5 va GND 5
-x1 VDD GND WE va va va va WEIGHT
-x2 VDD OUT WE OUT_N GND comp._out
+V5 VA GND pulse(0 5 0 5m 5m 0.5 1)
+x1 VDD GND WE VA VB VC VD WEIGHT
+x2 VDD OUT WE OUT_N GND COMP_OUT
+V6 VDD1 GND 5
+V9 VDD2 GND 5
+V2 VB GND pulse(0 5 0 5m 5m 0.25 0.5)
+V3 VC GND pulse(0 5 0 5m 5m 0.125 0.25)
+V4 VD GND pulse(0 5 0 5m 5m 0.0625 0.125)
 **** begin user architecture code
 
 
+* OJO: nada de llaves en este texto. xschem las cuenta para saber donde acaba
+* el bloque de atributos y una sola lo corta por la mitad.
+*
+* CORRIENTES DE RAMA EN EL LAYOUT.
+* En el esquematico se miden con las cuatro fuentes de 0 V Vmeas..Vmeas3 que
+* hay dentro de WEIGHT, en serie con la cola de cada rama. El netlist extraido
+* no tiene esas fuentes, pero ngspice sabe dar la corriente de drenador de un
+* transistor si se le pide con .save ANTES de correr -- las variables internas
+* de dispositivo no se pueden pedir despues. El .m0 del final hace falta porque
+* el modelo del PDK es un subcircuito y el MOS de dentro se llama m0.
+*
+* Que transistor es cada rama se traza por los nodos: las cuatro colas del
+* extraido son las de w=1.24u, y cada una cuelga del nodo intermedio al que
+* llegan los dos transistores de entrada de esa rama.
+*
+*   rama   esquematico   nodo intermedio   cola en el layout
+*   VA     Vmeas         a_5026_1208       X31
+*   VB     Vmeas1        a_1038_1208       X16
+*   VC     Vmeas2        a_n74_0           X23
+*   VD     Vmeas3        a_n74_1208        X24
 .tran 1m 1
-*.dc V2 0 5 0.01
 .save all
+.save @m.xextrc.x31.m0[id] @m.xextrc.x16.m0[id]
++ @m.xextrc.x23.m0[id] @m.xextrc.x24.m0[id]
 .control
 run
-display
-wrdata OUT4.txt v(WE) v(OUT) v(OUT_N)
-wrdata CURR4.txt i(v.x1.Vmeas) i(v.x1.Vmeas1) i(v.x1.Vmeas2) i(v.x1.Vmeas3)
-plot i(v.x1.Vmeas) i(v.x1.Vmeas1) i(v.x1.Vmeas2) i(v.x1.Vmeas3)
-*plot v(WE)
-plot v(WE) v(OUT) v(OUT_N)
-plot v(WE2) v(OUT2) v(OUT_N2)
-*plot i(v.x1.v4)
+wrdata input.txt   v(VA) v(VB) V(VC) V(VD)
+wrdata middle.txt  v(WE) v(WE1) v(WE2)
+wrdata power.txt   v(VDD)*i(V1) v(VDD1)*i(V6) v(VDD2)*i(V9)
+wrdata out.txt     v(OUT) v(OUT1) v(OUT2) v(OUT_N) v(OUT_N1) v(OUT_N2)
+* Las ocho corrientes de rama: primero las cuatro del esquematico y luego las
+* cuatro del layout, en el mismo orden VA VB VC VD.
+wrdata current.txt i(v.x1.Vmeas) i(v.x1.Vmeas1) i(v.x1.Vmeas2) i(v.x1.Vmeas3)
++ @m.xextrc.x31.m0[id] @m.xextrc.x16.m0[id]
++ @m.xextrc.x23.m0[id] @m.xextrc.x24.m0[id]
 .endc
 
 
@@ -35,9 +61,10 @@ plot v(WE2) v(OUT2) v(OUT_N2)
 
 
 .include ../../../../Layouts/WEIGHT_COMP/mag/WEIGHT_COMP_pex_rc.spice
-Xextrc GND VDD WE2 OUT2 OUT_N2 va va va va WEIGHT_COMP
-
-
+Xextrc GND VDD1 VD WE1 VA VB OUT1 OUT_N1 VC WEIGHT_COMP
+.include ../../../../layouts_v2/WEIGHT_COMP/mag/WEIGHT_COMP_V2_pex_rc.spice
+Xextrc2 GND VDD2 VD WE2 VA VB OUT2 OUT_N2 VC WEIGHT_COMP_V2
+*WEIGHT_COMP VSS VDD VD WE VA VB OUT OUT_N VC
 
 **** end user architecture code
 **.ends
@@ -98,10 +125,10 @@ Vmeas3 net13 GND 0
 .ends
 
 
-* expanding   symbol:  a_zonetic2026/XSCHEM/WEIGTH/comp._out.sym # of pins=5
-** sym_path: /foss/designs/a_zonetic2026/XSCHEM/WEIGTH/comp._out.sym
-** sch_path: /foss/designs/a_zonetic2026/XSCHEM/WEIGTH/comp._out.sch
-.subckt comp._out VDD OUT IN OUT_N VSS
+* expanding   symbol:  a_zonetic2026/XSCHEM/WEIGTH/COMP_OUT.sym # of pins=5
+** sym_path: /foss/designs/a_zonetic2026/XSCHEM/WEIGTH/COMP_OUT.sym
+** sch_path: /foss/designs/a_zonetic2026/XSCHEM/WEIGTH/COMP_OUT.sch
+.subckt COMP_OUT VDD OUT IN OUT_N VSS
 *.ipin IN
 *.iopin VDD
 *.opin OUT
@@ -113,17 +140,17 @@ x3 VDD OUT OUT_N VSS INV_1
 .ends
 
 
-* expanding   symbol:  DESIGN/FINAL/WEIGTH/INV_1.sym # of pins=4
-** sym_path: /foss/designs/DESIGN/FINAL/WEIGTH/INV_1.sym
-** sch_path: /foss/designs/DESIGN/FINAL/WEIGTH/INV_1.sch
+* expanding   symbol:  a_zonetic2026/XSCHEM/WEIGTH/INV_1.sym # of pins=4
+** sym_path: /foss/designs/a_zonetic2026/XSCHEM/WEIGTH/INV_1.sym
+** sch_path: /foss/designs/a_zonetic2026/XSCHEM/WEIGTH/INV_1.sch
 .subckt INV_1 VDD IN OUT VSS
 *.ipin IN
 *.iopin VDD
 *.opin OUT
 *.iopin VSS
-XM1 OUT IN VDD VDD pfet_05v0 L=0.5u W=1.83u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
+XM3 OUT IN VDD VDD pfet_05v0 L=0.5u W=1.83u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
 + ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
-XM2 OUT IN VSS VSS nfet_05v0 L=0.6u W=1.32u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
+XM4 OUT IN VSS VSS nfet_05v0 L=0.6u W=1.32u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
 + ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
 .ends
 

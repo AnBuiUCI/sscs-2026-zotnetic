@@ -2,10 +2,10 @@
 
 .option scale=5n
 
-X0 B B B B pfet_06v0 ad=52.8n pd=1.376m as=52.8n ps=1.376m w=600 l=200
-X1 B B B B pfet_06v0 ad=0.82138u pd=0.02227 as=0 ps=0 w=600 l=200
-X2 B B m1_1820_n300# B nfet_06v0 ad=17.6n pd=0.576m as=17.6n ps=0.576m w=200 l=200
-X3 B B B B pfet_06v0 ad=0 pd=0 as=0 ps=0 w=600 l=200
-X4 B B XM5/a_n188_n100# B nfet_06v0 ad=0.73018u pd=0.02054 as=17.6n ps=0.576m w=200 l=200
-X5 B B XM7/a_n188_n100# B nfet_06v0 ad=0 pd=0 as=17.6n ps=0.576m w=200 l=200
-C0 B 0 12.46711f
+X0 output A VSS VSUBS nfet_06v0 ad=17.6n pd=0.576m as=17.6n ps=0.576m w=200 l=200
+X1 VDD B m1_780_n50# w_320_350# pfet_06v0 ad=52.8n pd=1.376m as=52.8n ps=1.376m w=600 l=200
+X2 m1_780_n50# B VSS VSUBS nfet_06v0 ad=17.6n pd=0.576m as=52.8n ps=1.728m w=200 l=200
+X3 output m1_780_n50# VSS VSUBS nfet_06v0 ad=35.2n pd=1.152m as=0 ps=0 w=200 l=200
+X4 VDD A output w_320_350# pfet_06v0 ad=0.1584u pd=4.128m as=0.1056u ps=2.752m w=600 l=200
+X5 VDD m1_780_n50# output w_320_350# pfet_06v0 ad=0 pd=0 as=0 ps=0 w=600 l=200
+C0 w_320_350# VSUBS 4.85971f **FLOATING

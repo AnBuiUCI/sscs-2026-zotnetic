@@ -1,0 +1,311 @@
+* threshold of WEIGHT_COMP: does the step land where the buffer trips?
+.include /foss/pdks/gf180mcuD/libs.tech/ngspice/design.ngspice
+.lib /foss/pdks/gf180mcuD/libs.tech/ngspice/sm141064.ngspice typical
+.include "/foss/designs/a_zonetic2026/XSCHEM/TEST/simulation/umbral_WEIGHT_COMP/WEIGHT_COMP.inc"
+Vdd VDD 0 5
+Vss VSS 0 0
+Vsel0 sel0 0 0
+B0 va 0 v='v(sel0) * v(VDD)'
+Vsel1 sel1 0 0
+B1 vb 0 v='v(sel1) * v(VDD)'
+Vsel2 sel2 0 0
+B2 vc 0 v='v(sel2) * v(VDD)'
+Vsel3 sel3 0 0
+B3 vd 0 v='v(sel3) * v(VDD)'
+x1 VDD VSS va vb vc vd we out out_n WEIGHT_COMP
+.save all
+.control
+set filetype=ascii
+set temp = 0
+alter Vsel0 = 0
+alter Vsel1 = 0
+alter Vsel2 = 0
+alter Vsel3 = 0
+dc Vdd 4.5 5.5 0.05
+wrdata u001.txt v(we) v(out) v(out_n)
+alter Vsel0 = 1
+alter Vsel1 = 0
+alter Vsel2 = 0
+alter Vsel3 = 0
+dc Vdd 4.5 5.5 0.05
+wrdata u002.txt v(we) v(out) v(out_n)
+alter Vsel0 = 0
+alter Vsel1 = 1
+alter Vsel2 = 0
+alter Vsel3 = 0
+dc Vdd 4.5 5.5 0.05
+wrdata u003.txt v(we) v(out) v(out_n)
+alter Vsel0 = 1
+alter Vsel1 = 1
+alter Vsel2 = 0
+alter Vsel3 = 0
+dc Vdd 4.5 5.5 0.05
+wrdata u004.txt v(we) v(out) v(out_n)
+alter Vsel0 = 0
+alter Vsel1 = 0
+alter Vsel2 = 1
+alter Vsel3 = 0
+dc Vdd 4.5 5.5 0.05
+wrdata u005.txt v(we) v(out) v(out_n)
+alter Vsel0 = 1
+alter Vsel1 = 0
+alter Vsel2 = 1
+alter Vsel3 = 0
+dc Vdd 4.5 5.5 0.05
+wrdata u006.txt v(we) v(out) v(out_n)
+alter Vsel0 = 0
+alter Vsel1 = 1
+alter Vsel2 = 1
+alter Vsel3 = 0
+dc Vdd 4.5 5.5 0.05
+wrdata u007.txt v(we) v(out) v(out_n)
+alter Vsel0 = 1
+alter Vsel1 = 1
+alter Vsel2 = 1
+alter Vsel3 = 0
+dc Vdd 4.5 5.5 0.05
+wrdata u008.txt v(we) v(out) v(out_n)
+alter Vsel0 = 0
+alter Vsel1 = 0
+alter Vsel2 = 0
+alter Vsel3 = 1
+dc Vdd 4.5 5.5 0.05
+wrdata u009.txt v(we) v(out) v(out_n)
+alter Vsel0 = 1
+alter Vsel1 = 0
+alter Vsel2 = 0
+alter Vsel3 = 1
+dc Vdd 4.5 5.5 0.05
+wrdata u010.txt v(we) v(out) v(out_n)
+alter Vsel0 = 0
+alter Vsel1 = 1
+alter Vsel2 = 0
+alter Vsel3 = 1
+dc Vdd 4.5 5.5 0.05
+wrdata u011.txt v(we) v(out) v(out_n)
+alter Vsel0 = 1
+alter Vsel1 = 1
+alter Vsel2 = 0
+alter Vsel3 = 1
+dc Vdd 4.5 5.5 0.05
+wrdata u012.txt v(we) v(out) v(out_n)
+alter Vsel0 = 0
+alter Vsel1 = 0
+alter Vsel2 = 1
+alter Vsel3 = 1
+dc Vdd 4.5 5.5 0.05
+wrdata u013.txt v(we) v(out) v(out_n)
+alter Vsel0 = 1
+alter Vsel1 = 0
+alter Vsel2 = 1
+alter Vsel3 = 1
+dc Vdd 4.5 5.5 0.05
+wrdata u014.txt v(we) v(out) v(out_n)
+alter Vsel0 = 0
+alter Vsel1 = 1
+alter Vsel2 = 1
+alter Vsel3 = 1
+dc Vdd 4.5 5.5 0.05
+wrdata u015.txt v(we) v(out) v(out_n)
+alter Vsel0 = 1
+alter Vsel1 = 1
+alter Vsel2 = 1
+alter Vsel3 = 1
+dc Vdd 4.5 5.5 0.05
+wrdata u016.txt v(we) v(out) v(out_n)
+set temp = 27
+alter Vsel0 = 0
+alter Vsel1 = 0
+alter Vsel2 = 0
+alter Vsel3 = 0
+dc Vdd 4.5 5.5 0.05
+wrdata u017.txt v(we) v(out) v(out_n)
+alter Vsel0 = 1
+alter Vsel1 = 0
+alter Vsel2 = 0
+alter Vsel3 = 0
+dc Vdd 4.5 5.5 0.05
+wrdata u018.txt v(we) v(out) v(out_n)
+alter Vsel0 = 0
+alter Vsel1 = 1
+alter Vsel2 = 0
+alter Vsel3 = 0
+dc Vdd 4.5 5.5 0.05
+wrdata u019.txt v(we) v(out) v(out_n)
+alter Vsel0 = 1
+alter Vsel1 = 1
+alter Vsel2 = 0
+alter Vsel3 = 0
+dc Vdd 4.5 5.5 0.05
+wrdata u020.txt v(we) v(out) v(out_n)
+alter Vsel0 = 0
+alter Vsel1 = 0
+alter Vsel2 = 1
+alter Vsel3 = 0
+dc Vdd 4.5 5.5 0.05
+wrdata u021.txt v(we) v(out) v(out_n)
+alter Vsel0 = 1
+alter Vsel1 = 0
+alter Vsel2 = 1
+alter Vsel3 = 0
+dc Vdd 4.5 5.5 0.05
+wrdata u022.txt v(we) v(out) v(out_n)
+alter Vsel0 = 0
+alter Vsel1 = 1
+alter Vsel2 = 1
+alter Vsel3 = 0
+dc Vdd 4.5 5.5 0.05
+wrdata u023.txt v(we) v(out) v(out_n)
+alter Vsel0 = 1
+alter Vsel1 = 1
+alter Vsel2 = 1
+alter Vsel3 = 0
+dc Vdd 4.5 5.5 0.05
+wrdata u024.txt v(we) v(out) v(out_n)
+alter Vsel0 = 0
+alter Vsel1 = 0
+alter Vsel2 = 0
+alter Vsel3 = 1
+dc Vdd 4.5 5.5 0.05
+wrdata u025.txt v(we) v(out) v(out_n)
+alter Vsel0 = 1
+alter Vsel1 = 0
+alter Vsel2 = 0
+alter Vsel3 = 1
+dc Vdd 4.5 5.5 0.05
+wrdata u026.txt v(we) v(out) v(out_n)
+alter Vsel0 = 0
+alter Vsel1 = 1
+alter Vsel2 = 0
+alter Vsel3 = 1
+dc Vdd 4.5 5.5 0.05
+wrdata u027.txt v(we) v(out) v(out_n)
+alter Vsel0 = 1
+alter Vsel1 = 1
+alter Vsel2 = 0
+alter Vsel3 = 1
+dc Vdd 4.5 5.5 0.05
+wrdata u028.txt v(we) v(out) v(out_n)
+alter Vsel0 = 0
+alter Vsel1 = 0
+alter Vsel2 = 1
+alter Vsel3 = 1
+dc Vdd 4.5 5.5 0.05
+wrdata u029.txt v(we) v(out) v(out_n)
+alter Vsel0 = 1
+alter Vsel1 = 0
+alter Vsel2 = 1
+alter Vsel3 = 1
+dc Vdd 4.5 5.5 0.05
+wrdata u030.txt v(we) v(out) v(out_n)
+alter Vsel0 = 0
+alter Vsel1 = 1
+alter Vsel2 = 1
+alter Vsel3 = 1
+dc Vdd 4.5 5.5 0.05
+wrdata u031.txt v(we) v(out) v(out_n)
+alter Vsel0 = 1
+alter Vsel1 = 1
+alter Vsel2 = 1
+alter Vsel3 = 1
+dc Vdd 4.5 5.5 0.05
+wrdata u032.txt v(we) v(out) v(out_n)
+set temp = 85
+alter Vsel0 = 0
+alter Vsel1 = 0
+alter Vsel2 = 0
+alter Vsel3 = 0
+dc Vdd 4.5 5.5 0.05
+wrdata u033.txt v(we) v(out) v(out_n)
+alter Vsel0 = 1
+alter Vsel1 = 0
+alter Vsel2 = 0
+alter Vsel3 = 0
+dc Vdd 4.5 5.5 0.05
+wrdata u034.txt v(we) v(out) v(out_n)
+alter Vsel0 = 0
+alter Vsel1 = 1
+alter Vsel2 = 0
+alter Vsel3 = 0
+dc Vdd 4.5 5.5 0.05
+wrdata u035.txt v(we) v(out) v(out_n)
+alter Vsel0 = 1
+alter Vsel1 = 1
+alter Vsel2 = 0
+alter Vsel3 = 0
+dc Vdd 4.5 5.5 0.05
+wrdata u036.txt v(we) v(out) v(out_n)
+alter Vsel0 = 0
+alter Vsel1 = 0
+alter Vsel2 = 1
+alter Vsel3 = 0
+dc Vdd 4.5 5.5 0.05
+wrdata u037.txt v(we) v(out) v(out_n)
+alter Vsel0 = 1
+alter Vsel1 = 0
+alter Vsel2 = 1
+alter Vsel3 = 0
+dc Vdd 4.5 5.5 0.05
+wrdata u038.txt v(we) v(out) v(out_n)
+alter Vsel0 = 0
+alter Vsel1 = 1
+alter Vsel2 = 1
+alter Vsel3 = 0
+dc Vdd 4.5 5.5 0.05
+wrdata u039.txt v(we) v(out) v(out_n)
+alter Vsel0 = 1
+alter Vsel1 = 1
+alter Vsel2 = 1
+alter Vsel3 = 0
+dc Vdd 4.5 5.5 0.05
+wrdata u040.txt v(we) v(out) v(out_n)
+alter Vsel0 = 0
+alter Vsel1 = 0
+alter Vsel2 = 0
+alter Vsel3 = 1
+dc Vdd 4.5 5.5 0.05
+wrdata u041.txt v(we) v(out) v(out_n)
+alter Vsel0 = 1
+alter Vsel1 = 0
+alter Vsel2 = 0
+alter Vsel3 = 1
+dc Vdd 4.5 5.5 0.05
+wrdata u042.txt v(we) v(out) v(out_n)
+alter Vsel0 = 0
+alter Vsel1 = 1
+alter Vsel2 = 0
+alter Vsel3 = 1
+dc Vdd 4.5 5.5 0.05
+wrdata u043.txt v(we) v(out) v(out_n)
+alter Vsel0 = 1
+alter Vsel1 = 1
+alter Vsel2 = 0
+alter Vsel3 = 1
+dc Vdd 4.5 5.5 0.05
+wrdata u044.txt v(we) v(out) v(out_n)
+alter Vsel0 = 0
+alter Vsel1 = 0
+alter Vsel2 = 1
+alter Vsel3 = 1
+dc Vdd 4.5 5.5 0.05
+wrdata u045.txt v(we) v(out) v(out_n)
+alter Vsel0 = 1
+alter Vsel1 = 0
+alter Vsel2 = 1
+alter Vsel3 = 1
+dc Vdd 4.5 5.5 0.05
+wrdata u046.txt v(we) v(out) v(out_n)
+alter Vsel0 = 0
+alter Vsel1 = 1
+alter Vsel2 = 1
+alter Vsel3 = 1
+dc Vdd 4.5 5.5 0.05
+wrdata u047.txt v(we) v(out) v(out_n)
+alter Vsel0 = 1
+alter Vsel1 = 1
+alter Vsel2 = 1
+alter Vsel3 = 1
+dc Vdd 4.5 5.5 0.05
+wrdata u048.txt v(we) v(out) v(out_n)
+.endc
+.end

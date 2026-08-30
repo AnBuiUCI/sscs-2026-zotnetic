@@ -1,0 +1,9 @@
+bloque : ESD_CDM
+fecha  : 2026-08-27 06:48:36
+GDS    : /foss/designs/a_zonetic2026/layouts/ESD_CDM/ESD_CDM_flat_gf180.gds
+ref    : /foss/designs/a_zonetic2026/layouts/ESD_CDM/ESD_CDM_lvs.spice
+sustrato: VSS
+hoja poly: 3k
+setup netgen: ./lvs/gf180mcuD_setup_polyres.tcl
+KLayout: LIMPIO
+netgen : CASAN (con avisos de propiedad)

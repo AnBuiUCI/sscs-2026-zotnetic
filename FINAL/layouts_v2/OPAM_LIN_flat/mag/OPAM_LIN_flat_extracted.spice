@@ -1,0 +1,69 @@
+* Nodos de bulk atados: 0 de pozo n -> VDD, 1 de sustrato -> VSS.
+*   magic no extrae los taps de este layout y los dejaba flotando;
+*   la conexion si existe (el LVS de KLayout da 'match uniquely').
+*   Quien detecta un tap que falte de verdad es el LVS, no esto.
+* NGSPICE file created from OPAM_LIN_flat.ext - technology: gf180mcuD
+
+.subckt OPAM_LIN_flat VSS VDD INN OUT INP
+X0 a_1366_7234# a_54_7118# VDD VDD pfet_06v0 ad=2.5p pd=10.5u as=4.4p ps=20.88u w=10u l=1u
+X1 OUT a_928_4838# VDD VDD pfet_06v0 ad=0.44p pd=2.88u as=0.44p ps=2.88u w=1u l=1u
+X2 a_2478_9124# OUT cap_mim_2f0_m4m5_noshield c_width=25u c_length=8u
+X3 a_928_4838# a_16346_4838# VSS ppolyf_u_1k r_width=1u r_length=76.45u
+X4 a_314_332# a_314_332# VSS VSS nfet_06v0 ad=0.44p pd=2.88u as=0.44p ps=2.88u w=1u l=1u
+X5 a_2278_376# INP a_514_376# VSS nfet_06v0 ad=3.3p pd=15.88u as=3.3p ps=15.88u w=7.5u l=1u
+X6 a_5162_376# a_314_332# a_2478_9124# VSS nfet_06v0 ad=1.1p pd=5.88u as=0.825p ps=3.16u w=2.5u l=1u
+X7 a_7358_376# a_14_332# VSS VSS nfet_06v0 ad=1.25p pd=5.5u as=2.2p ps=10.88u w=5u l=1u
+X8 a_254_7234# a_54_7118# VDD VDD pfet_06v0 ad=2.5p pd=10.5u as=4.4p ps=20.88u w=10u l=1u
+X9 a_10430_7234# a_54_7118# VDD VDD pfet_06v0 ad=2.5p pd=10.5u as=4.4p ps=20.88u w=10u l=1u
+X10 OUT a_928_4838# VDD VDD pfet_06v0 ad=0.44p pd=2.88u as=0.44p ps=2.88u w=1u l=1u
+X11 a_514_376# a_314_332# a_214_376# VSS nfet_06v0 ad=2.2p pd=10.88u as=1.25p ps=5.5u w=5u l=1u
+X12 a_3290_9134# a_3554_332# VSS VSS nfet_06v0 ad=0.825p pd=3.16u as=1.1p ps=5.88u w=2.5u l=1u
+X13 a_13294_376# a_354_7118# VSS VSS nfet_06v0 ad=0.25p pd=1.5u as=0.44p ps=2.88u w=1u l=1u
+X14 a_7150_8318# a_314_332# a_7358_376# VSS nfet_06v0 ad=2.2p pd=10.88u as=1.25p ps=5.5u w=5u l=1u
+X15 a_554_7234# a_354_7118# a_1366_7234# VDD pfet_06v0 ad=4.4p pd=20.88u as=2.5p ps=10.5u w=10u l=1u
+X16 a_928_4838# a_354_7118# a_2278_376# VDD pfet_06v0 ad=4.4p pd=20.88u as=4.4p ps=20.88u w=10u l=1u
+X17 a_8986_7234# a_8786_7118# VDD VDD pfet_06v0 ad=2.5p pd=10.5u as=4.4p ps=20.88u w=10u l=1u
+X18 a_14790_7234# a_54_7118# VDD VDD pfet_06v0 ad=2.5p pd=10.5u as=4.4p ps=20.88u w=10u l=1u
+X19 a_928_5288# a_16346_5738# VSS ppolyf_u_1k r_width=1u r_length=76.45u
+X20 a_354_7118# a_354_7118# a_13294_376# VSS nfet_06v0 ad=0.44p pd=2.88u as=0.25p ps=1.5u w=1u l=1u
+X21 a_17826_7234# a_54_7118# VDD VDD pfet_06v0 ad=2.5p pd=10.5u as=4.4p ps=20.88u w=10u l=1u
+X22 a_928_5288# a_16346_4838# VSS ppolyf_u_1k r_width=1u r_length=76.45u
+X23 a_2478_9124# INP a_554_7234# VDD pfet_06v0 ad=0.242p pd=1.98u as=0.242p ps=1.98u w=0.55u l=1u
+X24 a_2278_376# a_4102_7234# VDD VDD pfet_06v0 ad=2.2p pd=10.88u as=2.2p ps=10.88u w=5u l=1u
+X25 OUT a_928_4838# VDD VDD pfet_06v0 ad=0.44p pd=2.88u as=0.44p ps=2.88u w=1u l=1u
+X26 a_4102_7234# a_5694_332# a_3554_332# VSS nfet_06v0 ad=0.88p pd=4.88u as=0.88p ps=4.88u w=2u l=1u
+X27 a_5694_332# a_354_7118# a_10430_7234# VDD pfet_06v0 ad=4.4p pd=20.88u as=2.5p ps=10.5u w=10u l=1u
+X28 a_214_376# a_14_332# VSS VSS nfet_06v0 ad=1.25p pd=5.5u as=2.2p ps=10.88u w=5u l=1u
+X29 a_2478_9124# a_3554_332# VSS VSS nfet_06v0 ad=0.825p pd=3.16u as=1.1p ps=5.88u w=2.5u l=1u
+X30 OUT a_2278_376# cap_mim_2f0_m4m5_noshield c_width=25u c_length=8u
+X31 a_7150_8318# a_7150_8318# a_8786_7118# VDD pfet_06v0 ad=4.4p pd=20.88u as=3.3p ps=10.66u w=10u l=1u
+X32 a_14_332# a_354_7118# a_15902_7234# VDD pfet_06v0 ad=4.4p pd=20.88u as=2.5p ps=10.5u w=10u l=1u
+X33 a_11230_376# a_14_332# VSS VSS nfet_06v0 ad=1.25p pd=5.5u as=2.2p ps=10.88u w=5u l=1u
+X34 a_314_332# a_354_7118# a_14790_7234# VDD pfet_06v0 ad=4.4p pd=20.88u as=2.5p ps=10.5u w=10u l=1u
+X35 OUT a_928_4838# VDD VDD pfet_06v0 ad=0.44p pd=2.88u as=0.44p ps=2.88u w=1u l=1u
+X36 a_928_6188# OUT VSS ppolyf_u_1k r_width=1u r_length=76.45u
+X37 a_928_6188# a_16346_5738# VSS ppolyf_u_1k r_width=1u r_length=76.45u
+X38 a_5694_332# a_5694_332# a_8202_332# VSS nfet_06v0 ad=2.2p pd=10.88u as=1.65p ps=5.66u w=5u l=1u
+X39 a_54_7118# a_354_7118# a_17826_7234# VDD pfet_06v0 ad=4.4p pd=20.88u as=2.5p ps=10.5u w=10u l=1u
+X40 a_14_332# a_314_332# a_11230_376# VSS nfet_06v0 ad=2.2p pd=10.88u as=1.25p ps=5.5u w=5u l=1u
+X41 a_3554_332# a_7150_8318# a_4102_7234# VDD pfet_06v0 ad=1.76p pd=8.88u as=1.76p ps=8.88u w=4u l=1u
+X42 a_4102_7234# a_354_7118# a_3010_376# VDD pfet_06v0 ad=4.4p pd=20.88u as=4.4p ps=20.88u w=10u l=1u
+X43 a_554_7234# a_354_7118# a_254_7234# VDD pfet_06v0 ad=4.4p pd=20.88u as=2.5p ps=10.5u w=10u l=1u
+X44 a_1246_376# a_14_332# VSS VSS nfet_06v0 ad=1.25p pd=5.5u as=2.2p ps=10.88u w=5u l=1u
+X45 a_8402_376# a_8202_332# VSS VSS nfet_06v0 ad=1.25p pd=5.5u as=2.2p ps=10.88u w=5u l=1u
+X46 a_3010_376# a_4102_7234# VDD VDD pfet_06v0 ad=2.2p pd=10.88u as=2.2p ps=10.88u w=5u l=1u
+X47 OUT a_5162_376# VSS VSS nfet_06v0 ad=0.44p pd=2.88u as=0.44p ps=2.88u w=1u l=1u
+X48 a_5162_376# a_7150_8318# a_928_4838# VDD pfet_06v0 ad=1.76p pd=8.88u as=1.76p ps=8.88u w=4u l=1u
+X49 a_354_7118# a_354_7118# VDD VDD pfet_06v0 ad=0.88p pd=4.88u as=0.88p ps=4.88u w=2u l=1u
+X50 a_3010_376# INN a_514_376# VSS nfet_06v0 ad=3.74p pd=17.88u as=3.74p ps=17.88u w=8.5u l=1u
+X51 a_12262_376# a_354_7118# VSS VSS nfet_06v0 ad=0.25p pd=1.5u as=0.44p ps=2.88u w=1u l=1u
+X52 a_15902_7234# a_54_7118# VDD VDD pfet_06v0 ad=2.5p pd=10.5u as=4.4p ps=20.88u w=10u l=1u
+X53 a_514_376# a_314_332# a_1246_376# VSS nfet_06v0 ad=2.2p pd=10.88u as=1.25p ps=5.5u w=5u l=1u
+X54 a_3554_332# a_314_332# a_3290_9134# VSS nfet_06v0 ad=1.1p pd=5.88u as=0.825p ps=3.16u w=2.5u l=1u
+X55 a_928_4838# a_5694_332# a_5162_376# VSS nfet_06v0 ad=0.88p pd=4.88u as=0.88p ps=4.88u w=2u l=1u
+X56 a_8202_332# a_314_332# a_8402_376# VSS nfet_06v0 ad=1.65p pd=5.66u as=1.25p ps=5.5u w=5u l=1u
+X57 a_3290_9134# INN a_554_7234# VDD pfet_06v0 ad=0.22p pd=1.88u as=0.22p ps=1.88u w=0.5u l=1u
+X58 a_8786_7118# a_354_7118# a_8986_7234# VDD pfet_06v0 ad=3.3p pd=10.66u as=2.5p ps=10.5u w=10u l=1u
+X59 a_54_7118# a_354_7118# a_12262_376# VSS nfet_06v0 ad=0.44p pd=2.88u as=0.25p ps=1.5u w=1u l=1u
+.ends
+

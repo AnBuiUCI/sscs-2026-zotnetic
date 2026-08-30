@@ -1,0 +1,35 @@
+
+Class WEIGHT_COMP (0):  Merged 11 parallel devices.
+Class WEIGHT_COMP (1):  Merged 11 parallel devices.
+Subcircuit summary:
+Circuit 1: WEIGHT_COMP                     |Circuit 2: WEIGHT_COMP                     
+-------------------------------------------|-------------------------------------------
+nfet_06v0 (23->17)                         |nfet_06v0 (23->17)                         
+nfet_05v0 (3)                              |nfet_05v0 (3)                              
+pfet_06v0 (7->2)                           |pfet_06v0 (7->2)                           
+pfet_05v0 (3)                              |pfet_05v0 (3)                              
+Number of devices: 25                      |Number of devices: 25                      
+Number of nets: 21                         |Number of nets: 21                         
+---------------------------------------------------------------------------------------
+Resolving symmetries by property value.
+Resolving symmetries by pin name.
+Netlists match uniquely.
+
+Subcircuit pins:
+Circuit 1: WEIGHT_COMP                     |Circuit 2: WEIGHT_COMP                     
+-------------------------------------------|-------------------------------------------
+VD                                         |VD                                         
+VB                                         |VB                                         
+VA                                         |VA                                         
+VC                                         |VC                                         
+VDD                                        |VDD                                        
+OUT                                        |OUT                                        
+VSS                                        |VSS                                        
+WE                                         |WE                                         
+OUT_N                                      |OUT_N                                      
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes WEIGHT_COMP and WEIGHT_COMP are equivalent.
+
+Final result: Circuits match uniquely.
+.

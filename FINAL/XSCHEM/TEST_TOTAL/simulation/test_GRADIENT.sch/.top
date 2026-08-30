@@ -1,0 +1,22 @@
+** sch_path: /foss/designs/a_zonetic2026/XSCHEM/TEST_TOTAL/test_GRADIENT.sch
+**.subckt test_GRADIENT
+V1 VEXC GND 5
+V2 VDD1 GND 5
+V6 VDD2 GND 5
+x2 S1N S1P VDD1 X1 S2N Y1 Z1 S2P GND S3N S3P GRADIENT
+x3 S1N S1P VDD2 X2 S2N Y2 Z2 S2P GND S3N S3P GRADIENT2
+R1 VEXC S2P r=' 1meg*(1-v(by)) '
+R2 VEXC S2N r=' 1meg*(1+v(by)) '
+R3 S2P GND r=' 1meg*(1+v(by)) '
+R4 S2N GND r=' 1meg*(1-v(by)) '
+V3 VDD3 GND 5
+V4 VDD4 GND 5
+R5 VEXC S3P r=' 1meg*(1-v(bz)) '
+R6 VEXC S3N r=' 1meg*(1+v(bz)) '
+R7 S3P GND r=' 1meg*(1+v(bz)) '
+R8 S3N GND r=' 1meg*(1-v(bz)) '
+R9 VEXC S1P r=' 1meg*(1-v(bx)) '
+R10 VEXC S1N r=' 1meg*(1+v(bx)) '
+R11 S1P GND r=' 1meg*(1+v(bx)) '
+R12 S1N GND r=' 1meg*(1-v(bx)) '
+**** begin user architecture code

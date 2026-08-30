@@ -1,0 +1,61 @@
+
+Class OPAM_LIN_flat (0):  Merged 3 parallel devices.
+Class OPAM_LIN_flat (0):  Merged 4 series devices.
+Class OPAM_LIN_flat (1):  Merged 3 parallel devices.
+Class OPAM_LIN_flat (1):  Merged 4 series devices.
+Subcircuit summary:
+Circuit 1: OPAM_LIN_flat                   |Circuit 2: OPAM_LIN_flat                   
+-------------------------------------------|-------------------------------------------
+pfet_06v0 (28->25)                         |pfet_06v0 (28->25)                         
+nfet_06v0 (25)                             |nfet_06v0 (25)                             
+cap_mim_2f0fF (2)                          |cap_mim_2f0fF (2)                          
+VSS (5->1)                                 |VSS (5->1)                                 
+Number of devices: 53                      |Number of devices: 53                      
+Number of nets: 37                         |Number of nets: 37                         
+---------------------------------------------------------------------------------------
+Resolving symmetries by property value.
+Resolving symmetries by pin name.
+Resolving symmetries by net name.
+Netlists match with 6 symmetries with property errors.
+VSS:$56 vs. VSS:FB_1:
+Property value in circuit1 has no matching property in circuit2
+VSS:$56 vs. VSS:FB_1:
+Property R in circuit2 has no matching property in circuit1
+cap_mim_2f0fF:$30 vs. cap_mim_2f0fF:3:
+Property P in circuit1 has no matching property in circuit2
+cap_mim_2f0fF:$30 vs. cap_mim_2f0fF:3:
+Property A in circuit1 has no matching property in circuit2
+cap_mim_2f0fF:$30 vs. cap_mim_2f0fF:3:
+Property value in circuit1 has no matching property in circuit2
+cap_mim_2f0fF:$30 vs. cap_mim_2f0fF:3:
+Property L in circuit2 has no matching property in circuit1
+cap_mim_2f0fF:$30 vs. cap_mim_2f0fF:3:
+Property W in circuit2 has no matching property in circuit1
+cap_mim_2f0fF:$29 vs. cap_mim_2f0fF:1:
+Property P in circuit1 has no matching property in circuit2
+cap_mim_2f0fF:$29 vs. cap_mim_2f0fF:1:
+Property A in circuit1 has no matching property in circuit2
+cap_mim_2f0fF:$29 vs. cap_mim_2f0fF:1:
+Property value in circuit1 has no matching property in circuit2
+cap_mim_2f0fF:$29 vs. cap_mim_2f0fF:1:
+Property L in circuit2 has no matching property in circuit1
+cap_mim_2f0fF:$29 vs. cap_mim_2f0fF:1:
+Property W in circuit2 has no matching property in circuit1
+
+Subcircuit pins:
+Circuit 1: OPAM_LIN_flat                   |Circuit 2: OPAM_LIN_flat                   
+-------------------------------------------|-------------------------------------------
+OUT                                        |OUT                                        
+VDD                                        |VDD                                        
+VSS                                        |VSS                                        
+INP                                        |INP                                        
+INN                                        |INN                                        
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes OPAM_LIN_flat and OPAM_LIN_flat are equivalent.
+
+Final result: Circuits match uniquely.
+Property errors were found.
+
+The following cells had property errors:
+ OPAM_LIN_flat

@@ -1,0 +1,9 @@
+bloque : OPAM_SUMA
+fecha  : 2026-08-29 18:10:54
+GDS    : /foss/designs/a_zonetic2026/layouts_v2/OPAM_SUMA/OPAM_SUMA_flat_gf180.gds
+ref    : /foss/designs/a_zonetic2026/layouts_v2/OPAM_SUMA/OPAM_SUMA_lvs.spice
+sustrato: VSS
+hoja poly: 1k
+setup netgen: /foss/pdks/gf180mcuD/libs.tech/netgen/gf180mcuD_setup.tcl
+KLayout: NO CASAN
+netgen : NO CASAN

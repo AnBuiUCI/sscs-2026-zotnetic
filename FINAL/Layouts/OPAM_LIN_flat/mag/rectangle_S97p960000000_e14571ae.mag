@@ -1,0 +1,9 @@
+magic
+tech gf180mcuD
+magscale 1 5
+timestamp 2083213696
+<< checkpaint >>
+rect -1000 -1000 10796 1090
+<< metal1 >>
+rect 0 0 9796 90
+<< end >>

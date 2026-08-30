@@ -1,0 +1,18 @@
+* fuente: /foss/designs/a_zonetic2026/XSCHEM_v2/simulation/ESD_CDM.sch/ESD_CDM.spice
+* leida via enlace: /foss/designs/a_zonetic2026/spice_blocks/ESD_CDM.spice
+* fecha de la fuente: 2026-08-27 03:12   sha1: f2b3fb5f02
+* generado por flatten_spice.py — NO editar a mano
+* netlist plana generada por flatten_spice.py (top: ESD_CDM)
+* 4 MOSFETs; nets fusionadas por V=0: ninguna
+* nombres: los del esquematico; solo llevan la ruta de instancias (Mx1_M4) los 0 que chocaban
+* m -> fingers: ninguno
+* para generar el layout: nf = numero de dedos
+.subckt ESD_CDM PAD CORE VDD VSS
+XMDN CORE GN VSS VSS nfet_06v0 L=1.0u W=9u nf=4
+XMDP CORE GP VDD VDD pfet_06v0 L=1.0u W=9u nf=2
+XMDP2 CORE GP VDD VDD pfet_06v0 L=1.0u W=8u nf=2
+XMDPAD PAD GN VSS VSS nfet_06v0 L=1.0u W=4u nf=2
+XR1 CORE PAD VSS ppolyf_u_3k r_width=1e-6 r_length=1.5e-6 m=1 s=1
+XRGN VSS GN VSS ppolyf_u_3k r_width=1e-6 r_length=1.5e-6 m=1 s=1
+XRGP VDD GP VSS ppolyf_u_3k r_width=1e-6 r_length=1.5e-6 m=1 s=1
+.ends

@@ -1,0 +1,63 @@
+  chain wiring of GRADIENT_NAV2_V2: 1->S1S2S3  2->S4S1S2  3->S3S4S1  4->S2S3S4
+  chain wiring of GRADIENT_NAV2: 1->S1S2S3  2->S4S1S2  3->S3S4S1  4->S2S3S4
+
+==============================================================================
+  (a) THE SENSORS   box 1000 x 1000 x 1000 um, gradient 1000 ppm/mm, mismatch 200 ppm
+==============================================================================
+      common mode 2.500000 .. 2.500000 V   (it must not move)
+      |measured - what its corner should read|, per sensor:  S1=0.003 ppm  S2=0.003 ppm  S3=0.003 ppm  S4=0.003 ppm
+
+==============================================================================
+  (a2) IS THE GRADIENT RIGHT?   angle between the gradient recovered from
+       the four bridges and the one asked for
+==============================================================================
+  esfera_1e-03     mean  13.3156 deg   worst  17.2427 deg
+  esfera_2e-03     mean   5.9897 deg   worst   7.6628 deg
+  esfera_9e-03     mean   1.4120 deg   worst   1.8013 deg
+
+==============================================================================
+  esfera_1e-03   13 sweeps over the sphere
+==============================================================================
+  version                           hit   undecided     miss   ideal_read ties
+  NAV2_V2  (decide redone)       69.96%       0.00%   30.04%         1.32%   (pair swapped: 0.00%)
+  NAV2     (as in the GDS)       69.96%       0.00%   30.04%         1.32%   (pair swapped: 0.00%)
+
+  the four chains, hit rate per chain (they share the decoders):
+  NAV2_V2  (decide redone)     chain1= 83.38%  chain2= 81.61%  chain3= 81.16%  chain4= 86.07%
+  NAV2     (as in the GDS)     chain1= 83.38%  chain2= 81.61%  chain3= 81.16%  chain4= 86.07%
+
+  the analogue vote counter, where the decide threshold has to fall:
+  NAV2_V2  (decide redone)     X=1.814..2.178 V  Y=1.814..2.178 V  Z=1.814..2.178 V
+  NAV2     (as in the GDS)     X=1.814..2.178 V  Y=1.814..2.178 V  Z=1.814..2.178 V
+
+==============================================================================
+  esfera_2e-03   13 sweeps over the sphere
+==============================================================================
+  version                           hit   undecided     miss   ideal_read ties
+  NAV2_V2  (decide redone)       83.68%       0.00%   16.32%         1.32%   (pair swapped: 0.00%)
+  NAV2     (as in the GDS)       83.68%       0.00%   16.32%         1.32%   (pair swapped: 0.00%)
+
+  the four chains, hit rate per chain (they share the decoders):
+  NAV2_V2  (decide redone)     chain1= 88.72%  chain2= 87.76%  chain3= 87.84%  chain4= 89.70%
+  NAV2     (as in the GDS)     chain1= 88.72%  chain2= 87.76%  chain3= 87.84%  chain4= 89.70%
+
+  the analogue vote counter, where the decide threshold has to fall:
+  NAV2_V2  (decide redone)     X=1.814..2.178 V  Y=1.814..2.178 V  Z=1.814..2.178 V
+  NAV2     (as in the GDS)     X=1.814..2.178 V  Y=1.814..2.178 V  Z=1.814..2.178 V
+
+==============================================================================
+  esfera_9e-03   13 sweeps over the sphere
+==============================================================================
+  version                           hit   undecided     miss   ideal_read ties
+  NAV2_V2  (decide redone)       90.70%       0.38%    8.92%         1.32%   (pair swapped: 0.00%)
+  NAV2     (as in the GDS)       90.70%       0.38%    8.92%         1.32%   (pair swapped: 0.00%)
+
+  the four chains, hit rate per chain (they share the decoders):
+  NAV2_V2  (decide redone)     chain1= 91.30%  chain2= 91.20%  chain3= 91.04%  chain4= 91.75%
+  NAV2     (as in the GDS)     chain1= 91.30%  chain2= 91.20%  chain3= 91.04%  chain4= 91.75%
+
+  the analogue vote counter, where the decide threshold has to fall:
+  NAV2_V2  (decide redone)     X=1.814..2.579 V  Y=1.814..2.178 V  Z=1.814..2.178 V
+  NAV2     (as in the GDS)     X=1.814..2.579 V  Y=1.814..2.178 V  Z=1.814..2.178 V
+
+  data -> datos_geo/caja.csv

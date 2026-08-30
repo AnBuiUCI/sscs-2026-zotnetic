@@ -1,0 +1,194 @@
+
+Class OPAM_SUMA (0):  Merged 6 parallel devices.
+Class OPAM_SUMA (0):  Merged 12 series devices.
+Class OPAM_SUMA (1):  Merged 3 parallel devices.
+Class OPAM_SUMA (1):  Merged 12 series devices.
+Subcircuit summary:
+Circuit 1: OPAM_SUMA                       |Circuit 2: OPAM_SUMA                       
+-------------------------------------------|-------------------------------------------
+pfet_06v0 (28->25)                         |pfet_06v0 (28->25)                         
+nfet_06v0 (29->26)                         |nfet_06v0 (29) **Mismatch**                
+cap_mim_2f0fF (2)                          |cap_mim_2f0fF (2)                          
+VSS (17->5)                                |VSS (17->5)                                
+Number of devices: 58 **Mismatch**         |Number of devices: 61 **Mismatch**         
+Number of nets: 37 **Mismatch**            |Number of nets: 41 **Mismatch**            
+---------------------------------------------------------------------------------------
+NET mismatches: Class fragments follow (with fanout counts):
+Circuit 1: OPAM_SUMA                       |Circuit 2: OPAM_SUMA                       
+
+---------------------------------------------------------------------------------------
+Net: \$37                                  |Net: A1                                    
+  nfet_06v0/(drain|source) = 2             |  nfet_06v0/gate = 1                       
+  nfet_06v0/gate = 1                       |  VSS/(end_a|end_b) = 1                    
+  pfet_06v0/(drain|source) = 1             |                                           
+                                           |                                           
+Net: \$74                                  |Net: A2                                    
+  cap_mim_2f0fF/top = 1                    |  nfet_06v0/gate = 1                       
+  nfet_06v0/(drain|source) = 1             |  VSS/(end_a|end_b) = 1                    
+  pfet_06v0/(drain|source) = 2             |                                           
+                                           |                                           
+Net: \$77                                  |Net: B1                                    
+  nfet_06v0/(drain|source) = 1             |  nfet_06v0/gate = 1                       
+  pfet_06v0/(drain|source) = 2             |  VSS/(end_a|end_b) = 1                    
+  pfet_06v0/gate = 1                       |                                           
+                                           |                                           
+Net: VSS                                   |Net: VSS                                   
+  nfet_06v0/(drain|source) = 13            |  nfet_06v0/(drain|source) = 19            
+  nfet_06v0/bulk = 26                      |  nfet_06v0/bulk = 29                      
+                                           |                                           
+Net: \$34                                  |Net: xamp_x2_net5                          
+  nfet_06v0/(drain|source) = 2             |  pfet_06v0/(drain|source) = 1             
+  cap_mim_2f0fF/bottom = 1                 |  nfet_06v0/(drain|source) = 2             
+  nfet_06v0/gate = 2                       |  cap_mim_2f0fF/bottom = 1                 
+  pfet_06v0/gate = 2                       |                                           
+  pfet_06v0/(drain|source) = 1             |                                           
+  VSS/(end_a|end_b) = 4                    |                                           
+                                           |                                           
+Net: \$638                                 |Net: NSP                                   
+  VSS/(end_a|end_b) = 1                    |  pfet_06v0/gate = 1                       
+                                           |  nfet_06v0/gate = 1                       
+                                           |  VSS/(end_a|end_b) = 2                    
+                                           |                                           
+(no matching net)                          |Net: NSN                                   
+                                           |  pfet_06v0/gate = 1                       
+                                           |  nfet_06v0/gate = 1                       
+                                           |  VSS/(end_a|end_b) = 2                    
+                                           |                                           
+(no matching net)                          |Net: xamp_x2_net6                          
+                                           |  nfet_06v0/(drain|source) = 1             
+                                           |  pfet_06v0/(drain|source) = 2             
+                                           |  cap_mim_2f0fF/top = 1                    
+                                           |                                           
+(no matching net)                          |Net: xamp_x2_net21                         
+                                           |  pfet_06v0/(drain|source) = 1             
+                                           |  nfet_06v0/(drain|source) = 2             
+                                           |  nfet_06v0/gate = 1                       
+                                           |                                           
+(no matching net)                          |Net: B2                                    
+                                           |  nfet_06v0/gate = 1                       
+                                           |  VSS/(end_a|end_b) = 1                    
+---------------------------------------------------------------------------------------
+
+---------------------------------------------------------------------------------------
+Net: OUT                                   |Net: OUT                                   
+  cap_mim_2f0fF/bottom = 1                 |  cap_mim_2f0fF/bottom = 1                 
+  cap_mim_2f0fF/top = 1                    |  cap_mim_2f0fF/top = 1                    
+  nfet_06v0/(drain|source) = 1             |  nfet_06v0/(drain|source) = 1             
+  pfet_06v0/(drain|source) = 1             |  pfet_06v0/(drain|source) = 1             
+  VSS/(end_a|end_b) = 1                    |  VSS/(end_a|end_b) = 1                    
+                                           |                                           
+Net: A1|A2|B1|B2                           |Net: xamp_x2_net11                         
+  nfet_06v0/gate = 1                       |  nfet_06v0/gate = 3                       
+  VSS/(end_a|end_b) = 4                    |  pfet_06v0/(drain|source) = 1             
+                                           |  nfet_06v0/(drain|source) = 1             
+                                           |                                           
+Net: \$48                                  |Net: xamp_x2_net20                         
+  pfet_06v0/(drain|source) = 1             |  pfet_06v0/gate = 3                       
+  nfet_06v0/(drain|source) = 1             |  pfet_06v0/(drain|source) = 1             
+  nfet_06v0/gate = 3                       |  nfet_06v0/(drain|source) = 1             
+                                           |                                           
+Net: \$42                                  |Net: xamp_x2_G_OUT_P                       
+  pfet_06v0/(drain|source) = 1             |  pfet_06v0/(drain|source) = 2             
+  pfet_06v0/gate = 3                       |  nfet_06v0/(drain|source) = 1             
+  nfet_06v0/(drain|source) = 1             |  pfet_06v0/gate = 1                       
+                                           |  VSS/(end_a|end_b) = 1                    
+---------------------------------------------------------------------------------------
+
+---------------------------------------------------------------------------------------
+Net: \$20                                  |Net: xamp_net4                             
+  pfet_06v0/gate = 10                      |  pfet_06v0/gate = 10                      
+  nfet_06v0/gate = 4                       |  nfet_06v0/gate = 4                       
+  nfet_06v0/(drain|source) = 1             |  nfet_06v0/(drain|source) = 1             
+  pfet_06v0/(drain|source) = 1             |  pfet_06v0/(drain|source) = 1             
+---------------------------------------------------------------------------------------
+
+---------------------------------------------------------------------------------------
+Net: VDD                                   |Net: VDD                                   
+  pfet_06v0/(drain|source) = 11            |  pfet_06v0/(drain|source) = 11            
+  pfet_06v0/bulk = 25                      |  pfet_06v0/bulk = 25                      
+---------------------------------------------------------------------------------------
+DEVICE mismatches: Class fragments follow (with node fanout counts):
+Circuit 1: OPAM_SUMA                       |Circuit 2: OPAM_SUMA                       
+
+---------------------------------------------------------------------------------------
+Instance: nfet_06v0:$37                    |Instance: nfet_06v0:XxmcA1                 
+  (drain,source) = (39,39)                 |  (drain,source) = (48,48)                 
+  gate = 5                                 |  gate = 2                                 
+  bulk = 39                                |  bulk = 48                                
+                                           |                                           
+Instance: nfet_06v0:$41                    |Instance: nfet_06v0:XxmcA2                 
+  (drain,source) = (4,4)                   |  (drain,source) = (48,48)                 
+  gate = 5                                 |  gate = 2                                 
+  bulk = 39                                |  bulk = 48                                
+                                           |                                           
+(no matching instance)                     |Instance: nfet_06v0:XxmcB1                 
+                                           |  (drain,source) = (48,48)                 
+                                           |  gate = 2                                 
+                                           |  bulk = 48                                
+                                           |                                           
+                                           |                                           
+(no matching instance)                     |Instance: nfet_06v0:XxmcB2                 
+                                           |  (drain,source) = (48,48)                 
+                                           |  gate = 2                                 
+                                           |  bulk = 48                                
+                                           |                                           
+                                           |                                           
+(no matching instance)                     |Instance: nfet_06v0:28                     
+                                           |  (drain,source) = (5,4)                   
+                                           |  gate = 5                                 
+                                           |  bulk = 48                                
+                                           |                                           
+---------------------------------------------------------------------------------------
+
+---------------------------------------------------------------------------------------
+Instance: VSS:$72                          |Instance: VSS:B2_1                         
+  (end_a,end_b) = (5,1)                    |  (end_a,end_b) = (4,2)                    
+                                           |                                           
+Instance: VSS:$69                          |Instance: VSS:B1_1                         
+  (end_a,end_b) = (12,5)                   |  (end_a,end_b) = (4,2)                    
+                                           |                                           
+Instance: VSS:$66                          |Instance: VSS:A2_1                         
+  (end_a,end_b) = (12,5)                   |  (end_a,end_b) = (4,2)                    
+                                           |                                           
+Instance: VSS:$63                          |Instance: VSS:A1_1                         
+  (end_a,end_b) = (12,5)                   |  (end_a,end_b) = (4,2)                    
+                                           |                                           
+Instance: VSS:$60                          |Instance: VSS:FB_xamp_x2_1                 
+  (end_a,end_b) = (12,5)                   |  (end_a,end_b) = (5,5)                    
+---------------------------------------------------------------------------------------
+
+---------------------------------------------------------------------------------------
+Instance: pfet_06v0:$59                    |Instance: pfet_06v0:43_m1                  
+  (drain,source) = (4,4)                   |  (drain,source) = (36,5)                  
+  gate = 16                                |  gate = 5                                 
+  bulk = 36                                |  bulk = 36                                
+                                           |                                           
+Instance: pfet_06v0:$55                    |Instance: pfet_06v0:30                     
+  (drain,source) = (36,5)                  |  (drain,source) = (5,4)                   
+  gate = 4                                 |  gate = 16                                
+  bulk = 36                                |  bulk = 36                                
+                                           |                                           
+Instance: pfet_06v0:$51                    |Instance: pfet_06v0:33                     
+  (drain,source) = (4,4)                   |  (drain,source) = (5,4)                   
+  gate = 5                                 |  gate = 5                                 
+  bulk = 36                                |  bulk = 36                                
+---------------------------------------------------------------------------------------
+Netlists do not match.
+Port matching may fail to disambiguate symmetries.
+
+Subcircuit pins:
+Circuit 1: OPAM_SUMA                       |Circuit 2: OPAM_SUMA                       
+-------------------------------------------|-------------------------------------------
+VSS                                        |B2 **Mismatch**                            
+A1|A2|B1|B2                                |OUT **Mismatch**                           
+OUT                                        |(no pin, node is xamp_x2_net11)            
+VDD                                        |VDD                                        
+(no pin, node is \$638)                    |A1                                         
+(no pin, node is \$638)                    |A2                                         
+(no pin, node is \$638)                    |B1                                         
+(no pin, node is \$638)                    |VSS                                        
+---------------------------------------------------------------------------------------
+Cell pin lists for OPAM_SUMA and OPAM_SUMA altered to match.
+Device classes OPAM_SUMA and OPAM_SUMA are equivalent.
+
+Final result: Top level cell failed pin matching.

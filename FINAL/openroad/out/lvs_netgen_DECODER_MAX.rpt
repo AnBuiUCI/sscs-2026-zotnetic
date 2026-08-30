@@ -1,0 +1,54 @@
+
+Circuit 1 cell pfet_06v0 and Circuit 2 cell pfet_06v0 are black boxes.
+
+Subcircuit pins:
+Circuit 1: pfet_06v0                       |Circuit 2: pfet_06v0                       
+-------------------------------------------|-------------------------------------------
+1                                          |1                                          
+2                                          |2                                          
+3                                          |3                                          
+4                                          |4                                          
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes pfet_06v0 and pfet_06v0 are equivalent.
+
+Circuit 1 cell nfet_06v0 and Circuit 2 cell nfet_06v0 are black boxes.
+
+Subcircuit pins:
+Circuit 1: nfet_06v0                       |Circuit 2: nfet_06v0                       
+-------------------------------------------|-------------------------------------------
+1                                          |1                                          
+2                                          |2                                          
+3                                          |3                                          
+4                                          |4                                          
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes nfet_06v0 and nfet_06v0 are equivalent.
+
+Subcircuit summary:
+Circuit 1: DECODER_MAX                     |Circuit 2: DECODER_MAX                     
+-------------------------------------------|-------------------------------------------
+pfet_06v0 (9)                              |pfet_06v0 (9)                              
+nfet_06v0 (9)                              |nfet_06v0 (9)                              
+Number of devices: 18                      |Number of devices: 18                      
+Number of nets: 14                         |Number of nets: 14                         
+---------------------------------------------------------------------------------------
+Netlists match uniquely.
+
+Subcircuit pins:
+Circuit 1: DECODER_MAX                     |Circuit 2: DECODER_MAX                     
+-------------------------------------------|-------------------------------------------
+X                                          |X                                          
+VSS                                        |VSS                                        
+Z                                          |Z                                          
+Y                                          |Y                                          
+XZ                                         |XZ                                         
+YZ                                         |YZ                                         
+XY                                         |XY                                         
+VDD                                        |VDD                                        
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes DECODER_MAX and DECODER_MAX are equivalent.
+
+Final result: Circuits match uniquely.
+.

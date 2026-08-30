@@ -1,0 +1,32 @@
+
+Class io_secondary_5p0 (0):  Merged 6 parallel devices.
+Class io_secondary_5p0 (1):  Merged 6 parallel devices.
+Subcircuit summary:
+Circuit 1: io_secondary_5p0                |Circuit 2: io_secondary_5p0                
+-------------------------------------------|-------------------------------------------
+diode_pd2nw_06v0 (4->1)                    |diode_pd2nw_06v0 (4->1)                    
+diode_nd2ps_06v0 (4->1)                    |diode_nd2ps_06v0 (4->1)                    
+VDD (1)                                    |VDD (1)                                    
+Number of devices: 3                       |Number of devices: 3                       
+Number of nets: 4                          |Number of nets: 4                          
+---------------------------------------------------------------------------------------
+Netlists match uniquely with property errors.
+VDD:$9 vs. VDD:R1:
+Property value in circuit1 has no matching property in circuit2
+
+Subcircuit pins:
+Circuit 1: io_secondary_5p0                |Circuit 2: io_secondary_5p0                
+-------------------------------------------|-------------------------------------------
+VDD                                        |VDD                                        
+VSS                                        |VSS                                        
+ASIG5V                                     |ASIG5V                                     
+to_gate                                    |to_gate                                    
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes io_secondary_5p0 and io_secondary_5p0 are equivalent.
+
+Final result: Circuits match uniquely.
+Property errors were found.
+
+The following cells had property errors:
+ io_secondary_5p0

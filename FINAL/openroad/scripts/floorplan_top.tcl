@@ -12,6 +12,16 @@
 #  the database, so the floorplan re-arranges itself when a block changes size.
 # -----------------------------------------------------------------------------
 
+#  Output directory. Defaults to `out`, which is the v1 top's.
+#  `TOP_OUT` changes it so the top can be built with another version's cells
+#  without stepping on the previous one: both have to coexist to be
+#  compararlos.
+set OUT [expr {[info exists env(TOP_OUT)] ? $env(TOP_OUT) : "out"}]
+file mkdir $OUT
+
+#  Name of the top cell. See scripts/load_design.tcl.
+set TOPCELL [expr {[info exists env(TOP_CELL)] ? $env(TOP_CELL) : "GRADIENT_NAV"}]
+
 source scripts/load_design.tcl
 
 set block [ord::get_db_block]
@@ -20,34 +30,73 @@ set dbu   [[ord::get_db_tech] getDbUnitsPerMicron]
 # --- geometry knobs ----------------------------------------------------------
 #  Sized to land the whole chip inside 500 x 500 um. The channels have to stay
 #  wide enough for a stripe pair plus clearance; 12 um fits 3 + 3 + 3 with room.
-set HGAP     16.0   ;# hueco entre macros de un estante: por ahi va todo el
+set HGAP     16.0   ;# gap between macros on a shelf: all the
                     ;# trafico vertical de Metal2, porque dentro de un macro esa
-                    ;# capa esta ocupada por el ruteo del propio bloque.
-set VGAP     12.0   ;# canal entre estantes; tiene que caber un par de tiras (9)
+                    ;# layer is taken by the block's own routing.
+set VGAP     12.0   ;# channel between shelves; a couple of straps must fit (9)
 set MARGIN    9.0   ;# core a die
 set STRIPE_W  3.0
 set BUDGET  500.0   ;# lado maximo del die
 set ASPECT    1.2   ;# proporcion maxima; dentro de eso se minimiza el AREA
-set SNAP_PAD  3.0   ;# holgura para el ajuste del core a la rejilla del site
+set SNAP_PAD  3.0   ;# slack for snapping the core to the site grid
+set PIN_GAP   5.0   ;# minimum spacing between top pins, in microns
+set PIN_CORNER 10.0 ;# and how far they keep from the die corners
 
 #: Everything handed to pdngen has to land on the 0.005 um manufacturing grid;
 #: a band centred between two obstructions lands on 66.3875 as easily as not,
 #: and `PDN-0191` aborts rather than rounding.
 proc mfg {v} { return [expr {round($v / 0.005) * 0.005}] }
 
-#: Los macros se colocan sobre la rejilla de ruteo (paso 0.56), no solo sobre la
-#: de fabricacion. Sus plataformas de metal3 ya van sobre pista dentro del bloque
-#: (ver coil_layout/power.py); si el bloque no cae en un multiplo del paso, esa
+#: Macros are placed on the routing grid (0.56 pitch), not just on the
+#: manufacturing grid. Their metal3 landing pads are already on-track inside the
+#: block (see coil_layout/power.py); if the block does not land on a multiple of
 #: alineacion se pierde al colocarlo y el router vuelve a aterrizar de refilon.
 proc ontrack {v} { return [expr {round($v / 0.56) * 0.56}] }
 
+#: EL `ORIGIN` DEL MACRO ENTRA EN LA CUENTA, y olvidarlo deshace lo anterior.
+#: `place_macro -location` situa la esquina de la caja SIZE, que en coordenadas
+#: del bloque esta en `-ORIGIN`. Asi que un pad que dentro del bloque vive en
+#: `0.28 + k*0.56` acaba en el top en `location + ORIGIN + 0.28 + k*0.56`: si
+#: `ORIGIN` no es multiplo del paso, toda la alineacion se pierde aunque
+#: `location` si lo sea. `OPAM_LIN_flat` tiene `ORIGIN 1.260`, que es 0.14 fuera
+#: de rejilla, y `WEIGHT_COMP` tiene `3.945 3.550`.
+#:
+#: Coste real: `[ERROR DRT-0073] No access point for x1_x1/INP`, que aborta el
+#: ruteo entero. Y es el mismo razonamiento que ya hace `integrate_top.tcl` un
+#: nivel mas arriba.
+proc lef_origins {} {
+    set out [dict create]
+    foreach f [glob -nocomplain [file join [file dirname [info script]] .. lef *.lef]] {
+        set mname [file rootname [file tail $f]]
+        set fh [open $f r]; set txt [read $fh]; close $fh
+        if {[regexp {\n\s*ORIGIN\s+([-\d.]+)\s+([-\d.]+)\s*;} $txt -> ox oy]} {
+            dict set out $mname [list $ox $oy]
+        } else {
+            dict set out $mname [list 0.0 0.0]
+        }
+    }
+    return $out
+}
+
+#: `location` tal que `location + origen` cae en la rejilla de ruteo.
+#:
+#: Redondea HACIA ARRIBA, no al mas cercano. Al mas cercano, la primera columna
+#: se iba 0.14 um por debajo del borde del core y `MPL-0034` abortaba
+#: (`Cannot place x1_x1 at (9.38, ...), outside of the core (9.52, ...)`).
+#: Hacia arriba el macro nunca retrocede, y lo que se paga es como mucho un paso
+#: de pista -- 0.56 um -- por fila y por columna, sobre un floorplan parametrico.
+proc ontrack_org {v org} {
+    set k [expr {ceil(($v + $org) / 0.56 - 1e-9)}]
+    return [expr {$k * 0.56 - $org}]
+}
+
 #: `MIMTM.1` pide 1.2 um de la placa de un MIM a cualquier otro metal4. Evitar el
-#: solape no basta: las tiras de alimentacion pasaban rozando y salieron 41
-#: violaciones. El LEF ya trae el espaciado de la capa; esto anade el resto.
+#: overlap is not enough: the power straps brushed past and 41
+#: violations. The LEF already carries the layer spacing; this adds the rest.
 set MIM_CLEAR 1.2
 
 proc blocked_x {master dbu dx} {
-    #: Rangos de x con Metal4 obstruido, desplazados a donde esta el macro.
+    #: x ranges with Metal4 blocked, shifted to where the macro sits.
     global MIM_CLEAR
     set out {}
     foreach box [$master getObstructions] {
@@ -84,21 +133,21 @@ proc dim {block dbu name what} {
 #  Instances are grouped by the first field of their hierarchical name, which the
 #  Verilog generator builds from the instance path: `x1_x4` is instance x4 inside
 #  GRADIENT x1. So every group is one GRADIENT.
-#  --- empaquetado por estantes ------------------------------------------------
-#  La rejilla de columnas se ha ido. Obligaba a que toda columna fuese tan ancha
-#  como su macro mas ancho, y como cada columna mezclaba OPAM (87.44) con COMP
-#  (104.28), cada fila de OPAM tiraba 16.84 um de ancho, doce veces.
+#  --- shelf packing ------------------------------------------------------------
+#  The column grid is gone. It forced every column to be as wide as its widest
+#  macro, and since every column mixed OPAM (87.44) with COMP (104.28), each
+#  OPAM row threw away 16.84 um of width, twelve times over.
 #
-#  En su lugar, First-Fit-Decreasing-Height: los macros se ordenan de mas alto a
-#  mas bajo y se van metiendo en estantes; el alto de cada estante lo fija el
-#  primero que entra, que por el orden es siempre el mas alto. Lo que sobra al
-#  final de un estante lo aprovecha un macro mas bajo — asi es como los
-#  WEIGHT_COMP acaban en el hueco que dejan tres COMP.
+#  In its place, First-Fit-Decreasing-Height: macros are sorted tallest to
+#  shortest and packed into shelves; each shelf height is set by the first one
+#  in, which by that order is always the tallest. What is left at the end of a
+#  shelf gets used by a shorter macro -- that is how the WEIGHT_COMPs end up in
+#  the gap three COMPs leave.
 #
-#  Se barren anchos objetivo y se elige el de MENOR AREA entre los que dejan la
-#  proporcion por debajo de ASPECT y los dos lados por debajo de BUDGET. No se
-#  rellena nada para igualar los lados: no hace falta el cuadrado exacto, y ese
-#  relleno seria area tirada.
+#  Target widths are swept and the SMALLEST AREA is chosen among those keeping
+#  the aspect below ASPECT and both sides below BUDGET. Nothing is padded to
+#  even out the sides: an exact square is not needed, and that
+#  padding would be wasted area.
 set items {}
 foreach inst [$block getInsts] {
     if {![[$inst getMaster] isBlock]} { continue }
@@ -108,15 +157,15 @@ foreach inst [$block getInsts] {
                         [expr {[$m getHeight] / double($dbu)}] \
                         [$m getName]]
 }
-#  Orden: por alto descendente, y dentro de cada altura por nombre de instancia,
-#  que agrupa `x1_*` con `x1_*`. Los macros de un mismo GRADIENT tienden asi a
-#  caer en la misma x de estantes distintos, que acorta las nets que los unen.
+#  Order: by descending height, and within a height by instance name, which
+#  groups `x1_*` with `x1_*`. Macros of the same GRADIENT then tend to land at
+#  the same x on different shelves, which shortens the nets joining them.
 set items [lsort -index 0 $items]
 set items [lsort -real -decreasing -index 2 $items]
 
 proc pack {items W hgap} {
-    #: FFDH. Devuelve {shelves used_width total_height}, con shelves como lista de
-    #: {alto  {{nombre x w} ...}}.
+    #: FFDH. Returns {shelves used_width total_height}, with shelves as a list of
+    #: {tall  {{pin_name x w} ...}}.
     set shelves {}
     foreach it $items {
         lassign $it name w h
@@ -132,7 +181,7 @@ proc pack {items W hgap} {
             }
         }
         if {!$done} {
-            if {$w > $W} { return {} }          ;# no cabe ni solo: ancho invalido
+            if {$w > $W} { return {} }          ;# does not fit alone: bad width
             lappend shelves [list $h [list [list $name 0.0 $w]] $w]
         }
     }
@@ -163,12 +212,12 @@ for {set W [expr {ceil($widest)}] } {$W <= $BUDGET - 2 * $MARGIN} {set W [expr {
     }
 }
 if {![llength $best]} {
-    error "ningun ancho da un die dentro de $BUDGET um con proporcion <= $ASPECT"
+    error "no width gives a die within $BUDGET um at aspect <= $ASPECT"
 }
 lassign $best best_area shelves die_w die_h nshelf
 
 #  Un pelin de holgura: `initialize_floorplan` ajusta el core a la rejilla del
-#  site y lo encoge hasta un site por lado. Sin esto el primer macro caia fuera
+#  site and shrinks it by up to one site per side. Without this the first macro
 #  por 0.52 um (`MPL-0034`).
 set die_w [expr {$die_w + $SNAP_PAD}]
 set die_h [expr {$die_h + $SNAP_PAD}]
@@ -190,6 +239,7 @@ set core0   [$block getCoreArea]
 set org_x   [expr {[$core0 xMin] / double($dbu)}]
 set org_y   [expr {[$core0 yMin] / double($dbu)}]
 
+set ORIGENES [lef_origins]
 set masters [dict create]
 set inst_of [dict create]
 set hlanes  {}
@@ -199,9 +249,12 @@ foreach s $shelves {
     lassign $s sh smembers
     foreach mem $smembers {
         lassign $mem name x w
+        set mname0 [[[$block findInst $name] getMaster] getName]
+        lassign [expr {[dict exists $ORIGENES $mname0] ?
+                       [dict get $ORIGENES $mname0] : [list 0.0 0.0]}] mox moy
         place_macro -macro_name $name -orientation R0 \
-            -location [list [ontrack [expr {$org_x + $x}]] \
-                            [ontrack [expr {$org_y + $y}]]]
+            -location [list [ontrack_org [expr {$org_x + $x}] $mox] \
+                            [ontrack_org [expr {$org_y + $y}] $moy]]
         set mn [[[$block findInst $name] getMaster] getName]
         dict set masters $mn 1
         dict set inst_of $mn $name
@@ -240,8 +293,8 @@ define_pdn_grid -name core -voltage_domains CORE
 set PAIR  [expr {$STRIPE_W}]
 set need  [expr {2 * $STRIPE_W + $PAIR}]
 
-#  Metal5 (horizontal) se queda en los canales entre estantes: solo tiene que
-#  encontrarse con Metal4, y por encima de un macro caeria sobre los platos MIM.
+#  Metal5 (horizontal) stays in the channels between shelves: it only has to
+#  meet Metal4, and above a macro it would land on the MIM plates.
 #  `hlanes` viene de la colocacion, un carril por canal.
 set extent [expr {2 * $STRIPE_W + $PAIR}]
 foreach c $hlanes {
@@ -252,15 +305,15 @@ foreach c $hlanes {
 }
 add_pdn_connect -grid core -layers {Metal4 Metal5}
 
-#  Las tiras de Metal4 van en la rejilla del CORE y se calculan **por instancia**,
-#  no por columna: para cada macro se miran las bandas donde SU LEF deja el Metal4
-#  libre, se llevan a coordenadas del core con su posicion ya colocada y se pide
-#  una tira ahi. Que esa tira quede bloqueada al pasar por otro macro da igual —
-#  pdngen la recorta en trozos y sigue sirviendo a los macros donde si esta libre.
+#  The Metal4 straps go on the CORE grid and are computed **per instance**, not
+#  per column: for each macro we look at the bands where ITS LEF leaves Metal4
+#  free, map them into core coordinates with its placed position, and ask for a
+#  strap there. That the strap gets blocked passing over another macro does not
+#  matter -- pdngen clips it into pieces and it still serves the macros where it is free.
 #
-#  La alternativa aparente, una rejilla `-macro` con tiras propias por instancia,
-#  NO funciona: sale vacia (`PDN-0232`) porque sus straps no tienen ninguna
-#  rejilla de core a la que subir, y pdngen las descarta y aborta la corrida.
+#  The apparent alternative, a `-macro` grid with its own per-instance straps,
+#  does NOT work: it comes out empty (`PDN-0232`) because its straps have no core
+#  grid to climb to, and pdngen discards them and aborts the run.
 set base [expr {$MARGIN - $core_x0}]
 set nstripe 0
 set seen {}
@@ -282,8 +335,8 @@ foreach inst [$block getInsts] {
     }
 }
 
-#  Y la rejilla de macro, que es lo que ata cada bloque: Metal3 (la barra que el
-#  bloque expone sobre su riel) contra Metal4 (las tiras de arriba).
+#  And the macro grid, which is what ties each block: Metal3 (the bar the block
+#  exposes over its rail) against Metal4 (the straps above).
 define_pdn_grid -macro -name macro -cells [lsort [dict keys $masters]] -halo {0 0}
 add_pdn_connect -grid macro -layers {Metal3 Metal4}
 
@@ -291,11 +344,11 @@ pdngen
 
 # --- halo de los MIM ---------------------------------------------------------
 #  `MIMTM.1` pide 1.2 um de la placa de un MIM a cualquier otro metal4, y esa
-#  distancia se mide **fuera** del macro tambien. Engordar la obstruccion del LEF
-#  no sirve: OpenROAD la recorta al contorno del macro, asi que el router tendia
-#  Metal4 a 0.51 um de una placa por el canal de al lado. Lo que si respeta es un
-#  bloqueo declarado en el top, y eso es lo que se pone aqui: la geometria de
-#  Metal4 de cada instancia, engordada, en coordenadas del die.
+#  distance is measured **outside** the macro too. Growing the LEF obstruction
+#  does not help: OpenROAD clips it to the macro outline, so the router ran
+#  Metal4 0.51 um from a plate through the channel next door. What it does
+#  respect is a blockage declared on the top, and that is what goes here: each
+#  instance's Metal4 geometry, grown, in die coordinates.
 set nblock 0
 foreach inst [$block getInsts] {
     if {![[$inst getMaster] isBlock]} { continue }
@@ -310,77 +363,110 @@ foreach inst [$block getInsts] {
         incr nblock
     }
 }
-puts "Bloqueos de Metal4 alrededor de los MIM: $nblock"
+puts "Metal4 blockages around the MIMs: $nblock"
 
 # --- pines del top -----------------------------------------------------------
-#  Los 19 puertos no tienen pin fisico: hoy son solo nombres en el Verilog. Sin
-#  esto las nets que van a ellos no tienen donde terminar y el router no puede
-#  cerrarlas. Metal3 es horizontal y Metal2 vertical, asi que los de los lados
-#  izquierdo y derecho salen en Metal3 y los de arriba y abajo en Metal2.
-place_pins -hor_layers Metal3 -ver_layers Metal2
+#  The 19 ports have no physical pin: today they are just names in the Verilog.
+#  Without this the nets going to them have nowhere to end and the router cannot
+#  close them. Metal3 is horizontal and Metal2 vertical, so the left and right
+#  ones come out on Metal3 and the top and bottom ones on Metal2.
+#  `-min_distance` in microns. Without it, `place_pins` packed them to the grid
+#  pitch and they came out **1.12 um** apart (S1N/S1P at the bottom, and the six
+#  on the left). Not illegal, but it leaves the padframe integrator opening the
+#  abanico desde un paso de pista; 5 um es holgado y siguen cabiendo de sobra.
+place_pins -hor_layers Metal3 -ver_layers Metal2 -min_distance $PIN_GAP \
+           -corner_avoidance $PIN_CORNER
 
-#  ...pero los DOS de alimentacion hay que ponerlos a mano, encima de su propia
-#  tira de Metal5. `place_pins` los trata como una senal mas y los deja en el
-#  borde del die, en un pad de Metal2/Metal3 que no toca la malla: quedan
+#  ...but the TWO power ones have to be placed by hand, over their own Metal5
+#  strap. `place_pins` treats them like any other signal and leaves them on the
+#  die edge, on a Metal2/Metal3 pad that never touches the grid: they end up
 #  FLOTANDO. No lo ve el DRC (un abierto no viola ninguna regla) ni
-#  `check_connectivity.py` (que solo mira terminales de macro, no los pines del
-#  top), y el router tampoco los cierra, porque salta las nets POWER/GROUND.
+#  `check_connectivity.py` (which only looks at macro terminals, not the top
+#  pins), and the router does not close them either, because it skips POWER/GROUND nets.
 #
-#  Donde si aparece es en el LVS, y era lo ultimo que le quedaba al top: netgen
+#  Where it does show is in LVS, and it was the last thing left on the top:
 #  daba `Netlists match with 144 symmetries` con 880 nets y 1389 dispositivos
-#  iguales a cada lado, y fallaba solo en el emparejamiento de pines — la red de
-#  alimentacion de verdad salia sin nombre (`w_1904_7964#` el pozo,
-#  `a_2082_4860#` el sustrato) y los puertos `VDD` y `VSS` salian sueltos.
+#  identical on each side, and it failed only on pin matching -- the power
+#  real power came out unnamed (`w_1904_7964#` the well,
+#  `a_2082_4860#` the substrate) and the `VDD` and `VSS` ports came out loose.
 #
-#  Se pone el pin sobre la tira, no la tira sobre el pin: la malla ya esta hecha
+#  The pin goes onto the strap, not the strap onto the pin: the grid is already
 #  y tocarla es rehacer el reparto entero.
-proc tira_de {block nombre capa} {
-    set net [$block findNet $nombre]
+proc strap_of {block pin_name layer} {
+    set net [$block findNet $pin_name]
     if {$net eq "NULL" || $net eq ""} { return {} }
     foreach sw [$net getSWires] {
-        foreach caja [$sw getWires] {
-            if {[$caja isVia]} { continue }
-            set l [$caja getTechLayer]
-            if {$l eq "NULL" || [$l getName] ne $capa} { continue }
-            return [list [$caja xMin] [$caja yMin] [$caja xMax] [$caja yMax]]
+        foreach box [$sw getWires] {
+            if {[$box isVia]} { continue }
+            set l [$box getTechLayer]
+            if {$l eq "NULL" || [$l getName] ne $layer} { continue }
+            return [list [$box xMin] [$box yMin] [$box xMax] [$box yMax]]
         }
     }
     return {}
 }
 
 set dbu_pin [[ord::get_db_tech] getDbUnitsPerMicron]
-foreach nombre {VDD VSS} {
-    set caja [tira_de $block $nombre Metal5]
-    if {[llength $caja] != 4} {
-        puts "  AVISO: $nombre no tiene tira de Metal5; el pin se queda donde estaba"
+
+#: Extends the strap to the LEFT edge of the die and returns the new box.
+#:
+#: Without this the Metal5 strap stops ~20 um from the edge and the pin lands
+#: **inside** the die: a padframe connecting by abutment cannot reach. A port is
+#: precisely what does have to touch the outline -- the rest of the
+#: geometry keeps clear of it (see `decap_fill.BORDE_DIE` and
+#: `fill_density.BORDE_DIE`).
+proc extend_to_edge {block pin_name layer} {
+    set net [$block findNet $pin_name]
+    if {$net eq "NULL" || $net eq ""} { return {} }
+    foreach sw [$net getSWires] {
+        foreach box [$sw getWires] {
+            if {[$box isVia]} { continue }
+            set l [$box getTechLayer]
+            if {$l eq "NULL" || [$l getName] ne $layer} { continue }
+            odb::dbSBox_create $sw $l 0 [$box yMin] [$box xMax] [$box yMax] "STRIPE"
+            return [list 0 [$box yMin] [$box xMax] [$box yMax]]
+        }
+    }
+    return {}
+}
+
+foreach pin_name {VDD VSS} {
+    set box [extend_to_edge $block $pin_name Metal5]
+    if {[llength $box] != 4} {
+        puts "  WARNING: $pin_name has no Metal5 strap; the pin stays where it was"
         continue
     }
-    lassign $caja x0 y0 x1 y1
-    set alto  [expr {($y1 - $y0) / double($dbu_pin)}]
-    set ancho $alto
-    #  Cerca del extremo izquierdo de la tira, no en mitad del die: el pin sigue
-    #  siendo el sitio por donde se entra, aunque aqui no haya anillo de pads.
-    set cx [expr {($x0 / double($dbu_pin)) + $ancho}]
+    lassign $box x0 y0 x1 y1
+    set tall  [expr {($y1 - $y0) / double($dbu_pin)}]
+    set wide $tall
+    #  Flush with the left die edge, over the already extended strap.
+    set cx [expr {$wide / 2.0}]
     set cy [expr {(($y0 + $y1) / 2.0) / $dbu_pin}]
-    place_pin -pin_name $nombre -layer Metal5 \
-              -location [list $cx $cy] -pin_size [list $ancho $alto]
-    puts [format "  pin %s sobre su tira de Metal5 en (%.3f, %.3f), %.3f x %.3f" \
-              $nombre $cx $cy $ancho $alto]
+    place_pin -pin_name $pin_name -layer Metal5 \
+              -location [list $cx $cy] -pin_size [list $wide $tall]
+    #  And declared as what they are. `place_pins` leaves them `USE SIGNAL`, and
+    #  the padframe integrator tells the supplies apart by that.
+    set bt [$block findBTerm $pin_name]
+    if {$bt ne "NULL" && $bt ne ""} {
+        $bt setSigType [expr {$pin_name eq "VDD" ? "POWER" : "GROUND"}]
+    }
+    puts [format "  pin %s on the die edge, over its Metal5 strap: (%.3f, %.3f), %.3f x %.3f" \
+              $pin_name $cx $cy $wide $tall]
 }
 
 # --- output ------------------------------------------------------------------
 file mkdir out
-write_def out/GRADIENT_NAV.def
+write_def $OUT/$TOPCELL.def
 
 puts "--------------------------------------------------------------"
 puts [format "Die       %.2f x %.2f um   (budget %.0f)" $die_w $die_h $BUDGET]
-puts [format "Area      %.0f um2   proporcion %.3f" \
+puts [format "Area      %.0f um2   aspect %.3f" \
           [expr {$die_w * $die_h}] [expr {max($die_w,$die_h)/min($die_w,$die_h)}]]
-puts [format "Estantes  %d" $nshelf]
+puts [format "Shelves   %d" $nshelf]
 foreach s $shelves {
-    puts [format "   alto %5.2f um : %s" [lindex $s 0] \
+    puts [format "   tall %5.2f um : %s" [lindex $s 0] \
               [join [lmap m [lindex $s 1] {lindex $m 0}] " "]]
 }
 report_design_area
-puts "DEF written to out/GRADIENT_NAV.def"
+puts "DEF written to $OUT/$TOPCELL.def"
 puts "--------------------------------------------------------------"

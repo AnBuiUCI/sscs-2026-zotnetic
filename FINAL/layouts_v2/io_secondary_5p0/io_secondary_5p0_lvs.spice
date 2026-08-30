@@ -1,0 +1,33 @@
+* io_secondary_5p0 -- LVS reference for the secondary ESD cell of the
+* organisers, describing WHAT IS DRAWN, which is what gets fabricated.
+*
+* Source of the layout: sscs-ose/sscs-chipathon-2026, commit aa834f5,
+*   resources/Integration/Chipathon2025_pads/magic/secondary_ESD.gds
+* Their own schematic in the same repo does NOT describe that layout:
+*
+*   they declare        drawn, and used here
+*   ------------------  --------------------------------------------------
+*   m=4 on each diode   four explicit instances -- KLayout's LVS does not
+*                       expand a multiplier, it wants the instances
+*   ppolyf_u W=16u L=4u ppolyf_u W=40u L=10u -- the RES_MK is 10 um across
+*                       the current path by 40 along the contact banks. Same
+*                       0.25 squares and same 87.5 ohm, but LVS compares W
+*                       and L, not the ratio
+*
+* Verdict with this file: "Congratulations! Netlists match."
+* Report the discrepancy to the organisers; the drawing is the reference.
+.subckt io_secondary_5p0 VDD to_gate ASIG5V VSS
+*.iopin VDD
+*.iopin VSS
+*.ipin ASIG5V
+*.opin to_gate
+D1 to_gate VDD diode_pd2nw_06v0 A=100p P=40u
+D2 to_gate VDD diode_pd2nw_06v0 A=100p P=40u
+D3 to_gate VDD diode_pd2nw_06v0 A=100p P=40u
+D4 to_gate VDD diode_pd2nw_06v0 A=100p P=40u
+D5 VSS to_gate diode_nd2ps_06v0 A=100p P=40u
+D6 VSS to_gate diode_nd2ps_06v0 A=100p P=40u
+D7 VSS to_gate diode_nd2ps_06v0 A=100p P=40u
+D8 VSS to_gate diode_nd2ps_06v0 A=100p P=40u
+RR1 to_gate ASIG5V VDD ppolyf_u W=40e-6 L=10e-6
+.ends

@@ -1,0 +1,154 @@
+** sch_path: /foss/designs/a_zonetic2026/XSCHEM/TEST/test_decoder.sch
+**.subckt test_decoder
+V1 VDD GND 5
+V2 VDD1 GND 5
+V9 VDD2 GND 5
+x1 VDD VXY VXZ X Y VYZ Z GND DECODER
+V6 VXY GND pulse(0 5 0 1m 1m 0.5 1)
+V7 VXZ GND pulse(0 5 0 1m 1m 0.25 0.5)
+V8 VYZ GND pulse(0 5 0 1m 1m 0.125 0.25)
+**** begin user architecture code
+
+
+.tran 100u 1
+.save all
+.control
+run
+wrdata in.txt    v(VXY) v(VXZ) v(VYZ)
+wrdata outX.txt  v(X) v(X1) v(X2)
+wrdata outY.txt  v(Y) v(Y1) v(Y2)
+wrdata outZ.txt  v(Z) v(Z1) v(Z2)
+wrdata power.txt v(VDD)*i(v1) v(VDD1)*i(v2) v(VDD2)*i(v9)
+plot v(VXY) v(VXZ) v(VYZ)
+plot v(X) v(X1)
+plot v(Y) v(Y1)
+plot v(Z) v(Z1)
+plot v(VDD)*i(v1) v(VDD1)*i(v2)
+.endc
+
+
+
+.include /foss/pdks/gf180mcuD/libs.tech/ngspice/design.ngspice
+.lib /foss/pdks/gf180mcuD/libs.tech/ngspice/sm141064.ngspice typical
+.lib /foss/pdks/gf180mcuD/libs.tech/ngspice/sm141064.ngspice cap_mim
+.lib /foss/pdks/gf180mcuD/libs.tech/ngspice/sm141064.ngspice res_typical
+.lib /foss/pdks/gf180mcuD/libs.tech/ngspice/sm141064.ngspice moscap_typical
+.lib /foss/pdks/gf180mcuD/libs.tech/ngspice/sm141064.ngspice mimcap_typical
+* .lib /foss/pdks/gf180mcuD/libs.tech/ngspice/sm141064.ngspice res_statistical
+
+
+.include ../../../../Layouts/DECODER/mag/DECODER_pex_rc_LAY.spice
+Xextrc GND VDD1 VYZ Z1 VXY VXZ Y1 X1 DECODER_LAY
+.include ../../../../layouts_v2/DECODER/mag/DECODER_V2_pex_rc.spice
+Xextrc2 GND VDD2 VYZ Z2 VXY VXZ Y2 X2 DECODER_V2
+*DECODER_LAY VSS VDD YZ Z XY XZ Y X
+
+
+**** end user architecture code
+**.ends
+
+* expanding   symbol:  a_zonetic2026/XSCHEM/DECODER/DECODER.sym # of pins=8
+** sym_path: /foss/designs/a_zonetic2026/XSCHEM/DECODER/DECODER.sym
+** sch_path: /foss/designs/a_zonetic2026/XSCHEM/DECODER/DECODER.sch
+.subckt DECODER VDD XY XZ X Y YZ Z VSS
+*.ipin XY
+*.ipin XZ
+*.iopin VDD
+*.iopin VSS
+*.iopin X
+*.ipin YZ
+*.iopin Y
+*.iopin Z
+x2 YZ XY VDD Y VSS yGates
+x1 VSS VDD XZ YZ Z Z
+x3 VDD XY X XZ VSS xGates
+.ends
+
+
+* expanding   symbol:  a_zonetic2026/XSCHEM/DECODER/yGates.sym # of pins=5
+** sym_path: /foss/designs/a_zonetic2026/XSCHEM/DECODER/yGates.sym
+** sch_path: /foss/designs/a_zonetic2026/XSCHEM/DECODER/yGates.sch
+.subckt yGates YZ XY VDD output VSS
+*.ipin VDD
+*.ipin VSS
+*.ipin YZ
+*.ipin XY
+*.opin output
+x2 VDD net1 XY VSS invertor
+x3 YZ VDD net1 output VSS andGate
+.ends
+
+
+* expanding   symbol:  a_zonetic2026/XSCHEM/DECODER/Z.sym # of pins=5
+** sym_path: /foss/designs/a_zonetic2026/XSCHEM/DECODER/Z.sym
+** sch_path: /foss/designs/a_zonetic2026/XSCHEM/DECODER/Z.sch
+.subckt Z VSS VDD XZ YZ out
+*.iopin VSS
+*.iopin VDD
+*.ipin XZ
+*.ipin YZ
+*.opin out
+XM4 net1 YZ out VDD pfet_06v0 L=1.0u W=3.0u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+XM5 VDD XZ net1 VDD pfet_06v0 L=1.0u W=3.0u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+XM7 VSS YZ out VSS nfet_06v0 L=1u W=1u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+XM1 VSS XZ out VSS nfet_06v0 L=1u W=1u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+.ends
+
+
+* expanding   symbol:  a_zonetic2026/XSCHEM/DECODER/xGates.sym # of pins=5
+** sym_path: /foss/designs/a_zonetic2026/XSCHEM/DECODER/xGates.sym
+** sch_path: /foss/designs/a_zonetic2026/XSCHEM/DECODER/xGates.sch
+.subckt xGates VDD XY output XZ VSS
+*.ipin XY
+*.opin output
+*.ipin VDD
+*.ipin VSS
+*.ipin XZ
+x2 XY VDD XZ output VSS andGate
+.ends
+
+
+* expanding   symbol:  a_zonetic2026/XSCHEM/DECODER/invertor.sym # of pins=4
+** sym_path: /foss/designs/a_zonetic2026/XSCHEM/DECODER/invertor.sym
+** sch_path: /foss/designs/a_zonetic2026/XSCHEM/DECODER/invertor.sch
+.subckt invertor VDD output In VSS
+*.opin output
+*.ipin In
+*.ipin VDD
+*.ipin VSS
+XM4 output In VDD VDD pfet_06v0 L=1.0u W=3.0u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+XM5 VSS In output VSS nfet_06v0 L=1u W=1u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+.ends
+
+
+* expanding   symbol:  a_zonetic2026/XSCHEM/DECODER/andGate.sym # of pins=5
+** sym_path: /foss/designs/a_zonetic2026/XSCHEM/DECODER/andGate.sym
+** sch_path: /foss/designs/a_zonetic2026/XSCHEM/DECODER/andGate.sch
+.subckt andGate A VDD B output VSS
+*.ipin VDD
+*.ipin B
+*.ipin A
+*.ipin VSS
+*.opin output
+XM4 output net1 VDD VDD pfet_06v0 L=1.0u W=3.0u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+XM5 VSS net1 output VSS nfet_06v0 L=1u W=1u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+XM2 VDD A net1 VDD pfet_06v0 L=1.0u W=3.0u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+XM1 VDD B net1 VDD pfet_06v0 L=1.0u W=3.0u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+XM3 VSS A net2 VSS nfet_06v0 L=1u W=1u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+XM6 net2 B net1 VSS nfet_06v0 L=1u W=1u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+.ends
+
+.GLOBAL GND
+.end

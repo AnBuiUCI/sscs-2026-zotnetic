@@ -1,0 +1,40 @@
+==> netlist of WEIGHT_COMP (always regenerated)
+    48 input combinations x 21 points of VDD
+==> simulating
+
+============================================================================
+  THE ANALOGUE LEVEL, per vote count and supply
+============================================================================
+   temp    VDD 0 votes 1 votes 2 votes 3 votes 4 votes
+     0C  4.50V   2.291    1.951    1.642    1.359    1.115 
+     0C  5.00V   2.575    2.182    1.823    1.494    1.218 
+     0C  5.50V   2.862    2.417    2.007    1.633    1.326 
+    27C  4.50V   2.295    1.947    1.633    1.349    1.111 
+    27C  5.00V   2.579    2.178    1.814    1.486    1.220 
+    27C  5.50V   2.867    2.413    1.999    1.629    1.334 
+    85C  4.50V   2.310    1.945    1.621    1.338    1.112 
+    85C  5.00V   2.595    2.178    1.806    1.484    1.233 
+    85C  5.50V   2.884    2.415    1.997    1.635    1.359 
+
+============================================================================
+  WHERE THE BUFFER FLIPS
+============================================================================
+   temp    VDD     OUT per vote count 0..4   verdict
+     0C  4.50V                   1 1 0 0 0   flips at 2 votes
+     0C  4.75V                   1 1 0 0 0   flips at 2 votes
+     0C  5.00V                   1 1 0 0 0   flips at 2 votes
+     0C  5.25V                   1 1 0 0 0   flips at 2 votes
+     0C  5.50V                   1 1 0 0 0   flips at 2 votes
+    27C  4.50V                   1 1 0 0 0   flips at 2 votes
+    27C  4.75V                   1 1 0 0 0   flips at 2 votes
+    27C  5.00V                   1 1 0 0 0   flips at 2 votes
+    27C  5.25V                   1 1 0 0 0   flips at 2 votes
+    27C  5.50V                   1 1 0 0 0   flips at 2 votes
+    85C  4.50V                   1 1 0 0 0   flips at 2 votes
+    85C  4.75V                   1 1 0 0 0   flips at 2 votes
+    85C  5.00V                   1 1 0 0 0   flips at 2 votes
+    85C  5.25V                   1 1 0 0 0   flips at 2 votes
+    85C  5.50V                   1 1 0 0 0   flips at 2 votes
+
+  GOOD: the buffer flips between 1 and 2 votes at EVERY corner of the
+  VDD and temperature box swept.

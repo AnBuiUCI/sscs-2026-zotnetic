@@ -1,0 +1,14 @@
+magic
+tech gf180mcuD
+magscale 1 5
+timestamp 2083213696
+<< checkpaint >>
+rect -1063 -992 971 1092
+<< polycontact >>
+rect -57 64 -35 86
+rect -57 14 -35 36
+use rectangle_S0p34_0p84_Lp_c334c4cd  rectangle_S0p34_0p84_Lp_c334c4cd_0
+timestamp 2083213696
+transform 1 0 -63 0 1 8
+box 0 0 34 84
+<< end >>

@@ -1,0 +1,42 @@
+==> netlist of WEIGHT_COMP (always regenerated)
+    48 input combinations x 21 points of VDD
+==> simulating
+
+============================================================================
+  THE ANALOGUE LEVEL, per vote count and supply
+============================================================================
+   temp    VDD 0 votes 1 votes 2 votes 3 votes 4 votes
+     0C  4.50V   2.676    2.291    1.951    1.642    1.359 
+     0C  5.00V   3.018    2.575    2.182    1.823    1.494 
+     0C  5.50V   3.363    2.862    2.417    2.007    1.633 
+    27C  4.50V   2.692    2.295    1.947    1.633    1.349 
+    27C  5.00V   3.035    2.579    2.178    1.814    1.486 
+    27C  5.50V   3.381    2.867    2.413    1.999    1.629 
+    85C  4.50V   2.731    2.310    1.945    1.621    1.338 
+    85C  5.00V   3.075    2.595    2.178    1.806    1.484 
+    85C  5.50V   3.423    2.884    2.415    1.997    1.635 
+
+============================================================================
+  WHERE THE BUFFER FLIPS
+============================================================================
+   temp    VDD     OUT per vote count 0..4   verdict
+     0C  4.50V                   1 1 1 0 0   flips at 3 votes
+     0C  4.75V                   1 1 1 0 0   flips at 3 votes
+     0C  5.00V                   1 1 1 0 0   flips at 3 votes
+     0C  5.25V                   1 1 1 0 0   flips at 3 votes
+     0C  5.50V                   1 1 1 0 0   flips at 3 votes
+    27C  4.50V                   1 1 1 0 0   flips at 3 votes
+    27C  4.75V                   1 1 1 0 0   flips at 3 votes
+    27C  5.00V                   1 1 1 0 0   flips at 3 votes
+    27C  5.25V                   1 1 1 0 0   flips at 3 votes
+    27C  5.50V                   1 1 1 0 0   flips at 3 votes
+    85C  4.50V                   1 1 1 0 0   flips at 3 votes
+    85C  4.75V                   1 1 1 0 0   flips at 3 votes
+    85C  5.00V                   1 1 1 0 0   flips at 3 votes
+    85C  5.25V                   1 1 1 0 0   flips at 3 votes
+    85C  5.50V                   1 1 1 0 0   flips at 3 votes
+
+  NO GOOD: at 15 of the 15 corners the buffer does not flip between 1 and 2 votes.
+  It has to flip at 2 EVERYWHERE for the decision to be 'this axis
+  wins from two votes on'. If it fails at one corner, it fails in
+  the chip.

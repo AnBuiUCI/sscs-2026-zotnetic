@@ -1,0 +1,24 @@
+OPAM_SUMA: NOT CLEAN, AND NOT USED
+==================================
+
+Measured 2026-08-29, after the generator repairs of that day:
+
+  DRC   7 violations   M3.2a x4, M2.2a x2, V2.2a x1, all clustered at
+                       (34.5..34.8, 13.5..33.5) -- one metal2/metal3 column
+  LVS   does not match  layout 58 devices / 37 nets
+                        schematic 61 devices / 41 nets
+                        three nfets whose gates are A1, A2 and B1 are in the
+                        schematic and not in the layout
+
+**GRADIENT_NAV2 does not instantiate this block.** Checked three ways: no
+reference in openroad/verilog/GRADIENT_NAV2.v, none in
+out_v2_GRADIENT_NAV2/GRADIENT_NAV2.def, and no OPAM_SUMA symbol in
+XSCHEM/GRADIENT_NAV2.sch or XSCHEM/COMBINATION/GRADIENT2.sch. The summing
+network of the navigator is inside GRADIENT2, not here.
+
+So this is left as it is, on purpose, and it is NOT a regression: this cell had
+never been through LVS in v2 -- there was no lvs/RESUMEN.txt before that date.
+
+If it is ever needed, start with the three missing nfets: they are the ones
+LVS lists against nets A1, A2 and B1, and the DRC cluster sits in one column,
+which suggests one construct went wrong rather than the whole cell.

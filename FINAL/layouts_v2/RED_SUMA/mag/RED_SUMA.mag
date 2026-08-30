@@ -1,0 +1,55 @@
+magic
+tech gf180mcuD
+magscale 1 5
+timestamp 1616055994
+<< checkpaint >>
+rect -1100 -1000 1200 13130
+<< metal1 >>
+rect -100 12098 200 12130
+rect -100 12072 -33 12098
+rect -7 12072 200 12098
+rect -100 12040 200 12072
+rect -100 58 200 90
+rect -100 32 -33 58
+rect -7 32 200 58
+rect -100 0 200 32
+<< via1 >>
+rect -33 12072 -7 12098
+rect -33 32 -7 58
+<< metal2 >>
+rect -40 12099 0 12105
+rect -40 12071 -34 12099
+rect -6 12071 0 12099
+rect -40 12065 0 12071
+rect -40 59 0 65
+rect -40 31 -34 59
+rect -6 31 0 59
+rect -40 25 0 31
+<< via2 >>
+rect -34 12098 -6 12099
+rect -34 12072 -33 12098
+rect -33 12072 -7 12098
+rect -7 12072 -6 12098
+rect -34 12071 -6 12072
+rect -34 58 -6 59
+rect -34 32 -33 58
+rect -33 32 -7 58
+rect -7 32 -6 58
+rect -34 31 -6 32
+<< metal3 >>
+rect -100 12099 200 12130
+rect -100 12071 -34 12099
+rect -6 12071 200 12099
+rect -100 12040 200 12071
+rect -100 59 200 90
+rect -100 31 -34 59
+rect -6 31 200 59
+rect -100 0 200 31
+<< labels >>
+rlabel metal1 50 45 50 45 4 VSS
+rlabel metal1 50 12085 50 12085 4 VPWR
+rlabel metal1 s 50 45 50 45 4 VSS
+port 1 nsew
+rlabel metal1 s 50 12085 50 12085 4 VPWR
+port 2 nsew
+<< end >>

@@ -1,0 +1,65 @@
+
+Class ESD_CDM (0):  Merged 2 parallel devices.
+Class ESD_CDM (1):  Merged 2 parallel devices.
+Subcircuit summary:
+Circuit 1: ESD_CDM                         |Circuit 2: ESD_CDM                         
+-------------------------------------------|-------------------------------------------
+diode_nd2ps_06v0 (2->1)                    |diode_nd2ps_06v0 (2->1)                    
+diode_pd2nw_06v0 (2->1)                    |diode_pd2nw_06v0 (2->1)                    
+VSS (5)                                    |VSS (5)                                    
+Number of devices: 7                       |Number of devices: 7                       
+Number of nets: 4                          |Number of nets: 4                          
+---------------------------------------------------------------------------------------
+Resolving symmetries by property value.
+Resolving symmetries by pin name.
+Resolving symmetries by net name.
+Netlists match with 1 symmetry with property errors.
+VSS:$9 vs. VSS:5:
+Property value in circuit1 has no matching property in circuit2
+VSS:$9 vs. VSS:5:
+Property R in circuit2 has no matching property in circuit1
+VSS:$8 vs. VSS:4:
+Property value in circuit1 has no matching property in circuit2
+VSS:$8 vs. VSS:4:
+Property R in circuit2 has no matching property in circuit1
+VSS:$7 vs. VSS:3:
+Property value in circuit1 has no matching property in circuit2
+VSS:$7 vs. VSS:3:
+Property R in circuit2 has no matching property in circuit1
+VSS:$6 vs. VSS:2:
+Property value in circuit1 has no matching property in circuit2
+VSS:$6 vs. VSS:2:
+Property R in circuit2 has no matching property in circuit1
+VSS:$5 vs. VSS:1:
+Property value in circuit1 has no matching property in circuit2
+VSS:$5 vs. VSS:1:
+Property R in circuit2 has no matching property in circuit1
+diode_pd2nw_06v0:$3 vs. diode_pd2nw_06v0:3:
+Property P in circuit1 has no matching property in circuit2
+diode_pd2nw_06v0:$3 vs. diode_pd2nw_06v0:3:
+Property A in circuit1 has no matching property in circuit2
+diode_pd2nw_06v0:$3 vs. diode_pd2nw_06v0:3:
+Property AREA in circuit2 has no matching property in circuit1
+diode_nd2ps_06v0:$1 vs. diode_nd2ps_06v0:1:
+Property P in circuit1 has no matching property in circuit2
+diode_nd2ps_06v0:$1 vs. diode_nd2ps_06v0:1:
+Property A in circuit1 has no matching property in circuit2
+diode_nd2ps_06v0:$1 vs. diode_nd2ps_06v0:1:
+Property AREA in circuit2 has no matching property in circuit1
+
+Subcircuit pins:
+Circuit 1: ESD_CDM                         |Circuit 2: ESD_CDM                         
+-------------------------------------------|-------------------------------------------
+CORE                                       |CORE                                       
+PAD                                        |PAD                                        
+VSS                                        |VSS                                        
+VDD                                        |VDD                                        
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes ESD_CDM and ESD_CDM are equivalent.
+
+Final result: Circuits match uniquely.
+Property errors were found.
+
+The following cells had property errors:
+ ESD_CDM

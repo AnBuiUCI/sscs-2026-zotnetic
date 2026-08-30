@@ -1,0 +1,105 @@
+==> continua
+
+  celda                 pico  gan 1-4V     INL   consumo      excursion    offset   mono
+  OPAMt (original)   73469.8   11160.9  42.93%   2.753 mW   0.00.. 4.52 V    +0.4mV     si
+  OPAM_G100A           100.4      30.9  27.03%   2.506 mW   0.12.. 5.00 V  -208.6mV     si
+  OPAM_G100B            99.7      32.7  25.32%   2.505 mW   0.10.. 5.00 V  -174.6mV     si
+  OPAM_LIN             103.4     103.2   0.12%   2.550 mW   0.01.. 4.97 V   +24.0mV     si
+
+  pico   = maxima pendiente de la transferencia
+  gan 1-4V = pendiente de la recta ajustada al tramo OUT 1..4 V
+  INL    = maxima desviacion respecto a esa recta, en % de los 3 V
+
+  OPAM_LIN: INL por debajo del 1% entre 1 y 4 V, offset positivo, sin pasarse de consumo
+
+==> alterna
+
+  celda             ganancia cc          GBW  margen fase
+  OPAMt (original)      97.3 dB  7.943e+08 Hz     -99.6 gr   <<< INESTABLE
+  OPAM_G100A            39.0 dB  2.239e+06 Hz      70.6 gr
+  OPAM_G100B            39.3 dB  2.344e+06 Hz      69.1 gr
+  OPAM_LIN              40.1 dB  3.631e+07 Hz      73.9 gr
+
+  El lazo unitario deja OUT reposando cerca de 2.2 V, dentro de la ventana
+  lineal, porque el modo comun esta en 2.0 V. Con Vcm a 2.5 reposaba en 2.73 V,
+  fuera de ella, y esta misma medida daba 61 V/V en vez de los ~107 de ahora.
+
+==> transitorio (los cuatro en seguidor)
+
+  celda             slew subida  slew bajada   rizado en reposo
+  OPAMt (original)    3096.2 V/us   -2488.0 V/us          6.211 V   <<< OSCILA
+  OPAM_G100A           729.1 V/us    -571.8 V/us          0.000 V
+  OPAM_G100B          1584.4 V/us    -813.1 V/us          0.000 V
+  OPAM_LIN             444.9 V/us    -505.8 V/us          0.000 V
+==> continua
+
+  rama             ganancia      dB     offset       excursion    consumo
+  esquematico         86563   98.7    +0.006mV   0.00.. 5.00 V    4.130 mW
+  layout              84748   98.6    +0.050mV   0.00.. 5.00 V    4.063 mW
+
+==> alterna
+
+  rama            ganancia cc          GBW  margen fase   margen gan
+  esquematico         98.7 dB  1.096e+08 Hz      72.3 gr       5.4 dB
+  layout              98.5 dB  1.122e+08 Hz      69.6 gr       3.5 dB
+
+==> transitorio de comparador
+
+  rama               retardo   subida 10-90       excursion
+  esquematico       441.33 ns       600.71 ns  -0.00.. 4.74 V
+  layout            455.02 ns       594.70 ns  -0.00.. 4.65 V
+
+  retardo = del cruce de la entrada por el umbral al cruce de OUT por medio rail
+==> 1/3  renombrando el subckt del layout a DECODER_LAY
+==> 2/3  regenerando el netlist desde test_decoder.sch
+==> 3/3  simulando
+
+        t  XY XZ YZ     X  X1   Y  Y1   Z  Z1   esperado
+   0.0625   1  1  1    1  1  0  0  0  0   X=1 Y=0 Z=0
+   0.1875   1  1  0    1  1  0  0  0  0   X=1 Y=0 Z=0
+   0.3125   1  0  1    0  0  0  0  0  0   X=0 Y=0 Z=0
+   0.4375   1  0  0    0  0  0  0  1  1   X=0 Y=0 Z=1
+   0.5625   0  1  1    0  0  1  1  0  0   X=0 Y=1 Z=0
+   0.6875   0  1  0    0  0  0  0  0  0   X=0 Y=0 Z=0
+   0.8125   0  0  1    0  0  1  1  0  0   X=0 Y=1 Z=0
+   0.9375   0  0  0    0  0  0  0  1  1   X=0 Y=0 Z=1
+
+  consumo pico   esquematico 1.199 mW   layout 1.198 mW
+  energia esquematico   1452.35 nJ en 1.00 s   ->   132.03 nJ por transicion  (11 transiciones)
+  energia layout        1451.80 nJ en 1.00 s   ->   131.98 nJ por transicion  (11 transiciones)
+  OJO: los flancos de entrada de este banco duran 1 ms, seis ordenes de
+  magnitud mas lentos que la realidad, asi que esta energia esta dominada por
+  la corriente de cruce durante el flanco y NO representa el coste de conmutar.
+  Para una cifra util haria falta rehacer el estimulo con flancos de ns.
+
+  todo cuadra: esquematico y layout dan la misma logica
+==> regenerando el netlist
+==> simulando
+
+  rama     pico esquematico    pico layout   diferencia
+  VA              171.82 uA      171.64 uA       0.11 %
+  VB              171.82 uA      171.69 uA       0.08 %
+  VC              171.82 uA      171.56 uA       0.15 %
+  VD              171.82 uA      171.54 uA       0.16 %
+
+  correlacion esquematico (filas) contra layout (columnas):
+               VA       VB       VC       VD
+  esq VA   1.0000   0.0001  -0.0001  -0.0003
+  esq VB  -0.0002   0.0152   1.0000   0.0415
+  esq VC   0.0001   1.0000   0.0153   0.0143
+  esq VD  -0.0001   0.0144   0.0417   1.0000
+
+  OJO: las ramas no se corresponden una a una -> {'VA': 'VA', 'VB': 'VC', 'VC': 'VB', 'VD': 'VD'}
+  Es el orden de pines de WEIGHT.sym: declara VA, VC, VB, VD mientras que
+  WEIGHT.sch los tiene VA, VB, VC, VD, asi que el cable VB cae en el pin VC.
+  Electricamente da igual -- las cuatro patas son identicas -- pero las
+  etiquetas mienten y las corrientes salen cruzadas al compararlas.
+  energia esquematico  2875869.98 nJ en 1.00 s   ->  125037.83 nJ por transicion  (23 transiciones)
+  energia layout       2872785.70 nJ en 1.00 s   ->  124903.73 nJ por transicion  (23 transiciones)
+  OJO: los flancos de entrada de este banco duran 1 ms, seis ordenes de
+  magnitud mas lentos que la realidad, asi que esta energia esta dominada por
+  la corriente de cruce durante el flanco y NO representa el coste de conmutar.
+  Para una cifra util haria falta rehacer el estimulo con flancos de ns.
+
+  salida     esquematico -0.00..5.00 V   layout 0.00..5.00 V
+  consumo    esquematico 3.941 mW   layout 3.929 mW

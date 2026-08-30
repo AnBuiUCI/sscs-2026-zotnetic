@@ -1,0 +1,16 @@
+gds/GRADIENT_NAV2.gds -> ../out_v2_GRADIENT_NAV2/GRADIENT_NAV2_decap.gds
+
+Apunta al GDS **con decap y SIN relleno de densidad**, y es a proposito.
+
+El relleno se hace UNA sola vez, al final, sobre el area integrada (B26_A).
+Antes se hacia dos veces -- una dentro del bloque y otra fuera -- y eso obliga a
+tener el bloque relleno antes de integrarlo. Con el orden nuevo ese fichero no
+existe todavia cuando toca integrar, y el enlace apuntando a `_filled.gds`
+dejaba entrar el relleno de la tanda ANTERIOR: geometria vieja, y con ella el
+contorno viejo.
+
+Quien lee este enlace: scripts/def_to_gds.py, al sustituir cada macro por su
+layout real. `scripts/macro_lef.py` hace la misma eleccion por su cuenta y con
+el mismo criterio (el fichero mas avanzado que exista).
+
+Si algun dia se vuelve a rellenar el bloque por separado, hay que repuntarlo.

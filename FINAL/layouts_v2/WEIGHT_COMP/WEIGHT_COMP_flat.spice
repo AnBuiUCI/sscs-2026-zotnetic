@@ -1,0 +1,36 @@
+* fuente: /foss/designs/a_zonetic2026/XSCHEM/WEIGTH/simulation/WEIGHT_COMP.sch/WEIGHT_COMP.spice
+* leida via enlace: /foss/designs/a_zonetic2026/spice_blocks/WEIGHT_COMP.spice
+* fecha de la fuente: 2026-08-29 17:30   sha1: 7d5be831e2
+* generado por flatten_spice.py — NO editar a mano
+* netlist plana generada por flatten_spice.py (top: WEIGHT_COMP)
+* 25 MOSFETs; nets fusionadas por V=0: x1_net11->VSS, x1_net12->VSS, x1_net10->VSS, x1_net13->VSS
+* nombres: los del esquematico; solo llevan la ruta de instancias (Mx1_M4) los 8 que chocaban
+* m -> fingers: XM2: m=6 nf=1 -> nf=6; Mx1_XM3: m=2 nf=1 -> nf=2; XM5: m=2 nf=1 -> nf=2; XM1: m=2 nf=1 -> nf=2; XM9: m=2 nf=1 -> nf=2; XM11: m=2 nf=1 -> nf=2; XMF1: m=2 nf=1 -> nf=2
+* para generar el layout: nf = numero de dedos
+.subckt WEIGHT_COMP VDD VSS VA VB VC VD WE OUT OUT_N
+XM2 WE WE VDD VDD pfet_06v0 L=1u W=2u nf=6
+Mx1_XM3 WE VD x1_net1 VSS nfet_06v0 L=1u W=2.48u nf=2
+XM5 WE VB x1_net2 VSS nfet_06v0 L=1u W=2.48u nf=2
+XM6 x1_net2 x1_IN VSS VSS nfet_06v0 L=1u W=1.24u nf=1
+XM1 WE WE x1_net3 VSS nfet_06v0 L=1u W=2u nf=2
+XM7 x1_net3 WE x1_net4 VSS nfet_06v0 L=1u W=2u nf=1
+XM8 x1_net4 WE VSS VSS nfet_06v0 L=1u W=2u nf=1
+XM9 WE VA x1_net5 VSS nfet_06v0 L=1u W=2.48u nf=2
+XM10 x1_net5 x1_IN VSS VSS nfet_06v0 L=1u W=1.24u nf=1
+XM11 WE VC x1_net6 VSS nfet_06v0 L=1u W=2.48u nf=2
+XM12 x1_net6 x1_IN VSS VSS nfet_06v0 L=1u W=1.24u nf=1
+Mx1_XM4 x1_net1 x1_IN VSS VSS nfet_06v0 L=1u W=1.24u nf=1
+XM13 x1_IN x1_IN VDD VDD pfet_06v0 L=1u W=2u nf=1
+XM14 x1_net8 x1_IN x1_net9 VSS nfet_06v0 L=1u W=0.7u nf=1
+XM15 x1_net7 x1_IN x1_net8 VSS nfet_06v0 L=1u W=0.7u nf=1
+XM16 x1_IN x1_IN x1_net7 VSS nfet_06v0 L=1u W=0.7u nf=1
+XM17 x1_net9 x1_IN VSS VSS nfet_06v0 L=1u W=0.7u nf=1
+XMF1 WE VDD x1_netF VSS nfet_06v0 L=1u W=2.48u nf=2
+XMF2 x1_netF x1_IN VSS VSS nfet_06v0 L=1u W=1.24u nf=1
+Mx2_x1_XM3 x2_net1 WE VDD VDD pfet_05v0 L=0.5u W=1.83u nf=1
+Mx2_x1_XM4 x2_net1 WE VSS VSS nfet_05v0 L=0.6u W=1.32u nf=1
+Mx2_x2_XM3 OUT x2_net1 VDD VDD pfet_05v0 L=0.5u W=1.83u nf=1
+Mx2_x2_XM4 OUT x2_net1 VSS VSS nfet_05v0 L=0.6u W=1.32u nf=1
+Mx2_x3_XM3 OUT_N OUT VDD VDD pfet_05v0 L=0.5u W=1.83u nf=1
+Mx2_x3_XM4 OUT_N OUT VSS VSS nfet_05v0 L=0.6u W=1.32u nf=1
+.ends

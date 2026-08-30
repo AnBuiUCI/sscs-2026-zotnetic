@@ -1,0 +1,56 @@
+
+Circuit 1 cell ppolyf_u and Circuit 2 cell ppolyf_u are black boxes.
+Warning: Equate pins:  cell ppolyf_u is a placeholder, treated as a black box.
+Warning: Equate pins:  cell ppolyf_u is a placeholder, treated as a black box.
+
+Subcircuit pins:
+Circuit 1: ppolyf_u                        |Circuit 2: ppolyf_u                        
+-------------------------------------------|-------------------------------------------
+1                                          |1                                          
+2                                          |2                                          
+3                                          |3                                          
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes ppolyf_u and ppolyf_u are equivalent.
+
+Class ESD_CDM (0):  Merged 6 parallel devices.
+Class ESD_CDM (1):  Merged 6 parallel devices.
+Subcircuit summary:
+Circuit 1: ESD_CDM                         |Circuit 2: ESD_CDM                         
+-------------------------------------------|-------------------------------------------
+diode_nd2ps_06v0 (4->1)                    |diode_nd2ps_06v0 (4->1)                    
+diode_pd2nw_06v0 (4->1)                    |diode_pd2nw_06v0 (4->1)                    
+ppolyf_u (1)                               |ppolyf_u (1)                               
+Number of devices: 3                       |Number of devices: 3                       
+Number of nets: 4                          |Number of nets: 4                          
+---------------------------------------------------------------------------------------
+Netlists match uniquely with property errors.
+diode_pd2nw_06v0:$5 vs. diode_pd2nw_06v0:5:
+Property P in circuit1 has no matching property in circuit2
+diode_pd2nw_06v0:$5 vs. diode_pd2nw_06v0:5:
+Property A in circuit1 has no matching property in circuit2
+diode_pd2nw_06v0:$5 vs. diode_pd2nw_06v0:5:
+Property AREA in circuit2 has no matching property in circuit1
+diode_nd2ps_06v0:$1 vs. diode_nd2ps_06v0:1:
+Property P in circuit1 has no matching property in circuit2
+diode_nd2ps_06v0:$1 vs. diode_nd2ps_06v0:1:
+Property A in circuit1 has no matching property in circuit2
+diode_nd2ps_06v0:$1 vs. diode_nd2ps_06v0:1:
+Property AREA in circuit2 has no matching property in circuit1
+
+Subcircuit pins:
+Circuit 1: ESD_CDM                         |Circuit 2: ESD_CDM                         
+-------------------------------------------|-------------------------------------------
+VDD                                        |VDD                                        
+PAD                                        |PAD                                        
+VSS                                        |VSS                                        
+CORE                                       |CORE                                       
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes ESD_CDM and ESD_CDM are equivalent.
+
+Final result: Circuits match uniquely.
+Property errors were found.
+
+The following cells had property errors:
+ ESD_CDM

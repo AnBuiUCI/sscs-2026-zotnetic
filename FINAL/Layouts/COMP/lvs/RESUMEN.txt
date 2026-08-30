@@ -1,0 +1,9 @@
+bloque : COMP
+fecha  : 2026-08-18 18:02:36
+GDS    : /foss/designs/a_zonetic2026/layouts/COMP/COMP_flat_gf180.gds
+ref    : /foss/designs/a_zonetic2026/layouts/COMP/COMP_lvs.spice
+sustrato: VSS
+hoja poly: n/a
+setup netgen: /foss/pdks/gf180mcuD/libs.tech/netgen/gf180mcuD_setup.tcl
+KLayout: LIMPIO
+netgen : CASAN (con avisos de propiedad)

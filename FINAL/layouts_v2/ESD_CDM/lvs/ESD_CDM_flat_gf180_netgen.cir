@@ -1,0 +1,13 @@
+* Extracted by KLayout with GF180MCU LVS runset on : 30/08/2026 07:37
+
+.SUBCKT ESD_CDM PAD CORE VDD VSS
+D$1 VSS PAD diode_nd2ps_06v0 A=100P P=40U
+D$2 VSS PAD diode_nd2ps_06v0 A=100P P=40U
+D$3 VSS PAD diode_nd2ps_06v0 A=100P P=40U
+D$4 VSS PAD diode_nd2ps_06v0 A=100P P=40U
+D$5 PAD VDD diode_pd2nw_06v0 A=100P P=40U
+D$6 PAD VDD diode_pd2nw_06v0 A=100P P=40U
+D$7 PAD VDD diode_pd2nw_06v0 A=100P P=40U
+D$8 PAD VDD diode_pd2nw_06v0 A=100P P=40U
+XR$9 PAD CORE VDD ppolyf_u L=4U W=16U
+.ENDS ESD_CDM

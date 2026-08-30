@@ -1,0 +1,94 @@
+* Nodos de bulk atados: 1 de pozo n -> VDD, 1 de sustrato -> VSS.
+*   magic no extrae los taps de este layout y los dejaba flotando;
+*   la conexion si existe (el LVS de KLayout da 'match uniquely').
+*   Quien detecta un tap que falte de verdad es el LVS, no esto.
+* NGSPICE file created from DECODER_MAX.ext - technology: gf180mcuD
+
+.subckt DECODER_MAX VSS VDD Z YZ XZ Y XY X
+X0 a_3442_376# a_1690_376# a_2510_332# VSS nfet_06v0 ad=0.25p pd=1.5u as=0.44p ps=2.88u w=1u l=1u
+X1 VSS XY a_3442_376# VSS nfet_06v0 ad=0.44p pd=2.88u as=0.25p ps=1.5u w=1u l=1u
+X2 Z a_14_332# VDD VDD pfet_06v0 ad=1.32p pd=6.88u as=1.32p ps=6.88u w=3u l=1u
+X3 VSS YZ a_1690_376# VSS nfet_06v0 ad=0.44p pd=2.88u as=0.44p ps=2.88u w=1u l=1u
+X4 a_1690_376# YZ VDD VDD pfet_06v0 ad=1.32p pd=6.88u as=1.32p ps=6.88u w=3u l=1u
+X5 a_2510_332# XY VDD VDD pfet_06v0 ad=0.99p pd=3.66u as=1.32p ps=6.88u w=3u l=1u
+X6 VSS XY X VSS nfet_06v0 ad=0.44p pd=2.88u as=0.33p ps=1.66u w=1u l=1u
+X7 X XZ VSS VSS nfet_06v0 ad=0.33p pd=1.66u as=0.44p ps=2.88u w=1u l=1u
+X8 VDD XY a_5002_1920# VDD pfet_06v0 ad=1.32p pd=6.88u as=0.75p ps=3.5u w=3u l=1u
+X9 VSS a_14_332# Z VSS nfet_06v0 ad=0.44p pd=2.88u as=0.44p ps=2.88u w=1u l=1u
+X10 VDD a_1690_376# a_2510_332# VDD pfet_06v0 ad=1.32p pd=6.88u as=0.99p ps=3.66u w=3u l=1u
+X11 Y a_2510_332# VDD VDD pfet_06v0 ad=1.32p pd=6.88u as=1.32p ps=6.88u w=3u l=1u
+X12 a_946_376# YZ a_14_332# VSS nfet_06v0 ad=0.25p pd=1.5u as=0.44p ps=2.88u w=1u l=1u
+X13 VSS a_2510_332# Y VSS nfet_06v0 ad=0.44p pd=2.88u as=0.44p ps=2.88u w=1u l=1u
+X14 VDD YZ a_14_332# VDD pfet_06v0 ad=1.32p pd=6.88u as=0.99p ps=3.66u w=3u l=1u
+X15 VSS XZ a_946_376# VSS nfet_06v0 ad=0.44p pd=2.88u as=0.25p ps=1.5u w=1u l=1u
+X16 a_5002_1920# XZ X VDD pfet_06v0 ad=0.75p pd=3.5u as=1.32p ps=6.88u w=3u l=1u
+X17 a_14_332# XZ VDD VDD pfet_06v0 ad=0.99p pd=3.66u as=1.32p ps=6.88u w=3u l=1u
+C0 VDD Z 0.20499f
+C1 VDD Z 0.14761f
+C2 a_14_332# Z 1.11676f
+C3 Y a_1690_376# 0.60954f
+C4 XZ X 0.56492f
+C5 Y YZ 0.08004f
+C6 XY VDD 0.27535f
+C7 XY VDD 0.60579f
+C8 YZ Z 0.03584f
+C9 Y a_2510_332# 0.6394f
+C10 X a_5002_1920# 0.02289f
+C11 Y VSS 0.09346f
+C12 XY a_1690_376# 0.46484f
+C13 Z VSS 0.10403f
+C14 VDD VDD 2.73245f
+C15 a_14_332# VDD 0.41666f
+C16 XY a_2510_332# 0.41022f
+C17 Y XZ 0.04899f
+C18 a_14_332# VDD 0.46036f
+C19 XY VSS 0.18678f
+C20 XZ Z 0.04204f
+C21 VDD a_1690_376# 0.34013f
+C22 YZ VDD 0.25032f
+C23 VDD a_1690_376# 0.48271f
+C24 YZ VDD 0.61676f
+C25 a_14_332# YZ 0.56945f
+C26 XY XZ 0.57032f
+C27 XY X 0.9139f
+C28 VDD a_2510_332# 0.40005f
+C29 a_3442_376# VSS 0.01408f
+C30 YZ a_1690_376# 0.7397f
+C31 VDD a_2510_332# 0.42417f
+C32 VDD VSS 0.028f
+C33 a_14_332# VSS 0.14578f
+C34 a_2510_332# a_1690_376# 0.67967f
+C35 YZ a_2510_332# 0.01555f
+C36 a_1690_376# VSS 0.15032f
+C37 XZ VDD 0.20806f
+C38 X VDD 0.16084f
+C39 YZ VSS 0.20904f
+C40 XZ VDD 0.59472f
+C41 a_14_332# XZ 0.53785f
+C42 X VDD 0.21849f
+C43 XY Y 0.05872f
+C44 VDD a_5002_1920# 0.03135f
+C45 a_2510_332# VSS 0.18762f
+C46 XZ a_1690_376# 1.02688f
+C47 X a_1690_376# 0.09413f
+C48 XZ YZ 0.83608f
+C49 VSS a_946_376# 0.01198f
+C50 XZ a_2510_332# 0.63623f
+C51 Y VDD 0.22452f
+C52 XZ VSS 0.22503f
+C53 X VSS 0.11672f
+C54 Y VDD 0.22491f
+C55 VSS VSS 5.61288f
+C56 X VSS 0.43297f
+C57 Y VSS 0.42717f
+C58 Z VSS 0.52326f
+C59 VDD VSS 3.47013f
+C60 XY VSS 1.37827f
+C61 YZ VSS 1.36759f
+C62 XZ VSS 1.57933f
+C63 a_1690_376# VSS 0.97366f
+C64 a_2510_332# VSS 1.10456f
+C65 a_14_332# VSS 1.074f
+C66 VDD VSS 22.3618f
+.ends
+

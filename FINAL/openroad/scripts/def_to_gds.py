@@ -15,6 +15,7 @@ screenshot and is worthless.
 from __future__ import annotations
 
 import re
+import os
 import sys
 from pathlib import Path
 
@@ -38,37 +39,37 @@ def def_dbu(path: Path) -> float:
 
 
 def lef_origin(path: Path) -> tuple[float, float]:
-    """`ORIGIN` del MACRO, en um. (0, 0) si no lo declara."""
+    """MACRO `ORIGIN`, in um. (0, 0) if it does not declare one."""
     m = re.search(r"^\s*ORIGIN\s+([-\d.]+)\s+([-\d.]+)\s*;", path.read_text(), re.M)
     return (float(m.group(1)), float(m.group(2))) if m else (0.0, 0.0)
 
 
 def normalizar_origen(layout, macro_lefs) -> None:
-    """Mueve cada macro +ORIGIN, que es donde OpenROAD lo tiene.
+    """Shifts each macro by +ORIGIN, which is where OpenROAD keeps it.
 
-    **Las dos herramientas leen `ORIGIN` de forma distinta y hay que igualarlas.**
-    OpenROAD normaliza el master: le suma el ORIGIN a toda la geometria, de modo
-    que la esquina inferior izquierda de su caja cae en (0, 0) y el punto del DEF
-    es esa esquina. El lector de DEF de KLayout, cuando sustituye el abstracto por
-    el GDS (`macro_resolution_mode = 2`), coloca el GDS tal cual: en el sistema de
-    coordenadas del propio bloque, que aqui empieza en -1.26 (COMP y OPAM), -1.00
-    (DECODER) o (-1.45, -4.21) (WEIGHT_COMP), porque los taps de sustrato salen
-    por la izquierda del origen.
+    **The two tools read `ORIGIN` differently and they have to be reconciled.**
+    OpenROAD normalises the master: it adds ORIGIN to all the geometry, so that
+    the lower-left corner of its box lands on (0, 0) and the DEF point is that
+    corner. KLayout's DEF reader, when it swaps the abstract for the GDS
+    (`macro_resolution_mode = 2`), places the GDS as is: in the block's own
+    coordinate system, which here starts at -1.26 (COMP and OPAM), -1.00
+    (DECODER) or (-1.45, -4.21) (WEIGHT_COMP), because the substrate taps stick
+    out to the left of the origin.
 
-    Resultado: **todos los macros salian corridos su ORIGIN** respecto de donde el
-    router creia que estaban. Y como el router acierta en su propio modelo, el DEF
-    no tiene ni un error y su informe de DRC sale vacio; el destrozo aparece solo
-    al escribir el GDS. Medido sobre `x5_weight_comp`: la via3 con que el router
-    entra a `VA` cae en (354.20, 38.48), y el pad de `VA` esta en
-    x[349.84, 354.34] y[38.28, 38.68] **sumando el ORIGIN** — sin sumarlo se queda
-    en y[34.07, 34.47], a 4.21 um, que es exactamente el ORIGIN y del bloque.
+    Result: **every macro came out shifted by its ORIGIN** from where the router
+    thought it was. And since the router is right in its own model, the DEF has
+    not one error and its DRC report comes out empty; the damage only shows on
+    writing the GDS. Measured on `x5_weight_comp`: the via3 the router uses to
+    reach `VA` lands at (354.20, 38.48), and the `VA` pad is at
+    x[349.84, 354.34] y[38.28, 38.68] **with ORIGIN added** -- without it, it
+    sits at y[34.07, 34.47], 4.21 um away, exactly the block's ORIGIN y.
 
-    Eso son **42 de las 55 nets del top abiertas** en el GDS, y de paso los cortos:
-    un cable que en el modelo del router pasa limpio al lado de un pin, en el GDS
-    lo atraviesa. El LVS lo veia como 54 nets de mas; el DRC, como nada.
+    That is **42 of the 55 top nets open** in the GDS, and the shorts too: a wire
+    that passes cleanly beside a pin in the router's model goes straight through
+    it in the GDS. LVS saw it as 54 extra nets; DRC, as nothing.
 
-    Se mueve la CELDA, no la instancia: asi vale igual para un macro girado, que es
-    como lo hace OpenROAD (normaliza el master y luego le aplica la orientacion).
+    The CELL is moved, not the instance: that way it works for a rotated macro
+    too, which is how OpenROAD does it (normalise the master, then orient).
     """
     for lef in macro_lefs:
         ox, oy = lef_origin(lef)
@@ -81,39 +82,98 @@ def normalizar_origen(layout, macro_lefs) -> None:
         print(f"  {lef.stem:14s} +ORIGIN ({ox}, {oy})")
 
 
-def flatten_all(layout, top) -> None:
-    """Aplana el top entero antes de escribir el GDS.
+#: Metal3 label layer in GF180 (`42/10`). That is where the LVS deck looks for
+#: a Metal3 net's name, and where the top's pin labels already are.
+_M3_LABEL = (42, 10)
 
-    magic evalua los booleanos con que lee un GDS **celda a celda**: una forma
-    solo existe para el si todas las capas que la definen aparecen juntas en la
-    MISMA celda. Ya lo pagamos con las vias de los condensadores MIM (ver
-    `coil_layout/caps.py::flat_add`), y aqui vuelve, mas fino: al sustituir los
-    macros, el lector de DEF de KLayout reconstruye la jerarquia interna del
-    bloque de otra manera, y el tap del pozo —`COMP and NPLUS and NWELL`— deja de
-    verse. El resultado era que **el pozo n de cada macro salia flotante** en vez
-    de VDD: 43 nets de pozo y 47 de activo de mas en el LVS del top, casi todo el
-    hueco de 986 nets contra las 880 de la referencia. Leyendo el mismo bloque de
-    su propio GDS el pozo si queda atado, asi que no es el layout: es la
-    jerarquia con la que le llega a magic.
 
-    KLayout, gdsfactory y el DRC de firma dan igual el mismo resultado con o sin
-    esto —su extraccion no depende de la jerarquia—, y `check_connectivity.py`
-    daba ya las 55 nets conectadas antes de aplanar. Lo que se gana es que magic
-    y netgen vean lo mismo que ellos.
+def etiquetar_nets(layout, top, def_path) -> int:
+    """Puts each DEF net name onto its metal, as a label.
+
+    **NOT used, and worth knowing why before trying again.** The idea was to give
+    KLayout's comparer some anchors: the 55 DEF nets are named the same in the
+    reference -- checked, all 55 -- because both come from the same xschem
+    netlist. But **a label on the top is not a hint: it is a PORT.** Both the
+    KLayout deck and magic turn every labelled top net into a circuit pin, so the
+    layout ended up with 55 pins against the 19 of the reference, and that breaks
+    matching instead of helping it -- including
+    netgen, que hoy cuadra.
+
+    It is kept because the function is correct and may serve if one day the
+    reference declares the same 55 ports; what does not work is plugging it in
+    without touching the other side. Measured: with the labels on, the deck still
+    mismos 170 mensajes.
     """
-    #  Las etiquetas del top ANTES de aplanar son las de los pines del DEF, y son
-    #  las unicas que deben sobrevivir. Cada macro trae ademas las suyas
-    #  (`OUT`, `INN`, `Z`, `VDD`...), que aplanadas caen todas en la misma celda:
-    #  doce `OUT`, doce `INN`, cuatro `Z`. magic da por UNIDO todo lo que comparte
-    #  nombre de etiqueta, asi que la net `Z` salia con 1501 pines y el chip se
-    #  quedaba en 848 nets contra las 880 de la referencia. Dentro de su bloque
-    #  esas etiquetas son correctas —cada una en su celda—; al aplanar dejan de
+    #  Inside the function on purpose: `check_connectivity` imports `lef_origin`
+    #  from here, and at module level the import would be circular.
+    from check_connectivity import lef_pins, macro_size, place, read_def
+
+    inst, nets, units = read_def(def_path)
+    lefs, sizes, origenes = {}, {}, {}
+    for p in (ROOT / "lef").glob("*.lef"):
+        if p.name in ("vias.lef", "techlef_patched.tlef"):
+            continue
+        lefs[p.stem] = lef_pins(p)
+        sizes[p.stem] = macro_size(p)
+        origenes[p.stem] = lef_origin(p)
+
+    #  The ones already labelled are the top pins: they are not duplicated.
+    placed = {s.text.string for li in layout.layer_indexes()
+               for s in top.shapes(li).each() if s.is_text()}
+    layer = layout.layer(*_M3_LABEL)
+    n = 0
+    for net, pins in sorted(nets.items()):
+        if net in placed:
+            continue
+        for iname, pin in pins:
+            if iname not in inst:
+                continue
+            cell, x, y, orient = inst[iname]
+            rects = lefs.get(cell, {}).get(pin, [])
+            if not rects:
+                continue
+            a = place(rects[0], x / units, y / units, orient,
+                      sizes[cell], origenes[cell])
+            top.shapes(layer).insert(kdb.DText(
+                net, (a[0] + a[2]) / 2, (a[1] + a[3]) / 2))
+            n += 1
+            break
+    return n
+
+
+def flatten_all(layout, top) -> None:
+    """Flattens the whole top before writing the GDS.
+
+    magic evaluates the booleans it reads a GDS with **cell by cell**: a shape
+    only exists for it if all the layers defining it appear together in the SAME
+    cell. We already paid for that with the MIM capacitor vias (see
+    `coil_layout/caps.py::flat_add`), and here it returns, subtler: on swapping
+    the macros, KLayout's DEF reader rebuilds the block's internal hierarchy
+    differently, and the well tap -- `COMP and NPLUS and NWELL` -- stops being
+    seen. The result was that **every macro's n-well came out floating** instead
+    of VDD: 43 extra well nets and 47 extra active ones in the top LVS, almost
+    the whole gap of 986 nets against the 880 of the reference. Reading the same
+    block from its own GDS the well is tied, so it is not the layout: it is the
+    hierarchy magic receives it in.
+
+    KLayout, gdsfactory and the sign-off DRC give the same result with or without
+    this -- their extraction does not depend on hierarchy -- and
+    `check_connectivity.py` already reported all 55 nets connected before
+    flattening. The gain is that magic and netgen see what they see.
+    """
+    #  The top labels BEFORE flattening are the DEF pin ones, and they are the
+    #  only ones that must survive. Each macro also brings its own
+    #  (`OUT`, `INN`, `Z`, `VDD`...), which once flattened all land in the same
+    #  cell: twelve `OUT`, twelve `INN`, four `Z`. magic treats everything
+    #  sharing a label name as JOINED, so net `Z` came out with 1501 pins and the
+    #  chip dropped to 848 nets against the 880 of the reference. Inside their
+    #  block those labels are correct -- each in its own cell -- but flattening
     #  serlo.
     keep = {li: [s.text.dup() for s in top.shapes(li).each() if s.is_text()]
             for li in layout.layer_indexes()}
     top.flatten(-1, True)
-    #  Sin esto las celdas de los macros se quedan huerfanas y el GDS pasa a
-    #  tener varias celdas de arriba, que rompe todo lo que venga detras.
+    #  Without this the macro cells are left orphaned and the GDS ends up with
+    #  several top cells, which breaks everything downstream.
     layout.cleanup()
     for li in layout.layer_indexes():
         dead = [s for s in top.shapes(li).each() if s.is_text()]
@@ -123,19 +183,78 @@ def flatten_all(layout, top) -> None:
             top.shapes(li).insert(txt)
 
 
+def die_box(def_path: Path) -> kdb.DBox:
+    """The `DIEAREA` of a DEF, in um. The only authority on where this top ends."""
+    m = re.search(r"^DIEAREA\s+\(\s*(-?\d+)\s+(-?\d+)\s*\)\s+"
+                  r"\(\s*(-?\d+)\s+(-?\d+)\s*\)\s*;",
+                  def_path.read_text(), re.M)
+    if not m:
+        sys.exit(f"{def_path.name} has no DIEAREA line")
+    dbu = def_dbu(def_path)
+    x0, y0, x1, y1 = (int(v) * dbu for v in m.groups())
+    return kdb.DBox(x0, y0, x1, y1)
+
+
+def una_sola_frontera(layout, top, def_path) -> None:
+    """Exactly ONE PR_bndry (0/0) on the top, redrawn from the DEF's DIEAREA.
+
+    **Call this AFTER flattening.** It clears the top cell's own 0/0 shapes, and
+    before the flatten the ones that matter are still down in the macro cells.
+
+    Why it is needed. The DEF reader draws the die outline on 0/0. So does this
+    script, one level down: `gds/GRADIENT_NAV2.gds` is itself a top that this
+    same script produced, DIEAREA and all. Substituting that macro and
+    flattening therefore carries ITS outline up here, and the integrated area
+    ends up with two -- the 1110 x 1110 of the user area and the 418.24 x 442.19
+    of the block sitting inside it.
+
+    That is what stopped the chipathon from regenerating B26's padring DEF:
+    "Top level has 2 PR_bndry shapes. only one is allowed."
+    (sscs-ose/sscs-chipathon-2026#58, and "Error recreating def files for B26"
+    in #chipathon-announcements). Their script cannot tell which of the two is
+    the die.
+
+    Nothing else in this flow would ever have said so: **neither DRC nor LVS
+    looks at 0/0.** The block on its own was always fine -- one top, one outline
+    -- and the second one only appeared when the deliverable became the
+    integrated area.
+    """
+    li = layout.layer(0, 0)
+    top.shapes(li).clear()
+    top.shapes(li).insert(die_box(def_path))
+
+    #  Counted the way THEY count it: every shape, unmerged. Merging turns two
+    #  overlapping outlines into one and hides exactly this bug -- which is how
+    #  it went unnoticed on our side while their check failed on theirs.
+    it, n = top.begin_shapes_rec(li), 0
+    while not it.at_end():
+        n += 1
+        it.next()
+    if n != 1:
+        sys.exit(f"  {n} PR_bndry shapes on {top.name}; exactly 1 is allowed")
+    print(f"  PR_bndry   1 shape, {die_box(def_path)}")
+
+
 def main() -> int:
-    # Por defecto el DEF **ruteado**: el del floorplan no lleva las nets de senal,
-    # y un GDS sin ellas parece completo y no lo esta.
-    default = ROOT / "out/GRADIENT_NAV_routed.def"
+    # The **routed** DEF by default: the floorplan one has no signal nets, and a
+    # GDS without them looks complete and is not.
+    #  `TOP_OUT` so as not to read the OTHER version's DEF when called bare.
+    #  And the ROUTED one, not the floorplan one: the floorplan one carries no
+    #  routing, so the GDS comes out with the macros placed and **without a
+    #  single connection between them**. It raises no error -- DRC comes out
+    #  clean because there is nothing that could break a rule -- and only LVS
+    #  flags it, and indirectly: the 17 top pins are left as loose shapes.
+    out = ROOT / os.environ.get("TOP_OUT", "out")
+    default = out / "GRADIENT_NAV_routed.def"
     if not default.exists():
-        default = ROOT / "out/GRADIENT_NAV.def"
+        default = out / "GRADIENT_NAV.def"
     def_path = Path(sys.argv[1]) if len(sys.argv) > 1 else default
     gds_path = (Path(sys.argv[2]) if len(sys.argv) > 2
                 else ROOT / "out/GRADIENT_NAV.gds")
     if not def_path.exists():
         sys.exit(f"no DEF at {def_path} — run the floorplan first")
 
-    # `vias.lef` no es un macro: son definiciones de via para el router.
+    # `vias.lef` is not a macro: those are via definitions for the router.
     macro_lefs = sorted(p for p in (ROOT / "lef").glob("*.lef")
                         if p.name not in ("vias.lef", "techlef_patched.tlef"))
     macro_gds = [ROOT / "gds" / f"{p.stem}.gds" for p in macro_lefs]
@@ -166,15 +285,24 @@ def main() -> int:
 
     top = layout.top_cell()
 
-    #  La comprobacion de que la sustitucion de macros se hizo va ANTES de
-    #  aplanar; despues ya no hay celda de macro que contar.
+    #  The check that macro substitution happened goes BEFORE flattening; after
+    #  that there is no macro cell left to count.
     box = top.dbbox()
     print(f"{gds_path}")
     print(f"  top cell   {top.name}   {box.width():.2f} x {box.height():.2f} um")
+    #  Only macros the DEF USES are required to be substituted. The collateral
+    #  covers every block with a layout, and a given top instantiates some and
+    #  not others: GRADIENT_NAV uses OPAM and GRADIENT_NAV2 uses OPAM_LIN_flat.
+    #  A macro absent from the DEF is no failure; one present in the DEF that was
+    #  haya sustituido, si.
+    usados = set(re.findall(r"^\s*-\s+\S+\s+(\S+)", def_path.read_text(), re.M))
     ok = True
     for p in macro_gds:
         name = p.stem
         cell = layout.cell(name)
+        if name not in usados:
+            print(f"  {name:14s} not used by this top")
+            continue
         if cell is None:
             print(f"  {name:14s} NOT INSTANTIATED")
             ok = False
@@ -187,13 +315,16 @@ def main() -> int:
 
     normalizar_origen(layout, macro_lefs)
     flatten_all(layout, top)
-    #  Segunda pasada: mover una celda la deja marcada, y `cells()` sigue contando
-    #  las que el aplanado dejo huerfanas hasta que se limpia otra vez. El fichero
-    #  ya salia con una sola celda; lo que enganaba era el numero de esta linea.
+    #  AFTER the flatten: that is when the macro's own die outline has arrived
+    #  in this cell and can be thrown away. See the docstring.
+    una_sola_frontera(layout, top, def_path)
+    #  Second pass: moving a cell leaves it marked, and `cells()` keeps counting
+    #  the ones flattening orphaned until it is cleaned again. The file already
+    #  came out with a single cell; what misled was the number on this line.
     layout.cleanup()
     gds_path.parent.mkdir(parents=True, exist_ok=True)
     layout.write(str(gds_path))
-    print(f"  aplanado   {layout.cells()} celda(s), "
+    print(f"  flattened  {layout.cells()} cell(s), "
           f"{sum(top.shapes(i).size() for i in layout.layer_indexes())} formas")
     return 0 if ok else 1
 
