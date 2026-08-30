@@ -1,6 +1,9 @@
 Versions of the integrated area, newest first.
 Written by openroad/scripts/archivar_integracion.py -- do not edit by hand.
+Una linea va marcada como anadida a mano: es una carpeta que quedo huerfana
+de un archivado a medias, y se documenta en vez de borrarla.
 
 2026-08-30_03  B26_A_filled.gds       DRC clean (63 tables)                  dens clean                  LVS netgen match uniquely   klayout not run
 2026-08-30_02  B26_A_filled.gds       DRC clean (63 tables)                  dens clean                  LVS netgen match uniquely   klayout not run
+2026-08-30_01  B26_A_filled.gds       ARCHIVADO INCOMPLETO, duplicado de _02   (anadido a mano; ver su NOTAS.txt)
 2026-08-29_01  B26_A_filled.gds       DRC 57 violations: M2.2b x57                 LVS not run

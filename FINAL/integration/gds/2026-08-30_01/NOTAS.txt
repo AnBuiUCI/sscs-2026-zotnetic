@@ -1,0 +1,37 @@
+2026-08-30_01 -- B26_A_filled.gds   (ARCHIVADO INCOMPLETO)
+=========================================================
+
+NO ES UNA VERSION DISTINTA. Su GDS es BYTE A BYTE el de 2026-08-30_02:
+
+    2026-08-30_01   cac86a8ca1a41cee07ccc19a213017006c7dc3b95b04cdea3ec952abe5ec7243
+    2026-08-30_02   cac86a8ca1a41cee07ccc19a213017006c7dc3b95b04cdea3ec952abe5ec7243
+
+source      openroad/out_integration/B26_A_filled.gds
+written     2026-08-29 22:39
+archived    2026-08-30 05:14
+size        14764492 bytes raw, 2750010 gzipped
+sha256      cac86a8ca1a41cee07ccc19a213017006c7dc3b95b04cdea3ec952abe5ec7243
+
+que lleva
+---------
+Los once clamps son `io_secondary_5p0`, la celda de los organizadores. La
+sustituyo `ESD_CDM` -- nuestro dibujo de SU circuito exacto, 1.762 um2 en vez de
+6.457 y sin la MSLOT.1 que arrastran las tres variantes suyas -- en la version
+2026-08-30_03, que es la vigente.
+
+por que quedo a medias
+----------------------
+Este archivado se rehizo, y de ahi salio 2026-08-30_02. El motivo: sus veredictos
+eran falsos. `archivar_integracion.py` leia entonces `out/drc_B26_A_FILLED` sin
+mirar su fecha, y ese directorio era de las 16:54 mientras el GDS es de las 22:39
+-- casi seis horas antes, y ademas de un run que se habia matado a las 48 tablas
+de 63. La entrada anotaba `DRC clean` sobre un fichero que ese run nunca vio.
+
+Hoy ese caso no puede repetirse: el script compara fechas y contesta
+`STALE -- the run predates this GDS`, y ya no da por completo un run parcial solo
+porque la unica tabla reventada sea `mslot`.
+
+La carpeta quedo huerfana -- sin NOTAS.txt y sin linea en HISTORIAL.txt -- porque
+el borrado se ejecuto desde el directorio equivocado. Se conserva a proposito: un
+GDS sin registro es justo lo que este archivo existe para impedir, asi que en vez
+de borrarlo se deja dicho lo que es.
