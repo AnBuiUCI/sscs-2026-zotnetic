@@ -50,61 +50,61 @@ C {lab_pin.sym} -150 0 0 0 {name=p_core_S3P sig_type=std_logic lab=S3P_I}
 C {lab_pin.sym} -150 20 0 0 {name=p_core_S3N sig_type=std_logic lab=S3N_I}
 C {lab_pin.sym} -150 -100 0 0 {name=p_core_S1P sig_type=std_logic lab=S1P_I}
 C {lab_pin.sym} -150 -80 0 0 {name=p_core_S1N sig_type=std_logic lab=S1N_I}
-C {a_zonetic2026/XSCHEM_v2/io_secondary_5p0.sym} -900 -700 0 0 {name=x_esd_S1P}
-C {lab_pin.sym} -820 -860 0 0 {name=p_esd_S1P_VDD sig_type=std_logic lab=VDD}
-C {lab_pin.sym} -900 -780 0 0 {name=p_esd_S1P_to_gate sig_type=std_logic lab=S1P_I}
-C {lab_pin.sym} -700 -780 0 0 {name=p_esd_S1P_ASIG5V sig_type=std_logic lab=S1P}
-C {lab_pin.sym} -820 -700 0 0 {name=p_esd_S1P_VSS sig_type=std_logic lab=VSS}
-C {a_zonetic2026/XSCHEM_v2/io_secondary_5p0.sym} -900 -480 0 0 {name=x_esd_S1N}
-C {lab_pin.sym} -820 -640 0 0 {name=p_esd_S1N_VDD sig_type=std_logic lab=VDD}
-C {lab_pin.sym} -900 -560 0 0 {name=p_esd_S1N_to_gate sig_type=std_logic lab=S1N_I}
-C {lab_pin.sym} -700 -560 0 0 {name=p_esd_S1N_ASIG5V sig_type=std_logic lab=S1N}
-C {lab_pin.sym} -820 -480 0 0 {name=p_esd_S1N_VSS sig_type=std_logic lab=VSS}
-C {a_zonetic2026/XSCHEM_v2/io_secondary_5p0.sym} -900 -260 0 0 {name=x_esd_S2P}
-C {lab_pin.sym} -820 -420 0 0 {name=p_esd_S2P_VDD sig_type=std_logic lab=VDD}
-C {lab_pin.sym} -900 -340 0 0 {name=p_esd_S2P_to_gate sig_type=std_logic lab=S2P_I}
-C {lab_pin.sym} -700 -340 0 0 {name=p_esd_S2P_ASIG5V sig_type=std_logic lab=S2P}
-C {lab_pin.sym} -820 -260 0 0 {name=p_esd_S2P_VSS sig_type=std_logic lab=VSS}
-C {a_zonetic2026/XSCHEM_v2/io_secondary_5p0.sym} -900 -40 0 0 {name=x_esd_S2N}
-C {lab_pin.sym} -820 -200 0 0 {name=p_esd_S2N_VDD sig_type=std_logic lab=VDD}
-C {lab_pin.sym} -900 -120 0 0 {name=p_esd_S2N_to_gate sig_type=std_logic lab=S2N_I}
-C {lab_pin.sym} -700 -120 0 0 {name=p_esd_S2N_ASIG5V sig_type=std_logic lab=S2N}
-C {lab_pin.sym} -820 -40 0 0 {name=p_esd_S2N_VSS sig_type=std_logic lab=VSS}
-C {a_zonetic2026/XSCHEM_v2/io_secondary_5p0.sym} -900 180 0 0 {name=x_esd_S3P}
-C {lab_pin.sym} -820 20 0 0 {name=p_esd_S3P_VDD sig_type=std_logic lab=VDD}
-C {lab_pin.sym} -900 100 0 0 {name=p_esd_S3P_to_gate sig_type=std_logic lab=S3P_I}
-C {lab_pin.sym} -700 100 0 0 {name=p_esd_S3P_ASIG5V sig_type=std_logic lab=S3P}
-C {lab_pin.sym} -820 180 0 0 {name=p_esd_S3P_VSS sig_type=std_logic lab=VSS}
-C {a_zonetic2026/XSCHEM_v2/io_secondary_5p0.sym} -900 400 0 0 {name=x_esd_S3N}
-C {lab_pin.sym} -820 240 0 0 {name=p_esd_S3N_VDD sig_type=std_logic lab=VDD}
-C {lab_pin.sym} -900 320 0 0 {name=p_esd_S3N_to_gate sig_type=std_logic lab=S3N_I}
-C {lab_pin.sym} -700 320 0 0 {name=p_esd_S3N_ASIG5V sig_type=std_logic lab=S3N}
-C {lab_pin.sym} -820 400 0 0 {name=p_esd_S3N_VSS sig_type=std_logic lab=VSS}
-C {a_zonetic2026/XSCHEM_v2/io_secondary_5p0.sym} -900 620 0 0 {name=x_esd_S4P}
-C {lab_pin.sym} -820 460 0 0 {name=p_esd_S4P_VDD sig_type=std_logic lab=VDD}
-C {lab_pin.sym} -900 540 0 0 {name=p_esd_S4P_to_gate sig_type=std_logic lab=S4P_I}
-C {lab_pin.sym} -700 540 0 0 {name=p_esd_S4P_ASIG5V sig_type=std_logic lab=S4P}
-C {lab_pin.sym} -820 620 0 0 {name=p_esd_S4P_VSS sig_type=std_logic lab=VSS}
-C {a_zonetic2026/XSCHEM_v2/io_secondary_5p0.sym} -900 840 0 0 {name=x_esd_S4N}
-C {lab_pin.sym} -820 680 0 0 {name=p_esd_S4N_VDD sig_type=std_logic lab=VDD}
-C {lab_pin.sym} -900 760 0 0 {name=p_esd_S4N_to_gate sig_type=std_logic lab=S4N_I}
-C {lab_pin.sym} -700 760 0 0 {name=p_esd_S4N_ASIG5V sig_type=std_logic lab=S4N}
-C {lab_pin.sym} -820 840 0 0 {name=p_esd_S4N_VSS sig_type=std_logic lab=VSS}
-C {a_zonetic2026/XSCHEM_v2/io_secondary_5p0.sym} -900 1060 0 0 {name=x_esd_X}
-C {lab_pin.sym} -820 900 0 0 {name=p_esd_X_VDD sig_type=std_logic lab=VDD}
-C {lab_pin.sym} -900 980 0 0 {name=p_esd_X_to_gate sig_type=std_logic lab=X_I}
-C {lab_pin.sym} -700 980 0 0 {name=p_esd_X_ASIG5V sig_type=std_logic lab=X}
-C {lab_pin.sym} -820 1060 0 0 {name=p_esd_X_VSS sig_type=std_logic lab=VSS}
-C {a_zonetic2026/XSCHEM_v2/io_secondary_5p0.sym} -900 1280 0 0 {name=x_esd_Y}
-C {lab_pin.sym} -820 1120 0 0 {name=p_esd_Y_VDD sig_type=std_logic lab=VDD}
-C {lab_pin.sym} -900 1200 0 0 {name=p_esd_Y_to_gate sig_type=std_logic lab=Y_I}
-C {lab_pin.sym} -700 1200 0 0 {name=p_esd_Y_ASIG5V sig_type=std_logic lab=Y}
-C {lab_pin.sym} -820 1280 0 0 {name=p_esd_Y_VSS sig_type=std_logic lab=VSS}
-C {a_zonetic2026/XSCHEM_v2/io_secondary_5p0.sym} -900 1500 0 0 {name=x_esd_Z}
-C {lab_pin.sym} -820 1340 0 0 {name=p_esd_Z_VDD sig_type=std_logic lab=VDD}
-C {lab_pin.sym} -900 1420 0 0 {name=p_esd_Z_to_gate sig_type=std_logic lab=Z_I}
-C {lab_pin.sym} -700 1420 0 0 {name=p_esd_Z_ASIG5V sig_type=std_logic lab=Z}
-C {lab_pin.sym} -820 1500 0 0 {name=p_esd_Z_VSS sig_type=std_logic lab=VSS}
+C {a_zonetic2026/XSCHEM_v2/ESD_CDM.sym} -900 -700 0 0 {name=x_esd_S1P}
+C {lab_pin.sym} -990 -700 0 0 {name=p_esd_S1P_PAD sig_type=std_logic lab=S1P}
+C {lab_pin.sym} -810 -700 0 0 {name=p_esd_S1P_CORE sig_type=std_logic lab=S1P_I}
+C {lab_pin.sym} -940 -750 0 0 {name=p_esd_S1P_VDD sig_type=std_logic lab=VDD}
+C {lab_pin.sym} -940 -650 0 0 {name=p_esd_S1P_VSS sig_type=std_logic lab=VSS}
+C {a_zonetic2026/XSCHEM_v2/ESD_CDM.sym} -900 -480 0 0 {name=x_esd_S1N}
+C {lab_pin.sym} -990 -480 0 0 {name=p_esd_S1N_PAD sig_type=std_logic lab=S1N}
+C {lab_pin.sym} -810 -480 0 0 {name=p_esd_S1N_CORE sig_type=std_logic lab=S1N_I}
+C {lab_pin.sym} -940 -530 0 0 {name=p_esd_S1N_VDD sig_type=std_logic lab=VDD}
+C {lab_pin.sym} -940 -430 0 0 {name=p_esd_S1N_VSS sig_type=std_logic lab=VSS}
+C {a_zonetic2026/XSCHEM_v2/ESD_CDM.sym} -900 -260 0 0 {name=x_esd_S2P}
+C {lab_pin.sym} -990 -260 0 0 {name=p_esd_S2P_PAD sig_type=std_logic lab=S2P}
+C {lab_pin.sym} -810 -260 0 0 {name=p_esd_S2P_CORE sig_type=std_logic lab=S2P_I}
+C {lab_pin.sym} -940 -310 0 0 {name=p_esd_S2P_VDD sig_type=std_logic lab=VDD}
+C {lab_pin.sym} -940 -210 0 0 {name=p_esd_S2P_VSS sig_type=std_logic lab=VSS}
+C {a_zonetic2026/XSCHEM_v2/ESD_CDM.sym} -900 -40 0 0 {name=x_esd_S2N}
+C {lab_pin.sym} -990 -40 0 0 {name=p_esd_S2N_PAD sig_type=std_logic lab=S2N}
+C {lab_pin.sym} -810 -40 0 0 {name=p_esd_S2N_CORE sig_type=std_logic lab=S2N_I}
+C {lab_pin.sym} -940 -90 0 0 {name=p_esd_S2N_VDD sig_type=std_logic lab=VDD}
+C {lab_pin.sym} -940 10 0 0 {name=p_esd_S2N_VSS sig_type=std_logic lab=VSS}
+C {a_zonetic2026/XSCHEM_v2/ESD_CDM.sym} -900 180 0 0 {name=x_esd_S3P}
+C {lab_pin.sym} -990 180 0 0 {name=p_esd_S3P_PAD sig_type=std_logic lab=S3P}
+C {lab_pin.sym} -810 180 0 0 {name=p_esd_S3P_CORE sig_type=std_logic lab=S3P_I}
+C {lab_pin.sym} -940 130 0 0 {name=p_esd_S3P_VDD sig_type=std_logic lab=VDD}
+C {lab_pin.sym} -940 230 0 0 {name=p_esd_S3P_VSS sig_type=std_logic lab=VSS}
+C {a_zonetic2026/XSCHEM_v2/ESD_CDM.sym} -900 400 0 0 {name=x_esd_S3N}
+C {lab_pin.sym} -990 400 0 0 {name=p_esd_S3N_PAD sig_type=std_logic lab=S3N}
+C {lab_pin.sym} -810 400 0 0 {name=p_esd_S3N_CORE sig_type=std_logic lab=S3N_I}
+C {lab_pin.sym} -940 350 0 0 {name=p_esd_S3N_VDD sig_type=std_logic lab=VDD}
+C {lab_pin.sym} -940 450 0 0 {name=p_esd_S3N_VSS sig_type=std_logic lab=VSS}
+C {a_zonetic2026/XSCHEM_v2/ESD_CDM.sym} -900 620 0 0 {name=x_esd_S4P}
+C {lab_pin.sym} -990 620 0 0 {name=p_esd_S4P_PAD sig_type=std_logic lab=S4P}
+C {lab_pin.sym} -810 620 0 0 {name=p_esd_S4P_CORE sig_type=std_logic lab=S4P_I}
+C {lab_pin.sym} -940 570 0 0 {name=p_esd_S4P_VDD sig_type=std_logic lab=VDD}
+C {lab_pin.sym} -940 670 0 0 {name=p_esd_S4P_VSS sig_type=std_logic lab=VSS}
+C {a_zonetic2026/XSCHEM_v2/ESD_CDM.sym} -900 840 0 0 {name=x_esd_S4N}
+C {lab_pin.sym} -990 840 0 0 {name=p_esd_S4N_PAD sig_type=std_logic lab=S4N}
+C {lab_pin.sym} -810 840 0 0 {name=p_esd_S4N_CORE sig_type=std_logic lab=S4N_I}
+C {lab_pin.sym} -940 790 0 0 {name=p_esd_S4N_VDD sig_type=std_logic lab=VDD}
+C {lab_pin.sym} -940 890 0 0 {name=p_esd_S4N_VSS sig_type=std_logic lab=VSS}
+C {a_zonetic2026/XSCHEM_v2/ESD_CDM.sym} -900 1060 0 0 {name=x_esd_X}
+C {lab_pin.sym} -990 1060 0 0 {name=p_esd_X_PAD sig_type=std_logic lab=X}
+C {lab_pin.sym} -810 1060 0 0 {name=p_esd_X_CORE sig_type=std_logic lab=X_I}
+C {lab_pin.sym} -940 1010 0 0 {name=p_esd_X_VDD sig_type=std_logic lab=VDD}
+C {lab_pin.sym} -940 1110 0 0 {name=p_esd_X_VSS sig_type=std_logic lab=VSS}
+C {a_zonetic2026/XSCHEM_v2/ESD_CDM.sym} -900 1280 0 0 {name=x_esd_Y}
+C {lab_pin.sym} -990 1280 0 0 {name=p_esd_Y_PAD sig_type=std_logic lab=Y}
+C {lab_pin.sym} -810 1280 0 0 {name=p_esd_Y_CORE sig_type=std_logic lab=Y_I}
+C {lab_pin.sym} -940 1230 0 0 {name=p_esd_Y_VDD sig_type=std_logic lab=VDD}
+C {lab_pin.sym} -940 1330 0 0 {name=p_esd_Y_VSS sig_type=std_logic lab=VSS}
+C {a_zonetic2026/XSCHEM_v2/ESD_CDM.sym} -900 1500 0 0 {name=x_esd_Z}
+C {lab_pin.sym} -990 1500 0 0 {name=p_esd_Z_PAD sig_type=std_logic lab=Z}
+C {lab_pin.sym} -810 1500 0 0 {name=p_esd_Z_CORE sig_type=std_logic lab=Z_I}
+C {lab_pin.sym} -940 1450 0 0 {name=p_esd_Z_VDD sig_type=std_logic lab=VDD}
+C {lab_pin.sym} -940 1550 0 0 {name=p_esd_Z_VSS sig_type=std_logic lab=VSS}
 C {devices/ipin.sym} -1600 -800 0 0 {name=port_S1P lab=S1P}
 C {devices/ipin.sym} -1600 -780 0 0 {name=port_S1N lab=S1N}
 C {devices/ipin.sym} -1600 -760 0 0 {name=port_S2P lab=S2P}

@@ -209,7 +209,7 @@ module B26_A (
   assign XP_PDRV0 = VSS;
   assign XP_PDRV1 = VSS;
 
-  // Secondary ESD, one io_secondary_5p0 per analogue pin.
+  // Secondary ESD, one ESD_CDM per analogue pin.
   // Series resistor plus the two diodes, NEXT TO THE PAD:
   // anything between the pad and the clamp is unprotected.
   wire S4P_I;
@@ -223,17 +223,17 @@ module B26_A (
   wire S3N_I;
   wire S2N_I;
   wire S2P_I;
-  io_secondary_5p0 x_esd_S4P (.VDD(VDD), .to_gate(S4P_I), .ASIG5V(S4P), .VSS(VSS));
-  io_secondary_5p0 x_esd_S4N (.VDD(VDD), .to_gate(S4N_I), .ASIG5V(S4N), .VSS(VSS));
-  io_secondary_5p0 x_esd_Z (.VDD(VDD), .to_gate(Z_I), .ASIG5V(Z), .VSS(VSS));
-  io_secondary_5p0 x_esd_Y (.VDD(VDD), .to_gate(Y_I), .ASIG5V(Y), .VSS(VSS));
-  io_secondary_5p0 x_esd_X (.VDD(VDD), .to_gate(X_I), .ASIG5V(X), .VSS(VSS));
-  io_secondary_5p0 x_esd_S1N (.VDD(VDD), .to_gate(S1N_I), .ASIG5V(S1N), .VSS(VSS));
-  io_secondary_5p0 x_esd_S1P (.VDD(VDD), .to_gate(S1P_I), .ASIG5V(S1P), .VSS(VSS));
-  io_secondary_5p0 x_esd_S3P (.VDD(VDD), .to_gate(S3P_I), .ASIG5V(S3P), .VSS(VSS));
-  io_secondary_5p0 x_esd_S3N (.VDD(VDD), .to_gate(S3N_I), .ASIG5V(S3N), .VSS(VSS));
-  io_secondary_5p0 x_esd_S2N (.VDD(VDD), .to_gate(S2N_I), .ASIG5V(S2N), .VSS(VSS));
-  io_secondary_5p0 x_esd_S2P (.VDD(VDD), .to_gate(S2P_I), .ASIG5V(S2P), .VSS(VSS));
+  ESD_CDM x_esd_S4P (.PAD(S4P), .CORE(S4P_I), .VDD(VDD), .VSS(VSS));
+  ESD_CDM x_esd_S4N (.PAD(S4N), .CORE(S4N_I), .VDD(VDD), .VSS(VSS));
+  ESD_CDM x_esd_Z (.PAD(Z), .CORE(Z_I), .VDD(VDD), .VSS(VSS));
+  ESD_CDM x_esd_Y (.PAD(Y), .CORE(Y_I), .VDD(VDD), .VSS(VSS));
+  ESD_CDM x_esd_X (.PAD(X), .CORE(X_I), .VDD(VDD), .VSS(VSS));
+  ESD_CDM x_esd_S1N (.PAD(S1N), .CORE(S1N_I), .VDD(VDD), .VSS(VSS));
+  ESD_CDM x_esd_S1P (.PAD(S1P), .CORE(S1P_I), .VDD(VDD), .VSS(VSS));
+  ESD_CDM x_esd_S3P (.PAD(S3P), .CORE(S3P_I), .VDD(VDD), .VSS(VSS));
+  ESD_CDM x_esd_S3N (.PAD(S3N), .CORE(S3N_I), .VDD(VDD), .VSS(VSS));
+  ESD_CDM x_esd_S2N (.PAD(S2N), .CORE(S2N_I), .VDD(VDD), .VSS(VSS));
+  ESD_CDM x_esd_S2P (.PAD(S2P), .CORE(S2P_I), .VDD(VDD), .VSS(VSS));
 
   GRADIENT_NAV2 x_core (
       .VSS(VSS),

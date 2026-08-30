@@ -3,13 +3,13 @@
 * The circuit is XSCHEM_v2/ESD_CDM.sch; see it for why the diodes are these two
 * types and no others.
 .subckt ESD_CDM PAD CORE VDD VSS
-D1 VSS PAD diode_nd2ps_06v0 AREA=50p PJ=30u
-D2 VSS PAD diode_nd2ps_06v0 AREA=50p PJ=30u
-D3 PAD VDD diode_pd2nw_06v0 AREA=50p PJ=30u
-D4 PAD VDD diode_pd2nw_06v0 AREA=50p PJ=30u
-R1 CORE PAD VSS ppolyf_u_1k W=1.0e-06 L=2.0e-06 R=2000
-R2 CORE PAD VSS ppolyf_u_1k W=1.0e-06 L=2.0e-06 R=2000
-R3 CORE PAD VSS ppolyf_u_1k W=1.0e-06 L=2.0e-06 R=2000
-R4 CORE PAD VSS ppolyf_u_1k W=1.0e-06 L=2.0e-06 R=2000
-R5 CORE PAD VSS ppolyf_u_1k W=1.0e-06 L=2.0e-06 R=2000
+D1 VSS PAD diode_nd2ps_06v0 AREA=100p PJ=40u
+D2 VSS PAD diode_nd2ps_06v0 AREA=100p PJ=40u
+D3 VSS PAD diode_nd2ps_06v0 AREA=100p PJ=40u
+D4 VSS PAD diode_nd2ps_06v0 AREA=100p PJ=40u
+D5 PAD VDD diode_pd2nw_06v0 AREA=100p PJ=40u
+D6 PAD VDD diode_pd2nw_06v0 AREA=100p PJ=40u
+D7 PAD VDD diode_pd2nw_06v0 AREA=100p PJ=40u
+D8 PAD VDD diode_pd2nw_06v0 AREA=100p PJ=40u
+R1 CORE PAD VDD ppolyf_u W=16.0e-06 L=4.0e-06 R=87.5
 .ends

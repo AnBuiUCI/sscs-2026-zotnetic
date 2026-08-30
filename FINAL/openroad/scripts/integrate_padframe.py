@@ -49,8 +49,12 @@ CELL = "B26_A"
 #  a `<PIN>_I`, no al pin del die. Ese es tambien el nombre que usa
 #  XSCHEM/B26_A.sch, y las dos cosas tienen que coincidir o el LVS no cuadra.
 # --------------------------------------------------------------------------- #
-ESD_CELL = "io_secondary_5p0"
-ESD_W, ESD_H = 75.65, 85.35
+#: La celda que se fabrica. Paso de ser la de los organizadores a la nuestra:
+#: mismo circuito exacto -- 4+4 diodos de 10x10 y `ppolyf_u` W=16 L=4 con el bulk
+#: en VDD, tal cual su esquematico -- pero 1.762 um2 en vez de 6.457, y sin la
+#: `MSLOT.1` que arrastran las tres variantes suyas. Ver `esd_layout.py`.
+ESD_CELL = "ESD_CDM"
+ESD_W, ESD_H = 63.16, 27.90
 
 #: Sufijo del lado del nucleo. Lo fija el esquematico, no este fichero.
 ESD_SUF = "_I"
@@ -263,8 +267,8 @@ def build():
             v.append(f"  wire {name}{ESD_SUF};")
         for name in con_esd:
             v.append(f"  {ESD_CELL} x_esd_{name} ("
-                     f".VDD(VDD), .to_gate({name}{ESD_SUF}), "
-                     f".ASIG5V({name}), .VSS(VSS));")
+                     f".PAD({name}), .CORE({name}{ESD_SUF}), "
+                     f".VDD(VDD), .VSS(VSS));")
 
     v += ["", f"  {MACRO} x_core ("]
     arg = []

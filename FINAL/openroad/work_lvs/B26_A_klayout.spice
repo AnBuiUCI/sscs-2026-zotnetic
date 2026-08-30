@@ -1866,94 +1866,94 @@ Mdecn154 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.0u
 Mdecp155 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.0u
 * diodes: the line as it is. KLayout's deck reads them with 'A=' and 'P=', which is what the simulator calls
 *   area and pj; written as numbers and not as xschem's expression, because the reader does not evaluate.
-D1_Xx_esd_S1P S1P_I VDD diode_pd2nw_06v0 A=100p P=40u
-D2_Xx_esd_S1P S1P_I VDD diode_pd2nw_06v0 A=100p P=40u
-D3_Xx_esd_S1P S1P_I VDD diode_pd2nw_06v0 A=100p P=40u
-D4_Xx_esd_S1P S1P_I VDD diode_pd2nw_06v0 A=100p P=40u
-D5_Xx_esd_S1P VSS S1P_I diode_nd2ps_06v0 A=100p P=40u
-D6_Xx_esd_S1P VSS S1P_I diode_nd2ps_06v0 A=100p P=40u
-D7_Xx_esd_S1P VSS S1P_I diode_nd2ps_06v0 A=100p P=40u
-D8_Xx_esd_S1P VSS S1P_I diode_nd2ps_06v0 A=100p P=40u
-D1_Xx_esd_S1N S1N_I VDD diode_pd2nw_06v0 A=100p P=40u
-D2_Xx_esd_S1N S1N_I VDD diode_pd2nw_06v0 A=100p P=40u
-D3_Xx_esd_S1N S1N_I VDD diode_pd2nw_06v0 A=100p P=40u
-D4_Xx_esd_S1N S1N_I VDD diode_pd2nw_06v0 A=100p P=40u
-D5_Xx_esd_S1N VSS S1N_I diode_nd2ps_06v0 A=100p P=40u
-D6_Xx_esd_S1N VSS S1N_I diode_nd2ps_06v0 A=100p P=40u
-D7_Xx_esd_S1N VSS S1N_I diode_nd2ps_06v0 A=100p P=40u
-D8_Xx_esd_S1N VSS S1N_I diode_nd2ps_06v0 A=100p P=40u
-D1_Xx_esd_S2P S2P_I VDD diode_pd2nw_06v0 A=100p P=40u
-D2_Xx_esd_S2P S2P_I VDD diode_pd2nw_06v0 A=100p P=40u
-D3_Xx_esd_S2P S2P_I VDD diode_pd2nw_06v0 A=100p P=40u
-D4_Xx_esd_S2P S2P_I VDD diode_pd2nw_06v0 A=100p P=40u
-D5_Xx_esd_S2P VSS S2P_I diode_nd2ps_06v0 A=100p P=40u
-D6_Xx_esd_S2P VSS S2P_I diode_nd2ps_06v0 A=100p P=40u
-D7_Xx_esd_S2P VSS S2P_I diode_nd2ps_06v0 A=100p P=40u
-D8_Xx_esd_S2P VSS S2P_I diode_nd2ps_06v0 A=100p P=40u
-D1_Xx_esd_S2N S2N_I VDD diode_pd2nw_06v0 A=100p P=40u
-D2_Xx_esd_S2N S2N_I VDD diode_pd2nw_06v0 A=100p P=40u
-D3_Xx_esd_S2N S2N_I VDD diode_pd2nw_06v0 A=100p P=40u
-D4_Xx_esd_S2N S2N_I VDD diode_pd2nw_06v0 A=100p P=40u
-D5_Xx_esd_S2N VSS S2N_I diode_nd2ps_06v0 A=100p P=40u
-D6_Xx_esd_S2N VSS S2N_I diode_nd2ps_06v0 A=100p P=40u
-D7_Xx_esd_S2N VSS S2N_I diode_nd2ps_06v0 A=100p P=40u
-D8_Xx_esd_S2N VSS S2N_I diode_nd2ps_06v0 A=100p P=40u
-D1_Xx_esd_S3P S3P_I VDD diode_pd2nw_06v0 A=100p P=40u
-D2_Xx_esd_S3P S3P_I VDD diode_pd2nw_06v0 A=100p P=40u
-D3_Xx_esd_S3P S3P_I VDD diode_pd2nw_06v0 A=100p P=40u
-D4_Xx_esd_S3P S3P_I VDD diode_pd2nw_06v0 A=100p P=40u
-D5_Xx_esd_S3P VSS S3P_I diode_nd2ps_06v0 A=100p P=40u
-D6_Xx_esd_S3P VSS S3P_I diode_nd2ps_06v0 A=100p P=40u
-D7_Xx_esd_S3P VSS S3P_I diode_nd2ps_06v0 A=100p P=40u
-D8_Xx_esd_S3P VSS S3P_I diode_nd2ps_06v0 A=100p P=40u
-D1_Xx_esd_S3N S3N_I VDD diode_pd2nw_06v0 A=100p P=40u
-D2_Xx_esd_S3N S3N_I VDD diode_pd2nw_06v0 A=100p P=40u
-D3_Xx_esd_S3N S3N_I VDD diode_pd2nw_06v0 A=100p P=40u
-D4_Xx_esd_S3N S3N_I VDD diode_pd2nw_06v0 A=100p P=40u
-D5_Xx_esd_S3N VSS S3N_I diode_nd2ps_06v0 A=100p P=40u
-D6_Xx_esd_S3N VSS S3N_I diode_nd2ps_06v0 A=100p P=40u
-D7_Xx_esd_S3N VSS S3N_I diode_nd2ps_06v0 A=100p P=40u
-D8_Xx_esd_S3N VSS S3N_I diode_nd2ps_06v0 A=100p P=40u
-D1_Xx_esd_S4P S4P_I VDD diode_pd2nw_06v0 A=100p P=40u
-D2_Xx_esd_S4P S4P_I VDD diode_pd2nw_06v0 A=100p P=40u
-D3_Xx_esd_S4P S4P_I VDD diode_pd2nw_06v0 A=100p P=40u
-D4_Xx_esd_S4P S4P_I VDD diode_pd2nw_06v0 A=100p P=40u
-D5_Xx_esd_S4P VSS S4P_I diode_nd2ps_06v0 A=100p P=40u
-D6_Xx_esd_S4P VSS S4P_I diode_nd2ps_06v0 A=100p P=40u
-D7_Xx_esd_S4P VSS S4P_I diode_nd2ps_06v0 A=100p P=40u
-D8_Xx_esd_S4P VSS S4P_I diode_nd2ps_06v0 A=100p P=40u
-D1_Xx_esd_S4N S4N_I VDD diode_pd2nw_06v0 A=100p P=40u
-D2_Xx_esd_S4N S4N_I VDD diode_pd2nw_06v0 A=100p P=40u
-D3_Xx_esd_S4N S4N_I VDD diode_pd2nw_06v0 A=100p P=40u
-D4_Xx_esd_S4N S4N_I VDD diode_pd2nw_06v0 A=100p P=40u
-D5_Xx_esd_S4N VSS S4N_I diode_nd2ps_06v0 A=100p P=40u
-D6_Xx_esd_S4N VSS S4N_I diode_nd2ps_06v0 A=100p P=40u
-D7_Xx_esd_S4N VSS S4N_I diode_nd2ps_06v0 A=100p P=40u
-D8_Xx_esd_S4N VSS S4N_I diode_nd2ps_06v0 A=100p P=40u
-D1_Xx_esd_X X_I VDD diode_pd2nw_06v0 A=100p P=40u
-D2_Xx_esd_X X_I VDD diode_pd2nw_06v0 A=100p P=40u
-D3_Xx_esd_X X_I VDD diode_pd2nw_06v0 A=100p P=40u
-D4_Xx_esd_X X_I VDD diode_pd2nw_06v0 A=100p P=40u
-D5_Xx_esd_X VSS X_I diode_nd2ps_06v0 A=100p P=40u
-D6_Xx_esd_X VSS X_I diode_nd2ps_06v0 A=100p P=40u
-D7_Xx_esd_X VSS X_I diode_nd2ps_06v0 A=100p P=40u
-D8_Xx_esd_X VSS X_I diode_nd2ps_06v0 A=100p P=40u
-D1_Xx_esd_Y Y_I VDD diode_pd2nw_06v0 A=100p P=40u
-D2_Xx_esd_Y Y_I VDD diode_pd2nw_06v0 A=100p P=40u
-D3_Xx_esd_Y Y_I VDD diode_pd2nw_06v0 A=100p P=40u
-D4_Xx_esd_Y Y_I VDD diode_pd2nw_06v0 A=100p P=40u
-D5_Xx_esd_Y VSS Y_I diode_nd2ps_06v0 A=100p P=40u
-D6_Xx_esd_Y VSS Y_I diode_nd2ps_06v0 A=100p P=40u
-D7_Xx_esd_Y VSS Y_I diode_nd2ps_06v0 A=100p P=40u
-D8_Xx_esd_Y VSS Y_I diode_nd2ps_06v0 A=100p P=40u
-D1_Xx_esd_Z Z_I VDD diode_pd2nw_06v0 A=100p P=40u
-D2_Xx_esd_Z Z_I VDD diode_pd2nw_06v0 A=100p P=40u
-D3_Xx_esd_Z Z_I VDD diode_pd2nw_06v0 A=100p P=40u
-D4_Xx_esd_Z Z_I VDD diode_pd2nw_06v0 A=100p P=40u
-D5_Xx_esd_Z VSS Z_I diode_nd2ps_06v0 A=100p P=40u
-D6_Xx_esd_Z VSS Z_I diode_nd2ps_06v0 A=100p P=40u
-D7_Xx_esd_Z VSS Z_I diode_nd2ps_06v0 A=100p P=40u
-D8_Xx_esd_Z VSS Z_I diode_nd2ps_06v0 A=100p P=40u
+D1_x_esd_S1P VSS S1P diode_nd2ps_06v0 AREA=100p PJ=40u
+D2_x_esd_S1P VSS S1P diode_nd2ps_06v0 AREA=100p PJ=40u
+D3_x_esd_S1P VSS S1P diode_nd2ps_06v0 AREA=100p PJ=40u
+D4_x_esd_S1P VSS S1P diode_nd2ps_06v0 AREA=100p PJ=40u
+D5_x_esd_S1P S1P VDD diode_pd2nw_06v0 AREA=100p PJ=40u
+D6_x_esd_S1P S1P VDD diode_pd2nw_06v0 AREA=100p PJ=40u
+D7_x_esd_S1P S1P VDD diode_pd2nw_06v0 AREA=100p PJ=40u
+D8_x_esd_S1P S1P VDD diode_pd2nw_06v0 AREA=100p PJ=40u
+D1_x_esd_S1N VSS S1N diode_nd2ps_06v0 AREA=100p PJ=40u
+D2_x_esd_S1N VSS S1N diode_nd2ps_06v0 AREA=100p PJ=40u
+D3_x_esd_S1N VSS S1N diode_nd2ps_06v0 AREA=100p PJ=40u
+D4_x_esd_S1N VSS S1N diode_nd2ps_06v0 AREA=100p PJ=40u
+D5_x_esd_S1N S1N VDD diode_pd2nw_06v0 AREA=100p PJ=40u
+D6_x_esd_S1N S1N VDD diode_pd2nw_06v0 AREA=100p PJ=40u
+D7_x_esd_S1N S1N VDD diode_pd2nw_06v0 AREA=100p PJ=40u
+D8_x_esd_S1N S1N VDD diode_pd2nw_06v0 AREA=100p PJ=40u
+D1_x_esd_S2P VSS S2P diode_nd2ps_06v0 AREA=100p PJ=40u
+D2_x_esd_S2P VSS S2P diode_nd2ps_06v0 AREA=100p PJ=40u
+D3_x_esd_S2P VSS S2P diode_nd2ps_06v0 AREA=100p PJ=40u
+D4_x_esd_S2P VSS S2P diode_nd2ps_06v0 AREA=100p PJ=40u
+D5_x_esd_S2P S2P VDD diode_pd2nw_06v0 AREA=100p PJ=40u
+D6_x_esd_S2P S2P VDD diode_pd2nw_06v0 AREA=100p PJ=40u
+D7_x_esd_S2P S2P VDD diode_pd2nw_06v0 AREA=100p PJ=40u
+D8_x_esd_S2P S2P VDD diode_pd2nw_06v0 AREA=100p PJ=40u
+D1_x_esd_S2N VSS S2N diode_nd2ps_06v0 AREA=100p PJ=40u
+D2_x_esd_S2N VSS S2N diode_nd2ps_06v0 AREA=100p PJ=40u
+D3_x_esd_S2N VSS S2N diode_nd2ps_06v0 AREA=100p PJ=40u
+D4_x_esd_S2N VSS S2N diode_nd2ps_06v0 AREA=100p PJ=40u
+D5_x_esd_S2N S2N VDD diode_pd2nw_06v0 AREA=100p PJ=40u
+D6_x_esd_S2N S2N VDD diode_pd2nw_06v0 AREA=100p PJ=40u
+D7_x_esd_S2N S2N VDD diode_pd2nw_06v0 AREA=100p PJ=40u
+D8_x_esd_S2N S2N VDD diode_pd2nw_06v0 AREA=100p PJ=40u
+D1_x_esd_S3P VSS S3P diode_nd2ps_06v0 AREA=100p PJ=40u
+D2_x_esd_S3P VSS S3P diode_nd2ps_06v0 AREA=100p PJ=40u
+D3_x_esd_S3P VSS S3P diode_nd2ps_06v0 AREA=100p PJ=40u
+D4_x_esd_S3P VSS S3P diode_nd2ps_06v0 AREA=100p PJ=40u
+D5_x_esd_S3P S3P VDD diode_pd2nw_06v0 AREA=100p PJ=40u
+D6_x_esd_S3P S3P VDD diode_pd2nw_06v0 AREA=100p PJ=40u
+D7_x_esd_S3P S3P VDD diode_pd2nw_06v0 AREA=100p PJ=40u
+D8_x_esd_S3P S3P VDD diode_pd2nw_06v0 AREA=100p PJ=40u
+D1_x_esd_S3N VSS S3N diode_nd2ps_06v0 AREA=100p PJ=40u
+D2_x_esd_S3N VSS S3N diode_nd2ps_06v0 AREA=100p PJ=40u
+D3_x_esd_S3N VSS S3N diode_nd2ps_06v0 AREA=100p PJ=40u
+D4_x_esd_S3N VSS S3N diode_nd2ps_06v0 AREA=100p PJ=40u
+D5_x_esd_S3N S3N VDD diode_pd2nw_06v0 AREA=100p PJ=40u
+D6_x_esd_S3N S3N VDD diode_pd2nw_06v0 AREA=100p PJ=40u
+D7_x_esd_S3N S3N VDD diode_pd2nw_06v0 AREA=100p PJ=40u
+D8_x_esd_S3N S3N VDD diode_pd2nw_06v0 AREA=100p PJ=40u
+D1_x_esd_S4P VSS S4P diode_nd2ps_06v0 AREA=100p PJ=40u
+D2_x_esd_S4P VSS S4P diode_nd2ps_06v0 AREA=100p PJ=40u
+D3_x_esd_S4P VSS S4P diode_nd2ps_06v0 AREA=100p PJ=40u
+D4_x_esd_S4P VSS S4P diode_nd2ps_06v0 AREA=100p PJ=40u
+D5_x_esd_S4P S4P VDD diode_pd2nw_06v0 AREA=100p PJ=40u
+D6_x_esd_S4P S4P VDD diode_pd2nw_06v0 AREA=100p PJ=40u
+D7_x_esd_S4P S4P VDD diode_pd2nw_06v0 AREA=100p PJ=40u
+D8_x_esd_S4P S4P VDD diode_pd2nw_06v0 AREA=100p PJ=40u
+D1_x_esd_S4N VSS S4N diode_nd2ps_06v0 AREA=100p PJ=40u
+D2_x_esd_S4N VSS S4N diode_nd2ps_06v0 AREA=100p PJ=40u
+D3_x_esd_S4N VSS S4N diode_nd2ps_06v0 AREA=100p PJ=40u
+D4_x_esd_S4N VSS S4N diode_nd2ps_06v0 AREA=100p PJ=40u
+D5_x_esd_S4N S4N VDD diode_pd2nw_06v0 AREA=100p PJ=40u
+D6_x_esd_S4N S4N VDD diode_pd2nw_06v0 AREA=100p PJ=40u
+D7_x_esd_S4N S4N VDD diode_pd2nw_06v0 AREA=100p PJ=40u
+D8_x_esd_S4N S4N VDD diode_pd2nw_06v0 AREA=100p PJ=40u
+D1_x_esd_X VSS X diode_nd2ps_06v0 AREA=100p PJ=40u
+D2_x_esd_X VSS X diode_nd2ps_06v0 AREA=100p PJ=40u
+D3_x_esd_X VSS X diode_nd2ps_06v0 AREA=100p PJ=40u
+D4_x_esd_X VSS X diode_nd2ps_06v0 AREA=100p PJ=40u
+D5_x_esd_X X VDD diode_pd2nw_06v0 AREA=100p PJ=40u
+D6_x_esd_X X VDD diode_pd2nw_06v0 AREA=100p PJ=40u
+D7_x_esd_X X VDD diode_pd2nw_06v0 AREA=100p PJ=40u
+D8_x_esd_X X VDD diode_pd2nw_06v0 AREA=100p PJ=40u
+D1_x_esd_Y VSS Y diode_nd2ps_06v0 AREA=100p PJ=40u
+D2_x_esd_Y VSS Y diode_nd2ps_06v0 AREA=100p PJ=40u
+D3_x_esd_Y VSS Y diode_nd2ps_06v0 AREA=100p PJ=40u
+D4_x_esd_Y VSS Y diode_nd2ps_06v0 AREA=100p PJ=40u
+D5_x_esd_Y Y VDD diode_pd2nw_06v0 AREA=100p PJ=40u
+D6_x_esd_Y Y VDD diode_pd2nw_06v0 AREA=100p PJ=40u
+D7_x_esd_Y Y VDD diode_pd2nw_06v0 AREA=100p PJ=40u
+D8_x_esd_Y Y VDD diode_pd2nw_06v0 AREA=100p PJ=40u
+D1_x_esd_Z VSS Z diode_nd2ps_06v0 AREA=100p PJ=40u
+D2_x_esd_Z VSS Z diode_nd2ps_06v0 AREA=100p PJ=40u
+D3_x_esd_Z VSS Z diode_nd2ps_06v0 AREA=100p PJ=40u
+D4_x_esd_Z VSS Z diode_nd2ps_06v0 AREA=100p PJ=40u
+D5_x_esd_Z Z VDD diode_pd2nw_06v0 AREA=100p PJ=40u
+D6_x_esd_Z Z VDD diode_pd2nw_06v0 AREA=100p PJ=40u
+D7_x_esd_Z Z VDD diode_pd2nw_06v0 AREA=100p PJ=40u
+D8_x_esd_Z Z VDD diode_pd2nw_06v0 AREA=100p PJ=40u
 * condensadores: elemento 'C' con W/L en METROS, no 'X' con c_width/c_length.
 *   El deck de KLayout los lee con un delegate (custom_classes.lvs, SubcircuitModelsReader#element)
 *   que SOLO actua si el elemento empieza por 'C', y de ahi saca A=W*L*1e12 y P=2*(W+L)*1e6.
@@ -2077,15 +2077,15 @@ RFB_x_core_x4_x2_x2_2 RFB_x_core_x4_x2_x2$1 RFB_x_core_x4_x2_x2$2 VSS ppolyf_u_1
 RFB_x_core_x4_x2_x2_3 RFB_x_core_x4_x2_x2$2 RFB_x_core_x4_x2_x2$3 VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
 RFB_x_core_x4_x2_x2_4 RFB_x_core_x4_x2_x2$3 RFB_x_core_x4_x2_x2$4 VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
 RFB_x_core_x4_x2_x2_5 RFB_x_core_x4_x2_x2$4 x_core_x4_SZ VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
-RR1_Xx_esd_S1P_1 S1P_I S1P VDD ppolyf_u W=4e-05 L=1e-05 R=250
-RR1_Xx_esd_S1N_1 S1N_I S1N VDD ppolyf_u W=4e-05 L=1e-05 R=250
-RR1_Xx_esd_S2P_1 S2P_I S2P VDD ppolyf_u W=4e-05 L=1e-05 R=250
-RR1_Xx_esd_S2N_1 S2N_I S2N VDD ppolyf_u W=4e-05 L=1e-05 R=250
-RR1_Xx_esd_S3P_1 S3P_I S3P VDD ppolyf_u W=4e-05 L=1e-05 R=250
-RR1_Xx_esd_S3N_1 S3N_I S3N VDD ppolyf_u W=4e-05 L=1e-05 R=250
-RR1_Xx_esd_S4P_1 S4P_I S4P VDD ppolyf_u W=4e-05 L=1e-05 R=250
-RR1_Xx_esd_S4N_1 S4N_I S4N VDD ppolyf_u W=4e-05 L=1e-05 R=250
-RR1_Xx_esd_X_1 X_I X VDD ppolyf_u W=4e-05 L=1e-05 R=250
-RR1_Xx_esd_Y_1 Y_I Y VDD ppolyf_u W=4e-05 L=1e-05 R=250
-RR1_Xx_esd_Z_1 Z_I Z VDD ppolyf_u W=4e-05 L=1e-05 R=250
+R1_x_esd_S1P_1 S1P_I S1P VDD ppolyf_u W=1.6e-05 L=4e-06 R=250
+R1_x_esd_S1N_1 S1N_I S1N VDD ppolyf_u W=1.6e-05 L=4e-06 R=250
+R1_x_esd_S2P_1 S2P_I S2P VDD ppolyf_u W=1.6e-05 L=4e-06 R=250
+R1_x_esd_S2N_1 S2N_I S2N VDD ppolyf_u W=1.6e-05 L=4e-06 R=250
+R1_x_esd_S3P_1 S3P_I S3P VDD ppolyf_u W=1.6e-05 L=4e-06 R=250
+R1_x_esd_S3N_1 S3N_I S3N VDD ppolyf_u W=1.6e-05 L=4e-06 R=250
+R1_x_esd_S4P_1 S4P_I S4P VDD ppolyf_u W=1.6e-05 L=4e-06 R=250
+R1_x_esd_S4N_1 S4N_I S4N VDD ppolyf_u W=1.6e-05 L=4e-06 R=250
+R1_x_esd_X_1 X_I X VDD ppolyf_u W=1.6e-05 L=4e-06 R=250
+R1_x_esd_Y_1 Y_I Y VDD ppolyf_u W=1.6e-05 L=4e-06 R=250
+R1_x_esd_Z_1 Z_I Z VDD ppolyf_u W=1.6e-05 L=4e-06 R=250
 .ends

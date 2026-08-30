@@ -35,7 +35,13 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import build_collateral as bc                                    # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
-GDS = ROOT / "out_integration" / "B26_A.gds"
+#: Que GDS se comprueba. Por defecto el de la integracion sin rellenar, que es
+#: el que tiene el circuito; se le puede pasar otro por argumento -- el
+#: `_filled`, por ejemplo -- para confirmar que el relleno de densidad no ha
+#: tocado ninguna conexion. El relleno son cuadrados FLOTANTES, asi que la
+#: respuesta deberia ser identica: si cambia, el relleno esta conectando algo.
+GDS = Path(sys.argv[1]) if len(sys.argv) > 1 and not sys.argv[1].startswith("-") \
+      else ROOT / "out_integration" / "B26_A.gds"
 DEFP = ROOT / "padframe" / "B26_A.def"
 CONS = ROOT / "constraints" / "B26_A_pins.tcl"
 DBU_PAD = 200.0
@@ -99,22 +105,43 @@ def clamps():
     el LEF del clamp (donde tiene sus pines), los dos leidos de fichero.
     """
     top_def = ROOT / "out_integration" / "B26_A_routed.def"
-    lef = ROOT / "lef" / "io_secondary_5p0.lef"
+    #  QUE CELDA es el clamp lo dice `integrate_padframe.py` en las constraints,
+    #  no este fichero: paso de ser `io_secondary_5p0` a ser `ESD_CDM` y con el
+    #  nombre a mano esta comprobacion se quedaba sin clamps que mirar, exigia
+    #  que el pad y el bloque salieran en la misma net -- que es justo el fallo
+    #  que busca -- y cantaba once problemas donde no habia ninguno.
+    m = re.search(r"^set ESD_CELL (\S+)", CONS.read_text(), re.M)
+    if not m:
+        return {}
+    celda = m.group(1)
+    lef = ROOT / "lef" / f"{celda}.lef"
     if not lef.exists():
         return {}
     txt = top_def.read_text()
     dbu = int(re.search(r"UNITS DISTANCE MICRONS (\d+)", txt).group(1))
-    sitio = {m.group(1): (int(m.group(2)) / dbu, int(m.group(3)) / dbu)
-             for m in re.finditer(
-                 r"^\s*- x_esd_(\S+) io_secondary_5p0 \+ \S+ \( (-?\d+) (-?\d+) \)",
+    sitio = {mm.group(1): (int(mm.group(2)) / dbu, int(mm.group(3)) / dbu)
+             for mm in re.finditer(
+                 rf"^\s*- x_esd_(\S+) {celda} \+ \S+ \( (-?\d+) (-?\d+) \)",
                  txt, re.M)}
     #  Los rects del LEF ya llevan sumado el ORIGIN del macro, igual que en
     #  `macro_lef`; `place_macro` situa la esquina de la caja SIZE.
     ltxt = lef.read_text()
     orig = re.search(r"ORIGIN\s+([-\d.]+)\s+([-\d.]+)\s*;", ltxt)
     ox0, oy0 = (float(v) for v in orig.groups()) if orig else (0.0, 0.0)
+    #  Y CUALES son sus dos pines de senal, por DIRECCION y no por nombre: el
+    #  de entrada mira al pad y el de salida al bloque. `io_secondary_5p0` los
+    #  llama ASIG5V/to_gate y `ESD_CDM` PAD/CORE.
+    ltxt_dir = ltxt
+    lado = {}
+    for mm in re.finditer(r"PIN (\S+)\s+DIRECTION (\S+) ;", ltxt_dir):
+        if mm.group(2) == "INPUT":
+            lado["pad"] = mm.group(1)
+        elif mm.group(2) == "OUTPUT":
+            lado["core"] = mm.group(1)
+    if "pad" not in lado or "core" not in lado:
+        return {}
     pines = {}
-    for term in ("ASIG5V", "to_gate"):
+    for term in (lado["pad"], lado["core"]):
         blq = re.search(rf"PIN {term}\b(.*?)END {term}\b", ltxt, re.S)
         if not blq:
             continue
@@ -131,7 +158,10 @@ def clamps():
                 break
     out = {}
     for pin, (x, y) in sitio.items():
-        out[pin] = {t: (l, x + dx, y + dy) for t, (l, dx, dy) in pines.items()}
+        d = {t: (l, x + dx, y + dy) for t, (l, dx, dy) in pines.items()}
+        #  Se devuelven con nombre CANONICO, para que quien compare no tenga que
+        #  saber como los llama cada celda.
+        out[pin] = {"ASIG5V": d[lado["pad"]], "to_gate": d[lado["core"]]}
     return out
 
 
@@ -198,6 +228,21 @@ def main() -> int:
 
     l2n = kdb.LayoutToNetlist(kdb.RecursiveShapeIterator(ly, top, []))
     lay = {n: l2n.make_polygon_layer(ly.layer(a, b), n) for n, a, b in capas}
+    #  EL RELLENO TAMBIEN, o correr esto sobre el `_filled` no demuestra nada.
+    #  El dummy vive en el datatype 4 de cada metal y este trazado leia solo el
+    #  0, asi que el fichero relleno y el sin rellenar daban exactamente el mismo
+    #  resultado -- no porque el relleno estuviese bien, sino porque no se
+    #  miraba. Metido como capa propia y conectado a su metal, un cuadrado que
+    #  toque metal de verdad se suma a esa net; los que no tocan nada quedan cada
+    #  uno en la suya, que es lo que tienen que hacer.
+    for n, a, _b in capas:
+        if not n.startswith("m"):
+            continue
+        idx = ly.layer(a, 4)
+        if ly.is_valid_layer(idx) and not ly.begin_shapes(top, idx).at_end():
+            relleno = l2n.make_polygon_layer(idx, f"{n}_fill")
+            l2n.connect(relleno)
+            l2n.connect(lay[n], relleno)
     for a, b in PAREJAS:
         l2n.connect(lay[a], lay[b])
     for x in lay.values():

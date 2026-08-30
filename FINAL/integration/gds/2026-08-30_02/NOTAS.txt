@@ -1,0 +1,18 @@
+2026-08-30_02 -- B26_A_filled.gds
+=================================
+
+source      openroad/out_integration/B26_A_filled.gds
+written     2026-08-29 22:39
+size        14,764,492 bytes raw, 2,750,010 gzipped
+sha256      cac86a8ca1a41cee07ccc19a213017006c7dc3b95b04cdea3ec952abe5ec7243
+
+DRC filled  STALE -- the run predates this GDS
+DRC circuit clean (63 tables)
+density     clean
+LVS klayout not run
+LVS netgen  match uniquely
+
+what changed
+------------
+Los once io_secondary_5p0 salen del bloque y van junto a su pad, en serie. Alimentados por Metal4; el VSS del oeste por Metal3 para no cruzar el anillo de VDD. GRADIENT_NAV2 sin ESD dentro, 460.90 x 386.99 um. El deck completo va sobre el GDS SIN rellenar, que es donde esta el circuito; sobre el relleno, densidad y magic. La MSLOT.1 restante esta dentro de la celda de los organizadores.
+

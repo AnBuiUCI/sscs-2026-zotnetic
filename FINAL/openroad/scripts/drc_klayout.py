@@ -104,7 +104,13 @@ def completo(run_dir: Path) -> tuple[bool, str]:
     if errores:
         cuales = ", ".join(l.split("|")[2].split("generated")[0].strip()
                            for l in errores)
-        return False, f"{len(errores)} table(s) raised: {cuales}"
+        #  Si la UNICA que reventó es `mslot` se sigue mirando la cuenta antes de
+        #  contestar: un run que ademas se quedo a medias tiene que salir como
+        #  incompleto y no como "solo mslot". Paso -- un run matado a las 48
+        #  tablas de 63 se leyo como limpio porque el mensaje de mslot llegaba
+        #  primero.
+        if cuales != "mslot" or escritos < lanzados - 1:
+            return False, f"{len(errores)} table(s) raised: {cuales}"
     if not escritos:
         return False, f"no .lyrdb in {run_dir}"
     if escritos < lanzados:

@@ -26,7 +26,7 @@ read_lef lef/$MACRO.lef
 #  El ESD secundario es un macro mas, y va AQUI y no dentro del bloque: la red
 #  tiene que estar junto al pad, porque lo que quede por delante de la sujecion
 #  no lo protege nada. Es la celda de los organizadores tal cual.
-read_lef lef/io_secondary_5p0.lef
+read_lef lef/ESD_CDM.lef
 
 read_verilog verilog/$CELL.v
 link_design $CELL
@@ -530,6 +530,24 @@ if {[info exists ESD_PINS]} {
                 continue
             }
             lassign $b px0 py0 px1 py1
+            #  UNA COLUMNA ESTRECHA, no el pad entero. `ESD_CDM` saca sus rieles
+            #  como BARRAS DE METAL3 A TODO LO ANCHO de la celda -- es el
+            #  interfaz que exporta cualquier bloque nuestro -- y tomarlas
+            #  enteras hacia el anillo dibuja dos planchas que comparten toda la
+            #  x: VDD y VSS acaban en la misma net. Con la celda de los
+            #  organizadores no pasaba porque sus pads son cuadrados sueltos.
+            #
+            #  Cada suministro coge ademas una columna DISTINTA, para que sus dos
+            #  tramos no compartan ni la x.
+            set anc [expr {$px1 - $px0}]
+            if {$anc > 3.0} {
+                #  0.8 de ancho y 1.8 entre centros: deja 1.0 um entre las dos
+                #  columnas. Con 1.2 de ancho y 1.4 entre centros quedaban a
+                #  0.20 y salian 7 `M4.2a`, que pide 0.28.
+                set cxx [expr {$px0 + ($term eq "VDD" ? 1.0 : 2.8)}]
+                set px0 [expr {$cxx - 0.4}]
+                set px1 [expr {$cxx + 0.4}]
+            }
             #  EL TRAMO VA EN METAL4, NO EN METAL3. El pad esta en metal3, pero
             #  el camino hasta el anillo cruza la celda entera -- el pad de VDD
             #  vive en el borde derecho y el anillo esta al oeste -- y en metal3

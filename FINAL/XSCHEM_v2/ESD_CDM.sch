@@ -59,15 +59,38 @@ value="
 *
 * Five separate lines and not one with m=5: the layout draws five bodies and
 * both LVS tools extract five devices, so the reference netlist says five.
-D1 VSS PAD diode_nd2ps_06v0 AREA=50p PJ=30u
-D2 VSS PAD diode_nd2ps_06v0 AREA=50p PJ=30u
-D3 PAD VDD diode_pd2nw_06v0 AREA=50p PJ=30u
-D4 PAD VDD diode_pd2nw_06v0 AREA=50p PJ=30u
-XR1 CORE PAD VSS ppolyf_u_1k r_width=1e-6 r_length=2e-6 m=1 s=1
-XR2 CORE PAD VSS ppolyf_u_1k r_width=1e-6 r_length=2e-6 m=1 s=1
-XR3 CORE PAD VSS ppolyf_u_1k r_width=1e-6 r_length=2e-6 m=1 s=1
-XR4 CORE PAD VSS ppolyf_u_1k r_width=1e-6 r_length=2e-6 m=1 s=1
-XR5 CORE PAD VSS ppolyf_u_1k r_width=1e-6 r_length=2e-6 m=1 s=1
+* ---------------------------------------------------------------------------
+* EL CIRCUITO ES EL DE LOS ORGANIZADORES, AL PIE DE LA LETRA. De su
+* io_secondary_5p0.sch:
+*
+*     D1 diode_pd2nw_06v0  r_w=10u r_l=10u m=4
+*     D2 diode_nd2ps_06v0  r_w=10u r_l=10u m=4
+*     R1 ppolyf_u          W=16e-6 L=4e-6 m=1
+*
+* Cambia respecto al primer borrador nuestro, que tenia 2 diodos de 10x5 por
+* sentido -- 100 um2 de diodo contra sus 400, cuatro veces menos corriente de
+* descarga -- y cinco resistencias de 1x2 de la hoja de 1k.
+*
+* `m=4` se escribe como CUATRO INSTANCIAS: KLayout no lo expande, y una
+* referencia con `m=4` no empareja contra un layout con cuatro diodos.
+*
+* Y el BULK DE LA RESISTENCIA VA A VDD, no a VSS: es el pin `B` de su simbolo.
+* Por eso el cuerpo se dibuja sobre pozo n con su toma n+, y por eso el modelo
+* es el `ppolyf_u` pelado (350 ohm/sq, 0.25 cuadros, 87.5 ohm) y no el de 1k.
+*
+* Lo que se DIBUJA esta en openroad/scripts/esd_layout.py, y sale 1.762 um2
+* contra los 6.457 de su celda, sin la MSLOT.1 que arrastran las tres variantes
+* suyas.
+* ---------------------------------------------------------------------------
+D1 VSS PAD diode_nd2ps_06v0 AREA=100p PJ=40u
+D2 VSS PAD diode_nd2ps_06v0 AREA=100p PJ=40u
+D3 VSS PAD diode_nd2ps_06v0 AREA=100p PJ=40u
+D4 VSS PAD diode_nd2ps_06v0 AREA=100p PJ=40u
+D5 PAD VDD diode_pd2nw_06v0 AREA=100p PJ=40u
+D6 PAD VDD diode_pd2nw_06v0 AREA=100p PJ=40u
+D7 PAD VDD diode_pd2nw_06v0 AREA=100p PJ=40u
+D8 PAD VDD diode_pd2nw_06v0 AREA=100p PJ=40u
+XR1 CORE PAD VDD ppolyf_u r_width=16e-6 r_length=4e-6 m=1 s=1
 "}
 C {devices/ipin.sym} -400 0 0 0 {name=p1 lab=PAD}
 C {devices/opin.sym} 400 0 0 0 {name=p2 lab=CORE}
