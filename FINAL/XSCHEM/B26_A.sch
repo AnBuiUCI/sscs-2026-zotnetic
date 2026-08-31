@@ -29,6 +29,18 @@ value="
 * program the six digital pads are NOT here: they are wires, not devices,
 * and a SPICE port list cannot say that 43 names are one node. They live
 * in verilog/B26_A.v, which integrate_padframe.py derives from this file.
+*
+* AND NEITHER ARE <sig>_IN. There used to be six ipin symbols parked in a
+* corner -- XP_IN, XN_IN, YP_IN, YN_IN, ZP_IN, ZN_IN -- wired to nothing.
+* They are wrong twice over. The name lies: on this pad <sig>_OUT is
+* terminal A, the pad's data INPUT, which is the one our block drives, and
+* <sig>_IN is the receiver output Y, WHICH THIS DESIGN DOES NOT USE.
+* integrate_padframe.py classifies it as `suelto` for exactly that reason.
+* And a port that no device touches is not a port: it becomes a net with
+* zero terminals that the layout can never match. Four of the six survived
+* into the flat netlist and were four permanently unmatched nets in every
+* KLayout LVS of the top. The port list is now the nineteen pins of
+* info.yaml and nothing else.
 "}
 C {a_zonetic2026/XSCHEM/GRADIENT_NAV2.sym} 0 0 0 0 {name=x_core}
 C {lab_pin.sym} 0 -130 1 0 {name=p_core_VDD sig_type=std_logic lab=VDD}
@@ -285,9 +297,3 @@ XMdecp153 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.0u nf=1 m=1
 XMdecn154 VSS VDD VSS VSS nfet_06v0 L=2.0u W=1.0u nf=1 m=1
 XMdecp155 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.0u nf=1 m=1
 "}
-C {devices/ipin.sym} -2000 -2000 0 0 {name=port_XP_IN lab=XP_IN}
-C {devices/ipin.sym} -2000 -2040 0 0 {name=port_XN_IN lab=XN_IN}
-C {devices/ipin.sym} -2000 -2080 0 0 {name=port_YP_IN lab=YP_IN}
-C {devices/ipin.sym} -2000 -2120 0 0 {name=port_YN_IN lab=YN_IN}
-C {devices/ipin.sym} -2000 -2160 0 0 {name=port_ZP_IN lab=ZP_IN}
-C {devices/ipin.sym} -2000 -2200 0 0 {name=port_ZN_IN lab=ZN_IN}
