@@ -1,0 +1,110 @@
+
+Circuit 1 cell pfet_06v0 and Circuit 2 cell pfet_06v0 are black boxes.
+
+Subcircuit pins:
+Circuit 1: pfet_06v0                       |Circuit 2: pfet_06v0                       
+-------------------------------------------|-------------------------------------------
+1                                          |1                                          
+2                                          |2                                          
+3                                          |3                                          
+4                                          |4                                          
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes pfet_06v0 and pfet_06v0 are equivalent.
+
+Circuit 1 cell nfet_06v0 and Circuit 2 cell nfet_06v0 are black boxes.
+
+Subcircuit pins:
+Circuit 1: nfet_06v0                       |Circuit 2: nfet_06v0                       
+-------------------------------------------|-------------------------------------------
+1                                          |1                                          
+2                                          |2                                          
+3                                          |3                                          
+4                                          |4                                          
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes nfet_06v0 and nfet_06v0 are equivalent.
+
+Circuit 1 cell ppolyf_u_1k and Circuit 2 cell ppolyf_u_1k are black boxes.
+
+Subcircuit pins:
+Circuit 1: ppolyf_u_1k                     |Circuit 2: ppolyf_u_1k                     
+-------------------------------------------|-------------------------------------------
+1                                          |1                                          
+2                                          |2                                          
+3                                          |3                                          
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes ppolyf_u_1k and ppolyf_u_1k are equivalent.
+
+Circuit 1 cell cap_mim_2f0_m4m5_noshield and Circuit 2 cell cap_mim_2f0_m4m5_noshield are black boxes.
+
+Subcircuit pins:
+Circuit 1: cap_mim_2f0_m4m5_noshield       |Circuit 2: cap_mim_2f0_m4m5_noshield       
+-------------------------------------------|-------------------------------------------
+1                                          |1                                          
+2                                          |2                                          
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes cap_mim_2f0_m4m5_noshield and cap_mim_2f0_m4m5_noshield are equivalent.
+
+Class OPAM_LIN_flat (0):  Merged 3 parallel devices.
+Class OPAM_LIN_flat (0):  Merged 4 series devices.
+Class OPAM_LIN_flat (1):  Merged 3 parallel devices.
+Class OPAM_LIN_flat (1):  Merged 4 series devices.
+Subcircuit summary:
+Circuit 1: OPAM_LIN_flat                   |Circuit 2: OPAM_LIN_flat                   
+-------------------------------------------|-------------------------------------------
+pfet_06v0 (28->25)                         |pfet_06v0 (28->25)                         
+nfet_06v0 (25)                             |nfet_06v0 (25)                             
+ppolyf_u_1k (5->1)                         |ppolyf_u_1k (5->1)                         
+cap_mim_2f0_m4m5_noshield (2)              |cap_mim_2f0_m4m5_noshield (2)              
+Number of devices: 53                      |Number of devices: 53                      
+Number of nets: 37                         |Number of nets: 37                         
+---------------------------------------------------------------------------------------
+Resolving symmetries by property value.
+Resolving symmetries by pin name.
+Resolving symmetries by net name.
+Netlists match with 6 symmetries with property errors.
+cap_mim_2f0_m4m5_noshield:41 vs. cap_mim_2f0_m4m5_noshield:C3:
+Property c_length in circuit1 has no matching property in circuit2
+cap_mim_2f0_m4m5_noshield:41 vs. cap_mim_2f0_m4m5_noshield:C3:
+Property c_width in circuit1 has no matching property in circuit2
+cap_mim_2f0_m4m5_noshield:41 vs. cap_mim_2f0_m4m5_noshield:C3:
+Property L in circuit2 has no matching property in circuit1
+cap_mim_2f0_m4m5_noshield:41 vs. cap_mim_2f0_m4m5_noshield:C3:
+Property W in circuit2 has no matching property in circuit1
+cap_mim_2f0_m4m5_noshield:40 vs. cap_mim_2f0_m4m5_noshield:C1:
+Property c_length in circuit1 has no matching property in circuit2
+cap_mim_2f0_m4m5_noshield:40 vs. cap_mim_2f0_m4m5_noshield:C1:
+Property c_width in circuit1 has no matching property in circuit2
+cap_mim_2f0_m4m5_noshield:40 vs. cap_mim_2f0_m4m5_noshield:C1:
+Property L in circuit2 has no matching property in circuit1
+cap_mim_2f0_m4m5_noshield:40 vs. cap_mim_2f0_m4m5_noshield:C1:
+Property W in circuit2 has no matching property in circuit1
+ppolyf_u_1k:10 vs. ppolyf_u_1k:RFB_1:
+Property r_length in circuit1 has no matching property in circuit2
+ppolyf_u_1k:10 vs. ppolyf_u_1k:RFB_1:
+Property r_width in circuit1 has no matching property in circuit2
+ppolyf_u_1k:10 vs. ppolyf_u_1k:RFB_1:
+Property L in circuit2 has no matching property in circuit1
+ppolyf_u_1k:10 vs. ppolyf_u_1k:RFB_1:
+Property W in circuit2 has no matching property in circuit1
+
+Subcircuit pins:
+Circuit 1: OPAM_LIN_flat                   |Circuit 2: OPAM_LIN_flat                   
+-------------------------------------------|-------------------------------------------
+VSS                                        |VSS                                        
+INP                                        |INP                                        
+INN                                        |INN                                        
+VDD                                        |VDD                                        
+OUT                                        |OUT                                        
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes OPAM_LIN_flat and OPAM_LIN_flat are equivalent.
+
+Final result: Circuits match uniquely.
+Property errors were found.
+
+The following cells had property errors:
+ OPAM_LIN_flat

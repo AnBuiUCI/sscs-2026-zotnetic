@@ -1,0 +1,32 @@
+2026-08-31_01 -- B26_A.gds
+==========================
+
+source      openroad/out_integration/B26_A.gds
+written     2026-08-31 07:06
+size        12,083,648 bytes raw, 2,320,828 gzipped
+sha256      229fd1217aa2a4dc77a04566ea9e3274a39ca02ea98512c86c078916f71ed626
+
+DRC filled  clean (1 tables)
+DRC circuit clean (1 tables)
+density     not run
+LVS klayout NO MATCH
+LVS netgen  match uniquely
+
+
+what this is
+------------
+El GDS SIN RELLENAR del circuito, archivado a proposito: es el fichero sobre el
+que corrio el DRC de firma completo en modo main/deep -- 253 categorias, 0 items
+-- que es el unico modo en el que la tabla `mslot` del PDK no revienta. El que se
+entrega es el relleno, 2026-08-31_02.
+
+Las dos lineas de DRC de arriba salen las dos del MISMO directorio
+(`out/drc_B26_A`), porque este archivado no es de un fichero relleno: la etiqueta
+"DRC filled" no significa nada aqui. La que vale es "DRC circuit".
+
+"LVS klayout NO MATCH" es un estado CONOCIDO y anterior a esta version: el deck
+de LVS de KLayout no casa sobre el top y netgen si (`Circuits match uniquely`,
+1442 dispositivos y 894 nets iguales en los dos lados). Esta anotado en el
+docstring de `veredicto_netgen()` en `archivar_integracion.py`. No lo causa el
+cambio de los escapes de pin -- el run de KLayout que se lee aqui es del 29 de
+agosto, anterior a el.

@@ -1,0 +1,86 @@
+* fuente: /foss/designs/a_zonetic2026/XSCHEM/OPAM/simulation/OPAM_LIN_flat.sch/OPAM_LIN_flat.spice
+* leida via enlace: /foss/designs/a_zonetic2026/spice_blocks/OPAM_LIN_flat.spice
+* fecha de la fuente: 2026-08-29 05:39   sha1: 7bf8b67967
+* generado por flatten_spice.py — NO editar a mano
+* netlist plana generada por flatten_spice.py (top: OPAM_LIN_flat)
+* 53 MOSFETs; nets fusionadas por V=0: ninguna
+* nombres: los del esquematico; solo llevan la ruta de instancias (Mx1_M4) los -2 que chocaban
+* m -> fingers: ninguno
+* para LVS: cada dedo, un transistor en paralelo
+.subckt OPAM_LIN_flat INN INP VDD VSS OUT
+XM11 net5 net1 VDD VDD pfet_06v0 L=1.0u W=10.0u
+XM12 net11 net6 net5 VDD pfet_06v0 L=1.0u W=10.0u
+XM13 net22 net1 VDD VDD pfet_06v0 L=1.0u W=10.0u
+XM14 net11 net6 net22 VDD pfet_06v0 L=1.0u W=10.0u
+XM15 net9 INP net11 VDD pfet_06v0 L=1.0u W=0.55u
+XM16 net8 INN net11 VDD pfet_06v0 L=1.0u W=0.5u
+XM17 net12 net4 net2 VSS nfet_06v0 L=1.0u W=5.0u
+XM18 net2 net3 VSS VSS nfet_06v0 L=1.0u W=5.0u
+XM19 net12 net4 net23 VSS nfet_06v0 L=1.0u W=5.0u
+XM20 net23 net3 VSS VSS nfet_06v0 L=1.0u W=5.0u
+XM21 net10 INP net12 VSS nfet_06v0 L=1.0u W=7.5u
+XM22 net7 INN net12 VSS nfet_06v0 L=1.0u W=8.5u
+XM29 net13 net6 net7 VDD pfet_06v0 L=1.0u W=10u
+XM30 G_OUT_P net6 net10 VDD pfet_06v0 L=1.0u W=10u
+XM31 net7 net13 VDD VDD pfet_06v0 L=1.0u W=5u
+XM35 net10 net13 VDD VDD pfet_06v0 L=1.0u W=5u
+XM32 net14 net24 net13 VDD pfet_06v0 L=1.0u W=4.0u
+XM33 net25 net24 G_OUT_P VDD pfet_06v0 L=1.0u W=4.0u
+XM23 net14 net4 net8 VSS nfet_06v0 L=1.0u W=2.5u
+XM24 net25 net4 net9 VSS nfet_06v0 L=1.0u W=2.5u
+XM25 net8 net14 VSS VSS nfet_06v0 L=1.0u W=2.5u
+XM26 net9 net14 VSS VSS nfet_06v0 L=1.0u W=2.5u
+XM27 net13 net15 net14 VSS nfet_06v0 L=1.0u W=2.0u
+XM28 G_OUT_P net15 net25 VSS nfet_06v0 L=1.0u W=2.0u
+XM34 net16 net17 VDD VDD pfet_06v0 L=1.0u W=10.0u
+XM36 net17 net6 net16 VDD pfet_06v0 L=1.0u W=10.0u
+XM37 net24 net24 net17 VDD pfet_06v0 L=1.0u W=10.0u
+XM38 net24 net4 net18 VSS nfet_06v0 L=1.0u W=5.0u
+XM39 net18 net3 VSS VSS nfet_06v0 L=1.0u W=5.0u
+XM45 net19 net1 VDD VDD pfet_06v0 L=1.0u W=10.0u
+XM46 net15 net6 net19 VDD pfet_06v0 L=1.0u W=10.0u
+XM40 net15 net15 net21 VSS nfet_06v0 L=1.0u W=5.0u
+XM41 net21 net4 net20 VSS nfet_06v0 L=1.0u W=5.0u
+XM42 net20 net21 VSS VSS nfet_06v0 L=1.0u W=5.0u
+XM43_m1 OUT G_OUT_P VDD VDD pfet_06v0 L=1.0u W=1.0u
+XM43_m2 OUT G_OUT_P VDD VDD pfet_06v0 L=1.0u W=1.0u
+XM43_m3 OUT G_OUT_P VDD VDD pfet_06v0 L=1.0u W=1.0u
+XM43_m4 OUT G_OUT_P VDD VDD pfet_06v0 L=1.0u W=1.0u
+XM44 OUT net25 VSS VSS nfet_06v0 L=1.0u W=1.0u
+XM4 net28 net1 VDD VDD pfet_06v0 L=1.0u W=10.0u
+XM5 net4 net6 net28 VDD pfet_06v0 L=1.0u W=10.0u
+XM6 net4 net4 VSS VSS nfet_06v0 L=1.0u W=1.0u
+XM7 net27 net1 VDD VDD pfet_06v0 L=1.0u W=10.0u
+XM8 net3 net6 net27 VDD pfet_06v0 L=1.0u W=10.0u
+XM9 net3 net4 net26 VSS nfet_06v0 L=1.0u W=5.0u
+XM10 net26 net3 VSS VSS nfet_06v0 L=1.0u W=5.0u
+XM1 net6 net6 VDD VDD pfet_06v0 L=1.0u W=2u
+XM2 net29 net1 VDD VDD pfet_06v0 L=1.0u W=10.0u
+XM3 net1 net6 net29 VDD pfet_06v0 L=1.0u W=10.0u
+XM47 net30 net6 VSS VSS nfet_06v0 L=1.0u W=1.0u
+XM48 net31 net6 VSS VSS nfet_06v0 L=1.0u W=1.0u
+XM49 net6 net6 net31 VSS nfet_06v0 L=1.0u W=1.0u
+XM50 net1 net6 net30 VSS nfet_06v0 L=1.0u W=1.0u
+* condensadores: elemento 'C' con W/L en METROS, no 'X' con c_width/c_length.
+*   El deck de KLayout los lee con un delegate (custom_classes.lvs, SubcircuitModelsReader#element)
+*   que SOLO actua si el elemento empieza por 'C', y de ahi saca A=W*L*1e12 y P=2*(W+L)*1e6.
+*   Escrito como 'X...' se leeria como llamada a subcircuito y no emparejaria con nada.
+XC3 net10 OUT cap_mim_2f0_m4m5_noshield W=8e-06 L=2.5e-05
+XC1 OUT net9 cap_mim_2f0_m4m5_noshield W=8e-06 L=2.5e-05
+* resistencias: elemento 'R' con W/L/S en METROS, no 'X' con r_width/r_length.
+*   Mismo motivo que los condensadores: el delegate del deck (custom_classes.lvs,
+*   SubcircuitModelsReader#element) solo entra por la primera letra, y para 'R' de tres
+*   nodos monta un DeviceClassResistorWithBulk con los terminales A, B, W.
+*   El deck hace W=W*PAR*1e6 y L=L*S*1e6, o sea que la 'S' MULTIPLICA el largo.
+*   Aun asi la serie se escribe TRAMO A TRAMO, no con un 'S=5': el layout dibuja
+*   `s` cuerpos de poly encadenados por metal1 y las dos herramientas los extraen
+*   como `s` dispositivos. Juntarlos en uno exige la reduccion en serie, y netgen no
+*   la aplica aqui porque lee la resistencia de tres nodos como si tuviera dos y le
+*   pone de modelo el nodo de sustrato: la clase le sale 'VSS' y su setup no la
+*   reconoce. Escribiendo los tramos, las dos partes cuentan lo mismo y no hace falta.
+XRFB_1 G_OUT_P RFB$1 VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+XRFB_2 RFB$1 RFB$2 VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+XRFB_3 RFB$2 RFB$3 VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+XRFB_4 RFB$3 RFB$4 VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+XRFB_5 RFB$4 OUT VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+.ends

@@ -1,0 +1,160 @@
+[
+  {
+   "pins": [
+      [
+        "1",
+        "2",
+        "3",
+        "4"
+      ], [
+        "1",
+        "2",
+        "3",
+        "4"
+      ]
+   ]
+  },
+  {
+   "pins": [
+      [
+        "1",
+        "2",
+        "3",
+        "4"
+      ], [
+        "1",
+        "2",
+        "3",
+        "4"
+      ]
+   ]
+  },
+  {
+   "pins": [
+      [
+        "1",
+        "2",
+        "3"
+      ], [
+        "1",
+        "2",
+        "3"
+      ]
+   ]
+  },
+  {
+   "pins": [
+      [
+        "1",
+        "2"
+      ], [
+        "1",
+        "2"
+      ]
+   ]
+  },
+  {
+   "name": [
+      "OPAM_LIN_flat",
+      "OPAM_LIN_flat"
+   ],
+   "devices": [
+       [
+         ["pfet_06v0", 25],
+         ["nfet_06v0", 25],
+         ["ppolyf_u_1k", 1],
+         ["cap_mim_2f0_m4m5_noshield", 2 ]
+       ], [
+         ["pfet_06v0", 25 ],
+         ["nfet_06v0", 25 ],
+         ["ppolyf_u_1k", 1 ],
+         ["cap_mim_2f0_m4m5_noshield", 2 ]
+       ]
+   ],
+   "nets": [
+    37,
+    37
+   ],
+   "badnets": [
+   ],
+   "badelements": [
+   ],
+   "properties": [
+      [
+         [
+           "cap_mim_2f0_m4m5_noshield:41",
+           [
+             ["c_length", "8e-6"],
+             ["c_width", "2.5e-5"],
+             ["(no matching parameter)", "(no value)"],
+             ["(no matching parameter)", "(no value)"]
+           ]
+         ],
+         [
+           "cap_mim_2f0_m4m5_noshield:C3",
+           [
+             ["(no matching parameter)", "(no value)"],
+             ["(no matching parameter)", "(no value)"],
+             ["L", "2.5e-5"],
+             ["W", "8e-6"]
+           ]
+         ]
+      ],
+      [
+         [
+           "cap_mim_2f0_m4m5_noshield:40",
+           [
+             ["c_length", "8e-6"],
+             ["c_width", "2.5e-5"],
+             ["(no matching parameter)", "(no value)"],
+             ["(no matching parameter)", "(no value)"]
+           ]
+         ],
+         [
+           "cap_mim_2f0_m4m5_noshield:C1",
+           [
+             ["(no matching parameter)", "(no value)"],
+             ["(no matching parameter)", "(no value)"],
+             ["L", "2.5e-5"],
+             ["W", "8e-6"]
+           ]
+         ]
+      ],
+      [
+         [
+           "ppolyf_u_1k:10",
+           [
+             ["r_length", "7.645e-5"],
+             ["r_width", "1e-6"],
+             ["(no matching parameter)", "(no value)"],
+             ["(no matching parameter)", "(no value)"]
+           ]
+         ],
+         [
+           "ppolyf_u_1k:RFB_1",
+           [
+             ["(no matching parameter)", "(no value)"],
+             ["(no matching parameter)", "(no value)"],
+             ["L", "7.645e-5"],
+             ["W", "1e-6"]
+           ]
+         ]
+      ]
+   ],
+   "pins": [
+      [
+        "VSS",
+        "INP",
+        "INN",
+        "VDD",
+        "OUT"
+      ], [
+        "VSS",
+        "INP",
+        "INN",
+        "VDD",
+        "OUT"
+      ]
+   ]
+  }
+]

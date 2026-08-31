@@ -260,100 +260,164 @@ END COMPONENTS
 PINS 73 ;
     - S1N + NET S1N + DIRECTION INOUT + USE SIGNAL
       + PORT
-        + LAYER Metal2 ( -44320 -54800 ) ( 44320 54800 )
-        + LAYER Metal2 ( -44320 54800 ) ( -39240 56800 )
-        + LAYER Metal2 ( -32960 54800 ) ( -27880 56800 )
-        + LAYER Metal2 ( -21600 54800 ) ( -16520 56800 )
-        + LAYER Metal2 ( -10240 54800 ) ( -5160 56800 )
-        + LAYER Metal2 ( 5160 54800 ) ( 10240 56800 )
-        + LAYER Metal2 ( 16520 54800 ) ( 21600 56800 )
-        + LAYER Metal2 ( 27880 54800 ) ( 32960 56800 )
-        + LAYER Metal2 ( 39240 54800 ) ( 44320 56800 )
-        + FIXED ( 335000 2163200 ) N ;
+        + LAYER Metal2 ( -44320 -2000 ) ( 44320 2000 )
+        + LAYER Metal2 ( -44320 -2000 ) ( -39240 107600 )
+        + LAYER Metal2 ( -32960 -2000 ) ( -27880 107600 )
+        + LAYER Metal2 ( -21600 -2000 ) ( -16520 107600 )
+        + LAYER Metal2 ( -10240 -2000 ) ( -5160 107600 )
+        + LAYER Metal2 ( 5160 -2000 ) ( 10240 107600 )
+        + LAYER Metal2 ( 16520 -2000 ) ( 21600 107600 )
+        + LAYER Metal2 ( 27880 -2000 ) ( 32960 107600 )
+        + LAYER Metal2 ( 39240 -2000 ) ( 44320 107600 )
+        + LAYER Metal2 ( -44320 107600 ) ( -39240 109600 )
+        + LAYER Metal2 ( -32960 107600 ) ( -27880 109600 )
+        + LAYER Metal2 ( -21600 107600 ) ( -16520 109600 )
+        + LAYER Metal2 ( -10240 107600 ) ( -5160 109600 )
+        + LAYER Metal2 ( 5160 107600 ) ( 10240 109600 )
+        + LAYER Metal2 ( 16520 107600 ) ( 21600 109600 )
+        + LAYER Metal2 ( 27880 107600 ) ( 32960 109600 )
+        + LAYER Metal2 ( 39240 107600 ) ( 44320 109600 )
+        + FIXED ( 335000 2110400 ) N ;
     - S1P + NET S1P + DIRECTION INOUT + USE SIGNAL
       + PORT
-        + LAYER Metal2 ( -44320 -54800 ) ( 44320 54800 )
-        + LAYER Metal2 ( -44320 54800 ) ( -39240 56800 )
-        + LAYER Metal2 ( -32960 54800 ) ( -27880 56800 )
-        + LAYER Metal2 ( -21600 54800 ) ( -16520 56800 )
-        + LAYER Metal2 ( -10240 54800 ) ( -5160 56800 )
-        + LAYER Metal2 ( 5160 54800 ) ( 10240 56800 )
-        + LAYER Metal2 ( 16520 54800 ) ( 21600 56800 )
-        + LAYER Metal2 ( 27880 54800 ) ( 32960 56800 )
-        + LAYER Metal2 ( 39240 54800 ) ( 44320 56800 )
-        + FIXED ( 535000 2163200 ) N ;
+        + LAYER Metal2 ( -44320 -2000 ) ( 44320 2000 )
+        + LAYER Metal2 ( -44320 -2000 ) ( -39240 107600 )
+        + LAYER Metal2 ( -32960 -2000 ) ( -27880 107600 )
+        + LAYER Metal2 ( -21600 -2000 ) ( -16520 107600 )
+        + LAYER Metal2 ( -10240 -2000 ) ( -5160 107600 )
+        + LAYER Metal2 ( 5160 -2000 ) ( 10240 107600 )
+        + LAYER Metal2 ( 16520 -2000 ) ( 21600 107600 )
+        + LAYER Metal2 ( 27880 -2000 ) ( 32960 107600 )
+        + LAYER Metal2 ( 39240 -2000 ) ( 44320 107600 )
+        + LAYER Metal2 ( -44320 107600 ) ( -39240 109600 )
+        + LAYER Metal2 ( -32960 107600 ) ( -27880 109600 )
+        + LAYER Metal2 ( -21600 107600 ) ( -16520 109600 )
+        + LAYER Metal2 ( -10240 107600 ) ( -5160 109600 )
+        + LAYER Metal2 ( 5160 107600 ) ( 10240 109600 )
+        + LAYER Metal2 ( 16520 107600 ) ( 21600 109600 )
+        + LAYER Metal2 ( 27880 107600 ) ( 32960 109600 )
+        + LAYER Metal2 ( 39240 107600 ) ( 44320 109600 )
+        + FIXED ( 535000 2110400 ) N ;
     - S2N + NET S2N + DIRECTION INOUT + USE SIGNAL
       + PORT
-        + LAYER Metal2 ( -44320 -54800 ) ( 44320 54800 )
-        + LAYER Metal2 ( -44320 54800 ) ( -39240 56800 )
-        + LAYER Metal2 ( -32960 54800 ) ( -27880 56800 )
-        + LAYER Metal2 ( -21600 54800 ) ( -16520 56800 )
-        + LAYER Metal2 ( -10240 54800 ) ( -5160 56800 )
-        + LAYER Metal2 ( 5160 54800 ) ( 10240 56800 )
-        + LAYER Metal2 ( 16520 54800 ) ( 21600 56800 )
-        + LAYER Metal2 ( 27880 54800 ) ( 32960 56800 )
-        + LAYER Metal2 ( 39240 54800 ) ( 44320 56800 )
-        + FIXED ( 1135000 2163200 ) N ;
+        + LAYER Metal2 ( -44320 -2000 ) ( 44320 2000 )
+        + LAYER Metal2 ( -44320 -2000 ) ( -39240 107600 )
+        + LAYER Metal2 ( -32960 -2000 ) ( -27880 107600 )
+        + LAYER Metal2 ( -21600 -2000 ) ( -16520 107600 )
+        + LAYER Metal2 ( -10240 -2000 ) ( -5160 107600 )
+        + LAYER Metal2 ( 5160 -2000 ) ( 10240 107600 )
+        + LAYER Metal2 ( 16520 -2000 ) ( 21600 107600 )
+        + LAYER Metal2 ( 27880 -2000 ) ( 32960 107600 )
+        + LAYER Metal2 ( 39240 -2000 ) ( 44320 107600 )
+        + LAYER Metal2 ( -44320 107600 ) ( -39240 109600 )
+        + LAYER Metal2 ( -32960 107600 ) ( -27880 109600 )
+        + LAYER Metal2 ( -21600 107600 ) ( -16520 109600 )
+        + LAYER Metal2 ( -10240 107600 ) ( -5160 109600 )
+        + LAYER Metal2 ( 5160 107600 ) ( 10240 109600 )
+        + LAYER Metal2 ( 16520 107600 ) ( 21600 109600 )
+        + LAYER Metal2 ( 27880 107600 ) ( 32960 109600 )
+        + LAYER Metal2 ( 39240 107600 ) ( 44320 109600 )
+        + FIXED ( 1135000 2110400 ) N ;
     - S2P + NET S2P + DIRECTION INOUT + USE SIGNAL
       + PORT
-        + LAYER Metal2 ( -44320 -54800 ) ( 44320 54800 )
-        + LAYER Metal2 ( -44320 54800 ) ( -39240 56800 )
-        + LAYER Metal2 ( -32960 54800 ) ( -27880 56800 )
-        + LAYER Metal2 ( -21600 54800 ) ( -16520 56800 )
-        + LAYER Metal2 ( -10240 54800 ) ( -5160 56800 )
-        + LAYER Metal2 ( 5160 54800 ) ( 10240 56800 )
-        + LAYER Metal2 ( 16520 54800 ) ( 21600 56800 )
-        + LAYER Metal2 ( 27880 54800 ) ( 32960 56800 )
-        + LAYER Metal2 ( 39240 54800 ) ( 44320 56800 )
-        + FIXED ( 1335000 2163200 ) N ;
+        + LAYER Metal2 ( -44320 -2000 ) ( 44320 2000 )
+        + LAYER Metal2 ( -44320 -2000 ) ( -39240 107600 )
+        + LAYER Metal2 ( -32960 -2000 ) ( -27880 107600 )
+        + LAYER Metal2 ( -21600 -2000 ) ( -16520 107600 )
+        + LAYER Metal2 ( -10240 -2000 ) ( -5160 107600 )
+        + LAYER Metal2 ( 5160 -2000 ) ( 10240 107600 )
+        + LAYER Metal2 ( 16520 -2000 ) ( 21600 107600 )
+        + LAYER Metal2 ( 27880 -2000 ) ( 32960 107600 )
+        + LAYER Metal2 ( 39240 -2000 ) ( 44320 107600 )
+        + LAYER Metal2 ( -44320 107600 ) ( -39240 109600 )
+        + LAYER Metal2 ( -32960 107600 ) ( -27880 109600 )
+        + LAYER Metal2 ( -21600 107600 ) ( -16520 109600 )
+        + LAYER Metal2 ( -10240 107600 ) ( -5160 109600 )
+        + LAYER Metal2 ( 5160 107600 ) ( 10240 109600 )
+        + LAYER Metal2 ( 16520 107600 ) ( 21600 109600 )
+        + LAYER Metal2 ( 27880 107600 ) ( 32960 109600 )
+        + LAYER Metal2 ( 39240 107600 ) ( 44320 109600 )
+        + FIXED ( 1335000 2110400 ) N ;
     - S3N + NET S3N + DIRECTION INOUT + USE SIGNAL
       + PORT
-        + LAYER Metal2 ( -44320 -54800 ) ( 44320 54800 )
-        + LAYER Metal2 ( -44320 54800 ) ( -39240 56800 )
-        + LAYER Metal2 ( -32960 54800 ) ( -27880 56800 )
-        + LAYER Metal2 ( -21600 54800 ) ( -16520 56800 )
-        + LAYER Metal2 ( -10240 54800 ) ( -5160 56800 )
-        + LAYER Metal2 ( 5160 54800 ) ( 10240 56800 )
-        + LAYER Metal2 ( 16520 54800 ) ( 21600 56800 )
-        + LAYER Metal2 ( 27880 54800 ) ( 32960 56800 )
-        + LAYER Metal2 ( 39240 54800 ) ( 44320 56800 )
-        + FIXED ( 935000 2163200 ) N ;
+        + LAYER Metal2 ( -44320 -2000 ) ( 44320 2000 )
+        + LAYER Metal2 ( -44320 -2000 ) ( -39240 107600 )
+        + LAYER Metal2 ( -32960 -2000 ) ( -27880 107600 )
+        + LAYER Metal2 ( -21600 -2000 ) ( -16520 107600 )
+        + LAYER Metal2 ( -10240 -2000 ) ( -5160 107600 )
+        + LAYER Metal2 ( 5160 -2000 ) ( 10240 107600 )
+        + LAYER Metal2 ( 16520 -2000 ) ( 21600 107600 )
+        + LAYER Metal2 ( 27880 -2000 ) ( 32960 107600 )
+        + LAYER Metal2 ( 39240 -2000 ) ( 44320 107600 )
+        + LAYER Metal2 ( -44320 107600 ) ( -39240 109600 )
+        + LAYER Metal2 ( -32960 107600 ) ( -27880 109600 )
+        + LAYER Metal2 ( -21600 107600 ) ( -16520 109600 )
+        + LAYER Metal2 ( -10240 107600 ) ( -5160 109600 )
+        + LAYER Metal2 ( 5160 107600 ) ( 10240 109600 )
+        + LAYER Metal2 ( 16520 107600 ) ( 21600 109600 )
+        + LAYER Metal2 ( 27880 107600 ) ( 32960 109600 )
+        + LAYER Metal2 ( 39240 107600 ) ( 44320 109600 )
+        + FIXED ( 935000 2110400 ) N ;
     - S3P + NET S3P + DIRECTION INOUT + USE SIGNAL
       + PORT
-        + LAYER Metal2 ( -44320 -54800 ) ( 44320 54800 )
-        + LAYER Metal2 ( -44320 54800 ) ( -39240 56800 )
-        + LAYER Metal2 ( -32960 54800 ) ( -27880 56800 )
-        + LAYER Metal2 ( -21600 54800 ) ( -16520 56800 )
-        + LAYER Metal2 ( -10240 54800 ) ( -5160 56800 )
-        + LAYER Metal2 ( 5160 54800 ) ( 10240 56800 )
-        + LAYER Metal2 ( 16520 54800 ) ( 21600 56800 )
-        + LAYER Metal2 ( 27880 54800 ) ( 32960 56800 )
-        + LAYER Metal2 ( 39240 54800 ) ( 44320 56800 )
-        + FIXED ( 735000 2163200 ) N ;
+        + LAYER Metal2 ( -44320 -2000 ) ( 44320 2000 )
+        + LAYER Metal2 ( -44320 -2000 ) ( -39240 107600 )
+        + LAYER Metal2 ( -32960 -2000 ) ( -27880 107600 )
+        + LAYER Metal2 ( -21600 -2000 ) ( -16520 107600 )
+        + LAYER Metal2 ( -10240 -2000 ) ( -5160 107600 )
+        + LAYER Metal2 ( 5160 -2000 ) ( 10240 107600 )
+        + LAYER Metal2 ( 16520 -2000 ) ( 21600 107600 )
+        + LAYER Metal2 ( 27880 -2000 ) ( 32960 107600 )
+        + LAYER Metal2 ( 39240 -2000 ) ( 44320 107600 )
+        + LAYER Metal2 ( -44320 107600 ) ( -39240 109600 )
+        + LAYER Metal2 ( -32960 107600 ) ( -27880 109600 )
+        + LAYER Metal2 ( -21600 107600 ) ( -16520 109600 )
+        + LAYER Metal2 ( -10240 107600 ) ( -5160 109600 )
+        + LAYER Metal2 ( 5160 107600 ) ( 10240 109600 )
+        + LAYER Metal2 ( 16520 107600 ) ( 21600 109600 )
+        + LAYER Metal2 ( 27880 107600 ) ( 32960 109600 )
+        + LAYER Metal2 ( 39240 107600 ) ( 44320 109600 )
+        + FIXED ( 735000 2110400 ) N ;
     - S4N + NET S4N + DIRECTION INOUT + USE SIGNAL
       + PORT
-        + LAYER Metal2 ( -54720 -44320 ) ( 54720 44320 )
-        + LAYER Metal2 ( -56720 -44320 ) ( -54720 -39240 )
-        + LAYER Metal2 ( -56720 -32960 ) ( -54720 -27880 )
-        + LAYER Metal2 ( -56720 -21600 ) ( -54720 -16520 )
-        + LAYER Metal2 ( -56720 -10240 ) ( -54720 -5160 )
-        + LAYER Metal2 ( -56720 5160 ) ( -54720 10240 )
-        + LAYER Metal2 ( -56720 16520 ) ( -54720 21600 )
-        + LAYER Metal2 ( -56720 27880 ) ( -54720 32960 )
-        + LAYER Metal2 ( -56720 39240 ) ( -54720 44320 )
-        + FIXED ( 56720 485000 ) N ;
+        + LAYER Metal2 ( -2000 -44320 ) ( 2000 44320 )
+        + LAYER Metal2 ( -107440 -44320 ) ( 2000 -39240 )
+        + LAYER Metal2 ( -107440 -32960 ) ( 2000 -27880 )
+        + LAYER Metal2 ( -107440 -21600 ) ( 2000 -16520 )
+        + LAYER Metal2 ( -107440 -10240 ) ( 2000 -5160 )
+        + LAYER Metal2 ( -107440 5160 ) ( 2000 10240 )
+        + LAYER Metal2 ( -107440 16520 ) ( 2000 21600 )
+        + LAYER Metal2 ( -107440 27880 ) ( 2000 32960 )
+        + LAYER Metal2 ( -107440 39240 ) ( 2000 44320 )
+        + LAYER Metal2 ( -109440 -44320 ) ( -107440 -39240 )
+        + LAYER Metal2 ( -109440 -32960 ) ( -107440 -27880 )
+        + LAYER Metal2 ( -109440 -21600 ) ( -107440 -16520 )
+        + LAYER Metal2 ( -109440 -10240 ) ( -107440 -5160 )
+        + LAYER Metal2 ( -109440 5160 ) ( -107440 10240 )
+        + LAYER Metal2 ( -109440 16520 ) ( -107440 21600 )
+        + LAYER Metal2 ( -109440 27880 ) ( -107440 32960 )
+        + LAYER Metal2 ( -109440 39240 ) ( -107440 44320 )
+        + FIXED ( 109440 485000 ) N ;
     - S4P + NET S4P + DIRECTION INOUT + USE SIGNAL
       + PORT
-        + LAYER Metal2 ( -54720 -44320 ) ( 54720 44320 )
-        + LAYER Metal2 ( -56720 -44320 ) ( -54720 -39240 )
-        + LAYER Metal2 ( -56720 -32960 ) ( -54720 -27880 )
-        + LAYER Metal2 ( -56720 -21600 ) ( -54720 -16520 )
-        + LAYER Metal2 ( -56720 -10240 ) ( -54720 -5160 )
-        + LAYER Metal2 ( -56720 5160 ) ( -54720 10240 )
-        + LAYER Metal2 ( -56720 16520 ) ( -54720 21600 )
-        + LAYER Metal2 ( -56720 27880 ) ( -54720 32960 )
-        + LAYER Metal2 ( -56720 39240 ) ( -54720 44320 )
-        + FIXED ( 56720 285000 ) N ;
+        + LAYER Metal2 ( -2000 -44320 ) ( 2000 44320 )
+        + LAYER Metal2 ( -107440 -44320 ) ( 2000 -39240 )
+        + LAYER Metal2 ( -107440 -32960 ) ( 2000 -27880 )
+        + LAYER Metal2 ( -107440 -21600 ) ( 2000 -16520 )
+        + LAYER Metal2 ( -107440 -10240 ) ( 2000 -5160 )
+        + LAYER Metal2 ( -107440 5160 ) ( 2000 10240 )
+        + LAYER Metal2 ( -107440 16520 ) ( 2000 21600 )
+        + LAYER Metal2 ( -107440 27880 ) ( 2000 32960 )
+        + LAYER Metal2 ( -107440 39240 ) ( 2000 44320 )
+        + LAYER Metal2 ( -109440 -44320 ) ( -107440 -39240 )
+        + LAYER Metal2 ( -109440 -32960 ) ( -107440 -27880 )
+        + LAYER Metal2 ( -109440 -21600 ) ( -107440 -16520 )
+        + LAYER Metal2 ( -109440 -10240 ) ( -107440 -5160 )
+        + LAYER Metal2 ( -109440 5160 ) ( -107440 10240 )
+        + LAYER Metal2 ( -109440 16520 ) ( -107440 21600 )
+        + LAYER Metal2 ( -109440 27880 ) ( -107440 32960 )
+        + LAYER Metal2 ( -109440 39240 ) ( -107440 44320 )
+        + FIXED ( 109440 285000 ) N ;
     - VDD + NET VDD + DIRECTION INOUT + USE SIGNAL
       + PORT
         + LAYER Metal2 ( -9500 -1000 ) ( 9500 1000 )
@@ -374,16 +438,24 @@ PINS 73 ;
         + FIXED ( 1000 22220 ) N ;
     - X + NET X + DIRECTION INOUT + USE SIGNAL
       + PORT
-        + LAYER Metal2 ( -54720 -44320 ) ( 54720 44320 )
-        + LAYER Metal2 ( -56720 -44320 ) ( -54720 -39240 )
-        + LAYER Metal2 ( -56720 -32960 ) ( -54720 -27880 )
-        + LAYER Metal2 ( -56720 -21600 ) ( -54720 -16520 )
-        + LAYER Metal2 ( -56720 -10240 ) ( -54720 -5160 )
-        + LAYER Metal2 ( -56720 5160 ) ( -54720 10240 )
-        + LAYER Metal2 ( -56720 16520 ) ( -54720 21600 )
-        + LAYER Metal2 ( -56720 27880 ) ( -54720 32960 )
-        + LAYER Metal2 ( -56720 39240 ) ( -54720 44320 )
-        + FIXED ( 56720 1885000 ) N ;
+        + LAYER Metal2 ( -2000 -44320 ) ( 2000 44320 )
+        + LAYER Metal2 ( -107440 -44320 ) ( 2000 -39240 )
+        + LAYER Metal2 ( -107440 -32960 ) ( 2000 -27880 )
+        + LAYER Metal2 ( -107440 -21600 ) ( 2000 -16520 )
+        + LAYER Metal2 ( -107440 -10240 ) ( 2000 -5160 )
+        + LAYER Metal2 ( -107440 5160 ) ( 2000 10240 )
+        + LAYER Metal2 ( -107440 16520 ) ( 2000 21600 )
+        + LAYER Metal2 ( -107440 27880 ) ( 2000 32960 )
+        + LAYER Metal2 ( -107440 39240 ) ( 2000 44320 )
+        + LAYER Metal2 ( -109440 -44320 ) ( -107440 -39240 )
+        + LAYER Metal2 ( -109440 -32960 ) ( -107440 -27880 )
+        + LAYER Metal2 ( -109440 -21600 ) ( -107440 -16520 )
+        + LAYER Metal2 ( -109440 -10240 ) ( -107440 -5160 )
+        + LAYER Metal2 ( -109440 5160 ) ( -107440 10240 )
+        + LAYER Metal2 ( -109440 16520 ) ( -107440 21600 )
+        + LAYER Metal2 ( -109440 27880 ) ( -107440 32960 )
+        + LAYER Metal2 ( -109440 39240 ) ( -107440 44320 )
+        + FIXED ( 109440 1885000 ) N ;
     - XN_CS + NET VSS + DIRECTION OUTPUT + USE SIGNAL
       + PORT
         + LAYER Metal2 ( -1000 -380 ) ( 1000 380 )
@@ -468,16 +540,24 @@ PINS 73 ;
         + FIXED ( 72280 2219000 ) N ;
     - Y + NET Y + DIRECTION INOUT + USE SIGNAL
       + PORT
-        + LAYER Metal2 ( -54720 -44320 ) ( 54720 44320 )
-        + LAYER Metal2 ( -56720 -44320 ) ( -54720 -39240 )
-        + LAYER Metal2 ( -56720 -32960 ) ( -54720 -27880 )
-        + LAYER Metal2 ( -56720 -21600 ) ( -54720 -16520 )
-        + LAYER Metal2 ( -56720 -10240 ) ( -54720 -5160 )
-        + LAYER Metal2 ( -56720 5160 ) ( -54720 10240 )
-        + LAYER Metal2 ( -56720 16520 ) ( -54720 21600 )
-        + LAYER Metal2 ( -56720 27880 ) ( -54720 32960 )
-        + LAYER Metal2 ( -56720 39240 ) ( -54720 44320 )
-        + FIXED ( 56720 1285000 ) N ;
+        + LAYER Metal2 ( -2000 -44320 ) ( 2000 44320 )
+        + LAYER Metal2 ( -107440 -44320 ) ( 2000 -39240 )
+        + LAYER Metal2 ( -107440 -32960 ) ( 2000 -27880 )
+        + LAYER Metal2 ( -107440 -21600 ) ( 2000 -16520 )
+        + LAYER Metal2 ( -107440 -10240 ) ( 2000 -5160 )
+        + LAYER Metal2 ( -107440 5160 ) ( 2000 10240 )
+        + LAYER Metal2 ( -107440 16520 ) ( 2000 21600 )
+        + LAYER Metal2 ( -107440 27880 ) ( 2000 32960 )
+        + LAYER Metal2 ( -107440 39240 ) ( 2000 44320 )
+        + LAYER Metal2 ( -109440 -44320 ) ( -107440 -39240 )
+        + LAYER Metal2 ( -109440 -32960 ) ( -107440 -27880 )
+        + LAYER Metal2 ( -109440 -21600 ) ( -107440 -16520 )
+        + LAYER Metal2 ( -109440 -10240 ) ( -107440 -5160 )
+        + LAYER Metal2 ( -109440 5160 ) ( -107440 10240 )
+        + LAYER Metal2 ( -109440 16520 ) ( -107440 21600 )
+        + LAYER Metal2 ( -109440 27880 ) ( -107440 32960 )
+        + LAYER Metal2 ( -109440 39240 ) ( -107440 44320 )
+        + FIXED ( 109440 1285000 ) N ;
     - YN_CS + NET VSS + DIRECTION OUTPUT + USE SIGNAL
       + PORT
         + LAYER Metal2 ( -1000 -380 ) ( 1000 380 )
@@ -562,16 +642,24 @@ PINS 73 ;
         + FIXED ( 1000 1622280 ) N ;
     - Z + NET Z + DIRECTION INOUT + USE SIGNAL
       + PORT
-        + LAYER Metal2 ( -54720 -44320 ) ( 54720 44320 )
-        + LAYER Metal2 ( -56720 -44320 ) ( -54720 -39240 )
-        + LAYER Metal2 ( -56720 -32960 ) ( -54720 -27880 )
-        + LAYER Metal2 ( -56720 -21600 ) ( -54720 -16520 )
-        + LAYER Metal2 ( -56720 -10240 ) ( -54720 -5160 )
-        + LAYER Metal2 ( -56720 5160 ) ( -54720 10240 )
-        + LAYER Metal2 ( -56720 16520 ) ( -54720 21600 )
-        + LAYER Metal2 ( -56720 27880 ) ( -54720 32960 )
-        + LAYER Metal2 ( -56720 39240 ) ( -54720 44320 )
-        + FIXED ( 56720 685000 ) N ;
+        + LAYER Metal2 ( -2000 -44320 ) ( 2000 44320 )
+        + LAYER Metal2 ( -107440 -44320 ) ( 2000 -39240 )
+        + LAYER Metal2 ( -107440 -32960 ) ( 2000 -27880 )
+        + LAYER Metal2 ( -107440 -21600 ) ( 2000 -16520 )
+        + LAYER Metal2 ( -107440 -10240 ) ( 2000 -5160 )
+        + LAYER Metal2 ( -107440 5160 ) ( 2000 10240 )
+        + LAYER Metal2 ( -107440 16520 ) ( 2000 21600 )
+        + LAYER Metal2 ( -107440 27880 ) ( 2000 32960 )
+        + LAYER Metal2 ( -107440 39240 ) ( 2000 44320 )
+        + LAYER Metal2 ( -109440 -44320 ) ( -107440 -39240 )
+        + LAYER Metal2 ( -109440 -32960 ) ( -107440 -27880 )
+        + LAYER Metal2 ( -109440 -21600 ) ( -107440 -16520 )
+        + LAYER Metal2 ( -109440 -10240 ) ( -107440 -5160 )
+        + LAYER Metal2 ( -109440 5160 ) ( -107440 10240 )
+        + LAYER Metal2 ( -109440 16520 ) ( -107440 21600 )
+        + LAYER Metal2 ( -109440 27880 ) ( -107440 32960 )
+        + LAYER Metal2 ( -109440 39240 ) ( -107440 44320 )
+        + FIXED ( 109440 685000 ) N ;
     - ZN_CS + NET VSS + DIRECTION OUTPUT + USE SIGNAL
       + PORT
         + LAYER Metal2 ( -1000 -380 ) ( 1000 380 )
@@ -16626,50 +16714,42 @@ SPECIALNETS 2 ;
 END SPECIALNETS
 NETS 36 ;
     - S1N ( PIN S1N ) ( x_esd_S1N PAD ) + USE SIGNAL + NONDEFAULTRULE ANCHO_INT
-      + ROUTED Metal2 ( 322000 2217040 0 ) ( * 2218160 380 )
-      NEW Metal4 ( 322000 2073680 840 ) ( * 2218160 840 )
-      NEW Metal3 TAPER ( 322000 2073680 ) Via3_VV
-      NEW Metal2 ( 322000 2218160 ) Via2_HH
-      NEW Metal3 ( 322000 2218160 ) Via3_HH ;
+      + ROUTED Metal2 ( 313040 2073680 380 ) ( * 2109520 0 )
+      NEW Metal3 ( 313040 2073680 840 ) ( 319200 * 840 )
+      NEW Metal3 TAPER ( 319200 2073680 ) ( 321940 * 0 )
+      NEW Metal2 ( 313040 2073680 ) Via2_HH ;
     - S1N_I ( x_esd_S1N CORE ) ( x_core S1N ) + USE SIGNAL + NONDEFAULTRULE ANCHO_INT
       + ROUTED Metal2 ( 774480 1219120 380 ) ( * 1235920 380 )
       NEW Metal2 TAPER ( 774480 1235920 ) ( * 1239840 0 )
-      NEW Metal2 ( 268240 1219120 380 ) ( * 2066960 380 )
+      NEW Metal2 ( 268240 1219120 380 ) ( * 2070320 380 )
       NEW Metal3 ( 268240 1219120 840 ) ( 774480 * 840 )
-      NEW Metal3 ( 432820 2066960 840 ) ( * 2068080 840 )
-      NEW Metal4 ( 432820 2068080 840 ) ( * 2073680 840 )
-      NEW Metal3 ( 268240 2066960 840 ) ( 432820 * 840 )
+      NEW Metal3 TAPER ( 428400 2070320 ) ( 432820 * )
+      NEW Metal3 TAPER ( 432820 2070320 ) ( * 2073680 0 )
+      NEW Metal3 ( 268240 2070320 840 ) ( 428400 * 840 )
       NEW Metal2 ( 268240 1219120 ) Via2_HH
       NEW Metal2 ( 774480 1219120 ) Via2_HH
-      NEW Metal2 ( 268240 2066960 ) Via2_HH
-      NEW Metal3 ( 432820 2068080 ) Via3_HH
-      NEW Metal3 TAPER ( 432820 2073680 ) Via3_VV ;
+      NEW Metal2 ( 268240 2070320 ) Via2_HH ;
     - S1P ( PIN S1P ) ( x_esd_S1P PAD ) + USE SIGNAL + NONDEFAULTRULE ANCHO_INT
-      + ROUTED Metal2 ( 522480 2217040 0 ) ( * 2218160 380 )
-      NEW Metal4 ( 522480 2073680 840 ) ( * 2218160 840 )
-      NEW Metal3 TAPER ( 522480 2073680 ) Via3_VV
-      NEW Metal2 ( 522480 2218160 ) Via2_HH
-      NEW Metal3 ( 522480 2218160 ) Via3_HH ;
+      + ROUTED Metal3 ( 513520 2073680 840 ) ( 518000 * 840 )
+      NEW Metal3 TAPER ( 518000 2073680 ) ( 522420 * 0 )
+      NEW Metal2 ( 513520 2073680 380 ) ( * 2109520 0 )
+      NEW Metal2 ( 513520 2073680 ) Via2_HH ;
     - S1P_I ( x_esd_S1P CORE ) ( x_core S1P ) + USE SIGNAL + NONDEFAULTRULE ANCHO_INT
       + ROUTED Metal2 ( 764400 1192240 380 ) ( * 1235920 380 )
       NEW Metal2 TAPER ( 764400 1235920 ) ( * 1239840 0 )
-      NEW Metal2 ( 251440 1192240 380 ) ( * 2070320 380 )
+      NEW Metal2 ( 251440 1192240 380 ) ( * 2083760 380 )
       NEW Metal3 ( 251440 1192240 840 ) ( 764400 * 840 )
-      NEW Metal3 ( 251440 2070320 840 ) ( 319200 * 840 )
-      NEW Metal3 ( 319200 2070320 840 ) ( * 2071440 840 )
-      NEW Metal3 ( 319200 2071440 840 ) ( 436800 * 840 )
-      NEW Metal3 ( 436800 2070320 840 ) ( * 2071440 840 )
-      NEW Metal3 TAPER ( 628880 2070320 ) ( 633300 * )
-      NEW Metal3 TAPER ( 633300 2070320 ) ( * 2073680 0 )
-      NEW Metal3 ( 436800 2070320 840 ) ( 628880 * 840 )
+      NEW Metal3 ( 251440 2083760 840 ) ( 633300 * 840 )
+      NEW Metal3 TAPER ( 633300 2073680 0 ) ( * 2078100 )
+      NEW Metal3 ( 633300 2078100 840 ) ( * 2083760 840 )
       NEW Metal2 ( 251440 1192240 ) Via2_HH
-      NEW Metal2 ( 764400 1192240 ) Via2_HH
-      NEW Metal2 ( 251440 2070320 ) Via2_HH ;
+      NEW Metal2 ( 251440 2083760 ) Via2_HH
+      NEW Metal2 ( 764400 1192240 ) Via2_HH ;
     - S2N ( PIN S2N ) ( x_esd_S2N PAD ) + USE SIGNAL + NONDEFAULTRULE ANCHO_INT
-      + ROUTED Metal3 ( 1112720 2073680 840 ) ( 1117200 * 840 )
+      + ROUTED Metal3 ( 1108240 2073680 840 ) ( 1117200 * 840 )
       NEW Metal3 TAPER ( 1117200 2073680 ) ( 1121620 * 0 )
-      NEW Metal2 ( 1112720 2073680 380 ) ( * 2109520 0 )
-      NEW Metal2 ( 1112720 2073680 ) Via2_HH ;
+      NEW Metal2 ( 1108240 2073680 380 ) ( * 2109520 0 )
+      NEW Metal2 ( 1108240 2073680 ) Via2_HH ;
     - S2N_I ( x_esd_S2N CORE ) ( x_core S2N ) + USE SIGNAL + NONDEFAULTRULE ANCHO_INT
       + ROUTED Metal3 TAPER ( 1232620 2073680 0 ) ( 1238160 * )
       NEW Metal2 ( 1238160 1222480 380 ) ( * 2073680 380 )
@@ -16696,10 +16776,10 @@ NETS 36 ;
       NEW Metal2 ( 1251600 2070320 ) Via2_HH
       NEW Metal2 ( 320880 1209040 ) Via2_HH ;
     - S3N ( PIN S3N ) ( x_esd_S3N PAD ) + USE SIGNAL + NONDEFAULTRULE ANCHO_INT
-      + ROUTED Metal3 ( 913360 2073680 840 ) ( 917840 * 840 )
-      NEW Metal3 TAPER ( 917840 2073680 ) ( 922260 * 0 )
-      NEW Metal2 ( 913360 2073680 380 ) ( * 2109520 0 )
-      NEW Metal2 ( 913360 2073680 ) Via2_HH ;
+      + ROUTED Metal3 TAPER ( 917840 2073680 ) ( 922260 * 0 )
+      NEW Metal2 ( 906640 2073680 380 ) ( * 2109520 0 )
+      NEW Metal3 ( 906640 2073680 840 ) ( 917840 * 840 )
+      NEW Metal2 ( 906640 2073680 ) Via2_HH ;
     - S3N_I ( x_esd_S3N CORE ) ( x_core S3N ) + USE SIGNAL + NONDEFAULTRULE ANCHO_INT
       + ROUTED Metal3 ( 263760 1552880 840 ) ( 266000 * 840 )
       NEW Metal3 TAPER ( 266000 1552880 ) ( 269920 * 0 )
@@ -16713,25 +16793,24 @@ NETS 36 ;
       NEW Metal3 ( 1025360 2058000 ) Via3_HH
       NEW Metal3 ( 1025360 2073680 ) Via3_HH ;
     - S3P ( PIN S3P ) ( x_esd_S3P PAD ) + USE SIGNAL + NONDEFAULTRULE ANCHO_INT
-      + ROUTED Metal3 ( 712880 2073680 840 ) ( 717360 * 840 )
+      + ROUTED Metal3 ( 705040 2073680 840 ) ( 717360 * 840 )
       NEW Metal3 TAPER ( 717360 2073680 ) ( 721780 * 0 )
-      NEW Metal2 ( 712880 2073680 380 ) ( * 2109520 0 )
-      NEW Metal2 ( 712880 2073680 ) Via2_HH ;
+      NEW Metal2 ( 705040 2073680 380 ) ( * 2109520 0 )
+      NEW Metal2 ( 705040 2073680 ) Via2_HH ;
     - S3P_I ( x_esd_S3P CORE ) ( x_core S3P ) + USE SIGNAL + NONDEFAULTRULE ANCHO_INT
       + ROUTED Metal3 TAPER ( 267120 1542800 ) ( 269920 * 0 )
-      NEW Metal4 ( 267120 1542800 840 ) ( * 2077040 840 )
-      NEW Metal3 TAPER ( 828240 2077040 ) ( 832660 * )
-      NEW Metal3 TAPER ( 832660 2073680 0 ) ( * 2077040 )
-      NEW Metal3 ( 267120 2077040 840 ) ( 828240 * 840 )
+      NEW Metal4 ( 267120 1542800 840 ) ( * 2066960 840 )
+      NEW Metal3 ( 832660 2066960 840 ) ( * 2069200 840 )
+      NEW Metal3 TAPER ( 832660 2069200 ) ( * 2073680 0 )
+      NEW Metal3 ( 267120 2066960 840 ) ( 832660 * 840 )
       NEW Metal3 TAPER ( 267120 1542800 ) Via3_HH
-      NEW Metal3 ( 267120 2077040 ) Via3_HH ;
+      NEW Metal3 ( 267120 2066960 ) Via3_HH ;
     - S4N ( PIN S4N ) ( x_esd_S4N PAD ) + USE SIGNAL + NONDEFAULTRULE ANCHO_INT
-      + ROUTED Metal3 TAPER ( 124820 521360 0 ) ( * 525840 )
-      NEW Metal3 ( 124820 525840 840 ) ( * 529200 840 )
-      NEW Metal3 ( 111440 529200 840 ) ( 124820 * 840 )
-      NEW Metal3 ( 111440 529200 840 ) ( * 530320 840 )
-      NEW Metal2 ( 111440 528080 0 ) ( * 530320 380 )
-      NEW Metal2 ( 111440 530320 ) Via2_HH ;
+      + ROUTED Metal3 TAPER ( 124820 521360 0 ) ( * 523600 )
+      NEW Metal3 ( 105840 523600 840 ) ( 120400 * 840 )
+      NEW Metal3 TAPER ( 120400 523600 ) ( 124820 * )
+      NEW Metal2 ( 105840 523600 380 ) ( * 524720 0 )
+      NEW Metal2 ( 105840 523600 ) Via2_HH ;
     - S4N_I ( x_esd_S4N CORE ) ( x_core S4N ) + USE SIGNAL + NONDEFAULTRULE ANCHO_INT
       + ROUTED Metal3 TAPER ( 235820 521360 0 ) ( 241360 * )
       NEW Metal2 TAPER ( 552720 1235920 ) ( * 1239840 0 )
@@ -16739,10 +16818,11 @@ NETS 36 ;
       NEW Metal3 ( 241360 521360 840 ) ( 552720 * 840 )
       NEW Metal2 ( 552720 521360 ) Via2_HH ;
     - S4P ( PIN S4P ) ( x_esd_S4P PAD ) + USE SIGNAL + NONDEFAULTRULE ANCHO_INT
-      + ROUTED Metal2 ( 111440 328720 0 ) ( * 329840 380 )
-      NEW Metal3 ( 111440 329840 840 ) ( 120400 * 840 )
-      NEW Metal3 TAPER ( 120400 329840 ) ( 124820 * 0 )
-      NEW Metal2 ( 111440 329840 ) Via2_HH ;
+      + ROUTED Metal3 ( 105840 323120 840 ) ( 124820 * 840 )
+      NEW Metal3 ( 124820 323120 840 ) ( * 325360 840 )
+      NEW Metal3 TAPER ( 124820 325360 ) ( * 329840 0 )
+      NEW Metal2 ( 105840 317520 0 ) ( * 323120 380 )
+      NEW Metal2 ( 105840 323120 ) Via2_HH ;
     - S4P_I ( x_esd_S4P CORE ) ( x_core S4P ) + USE SIGNAL + NONDEFAULTRULE ANCHO_INT
       + ROUTED Metal2 ( 542640 1233680 380 ) ( * 1235920 380 )
       NEW Metal2 TAPER ( 542640 1235920 ) ( * 1239840 0 )
@@ -16764,20 +16844,18 @@ NETS 36 ;
       ( PIN XN_PD ) ( PIN XN_IE ) ( PIN XN_CS ) ( PIN VSS ) ( x_esd_Z VSS ) ( x_esd_Y VSS ) ( x_esd_X VSS ) ( x_esd_S4P VSS )
       ( x_esd_S4N VSS ) ( x_esd_S3P VSS ) ( x_esd_S3N VSS ) ( x_esd_S2P VSS ) ( x_esd_S2N VSS ) ( x_esd_S1P VSS ) ( x_esd_S1N VSS ) ( x_core VSS ) + USE GROUND ;
     - X ( PIN X ) ( x_esd_X PAD ) + USE SIGNAL + NONDEFAULTRULE ANCHO_INT
-      + ROUTED Metal3 TAPER ( 124820 1922480 0 ) ( * 1926900 )
-      NEW Metal3 ( 124820 1926900 840 ) ( * 1929200 840 )
-      NEW Metal3 ( 111440 1929200 840 ) ( 124820 * 840 )
-      NEW Metal3 ( 111440 1929200 840 ) ( * 1930320 840 )
-      NEW Metal2 ( 111440 1928080 0 ) ( * 1930320 380 )
-      NEW Metal2 ( 111440 1930320 ) Via2_HH ;
+      + ROUTED Metal3 TAPER ( 124840 1918000 ) ( * 1922480 0 )
+      NEW Metal3 ( 105840 1918000 840 ) ( 124840 * 840 )
+      NEW Metal2 ( 105840 1916880 0 ) ( * 1918000 380 )
+      NEW Metal2 ( 105840 1918000 ) Via2_HH ;
     - XN_IN ( PIN XN_IN ) + USE SIGNAL ;
     - XN_OUT ( PIN XN_OUT ) ( x_core XN ) + USE SIGNAL + NONDEFAULTRULE ANCHO_INT
-      + ROUTED Metal3 TAPER ( 1191680 1683920 0 ) ( 1195600 * )
-      NEW Metal2 ( 1195600 1683920 380 ) ( * 2025520 380 )
+      + ROUTED Metal3 TAPER ( 1191680 1683920 0 ) ( 1193360 * )
+      NEW Metal2 ( 1193360 1683920 380 ) ( * 2025520 380 )
       NEW Metal2 ( 110320 2020820 0 ) ( * 2025520 380 )
-      NEW Metal3 ( 110320 2025520 840 ) ( 1195600 * 840 )
-      NEW Metal2 TAPER ( 1195600 1683920 ) Via2_HH
-      NEW Metal2 ( 1195600 2025520 ) Via2_HH
+      NEW Metal3 ( 110320 2025520 840 ) ( 1193360 * 840 )
+      NEW Metal2 TAPER ( 1193360 1683920 ) Via2_HH
+      NEW Metal2 ( 1193360 2025520 ) Via2_HH
       NEW Metal2 ( 110320 2025520 ) Via2_HH ;
     - XP_IN ( PIN XP_IN ) + USE SIGNAL ;
     - XP_OUT ( PIN XP_OUT ) ( x_core XP ) + USE SIGNAL + NONDEFAULTRULE ANCHO_INT
@@ -16808,32 +16886,36 @@ NETS 36 ;
       NEW Metal2 ( 110320 1330000 ) Via2_HH ;
     - YN_IN ( PIN YN_IN ) + USE SIGNAL ;
     - YN_OUT ( PIN YN_OUT ) ( x_core YN ) + USE SIGNAL + NONDEFAULTRULE ANCHO_INT
-      + ROUTED Metal3 TAPER ( 1191680 1774640 0 ) ( 1196720 * )
+      + ROUTED Metal3 ( 3920 1417360 840 ) ( 18480 * 840 )
+      NEW Metal3 ( 18480 1417360 840 ) ( * 1421840 840 )
+      NEW Metal2 ( 18480 1420720 0 ) ( * 1421840 380 )
+      NEW Metal3 ( 1680 1331120 840 ) ( 3920 * 840 )
+      NEW Metal4 ( 1680 1225840 840 ) ( * 1331120 840 )
+      NEW Metal2 ( 3920 1331120 380 ) ( * 1417360 380 )
+      NEW Metal3 TAPER ( 1191680 1774640 0 ) ( 1196720 * )
       NEW Metal3 ( 1196720 1774640 840 ) ( 1197840 * 840 )
       NEW Metal2 ( 1197840 1225840 380 ) ( * 1774640 380 )
       NEW Metal3 ( 1680 1225840 840 ) ( 1197840 * 840 )
-      NEW Metal3 ( 1680 1419600 840 ) ( 18480 * 840 )
-      NEW Metal3 ( 18480 1419600 840 ) ( * 1421840 840 )
-      NEW Metal2 ( 18480 1420720 0 ) ( * 1421840 380 )
-      NEW Metal4 ( 1680 1225840 840 ) ( * 1419600 840 )
-      NEW Metal2 ( 1197840 1225840 ) Via2_HH
-      NEW Metal2 ( 1197840 1774640 ) Via2_HH
       NEW Metal3 ( 1680 1225840 ) Via3_HH
-      NEW Metal3 ( 1680 1419600 ) Via3_HH
-      NEW Metal2 ( 18480 1421840 ) Via2_HH ;
+      NEW Metal2 ( 3920 1417360 ) Via2_HH
+      NEW Metal2 ( 18480 1421840 ) Via2_HH
+      NEW Metal2 ( 1197840 1225840 ) Via2_HH
+      NEW Metal3 ( 1680 1331120 ) Via3_HH
+      NEW Metal2 ( 3920 1331120 ) Via2_HH
+      NEW Metal2 ( 1197840 1774640 ) Via2_HH ;
     - YP_IN ( PIN YP_IN ) + USE SIGNAL ;
     - YP_OUT ( PIN YP_OUT ) ( x_core YP ) + USE SIGNAL + NONDEFAULTRULE ANCHO_INT
       + ROUTED Metal3 ( 1680 1624560 840 ) ( 18480 * 840 )
       NEW Metal2 ( 18480 1620820 0 ) ( * 1624560 380 )
       NEW Metal4 ( 1680 1624560 840 ) ( * 2028880 840 )
-      NEW Metal3 TAPER ( 1191680 1754480 0 ) ( 1193360 * )
-      NEW Metal2 ( 1193360 1754480 380 ) ( * 2028880 380 )
-      NEW Metal3 ( 1680 2028880 840 ) ( 1193360 * 840 )
+      NEW Metal3 TAPER ( 1191680 1754480 0 ) ( 1195600 * )
+      NEW Metal2 ( 1195600 1754480 380 ) ( * 2028880 380 )
+      NEW Metal3 ( 1680 2028880 840 ) ( 1195600 * 840 )
       NEW Metal3 ( 1680 1624560 ) Via3_HH
       NEW Metal2 ( 18480 1624560 ) Via2_HH
       NEW Metal3 ( 1680 2028880 ) Via3_HH
-      NEW Metal2 TAPER ( 1193360 1754480 ) Via2_HH
-      NEW Metal2 ( 1193360 2028880 ) Via2_HH ;
+      NEW Metal2 TAPER ( 1195600 1754480 ) Via2_HH
+      NEW Metal2 ( 1195600 2028880 ) Via2_HH ;
     - Y_I ( x_esd_Y CORE ) ( x_core Y ) + USE SIGNAL + NONDEFAULTRULE ANCHO_INT
       + ROUTED Metal4 ( 235760 1237040 840 ) ( * 1327760 840 )
       NEW Metal3 TAPER ( 1191680 1764560 0 ) ( 1196720 * )
@@ -16845,9 +16927,9 @@ NETS 36 ;
       NEW Metal3 TAPER ( 235760 1327760 ) Via3_VV
       NEW Metal3 ( 1203440 1764560 ) Via3_HH ;
     - Z ( PIN Z ) ( x_esd_Z PAD ) + USE SIGNAL + NONDEFAULTRULE ANCHO_INT
-      + ROUTED Metal3 TAPER ( 124820 722960 0 ) ( * 727440 )
-      NEW Metal3 ( 124820 727440 840 ) ( * 729680 840 )
-      NEW Metal3 ( 111440 729680 840 ) ( 124820 * 840 )
+      + ROUTED Metal3 TAPER ( 124840 722960 0 ) ( * 727440 )
+      NEW Metal3 ( 124840 727440 840 ) ( * 729680 840 )
+      NEW Metal3 ( 111440 729680 840 ) ( 124840 * 840 )
       NEW Metal2 ( 111440 728560 0 ) ( * 729680 380 )
       NEW Metal2 ( 111440 729680 ) Via2_HH ;
     - ZN_IN ( PIN ZN_IN ) + USE SIGNAL ;

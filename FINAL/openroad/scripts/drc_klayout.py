@@ -40,6 +40,19 @@ TOP = os.environ.get("TOP_CELL", "GRADIENT_NAV")
 #: `DRC_MP` raises it again on a machine with the memory for it.
 MP = os.environ.get("DRC_MP", "2")
 
+#: MODO Y HEBRAS. En paralelo el deck se come la maquina con un GDS RELLENO:
+#: en `B26_A_filled.gds` seis tablas -- dnwell, nwell, lvpwell, nat, ldnmos y
+#: ldpmos -- murieron con **exit 137**, que es SIGKILL por falta de memoria. Y
+#: una tabla que muere NO ESCRIBE `.lyrdb`, asi que contando solo los ficheros
+#: que hay, un run reventado se lee como limpio; quien lo canta es
+#: `completo()`, no el recuento.
+#:
+#: `DRC_MODE=deep DRC_THR=1 DRC_MP=1` corre una tabla cada vez y cabe de sobra
+#: -- medido, 508 MB de pico contra los 7 GB de la maquina. Es mucho mas lento
+#: y es lo que hay que usar sobre el fichero relleno.
+MODE = os.environ.get("DRC_MODE", "")
+THR = os.environ.get("DRC_THR", "")
+
 TARGETS = {
     "COMP": ROOT / "gds/COMP.gds",
     "OPAM": ROOT / "gds/OPAM.gds",
@@ -216,6 +229,8 @@ def main() -> int:
         subprocess.run(
             ["python3", RUNNER, f"--path={gds.resolve()}", "--variant=D",
              f"--topcell={TOPCELL.get(name, name)}", f"--run_dir={run_dir}", f"--mp={MP}"]
+            + ([f"--run_mode={MODE}"] if MODE else [])
+            + ([f"--thr={THR}"] if THR else [])
             + (["--density_only"] if densidad else []),
             capture_output=True, text=True, timeout=14400, check=False,
             env={"PATH": "/foss/tools/klayout:/usr/bin:/bin",

@@ -1,0 +1,18 @@
+2026-08-31_02 -- B26_A_filled.gds
+=================================
+
+source      openroad/out_integration/B26_A_filled.gds
+written     2026-08-31 07:14
+size        13,409,342 bytes raw, 2,492,394 gzipped
+sha256      95ebcf92d8d36680bbf84d5530bdb882e7adeee7ccd2bdf8a0b5cda10dfe25ac
+
+DRC filled  INCOMPLETE -- 5 table(s) raised: ldnmos, nwell, ldpmos, lvpwell, mslot
+DRC circuit clean (1 tables)
+density     clean
+LVS klayout not run
+LVS netgen  match uniquely
+
+what changed
+------------
+Los escapes de pin pasan de placa maciza a peine: un dedo por diente mas una espina de 2 um que los une. Se van los once MSLOT.1 (placas de 55.7 x 44.3 um de Metal2, una por pad analogico, 5 al oeste y 6 al norte). El DRC de firma sobre el circuito corre en modo main/deep, que es el unico en el que la tabla mslot del PDK no revienta: 253 categorias, 0 items. Se entrega como B26_A_filled2.gds, byte a byte igual que este.
+

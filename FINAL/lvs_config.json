@@ -26,5 +26,5 @@
 	"LVS_VERILOG_FILES": [
 		"$UPRJ_ROOT/FINAL/openroad/verilog/B26_A.v"
 	],
-	"LAYOUT_FILE": "$UPRJ_ROOT/FINAL/openroad/out_integration/B26_A_filled.gds"
+	"LAYOUT_FILE": "$UPRJ_ROOT/FINAL/openroad/out_integration/B26_A_filled2.gds"
 }

@@ -1,6 +1,6 @@
 * fuente: /foss/designs/a_zonetic2026/XSCHEM_v2/simulation/OPAM_SUMA.sch/OPAM_SUMA.spice
 * leida via enlace: /foss/designs/a_zonetic2026/spice_blocks/OPAM_SUMA.spice
-* fecha de la fuente: 2026-08-23 03:08   sha1: c912edf2e4
+* fecha de la fuente: 2026-08-29 17:59   sha1: 6880809c9c
 * generado por flatten_spice.py — NO editar a mano
 * netlist plana generada por flatten_spice.py (top: OPAM_SUMA)
 * 57 MOSFETs; nets fusionadas por V=0: ninguna
@@ -26,26 +26,26 @@ XM11 xamp_x2_net2 xamp_net3 VDD VDD pfet_06v0 L=1.0u W=10.0u
 XM12 xamp_x2_net7 xamp_net4 xamp_x2_net2 VDD pfet_06v0 L=1.0u W=10.0u
 XM13 xamp_x2_net18 xamp_net3 VDD VDD pfet_06v0 L=1.0u W=10.0u
 XM14 xamp_x2_net7 xamp_net4 xamp_x2_net18 VDD pfet_06v0 L=1.0u W=10.0u
-XM15 xamp_x2_net5 NSP xamp_x2_net7 VDD pfet_06v0 L=1.0u W=1.1u
-XM16 xamp_x2_net4 NSN xamp_x2_net7 VDD pfet_06v0 L=1.0u W=1.0u
+XM15 xamp_x2_net5 NSP xamp_x2_net7 VDD pfet_06v0 L=1.0u W=0.55u
+XM16 xamp_x2_net4 NSN xamp_x2_net7 VDD pfet_06v0 L=1.0u W=0.5u
 XM17 xamp_x2_net8 xamp_net2 xamp_x2_net1 VSS nfet_06v0 L=1.0u W=5.0u
 XM18 xamp_x2_net1 xamp_net1 VSS VSS nfet_06v0 L=1.0u W=5.0u
 XM19 xamp_x2_net8 xamp_net2 xamp_x2_net19 VSS nfet_06v0 L=1.0u W=5.0u
 XM20 xamp_x2_net19 xamp_net1 VSS VSS nfet_06v0 L=1.0u W=5.0u
-XM21 xamp_x2_net6 NSP xamp_x2_net8 VSS nfet_06v0 L=1.0u W=1u
-XM22 xamp_x2_net3 NSN xamp_x2_net8 VSS nfet_06v0 L=1.0u W=1u
-XM29 xamp_x2_net9 xamp_net4 xamp_x2_net3 VDD pfet_06v0 L=1.0u W=5u
-XM30 xamp_x2_G_OUT_P xamp_net4 xamp_x2_net6 VDD pfet_06v0 L=1.0u W=5u
+XM21 xamp_x2_net6 NSP xamp_x2_net8 VSS nfet_06v0 L=1.0u W=7.5u
+XM22 xamp_x2_net3 NSN xamp_x2_net8 VSS nfet_06v0 L=1.0u W=8.5u
+XM29 xamp_x2_net9 xamp_net4 xamp_x2_net3 VDD pfet_06v0 L=1.0u W=10u
+XM30 xamp_x2_G_OUT_P xamp_net4 xamp_x2_net6 VDD pfet_06v0 L=1.0u W=10u
 XM31 xamp_x2_net3 xamp_x2_net9 VDD VDD pfet_06v0 L=1.0u W=5u
 XM35 xamp_x2_net6 xamp_x2_net9 VDD VDD pfet_06v0 L=1.0u W=5u
-XM32 xamp_x2_net10 xamp_x2_net20 xamp_x2_net9 VDD pfet_06v0 L=1.0u W=5.0u
-XM33 xamp_x2_net21 xamp_x2_net20 xamp_x2_G_OUT_P VDD pfet_06v0 L=1.0u W=5.0u
+XM32 xamp_x2_net10 xamp_x2_net20 xamp_x2_net9 VDD pfet_06v0 L=1.0u W=4.0u
+XM33 xamp_x2_net21 xamp_x2_net20 xamp_x2_G_OUT_P VDD pfet_06v0 L=1.0u W=4.0u
 XM23 xamp_x2_net10 xamp_net2 xamp_x2_net4 VSS nfet_06v0 L=1.0u W=2.5u
 XM24 xamp_x2_net21 xamp_net2 xamp_x2_net5 VSS nfet_06v0 L=1.0u W=2.5u
 XM25 xamp_x2_net4 xamp_x2_net10 VSS VSS nfet_06v0 L=1.0u W=2.5u
 XM26 xamp_x2_net5 xamp_x2_net10 VSS VSS nfet_06v0 L=1.0u W=2.5u
-XM27 xamp_x2_net9 xamp_x2_net11 xamp_x2_net10 VSS nfet_06v0 L=1.0u W=2.5u
-XM28 xamp_x2_G_OUT_P xamp_x2_net11 xamp_x2_net21 VSS nfet_06v0 L=1.0u W=2.5u
+XM27 xamp_x2_net9 xamp_x2_net11 xamp_x2_net10 VSS nfet_06v0 L=1.0u W=2.0u
+XM28 xamp_x2_G_OUT_P xamp_x2_net11 xamp_x2_net21 VSS nfet_06v0 L=1.0u W=2.0u
 XM34 xamp_x2_net12 xamp_x2_net13 VDD VDD pfet_06v0 L=1.0u W=10.0u
 XM36 xamp_x2_net13 xamp_net4 xamp_x2_net12 VDD pfet_06v0 L=1.0u W=10.0u
 XM37 xamp_x2_net20 xamp_x2_net20 xamp_x2_net13 VDD pfet_06v0 L=1.0u W=10.0u
@@ -56,10 +56,10 @@ XM46 xamp_x2_net11 xamp_net4 xamp_x2_net15 VDD pfet_06v0 L=1.0u W=10.0u
 XM40 xamp_x2_net11 xamp_x2_net11 xamp_x2_net17 VSS nfet_06v0 L=1.0u W=5.0u
 XM41 xamp_x2_net17 xamp_net2 xamp_x2_net16 VSS nfet_06v0 L=1.0u W=5.0u
 XM42 xamp_x2_net16 xamp_x2_net17 VSS VSS nfet_06v0 L=1.0u W=5.0u
-XM43_m1 OUT xamp_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=0.5u
-XM43_m2 OUT xamp_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=0.5u
-XM43_m3 OUT xamp_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=0.5u
-XM43_m4 OUT xamp_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=0.5u
+XM43_m1 OUT xamp_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=1.0u
+XM43_m2 OUT xamp_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=1.0u
+XM43_m3 OUT xamp_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=1.0u
+XM43_m4 OUT xamp_x2_G_OUT_P VDD VDD pfet_06v0 L=1.0u W=1.0u
 XM44 OUT xamp_x2_net21 VSS VSS nfet_06v0 L=1.0u W=1.0u
 XMXxmcA1 VSS A1 VSS VSS nfet_06v0 L=2u W=2u
 XMXxmcA2 VSS A2 VSS VSS nfet_06v0 L=2u W=2u
@@ -69,8 +69,8 @@ XMXxmcB2 VSS B2 VSS VSS nfet_06v0 L=2u W=2u
 *   El deck de KLayout los lee con un delegate (custom_classes.lvs, SubcircuitModelsReader#element)
 *   que SOLO actua si el elemento empieza por 'C', y de ahi saca A=W*L*1e12 y P=2*(W+L)*1e6.
 *   Escrito como 'X...' se leeria como llamada a subcircuito y no emparejaria con nada.
-XC3 xamp_x2_net6 OUT cap_mim_2f0_m4m5_noshield W=4e-06 L=2.5e-05
-XC1 OUT xamp_x2_net5 cap_mim_2f0_m4m5_noshield W=4e-06 L=2.5e-05
+XC3 xamp_x2_net6 OUT cap_mim_2f0_m4m5_noshield W=8e-06 L=2.5e-05
+XC1 OUT xamp_x2_net5 cap_mim_2f0_m4m5_noshield W=8e-06 L=2.5e-05
 * resistencias: elemento 'R' con W/L/S en METROS, no 'X' con r_width/r_length.
 *   Mismo motivo que los condensadores: el delegate del deck (custom_classes.lvs,
 *   SubcircuitModelsReader#element) solo entra por la primera letra, y para 'R' de tres
@@ -82,21 +82,21 @@ XC1 OUT xamp_x2_net5 cap_mim_2f0_m4m5_noshield W=4e-06 L=2.5e-05
 *   la aplica aqui porque lee la resistencia de tres nodos como si tuviera dos y le
 *   pone de modelo el nodo de sustrato: la clase le sale 'VSS' y su setup no la
 *   reconoce. Escribiendo los tramos, las dos partes cuentan lo mismo y no hace falta.
-RFB_xamp_x2_1 xamp_x2_G_OUT_P RFB_xamp_x2$1 VSS ppolyf_u_3k W=1e-06 L=7.645e-05 R=229350
-RFB_xamp_x2_2 RFB_xamp_x2$1 RFB_xamp_x2$2 VSS ppolyf_u_3k W=1e-06 L=7.645e-05 R=229350
-RFB_xamp_x2_3 RFB_xamp_x2$2 RFB_xamp_x2$3 VSS ppolyf_u_3k W=1e-06 L=7.645e-05 R=229350
-RFB_xamp_x2_4 RFB_xamp_x2$3 RFB_xamp_x2$4 VSS ppolyf_u_3k W=1e-06 L=7.645e-05 R=229350
-RFB_xamp_x2_5 RFB_xamp_x2$4 OUT VSS ppolyf_u_3k W=1e-06 L=7.645e-05 R=229350
-RA1_1 NSP RA1$1 VSS ppolyf_u_3k W=1e-06 L=5.556e-05 R=166680
-RA1_2 RA1$1 RA1$2 VSS ppolyf_u_3k W=1e-06 L=5.556e-05 R=166680
-RA1_3 RA1$2 A1 VSS ppolyf_u_3k W=1e-06 L=5.556e-05 R=166680
-RA2_1 NSP RA2$1 VSS ppolyf_u_3k W=1e-06 L=5.556e-05 R=166680
-RA2_2 RA2$1 RA2$2 VSS ppolyf_u_3k W=1e-06 L=5.556e-05 R=166680
-RA2_3 RA2$2 A2 VSS ppolyf_u_3k W=1e-06 L=5.556e-05 R=166680
-RB1_1 NSN RB1$1 VSS ppolyf_u_3k W=1e-06 L=5.556e-05 R=166680
-RB1_2 RB1$1 RB1$2 VSS ppolyf_u_3k W=1e-06 L=5.556e-05 R=166680
-RB1_3 RB1$2 B1 VSS ppolyf_u_3k W=1e-06 L=5.556e-05 R=166680
-RB2_1 NSN RB2$1 VSS ppolyf_u_3k W=1e-06 L=5.556e-05 R=166680
-RB2_2 RB2$1 RB2$2 VSS ppolyf_u_3k W=1e-06 L=5.556e-05 R=166680
-RB2_3 RB2$2 B2 VSS ppolyf_u_3k W=1e-06 L=5.556e-05 R=166680
+XRFB_xamp_x2_1 xamp_x2_G_OUT_P RFB_xamp_x2$1 VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+XRFB_xamp_x2_2 RFB_xamp_x2$1 RFB_xamp_x2$2 VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+XRFB_xamp_x2_3 RFB_xamp_x2$2 RFB_xamp_x2$3 VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+XRFB_xamp_x2_4 RFB_xamp_x2$3 RFB_xamp_x2$4 VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+XRFB_xamp_x2_5 RFB_xamp_x2$4 OUT VSS ppolyf_u_1k W=1e-06 L=7.645e-05 R=76450
+XRA1_1 NSP RA1$1 VSS ppolyf_u_3k W=1e-06 L=5.556e-05 R=166680
+XRA1_2 RA1$1 RA1$2 VSS ppolyf_u_3k W=1e-06 L=5.556e-05 R=166680
+XRA1_3 RA1$2 A1 VSS ppolyf_u_3k W=1e-06 L=5.556e-05 R=166680
+XRA2_1 NSP RA2$1 VSS ppolyf_u_3k W=1e-06 L=5.556e-05 R=166680
+XRA2_2 RA2$1 RA2$2 VSS ppolyf_u_3k W=1e-06 L=5.556e-05 R=166680
+XRA2_3 RA2$2 A2 VSS ppolyf_u_3k W=1e-06 L=5.556e-05 R=166680
+XRB1_1 NSN RB1$1 VSS ppolyf_u_3k W=1e-06 L=5.556e-05 R=166680
+XRB1_2 RB1$1 RB1$2 VSS ppolyf_u_3k W=1e-06 L=5.556e-05 R=166680
+XRB1_3 RB1$2 B1 VSS ppolyf_u_3k W=1e-06 L=5.556e-05 R=166680
+XRB2_1 NSN RB2$1 VSS ppolyf_u_3k W=1e-06 L=5.556e-05 R=166680
+XRB2_2 RB2$1 RB2$2 VSS ppolyf_u_3k W=1e-06 L=5.556e-05 R=166680
+XRB2_3 RB2$2 B2 VSS ppolyf_u_3k W=1e-06 L=5.556e-05 R=166680
 .ends

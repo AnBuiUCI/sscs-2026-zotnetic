@@ -1,0 +1,175 @@
+
+Circuit 1 cell pfet_06v0 and Circuit 2 cell pfet_06v0 are black boxes.
+
+Subcircuit pins:
+Circuit 1: pfet_06v0                       |Circuit 2: pfet_06v0                       
+-------------------------------------------|-------------------------------------------
+1                                          |1                                          
+2                                          |2                                          
+3                                          |3                                          
+4                                          |4                                          
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes pfet_06v0 and pfet_06v0 are equivalent.
+
+Circuit 1 cell nfet_06v0 and Circuit 2 cell nfet_06v0 are black boxes.
+
+Subcircuit pins:
+Circuit 1: nfet_06v0                       |Circuit 2: nfet_06v0                       
+-------------------------------------------|-------------------------------------------
+1                                          |1                                          
+2                                          |2                                          
+3                                          |3                                          
+4                                          |4                                          
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes nfet_06v0 and nfet_06v0 are equivalent.
+
+Circuit 1 cell ppolyf_u_1k and Circuit 2 cell ppolyf_u_1k are black boxes.
+
+Subcircuit pins:
+Circuit 1: ppolyf_u_1k                     |Circuit 2: ppolyf_u_1k                     
+-------------------------------------------|-------------------------------------------
+1                                          |1                                          
+2                                          |2                                          
+3                                          |3                                          
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes ppolyf_u_1k and ppolyf_u_1k are equivalent.
+
+Circuit 1 cell cap_mim_2f0_m4m5_noshield and Circuit 2 cell cap_mim_2f0_m4m5_noshield are black boxes.
+
+Subcircuit pins:
+Circuit 1: cap_mim_2f0_m4m5_noshield       |Circuit 2: cap_mim_2f0_m4m5_noshield       
+-------------------------------------------|-------------------------------------------
+1                                          |1                                          
+2                                          |2                                          
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes cap_mim_2f0_m4m5_noshield and cap_mim_2f0_m4m5_noshield are equivalent.
+
+Class OPAM_SUMA (0):  Merged 6 parallel devices.
+Class OPAM_SUMA (0):  Merged 12 series devices.
+Class OPAM_SUMA (0):  Merged 3 parallel devices.
+Class OPAM_SUMA (1):  Merged 3 parallel devices.
+Class OPAM_SUMA (1):  Merged 12 series devices.
+Subcircuit summary:
+Circuit 1: OPAM_SUMA                       |Circuit 2: OPAM_SUMA                       
+-------------------------------------------|-------------------------------------------
+pfet_06v0 (28->25)                         |pfet_06v0 (28->25)                         
+nfet_06v0 (29->26)                         |nfet_06v0 (29) **Mismatch**                
+ppolyf_u_1k (17->2)                        |ppolyf_u_1k (5->1) **Mismatch**            
+cap_mim_2f0_m4m5_noshield (2)              |cap_mim_2f0_m4m5_noshield (2)              
+(no matching element)                      |ppolyf_u_3k (12->4)                        
+Number of devices: 55 **Mismatch**         |Number of devices: 61 **Mismatch**         
+Number of nets: 36 **Mismatch**            |Number of nets: 41 **Mismatch**            
+---------------------------------------------------------------------------------------
+NET mismatches: Class fragments follow (with fanout counts):
+Circuit 1: OPAM_SUMA                       |Circuit 2: OPAM_SUMA                       
+
+---------------------------------------------------------------------------------------
+Net: B2                                    |Net: B2                                    
+  nfet_06v0/2 = 1                          |  nfet_06v0/2 = 1                          
+  ppolyf_u_1k/(1|2) = 1                    |  ppolyf_u_3k/(1|2) = 1                    
+                                           |                                           
+Net: a_2848_6666#                          |Net: A2                                    
+  nfet_06v0/(1|3) = 2                      |  nfet_06v0/2 = 1                          
+  ppolyf_u_1k/(1|2) = 1                    |  ppolyf_u_3k/(1|2) = 1                    
+  cap_mim_2f0_m4m5_noshield/(1|2) = 1      |                                           
+  nfet_06v0/2 = 2                          |                                           
+  pfet_06v0/(1|3) = 1                      |                                           
+  pfet_06v0/2 = 2                          |                                           
+                                           |                                           
+Net: VSS                                   |Net: VSS                                   
+  nfet_06v0/(1|3) = 13                     |  nfet_06v0/(1|3) = 19                     
+  nfet_06v0/4 = 26                         |  nfet_06v0/4 = 29                         
+  ppolyf_u_1k/3 = 2                        |  ppolyf_u_1k/3 = 1                        
+                                           |  ppolyf_u_3k/3 = 4                        
+                                           |                                           
+(no matching net)                          |Net: A1                                    
+                                           |  nfet_06v0/2 = 1                          
+                                           |  ppolyf_u_3k/(1|2) = 1                    
+                                           |                                           
+(no matching net)                          |Net: xamp_x2_net5                          
+                                           |  pfet_06v0/(1|3) = 1                      
+                                           |  nfet_06v0/(1|3) = 2                      
+                                           |  cap_mim_2f0_m4m5_noshield/(1|2) = 1      
+                                           |                                           
+(no matching net)                          |Net: NSP                                   
+                                           |  pfet_06v0/2 = 1                          
+                                           |  nfet_06v0/2 = 1                          
+                                           |  ppolyf_u_3k/(1|2) = 2                    
+                                           |                                           
+(no matching net)                          |Net: NSN                                   
+                                           |  pfet_06v0/2 = 1                          
+                                           |  nfet_06v0/2 = 1                          
+                                           |  ppolyf_u_3k/(1|2) = 2                    
+                                           |                                           
+(no matching net)                          |Net: B1                                    
+                                           |  nfet_06v0/2 = 1                          
+                                           |  ppolyf_u_3k/(1|2) = 1                    
+---------------------------------------------------------------------------------------
+DEVICE mismatches: Class fragments follow (with node fanout counts):
+Circuit 1: OPAM_SUMA                       |Circuit 2: OPAM_SUMA                       
+
+---------------------------------------------------------------------------------------
+Instance: nfet_06v0:20                     |Instance: nfet_06v0:MXxmcA1                
+  (1,3) = (41,41)                          |  (1,3) = (53,53)                          
+  2 = 2                                    |  2 = 2                                    
+  4 = 41                                   |  4 = 53                                   
+                                           |                                           
+Instance: ppolyf_u_1k:7                    |Instance: nfet_06v0:MXxmcA2                
+  (1,2) = (9,2)                            |  (1,3) = (53,53)                          
+  3 = 41                                   |  2 = 2                                    
+                                           |  4 = 53                                   
+                                           |                                           
+(no matching instance)                     |Instance: nfet_06v0:MXxmcB1                
+                                           |  (1,3) = (53,53)                          
+                                           |  2 = 2                                    
+                                           |  4 = 53                                   
+                                           |                                           
+                                           |                                           
+(no matching instance)                     |Instance: nfet_06v0:MXxmcB2                
+                                           |  (1,3) = (53,53)                          
+                                           |  2 = 2                                    
+                                           |  4 = 53                                   
+                                           |                                           
+                                           |                                           
+(no matching instance)                     |Instance: ppolyf_u_3k:RA1_1                
+                                           |  (1,2) = (4,2)                            
+                                           |  3 = 53                                   
+                                           |                                           
+                                           |                                           
+(no matching instance)                     |Instance: ppolyf_u_3k:RA2_1                
+                                           |  (1,2) = (4,2)                            
+                                           |  3 = 53                                   
+                                           |                                           
+                                           |                                           
+(no matching instance)                     |Instance: ppolyf_u_3k:RB1_1                
+                                           |  (1,2) = (4,2)                            
+                                           |  3 = 53                                   
+                                           |                                           
+                                           |                                           
+(no matching instance)                     |Instance: ppolyf_u_3k:RB2_1                
+                                           |  (1,2) = (4,2)                            
+                                           |  3 = 53                                   
+                                           |                                           
+---------------------------------------------------------------------------------------
+Netlists do not match.
+Port matching may fail to disambiguate symmetries.
+
+Subcircuit pins:
+Circuit 1: OPAM_SUMA                       |Circuit 2: OPAM_SUMA                       
+-------------------------------------------|-------------------------------------------
+B2                                         |A1 **Mismatch**                            
+VSS                                        |B1 **Mismatch**                            
+VDD                                        |VDD                                        
+OUT                                        |OUT                                        
+(no pin, node is VSS)                      |A2                                         
+(no pin, node is VSS)                      |B2                                         
+(no pin, node is VSS)                      |VSS                                        
+---------------------------------------------------------------------------------------
+Cell pin lists for OPAM_SUMA and OPAM_SUMA altered to match.
+Device classes OPAM_SUMA and OPAM_SUMA are equivalent.
+
+Final result: Top level cell failed pin matching.
