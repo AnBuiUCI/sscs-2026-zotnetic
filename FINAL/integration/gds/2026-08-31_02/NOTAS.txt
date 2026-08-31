@@ -16,3 +16,19 @@ what changed
 ------------
 Los escapes de pin pasan de placa maciza a peine: un dedo por diente mas una espina de 2 um que los une. Se van los once MSLOT.1 (placas de 55.7 x 44.3 um de Metal2, una por pad analogico, 5 al oeste y 6 al norte). El DRC de firma sobre el circuito corre en modo main/deep, que es el unico en el que la tabla mslot del PDK no revienta: 253 categorias, 0 items. Se entrega como B26_A_filled2.gds, byte a byte igual que este.
 
+
+DRC completo -- anadido a mano el 2026-08-31, tras terminar el run
+-----------------------------------------------------------------
+La linea "DRC filled INCOMPLETE" de arriba es del run de TABLAS SEPARADAS, que
+sobre un fichero relleno pierde cinco tablas (ldnmos, nwell, ldpmos, lvpwell y
+mslot) y por eso no es un veredicto.
+
+El run que si lo es, una sola tabla `main` en modo `deep` y un hilo, sobre este
+mismo fichero:
+
+    out/drc_B26_A_FILLED/B26_A_filled_main.lyrdb
+    253 categorias declaradas, 0 items      LIMPIO
+    MSLOT.1 entre las categorias, o sea que la regla corrio de verdad
+
+Es la primera vez en este proyecto que el fichero que se entrega pasa el deck
+COMPLETO, `mslot` incluida.
