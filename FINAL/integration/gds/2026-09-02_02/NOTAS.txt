@@ -1,0 +1,18 @@
+2026-09-02_02 -- B26_A_filled3.gds
+==================================
+
+source      openroad/out_integration/B26_A_filled3.gds
+written     2026-08-31 01:55
+size        13,409,342 bytes raw, 2,492,395 gzipped
+sha256      95ebcf92d8d36680bbf84d5530bdb882e7adeee7ccd2bdf8a0b5cda10dfe25ac
+
+DRC filled  not run
+DRC circuit STALE -- the run predates this GDS
+density     not run
+LVS klayout not run
+LVS netgen  match uniquely
+
+what changed
+------------
+Delivery pointer renamed to B26_A_filled3.gds and lvs_config.json updated to match. Byte-identical to B26_A_filled2.gds (sha 95ebcf92), which is the file re-verified on the new machine on 2026-09-01: deep DRC 0 items with mslot actually running, split-table DRC 63 tables 0 items with the four memory-starved tables recovered, netgen Circuits match uniquely, 17/17 connectivity, one PR_bndry. KLayout LVS on the top still does not close; that is the comparer, not the circuit (1442 = 1442 devices).
+

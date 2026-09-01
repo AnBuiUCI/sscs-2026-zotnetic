@@ -1,0 +1,18 @@
+2026-09-02_04 -- B26_A_filled3.gds
+==================================
+
+source      openroad/out_integration/B26_A_filled3.gds
+written     2026-08-31 01:55
+size        13,409,342 bytes raw, 2,492,395 gzipped
+sha256      95ebcf92d8d36680bbf84d5530bdb882e7adeee7ccd2bdf8a0b5cda10dfe25ac
+
+DRC filled  clean (1 tables)
+DRC circuit clean (1 tables)
+density     clean
+LVS klayout not run
+LVS netgen  match uniquely
+
+what changed
+------------
+SUBMISSION POINTER. lvs_config.json LAYOUT_FILE and info.yaml both name this file. Byte-identical to _filled2 and _filled (sha 95ebcf92). Verified on a 31 GB machine on 2026-09-01 with every check filed under this name. KLayout LVS on the top is deliberately not part of this verdict: three runs were attempted (2h33m, 1h04m, 30m52) and none reached the compare stage; netgen is the LVS of record and matches uniquely.
+

@@ -1,0 +1,14 @@
+2026-09-02_01 -- B26_A.gds
+==========================
+
+source      openroad/out_integration/B26_A.gds
+written     2026-08-31 00:06
+size        12,083,648 bytes raw, 2,320,828 gzipped
+sha256      229fd1217aa2a4dc77a04566ea9e3274a39ca02ea98512c86c078916f71ed626
+
+DRC filled  clean (1 tables)
+DRC circuit clean (1 tables)
+density     not run
+LVS klayout not run
+LVS netgen  match uniquely
+

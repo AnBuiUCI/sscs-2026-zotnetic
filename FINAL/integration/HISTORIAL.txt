@@ -3,6 +3,10 @@ Written by openroad/scripts/archivar_integracion.py -- do not edit by hand.
 Una linea va marcada como anadida a mano: es una carpeta que quedo huerfana
 de un archivado a medias, y se documenta en vez de borrarla.
 
+2026-09-02_04  B26_A_filled3.gds      DRC clean (1 tables)                   dens clean                  LVS netgen match uniquely   klayout not run
+2026-09-02_03  B26_A_filled3.gds      DRC STALE -- the run predates this GDS dens not run                LVS netgen match uniquely   klayout not run
+2026-09-02_02  B26_A_filled3.gds      DRC STALE -- the run predates this GDS dens not run                LVS netgen match uniquely   klayout not run
+2026-09-02_01  B26_A.gds              DRC clean (1 tables)                   dens not run                LVS netgen match uniquely   klayout not run
 2026-08-31_02  B26_A_filled.gds       DRC clean (main/deep, 253 cat)                   dens clean                  LVS netgen match uniquely   klayout not run
 2026-08-31_01  B26_A.gds              DRC clean (1 tables)                   dens not run                LVS netgen match uniquely   klayout NO MATCH
 2026-08-30_03  B26_A_filled.gds       DRC clean (63 tables)                  dens clean                  LVS netgen match uniquely   klayout not run
