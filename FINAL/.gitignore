@@ -19,3 +19,13 @@ capturar*.py
 #  generator it documents. Keeping it out of here keeps the design repository
 #  to the design: schematics, layouts, netlists, GDS.
 *.md
+
+#  The submission interface lives at the REPOSITORY ROOT, and only there.
+#  The chipathon's external LVS reads ./info.yaml -> project.lvs_config ->
+#  ./lvs_config.json; the copies that used to sit here came along with the
+#  working tree and were a second source of truth that silently drifted --
+#  the root pair once named B26_A_filled.gds while these named _filled3, and
+#  the root one is the one that counts. Keep them out so a `cp -a` of the
+#  working tree cannot reintroduce them.
+info.yaml
+lvs_config.json
