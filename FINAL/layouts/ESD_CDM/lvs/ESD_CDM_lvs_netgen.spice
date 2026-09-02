@@ -1,0 +1,15 @@
+* ESD_CDM: the secondary (CDM) ESD network.
+* Written by openroad/scripts/esd_layout.py, together with the GDS it matches.
+* The circuit is XSCHEM_v2/ESD_CDM.sch; see it for why the diodes are these two
+* types and no others.
+.subckt ESD_CDM PAD CORE VDD VSS
+D1 VSS PAD diode_nd2ps_06v0 AREA=100p PJ=40u
+D2 VSS PAD diode_nd2ps_06v0 AREA=100p PJ=40u
+D3 VSS PAD diode_nd2ps_06v0 AREA=100p PJ=40u
+D4 VSS PAD diode_nd2ps_06v0 AREA=100p PJ=40u
+D5 PAD VDD diode_pd2nw_06v0 AREA=100p PJ=40u
+D6 PAD VDD diode_pd2nw_06v0 AREA=100p PJ=40u
+D7 PAD VDD diode_pd2nw_06v0 AREA=100p PJ=40u
+D8 PAD VDD diode_pd2nw_06v0 AREA=100p PJ=40u
+XR1 CORE PAD VDD ppolyf_u W=16.0e-06 L=4.0e-06 R=87.5
+.ends

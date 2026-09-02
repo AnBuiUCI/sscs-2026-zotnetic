@@ -1,0 +1,18 @@
+2026-09-02_05 -- B26_A_filled3.gds
+==================================
+
+source      openroad/out_integration/B26_A_filled3.gds
+written     2026-09-02 03:18
+size        13,407,230 bytes raw, 2,491,977 gzipped
+sha256      41bef27aac61a8c38765b89036649fa91265f19c60fa6da1729cca0626307ed6
+
+DRC filled  clean (63 tables)
+DRC circuit STALE -- the run predates this GDS
+density     clean
+LVS klayout not run
+LVS netgen  match uniquely
+
+what changed
+------------
+Clamp n-wells merged: the deck now passes in BOTH connectivity modes. The four pd2nw n-wells inside each ESD_CDM were 1.330 um apart and are now one polygon; electrically unchanged (all VDD, the m=4 of one device) and the cell did not grow, so the LEF is identical and floorplan/route were untouched. Before: 0 violations with connectivity, 33 NW.2b_MV without it. After: 0 and 0. Sign-off DRC main/deep 660 categories 0 items with MSLOT.1 and NW.2b_MV both among them; split-table 63 tables 0 items; density clean; netgen Circuits match uniquely; 17/17 connectivity; one PR_bndry. sha 41bef27a (the previous 95ebcf92 series is superseded).
+

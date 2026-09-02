@@ -1,0 +1,18 @@
+2026-09-02_06 -- B26_A_filled3.gds
+==================================
+
+source      openroad/out_integration/B26_A_filled3.gds
+written     2026-09-02 03:18
+size        13,407,230 bytes raw, 2,491,977 gzipped
+sha256      41bef27aac61a8c38765b89036649fa91265f19c60fa6da1729cca0626307ed6
+
+DRC filled  clean (63 tables)
+DRC circuit clean (1 tables)
+density     clean
+LVS klayout not run
+LVS netgen  match uniquely
+
+what changed
+------------
+SUBMISSION POINTER, clamp n-wells merged. lvs_config.json LAYOUT_FILE and info.yaml both name this file. The four pd2nw n-wells inside each ESD_CDM were 1.330 um apart and are now one polygon: electrically unchanged (all VDD, the m=4 of one device), the cell did not grow, the LEF is identical, floorplan and route untouched. Before the fix the deck gave 0 violations WITH connectivity and 33 NW.2b_MV WITHOUT it; a design that passes in only one mode depends on how the reviewer runs the check. Now 0 in both. Evidence all filed under this name: sign-off DRC main/deep 660 categories 0 items with MSLOT.1 and NW.2b_MV both present; --no_connectivity full deck 0 items; split-table 63 tables 63 lyrdb 0 items (mslot crashes on the PDK deck bug, as always); density clean; netgen Circuits match uniquely; 17/17 connectivity, 11 through their clamp; current density 48.00 um against 22.10 required; one PR_bndry. sha 41bef27a supersedes the 95ebcf92 series.
+
