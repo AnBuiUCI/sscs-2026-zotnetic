@@ -37,23 +37,31 @@ project:
 # GDS:      FINAL/openroad/out_integration/B26_A_filled3.gds
 #           (also reached through lvs_config.json -> LAYOUT_FILE)
 #
-#           THE NUMBER IS THE VERSION, NOT ANOTHER CHIP. All three of
-#           B26_A_filled.gds, _filled2 and _filled3 are byte-identical today
-#           -- sha256 95ebcf92d8d36680... -- and carry the comb-shaped pin
-#           escapes: the original solid 55.7 x 44.3 um Metal2 plate over each
-#           analogue pad was eleven MSLOT.1 violations, metal wider than 30 um
-#           in both directions without slotting. The flow still writes
-#           B26_A_filled.gds as its own output; the submission reads the
-#           numbered one so that a stale copy can never be picked up by
-#           mistake.
+#           THE NUMBER IS THE VERSION, NOT ANOTHER CHIP, and the versions are
+#           NO LONGER interchangeable. _filled3 is sha256 41bef27aac61a8c3...
+#           and it is the ONLY one to read; B26_A_filled.gds and _filled2 are
+#           the older 95ebcf92... and are superseded. The flow still writes
+#           B26_A_filled.gds as its own output, which is exactly why the
+#           submission reads the numbered one: a stale copy cannot be picked
+#           up by mistake.
 #
-#           _filled3 is the pointer re-verified on 2026-09-01 on a 31 GB
-#           machine, and its evidence is filed under its own name:
+#           _filled3 carries two fixes over the 95ebcf92 series. The comb
+#           shaped pin escapes, which removed eleven MSLOT.1 (the original
+#           solid 55.7 x 44.3 um Metal2 plate over each analogue pad is metal
+#           wider than 30 um in both directions without slotting). And the
+#           merged n-wells inside each ESD clamp: the four pd2nw wells were
+#           1.330 um apart, which is fine only if the deck knows they are
+#           equipotential, so the design passed WITH connectivity and showed
+#           33 NW.2b_MV WITHOUT it. They are one well now, and it passes
+#           either way.
+#
+#           Verified 2026-09-02, every check filed under this file's own name:
 #           sign-off DRC (main/deep, the only mode where the PDK's mslot table
-#           does not crash) 660 rule categories and 0 items, MSLOT.1 among
-#           them so the rule really ran; split-table DRC 63 tables 0 items;
-#           netgen Circuits match uniquely; 17/17 pins conduct; one PR_bndry.
-#           Archived under integration/gds/.
+#           does not crash) 660 rule categories and 0 items, with MSLOT.1 and
+#           NW.2b_MV both among them so both really ran; the same deck run
+#           with --no_connectivity, 0 items; split-table DRC 63 tables 0 items;
+#           density clean; netgen Circuits match uniquely; 17/17 pins conduct;
+#           one PR_bndry. Archived under integration/gds/2026-09-02_06.
 #
 #           The secondary ESD is ESD_CDM, our layout of the organisers' exact
 #           schematic (8 diodes 10x10, ppolyf_u W=16 L=4, 87.5 ohm), eleven
