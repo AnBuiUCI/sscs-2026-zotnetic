@@ -9,6 +9,13 @@ __pycache__/
 #  repository is the DESIGN. Knowledge documents -- HANDOFF.md, the READMEs --
 #  do go up: they are what lets someone pick the flow back up.
 *.pdf
+
+#  Ficheros de bloqueo de LibreOffice y PowerPoint. Aparecen mientras alguien
+#  tiene la presentacion abierta, y uno se colo en el commit c4c8610: 165 bytes
+#  de basura en el repositorio del diseño. `subir.sh` tambien los excluye al
+#  copiar, para no depender solo de esto.
+~$*
+.~lock.*
 hacer_pdf*
 documento.py
 figuras*.py
