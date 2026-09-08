@@ -86,12 +86,19 @@ def guarda(fig, nombre):
 def nav2():
     """The navigator: four sensing blocks, three weights, three output stages."""
     fig, ax = lienzo(10.5, 5.4,
-                     "GRADIENT_NAV2 — 4 × GRADIENT2  →  3 × WEIGHT  →  3 × COMP_OUT")
+                     "GRADIENT_NAV2_V3 — 4 × GRADIENT2  →  3 × WEIGHT  →  3 × COMP_OUT")
     #  Four GRADIENT2, one per sensor triple. Each reads THREE of the four
     #  bridges, in a different combination -- that is what makes the four of
     #  them see different projections of the same field.
     BUS = 0.375
-    trios = ["S1 S2 S3", "S1 S2 S4", "S3 S4 S1", "S3 S4 S2"]
+    #  QUE SENSOR ENTRA POR QUE PUERTO, no solo que trio lee cada cadena. Los
+    #  cuatro trios son los mismos en las dos versiones; lo unico que cambia
+    #  entre `GRADIENT_NAV2` y la v3 que se fabrica es el ORDEN dentro de cada
+    #  trio, y ese orden es justo lo que sube el acierto del 76.2 % al 90.7 %.
+    #  Escribiendo solo el conjunto, la figura no distinguia una version de la
+    #  otra y el lector no tenia como ver donde esta el cambio.
+    trios = ["X=S1 Y=S2 Z=S3", "X=S1 Y=S4 Z=S2",
+             "X=S1 Y=S4 Z=S3", "X=S2 Y=S4 Z=S3"]
     ys = []
     for i, t in enumerate(trios):
         y = 0.80 - i * 0.20

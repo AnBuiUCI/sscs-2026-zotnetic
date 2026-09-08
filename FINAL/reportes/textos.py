@@ -166,6 +166,11 @@ ES = {
     "lim_e": "Un banco hecho para llevar al límite ese fallo, y sólo ese.",
     "lim_pie": "Tres familias con el MISMO margen entre los dos que compiten y la tercera lectura aparcada donde no compite: A par abajo a fondo de escala, B par abajo a media, C par arriba a media. A contra B separa el raíl del tamaño; B contra C separa los dos raíles a igual tamaño.",
 
+    "g2res_t": "GRADIENT2, TODO LO MEDIDO",
+    "g2res_e": "La corrida del 2026-09-07, con la procedencia de cada cifra.",
+    "g2res_tab": ["Medida", "Esquemático", "Layout", "De dónde sale"],
+    "g2res_pie": "La última columna importa: son cifras de guiones distintos y con denominadores distintos. El 95.42 % cuenta todo el barrido; el 94.8 % de octantes cuenta 24 casos de amplitud; el alcance es el dR/R hasta donde no falla ni una vez. Mezclarlas sin decirlo es como se acaba comparando dos cosas que no se comparan.",
+
     "lim2_e": "Los mismos doce casos en números: el margen que aguanta cada condición.",
     "lim_tab": ["Familia — condición", "Margen d", "Esquemático", "Layout"],
     "lim2_pie": "B contra C, mismo tamaño y sólo cambia el raíl: hacia arriba no falla nunca; hacia abajo falla en cuanto el margen baja de 0.20. A contra B, mismo raíl y sólo cambia el tamaño: con el mismo margen de 0.40, a media escala no falla y a fondo de escala se queda en 1.38 %. Hacen falta las dos.",
@@ -438,6 +443,11 @@ EN = {
     "lim_t": "WHERE IT BREAKS, AND UNDER WHICH CONDITION",
     "lim_e": "A bench built to push that one failure to its limit, and nothing else.",
     "lim_pie": "Three families with the SAME margin between the two contenders and the third reading parked where it cannot compete: A pair down at full scale, B pair down at half, C pair up at half. A against B separates the rail from the size; B against C separates the two rails at equal size.",
+
+    "g2res_t": "GRADIENT2, EVERYTHING MEASURED",
+    "g2res_e": "The 2026-09-07 run, with where each figure comes from.",
+    "g2res_tab": ["Measurement", "Schematic", "Layout", "Where it comes from"],
+    "g2res_pie": "That last column matters: these come from different scripts with different denominators. The 95.42 % counts the whole sweep; the 94.8 % counts 24 amplitude cases; the reach is the dR/R up to which it never fails once. Mixing them silently is how two things that do not compare end up compared.",
 
     "lim2_e": "The same twelve cases in numbers: the margin each condition survives.",
     "lim_tab": ["Family — condition", "Margin d", "Schematic", "Layout"],

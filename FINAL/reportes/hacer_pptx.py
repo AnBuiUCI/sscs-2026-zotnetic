@@ -52,7 +52,7 @@ DIMENSIONES = {
     "layout_DECODER_MAX": "31.76 × 14.48 µm",
     "layout_WEIGHT_COMP": "45.34 × 25.00 µm",
     "layout_ESD_CDM": "63.16 × 27.90 µm",
-    "layout_GRADIENT_NAV2": "460.90 × 386.99 µm",
+    "layout_GRADIENT_NAV2_V3": "460.90 × 386.99 µm",
     "layout_B26_A": "1110 × 1110 µm",
     "layout_B26_A_sin_fill": "1110 × 1110 µm",
 }
@@ -97,6 +97,27 @@ CONDICIONES = [
     ("los dos hacia ARRIBA, el mayor a 0.6", "3", "100 %", "100 %", "> 2.00 %"),
     ("los dos hacia ABAJO, el mayor a 0.6", "3", "100 %", "100 %", "> 2.00 %"),
     ("los dos hacia ABAJO, el mayor a 1.0", "9", "86.2 %", "83.6 %", "1.38 / 1.26 %"),
+]
+
+#: LO ULTIMO MEDIDO EN GRADIENT2, todo de la corrida del 2026-09-07 de
+#: `run_gradient.sh`, y cada fila del guion que la produce. Se pone junta
+#: porque hasta ahora estaba repartida entre cinco diapositivas y no habia
+#: donde mirar "cuanto da el bloque".
+GRAD2 = [
+    ("Eje decodificado correcto, barrido de rotación", "95.42 %", "93.34 %",
+     "figuras_trazabilidad.py"),
+    ("Esquemático y layout coinciden", "97.92 % del barrido", "7.5° de desacuerdo",
+     "figuras_trazabilidad.py"),
+    ("Error de frontera de sector", "5.25°", "7.75°", "figuras_trazabilidad.py"),
+    ("Los 24 casos de octante", "94.8 %", "93.8 %", "figuras_octantes.py"),
+    ("Alcance dR/R fuera de la esquina mala", "> 2.00 %", "> 2.00 %",
+     "figuras_limite.py"),
+    ("… y dentro de ella", "1.38 %", "1.26 %", "figuras_limite.py"),
+    ("Suelo por ruido del amplificador", "44.4 ppm de dR/R", "222 µVrms a la entrada",
+     "figuras_campo.py"),
+    ("Amplificador: ganancia y reposo", "494 V/V sobre dR/R", "0.72 V (4.24 ↑ / 0.68 ↓)",
+     "oct_*.txt"),
+    ("Consumo de la cadena, ventana fina", "17.851 mW", "17.286 mW", "analizar.py"),
 ]
 
 #: EL BANCO DEL LIMITE, del bloque `LIMIT CASES` de `test_GRADIENT.sch` y
@@ -510,15 +531,22 @@ def construir(T: dict, salida: Path) -> None:
              "eje recoge ese eje de las CUATRO cadenas. Por eso son cuatro "
              "sensados y tres pesos, y no cuatro y cuatro.")
 
-    if hay("sch_GRADIENT_NAV2") or hay("layout_GRADIENT_NAV2"):
-        d, y = E.contenido(prs, "GRADIENT_NAV2", T["nav_int_e"])
-        dos_figuras(prs, d, y, hay("sch_GRADIENT_NAV2"),
-                    hay("layout_GRADIENT_NAV2"), "schematic",
-                    pie_layout("layout_GRADIENT_NAV2"))
-        G.di("El mismo navegador, ahora como esquemático y como layout. "
+    #  EL ESQUEMATICO Y EL LAYOUT DEL MISMO TOP. Aqui estaba el esquematico de
+    #  `GRADIENT_NAV2` al lado del layout de la v3: dos versiones distintas en
+    #  la misma diapositiva, y con el titulo de la que ya no se fabrica.
+    if hay("sch_GRADIENT_NAV2_V3") or hay("layout_GRADIENT_NAV2_V3"):
+        d, y = E.contenido(prs, "GRADIENT_NAV2_V3", T["nav_int_e"])
+        dos_figuras(prs, d, y, hay("sch_GRADIENT_NAV2_V3"),
+                    hay("layout_GRADIENT_NAV2_V3"), "schematic",
+                    pie_layout("layout_GRADIENT_NAV2_V3"))
+        G.di("El navegador que se fabrica, como esquemático y como layout. "
              "460.9 × 387.0 µm, que son 0.178 mm².",
+             "Los dos son de la MISMA versión, la v3. Conviene decirlo porque "
+             "hasta hace poco esta diapositiva enseñaba el esquemático de la "
+             "anterior al lado de este layout.",
              "No hay que leer el esquemático durante la charla: está para dar "
-             "la escala real de lo integrado.")
+             "la escala real de lo integrado, y para que se vea que las celdas "
+             "son las mismas.")
 
     #  --- como se reparte la alimentacion dentro del bloque -------------------
     #  Es lo ultimo que se rehizo y no estaba contado en ninguna diapositiva:
@@ -672,6 +700,28 @@ def construir(T: dict, salida: Path) -> None:
          "veinticuatro casos en la esquina mala: se mueve cambiando el reparto "
          "de casos, sin tocar el chip.")
 
+    #  --- y todo lo medido en el bloque, junto y con su procedencia.
+    d, y = E.contenido(prs, T["g2res_t"], T["g2res_e"])
+    E.tabla(d, prs, y, T["g2res_tab"], GRAD2, ancho=E.Inches(11.0))
+    E.texto(d, prs, y + E.Inches(4.1), [T["g2res_pie"]], tam=12)
+    G.di("Y todo lo medido en el bloque, junto. Hasta ahora estaba repartido "
+         "entre cinco diapositivas y no había dónde mirar «cuánto da "
+         "GRADIENT2».",
+         "La última columna es de dónde sale cada fila. Está puesta a "
+         "propósito: son cifras de guiones distintos, con denominadores "
+         "distintos, y mezclarlas sin decirlo es como se acaba comparando dos "
+         "cosas que no se comparan.",
+         "Las dos primeras filas son la comparación que pide el banco: el "
+         "esquemático acierta el 95.42 % del barrido de rotación y el layout "
+         "el 93.34 %, y coinciden entre sí en el 97.92 %. Esa diferencia es su "
+         "offset, y reaparece en todas las demás medidas.",
+         "Y las dos del alcance son la conclusión de las dos diapositivas que "
+         "vienen: el bloque llega a dR/R del 2 % o más salvo en una esquina "
+         "concreta, donde se queda en 1.38.",
+         "Todo es de la corrida del 7 de septiembre. Los datos del banco se "
+         "rehicieron ese día al añadirle los casos de límite, así que las "
+         "figuras de esta sección son de esa misma tanda y no de una anterior.")
+
     #  --- y el banco hecho a proposito para llevar esa esquina al limite.
     if (f := hay("lim_sensado")):
         d, y = E.contenido(prs, T["lim_t"], T["lim_e"])
@@ -772,12 +822,13 @@ def construir(T: dict, salida: Path) -> None:
     G.di("Separador. Explicados todos los bloques, los resultados del sistema "
          "completo. Todos son comparaciones de layout contra esquemático.")
 
-    if (f := hay("tb_NAV2")):
+    if (f := hay("tb_NAV3")):
         d, y = E.contenido(prs, T["nav_t"], T["nav_e"])
-        E.figura(d, prs, f, y, pie="XSCHEM/TEST_TOTAL/test_NAV2.sch")
-        G.di("El banco del navegador completo: los cuatro puentes y, colgados "
-             "de sus ocho nodos, los DOS navegadores — el del esquemático y el "
-             "reconstruido desde el layout.",
+        E.figura(d, prs, f, y, pie="XSCHEM_v3/test_NAV3.sch")
+        G.di("El banco del navegador completo, el de la versión que se "
+             "fabrica: los cuatro puentes y, colgados de sus ocho nodos, los "
+             "DOS navegadores — el del esquemático y el reconstruido desde el "
+             "layout con parásitos.",
              "Que estén en la misma hoja es el argumento: comparten el estímulo "
              "exacto, así que cualquier diferencia en la salida es del circuito "
              "y no del estímulo.")
@@ -879,6 +930,23 @@ def construir(T: dict, salida: Path) -> None:
              "85.3 % a 47 veces. No es una constante del chip, es dónde se le "
              "pone a medir. Las dos diapositivas siguientes lo desmontan.")
 
+        #  Y el mismo barrido con el reparto anterior, para que se vea de donde
+        #  se viene. Sale del MISMO fichero: el banco cuelga las dos versiones
+        #  de los mismos ocho nodos.
+        if (g := hay("oct_nav2")):
+            d, y = E.contenido(prs, T["res_lay_t"],
+                               "the same sweep, with the earlier port order")
+            E.figura(d, prs, g, y, pie="the same stimulus, GRADIENT_NAV2")
+            G.di("Y el mismo barrido con el reparto de puertos anterior, para "
+                 "que se vea de dónde se viene: 76.2 % contra 90.7 %.",
+                 "Los dos mapas salen del MISMO fichero de datos. El banco "
+                 "cuelga las dos versiones de los mismos ocho nodos, así que "
+                 "ninguna ve un estímulo que la otra no vea, y la diferencia "
+                 "es del reparto de puertos y de nada más.",
+                 "Lo que más se nota no es la media sino el peor octante: "
+                 "60.9 % antes y 73.6 % ahora. Y tres octantes que estaban por "
+                 "el 80 % pasan al 100 %.")
+
     #  --- and where that 76 % actually comes from, chain by chain. Without
     #  these two the octant slide reads as "a block is weak", which the data
     #  says is exactly wrong.
@@ -938,9 +1006,14 @@ def construir(T: dict, salida: Path) -> None:
          "restringido al plano X-Y, y el fondo.",
          "El criterio del 95 % se eligió para no depender de ninguna definición "
          "prestada: es un número que sale del propio experimento.")
-    if (f := hay("tb_NAV2_geo")):
+    if (f := hay("tb_NAV3_geo")):
         d, y = E.contenido(prs, T["geo_t"], T["geo_e"])
-        E.figura(d, prs, f, y, pie="XSCHEM/TEST_TOTAL/test_NAV2_geo.sch")
+        #  Este banco instancia LAS DOS versiones sobre el mismo estimulo -- el
+        #  `GRADIENT_NAV2` de antes y el `GRADIENT_NAV2_V3` que se fabrica--, y
+        #  por eso vale para las dos mitades de esta seccion: los numeros de la
+        #  version anterior salen de su mitad y no de otra corrida.
+        E.figura(d, prs, f, y, pie="XSCHEM_v3/test_NAV3_geo.sch — las dos "
+                                   "versiones sobre el mismo estímulo")
         G.di("El banco de geometría montado: el navegador completo, con los "
              "sensores en los vértices de una caja concreta. El barrido repite "
              "el experimento entero para las seis.")
