@@ -1,0 +1,18 @@
+2026-09-08_01 -- B26_A_filled4.gds
+==================================
+
+source      openroad/out_integration/B26_A_filled4.gds
+written     2026-09-08 02:39
+size        14,508,908 bytes raw, 2,682,748 gzipped
+sha256      543d31ff7536b7911c4a8fbea802326e9e563b7b14570bf83b64b6d9a6bf4c27
+
+DRC filled  clean (63 tables)
+DRC circuit clean (63 tables)
+density     clean
+LVS klayout not run
+LVS netgen  match uniquely
+
+what changed
+------------
+El nucleo pasa a GRADIENT_NAV2_V3: mismas celdas hoja, mismo interfaz y mismo tamano (460.90 x 386.99 um), permutado que sensor entra por que puerto de cada GRADIENT2 -- acierto 76.2 % -> 90.7 %, indefinidas 1.1 % -> 0.0 %. Su alimentacion se rehizo con filas espejadas: un solo net por canal, separacion entre nets contrarios de 2 um a 43.46, y los cuatro conductores a 31 mA (el doble del pico de 15.50) medidos en el PEOR corte de cada eje. La integracion ata ahora TODOS los puertos de Metal5 del bloque -29.95 um de VDD y 39.07 de VSS, 806 y 1066 via4- en vez de uno solo de 3 um, que era el cuello que quedaba.
+

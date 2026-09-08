@@ -33,47 +33,56 @@ project:
 # Pin definitions
 # ======================================================
 #
-# Top cell: B26_A -- the padring's user area, with GRADIENT_NAV2 inside it
-# GDS:      FINAL/openroad/out_integration/B26_A_filled3.gds
+# Top cell: B26_A -- the padring's user area, with GRADIENT_NAV2_V3 inside it
+# GDS:      FINAL/openroad/out_integration/B26_A_filled4.gds
 #           (also reached through lvs_config.json -> LAYOUT_FILE)
 #
 #           THE NUMBER IS THE VERSION, NOT ANOTHER CHIP, and the versions are
-#           NO LONGER interchangeable. _filled3 is sha256 41bef27aac61a8c3...
-#           and it is the ONLY one to read; B26_A_filled.gds and _filled2 are
-#           the older 95ebcf92... and are superseded. The flow still writes
-#           B26_A_filled.gds as its own output, which is exactly why the
-#           submission reads the numbered one: a stale copy cannot be picked
-#           up by mistake.
+#           NO LONGER interchangeable. _filled4 is the one to read; _filled3
+#           (sha256 41bef27aac61a8c3...) and the older 95ebcf92 series are
+#           superseded. The flow still writes B26_A_filled.gds as its own
+#           output, which is exactly why the submission reads the numbered
+#           one: a stale copy cannot be picked up by mistake.
 #
-#           _filled3 carries two fixes over the 95ebcf92 series. The comb
-#           shaped pin escapes, which removed eleven MSLOT.1 (the original
-#           solid 55.7 x 44.3 um Metal2 plate over each analogue pad is metal
-#           wider than 30 um in both directions without slotting). And the
-#           merged n-wells inside each ESD clamp: the four pd2nw wells were
-#           1.330 um apart, which is fine only if the deck knows they are
-#           equipotential, so the design passed WITH connectivity and showed
-#           33 NW.2b_MV WITHOUT it. They are one well now, and it passes
-#           either way.
+#           WHAT _filled4 CHANGES, and it is the core itself. The navigator is
+#           now GRADIENT_NAV2_V3: same leaf cells, same interface, same area
+#           -- what changes is which sensor enters which port of each
+#           GRADIENT2. In simulation the hit rate goes from 76.2 % to 90.7 %
+#           and the indefinite answers from 1.1 % to 0.0 %; the wiring was
+#           found by brute force over the 1296 possible assignments and then
+#           confirmed in simulation (see XSCHEM_v3/README.md).
 #
-#           Verified 2026-09-02, every check filed under this file's own name:
-#           sign-off DRC (main/deep, the only mode where the PDK's mslot table
-#           does not crash) 660 rule categories and 0 items, with MSLOT.1 and
-#           NW.2b_MV both among them so both really ran; the same deck run
-#           with --no_connectivity, 0 items; split-table DRC 63 tables 0 items;
-#           density clean; netgen Circuits match uniquely; 17/17 pins conduct;
-#           one PR_bndry. Archived under integration/gds/2026-09-02_06.
+#           And its power distribution was rebuilt. The rows are mirrored, so
+#           each channel carries ONE net and the rails abut: opposite-net
+#           separation went from 2 um to 43.46 um. Every conductor now carries
+#           31 mA -- double the block's measured 15.50 mA peak -- at the WORST
+#           cut of each axis, not at the middle. And the block's own supply no
+#           longer hangs off a single 3 um pad: the integration ties all of
+#           its Metal5 ports, 29.95 um of VDD and 39.07 um of VSS, with 806
+#           and 1066 via4.
+#
+#           Everything _filled3 fixed is still in: the comb shaped pin escapes
+#           (eleven MSLOT.1 gone) and the merged n-wells inside each ESD clamp
+#           (33 NW.2b_MV without connectivity, gone).
+#
+#           Verified 2026-09-07, every check filed under this file's own name:
+#           split-table DRC 63 tables 0 items; density clean; netgen Circuits
+#           match uniquely, 1442 = 1442 devices and 894 = 894 nets; 17/17 pins
+#           conduct, 11 through their clamp; 50/50 tie-offs on the right rail;
+#           current density at 31 mA on all four conductors; one PR_bndry.
 #
 #           The secondary ESD is ESD_CDM, our layout of the organisers' exact
 #           schematic (8 diodes 10x10, ppolyf_u W=16 L=4, 87.5 ohm), eleven
 #           instances by the pads. Their io_secondary_5p0 is kept in the tree
 #           but not instantiated: all three of its variants carry MSLOT.1.
 #
-# The block on its own is still built and checked as GRADIENT_NAV2
-# (FINAL/openroad/out_v2_GRADIENT_NAV2/), but what is submitted is the
+# The block on its own is still built and checked as GRADIENT_NAV2_V3
+# (FINAL/openroad/out_v2_GRADIENT_NAV2_V3/), but what is submitted is the
 # integrated area: our macro, the routing out to the 73 pins of the ring and
 # the tie-offs that program the six digital pads. The LVS reference is
 # verilog/B26_A.v, which carries that programming, plus the block's own
-# GRADIENT_NAV2_lvs.spice.
+# GRADIENT_NAV2_V3_lvs.spice. The v2 block stays in the tree, built and
+# checked, under out_v2_GRADIENT_NAV2/.
 #
 # ORDER. The padring assigns one slot per entry, in this order, so the list is
 # the pad map. Two rules from resources/info.yaml of the chipathon repo:

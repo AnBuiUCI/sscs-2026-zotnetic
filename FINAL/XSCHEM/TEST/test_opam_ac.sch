@@ -15,7 +15,7 @@ C {devices/vsource.sym} 110 -130 0 0 {name=V1 value=5
 C {devices/gnd.sym} 110 -100 0 0 {name=l1 lab=GND
 value=5}
 C {devices/lab_wire.sym} 110 -160 0 0 {name=p7 sig_type=std_logic lab=VDD}
-C {devices/code_shown.sym} 335 -225 0 0 {name=MODELS1 only_toplevel=true
+C {devices/code.sym} 335 -225 0 0 {name=MODELS1 only_toplevel=true
 format="tcleval( @value )"
 value="
 .include $::180MCU_MODELS/design.ngspice
@@ -33,7 +33,7 @@ C {devices/lab_wire.sym} 150 20 0 0 {name=p8 sig_type=std_logic lab=VDD}
 C {devices/lab_wire.sym} 260 90 2 0 {name=p9 sig_type=std_logic lab=OUT}
 C {devices/gnd.sym} 150 160 0 0 {name=l6 lab=GND
 value=5}
-C {devices/code_shown.sym} -160 230 0 0 {name=DUT1 only_toplevel=true
+C {devices/code.sym} -160 230 0 0 {name=DUT1 only_toplevel=true
 format="tcleval( @value )"
 value="
 .include "../../../../Layouts/OPAM/mag/OPAM_pex_rc.spice"
@@ -50,7 +50,7 @@ C {devices/gnd.sym} 180 -100 0 0 {name=l2 lab=GND
 value=5}
 C {devices/lab_wire.sym} 180 -160 0 0 {name=p4 sig_type=std_logic lab=VDD1}
 C {a_zonetic2026/XSCHEM/OPAM/OPAMt.sym} 190 90 0 0 {name=x2}
-C {devices/code_shown.sym} 465 -55 0 0 {name=s2
+C {devices/code.sym} 465 -55 0 0 {name=s2
 only_toplevel=false
 value="
 *.tran 1m 1

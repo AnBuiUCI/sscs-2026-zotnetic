@@ -112,6 +112,28 @@ value="
 .control
 tran 2n 20u
 wrdata tran.txt v(vin) v(OUTR) v(OUTA) v(OUTB) v(OUTL) v(OUTL1) v(OUTL2)
+* --------------------------------------------------------------------------
+* SLEW RATE. The sweep above cannot measure it, for two reasons worth writing
+* down so nobody reads a slew rate off tran.txt:
+*
+*   1. `tran 2n 20u` sets the PRINT step, not the internal one, and ngspice
+*      lands about thirteen samples on a 10 ns edge. A slope taken from two
+*      samples 0.5 ns apart is not reproducible and comes out non-monotonic.
+*   2. A 1 V step is too small. OPAM_LIN crosses 0 dB at 36.3 MHz, so the
+*      small-signal response alone already starts at 2*pi*36.3e6*1 = 228 V/us,
+*      the same order as the number that comes out. Slew and linear settling
+*      cannot be told apart at that amplitude.
+*
+* So: a bigger step, a fourth argument on `tran` to pin the internal step, and
+* a window around the edge only. 1.8 -> 3.8 V keeps both ends inside the
+* declared linear window of this cell, which 1.5 -> 2.5 V did not.
+*
+* And it is only a slew rate if the ramp is STRAIGHT. If the rise is still an
+* exponential, the cell does not slew at this amplitude and that is what the
+* report has to say -- not a number read off the steepest pair of samples.
+alter @Vin[pulse] = [ 1.8 3.8 2u 100p 100p 8u 20u ]
+tran 20p 2.2u 1.95u 20p
+wrdata slew.txt v(vin) v(OUTL) v(OUTL2)
 .endc
 "}
 N 150 530 150 540 {lab=VDDL}

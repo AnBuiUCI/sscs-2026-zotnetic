@@ -5,6 +5,8 @@ V {}
 S {}
 F {}
 E {}
+P 4 1 -800 -300 {}
+P 4 1 40 -790 {}
 T {THE 1 kOHM SHEET, AND WHY THE RESISTOR DID NOT GROW.
 This shuttle only offers the 1 kohm HRES implant (ppolyf_u_1k), not the 3 kohm
 one. In the PDK's LVS deck the three values are a SWITCH, not a drawing --
@@ -41,8 +43,7 @@ Measured against the cell it replaces: gain 103.3 vs 103.4 V/V, INL 0.10 vs
 the OPAMt this family is not allowed to exceed. Over 27 corners of process,
 temperature and supply: gain 50.1 to 189.4 against 47.5 to 188.0, INL never
 worse than 0.68 % against 3.10 %, phase margin never under 73.8 deg against
-75.3. The INL is better in every single corner.} 110 -1180 0 0 0.4 0.4 {}
-P 4 1 -800 -300 {}
+75.3. The INL is better in every single corner.} -100 -1870 0 0 0.4 0.4 {}
 N -580 -460 -560 -460 {
 lab=VDD}
 N -400 -460 -380 -460 {

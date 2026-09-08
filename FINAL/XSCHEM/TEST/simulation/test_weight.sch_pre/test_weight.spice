@@ -1,0 +1,158 @@
+** sch_path: /foss/designs/a_zonetic2026/XSCHEM/TEST/test_weight.sch
+**.subckt test_weight
+V1 VDD GND 5
+V5 VA GND pulse(0 5 0 5m 5m 0.5 1)
+x1 VDD GND WE VA VB VC VD WEIGHT
+x2 VDD OUT WE OUT_N GND COMP_OUT
+V6 VDD1 GND 5
+V9 VDD2 GND 5
+V2 VB GND pulse(0 5 0 5m 5m 0.25 0.5)
+V3 VC GND pulse(0 5 0 5m 5m 0.125 0.25)
+V4 VD GND pulse(0 5 0 5m 5m 0.0625 0.125)
+**** begin user architecture code
+
+
+* OJO: nada de llaves en este texto. xschem las cuenta para saber donde acaba
+* el bloque de atributos y una sola lo corta por la mitad.
+*
+* CORRIENTES DE RAMA EN EL LAYOUT.
+* En el esquematico se miden con las cuatro fuentes de 0 V Vmeas..Vmeas3 que
+* hay dentro de WEIGHT, en serie con la cola de cada rama. El netlist extraido
+* no tiene esas fuentes, pero ngspice sabe dar la corriente de drenador de un
+* transistor si se le pide con .save ANTES de correr -- las variables internas
+* de dispositivo no se pueden pedir despues. El .m0 del final hace falta porque
+* el modelo del PDK es un subcircuito y el MOS de dentro se llama m0.
+*
+* Que transistor es cada rama se traza por los nodos: las cuatro colas del
+* extraido son las de w=1.24u, y cada una cuelga del nodo intermedio al que
+* llegan los dos transistores de entrada de esa rama.
+*
+*   rama   esquematico   nodo intermedio   cola en el layout
+*   VA     Vmeas         a_5026_1208       X31
+*   VB     Vmeas1        a_1038_1208       X16
+*   VC     Vmeas2        a_n74_0           X23
+*   VD     Vmeas3        a_n74_1208        X24
+.tran 1m 1
+.save all
+.save @m.xextrc.x31.m0[id] @m.xextrc.x16.m0[id]
++ @m.xextrc.x23.m0[id] @m.xextrc.x24.m0[id]
+.control
+run
+wrdata input.txt   v(VA) v(VB) V(VC) V(VD)
+wrdata middle.txt  v(WE) v(WE1) v(WE2)
+wrdata power.txt   v(VDD)*i(V1) v(VDD1)*i(V6) v(VDD2)*i(V9)
+wrdata out.txt     v(OUT) v(OUT1) v(OUT2) v(OUT_N) v(OUT_N1) v(OUT_N2)
+* Las ocho corrientes de rama: primero las cuatro del esquematico y luego las
+* cuatro del layout, en el mismo orden VA VB VC VD.
+wrdata current.txt i(v.x1.Vmeas) i(v.x1.Vmeas1) i(v.x1.Vmeas2) i(v.x1.Vmeas3)
++ @m.xextrc.x31.m0[id] @m.xextrc.x16.m0[id]
++ @m.xextrc.x23.m0[id] @m.xextrc.x24.m0[id]
+.endc
+
+
+
+.include /foss/pdks/gf180mcuD/libs.tech/ngspice/design.ngspice
+.lib /foss/pdks/gf180mcuD/libs.tech/ngspice/sm141064.ngspice typical
+.lib /foss/pdks/gf180mcuD/libs.tech/ngspice/sm141064.ngspice cap_mim
+.lib /foss/pdks/gf180mcuD/libs.tech/ngspice/sm141064.ngspice res_typical
+.lib /foss/pdks/gf180mcuD/libs.tech/ngspice/sm141064.ngspice moscap_typical
+.lib /foss/pdks/gf180mcuD/libs.tech/ngspice/sm141064.ngspice mimcap_typical
+* .lib /foss/pdks/gf180mcuD/libs.tech/ngspice/sm141064.ngspice res_statistical
+
+
+.include ../../../../Layouts/WEIGHT_COMP/mag/WEIGHT_COMP_pex_rc.spice
+Xextrc GND VDD1 VD WE1 VA VB OUT1 OUT_N1 VC WEIGHT_COMP
+.include ../../../../layouts_v2/WEIGHT_COMP/mag/WEIGHT_COMP_V2_pex_rc.spice
+Xextrc2 GND VDD2 VD WE2 VA VB OUT2 OUT_N2 VC WEIGHT_COMP_V2
+*WEIGHT_COMP VSS VDD VD WE VA VB OUT OUT_N VC
+
+**** end user architecture code
+**.ends
+
+* expanding   symbol:  a_zonetic2026/XSCHEM/WEIGTH/WEIGHT.sym # of pins=7
+** sym_path: /foss/designs/a_zonetic2026/XSCHEM/WEIGTH/WEIGHT.sym
+** sch_path: /foss/designs/a_zonetic2026/XSCHEM/WEIGTH/WEIGHT.sch
+.subckt WEIGHT VDD GND OUT VA VC VB VD
+*.iopin VDD
+*.iopin GND
+*.ipin VA
+*.ipin VB
+*.ipin VC
+*.ipin VD
+*.iopin OUT
+XM2 OUT OUT VDD VDD pfet_06v0 L=1u W=2u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0 m=6
+XM3 OUT VD net1 GND nfet_06v0 L=1u W=2.48u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0 m=2
+XM5 OUT VC net2 GND nfet_06v0 L=1u W=2.48u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0 m=2
+XM6 net2 IN net10 GND nfet_06v0 L=1u W=1.24u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+XM1 OUT OUT net3 GND nfet_06v0 L=1u W=2u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0 m=2
+XM7 net3 OUT net4 GND nfet_06v0 L=1u W=2u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+XM8 net4 OUT GND GND nfet_06v0 L=1u W=2u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+XM9 OUT VA net5 GND nfet_06v0 L=1u W=2.48u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0 m=2
+XM10 net5 IN net11 GND nfet_06v0 L=1u W=1.24u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+XM11 OUT VB net6 GND nfet_06v0 L=1u W=2.48u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0 m=2
+XM12 net6 IN net12 GND nfet_06v0 L=1u W=1.24u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+XM4 net1 IN net13 GND nfet_06v0 L=1u W=1.24u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+XM13 IN IN VDD VDD pfet_06v0 L=1u W=2u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+XM14 net8 IN net9 GND nfet_06v0 L=1u W=0.7u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+XM15 net7 IN net8 GND nfet_06v0 L=1u W=0.7u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+XM16 IN IN net7 GND nfet_06v0 L=1u W=0.7u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+XM17 net9 IN GND GND nfet_06v0 L=1u W=0.7u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+Vmeas net11 GND 0
+.save i(vmeas)
+Vmeas1 net12 GND 0
+.save i(vmeas1)
+Vmeas2 net10 GND 0
+.save i(vmeas2)
+Vmeas3 net13 GND 0
+.save i(vmeas3)
+.ends
+
+
+* expanding   symbol:  a_zonetic2026/XSCHEM/WEIGTH/COMP_OUT.sym # of pins=5
+** sym_path: /foss/designs/a_zonetic2026/XSCHEM/WEIGTH/COMP_OUT.sym
+** sch_path: /foss/designs/a_zonetic2026/XSCHEM/WEIGTH/COMP_OUT.sch
+.subckt COMP_OUT VDD OUT IN OUT_N VSS
+*.ipin IN
+*.iopin VDD
+*.opin OUT
+*.iopin VSS
+*.opin OUT_N
+x1 VDD IN net1 VSS INV_1
+x2 VDD net1 OUT VSS INV_1
+x3 VDD OUT OUT_N VSS INV_1
+.ends
+
+
+* expanding   symbol:  a_zonetic2026/XSCHEM/WEIGTH/INV_1.sym # of pins=4
+** sym_path: /foss/designs/a_zonetic2026/XSCHEM/WEIGTH/INV_1.sym
+** sch_path: /foss/designs/a_zonetic2026/XSCHEM/WEIGTH/INV_1.sch
+.subckt INV_1 VDD IN OUT VSS
+*.ipin IN
+*.iopin VDD
+*.opin OUT
+*.iopin VSS
+XM3 OUT IN VDD VDD pfet_05v0 L=0.5u W=1.83u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+XM4 OUT IN VSS VSS nfet_05v0 L=0.6u W=1.32u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+.ends
+
+.GLOBAL GND
+.end

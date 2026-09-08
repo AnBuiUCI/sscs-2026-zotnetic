@@ -5,7 +5,7 @@ V {}
 S {}
 F {}
 E {}
-C {devices/code_shown.sym} -1400 -700 0 0 {name=NOTA only_toplevel=false
+C {devices/code.sym} -1400 -700 0 0 {name=NOTA only_toplevel=false
 value="
 * B26_A -- the padring user area: the block plus its secondary ESD.
 *
@@ -20,8 +20,13 @@ value="
 * So there are two schematics and two LVS references, each against its own
 * GDS:
 *
-*   XSCHEM/GRADIENT_NAV2.sch -> out_v2_GRADIENT_NAV2/GRADIENT_NAV2_lvs.spice
-*                               against GRADIENT_NAV2_decap.gds, no ESD
+*   XSCHEM_v3/GRADIENT_NAV2_V3.sch
+*                            -> out_v2_GRADIENT_NAV2_V3/..._lvs.spice
+*                               against GRADIENT_NAV2_V3_decap.gds, no ESD
+*
+* EL NUCLEO ES LA v3. Mismas celdas hoja y mismo interfaz que GRADIENT_NAV2:
+* lo que cambia es que sensor entra por que puerto de cada GRADIENT2, y con
+* eso el acierto pasa de 76.2 % a 90.7 % (XSCHEM_v3/README.md).
 *   XSCHEM/B26_A.sch         -> out_integration/B26_A_lvs.spice
 *                               against B26_A.gds, with the eleven cells
 *
@@ -42,7 +47,7 @@ value="
 * KLayout LVS of the top. The port list is now the nineteen pins of
 * info.yaml and nothing else.
 "}
-C {a_zonetic2026/XSCHEM/GRADIENT_NAV2.sym} 0 0 0 0 {name=x_core}
+C {a_zonetic2026/XSCHEM_v3/GRADIENT_NAV2_V3.sym} 0 0 0 0 {name=x_core}
 C {lab_pin.sym} 0 -130 1 0 {name=p_core_VDD sig_type=std_logic lab=VDD}
 C {lab_pin.sym} 0 90 1 0 {name=p_core_VSS sig_type=std_logic lab=VSS}
 C {lab_pin.sym} 150 -100 0 0 {name=p_core_XP sig_type=std_logic lab=XP_OUT}
@@ -136,7 +141,7 @@ C {devices/opin.sym} -1600 -500 0 0 {name=port_Z lab=Z}
 C {devices/opin.sym} -1600 -480 0 0 {name=port_ZN_OUT lab=ZN_OUT}
 C {devices/iopin.sym} -1600 -460 0 0 {name=port_VDD lab=VDD}
 C {devices/iopin.sym} -1600 -440 0 0 {name=port_VSS lab=VSS}
-C {devices/code_shown.sym} 700 700 0 0 {name=DESACOPLE only_toplevel=true value="
+C {devices/code.sym} 700 700 0 0 {name=DESACOPLE only_toplevel=true value="
 * Decoupling capacitors: NMOS and PMOS in inversion dropped into
 * the gaps between macros. WRITTEN BY scripts/decap_fill.py -- do
 * not edit by hand: it must be exactly what is in the GDS.

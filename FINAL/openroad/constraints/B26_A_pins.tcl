@@ -128,7 +128,7 @@ set TIEOFFS {ZN_CS ZN_SL ZN_IE ZN_OE ZN_PU ZN_PD ZN_PDRV0 ZN_PDRV1 ZP_CS ZP_SL Z
 set SIGNALS {VSS S4P S4N Z ZN_OUT ZP_OUT Y YN_OUT YP_OUT X XN_OUT XP_OUT S1N S1P S3P S3N S2N S2P VDD}
 
 
-#  cost 15507 um over the 19 signal and supply pins
+#  cost 15351 um over the 19 signal and supply pins
 set MACRO_ORIGIN {135.000 620.000}
 set MACRO_SIZE {460.900 386.990}
 

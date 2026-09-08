@@ -19,7 +19,8 @@
 *.opin ZN_OUT
 *.iopin VDD
 *.iopin VSS
-x_core VDD VSS XP_OUT X_I XN_OUT YP_OUT Y_I YN_OUT ZP_OUT Z_I ZN_OUT S2P_I S2N_I S4P_I S4N_I S3P_I S3N_I S1P_I S1N_I GRADIENT_NAV2
+x_core VDD VSS XP_OUT X_I XN_OUT YP_OUT Y_I YN_OUT ZP_OUT Z_I ZN_OUT S2P_I S2N_I S4P_I S4N_I S3P_I S3N_I S1P_I S1N_I
++ GRADIENT_NAV2_V3
 x_esd_S1P S1P S1P_I VDD VSS ESD_CDM
 x_esd_S1N S1N S1N_I VDD VSS ESD_CDM
 x_esd_S2P S2P S2P_I VDD VSS ESD_CDM
@@ -47,8 +48,13 @@ x_esd_Z Z Z_I VDD VSS ESD_CDM
 * So there are two schematics and two LVS references, each against its own
 * GDS:
 *
-*   XSCHEM/GRADIENT_NAV2.sch -> out_v2_GRADIENT_NAV2/GRADIENT_NAV2_lvs.spice
-*                               against GRADIENT_NAV2_decap.gds, no ESD
+*   XSCHEM_v3/GRADIENT_NAV2_V3.sch
+*                            -> out_v2_GRADIENT_NAV2_V3/..._lvs.spice
+*                               against GRADIENT_NAV2_V3_decap.gds, no ESD
+*
+* EL NUCLEO ES LA v3. Mismas celdas hoja y mismo interfaz que GRADIENT_NAV2:
+* lo que cambia es que sensor entra por que puerto de cada GRADIENT2, y con
+* eso el acierto pasa de 76.2 % a 90.7 % (XSCHEM_v3/README.md).
 *   XSCHEM/B26_A.sch         -> out_integration/B26_A_lvs.spice
 *                               against B26_A.gds, with the eleven cells
 *
@@ -236,10 +242,10 @@ XMdecp155 VDD VSS VDD VDD pfet_06v0 L=2.0u W=1.0u nf=1
 **** end user architecture code
 .ends
 
-* expanding   symbol:  a_zonetic2026/XSCHEM/GRADIENT_NAV2.sym # of pins=19
-** sym_path: /foss/designs/a_zonetic2026/XSCHEM/GRADIENT_NAV2.sym
-** sch_path: /foss/designs/a_zonetic2026/XSCHEM/GRADIENT_NAV2.sch
-.subckt GRADIENT_NAV2 VDD VSS XP X XN YP Y YN ZP Z ZN S2P S2N S4P S4N S3P S3N S1P S1N
+* expanding   symbol:  a_zonetic2026/XSCHEM_v3/GRADIENT_NAV2_V3.sym # of pins=19
+** sym_path: /foss/designs/a_zonetic2026/XSCHEM_v3/GRADIENT_NAV2_V3.sym
+** sch_path: /foss/designs/a_zonetic2026/XSCHEM_v3/GRADIENT_NAV2_V3.sch
+.subckt GRADIENT_NAV2_V3 VDD VSS XP X XN YP Y YN ZP Z ZN S2P S2N S4P S4N S3P S3N S1P S1N
 *.ipin S1N
 *.iopin VDD
 *.opin XP
@@ -266,9 +272,9 @@ x8 VDD XN X XP VSS COMP_OUT
 x9 VDD YN Y YP VSS COMP_OUT
 x10 VDD ZN Z ZP VSS COMP_OUT
 x1 S1N S1P VDD X1 S2N Y1 Z1 S2P VSS S3N S3P GRADIENT2
-x2 S4N S4P VDD X2 S1N Y2 Z2 S1P VSS S2N S2P GRADIENT2
-x3 S3N S3P VDD X3 S4N Y3 Z3 S4P VSS S1N S1P GRADIENT2
-x4 S2N S2P VDD X4 S3N Y4 Z4 S3P VSS S4N S4P GRADIENT2
+x2 S1N S1P VDD X2 S4N Y2 Z2 S4P VSS S2N S2P GRADIENT2
+x3 S1N S1P VDD X3 S4N Y3 Z3 S4P VSS S3N S3P GRADIENT2
+x4 S2N S2P VDD X4 S4N Y4 Z4 S4P VSS S3N S3P GRADIENT2
 .ends
 
 

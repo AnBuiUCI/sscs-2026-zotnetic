@@ -108,7 +108,7 @@ C {a_zonetic2026/XSCHEM/COMBINATION/GRADIENT2.sym} 130 530 0 0 {name=x4}
 C {lab_pin.sym} 460 10 1 0 {name=p_X_I sig_type=std_logic lab=X}
 C {lab_pin.sym} 450 200 1 0 {name=p_Y_I sig_type=std_logic lab=Y}
 C {lab_pin.sym} 450 370 1 0 {name=p_Z_I sig_type=std_logic lab=Z}
-C {devices/code_shown.sym} 700 700 0 0 {name=DESACOPLE only_toplevel=true value="
+C {devices/code.sym} 700 700 0 0 {name=DESACOPLE only_toplevel=true value="
 * Decoupling capacitors: NMOS and PMOS in inversion dropped into
 * the gaps between macros. WRITTEN BY scripts/decap_fill.py -- do
 * not edit by hand: it must be exactly what is in the GDS.

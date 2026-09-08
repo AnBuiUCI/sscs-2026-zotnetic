@@ -10,7 +10,7 @@ N 300 -140 310 -140 {lab=vb}
 N 300 -100 310 -100 {lab=va}
 N 470 -120 480 -120 {lab=OUT}
 N 370 -60 370 -50 {lab=GND}
-C {devices/code_shown.sym} 320 -590 0 0 {name=MODELS1 only_toplevel=true
+C {devices/code.sym} 320 -590 0 0 {name=MODELS1 only_toplevel=true
 format="tcleval( @value )"
 value="
 .include $::180MCU_MODELS/design.ngspice
@@ -51,14 +51,14 @@ C {devices/lab_wire.sym} 300 -100 0 0 {name=pcp sig_type=std_logic lab=va}
 C {devices/lab_wire.sym} 480 -120 2 0 {name=pco sig_type=std_logic lab=OUT}
 C {devices/gnd.sym} 370 -50 0 0 {name=lcg lab=GND
 value=5}
-C {devices/code_shown.sym} -230 -580 0 0 {name=DUT1 only_toplevel=true
+C {devices/code.sym} -230 -580 0 0 {name=DUT1 only_toplevel=true
 format="tcleval( @value )"
 value="
 .include "../../../../Layouts/COMP/mag/COMP_pex_rc.spice"
 Xextrc GND VDD1 OUT1 va vb COMP
 *COMP VSS VDD OUT INP INN
 "}
-C {devices/code_shown.sym} -220 -440 0 0 {name=DUT2 only_toplevel=true
+C {devices/code.sym} -220 -440 0 0 {name=DUT2 only_toplevel=true
 format="tcleval( @value )"
 value="
 * The v2 layout, beside v1. The subcircuit is renamed to COMP_V2 because both
@@ -68,7 +68,7 @@ value="
 .include "../../../../layouts_v2/COMP/mag/COMP_V2_pex_rc.spice"
 Xextrc2 GND VDD2 OUT2 va vb COMP_V2
 "}
-C {devices/code_shown.sym} 560 -410 0 0 {name=s1
+C {devices/code.sym} 560 -410 0 0 {name=s1
 only_toplevel=false
 value="
 * CAREFUL: not one brace in this text. xschem counts them to find where the

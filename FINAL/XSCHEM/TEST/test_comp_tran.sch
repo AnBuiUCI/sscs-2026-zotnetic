@@ -5,7 +5,7 @@ V {}
 S {}
 F {}
 E {}
-C {devices/code_shown.sym} 700 -420 0 0 {name=MODELS1 only_toplevel=true
+C {devices/code.sym} 700 -420 0 0 {name=MODELS1 only_toplevel=true
 format="tcleval( @value )"
 value="
 .include $::180MCU_MODELS/design.ngspice
@@ -51,20 +51,20 @@ C {devices/vsource.sym} -240 -140 0 0 {name=V6 value=5
 C {devices/lab_wire.sym} -240 -170 0 0 {name=pV6a sig_type=std_logic lab=VDD2}
 C {devices/gnd.sym} -240 -110 0 0 {name=lV6 lab=GND
 value=5}
-C {devices/code_shown.sym} 700 -420 0 0 {name=DUT1 only_toplevel=true
+C {devices/code.sym} 700 -420 0 0 {name=DUT1 only_toplevel=true
 format="tcleval( @value )"
 value="
 .include "../../../../Layouts/COMP/mag/COMP_pex_rc.spice"
 Xextrc GND VDD1 OUT1 va vb COMP
 *COMP VSS VDD OUT INP INN
 "}
-C {devices/code_shown.sym} 700 -320 0 0 {name=DUT2 only_toplevel=true
+C {devices/code.sym} 700 -320 0 0 {name=DUT2 only_toplevel=true
 format="tcleval( @value )"
 value="
 .include "../../../../layouts_v2/COMP/mag/COMP_V2_pex_rc.spice"
 Xextrc2 GND VDD2 OUT2 va vb COMP_V2
 "}
-C {devices/code_shown.sym} 700 -100 0 0 {name=s1
+C {devices/code.sym} 700 -100 0 0 {name=s1
 only_toplevel=false
 value="
 * CAREFUL: not one brace in this text. xschem counts them to find where the

@@ -1,0 +1,546 @@
+[
+  {
+   "pins": [
+      [
+        "1",
+        "2",
+        "3",
+        "4"
+      ], [
+        "1",
+        "2",
+        "3",
+        "4"
+      ]
+   ]
+  },
+  {
+   "pins": [
+      [
+        "1",
+        "2",
+        "3",
+        "4"
+      ], [
+        "1",
+        "2",
+        "3",
+        "4"
+      ]
+   ]
+  },
+  {
+   "pins": [
+      [
+        "1",
+        "2"
+      ], [
+        "1",
+        "2"
+      ]
+   ]
+  },
+  {
+   "pins": [
+      [
+        "1",
+        "2",
+        "3"
+      ], [
+        "1",
+        "2",
+        "3"
+      ]
+   ]
+  },
+  {
+   "pins": [
+      [
+        "1",
+        "2",
+        "3",
+        "4"
+      ], [
+        "1",
+        "2",
+        "3",
+        "4"
+      ]
+   ]
+  },
+  {
+   "pins": [
+      [
+        "1",
+        "2",
+        "3",
+        "4"
+      ], [
+        "1",
+        "2",
+        "3",
+        "4"
+      ]
+   ]
+  },
+  {
+   "name": [
+      "GRADIENT_NAV2_V3",
+      "GRADIENT_NAV2_V3"
+   ],
+   "devices": [
+       [
+         ["nfet_06v0", 688],
+         ["pfet_06v0", 643],
+         ["ppolyf_u_1k", 12],
+         ["cap_mim_2f0_m4m5_noshield", 48],
+         ["nfet_05v0", 9],
+         ["pfet_05v0", 9 ]
+       ], [
+         ["nfet_06v0", 688 ],
+         ["pfet_06v0", 643 ],
+         ["ppolyf_u_1k", 12 ],
+         ["cap_mim_2f0fF", 48 ],
+         ["nfet_05v0", 9 ],
+         ["pfet_05v0", 9 ]
+       ]
+   ],
+   "nets": [
+    883,
+    883
+   ],
+   "badnets": [
+   ],
+   "badelements": [
+   ],
+   "properties": [
+      [
+         [
+           "cap_mim_2f0_m4m5_noshield:1693",
+           [
+             ["c_length", "8e-6"],
+             ["c_width", "2.5e-5"]
+           ]
+         ],
+         [
+           "GRADIENT2:2/OPAM_LIN:8/sub_diff_2_LIN:2/cap_mim_2f0fF:C3",
+           [
+             ["c_length", "2.5e-5"],
+             ["c_width", "8e-6"]
+           ]
+         ]
+      ],
+      [
+         [
+           "cap_mim_2f0_m4m5_noshield:751",
+           [
+             ["c_length", "8e-6"],
+             ["c_width", "2.5e-5"]
+           ]
+         ],
+         [
+           "GRADIENT2:1/OPAM_LIN:8/sub_diff_2_LIN:2/cap_mim_2f0fF:C3",
+           [
+             ["c_length", "2.5e-5"],
+             ["c_width", "8e-6"]
+           ]
+         ]
+      ],
+      [
+         [
+           "cap_mim_2f0_m4m5_noshield:436",
+           [
+             ["c_length", "8e-6"],
+             ["c_width", "2.5e-5"]
+           ]
+         ],
+         [
+           "GRADIENT2:3/OPAM_LIN:8/sub_diff_2_LIN:2/cap_mim_2f0fF:C3",
+           [
+             ["c_length", "2.5e-5"],
+             ["c_width", "8e-6"]
+           ]
+         ]
+      ],
+      [
+         [
+           "cap_mim_2f0_m4m5_noshield:1657",
+           [
+             ["c_length", "8e-6"],
+             ["c_width", "2.5e-5"]
+           ]
+         ],
+         [
+           "GRADIENT2:4/OPAM_LIN:8/sub_diff_2_LIN:2/cap_mim_2f0fF:C3",
+           [
+             ["c_length", "2.5e-5"],
+             ["c_width", "8e-6"]
+           ]
+         ]
+      ],
+      [
+         [
+           "cap_mim_2f0_m4m5_noshield:1155",
+           [
+             ["c_length", "8e-6"],
+             ["c_width", "2.5e-5"]
+           ]
+         ],
+         [
+           "GRADIENT2:2/OPAM_LIN:2/sub_diff_2_LIN:2/cap_mim_2f0fF:C3",
+           [
+             ["c_length", "2.5e-5"],
+             ["c_width", "8e-6"]
+           ]
+         ]
+      ],
+      [
+         [
+           "cap_mim_2f0_m4m5_noshield:1288",
+           [
+             ["c_length", "8e-6"],
+             ["c_width", "2.5e-5"]
+           ]
+         ],
+         [
+           "GRADIENT2:4/OPAM_LIN:2/sub_diff_2_LIN:2/cap_mim_2f0fF:C3",
+           [
+             ["c_length", "2.5e-5"],
+             ["c_width", "8e-6"]
+           ]
+         ]
+      ],
+      [
+         [
+           "cap_mim_2f0_m4m5_noshield:875",
+           [
+             ["c_length", "8e-6"],
+             ["c_width", "2.5e-5"]
+           ]
+         ],
+         [
+           "GRADIENT2:1/OPAM_LIN:2/sub_diff_2_LIN:2/cap_mim_2f0fF:C3",
+           [
+             ["c_length", "2.5e-5"],
+             ["c_width", "8e-6"]
+           ]
+         ]
+      ],
+      [
+         [
+           "cap_mim_2f0_m4m5_noshield:423",
+           [
+             ["c_length", "8e-6"],
+             ["c_width", "2.5e-5"]
+           ]
+         ],
+         [
+           "GRADIENT2:3/OPAM_LIN:2/sub_diff_2_LIN:2/cap_mim_2f0fF:C3",
+           [
+             ["c_length", "2.5e-5"],
+             ["c_width", "8e-6"]
+           ]
+         ]
+      ],
+      [
+         [
+           "cap_mim_2f0_m4m5_noshield:1079",
+           [
+             ["c_length", "8e-6"],
+             ["c_width", "2.5e-5"]
+           ]
+         ],
+         [
+           "GRADIENT2:1/OPAM_LIN:8/sub_diff_2_LIN:2/cap_mim_2f0fF:C1",
+           [
+             ["c_length", "2.5e-5"],
+             ["c_width", "8e-6"]
+           ]
+         ]
+      ],
+      [
+         [
+           "cap_mim_2f0_m4m5_noshield:503",
+           [
+             ["c_length", "8e-6"],
+             ["c_width", "2.5e-5"]
+           ]
+         ],
+         [
+           "GRADIENT2:3/OPAM_LIN:8/sub_diff_2_LIN:2/cap_mim_2f0fF:C1",
+           [
+             ["c_length", "2.5e-5"],
+             ["c_width", "8e-6"]
+           ]
+         ]
+      ],
+      [
+         [
+           "cap_mim_2f0_m4m5_noshield:405",
+           [
+             ["c_length", "8e-6"],
+             ["c_width", "2.5e-5"]
+           ]
+         ],
+         [
+           "GRADIENT2:2/OPAM_LIN:8/sub_diff_2_LIN:2/cap_mim_2f0fF:C1",
+           [
+             ["c_length", "2.5e-5"],
+             ["c_width", "8e-6"]
+           ]
+         ]
+      ],
+      [
+         [
+           "cap_mim_2f0_m4m5_noshield:1188",
+           [
+             ["c_length", "8e-6"],
+             ["c_width", "2.5e-5"]
+           ]
+         ],
+         [
+           "GRADIENT2:4/OPAM_LIN:8/sub_diff_2_LIN:2/cap_mim_2f0fF:C1",
+           [
+             ["c_length", "2.5e-5"],
+             ["c_width", "8e-6"]
+           ]
+         ]
+      ],
+      [
+         [
+           "cap_mim_2f0_m4m5_noshield:391",
+           [
+             ["c_length", "8e-6"],
+             ["c_width", "2.5e-5"]
+           ]
+         ],
+         [
+           "GRADIENT2:1/OPAM_LIN:1/sub_diff_2_LIN:2/cap_mim_2f0fF:C1",
+           [
+             ["c_length", "2.5e-5"],
+             ["c_width", "8e-6"]
+           ]
+         ]
+      ],
+      [
+         [
+           "cap_mim_2f0_m4m5_noshield:1908",
+           [
+             ["c_length", "8e-6"],
+             ["c_width", "2.5e-5"]
+           ]
+         ],
+         [
+           "GRADIENT2:3/OPAM_LIN:1/sub_diff_2_LIN:2/cap_mim_2f0fF:C1",
+           [
+             ["c_length", "2.5e-5"],
+             ["c_width", "8e-6"]
+           ]
+         ]
+      ],
+      [
+         [
+           "cap_mim_2f0_m4m5_noshield:1641",
+           [
+             ["c_length", "8e-6"],
+             ["c_width", "2.5e-5"]
+           ]
+         ],
+         [
+           "GRADIENT2:4/OPAM_LIN:1/sub_diff_2_LIN:2/cap_mim_2f0fF:C1",
+           [
+             ["c_length", "2.5e-5"],
+             ["c_width", "8e-6"]
+           ]
+         ]
+      ],
+      [
+         [
+           "cap_mim_2f0_m4m5_noshield:854",
+           [
+             ["c_length", "8e-6"],
+             ["c_width", "2.5e-5"]
+           ]
+         ],
+         [
+           "GRADIENT2:2/OPAM_LIN:1/sub_diff_2_LIN:2/cap_mim_2f0fF:C1",
+           [
+             ["c_length", "2.5e-5"],
+             ["c_width", "8e-6"]
+           ]
+         ]
+      ],
+      [
+         [
+           "cap_mim_2f0_m4m5_noshield:1213",
+           [
+             ["c_length", "8e-6"],
+             ["c_width", "2.5e-5"]
+           ]
+         ],
+         [
+           "GRADIENT2:2/OPAM_LIN:2/sub_diff_2_LIN:2/cap_mim_2f0fF:C1",
+           [
+             ["c_length", "2.5e-5"],
+             ["c_width", "8e-6"]
+           ]
+         ]
+      ],
+      [
+         [
+           "cap_mim_2f0_m4m5_noshield:1921",
+           [
+             ["c_length", "8e-6"],
+             ["c_width", "2.5e-5"]
+           ]
+         ],
+         [
+           "GRADIENT2:3/OPAM_LIN:2/sub_diff_2_LIN:2/cap_mim_2f0fF:C1",
+           [
+             ["c_length", "2.5e-5"],
+             ["c_width", "8e-6"]
+           ]
+         ]
+      ],
+      [
+         [
+           "cap_mim_2f0_m4m5_noshield:1176",
+           [
+             ["c_length", "8e-6"],
+             ["c_width", "2.5e-5"]
+           ]
+         ],
+         [
+           "GRADIENT2:4/OPAM_LIN:2/sub_diff_2_LIN:2/cap_mim_2f0fF:C1",
+           [
+             ["c_length", "2.5e-5"],
+             ["c_width", "8e-6"]
+           ]
+         ]
+      ],
+      [
+         [
+           "cap_mim_2f0_m4m5_noshield:382",
+           [
+             ["c_length", "8e-6"],
+             ["c_width", "2.5e-5"]
+           ]
+         ],
+         [
+           "GRADIENT2:1/OPAM_LIN:2/sub_diff_2_LIN:2/cap_mim_2f0fF:C1",
+           [
+             ["c_length", "2.5e-5"],
+             ["c_width", "8e-6"]
+           ]
+         ]
+      ],
+      [
+         [
+           "cap_mim_2f0_m4m5_noshield:1525",
+           [
+             ["c_length", "8e-6"],
+             ["c_width", "2.5e-5"]
+           ]
+         ],
+         [
+           "GRADIENT2:1/OPAM_LIN:1/sub_diff_2_LIN:2/cap_mim_2f0fF:C3",
+           [
+             ["c_length", "2.5e-5"],
+             ["c_width", "8e-6"]
+           ]
+         ]
+      ],
+      [
+         [
+           "cap_mim_2f0_m4m5_noshield:1549",
+           [
+             ["c_length", "8e-6"],
+             ["c_width", "2.5e-5"]
+           ]
+         ],
+         [
+           "GRADIENT2:2/OPAM_LIN:1/sub_diff_2_LIN:2/cap_mim_2f0fF:C3",
+           [
+             ["c_length", "2.5e-5"],
+             ["c_width", "8e-6"]
+           ]
+         ]
+      ],
+      [
+         [
+           "cap_mim_2f0_m4m5_noshield:954",
+           [
+             ["c_length", "8e-6"],
+             ["c_width", "2.5e-5"]
+           ]
+         ],
+         [
+           "GRADIENT2:4/OPAM_LIN:1/sub_diff_2_LIN:2/cap_mim_2f0fF:C3",
+           [
+             ["c_length", "2.5e-5"],
+             ["c_width", "8e-6"]
+           ]
+         ]
+      ],
+      [
+         [
+           "cap_mim_2f0_m4m5_noshield:72",
+           [
+             ["c_length", "8e-6"],
+             ["c_width", "2.5e-5"]
+           ]
+         ],
+         [
+           "GRADIENT2:3/OPAM_LIN:1/sub_diff_2_LIN:2/cap_mim_2f0fF:C3",
+           [
+             ["c_length", "2.5e-5"],
+             ["c_width", "8e-6"]
+           ]
+         ]
+      ]
+   ],
+   "pins": [
+      [
+        "S1N",
+        "S4N",
+        "S3N",
+        "S2N",
+        "S1P",
+        "S2P",
+        "S3P",
+        "S4P",
+        "X",
+        "Y",
+        "Z",
+        "VDD",
+        "XN",
+        "YN",
+        "ZN",
+        "VSS",
+        "YP",
+        "XP",
+        "ZP"
+      ], [
+        "S1N",
+        "S4N",
+        "S3N",
+        "S2N",
+        "S1P",
+        "S2P",
+        "S3P",
+        "S4P",
+        "X",
+        "Y",
+        "Z",
+        "VDD",
+        "XN",
+        "YN",
+        "ZN",
+        "VSS",
+        "YP",
+        "XP",
+        "ZP"
+      ]
+   ]
+  }
+]

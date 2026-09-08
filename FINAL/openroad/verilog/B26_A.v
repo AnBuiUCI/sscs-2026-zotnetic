@@ -235,7 +235,7 @@ module B26_A (
   ESD_CDM x_esd_S2N (.PAD(S2N), .CORE(S2N_I), .VDD(VDD), .VSS(VSS));
   ESD_CDM x_esd_S2P (.PAD(S2P), .CORE(S2P_I), .VDD(VDD), .VSS(VSS));
 
-  GRADIENT_NAV2 x_core (
+  GRADIENT_NAV2_V3 x_core (
       .VSS(VSS),
       .S4P(S4P_I),
       .S4N(S4N_I),

@@ -31,7 +31,13 @@
 #   ./preparar_extraidos.sh COMP         uno solo
 
 set -uo pipefail
-V1=/foss/designs/a_zonetic2026/layouts
+#  NOTE: capital L. On this machine `layouts/` and `Layouts/` are two
+#  DIFFERENT directories (different inodes) and only `Layouts/` holds the
+#  v1 blocks -- `layouts/` has just ESD_CDM. HANDOFF says they are the same
+#  inode, which was true on WSL2/drvfs and is not true here. With the
+#  lowercase path every lookup failed, the script aborted, and the _V2_
+#  copies silently stayed at whatever they were the last time it worked.
+V1=/foss/designs/a_zonetic2026/Layouts
 V2=/foss/designs/a_zonetic2026/layouts_v2
 BLOQUES=${*:-"WEIGHT_COMP DECODER COMP OPAM OPAM_LIN_flat"}
 FALLOS=0

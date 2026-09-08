@@ -1,0 +1,15 @@
+gds/GRADIENT_NAV2_V3.gds -> ../out_v2_GRADIENT_NAV2_V3/GRADIENT_NAV2_V3_decap.gds
+
+Mismo criterio que LEEME_GRADIENT_NAV2.txt, y por la misma razon: apunta al GDS
+**con decap y SIN relleno de densidad**.
+
+El relleno se hace UNA sola vez, al final, sobre el area integrada (B26_A). Si
+este enlace apuntara a `_filled.gds` se colaria el relleno de la tanda anterior,
+y con el su contorno.
+
+Quien lo lee: scripts/def_to_gds.py, al sustituir cada macro por su layout real.
+`scripts/macro_lef.py` elige por su cuenta y con el mismo criterio.
+
+El de la v2 sigue donde estaba y apuntando a lo suyo: los dos bloques conviven,
+y cual entra en B26_A lo decide `MACRO=` en integrate_padframe.py /
+integrate_top.tcl, no cual de los dos enlaces exista.

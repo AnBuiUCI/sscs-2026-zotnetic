@@ -5,7 +5,7 @@ V {}
 S {}
 F {}
 E {}
-C {devices/code_shown.sym} 570 -700 0 0 {name=MODELS1 only_toplevel=true
+C {devices/code.sym} 570 -700 0 0 {name=MODELS1 only_toplevel=true
 format="tcleval( @value )"
 value="
 .include $::180MCU_MODELS/design.ngspice
@@ -30,7 +30,7 @@ C {devices/vsource.sym} 270 -520 0 0 {name=V3 value=5
 C {devices/lab_wire.sym} 270 -550 0 0 {name=pV3a sig_type=std_logic lab=VDDR}
 C {devices/gnd.sym} 270 -490 0 0 {name=lV3 lab=GND
 value=5}
-C {devices/code_shown.sym} -700 -700 0 0 {name=ESTIMULO only_toplevel=true
+C {devices/code.sym} -700 -700 0 0 {name=ESTIMULO only_toplevel=true
 value="
 * THE FOUR SENSORS IN SPACE, AND THE GRADIENT THEY MEASURE.
 *
@@ -138,7 +138,7 @@ C {devices/lab_wire.sym} 150 60 2 0 {name=pZN sig_type=std_logic lab=ZN}
 C {devices/lab_wire.sym} 0 -130 1 0 {name=pVDD sig_type=std_logic lab=VDDS}
 C {devices/gnd.sym} 0 90 0 0 {name=lVSS lab=GND
 value=5}
-C {devices/code_shown.sym} 900 -700 0 0 {name=RECONSTRUCCION only_toplevel=true
+C {devices/code.sym} 900 -700 0 0 {name=RECONSTRUCCION only_toplevel=true
 value="
 * THE SAME NAVIGATOR, REBUILT FROM THE v2 LAYOUT BLOCKS EXTRACTED WITH RC.
 *
@@ -149,10 +149,23 @@ value="
 * The topology is copied LINE BY LINE from the top netlist, not from memory:
 *
 *   x1 S1N S1P VDD X1 S2N Y1 Z1 S2P VSS S3N S3P GRADIENT2
-*   x2 S1N S1P VDD X2 S2N Y2 Z2 S2P VSS S4N S4P GRADIENT2
+*   x2 S4N S4P VDD X2 S1N Y2 Z2 S1P VSS S2N S2P GRADIENT2
 *   x3 S3N S3P VDD X3 S4N Y3 Z3 S4P VSS S1N S1P GRADIENT2
-*   x4 S3N S3P VDD X4 S4N Y4 Z4 S4P VSS S2N S2P GRADIENT2
-*   x5 VDD VSS X X1 X2 X3 X4 WEIGHT   +   x8 VDD XP X XN VSS COMP_OUT
+*   x4 S2N S2P VDD X4 S3N Y4 Z4 S3P VSS S4N S4P GRADIENT2
+*
+* That is (1,2,3) (4,1,2) (3,4,1) (2,3,4): the FOUR ROTATIONS, so every slot
+* sees each of the four sensors exactly once. It used to be two pairs sharing
+* two of their three legs, (1,2,3) (1,2,4) (3,4,1) (3,4,2), and chains 2 and 4
+* here were still wired that way long after the top had changed. A permuted
+* index does not raise any error: it just scores one wiring against another's
+* and makes the layout look broken.
+*   x5 VDD VSS X X1 X2 X3 X4 WEIGHT   +   x8 VDD XN X XP VSS COMP_OUT
+*
+* Note that last one: COMP_OUT is .subckt COMP_OUT VDD OUT IN OUT_N VSS, so
+* OUT = XN and OUT_N = XP. Inside it OUT is a buffer of IN and OUT_N its
+* inverse, and the weight level FALLS as votes come in -- so XP is high when
+* the axis WINS. This bench had the two crossed, which is the other fix the
+* top got and the reconstruction had not.
 *
 * with .subckt GRADIENT2 SXN SXP VDD X SYN Y Z SYP VSS SZN SZP, i.e. each
 * cadena k lee tres sensores en el orden (X, Y, Z) y saca Xk Yk Zk.
@@ -187,10 +200,10 @@ XC12 GND VDDR XZ1r SZ1r SX1r COMP_V2
 XC13 GND VDDR YZ1r SZ1r SY1r COMP_V2
 XD1  GND VDDR YZ1r Z1r XY1r XZ1r Y1r X1r DECODER_V2
 
-* --- cadena 2: X=S1  Y=S2  Z=S4
-XA21 GND VDDR S1P SX2r S1N OPAM_LIN_flat_V2
-XA22 GND VDDR S2P SY2r S2N OPAM_LIN_flat_V2
-XA23 GND VDDR S4P SZ2r S4N OPAM_LIN_flat_V2
+* --- cadena 2: X=S4  Y=S1  Z=S2
+XA21 GND VDDR S4P SX2r S4N OPAM_LIN_flat_V2
+XA22 GND VDDR S1P SY2r S1N OPAM_LIN_flat_V2
+XA23 GND VDDR S2P SZ2r S2N OPAM_LIN_flat_V2
 XC21 GND VDDR XY2r SY2r SX2r COMP_V2
 XC22 GND VDDR XZ2r SZ2r SX2r COMP_V2
 XC23 GND VDDR YZ2r SZ2r SY2r COMP_V2
@@ -205,10 +218,10 @@ XC32 GND VDDR XZ3r SZ3r SX3r COMP_V2
 XC33 GND VDDR YZ3r SZ3r SY3r COMP_V2
 XD3  GND VDDR YZ3r Z3r XY3r XZ3r Y3r X3r DECODER_V2
 
-* --- cadena 4: X=S3  Y=S4  Z=S2
-XA41 GND VDDR S3P SX4r S3N OPAM_LIN_flat_V2
-XA42 GND VDDR S4P SY4r S4N OPAM_LIN_flat_V2
-XA43 GND VDDR S2P SZ4r S2N OPAM_LIN_flat_V2
+* --- cadena 4: X=S2  Y=S3  Z=S4
+XA41 GND VDDR S2P SX4r S2N OPAM_LIN_flat_V2
+XA42 GND VDDR S3P SY4r S3N OPAM_LIN_flat_V2
+XA43 GND VDDR S4P SZ4r S4N OPAM_LIN_flat_V2
 XC41 GND VDDR XY4r SY4r SX4r COMP_V2
 XC42 GND VDDR XZ4r SZ4r SX4r COMP_V2
 XC43 GND VDDR YZ4r SZ4r SY4r COMP_V2
@@ -216,11 +229,11 @@ XD4  GND VDDR YZ4r Z4r XY4r XZ4r Y4r X4r DECODER_V2
 
 * --- los tres pesos y sus comparadores de salida
 * .subckt WEIGHT_COMP_V2 VSS VDD VD WE VA VB OUT OUT_N VC
-XW1 GND VDDR X4r Xr X1r X2r XPr XNr X3r WEIGHT_COMP_V2
-XW2 GND VDDR Y4r Yr Y1r Y2r YPr YNr Y3r WEIGHT_COMP_V2
-XW3 GND VDDR Z4r Zr Z1r Z2r ZPr ZNr Z3r WEIGHT_COMP_V2
+XW1 GND VDDR X4r Xr X1r X2r XNr XPr X3r WEIGHT_COMP_V2
+XW2 GND VDDR Y4r Yr Y1r Y2r YNr YPr Y3r WEIGHT_COMP_V2
+XW3 GND VDDR Z4r Zr Z1r Z2r ZNr ZPr Z3r WEIGHT_COMP_V2
 "}
-C {devices/code_shown.sym} 520 -700 0 0 {name=s1
+C {devices/code.sym} 520 -700 0 0 {name=s1
 only_toplevel=false
 value="
 * CAREFUL: not one brace in this text. xschem counts them to find where the

@@ -5,7 +5,7 @@ V {}
 S {}
 F {}
 E {}
-C {devices/code_shown.sym} 570 -700 0 0 {name=MODELS1 only_toplevel=true
+C {devices/code.sym} 570 -700 0 0 {name=MODELS1 only_toplevel=true
 format="tcleval( @value )"
 value="
 .include $::180MCU_MODELS/design.ngspice
@@ -28,7 +28,7 @@ C {devices/vsource.sym} 270 -520 0 0 {name=V3 value=5
 C {devices/lab_wire.sym} 270 -550 0 0 {name=pV3a sig_type=std_logic lab=VDDR}
 C {devices/gnd.sym} 270 -490 0 0 {name=lV3 lab=GND
 value=5}
-C {devices/code_shown.sym} -700 -700 0 0 {name=ESTIMULO only_toplevel=true
+C {devices/code.sym} -700 -700 0 0 {name=ESTIMULO only_toplevel=true
 value="
 * A SOURCE AT A PLACE, and does the chip point at it?
 *

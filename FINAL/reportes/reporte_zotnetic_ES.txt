@@ -1,0 +1,893 @@
+GUIÓN DEL REPORTE — TEAM ZOTNETIC B26
+
+Acompaña a reporte_zotnetic_ES.pptx (presentación en español).
+Qué dice cada diapositiva y para qué está, en el mismo orden que el
+fichero. En español en las dos versiones: la presentación cambia de
+idioma, quien la presenta no.
+
+Generado por hacer_pptx.py junto con el .pptx. No editar a mano.
+==============================================================================
+
+DIAPOSITIVA 1 · TEAM ZOTNETIC  [PORTADA]
+----------------------------------------
+Presenta el trabajo: B26 Zotnetic, un navegador de gradiente magnético
+integrado en GF180MCU para el SSCS Chipathon 2026, con el equipo y la escuela.
+
+DIAPOSITIVA 2 · 01 QUÉ HACE EL CHIP  [SECCIÓN]
+----------------------------------------------
+Separador. Antes de enseñar un transistor, qué problema resuelve el chip.
+
+DIAPOSITIVA 3 · EL PRINCIPIO
+----------------------------
+La idea que hay que entender antes que nada: los cuatro puentes NO miden la
+dirección del campo, miden su módulo en cuatro puntos.
+
+El dibujo de la derecha es dónde van esos cuatro sensores: en los vértices,
+con sus ejes. Comparando los cuatro módulos se reconstruye el gradiente, que
+apunta hacia donde el campo crece, y el campo crece hacia la fuente.
+
+La salida no dice cuánto, dice hacia dónde: un signo por eje.
+
+DIAPOSITIVA 4 · ARQUITECTURA
+----------------------------
+El diagrama de bloques del sistema completo, el que ya teníais en la
+presentación.
+
+Lo que conviene señalar es dónde acaba el chip: en las seis salidas digitales.
+El puente en H y los actuadores magnéticos son externos. El chip dice hacia
+dónde; quien mueve es el puente.
+
+Y que cada bloque de sensado lee TRES de los cuatro puentes, en combinaciones
+distintas. Eso es lo que hace que los cuatro vean proyecciones distintas del
+mismo campo.
+
+DIAPOSITIVA 5 · ESPECIFICACIONES
+--------------------------------
+La tabla de especificaciones: entradas, salidas, consumo, tipos de pad y
+áreas, todo en una diapositiva.
+
+Es la diapositiva que sustituye a la vieja lista de nombres de bloque, y la
+que un revisor pide primero. 19 pads: 11 analógicos, 6 digitales y 2 de
+alimentación.
+
+Cuidado con un detalle si preguntan: los 6 V son la CLASE de dispositivo, no
+el punto de trabajo. Todo se simula y se mide a 5.0 V, y así está escrito en
+la tabla.
+
+DIAPOSITIVA 6 · ESPECIFICACIONES
+--------------------------------
+Y la misma información en unidades que se pueden imaginar. Todo el reporte
+trabaja en dR/R —el cambio relativo de resistencia de un brazo del puente—
+porque es lo que ve el circuito y no depende del sensor que se le ponga
+delante. Pero nadie tiene intuición para 44 ppm.
+
+La conversión pide UN número que no es del chip: la sensibilidad del puente.
+Tomando un AMR de la clase que asume el diseño, 3.2 mV/V/Oe, sale 1 ppm =
+31.25 nT.
+
+Y entonces se lee de un vistazo: el chip trabaja de 1.4 µT a 438 µT, un rango
+de 315 a 1, con el campo terrestre —50 µT— cómodamente en medio. Por debajo lo
+tapa el ruido del amplificador; por encima, dos amplificadores saturan contra
+el mismo raíl y el orden se pierde.
+
+Si se cambia el sensor, todos los teslas de esta diapositiva se mueven. Los
+ppm no: ésos son el chip.
+
+DIAPOSITIVA 7 · 02 LOS TRES BLOQUES  [SECCIÓN]
+----------------------------------------------
+Separador. Empieza el recorrido por la jerarquía: primero qué hace cada bloque
+y su diagrama interno, luego cada subbloque con su esquemático y sus
+simulaciones, y al final el resultado del bloque.
+
+DIAPOSITIVA 8 · GRADIENT_NAV2 POR DENTRO
+----------------------------------------
+El navegador por dentro, en un solo dibujo: cuatro bloques de sensado, tres de
+peso y tres de salida.
+
+La idea que hay que dejar clara aquí es el reparto: cada cadena de sensado
+vota sobre los TRES ejes, y el bloque de peso de un eje recoge ese eje de las
+CUATRO cadenas. Por eso son cuatro sensados y tres pesos, y no cuatro y
+cuatro.
+
+DIAPOSITIVA 9 · GRADIENT_NAV2
+-----------------------------
+El mismo navegador, ahora como esquemático y como layout. 460.9 × 387.0 µm,
+que son 0.178 mm².
+
+No hay que leer el esquemático durante la charla: está para dar la escala real
+de lo integrado.
+
+DIAPOSITIVA 10 · LA ALIMENTACIÓN DEL BLOQUE
+-------------------------------------------
+Cómo se reparte la alimentación dentro del bloque, que es lo último que se
+rehízo.
+
+Las filas de macros van ESPEJADAS: una sí y una no se voltean, así que los
+raíles que se miran en un canal son del mismo net. Cada canal lleva entonces
+un solo strap, del net que le toca, en vez de una pareja VDD/VSS a 2 µm uno
+del otro. La separación entre nets contrarios pasa de 2 µm a 43.46 µm, y con
+ella el acoplo entre alimentación y masa.
+
+El dimensionado es al DOBLE del pico medido: el bloque consume 15.50 mA de
+pico y la malla se hace para 31. Los límites no son inventados, están en el
+tech-LEF del PDK como DCCURRENTDENSITY AVERAGE —0.67 mA por µm en Metal4, 1.5
+en Metal5, 0.18 por corte de vía— y NINGUNA regla del DRC los comprueba. Hay
+que medirlos aparte.
+
+Y la columna de la derecha es el peor corte de cada eje, no el del centro: un
+límite que depende de dónde se mire no es un límite.
+
+DIAPOSITIVA 11 · BLOQUE 1 · SENSADO DE GRADIENTE
+------------------------------------------------
+El primero de los tres bloques: el sensado de gradiente.
+
+Tres amplificadores suben las tres diferencias de puente, tres comparadores
+las comparan POR PARES —X con Y, X con Z, Y con Z— y el decodificador
+convierte ese orden en un eje ganador.
+
+Comparar por pares en lugar de contra un umbral es la decisión de diseño que
+merece contarse: el decodificador no necesita saber cuánto vale cada eje, solo
+cuál es mayor. Eso hace la decisión inmune a la ganancia absoluta y al offset
+común de los tres canales.
+
+DIAPOSITIVA 12 · GRADIENT2
+--------------------------
+El esquemático del bloque de sensado, para quien quiera seguir las conexiones
+del diagrama anterior una por una.
+
+DIAPOSITIVA 13 · OPAM_LIN
+-------------------------
+OPAM_LIN: qué hace y cuánto cuesta, en la misma diapositiva. El texto de la
+izquierda está en pantalla; basta señalar el titular en negrita y pasar a la
+tabla.
+
+La tabla de la derecha son medidas, no cifras de catálogo: el área sale del
+GDS con KLayout y el consumo de su propio banco, donde cada bloque lleva su
+fuente separada. Vale igual para los cinco bloques que vienen.
+
+DIAPOSITIVA 14 · OPAM_LIN
+-------------------------
+El esquemático de OPAM_LIN y su layout, uno al lado del otro, con las
+dimensiones medidas debajo.
+
+Enseñarlos juntos es la forma corta de decir que todo lo que se simuló está
+además dibujado, y que lo dibujado es lo que se midió. Los cinco bloques van
+así; no lo repito en cada uno.
+
+DIAPOSITIVA 15 · OPAM_LIN
+-------------------------
+La curva de transferencia y su pendiente. La pendiente ES la ganancia: 103 V/V
+en la zona lineal, que son los 40 dB. Las dos versiones, esquemático y layout,
+van superpuestas.
+
+El consumo, 2.5 mW, con su propia fuente en el banco — así que es el suyo y no
+el de la cadena entera. La joroba del centro es el paso por la zona activa.
+
+DIAPOSITIVA 16 · OPAM_LIN
+-------------------------
+El Bode. 40.1 dB en continua, −3 dB a 338 kHz y 74° de margen de fase en el
+cruce por 0 dB. El margen de fase es lo que dice que no va a oscilar, y 74° es
+holgado.
+
+PSRR, CMRR y ruido referido a la entrada, con 1 pF de carga. Importa porque el
+campo terrestre entra como modo común y lo que lo frena es el CMRR.
+
+DIAPOSITIVA 17 · OPAM_LIN
+-------------------------
+Lo que queda al restar la mejor recta: 0.10 % sobre todo el recorrido de 1 a 4
+V. Es el número que justifica llamarlo amplificador lineal.
+
+El escalón grande, con paso interno de 20 ps para poder medirlo. Y el
+resultado es que este amplificador NO está limitado por slew a 2 V: el flanco
+va tan rápido como le permite su ancho de banda. Por eso la ficha no da una
+cifra de slew rate — darla sería medir algo que no está pasando.
+
+DIAPOSITIVA 18 · OPAM_LIN
+-------------------------
+El offset bajo desapareo de dispositivos, Monte Carlo. Es el suelo de
+resolución del sistema: por debajo de este offset la diferencia entre dos
+esquinas del tetraedro deja de ser legible.
+
+DIAPOSITIVA 19 · OPAM_LIN
+-------------------------
+De qué está hecho el amplificador: un generador de polarización y el par
+diferencial. Son sus dos únicos subbloques.
+
+El de la izquierda fija las corrientes de cola; el de la derecha es el que ve
+la señal del puente. Toda la linealidad y todo el ruido de la diapositiva
+anterior salen del derecho.
+
+DIAPOSITIVA 20 · COMP
+---------------------
+COMP: qué hace y cuánto cuesta, en la misma diapositiva. El texto de la
+izquierda está en pantalla; basta señalar el titular en negrita y pasar a la
+tabla.
+
+DIAPOSITIVA 21 · COMP
+---------------------
+El esquemático de COMP y su layout, uno al lado del otro, con las dimensiones
+medidas debajo.
+
+DIAPOSITIVA 22 · COMP
+---------------------
+El barrido de la entrada contra la salida, que es la gráfica que pediste.
+Arriba la excursión completa; en medio la MISMA curva ampliada a ±500 µV, que
+es donde de verdad se toma la decisión — la transición mide 227 µV y la
+ventana ancha se la salta entera.
+
+El flanco del layout va desplazado respecto al esquemático: +62 µV contra +7
+µV. Eso es offset que introduce el dibujo, y es el que acaba fijando el campo
+mínimo que el chip puede resolver.
+
+El slew rate. Lo que lo hace legítimo es que la pendiente es constante durante
+los 601 ns enteros del flanco: 6.3 V/µs subiendo y bajando. Una rampa recta es
+la definición de estar limitado por slew; si fuera una exponencial no habría
+número que dar.
+
+DIAPOSITIVA 23 · COMP
+---------------------
+La respuesta al escalón: arriba el exceso de entrada, abajo la salida cruzando
+la mitad de la alimentación. Da el retardo de decisión.
+
+El Bode del comparador en lazo abierto. Se enseña porque un comparador con
+poco margen se convierte en un oscilador cuando la entrada se queda cerca del
+punto de disparo.
+
+DIAPOSITIVA 24 · COMP
+---------------------
+El esquemático interno del comparador, que faltaba. Y lo primero que hay que
+decir es que el bloque de la izquierda no se parece al del amplificador: ES el
+del amplificador. Mismo fichero, bias.sym, instanciado por los dos.
+
+El par diferencial también es la misma topología, 36 transistores colocados
+igual. Las diferencias son tres y explican por qué uno amplifica y el otro
+decide: el comparador NO lleva la resistencia de realimentación RFB, usa
+multiplicadores m=2, 3 y 4 donde el amplificador va a m=1, y su etapa de
+salida es de 30 µm y 15 µm contra 4 µm y 1 µm.
+
+Traducido: al comparador no le importa la linealidad, le importa empujar el
+raíl. Por eso su slew rate es una rampa recta de 6.3 V/µs y el del
+amplificador ni siquiera existe como tal.
+
+DIAPOSITIVA 25 · DECODER
+------------------------
+DECODER: qué hace y cuánto cuesta, en la misma diapositiva. El texto de la
+izquierda está en pantalla; basta señalar el titular en negrita y pasar a la
+tabla.
+
+DIAPOSITIVA 26 · DECODER
+------------------------
+El esquemático de DECODER y su layout, uno al lado del otro, con las
+dimensiones medidas debajo.
+
+DIAPOSITIVA 27 · DECODER
+------------------------
+Arriba las tres comparaciones que entran, debajo las tres salidas. Esquemático
+y layout dan la misma decisión en todo el recorrido.
+
+El consumo, en microvatios. Es lógica: solo gasta cuando conmuta, y los picos
+coinciden exactamente con los cambios de decisión de la figura anterior.
+
+DIAPOSITIVA 28 · BANCO DEL GRADIENTE · MÉTODO
+---------------------------------------------
+Explicados los tres subbloques, el resultado del bloque de sensado.
+
+Cuatro cadenas colgadas de los MISMOS seis nodos de sensor, cada una con su
+alimentación propia para poder atribuir el consumo.
+
+El estímulo tiene truco: los tres campos van a 120°, suman cero y el vector
+solo cambia de dirección, nunca de tamaño. Así, barriendo de 0 a 360°, cada
+eje debería ganar un sector de exactamente 120°.
+
+DIAPOSITIVA 29 · BANCO DEL GRADIENTE · MÉTODO
+---------------------------------------------
+El banco montado: los tres puentes a un lado y las cuatro cadenas colgando de
+los mismos nodos, cada una con su fuente separada — se ven las cuatro.
+
+DIAPOSITIVA 30 · TRAZABILIDAD DEL SENSADO
+-----------------------------------------
+La sub-sección de trazabilidad del sensado, que es lo que faltaba: hasta aquí
+se enseñaba el resultado del bloque, no cómo llega la señal hasta él.
+
+Se sigue la misma señal por las cuatro etapas. El banco ya graba cada nodo
+intermedio, incluidos los que no tienen nombre — las salidas de los
+comparadores se sondean jerárquicamente, así que no hizo falta volver a
+simular.
+
+Y solo con el amplificador lineal, el que va en el chip: G2 contra G4, que es
+el mismo amplificador dibujado de dos maneras.
+
+DIAPOSITIVA 31 · RESULTADO DEL BLOQUE · SENSADO DE GRADIENTE
+------------------------------------------------------------
+Aquí está el bloque entero en una sola hoja, que es como se pidió. Una COLUMNA
+es un eje y una FILA es una etapa, así que un eje se sigue de arriba abajo sin
+cambiar de diapositiva: el campo, lo que entrega su puente, el amplificador
+que lo lee, el comparador y la decisión.
+
+Ésta es con dR/R de 50 ppm, donde el amplificador trabaja en su zona lineal y
+se le ve la forma del coseno. Fíjate en la segunda fila: el modo común,
+punteado, se queda clavado en la mitad de la excitación mientras la diferencia
+se mueve. Ésa es la condición que hace legible todo lo de abajo.
+
+Y un aviso de lectura honesto: los comparadores no son uno por eje. Hay tres y
+comparan PARES — XY, XZ, YZ. Poner uno debajo de cada columna es una decisión
+de maquetación, no que XY sea «el comparador de X».
+
+DIAPOSITIVA 32 · RESULTADO DEL BLOQUE · SENSADO DE GRADIENTE
+------------------------------------------------------------
+La misma hoja con el campo que da una AMR de verdad, dR/R del 2 %. La
+diferencia con la anterior es la única variable: aquí el amplificador SATURA,
+y se ve recortado contra los dos raíles en toda la fila tercera.
+
+Lo importante es lo que pasa debajo: las dos últimas filas son idénticas a las
+de la hoja anterior. Saturar no rompe la decisión, porque para decidir hace
+falta el CRUCE, no el pico. El chip no mide cuánto, ordena.
+
+DIAPOSITIVA 33 · RESULTADO DEL BLOQUE · SENSADO DE GRADIENTE
+------------------------------------------------------------
+Esta diapositiva y la siguiente contestan una pregunta distinta a todo lo
+anterior, y conviene decirlo antes de enseñarla. Hasta aquí el campo GIRABA
+manteniendo su tamaño: se probaba si el chip acierta la dirección. Aquí se
+hace lo contrario — la dirección se clava a 60°, en mitad de un sector, y lo
+que se barre es el MÓDULO del campo, de casi nada hasta el 2 %.
+
+Por qué ese experimento: porque es el eje por el que se mueve un imán de
+verdad. Cuando te acercas a una fuente la dirección apenas cambia y lo que
+crece es el tamaño. Así que esto mide DESDE QUÉ CAMPO el chip decide, que es
+su alcance.
+
+Se lee de arriba abajo como la rejilla: los puentes son lineales en el campo
+por construcción, el amplificador es lineal hasta que satura, y abajo se ve a
+partir de qué campo la decisión se asienta y ya no cambia.
+
+DIAPOSITIVA 34 · RESULTADO DEL BLOQUE · SENSADO DE GRADIENTE
+------------------------------------------------------------
+La misma pregunta, en el extremo bajo y con su propia escala. Ésta es la que
+da el número que importa: el campo MÍNIMO que el chip puede resolver.
+
+Y quién pone ese límite: el ruido del amplificador. Son 222 µVrms referidos a
+la entrada, y como la excitación del puente son 5 V, eso equivale a 44.4 ppm
+de dR/R. Por debajo de ahí la señal está por debajo del ruido y la decisión ya
+no se sostiene — no porque el circuito esté mal, sino porque no hay nada que
+leer.
+
+Lo que le da crédito al número es que el banco de geometría llega al mismo
+suelo por otro camino, midiendo resolución. Dos experimentos independientes y
+el mismo límite.
+
+DIAPOSITIVA 35 · RESULTADO DEL BLOQUE · SENSADO DE GRADIENTE
+------------------------------------------------------------
+El consumo de la cadena a lo largo del mismo barrido. Sube al pasar por la
+zona activa y se aplana cuando el amplificador satura.
+
+DIAPOSITIVA 36 · RESULTADO DEL BLOQUE · SENSADO DE GRADIENTE
+------------------------------------------------------------
+Los casos de prueba por octante que pediste, en el bloque de sensado. El banco
+se amplió para poder fijar las tres lecturas de puente de forma INDEPENDIENTE:
+el barrido giratorio de siempre las obliga a sumar cero, así que combinaciones
+como (+,+,+) eran inalcanzables y solo se veían tres de los ocho signos
+posibles.
+
+La respuesta correcta en cada punto es argmin(bx, by, bz), porque el
+decodificador saca el eje MENOR. Y el resultado es limpio: acierta en los ocho
+octantes, el 100 %, hasta dR/R = 1.40 %.
+
+A partir de ahí cae, y la curva gris dice por qué: es justo donde DOS
+amplificadores se quedan pegados al mismo raíl. Cuando eso pasa, el orden
+entre esos dos ya se ha perdido antes de que el comparador lo mire, y quien
+decide es el offset — 94.8 % el esquemático y 93.8 % el layout sobre el
+barrido entero, saturación incluida.
+
+Y eso mismo fija el alcance útil del bloque: el esquemático decide bien
+siempre hasta dR/R = 1.40 % y el layout hasta 1.28 %, en los ocho octantes.
+Esa diferencia entre los dos es su offset. No es un límite de ruido, es de
+recorrido — con 103 V/V de ganancia y 5 V de raíl, 1.4 % de dR/R ya son 70 mV
+a la entrada y la salida no da más de sí.
+
+DIAPOSITIVA 37 · RESULTADO DEL BLOQUE · SENSADO DE GRADIENTE
+------------------------------------------------------------
+Y ahora sí, la vista condensada de la decisión, que va aquí y no antes porque
+hasta este punto el comparador ya está explicado. Las salidas de los
+amplificadores, las de los comparadores y las del decodificador, una debajo de
+otra, con un color por eje para poder seguir un eje entero. Continuo el
+esquemático, discontinuo el layout.
+
+El número: el eje decodificado es el correcto en el 95.4 % del barrido con el
+esquemático y el 93.3 % con el layout, sin un solo punto indeciso. Lo que se
+pierde está todo en las fronteras entre sectores.
+
+DIAPOSITIVA 38 · RESULTADO DEL BLOQUE · SENSADO DE GRADIENTE
+------------------------------------------------------------
+Y el número. Arriba, el eje decodificado contra el ideal — que es el eje
+MENOR, no el mayor: está en la tabla de verdad del decodificador, X = XY·XZ.
+Abajo, dónde cae cada frontera respecto a los 0, 120 y 240° exactos.
+
+Las cifras: el esquemático acierta el 95.4 % del barrido y el layout el 93.3
+%, sin un solo punto indeciso. Entre ellos coinciden en el 97.9 %, siete
+grados y medio de desacuerdo sobre 360.
+
+Y conviene decir de dónde sale ese 4-6 % que falta: no está repartido, está
+entero en las tres fronteras de sector. En medio de un sector las dos
+versiones no fallan nunca.
+
+DIAPOSITIVA 39 · BLOQUE 2 · WEIGHT
+----------------------------------
+El diagrama interno de WEIGHT: por dónde entra cada señal y qué sale. Se
+recorre con el dedo de izquierda a derecha; los números vienen en la
+diapositiva siguiente.
+
+DIAPOSITIVA 40 · WEIGHT
+-----------------------
+WEIGHT: qué hace y cuánto cuesta, en la misma diapositiva. El texto de la
+izquierda está en pantalla; basta señalar el titular en negrita y pasar a la
+tabla.
+
+DIAPOSITIVA 41 · WEIGHT
+-----------------------
+El esquemático de WEIGHT y su layout, uno al lado del otro, con las
+dimensiones medidas debajo.
+
+DIAPOSITIVA 42 · WEIGHT
+-----------------------
+Las cuatro entradas arriba, el nodo de suma WE en medio y las salidas abajo.
+WE es lo que sale al pad analógico del eje: es el punto de prueba X, Y o Z del
+chip.
+
+La figura que faltaba: cómo los cuatro votos se convierten en una decisión. A
+la derecha, WE contra el NÚMERO de ramas que votan — cae unos 0.34 V por voto
+— y la salida bascula a 2 de 4, medido en las quince esquinas de 4.5–5.5 V y
+0–85 °C.
+
+Y el hallazgo: las cuatro ramas pesan IGUAL, no en binario. Lo prueba el
+propio dato — sumas ponderadas distintas (3, 5, 6, 9, 10, 12 bajo una lectura
+1-2-4-8) caen todas en el mismo WE, y las cuatro corrientes de rama son los
+mismos 170 µA.
+
+DIAPOSITIVA 43 · WEIGHT
+-----------------------
+Las corrientes de las cuatro ramas, arriba el esquemático y abajo el layout.
+Se miden de forma distinta a propósito — en el esquemático con fuentes de 0 V,
+en el layout pidiendo la corriente de drenador de cada transistor de cola — y
+aun así coinciden.
+
+DIAPOSITIVA 44 · BLOQUE 3 · COMP_OUT
+------------------------------------
+El diagrama interno de COMP_OUT: por dónde entra cada señal y qué sale. Se
+recorre con el dedo de izquierda a derecha; los números vienen en la
+diapositiva siguiente.
+
+DIAPOSITIVA 45 · COMP_OUT
+-------------------------
+COMP_OUT: qué hace y cuánto cuesta, en la misma diapositiva. El texto de la
+izquierda está en pantalla; basta señalar el titular en negrita y pasar a la
+tabla.
+
+DIAPOSITIVA 46 · COMP_OUT
+-------------------------
+El esquemático de COMP_OUT y su layout, uno al lado del otro, con las
+dimensiones medidas debajo.
+
+DIAPOSITIVA 47 · COMP_OUT
+-------------------------
+La segunda gráfica del comparador de salida: qué hace la salida según CUÁNTAS
+ramas votan. A la izquierda el nivel del contador, que baja 389 mV por voto y
+es igual en las nueve esquinas de 4.5–5.5 V y 0–85 °C. A la derecha la
+decisión.
+
+Y el número que hay que retener: el eje se reclama desde 2 votos de 4, en las
+quince esquinas de 4.5–5.5 V y 0–85 °C sin excepción. Eso es lo que consigue
+la quinta rama del WEIGHT, la que va siempre encendida: sin ella harían falta
+3 de 4, que con cuatro cadenas y tres ejes es una mayoría difícil de reunir.
+
+DIAPOSITIVA 48 · INV_1
+----------------------
+El inversor, que es el único subbloque de la etapa de salida. Tres de éstos en
+cadena son COMP_OUT.
+
+DIAPOSITIVA 49 · ESD_CDM · PROTECCIÓN SECUNDARIA
+------------------------------------------------
+La protección secundaria. No está en la cadena de señal, pero sí en el área de
+usuario y hay once instancias, una por pad analógico.
+
+Dos cosas que conviene decir: sus tres celdas publicadas violan MSLOT.1 y
+nadie lo había visto porque la tabla mslot del PDK se cae antes de llegar; y
+la nuestra ocupa la cuarta parte, unos 52 000 µm² de área recuperados.
+
+Y que aquí es donde se fusionaron las nwells para pasar el DRC en los dos
+modos de conectividad.
+
+DIAPOSITIVA 50 · ESD_CDM
+------------------------
+ESD_CDM: su esquemático y su layout. Aquí el esquemático ES el bloque de
+código —la hoja no dibuja componentes— porque el circuito se escribió tal cual
+lo publican los organizadores, dispositivo por dispositivo.
+
+DIAPOSITIVA 51 · 03 RESULTADOS TOTALES  [SECCIÓN]
+-------------------------------------------------
+Separador. Explicados todos los bloques, los resultados del sistema completo.
+Todos son comparaciones de layout contra esquemático.
+
+DIAPOSITIVA 52 · BANCO DEL NAVEGADOR · MÉTODO
+---------------------------------------------
+El banco del navegador completo: los cuatro puentes y, colgados de sus ocho
+nodos, los DOS navegadores — el del esquemático y el reconstruido desde el
+layout.
+
+Que estén en la misma hoja es el argumento: comparten el estímulo exacto, así
+que cualquier diferencia en la salida es del circuito y no del estímulo.
+
+DIAPOSITIVA 53 · BANCO DEL NAVEGADOR · MÉTODO
+---------------------------------------------
+El método. El navegador del layout va extraído CON parásitos RC, que es lo que
+hace la comparación honrada: sin parásitos se estaría comparando el
+esquemático consigo mismo.
+
+Cada cadena con su alimentación, para medir los dos consumos sin que se
+mezclen.
+
+DIAPOSITIVA 54 · RESULTADO · LAYOUT CONTRA ESQUEMÁTICO
+------------------------------------------------------
+El resultado en una imagen: las tres salidas de eje, las dos versiones
+superpuestas.
+
+Se ven tres trazas y no seis porque la naranja está encima de la azul. Aquí el
+dibujo aburrido es el buen resultado.
+
+DIAPOSITIVA 55 · RESULTADO · LAYOUT CONTRA ESQUEMÁTICO
+------------------------------------------------------
+Los números, sobre 721 puntos de 0 a 360°. Conviene decir que esta diapositiva
+llegó a poner 100 %, y era un artefacto: el banco tenía la reconstrucción
+cableada con el reparto de sensores viejo y estaba comparando un cableado
+contra otro. Arreglado eso y refrescados los netlists extraídos, éstos son los
+números de verdad.
+
+Las doce salidas de cadena coinciden en el 99.7 % y las seis digitales en el
+99.5 % (X e Y) y el 98.9 % (Z). Entre dos y cuatro grados de desacuerdo sobre
+360.
+
+Y dónde caen esos grados importa: en las fronteras entre sectores. Ahí las dos
+entradas del comparador están casi iguales y quien decide es el offset, que en
+el layout es mayor. Fuera de las fronteras las dos versiones no discrepan en
+ningún punto.
+
+Abajo, lo que queda al restar una versión de la otra: 75.32 frente a 75.29 mW.
+Los parásitos RC cuestan tres centésimas de milivatio, que sobre 75 mW no es
+nada.
+
+Este número es más fuerte que un LVS: el LVS dice que las conexiones
+coinciden, esto dice que el comportamiento coincide.
+
+DIAPOSITIVA 56 · RESULTADO · LAYOUT CONTRA ESQUEMÁTICO
+------------------------------------------------------
+Cómo se construye una decisión en el chip entero, que es lo que no estaba en
+ninguna diapositiva: por cada eje, cuántas de las cuatro cadenas votan
+(escalera gris) y qué lee el contador analógico (color).
+
+Las dos van juntas a propósito: el contador debe ser una imagen fiel de un
+entero, y lo es: un escalón limpio por voto en los tres ejes.
+
+DIAPOSITIVA 57 · RESULTADO · LAYOUT CONTRA ESQUEMÁTICO
+------------------------------------------------------
+Y las seis salidas que salen del chip, cada par con su gemela negada — que es
+literalmente su negado, no el otro sentido.
+
+Coinciden en el 99.5 % en X e Y y el 98.9 % en Z. El contador analógico de
+debajo se desvía 38.8 mV rms entre las dos versiones, que es una décima de
+escalón: no basta para cambiar la cuenta salvo justo en las fronteras.
+
+DIAPOSITIVA 58 · RESULTADO · LAYOUT CONTRA ESQUEMÁTICO
+------------------------------------------------------
+Conviene dejar claro qué dicen esos seis pines, porque es fácil leerlos mal.
+NO son seis sentidos. Son tres decisiones con su complemento: XP alto
+significa «gana el eje X», y XN es exactamente su negado, que es lo que
+alimenta el puente en H.
+
+Se ve en el netlist: COMP_OUT es OUT = búfer(IN) y OUT_N = NOT(IN),
+instanciado como x8 VDD XN X XP VSS. Así que para leer el chip basta mirar XP,
+XN es redundante por construcción.
+
+Y de ahí lo que este chip NO hace: distinguir +X de −X. El decodificador
+contesta QUÉ EJE, no hacia qué lado. Resolver el sentido pide una comparación
+más, que es la que añade GRADIENT_NAV3 y este die no lleva.
+
+DIAPOSITIVA 59 · RESULTADO · LAYOUT CONTRA ESQUEMÁTICO
+------------------------------------------------------
+Los casos de prueba por octante en el navegador completo, que es lo que
+pediste: el gradiente recorriendo la esfera entera, no un plano, de modo que
+las ocho combinaciones de signo de X, Y y Z quedan cubiertas y con el mismo
+número de muestras cada una.
+
+A la izquierda, qué eje reclama el chip en cada octante. A la derecha, si es
+el que se esperaba — y el esperado sale de aplicar la MISMA regla de votación
+a lecturas ideales, así que un fallo es del circuito y no de la regla.
+
+Ésta es la cifra que sustituye a los grados: el chip no da un ángulo, da tres
+bits, y lo que hay que medir es cuántas veces acierta el eje.
+
+Dos avisos para leerla bien. Primero, este banco instancia los dos TOPS
+ESQUEMÁTICOS y no incluye ningún layout extraído: el 76 % es del esquemático,
+no un defecto del dibujo.
+
+Y segundo, es una media sobre tres intensidades de gradiente, dos de ellas a
+propósito cerca del límite. Separadas: 65.1 % con el gradiente a 5 veces el
+desajuste de sensor, 78.2 % a 11 veces y 85.3 % a 47 veces. No es una
+constante del chip, es dónde se le pone a medir. Las dos diapositivas
+siguientes lo desmontan.
+
+DIAPOSITIVA 60 · RESULTADO · LAYOUT CONTRA ESQUEMÁTICO
+------------------------------------------------------
+Aquí está el bloque de sensado por dentro del navegador: las cuatro cadenas
+contra los ocho octantes. Los dos paneles son la misma medida hecha contra dos
+referencias distintas, y la diferencia entre ellos es toda la explicación.
+
+A la izquierda, contra el eje IDEAL: el que saldría si los cuatro puentes
+fueran perfectos. Sale irregular, 90.9 % de media, y con un patrón — en casi
+cada octante hay UNA cadena que cae y las otras tres quedan en 100 %.
+
+A la derecha, contra lo que la cadena REALMENTE recibe. Casi todo verde: 99.7
+%. Es decir, el bloque de sensado hace su trabajo. Le das tres lecturas y saca
+la menor, siempre.
+
+Lo que hay en medio es el desajuste de los sensores, que el banco inyecta a
+200 ppm con el patrón +1.00 / −0.62 / +0.31 / −0.85. Ese sesgo VOLTEA el orden
+de las lecturas antes de que el chip las vea, y en cada dirección le toca a la
+cadena cuyo trío queda peor puesto. Por eso el peor octante es el (−,−,−): ahí
+los sesgos se suman en vez de cancelarse y caen las cuatro a la vez.
+
+La única excepción de circuito es la cadena 2 al 96 %, y solo con el gradiente
+más fuerte: es la saturación del amplificador asomando, el mismo techo de dR/R
+= 1.4 % de la sección anterior.
+
+DIAPOSITIVA 61 · RESULTADO · LAYOUT CONTRA ESQUEMÁTICO
+------------------------------------------------------
+Y ésta contesta la pregunta que deja la anterior: si cada cadena acierta el
+90.9 %, ¿por qué el chip entero se queda en 76.2 %?
+
+Porque no hay redundancia. A la izquierda, cuántas cadenas se equivocan a la
+vez: en el 73 % de las muestras no falla ninguna. A la derecha, si el chip
+sobrevive a ello — y no sobrevive: con las cuatro bien acierta el 100 %, con
+UNA sola mal acierta el 15 %.
+
+La causa es el reparto de votos. El eje ganador gana 2-1-1 en el 97 % de los
+casos, o sea por un solo voto, así que una cadena volteada cambia el eje.
+Cuatro cadenas que tienen que acertar TODAS dan 0.909⁴ = 68 %; sale 76 %
+porque los errores se agrupan en las mismas muestras en vez de repartirse.
+
+La conclusión para el diseño: el sitio donde ganar precisión no es el bloque
+de sensado, que ya está al 99.7 %. Es calibrar los sensores, o pesar cada voto
+por su margen en lugar de contarlos todos igual.
+
+DIAPOSITIVA 62 · BANCO DE GEOMETRÍA · MÉTODO
+--------------------------------------------
+El banco de geometría: los cuatro sensores en los vértices del tetraedro de
+una caja, y seis cajas distintas.
+
+Mide la resolución —el gradiente más pequeño con 95 % de acierto, que captura
+el offset por abajo y la saturación por arriba—, lo mismo restringido al plano
+X-Y, y el fondo.
+
+El criterio del 95 % se eligió para no depender de ninguna definición
+prestada: es un número que sale del propio experimento.
+
+DIAPOSITIVA 63 · BANCO DE GEOMETRÍA · MÉTODO
+--------------------------------------------
+El banco de geometría montado: el navegador completo, con los sensores en los
+vértices de una caja concreta. El barrido repite el experimento entero para
+las seis.
+
+DIAPOSITIVA 64 · RESULTADO · GEOMETRÍA DE LA CAJA
+-------------------------------------------------
+La tabla de las seis cajas. Lo que hay que leer es la FORMA, no el tamaño: la
+caja cúbica de 1000 × 1000 llega al 97.8 % con gradiente alto, y achatarla a
+Lz 500 cuesta acierto siempre, en las tres anchuras.
+
+DIAPOSITIVA 65 · RESULTADO · GEOMETRÍA DE LA CAJA
+-------------------------------------------------
+La resolución, y por qué son DOS límites y no uno. Por abajo el offset de los
+sensores pone un suelo: con un gradiente demasiado pequeño la diferencia entre
+esquinas se pierde dentro del offset. Por arriba la saturación del
+amplificador pone un techo. El número que se extrae —el gradiente más pequeño
+con 95 % de acierto— captura los dos a la vez.
+
+DIAPOSITIVA 66 · RESULTADO · GEOMETRÍA DE LA CAJA
+-------------------------------------------------
+Las seis cajas dibujadas. Al achatarlas el tetraedro pierde separación en z, y
+con ella la información que distingue arriba de abajo. Explica de un vistazo
+por qué la tabla penaliza siempre a las de Lz 500.
+
+DIAPOSITIVA 67 · RESULTADO · GEOMETRÍA DE LA CAJA
+-------------------------------------------------
+El campo terrestre. Es común a los cuatro sensores, así que se cancela al
+compararlos entre sí, pero NO en el amplificador, que lo ve entero y lo
+amplifica. La curva enseña a qué nivel de fondo se pierde la medida.
+
+DIAPOSITIVA 68 · BANCO DE FUENTE · MÉTODO
+-----------------------------------------
+El banco de fuente, la pregunta para la que existe el chip. Ya no se impone un
+gradiente: se pone una fuente en un sitio y cada sensor lee el módulo en su
+vértice.
+
+El acierto está en usar DOS modelos. En el simétrico el módulo depende solo de
+la distancia, así que el gradiente apunta exactamente a la fuente y cualquier
+error es del chip. En el dipolo real ni un chip perfecto daría cero.
+
+La diferencia entre los dos números separa el error del circuito del error de
+la física. 42 barridos: tres distancias, siete azimuts, dos modelos.
+
+DIAPOSITIVA 69 · BANCO DE FUENTE · MÉTODO
+-----------------------------------------
+El banco de fuente montado. Es el que más se parece a un experimento real con
+un imán encima de la mesa.
+
+DIAPOSITIVA 70 · RESULTADO · ¿APUNTA A LA FUENTE?
+-------------------------------------------------
+El ángulo que da el chip frente al ideal, por modelo y distancia.
+
+Lo que hay que leer es la SEPARACIÓN entre «Chip» e «Ideal». A 3000 µm en el
+modelo simétrico son 0.25°: el error es del circuito y es pequeño. A 12000 µm
+llega a 7.5° y la medida se pierde.
+
+DIAPOSITIVA 71 · RESULTADO · ¿APUNTA A LA FUENTE?
+-------------------------------------------------
+Ésta es la diapositiva que estaba al principio y que movimos aquí: ahora llega
+en su sitio. Para cada uno de los cuatro vértices se dibuja el módulo que
+debería leer y lo que su puente entrega. Las cuatro lecturas son distintas
+entre sí, y esa diferencia ES el gradiente.
+
+DIAPOSITIVA 72 · RESULTADO · ¿APUNTA A LA FUENTE?
+-------------------------------------------------
+Primero qué es cada eje, porque no es obvio. El eje horizontal NO es el ángulo
+medido: es dónde está la fuente alrededor de la caja. El vertical sí es el
+error — el ángulo entre el gradiente que el chip reconstruye de los cuatro
+puentes y la dirección real a la fuente.
+
+Y qué son las curvas tenues, que es lo que no se decía: cada una es UN azimut
+de la fuente, siete por panel. La banda que forman es cuánto depende la
+respuesta de por dónde se acerque la fuente. Las dos gruesas son su promedio:
+azul el chip, naranja discontinua un chip perfecto.
+
+Ojo con la lectura fácil y falsa: en el modelo simétrico un chip perfecto NO
+da cero. Da 14° a 3 mm. Eso no es del circuito, es de hacer una diferencia
+finita sobre una caja de 1 mm con la fuente a solo tres. Lo que pone el
+circuito es únicamente el hueco sombreado entre las dos curvas, y a 3 mm son
+0.25°.
+
+DIAPOSITIVA 73 · RESULTADO · ¿APUNTA A LA FUENTE?
+-------------------------------------------------
+La pregunta práctica: ¿sigue encontrando la fuente según te alejas? A la
+izquierda, el acierto contra la distancia, con los dos modelos de campo y las
+dos versiones de cableado. Cae de forma suave: a 2 mm el chip acierta el 91 %
+y a 18 mm el 67 %.
+
+El panel de la derecha explica por qué, y de paso valida los bancos. Es lo
+mismo dibujado contra la magnitud que de verdad manda: cuánto CAMBIA el campo
+a lo largo de la caja de 1 mm. Alejarse no reduce el campo —el modelo mantiene
+156 µT en el centro— reduce su PENDIENTE, que es lo único que el chip puede
+leer.
+
+Y fíjate en que los triángulos, que vienen del banco de caja con gradiente
+uniforme impuesto, caen sobre la misma curva que los círculos del banco de
+fuente. Son dos experimentos independientes, uno con un imán y otro con un
+gradiente sintético, y dan lo mismo.
+
+En verde, el reordenado de puertos de XSCHEM_v3: gana entre 5 y 17 puntos, y
+la ventaja CRECE con la distancia, que es justo donde hace falta.
+
+DIAPOSITIVA 74 · RESULTADO · ¿APUNTA A LA FUENTE?
+-------------------------------------------------
+Los dos separados: lo que sale del chip, y lo que sale menos lo que daría un
+chip perfecto. Lo segundo es la parte que pone el circuito. Justifica haber
+corrido dos modelos en lugar de uno.
+
+DIAPOSITIVA 75 · 04 VERIFICACIÓN FÍSICA  [SECCIÓN]
+--------------------------------------------------
+Separador. Se acaba la simulación y empieza lo que se entrega.
+
+DIAPOSITIVA 76 · B26_A
+----------------------
+El chip entero, dos veces, 1110 × 1110 µm. A la izquierda sin relleno de
+densidad: se ven los bloques y el enrutado. A la derecha el fichero que se
+entrega, con el relleno puesto.
+
+Es la misma geometría; lo que cambia es que está cubierta de metal ficticio
+para cumplir las reglas de densidad. Enseñar las dos ahorra la pregunta de por
+qué el chip parece una mancha.
+
+DIAPOSITIVA 77 · VERIFICACIÓN FÍSICA
+------------------------------------
+La verificación, toda sobre B26_A_filled4.gds, el fichero que se sube, no
+sobre una versión anterior.
+
+El LVS casa único sobre 1442 dispositivos y 894 nets, con el navegador v3
+dentro: mismas celdas hoja, mismo interfaz, mismo hueco.
+
+La fila de corriente es electromigración, y conviene decir cómo está medida:
+es el PEOR corte de cada eje, no el del centro. Antes se cortaba el die por la
+mitad del lado mayor, que sobre un die rectangular no es el centro de ningún
+eje, y ese corte caía en un sitio afortunado.
+
+DIAPOSITIVA 78 · 05 CONCLUSIONES  [SECCIÓN]
+-------------------------------------------
+Separador. Lo esperado contra lo medido, incluido lo que no cerró.
+
+DIAPOSITIVA 79 · LO ESPERADO CONTRA LO MEDIDO
+---------------------------------------------
+Tres cosas que se esperaban de una manera y resultaron ser de otra: XP y XN
+cambiados respecto a su etiqueta, el umbral fuera de sitio, y el eje Z sin
+poder ganar nunca.
+
+El tercero es el más interesante: subirle su propio peso no lo arreglaba; lo
+que lo arregló fue cambiar el ORDEN dentro de cada trío.
+
+Y el cierre justifica toda la sección de bancos: los tres se encontraron
+simulando, no revisando el esquemático.
+
+DIAPOSITIVA 80 · LO QUE NO CERRÓ
+--------------------------------
+Lo que no cerró: el LVS de KLayout sobre el top no termina la extracción. Tres
+intentos, ninguno llegó a comparar.
+
+Importa decir por qué NO es falta de memoria: cada proceso se quedó en unos
+540 MB con 31 GB libres. Es número de nets, no tamaño de máquina.
+
+Y lo que sí casa: netgen dice «Circuits match uniquely» sobre los mismos 1442
+dispositivos. Se menciona porque el LVS externo del chipathon corre el deck de
+KLayout, no netgen.
+
+DIAPOSITIVA 81 · LA MEJORA, YA DENTRO DEL DIE
+---------------------------------------------
+El esquemático de la v3. Comparado con el del chip no cambia ni una celda: son
+los mismos cuatro GRADIENT2, los mismos tres WEIGHT y los mismos tres
+COMP_OUT.
+
+Lo único distinto es qué pad de sensor entra por qué puerto de cada GRADIENT2.
+Los cuatro tríos son los mismos; cambia el orden dentro de cada uno.
+
+Y esto ya NO es una propuesta: la v3 tiene layout propio, pasa DRC y LVS, y es
+lo que va dentro del chip que se entrega. El bloque mide los mismos 460.90 ×
+386.99 µm que la versión anterior, así que entró en el mismo hueco sin mover
+nada de la integración.
+
+DIAPOSITIVA 82 · LA MEJORA, YA DENTRO DEL DIE
+---------------------------------------------
+La v3 contra su propio layout, con las celdas extraídas con parásitos RC. El
+verificador de grafo confirma que el navegador reconstruido ES el mismo
+circuito que el esquemático de la v3, 31 celdas.
+
+Y aquí sale una ventaja que no buscábamos: la v3 no solo acierta más, aguanta
+mejor el layout. Las seis salidas coinciden en el 99.72 % contra el 99.45 y
+98.89 % de la versión del die, y el desacuerdo baja de 2–4 grados a 1.
+
+El panel de la derecha dice por qué. El contador de la v3 recorre de 1.22 a
+2.58 V —los cinco escalones, porque aparecen los 3-0-0— mientras que el del
+die vive entre 1.81 y 2.58, o sea en dos. Con más margen de voto, un offset
+del dibujo tiene que ser mucho mayor para cambiar la decisión.
+
+DIAPOSITIVA 83 · LA MEJORA, YA DENTRO DEL DIE
+---------------------------------------------
+De dónde sale la mejora, que se ve directamente en el análisis de las cadenas.
+
+El bloque de sensado acierta el 99.7 % de lo que recibe, pero el chip entero
+se queda en el 76 %. La razón es que cada sensor ocupa una RANURA distinta en
+cada uno de los tres tríos que lo contienen: cuando es el mínimo, las tres
+cadenas que lo ven aciertan las tres y votan a ejes distintos. Se anulan, y
+decide la cuarta, la única que no lo vio.
+
+Reordenar qué sensor entra por qué puerto —los mismos tríos, cambiado el orden
+dentro de cada uno— hace que S1 caiga siempre en X, S4 en Y y S3 en Z. Medido
+en el mismo barrido: 76.2 % pasa a 90.7 %, y las salidas indefinidas de 1.1 %
+a 0.0 %.
+
+Lo que lo confirma es que las cuatro cadenas dan cifras IDÉNTICAS en las dos
+versiones. No se mejora ningún bloque: se deja de desperdiciar lo que ya
+decían. No cambia ninguna celda, solo el ruteo de los pads de sensor.
+
+Está en XSCHEM_v3, y desde el 7 de septiembre es el núcleo del GDS que se
+entrega: B26_A_filled4.gds. Se repitieron DRC y LVS del bloque y del área
+integrada, y los dos salen limpios.
+
+DIAPOSITIVA 84 · 06 ESTADO  [SECCIÓN]
+-------------------------------------
+Cierre. El chip está terminado y verificado, y el entregable es
+B26_A_filled4.gds, con el navegador v3 dentro. Es la diapositiva que conviene
+dejar en pantalla mientras se responden preguntas.

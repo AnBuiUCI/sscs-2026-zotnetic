@@ -17,7 +17,7 @@ N -400 -380 -340 -380 {lab=GND}
 N -400 -460 -400 -440 {lab=S1P}
 N -340 -460 -340 -440 {lab=S1N}
 N -400 -520 -340 -520 {lab=VEXC}
-C {devices/code_shown.sym} 570 -600 0 0 {name=MODELS1 only_toplevel=true
+C {devices/code.sym} 570 -600 0 0 {name=MODELS1 only_toplevel=true
 format="tcleval( @value )"
 value="
 .include $::180MCU_MODELS/design.ngspice
@@ -42,7 +42,7 @@ C {devices/vsource.sym} 270 -520 0 0 {name=V6 value=5
 C {devices/lab_wire.sym} 270 -550 0 0 {name=pV6a sig_type=std_logic lab=VDD2}
 C {devices/gnd.sym} 270 -490 0 0 {name=lV6 lab=GND
 value=5}
-C {devices/code_shown.sym} -340 -1040 0 0 {name=ESTIMULO only_toplevel=true
+C {devices/code.sym} -340 -1040 0 0 {name=ESTIMULO only_toplevel=true
 value="
 * THE FIELD. Three components 120 degrees apart, which is what makes them sum
 * to zero: the vector only changes DIRECTION, not magnitude. Sweeping
@@ -60,13 +60,32 @@ value="
 * Va con fuentes B y resistencias de comportamiento, y no barriendo
 * resistors, because dc takes two nested sources at most and here there are
 * TWELVE resistors that must all move at once and consistently.
+*
+* AND A SECOND MODE, for the octant cases. The rotation above pins the three
+* readings to bx+by+bz = 0, so patterns like (+,+,+) are unreachable by
+* construction and this bench can only ever see three of the eight sign
+* combinations. With v(sel) = 1 each reading becomes v(amp) times its own
+* coefficient cx/cy/cz, so the SIGNS of those three coefficients pick the
+* octant and their MAGNITUDES pick the ordering, while sweeping Vamp still
+* sweeps the field inside that octant.
+*
+* The decoder puts out the SMALLEST axis (X = XY*XZ), so the expected answer
+* at every point is argmin(cx, cy, cz) -- a truth table checkable entry by
+* entry. Coefficients are given distinct magnitudes on purpose: three equal
+* ones are a three-way tie with no right answer.
+*
+* v(sel) = 0 leaves the rotation exactly as it was: nothing above changes.
 Vamp amp 0 0.02
 Vang ang 0 0
-Bbx bx 0 v='v(amp)*cos( v(ang)       *3.14159265358979/180)'
-Bby by 0 v='v(amp)*cos((v(ang)-120.0)*3.14159265358979/180)'
-Bbz bz 0 v='v(amp)*cos((v(ang)+120.0)*3.14159265358979/180)'
+Vsel sel 0 0
+Vcx cx 0 1
+Vcy cy 0 0
+Vcz cz 0 0
+Bbx bx 0 v='v(sel) > 0.5 ? v(amp)*v(cx) : v(amp)*cos( v(ang)       *3.14159265358979/180)'
+Bby by 0 v='v(sel) > 0.5 ? v(amp)*v(cy) : v(amp)*cos((v(ang)-120.0)*3.14159265358979/180)'
+Bbz bz 0 v='v(sel) > 0.5 ? v(amp)*v(cz) : v(amp)*cos((v(ang)+120.0)*3.14159265358979/180)'
 "}
-C {devices/code_shown.sym} 900 -1010 0 0 {name=RECONSTRUCCION only_toplevel=true
+C {devices/code.sym} 900 -1010 0 0 {name=RECONSTRUCCION only_toplevel=true
 value="
 * THE SAME TWO CHAINS, REBUILT FROM THE v2 LAYOUT BLOCKS.
 * They hang off the SAME six sensor nodes as the schematic ones and each
@@ -116,7 +135,7 @@ XC43 GND VDD4 YZ4 SZ4 SY4 COMP_V2
 * .subckt DECODER_V2  VSS VDD YZ Z XY XZ Y X
 XD4  GND VDD4 YZ4 Z4 XY4 XZ4 Y4 X4 DECODER_V2
 "}
-C {devices/code_shown.sym} 520 -1010 0 0 {name=s1
+C {devices/code.sym} 520 -1010 0 0 {name=s1
 only_toplevel=false
 value="
 * CAREFUL: not one brace in this text. xschem counts them to find where the
@@ -140,6 +159,287 @@ wrdata ancho.txt v(X1) v(Y1) v(Z1) v(X2) v(Y2) v(Z2) v(X3) v(Y3) v(Z3) v(X4) v(Y
 alter Vamp = 50u
 dc Vang 0 360 0.5
 wrdata fino.txt v(X1) v(Y1) v(Z1) v(X2) v(Y2) v(Z2) v(X3) v(Y3) v(Z3) v(X4) v(Y4) v(Z4) v(x2.SX) v(x2.SY) v(x2.SZ) v(x3.SX) v(x3.SY) v(x3.SZ) v(SX3) v(SY3) v(SZ3) v(SX4) v(SY4) v(SZ4) v(x2.net1) v(x2.net2) v(x2.net3) v(x3.net1) v(x3.net2) v(x3.net3) v(XY3) v(XZ3) v(YZ3) v(XY4) v(XZ4) v(YZ4) v(S1P) v(S1N) v(S2P) v(S2N) v(S3P) v(S3N) v(VEXC)*i(V1) v(VDD1)*i(V2) v(VDD2)*i(V6) v(VDD3)*i(V3) v(VDD4)*i(V4)
+* --------------------------------------------------------------------------
+* FIELD SWEEP. Everything above turns the field and keeps its size; these two
+* do the opposite -- hold the direction and sweep the MAGNITUDE, which is the
+* axis a real magnet moves along as you walk towards it.
+*
+* The angle is parked at 60 deg, the middle of a sector: on a boundary the
+* decision is meant to be undefined and the sweep would only measure noise.
+*
+* AND THE SWEEP DOES NOT START AT ZERO. With Vamp = 0 the three bridges are
+* identical, so the three amplifiers sit at the same output and all three
+* comparators land exactly on their trip point: the operating point is not
+* unique and ngspice spends the sweep in gmin stepping. Starting one step in
+* costs nothing and the solution is definite everywhere.
+*
+* Only the linear-amplifier chain, G2 (schematic) and G4 (layout), and their
+* own new files so ancho.txt and fino.txt keep the column order analizar.py
+* reads.
+alter Vang = 60
+dc Vamp 20u 0.02 20u
+wrdata campo.txt v(S1P) v(S1N) v(S2P) v(S2N) v(S3P) v(S3N)
++ v(x3.SX) v(x3.SY) v(x3.SZ) v(x3.net1) v(x3.net2) v(x3.net3)
++ v(X2) v(Y2) v(Z2)
++ v(SX4) v(SY4) v(SZ4) v(XY4) v(XZ4) v(YZ4)
++ v(X4) v(Y4) v(Z4)
++ v(VDD2)*i(V6) v(VDD4)*i(V4)
+* And the low end on its own scale, where the offsets and the noise live.
+dc Vamp 1u 1m 1u
+wrdata campo_fino.txt v(S1P) v(S1N) v(S2P) v(S2N) v(S3P) v(S3N)
++ v(x3.SX) v(x3.SY) v(x3.SZ) v(x3.net1) v(x3.net2) v(x3.net3)
++ v(X2) v(Y2) v(Z2)
++ v(SX4) v(SY4) v(SZ4) v(XY4) v(XZ4) v(YZ4)
++ v(X4) v(Y4) v(Z4)
++ v(VDD2)*i(V6) v(VDD4)*i(V4)
+* --------------------------------------------------------------------------
+* OCTANT CASES. Eight sign patterns times three magnitude orderings, so
+* every axis gets to be the smallest, the middle one and the largest in
+* each octant: 24 cases. The coefficients are written into the file as
+* its first three vectors, so each file says which case it is and no
+* separate manifest can drift out of step with it.
+alter Vsel = 1
+* case 01: c = (+1.0, +0.6, +0.3)  ->  expected Z
+alter Vcx = 1.0
+alter Vcy = 0.6
+alter Vcz = 0.3
+dc Vamp 200u 0.02 200u
+wrdata oct_01.txt v(cx) v(cy) v(cz) v(S1P) v(S1N) v(S2P) v(S2N) v(S3P) v(S3N)
++ v(x3.SX) v(x3.SY) v(x3.SZ) v(x3.net1) v(x3.net2) v(x3.net3)
++ v(X2) v(Y2) v(Z2)
++ v(SX4) v(SY4) v(SZ4) v(XY4) v(XZ4) v(YZ4)
++ v(X4) v(Y4) v(Z4)
+* case 02: c = (+0.3, +1.0, +0.6)  ->  expected X
+alter Vcx = 0.3
+alter Vcy = 1.0
+alter Vcz = 0.6
+dc Vamp 200u 0.02 200u
+wrdata oct_02.txt v(cx) v(cy) v(cz) v(S1P) v(S1N) v(S2P) v(S2N) v(S3P) v(S3N)
++ v(x3.SX) v(x3.SY) v(x3.SZ) v(x3.net1) v(x3.net2) v(x3.net3)
++ v(X2) v(Y2) v(Z2)
++ v(SX4) v(SY4) v(SZ4) v(XY4) v(XZ4) v(YZ4)
++ v(X4) v(Y4) v(Z4)
+* case 03: c = (+0.6, +0.3, +1.0)  ->  expected Y
+alter Vcx = 0.6
+alter Vcy = 0.3
+alter Vcz = 1.0
+dc Vamp 200u 0.02 200u
+wrdata oct_03.txt v(cx) v(cy) v(cz) v(S1P) v(S1N) v(S2P) v(S2N) v(S3P) v(S3N)
++ v(x3.SX) v(x3.SY) v(x3.SZ) v(x3.net1) v(x3.net2) v(x3.net3)
++ v(X2) v(Y2) v(Z2)
++ v(SX4) v(SY4) v(SZ4) v(XY4) v(XZ4) v(YZ4)
++ v(X4) v(Y4) v(Z4)
+* case 04: c = (+1.0, +0.6, -0.3)  ->  expected Z
+alter Vcx = 1.0
+alter Vcy = 0.6
+alter Vcz = -0.3
+dc Vamp 200u 0.02 200u
+wrdata oct_04.txt v(cx) v(cy) v(cz) v(S1P) v(S1N) v(S2P) v(S2N) v(S3P) v(S3N)
++ v(x3.SX) v(x3.SY) v(x3.SZ) v(x3.net1) v(x3.net2) v(x3.net3)
++ v(X2) v(Y2) v(Z2)
++ v(SX4) v(SY4) v(SZ4) v(XY4) v(XZ4) v(YZ4)
++ v(X4) v(Y4) v(Z4)
+* case 05: c = (+0.3, +1.0, -0.6)  ->  expected Z
+alter Vcx = 0.3
+alter Vcy = 1.0
+alter Vcz = -0.6
+dc Vamp 200u 0.02 200u
+wrdata oct_05.txt v(cx) v(cy) v(cz) v(S1P) v(S1N) v(S2P) v(S2N) v(S3P) v(S3N)
++ v(x3.SX) v(x3.SY) v(x3.SZ) v(x3.net1) v(x3.net2) v(x3.net3)
++ v(X2) v(Y2) v(Z2)
++ v(SX4) v(SY4) v(SZ4) v(XY4) v(XZ4) v(YZ4)
++ v(X4) v(Y4) v(Z4)
+* case 06: c = (+0.6, +0.3, -1.0)  ->  expected Z
+alter Vcx = 0.6
+alter Vcy = 0.3
+alter Vcz = -1.0
+dc Vamp 200u 0.02 200u
+wrdata oct_06.txt v(cx) v(cy) v(cz) v(S1P) v(S1N) v(S2P) v(S2N) v(S3P) v(S3N)
++ v(x3.SX) v(x3.SY) v(x3.SZ) v(x3.net1) v(x3.net2) v(x3.net3)
++ v(X2) v(Y2) v(Z2)
++ v(SX4) v(SY4) v(SZ4) v(XY4) v(XZ4) v(YZ4)
++ v(X4) v(Y4) v(Z4)
+* case 07: c = (+1.0, -0.6, +0.3)  ->  expected Y
+alter Vcx = 1.0
+alter Vcy = -0.6
+alter Vcz = 0.3
+dc Vamp 200u 0.02 200u
+wrdata oct_07.txt v(cx) v(cy) v(cz) v(S1P) v(S1N) v(S2P) v(S2N) v(S3P) v(S3N)
++ v(x3.SX) v(x3.SY) v(x3.SZ) v(x3.net1) v(x3.net2) v(x3.net3)
++ v(X2) v(Y2) v(Z2)
++ v(SX4) v(SY4) v(SZ4) v(XY4) v(XZ4) v(YZ4)
++ v(X4) v(Y4) v(Z4)
+* case 08: c = (+0.3, -1.0, +0.6)  ->  expected Y
+alter Vcx = 0.3
+alter Vcy = -1.0
+alter Vcz = 0.6
+dc Vamp 200u 0.02 200u
+wrdata oct_08.txt v(cx) v(cy) v(cz) v(S1P) v(S1N) v(S2P) v(S2N) v(S3P) v(S3N)
++ v(x3.SX) v(x3.SY) v(x3.SZ) v(x3.net1) v(x3.net2) v(x3.net3)
++ v(X2) v(Y2) v(Z2)
++ v(SX4) v(SY4) v(SZ4) v(XY4) v(XZ4) v(YZ4)
++ v(X4) v(Y4) v(Z4)
+* case 09: c = (+0.6, -0.3, +1.0)  ->  expected Y
+alter Vcx = 0.6
+alter Vcy = -0.3
+alter Vcz = 1.0
+dc Vamp 200u 0.02 200u
+wrdata oct_09.txt v(cx) v(cy) v(cz) v(S1P) v(S1N) v(S2P) v(S2N) v(S3P) v(S3N)
++ v(x3.SX) v(x3.SY) v(x3.SZ) v(x3.net1) v(x3.net2) v(x3.net3)
++ v(X2) v(Y2) v(Z2)
++ v(SX4) v(SY4) v(SZ4) v(XY4) v(XZ4) v(YZ4)
++ v(X4) v(Y4) v(Z4)
+* case 10: c = (+1.0, -0.6, -0.3)  ->  expected Y
+alter Vcx = 1.0
+alter Vcy = -0.6
+alter Vcz = -0.3
+dc Vamp 200u 0.02 200u
+wrdata oct_10.txt v(cx) v(cy) v(cz) v(S1P) v(S1N) v(S2P) v(S2N) v(S3P) v(S3N)
++ v(x3.SX) v(x3.SY) v(x3.SZ) v(x3.net1) v(x3.net2) v(x3.net3)
++ v(X2) v(Y2) v(Z2)
++ v(SX4) v(SY4) v(SZ4) v(XY4) v(XZ4) v(YZ4)
++ v(X4) v(Y4) v(Z4)
+* case 11: c = (+0.3, -1.0, -0.6)  ->  expected Y
+alter Vcx = 0.3
+alter Vcy = -1.0
+alter Vcz = -0.6
+dc Vamp 200u 0.02 200u
+wrdata oct_11.txt v(cx) v(cy) v(cz) v(S1P) v(S1N) v(S2P) v(S2N) v(S3P) v(S3N)
++ v(x3.SX) v(x3.SY) v(x3.SZ) v(x3.net1) v(x3.net2) v(x3.net3)
++ v(X2) v(Y2) v(Z2)
++ v(SX4) v(SY4) v(SZ4) v(XY4) v(XZ4) v(YZ4)
++ v(X4) v(Y4) v(Z4)
+* case 12: c = (+0.6, -0.3, -1.0)  ->  expected Z
+alter Vcx = 0.6
+alter Vcy = -0.3
+alter Vcz = -1.0
+dc Vamp 200u 0.02 200u
+wrdata oct_12.txt v(cx) v(cy) v(cz) v(S1P) v(S1N) v(S2P) v(S2N) v(S3P) v(S3N)
++ v(x3.SX) v(x3.SY) v(x3.SZ) v(x3.net1) v(x3.net2) v(x3.net3)
++ v(X2) v(Y2) v(Z2)
++ v(SX4) v(SY4) v(SZ4) v(XY4) v(XZ4) v(YZ4)
++ v(X4) v(Y4) v(Z4)
+* case 13: c = (-1.0, +0.6, +0.3)  ->  expected X
+alter Vcx = -1.0
+alter Vcy = 0.6
+alter Vcz = 0.3
+dc Vamp 200u 0.02 200u
+wrdata oct_13.txt v(cx) v(cy) v(cz) v(S1P) v(S1N) v(S2P) v(S2N) v(S3P) v(S3N)
++ v(x3.SX) v(x3.SY) v(x3.SZ) v(x3.net1) v(x3.net2) v(x3.net3)
++ v(X2) v(Y2) v(Z2)
++ v(SX4) v(SY4) v(SZ4) v(XY4) v(XZ4) v(YZ4)
++ v(X4) v(Y4) v(Z4)
+* case 14: c = (-0.3, +1.0, +0.6)  ->  expected X
+alter Vcx = -0.3
+alter Vcy = 1.0
+alter Vcz = 0.6
+dc Vamp 200u 0.02 200u
+wrdata oct_14.txt v(cx) v(cy) v(cz) v(S1P) v(S1N) v(S2P) v(S2N) v(S3P) v(S3N)
++ v(x3.SX) v(x3.SY) v(x3.SZ) v(x3.net1) v(x3.net2) v(x3.net3)
++ v(X2) v(Y2) v(Z2)
++ v(SX4) v(SY4) v(SZ4) v(XY4) v(XZ4) v(YZ4)
++ v(X4) v(Y4) v(Z4)
+* case 15: c = (-0.6, +0.3, +1.0)  ->  expected X
+alter Vcx = -0.6
+alter Vcy = 0.3
+alter Vcz = 1.0
+dc Vamp 200u 0.02 200u
+wrdata oct_15.txt v(cx) v(cy) v(cz) v(S1P) v(S1N) v(S2P) v(S2N) v(S3P) v(S3N)
++ v(x3.SX) v(x3.SY) v(x3.SZ) v(x3.net1) v(x3.net2) v(x3.net3)
++ v(X2) v(Y2) v(Z2)
++ v(SX4) v(SY4) v(SZ4) v(XY4) v(XZ4) v(YZ4)
++ v(X4) v(Y4) v(Z4)
+* case 16: c = (-1.0, +0.6, -0.3)  ->  expected X
+alter Vcx = -1.0
+alter Vcy = 0.6
+alter Vcz = -0.3
+dc Vamp 200u 0.02 200u
+wrdata oct_16.txt v(cx) v(cy) v(cz) v(S1P) v(S1N) v(S2P) v(S2N) v(S3P) v(S3N)
++ v(x3.SX) v(x3.SY) v(x3.SZ) v(x3.net1) v(x3.net2) v(x3.net3)
++ v(X2) v(Y2) v(Z2)
++ v(SX4) v(SY4) v(SZ4) v(XY4) v(XZ4) v(YZ4)
++ v(X4) v(Y4) v(Z4)
+* case 17: c = (-0.3, +1.0, -0.6)  ->  expected Z
+alter Vcx = -0.3
+alter Vcy = 1.0
+alter Vcz = -0.6
+dc Vamp 200u 0.02 200u
+wrdata oct_17.txt v(cx) v(cy) v(cz) v(S1P) v(S1N) v(S2P) v(S2N) v(S3P) v(S3N)
++ v(x3.SX) v(x3.SY) v(x3.SZ) v(x3.net1) v(x3.net2) v(x3.net3)
++ v(X2) v(Y2) v(Z2)
++ v(SX4) v(SY4) v(SZ4) v(XY4) v(XZ4) v(YZ4)
++ v(X4) v(Y4) v(Z4)
+* case 18: c = (-0.6, +0.3, -1.0)  ->  expected Z
+alter Vcx = -0.6
+alter Vcy = 0.3
+alter Vcz = -1.0
+dc Vamp 200u 0.02 200u
+wrdata oct_18.txt v(cx) v(cy) v(cz) v(S1P) v(S1N) v(S2P) v(S2N) v(S3P) v(S3N)
++ v(x3.SX) v(x3.SY) v(x3.SZ) v(x3.net1) v(x3.net2) v(x3.net3)
++ v(X2) v(Y2) v(Z2)
++ v(SX4) v(SY4) v(SZ4) v(XY4) v(XZ4) v(YZ4)
++ v(X4) v(Y4) v(Z4)
+* case 19: c = (-1.0, -0.6, +0.3)  ->  expected X
+alter Vcx = -1.0
+alter Vcy = -0.6
+alter Vcz = 0.3
+dc Vamp 200u 0.02 200u
+wrdata oct_19.txt v(cx) v(cy) v(cz) v(S1P) v(S1N) v(S2P) v(S2N) v(S3P) v(S3N)
++ v(x3.SX) v(x3.SY) v(x3.SZ) v(x3.net1) v(x3.net2) v(x3.net3)
++ v(X2) v(Y2) v(Z2)
++ v(SX4) v(SY4) v(SZ4) v(XY4) v(XZ4) v(YZ4)
++ v(X4) v(Y4) v(Z4)
+* case 20: c = (-0.3, -1.0, +0.6)  ->  expected Y
+alter Vcx = -0.3
+alter Vcy = -1.0
+alter Vcz = 0.6
+dc Vamp 200u 0.02 200u
+wrdata oct_20.txt v(cx) v(cy) v(cz) v(S1P) v(S1N) v(S2P) v(S2N) v(S3P) v(S3N)
++ v(x3.SX) v(x3.SY) v(x3.SZ) v(x3.net1) v(x3.net2) v(x3.net3)
++ v(X2) v(Y2) v(Z2)
++ v(SX4) v(SY4) v(SZ4) v(XY4) v(XZ4) v(YZ4)
++ v(X4) v(Y4) v(Z4)
+* case 21: c = (-0.6, -0.3, +1.0)  ->  expected X
+alter Vcx = -0.6
+alter Vcy = -0.3
+alter Vcz = 1.0
+dc Vamp 200u 0.02 200u
+wrdata oct_21.txt v(cx) v(cy) v(cz) v(S1P) v(S1N) v(S2P) v(S2N) v(S3P) v(S3N)
++ v(x3.SX) v(x3.SY) v(x3.SZ) v(x3.net1) v(x3.net2) v(x3.net3)
++ v(X2) v(Y2) v(Z2)
++ v(SX4) v(SY4) v(SZ4) v(XY4) v(XZ4) v(YZ4)
++ v(X4) v(Y4) v(Z4)
+* case 22: c = (-1.0, -0.6, -0.3)  ->  expected X
+alter Vcx = -1.0
+alter Vcy = -0.6
+alter Vcz = -0.3
+dc Vamp 200u 0.02 200u
+wrdata oct_22.txt v(cx) v(cy) v(cz) v(S1P) v(S1N) v(S2P) v(S2N) v(S3P) v(S3N)
++ v(x3.SX) v(x3.SY) v(x3.SZ) v(x3.net1) v(x3.net2) v(x3.net3)
++ v(X2) v(Y2) v(Z2)
++ v(SX4) v(SY4) v(SZ4) v(XY4) v(XZ4) v(YZ4)
++ v(X4) v(Y4) v(Z4)
+* case 23: c = (-0.3, -1.0, -0.6)  ->  expected Y
+alter Vcx = -0.3
+alter Vcy = -1.0
+alter Vcz = -0.6
+dc Vamp 200u 0.02 200u
+wrdata oct_23.txt v(cx) v(cy) v(cz) v(S1P) v(S1N) v(S2P) v(S2N) v(S3P) v(S3N)
++ v(x3.SX) v(x3.SY) v(x3.SZ) v(x3.net1) v(x3.net2) v(x3.net3)
++ v(X2) v(Y2) v(Z2)
++ v(SX4) v(SY4) v(SZ4) v(XY4) v(XZ4) v(YZ4)
++ v(X4) v(Y4) v(Z4)
+* case 24: c = (-0.6, -0.3, -1.0)  ->  expected Z
+alter Vcx = -0.6
+alter Vcy = -0.3
+alter Vcz = -1.0
+dc Vamp 200u 0.02 200u
+wrdata oct_24.txt v(cx) v(cy) v(cz) v(S1P) v(S1N) v(S2P) v(S2N) v(S3P) v(S3N)
++ v(x3.SX) v(x3.SY) v(x3.SZ) v(x3.net1) v(x3.net2) v(x3.net3)
++ v(X2) v(Y2) v(Z2)
++ v(SX4) v(SY4) v(SZ4) v(XY4) v(XZ4) v(YZ4)
++ v(X4) v(Y4) v(Z4)
+alter Vsel = 0
 .endc
 "}
 C {a_zonetic2026/XSCHEM/COMBINATION/GRADIENT.sym} -60 -220 0 0 {name=x2}
