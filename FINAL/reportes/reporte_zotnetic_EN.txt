@@ -366,6 +366,18 @@ zona activa y se aplana cuando el amplificador satura.
 
 DIAPOSITIVA 36 · BLOCK RESULT · GRADIENT SENSING
 ------------------------------------------------
+ANTES DE LEER LAS BARRAS, de qué es el porcentaje. Aquí el barrido sigue
+subiendo el campo MUCHO después de que el amplificador sature, a propósito,
+porque lo que se busca es dónde se rompe. Así que el denominador incluye
+puntos que están fuera del alcance del bloque, y por eso salen barras del 75 %
+donde otras diapositivas dan 95 %.
+
+Las tres cifras del informe contestan tres preguntas distintas y no se
+comparan entre sí: el 95.42 % es el eje correcto sobre el barrido de ROTACIÓN,
+que es el estímulo realista; estas barras son sobre un barrido de AMPLITUD que
+pasa de largo la saturación; y el 99.72 % no es acierto sino CUÁNTO COINCIDEN
+layout y esquemático, que es otra cosa.
+
 Los casos de prueba por octante que pediste, en el bloque de sensado. El banco
 se amplió para poder fijar las tres lecturas de puente de forma INDEPENDIENTE:
 el barrido giratorio de siempre las obliga a sumar cero, así que combinaciones
@@ -486,41 +498,24 @@ fondo de escala. Y el arreglo no es del decodificador, es subir la salida en
 reposo del amplificador hacia el centro del raíl — hoy desperdicia 3.5 V de
 recorrido por un lado y se queda sin margen por el otro.
 
-DIAPOSITIVA 42 · WHERE IT BREAKS, AND UNDER WHICH CONDITION
------------------------------------------------------------
-Los mismos doce casos en números, que es donde se lee el límite exacto.
-
-Fíjate en las dos comparaciones que monta el banco. B contra C, mismo tamaño y
-sólo cambia el raíl: hacia arriba no falla NUNCA, ni con el margen más
-apretado; hacia abajo falla en cuanto el margen baja de 0.20. El raíl solo ya
-lo explica.
-
-Y A contra B, mismo raíl y sólo cambia el tamaño: con el mismo margen de 0.40,
-a media escala no falla en todo el barrido y a fondo de escala se queda en
-1.38 %. Las dos condiciones son necesarias, ninguna sobra.
-
-La columna del layout va sistemáticamente unas doce centésimas por debajo del
-esquemático. Eso es su offset, y es el mismo número que sale en las otras
-medidas del bloque.
-
-DIAPOSITIVA 43 · BLOCK 2 · WEIGHT
+DIAPOSITIVA 42 · BLOCK 2 · WEIGHT
 ---------------------------------
 El diagrama interno de WEIGHT: por dónde entra cada señal y qué sale. Se
 recorre con el dedo de izquierda a derecha; los números vienen en la
 diapositiva siguiente.
 
-DIAPOSITIVA 44 · WEIGHT
+DIAPOSITIVA 43 · WEIGHT
 -----------------------
 WEIGHT: qué hace y cuánto cuesta, en la misma diapositiva. El texto de la
 izquierda está en pantalla; basta señalar el titular en negrita y pasar a la
 tabla.
 
-DIAPOSITIVA 45 · WEIGHT
+DIAPOSITIVA 44 · WEIGHT
 -----------------------
 El esquemático de WEIGHT y su layout, uno al lado del otro, con las
 dimensiones medidas debajo.
 
-DIAPOSITIVA 46 · WEIGHT
+DIAPOSITIVA 45 · WEIGHT
 -----------------------
 Las cuatro entradas arriba, el nodo de suma WE en medio y las salidas abajo.
 WE es lo que sale al pad analógico del eje: es el punto de prueba X, Y o Z del
@@ -536,31 +531,31 @@ propio dato — sumas ponderadas distintas (3, 5, 6, 9, 10, 12 bajo una lectura
 1-2-4-8) caen todas en el mismo WE, y las cuatro corrientes de rama son los
 mismos 170 µA.
 
-DIAPOSITIVA 47 · WEIGHT
+DIAPOSITIVA 46 · WEIGHT
 -----------------------
 Las corrientes de las cuatro ramas, arriba el esquemático y abajo el layout.
 Se miden de forma distinta a propósito — en el esquemático con fuentes de 0 V,
 en el layout pidiendo la corriente de drenador de cada transistor de cola — y
 aun así coinciden.
 
-DIAPOSITIVA 48 · BLOCK 3 · COMP_OUT
+DIAPOSITIVA 47 · BLOCK 3 · COMP_OUT
 -----------------------------------
 El diagrama interno de COMP_OUT: por dónde entra cada señal y qué sale. Se
 recorre con el dedo de izquierda a derecha; los números vienen en la
 diapositiva siguiente.
 
-DIAPOSITIVA 49 · COMP_OUT
+DIAPOSITIVA 48 · COMP_OUT
 -------------------------
 COMP_OUT: qué hace y cuánto cuesta, en la misma diapositiva. El texto de la
 izquierda está en pantalla; basta señalar el titular en negrita y pasar a la
 tabla.
 
-DIAPOSITIVA 50 · COMP_OUT
+DIAPOSITIVA 49 · COMP_OUT
 -------------------------
 El esquemático de COMP_OUT y su layout, uno al lado del otro, con las
 dimensiones medidas debajo.
 
-DIAPOSITIVA 51 · COMP_OUT
+DIAPOSITIVA 50 · COMP_OUT
 -------------------------
 La segunda gráfica del comparador de salida: qué hace la salida según CUÁNTAS
 ramas votan. A la izquierda el nivel del contador, que baja 389 mV por voto y
@@ -572,12 +567,12 @@ quince esquinas de 4.5–5.5 V y 0–85 °C sin excepción. Eso es lo que consig
 la quinta rama del WEIGHT, la que va siempre encendida: sin ella harían falta
 3 de 4, que con cuatro cadenas y tres ejes es una mayoría difícil de reunir.
 
-DIAPOSITIVA 52 · INV_1
+DIAPOSITIVA 51 · INV_1
 ----------------------
 El inversor, que es el único subbloque de la etapa de salida. Tres de éstos en
 cadena son COMP_OUT.
 
-DIAPOSITIVA 53 · ESD_CDM · SECONDARY PROTECTION
+DIAPOSITIVA 52 · ESD_CDM · SECONDARY PROTECTION
 -----------------------------------------------
 La protección secundaria. No está en la cadena de señal, pero sí en el área de
 usuario y hay once instancias, una por pad analógico.
@@ -589,18 +584,18 @@ la nuestra ocupa la cuarta parte, unos 52 000 µm² de área recuperados.
 Y que aquí es donde se fusionaron las nwells para pasar el DRC en los dos
 modos de conectividad.
 
-DIAPOSITIVA 54 · ESD_CDM
+DIAPOSITIVA 53 · ESD_CDM
 ------------------------
 ESD_CDM: su esquemático y su layout. Aquí el esquemático ES el bloque de
 código —la hoja no dibuja componentes— porque el circuito se escribió tal cual
 lo publican los organizadores, dispositivo por dispositivo.
 
-DIAPOSITIVA 55 · 03 FULL-SYSTEM RESULTS  [SECCIÓN]
+DIAPOSITIVA 54 · 03 FULL-SYSTEM RESULTS  [SECCIÓN]
 --------------------------------------------------
 Separador. Explicados todos los bloques, los resultados del sistema completo.
 Todos son comparaciones de layout contra esquemático.
 
-DIAPOSITIVA 56 · NAVIGATOR BENCH · METHOD
+DIAPOSITIVA 55 · NAVIGATOR BENCH · METHOD
 -----------------------------------------
 El banco del navegador completo, el de la versión que se fabrica: los cuatro
 puentes y, colgados de sus ocho nodos, los DOS navegadores — el del
@@ -609,7 +604,7 @@ esquemático y el reconstruido desde el layout con parásitos.
 Que estén en la misma hoja es el argumento: comparten el estímulo exacto, así
 que cualquier diferencia en la salida es del circuito y no del estímulo.
 
-DIAPOSITIVA 57 · NAVIGATOR BENCH · METHOD
+DIAPOSITIVA 56 · NAVIGATOR BENCH · METHOD
 -----------------------------------------
 El método. El navegador del layout va extraído CON parásitos RC, que es lo que
 hace la comparación honrada: sin parásitos se estaría comparando el
@@ -618,7 +613,7 @@ esquemático consigo mismo.
 Cada cadena con su alimentación, para medir los dos consumos sin que se
 mezclen.
 
-DIAPOSITIVA 58 · RESULT · LAYOUT AGAINST SCHEMATIC
+DIAPOSITIVA 57 · RESULT · LAYOUT AGAINST SCHEMATIC
 --------------------------------------------------
 El resultado en una imagen: las tres salidas de eje, las dos versiones
 superpuestas.
@@ -626,7 +621,7 @@ superpuestas.
 Se ven tres trazas y no seis porque la naranja está encima de la azul. Aquí el
 dibujo aburrido es el buen resultado.
 
-DIAPOSITIVA 59 · RESULT · LAYOUT AGAINST SCHEMATIC
+DIAPOSITIVA 58 · RESULT · LAYOUT AGAINST SCHEMATIC
 --------------------------------------------------
 Los números, sobre 721 puntos de 0 a 360°. Conviene decir que esta diapositiva
 llegó a poner 100 %, y era un artefacto: el banco tenía la reconstrucción
@@ -650,7 +645,7 @@ tres centésimas. Los parásitos RC no mueven el punto de trabajo.
 Este número es más fuerte que un LVS: el LVS dice que las conexiones
 coinciden, esto dice que el COMPORTAMIENTO coincide.
 
-DIAPOSITIVA 60 · RESULT · LAYOUT AGAINST SCHEMATIC
+DIAPOSITIVA 59 · RESULT · LAYOUT AGAINST SCHEMATIC
 --------------------------------------------------
 Cómo se construye una decisión en el chip entero, que es lo que no estaba en
 ninguna diapositiva: por cada eje, cuántas de las cuatro cadenas votan
@@ -659,7 +654,7 @@ ninguna diapositiva: por cada eje, cuántas de las cuatro cadenas votan
 Las dos van juntas a propósito: el contador debe ser una imagen fiel de un
 entero, y lo es: un escalón limpio por voto en los tres ejes.
 
-DIAPOSITIVA 61 · RESULT · LAYOUT AGAINST SCHEMATIC
+DIAPOSITIVA 60 · RESULT · LAYOUT AGAINST SCHEMATIC
 --------------------------------------------------
 Y las seis salidas que salen del chip, cada par con su gemela negada — que es
 literalmente su negado, no el otro sentido.
@@ -670,7 +665,7 @@ de puertos de la v3: antes Z se quedaba en 98.89 % mientras X e Y iban al
 mV en Z, y el peor caso de desviación entre las dos versiones son 693.8 mV —
 no basta para cambiar la cuenta salvo justo en las fronteras.
 
-DIAPOSITIVA 62 · RESULT · LAYOUT AGAINST SCHEMATIC
+DIAPOSITIVA 61 · RESULT · LAYOUT AGAINST SCHEMATIC
 --------------------------------------------------
 Conviene dejar claro qué dicen esos seis pines, porque es fácil leerlos mal.
 NO son seis sentidos. Son tres decisiones con su complemento: XP alto
@@ -685,7 +680,7 @@ Y de ahí lo que este chip NO hace: distinguir +X de −X. El decodificador
 contesta QUÉ EJE, no hacia qué lado. Resolver el sentido pide una comparación
 más, que es la que añade GRADIENT_NAV3 y este die no lleva.
 
-DIAPOSITIVA 63 · RESULT · LAYOUT AGAINST SCHEMATIC
+DIAPOSITIVA 62 · RESULT · LAYOUT AGAINST SCHEMATIC
 --------------------------------------------------
 Los casos de prueba por octante en el navegador completo, que es lo que
 pediste: el gradiente recorriendo la esfera entera, no un plano, de modo que
@@ -709,7 +704,7 @@ desajuste de sensor, 78.2 % a 11 veces y 85.3 % a 47 veces. No es una
 constante del chip, es dónde se le pone a medir. Las dos diapositivas
 siguientes lo desmontan.
 
-DIAPOSITIVA 64 · RESULT · LAYOUT AGAINST SCHEMATIC
+DIAPOSITIVA 63 · RESULT · LAYOUT AGAINST SCHEMATIC
 --------------------------------------------------
 Y el mismo barrido con el reparto de puertos anterior, para que se vea de
 dónde se viene: 76.2 % contra 90.7 %.
@@ -721,7 +716,7 @@ no vea, y la diferencia es del reparto de puertos y de nada más.
 Lo que más se nota no es la media sino el peor octante: 60.9 % antes y 73.6 %
 ahora. Y tres octantes que estaban por el 80 % pasan al 100 %.
 
-DIAPOSITIVA 65 · RESULT · LAYOUT AGAINST SCHEMATIC
+DIAPOSITIVA 64 · RESULT · LAYOUT AGAINST SCHEMATIC
 --------------------------------------------------
 Aviso antes de leerla: estas dos diapositivas son del reparto de puertos
 ANTERIOR, no del que se fabrica. Están aquí porque son el diagnóstico que
@@ -750,7 +745,7 @@ La única excepción de circuito es la cadena 2 al 96 %, y solo con el gradiente
 más fuerte: es la saturación del amplificador asomando, el mismo techo de dR/R
 = 1.4 % de la sección anterior.
 
-DIAPOSITIVA 66 · RESULT · LAYOUT AGAINST SCHEMATIC
+DIAPOSITIVA 65 · RESULT · LAYOUT AGAINST SCHEMATIC
 --------------------------------------------------
 Y ésta contesta la pregunta que deja la anterior: si cada cadena acierta el
 90.9 %, ¿por qué el chip entero se queda en 76.2 %?
@@ -769,7 +764,7 @@ La conclusión para el diseño: el sitio donde ganar precisión no es el bloque
 de sensado, que ya está al 99.7 %. Es calibrar los sensores, o pesar cada voto
 por su margen en lugar de contarlos todos igual.
 
-DIAPOSITIVA 67 · GEOMETRY BENCH · METHOD
+DIAPOSITIVA 66 · GEOMETRY BENCH · METHOD
 ----------------------------------------
 El banco de geometría: los cuatro sensores en los vértices del tetraedro de
 una caja, y seis cajas distintas.
@@ -781,19 +776,19 @@ X-Y, y el fondo.
 El criterio del 95 % se eligió para no depender de ninguna definición
 prestada: es un número que sale del propio experimento.
 
-DIAPOSITIVA 68 · GEOMETRY BENCH · METHOD
+DIAPOSITIVA 67 · GEOMETRY BENCH · METHOD
 ----------------------------------------
 El banco de geometría montado: el navegador completo, con los sensores en los
 vértices de una caja concreta. El barrido repite el experimento entero para
 las seis.
 
-DIAPOSITIVA 69 · RESULT · GEOMETRY OF THE BOX
+DIAPOSITIVA 68 · RESULT · GEOMETRY OF THE BOX
 ---------------------------------------------
 La tabla de las seis cajas. Lo que hay que leer es la FORMA, no el tamaño: la
 caja cúbica de 1000 × 1000 llega al 97.8 % con gradiente alto, y achatarla a
 Lz 500 cuesta acierto siempre, en las tres anchuras.
 
-DIAPOSITIVA 70 · RESULT · GEOMETRY OF THE BOX
+DIAPOSITIVA 69 · RESULT · GEOMETRY OF THE BOX
 ---------------------------------------------
 La resolución, y por qué son DOS límites y no uno. Por abajo el offset de los
 sensores pone un suelo: con un gradiente demasiado pequeño la diferencia entre
@@ -801,19 +796,19 @@ esquinas se pierde dentro del offset. Por arriba la saturación del
 amplificador pone un techo. El número que se extrae —el gradiente más pequeño
 con 95 % de acierto— captura los dos a la vez.
 
-DIAPOSITIVA 71 · RESULT · GEOMETRY OF THE BOX
+DIAPOSITIVA 70 · RESULT · GEOMETRY OF THE BOX
 ---------------------------------------------
 Las seis cajas dibujadas. Al achatarlas el tetraedro pierde separación en z, y
 con ella la información que distingue arriba de abajo. Explica de un vistazo
 por qué la tabla penaliza siempre a las de Lz 500.
 
-DIAPOSITIVA 72 · RESULT · GEOMETRY OF THE BOX
+DIAPOSITIVA 71 · RESULT · GEOMETRY OF THE BOX
 ---------------------------------------------
 El campo terrestre. Es común a los cuatro sensores, así que se cancela al
 compararlos entre sí, pero NO en el amplificador, que lo ve entero y lo
 amplifica. La curva enseña a qué nivel de fondo se pierde la medida.
 
-DIAPOSITIVA 73 · SOURCE BENCH · METHOD
+DIAPOSITIVA 72 · SOURCE BENCH · METHOD
 --------------------------------------
 El banco de fuente, la pregunta para la que existe el chip. Ya no se impone un
 gradiente: se pone una fuente en un sitio y cada sensor lee el módulo en su
@@ -826,12 +821,12 @@ error es del chip. En el dipolo real ni un chip perfecto daría cero.
 La diferencia entre los dos números separa el error del circuito del error de
 la física. 42 barridos: tres distancias, siete azimuts, dos modelos.
 
-DIAPOSITIVA 74 · SOURCE BENCH · METHOD
+DIAPOSITIVA 73 · SOURCE BENCH · METHOD
 --------------------------------------
 El banco de fuente montado. Es el que más se parece a un experimento real con
 un imán encima de la mesa.
 
-DIAPOSITIVA 75 · RESULT · DOES IT POINT AT THE SOURCE?
+DIAPOSITIVA 74 · RESULT · DOES IT POINT AT THE SOURCE?
 ------------------------------------------------------
 El ángulo que da el chip frente al ideal, por modelo y distancia.
 
@@ -839,14 +834,14 @@ Lo que hay que leer es la SEPARACIÓN entre «Chip» e «Ideal». A 3000 µm en 
 modelo simétrico son 0.25°: el error es del circuito y es pequeño. A 12000 µm
 llega a 7.5° y la medida se pierde.
 
-DIAPOSITIVA 76 · RESULT · DOES IT POINT AT THE SOURCE?
+DIAPOSITIVA 75 · RESULT · DOES IT POINT AT THE SOURCE?
 ------------------------------------------------------
 Ésta es la diapositiva que estaba al principio y que movimos aquí: ahora llega
 en su sitio. Para cada uno de los cuatro vértices se dibuja el módulo que
 debería leer y lo que su puente entrega. Las cuatro lecturas son distintas
 entre sí, y esa diferencia ES el gradiente.
 
-DIAPOSITIVA 77 · RESULT · DOES IT POINT AT THE SOURCE?
+DIAPOSITIVA 76 · RESULT · DOES IT POINT AT THE SOURCE?
 ------------------------------------------------------
 Primero qué es cada eje, porque no es obvio. El eje horizontal NO es el ángulo
 medido: es dónde está la fuente alrededor de la caja. El vertical sí es el
@@ -864,7 +859,7 @@ finita sobre una caja de 1 mm con la fuente a solo tres. Lo que pone el
 circuito es únicamente el hueco sombreado entre las dos curvas, y a 3 mm son
 0.25°.
 
-DIAPOSITIVA 78 · RESULT · DOES IT POINT AT THE SOURCE?
+DIAPOSITIVA 77 · RESULT · DOES IT POINT AT THE SOURCE?
 ------------------------------------------------------
 La pregunta práctica: ¿sigue encontrando la fuente según te alejas? A la
 izquierda, el acierto contra la distancia, con los dos modelos de campo y las
@@ -885,17 +880,17 @@ gradiente sintético, y dan lo mismo.
 En verde, el reordenado de puertos de XSCHEM_v3: gana entre 5 y 17 puntos, y
 la ventaja CRECE con la distancia, que es justo donde hace falta.
 
-DIAPOSITIVA 79 · RESULT · DOES IT POINT AT THE SOURCE?
+DIAPOSITIVA 78 · RESULT · DOES IT POINT AT THE SOURCE?
 ------------------------------------------------------
 Los dos separados: lo que sale del chip, y lo que sale menos lo que daría un
 chip perfecto. Lo segundo es la parte que pone el circuito. Justifica haber
 corrido dos modelos en lugar de uno.
 
-DIAPOSITIVA 80 · 04 PHYSICAL VERIFICATION  [SECCIÓN]
+DIAPOSITIVA 79 · 04 PHYSICAL VERIFICATION  [SECCIÓN]
 ----------------------------------------------------
 Separador. Se acaba la simulación y empieza lo que se entrega.
 
-DIAPOSITIVA 81 · B26_A
+DIAPOSITIVA 80 · B26_A
 ----------------------
 El chip entero, dos veces, 1110 × 1110 µm. A la izquierda sin relleno de
 densidad: se ven los bloques y el enrutado. A la derecha el fichero que se
@@ -905,7 +900,7 @@ Es la misma geometría; lo que cambia es que está cubierta de metal ficticio
 para cumplir las reglas de densidad. Enseñar las dos ahorra la pregunta de por
 qué el chip parece una mancha.
 
-DIAPOSITIVA 82 · PHYSICAL VERIFICATION
+DIAPOSITIVA 81 · PHYSICAL VERIFICATION
 --------------------------------------
 La verificación, toda sobre B26_A_filled4.gds, el fichero que se sube, no
 sobre una versión anterior.
@@ -918,11 +913,11 @@ es el PEOR corte de cada eje, no el del centro. Antes se cortaba el die por la
 mitad del lado mayor, que sobre un die rectangular no es el centro de ningún
 eje, y ese corte caía en un sitio afortunado.
 
-DIAPOSITIVA 83 · 05 CONCLUSIONS  [SECCIÓN]
+DIAPOSITIVA 82 · 05 CONCLUSIONS  [SECCIÓN]
 ------------------------------------------
 Separador. Lo esperado contra lo medido, incluido lo que no cerró.
 
-DIAPOSITIVA 84 · EXPECTED AGAINST MEASURED
+DIAPOSITIVA 83 · EXPECTED AGAINST MEASURED
 ------------------------------------------
 Tres cosas que se esperaban de una manera y resultaron ser de otra: XP y XN
 cambiados respecto a su etiqueta, el umbral fuera de sitio, y el eje Z sin
@@ -934,7 +929,7 @@ que lo arregló fue cambiar el ORDEN dentro de cada trío.
 Y el cierre justifica toda la sección de bancos: los tres se encontraron
 simulando, no revisando el esquemático.
 
-DIAPOSITIVA 85 · WHAT DID NOT CLOSE
+DIAPOSITIVA 84 · WHAT DID NOT CLOSE
 -----------------------------------
 Lo que no cerró: el LVS de KLayout sobre el top no termina la extracción. Tres
 intentos, ninguno llegó a comparar.
@@ -946,7 +941,7 @@ Y lo que sí casa: netgen dice «Circuits match uniquely» sobre los mismos 1442
 dispositivos. Se menciona porque el LVS externo del chipathon corre el deck de
 KLayout, no netgen.
 
-DIAPOSITIVA 86 · THE IMPROVEMENT, NOW IN THE DIE
+DIAPOSITIVA 85 · THE IMPROVEMENT, NOW IN THE DIE
 ------------------------------------------------
 El esquemático de la v3. Comparado con el del chip no cambia ni una celda: son
 los mismos cuatro GRADIENT2, los mismos tres WEIGHT y los mismos tres
@@ -960,7 +955,7 @@ lo que va dentro del chip que se entrega. El bloque mide los mismos 460.90 ×
 386.99 µm que la versión anterior, así que entró en el mismo hueco sin mover
 nada de la integración.
 
-DIAPOSITIVA 87 · THE IMPROVEMENT, NOW IN THE DIE
+DIAPOSITIVA 86 · THE IMPROVEMENT, NOW IN THE DIE
 ------------------------------------------------
 La v3 contra su propio layout, con las celdas extraídas con parásitos RC. El
 verificador de grafo confirma que el navegador reconstruido ES el mismo
@@ -975,7 +970,7 @@ El panel de la derecha dice por qué. El contador de la v3 recorre de 1.22 a
 reparto anterior vivía entre 1.81 y 2.58, o sea en dos. Con más margen de
 voto, un offset del dibujo tiene que ser mucho mayor para cambiar la decisión.
 
-DIAPOSITIVA 88 · THE IMPROVEMENT, NOW IN THE DIE
+DIAPOSITIVA 87 · THE IMPROVEMENT, NOW IN THE DIE
 ------------------------------------------------
 De dónde sale la mejora, que se ve directamente en el análisis de las cadenas.
 
@@ -998,7 +993,7 @@ Está en XSCHEM_v3, y desde el 7 de septiembre es el núcleo del GDS que se
 entrega: B26_A_filled4.gds. Se repitieron DRC y LVS del bloque y del área
 integrada, y los dos salen limpios.
 
-DIAPOSITIVA 89 · 06 STATUS  [SECCIÓN]
+DIAPOSITIVA 88 · 06 STATUS  [SECCIÓN]
 -------------------------------------
 Cierre. El chip está terminado y verificado, y el entregable es
 B26_A_filled4.gds, con el navegador v3 dentro, sha 543d31ff.

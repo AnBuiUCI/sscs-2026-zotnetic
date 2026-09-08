@@ -21,10 +21,24 @@ for nombre in ("reporte_zotnetic_ES.pptx", "reporte_zotnetic_EN.pptx"):
             if sh.left < -Emu(1) or sh.top < -Emu(1) or \
                sh.left + sh.width > W + Emu(1) or sh.top + sh.height > H + Emu(1):
                 desb.append((i, sh.shape_type, sh.name))
-            if nombre.endswith("EN.pptx") and sh.has_text_frame:
-                t = sh.text_frame.text
-                if len(ES_PAL.findall(t)) >= 3:
-                    leaks.append((i, t[:70].replace("\n", " ")))
+            if nombre.endswith("EN.pptx"):
+                #  TAMBIEN DENTRO DE LAS TABLAS. `has_text_frame` es falso en
+                #  un GraphicFrame, asi que este chequeo miraba solo los
+                #  cuadros de texto y daba cero fugas mientras cuatro tablas
+                #  enteras iban en castellano en el mazo ingles.
+                trozos = []
+                if sh.has_text_frame:
+                    trozos.append(sh.text_frame.text)
+                if getattr(sh, "has_table", False) and sh.has_table:
+                    #  LA TABLA ENTERA COMO UN TEXTO, no celda a celda. Una
+                    #  celda suelta como "a railes opuestos, el mayor a 0.6"
+                    #  trae UNA palabra de la lista y no llega al umbral de
+                    #  tres; la tabla completa trae docenas.
+                    trozos.append(" ".join(c.text for fila in sh.table.rows
+                                           for c in fila.cells))
+                for t in trozos:
+                    if len(ES_PAL.findall(t)) >= 3:
+                        leaks.append((i, t[:70].replace("\n", " ")))
     print(f"{nombre}: {len(prs.slides.__iter__.__self__._sldIdLst)} diapositivas, "
           f"{len(desb)} formas desbordadas, {len(leaks)} posibles fugas de idioma")
     for d in desb[:6]: print("   desborde:", d)

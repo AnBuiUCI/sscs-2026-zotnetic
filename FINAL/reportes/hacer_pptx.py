@@ -77,67 +77,8 @@ GEOMETRIA = [
     ("3000 × 500", "92.7 %", "94.4 %"),
 ]
 
-#: LOS 24 CASOS DE OCTANTE, AGRUPADOS POR LA CONDICION QUE LOS DISTINGUE.
-#:
-#: La figura por octante enseña ocho barras desiguales y deja al lector
-#: suponiendo que el chip trata distinto a un signo que a otro. No es eso. El
-#: decodificador saca el MENOR, y "el menor" cae en la señal mas pequeña cuando
-#: los tres sentidos son positivos y en la MAS GRANDE cuando son negativos.
-#: Como saturar depende del tamaño y no del signo, los octantes negativos le
-#: piden al comparador que resuelva justo el par que se pega antes al rail.
-#: Agrupados por esa condicion los 24 casos se ordenan solos, y cuatro de las
-#: cinco filas salen al 100 %.
-#:
-#: Medido con `figuras_octantes.cargar_sensado()` sobre los `oct_*.txt`.
-#: "Alcance" es el dR/R hasta donde no falla ni una vez; el barrido acaba en
-#: 2.00 %, asi que "> 2.00" quiere decir que no llego a fallar.
-CONDICIONES = [
-    ("a raíles opuestos, el mayor a 0.6", "6", "100 %", "100 %", "> 2.00 %"),
-    ("a raíles opuestos, el mayor a 1.0", "3", "100 %", "100 %", "> 2.00 %"),
-    ("los dos hacia ARRIBA, el mayor a 0.6", "3", "100 %", "100 %", "> 2.00 %"),
-    ("los dos hacia ABAJO, el mayor a 0.6", "3", "100 %", "100 %", "> 2.00 %"),
-    ("los dos hacia ABAJO, el mayor a 1.0", "9", "86.2 %", "83.6 %", "1.38 / 1.26 %"),
-]
 
-#: LO ULTIMO MEDIDO EN GRADIENT2, todo de la corrida del 2026-09-07 de
-#: `run_gradient.sh`, y cada fila del guion que la produce. Se pone junta
-#: porque hasta ahora estaba repartida entre cinco diapositivas y no habia
-#: donde mirar "cuanto da el bloque".
-GRAD2 = [
-    ("Eje decodificado correcto, barrido de rotación", "95.42 %", "93.34 %",
-     "figuras_trazabilidad.py"),
-    ("Esquemático y layout coinciden", "97.92 % del barrido", "7.5° de desacuerdo",
-     "figuras_trazabilidad.py"),
-    ("Error de frontera de sector", "5.25°", "7.75°", "figuras_trazabilidad.py"),
-    ("Los 24 casos de octante", "94.8 %", "93.8 %", "figuras_octantes.py"),
-    ("Alcance dR/R fuera de la esquina mala", "> 2.00 %", "> 2.00 %",
-     "figuras_limite.py"),
-    ("… y dentro de ella", "1.38 %", "1.26 %", "figuras_limite.py"),
-    ("Suelo por ruido del amplificador", "44.4 ppm de dR/R", "222 µVrms a la entrada",
-     "figuras_campo.py"),
-    ("Amplificador: ganancia y reposo", "494 V/V sobre dR/R", "0.72 V (4.24 ↑ / 0.68 ↓)",
-     "oct_*.txt"),
-    ("Consumo de la cadena, ventana fina", "17.851 mW", "17.286 mW", "analizar.py"),
-]
 
-#: EL BANCO DEL LIMITE, del bloque `LIMIT CASES` de `test_GRADIENT.sch` y
-#: medido por `figuras_limite.py`. Tres familias que sólo se diferencian en una
-#: cosa cada vez, para que la causa quede aislada sin suponer nada:
-#:
-#:   A  par ABAJO,  fondo de escala    c = (-1.0, -1.0+d, +0.3)
-#:   B  par ABAJO,  media escala       c = (-0.5, -0.5+d, +1.0)
-#:   C  par ARRIBA, media escala       c = (+0.5, +0.5+d, +1.0)
-#:
-#: "> 2.00" es el final del barrido: no llego a fallar.
-LIMITE = [
-    ("A — par ABAJO, fondo de escala", "0.05", "0.62 %", "0.50 %"),
-    ("A — par ABAJO, fondo de escala", "0.40", "1.38 %", "1.26 %"),
-    ("B — par ABAJO, media escala", "0.05", "1.60 %", "1.36 %"),
-    ("B — par ABAJO, media escala", "0.10", "> 2.00 %", "1.78 %"),
-    ("B — par ABAJO, media escala", "0.20", "> 2.00 %", "> 2.00 %"),
-    ("C — par ARRIBA, media escala", "0.05", "> 2.00 %", "> 2.00 %"),
-    ("C — par ARRIBA, media escala", "0.40", "> 2.00 %", "> 2.00 %"),
-]
 
 #: The sensing block traced stage by stage, from figuras_trazabilidad.py.
 #: Replaces the old `grad_*` figures, which drew all four chains and so put the
@@ -191,7 +132,18 @@ FIG_TRAZA = [
     ("field_3_power", "what the chain costs as the field grows",
      "El consumo de la cadena a lo largo del mismo barrido. Sube al pasar por "
      "la zona activa y se aplana cuando el amplificador satura."),
-    ("oct_sensado", "all eight sign combinations of the three bridge readings",
+    ("oct_sensado", "all eight sign patterns — swept PAST saturation on "
+                    "purpose, so these percentages are not the ones elsewhere",
+     "ANTES DE LEER LAS BARRAS, de qué es el porcentaje. Aquí el barrido "
+     "sigue subiendo el campo MUCHO después de que el amplificador sature, a "
+     "propósito, porque lo que se busca es dónde se rompe. Así que el "
+     "denominador incluye puntos que están fuera del alcance del bloque, y por "
+     "eso salen barras del 75 % donde otras diapositivas dan 95 %.",
+     "Las tres cifras del informe contestan tres preguntas distintas y no se "
+     "comparan entre sí: el 95.42 % es el eje correcto sobre el barrido de "
+     "ROTACIÓN, que es el estímulo realista; estas barras son sobre un barrido "
+     "de AMPLITUD que pasa de largo la saturación; y el 99.72 % no es acierto "
+     "sino CUÁNTO COINCIDEN layout y esquemático, que es otra cosa.",
      "Los casos de prueba por octante que pediste, en el bloque de sensado. El "
      "banco se amplió para poder fijar las tres lecturas de puente de forma "
      "INDEPENDIENTE: el barrido giratorio de siempre las obliga a sumar cero, "
@@ -293,19 +245,6 @@ FIG_FUENTE = [
 ]
 
 
-#: La alimentacion del bloque, medida sobre el DEF ruteado con
-#: `openroad/scripts/check_current_density.py ... 31`. El objetivo es 31 mA, el
-#: doble del pico de 15.50 mA que consume el bloque.
-POTENCIA = [
-    ("Metal4 vertical · VDD", "48.08 µm", "32.21 mA"),
-    ("Metal4 vertical · VSS", "46.89 µm", "31.42 mA"),
-    ("Metal5 horizontal · VDD", "39.95 µm", "59.92 mA"),
-    ("Metal5 horizontal · VSS", "78.14 µm", "117.21 mA"),
-    ("Pin del bloque · VDD", "3 puertos, 29.95 µm", "44.92 mA"),
-    ("Pin del bloque · VSS", "4 puertos, 39.07 µm", "58.61 mA"),
-    ("Vías Metal3–Metal4", "960–1130 cortes", "173–203 mA"),
-    ("Vías Metal4–Metal5", "4704–5742 cortes", "847–1034 mA"),
-]
 
 
 def verificacion(es: bool):
@@ -552,7 +491,7 @@ def construir(T: dict, salida: Path) -> None:
     #  Es lo ultimo que se rehizo y no estaba contado en ninguna diapositiva:
     #  la tabla de verificacion lo resumia en una fila.
     d, y = E.contenido(prs, T["pdn_t"], T["pdn_e"])
-    E.tabla(d, prs, y, T["pdn_tab"], POTENCIA, ancho=E.Inches(9.6))
+    E.tabla(d, prs, y, T["pdn_tab"], T["pdn_filas"], ancho=E.Inches(9.6))
     E.texto(d, prs, y + E.Inches(3.3), [T["pdn_pie"]], tam=13)
     G.di("Cómo se reparte la alimentación dentro del bloque, que es lo último "
          "que se rehízo.",
@@ -676,7 +615,7 @@ def construir(T: dict, salida: Path) -> None:
     #  --- y POR QUE unos casos fallan y otros no, que la figura por octante no
     #  dice. Va inmediatamente detras de ella a proposito.
     d, y = E.contenido(prs, T["cond_t"], T["cond_e"])
-    E.tabla(d, prs, y, T["cond_tab"], CONDICIONES, ancho=E.Inches(10.6))
+    E.tabla(d, prs, y, T["cond_tab"], T["cond_filas"], ancho=E.Inches(10.6))
     E.texto(d, prs, y + E.Inches(2.7), [T["cond_pie"]], tam=12.5)
     G.di("Ésta contesta la pregunta que deja la figura anterior: por qué los "
          "octantes con más signos negativos salen peor. Y la respuesta no es "
@@ -702,7 +641,7 @@ def construir(T: dict, salida: Path) -> None:
 
     #  --- y todo lo medido en el bloque, junto y con su procedencia.
     d, y = E.contenido(prs, T["g2res_t"], T["g2res_e"])
-    E.tabla(d, prs, y, T["g2res_tab"], GRAD2, ancho=E.Inches(11.0))
+    E.tabla(d, prs, y, T["g2res_tab"], T["g2res_filas"], ancho=E.Inches(11.0))
     E.texto(d, prs, y + E.Inches(4.1), [T["g2res_pie"]], tam=12)
     G.di("Y todo lo medido en el bloque, junto. Hasta ahora estaba repartido "
          "entre cinco diapositivas y no había dónde mirar «cuánto da "
@@ -752,24 +691,6 @@ def construir(T: dict, salida: Path) -> None:
              "amplificador hacia el centro del raíl — hoy desperdicia 3.5 V de "
              "recorrido por un lado y se queda sin margen por el otro.")
 
-        #  Y la misma medida en numeros, porque de la figura se lee la
-        #  tendencia y de la tabla el limite exacto.
-        d, y = E.contenido(prs, T["lim_t"], T["lim2_e"])
-        E.tabla(d, prs, y, T["lim_tab"], LIMITE, ancho=E.Inches(10.2))
-        E.texto(d, prs, y + E.Inches(3.4), [T["lim2_pie"]], tam=12.5)
-        G.di("Los mismos doce casos en números, que es donde se lee el límite "
-             "exacto.",
-             "Fíjate en las dos comparaciones que monta el banco. B contra C, "
-             "mismo tamaño y sólo cambia el raíl: hacia arriba no falla NUNCA, "
-             "ni con el margen más apretado; hacia abajo falla en cuanto el "
-             "margen baja de 0.20. El raíl solo ya lo explica.",
-             "Y A contra B, mismo raíl y sólo cambia el tamaño: con el mismo "
-             "margen de 0.40, a media escala no falla en todo el barrido y a "
-             "fondo de escala se queda en 1.38 %. Las dos condiciones son "
-             "necesarias, ninguna sobra.",
-             "La columna del layout va sistemáticamente unas doce centésimas "
-             "por debajo del esquemático. Eso es su offset, y es el mismo "
-             "número que sale en las otras medidas del bloque.")
 
     #  --- blocks 2 and 3.
     for clave, titulo, epi in ((("WEIGHT"), T["wei_t"], T["wei_e"]),
