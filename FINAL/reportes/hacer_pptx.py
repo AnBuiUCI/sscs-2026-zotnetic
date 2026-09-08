@@ -987,8 +987,13 @@ def construir(T: dict, salida: Path) -> None:
     E.seccion(prs, 6, T["cierre_t"],
               " ".join(l[0] if isinstance(l, tuple) else l for l in T["cierre"]))
     G.di("Cierre. El chip está terminado y verificado, y el entregable es "
-         "B26_A_filled4.gds, con el navegador v3 dentro. Es la diapositiva que "
-         "conviene dejar en pantalla mientras se responden preguntas.")
+         "B26_A_filled4.gds, con el navegador v3 dentro, sha 543d31ff.",
+         "El sha está puesto a propósito: identifica el fichero exacto que se "
+         "sube, y está archivado con sus veredictos en "
+         "integration/gds/2026-09-08_01. Si alguien pregunta «¿contra qué GDS "
+         "se corrió eso?», la respuesta cabe en la diapositiva.",
+         "Es la que conviene dejar en pantalla mientras se responden "
+         "preguntas.")
 
     G.suelta()
     n = len(prs.slides._sldIdLst)

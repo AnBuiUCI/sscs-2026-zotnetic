@@ -170,7 +170,7 @@ ES = {
     "verif_t": "VERIFICACIÓN FÍSICA",
     "verif_e": "Sobre B26_A_filled4.gds, el fichero que se entrega.",
     "verif_tab": ["Comprobación", "Resultado"],
-    "verif_pie": "El DRC se corrió en los dos modos de conectividad. El diseño ya no depende de cómo lo ejecute quien lo revise.",
+    "verif_pie": "Todo medido sobre B26_A_filled4.gds, el fichero que se entrega, y archivado bajo su propio nombre. El DRC de firma en los dos modos de conectividad se corrió sobre la versión anterior, _filled3, y NO se ha vuelto a correr sobre esta: lo que sí está sobre _filled4 es el de 63 tablas, 0 violaciones.",
 
     "conc_t": "LO ESPERADO CONTRA LO MEDIDO",
     "conc_e": "Tres cosas que la simulación encontró y el diseño corrigió.",
@@ -199,7 +199,7 @@ ES = {
     "cierre": [
         ("El chip está terminado y verificado.", True),
         "DRC limpio, LVS netgen casando único sobre 1442 dispositivos y 894 nets, 17 de 17 pines conducen, y los cuatro conductores de alimentación dan 31 mA —el doble del pico medido— en el PEOR corte de cada eje, no en el centro.",
-        "Entregable: B26_A_filled4.gds, con GRADIENT_NAV2_V3 dentro.",
+        "Entregable: B26_A_filled4.gds, sha 543d31ff, archivado en integration/gds/2026-09-08_01. Es a lo que apuntan lvs_config.json e info.yaml.",
     ],
 
     # --- added when the deck was restructured around the block hierarchy -----
@@ -430,7 +430,7 @@ EN = {
     "verif_t": "PHYSICAL VERIFICATION",
     "verif_e": "On B26_A_filled4.gds, the file that ships.",
     "verif_tab": ["Check", "Result"],
-    "verif_pie": "The DRC was run in both connectivity modes. The design no longer depends on how the reviewer runs the check.",
+    "verif_pie": "All of it measured on B26_A_filled4.gds, the file that ships, and archived under its own name. The sign-off DRC in both connectivity modes was run on the previous version, _filled3, and has NOT been re-run on this one: what is on _filled4 is the split-table deck, 63 tables, 0 violations.",
 
     "conc_t": "EXPECTED AGAINST MEASURED",
     "conc_e": "Three things simulation found and the design corrected.",
@@ -459,7 +459,7 @@ EN = {
     "cierre": [
         ("The chip is finished and verified.", True),
         "DRC clean, netgen LVS matching uniquely over 1442 devices and 894 nets, 17 of 17 pins conducting, and all four supply conductors carrying 31 mA \u2014 double the measured peak \u2014 at the WORST cut of each axis, not at the middle.",
-        "Deliverable: B26_A_filled4.gds, with GRADIENT_NAV2_V3 inside.",
+        "Deliverable: B26_A_filled4.gds, sha 543d31ff, archived under integration/gds/2026-09-08_01. It is what lvs_config.json and info.yaml point at.",
     ],
 
     # --- added when the deck was restructured around the block hierarchy -----
