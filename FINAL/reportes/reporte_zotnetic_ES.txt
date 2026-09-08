@@ -89,20 +89,8 @@ vota sobre los TRES ejes, y el bloque de peso de un eje recoge ese eje de las
 CUATRO cadenas. Por eso son cuatro sensados y tres pesos, y no cuatro y
 cuatro.
 
-DIAPOSITIVA 9 · GRADIENT_NAV2_V3
---------------------------------
-El navegador que se fabrica, como esquemático y como layout. 460.9 × 387.0 µm,
-que son 0.178 mm².
-
-Los dos son de la MISMA versión, la v3. Conviene decirlo porque hasta hace
-poco esta diapositiva enseñaba el esquemático de la anterior al lado de este
-layout.
-
-No hay que leer el esquemático durante la charla: está para dar la escala real
-de lo integrado, y para que se vea que las celdas son las mismas.
-
-DIAPOSITIVA 10 · LA ALIMENTACIÓN DEL BLOQUE
--------------------------------------------
+DIAPOSITIVA 9 · LA ALIMENTACIÓN DEL BLOQUE
+------------------------------------------
 Cómo se reparte la alimentación dentro del bloque, que es lo último que se
 rehízo.
 
@@ -126,7 +114,7 @@ DE DÓNDE SALE:  openroad/scripts/check_current_density.py sobre
                 31 mA. Los límites los lee del tech-LEF del PDK
                 (DCCURRENTDENSITY AVERAGE), no están escritos en el guion.
 
-DIAPOSITIVA 11 · BLOQUE 1 · SENSADO DE GRADIENTE
+DIAPOSITIVA 10 · BLOQUE 1 · SENSADO DE GRADIENTE
 ------------------------------------------------
 El primero de los tres bloques: el sensado de gradiente.
 
@@ -139,12 +127,12 @@ merece contarse: el decodificador no necesita saber cuánto vale cada eje, solo
 cuál es mayor. Eso hace la decisión inmune a la ganancia absoluta y al offset
 común de los tres canales.
 
-DIAPOSITIVA 12 · GRADIENT2
+DIAPOSITIVA 11 · GRADIENT2
 --------------------------
 El esquemático del bloque de sensado, para quien quiera seguir las conexiones
 del diagrama anterior una por una.
 
-DIAPOSITIVA 13 · OPAM_LIN
+DIAPOSITIVA 12 · OPAM_LIN
 -------------------------
 OPAM_LIN: qué hace y cuánto cuesta, en la misma diapositiva. El texto de la
 izquierda está en pantalla; basta señalar el titular en negrita y pasar a la
@@ -154,7 +142,7 @@ La tabla de la derecha son medidas, no cifras de catálogo: el área sale del
 GDS con KLayout y el consumo de su propio banco, donde cada bloque lleva su
 fuente separada. Vale igual para los cinco bloques que vienen.
 
-DIAPOSITIVA 14 · OPAM_LIN
+DIAPOSITIVA 13 · OPAM_LIN
 -------------------------
 El esquemático de OPAM_LIN y su layout, uno al lado del otro, con las
 dimensiones medidas debajo.
@@ -162,6 +150,15 @@ dimensiones medidas debajo.
 Enseñarlos juntos es la forma corta de decir que todo lo que se simuló está
 además dibujado, y que lo dibujado es lo que se midió. Los cinco bloques van
 así; no lo repito en cada uno.
+
+DIAPOSITIVA 14 · OPAM_LIN
+-------------------------
+De qué está hecho el amplificador: un generador de polarización y el par
+diferencial. Son sus dos únicos subbloques.
+
+El de la izquierda fija las corrientes de cola; el de la derecha es el que ve
+la señal del puente. Toda la linealidad y todo el ruido de la diapositiva
+anterior salen del derecho.
 
 DIAPOSITIVA 15 · OPAM_LIN
 -------------------------
@@ -197,25 +194,32 @@ El offset bajo desapareo de dispositivos, Monte Carlo. Es el suelo de
 resolución del sistema: por debajo de este offset la diferencia entre dos
 esquinas del tetraedro deja de ser legible.
 
-DIAPOSITIVA 19 · OPAM_LIN
--------------------------
-De qué está hecho el amplificador: un generador de polarización y el par
-diferencial. Son sus dos únicos subbloques.
-
-El de la izquierda fija las corrientes de cola; el de la derecha es el que ve
-la señal del puente. Toda la linealidad y todo el ruido de la diapositiva
-anterior salen del derecho.
-
-DIAPOSITIVA 20 · COMP
+DIAPOSITIVA 19 · COMP
 ---------------------
 COMP: qué hace y cuánto cuesta, en la misma diapositiva. El texto de la
 izquierda está en pantalla; basta señalar el titular en negrita y pasar a la
 tabla.
 
-DIAPOSITIVA 21 · COMP
+DIAPOSITIVA 20 · COMP
 ---------------------
 El esquemático de COMP y su layout, uno al lado del otro, con las dimensiones
 medidas debajo.
+
+DIAPOSITIVA 21 · COMP
+---------------------
+El esquemático interno del comparador, que faltaba. Y lo primero que hay que
+decir es que el bloque de la izquierda no se parece al del amplificador: ES el
+del amplificador. Mismo fichero, bias.sym, instanciado por los dos.
+
+El par diferencial también es la misma topología, 36 transistores colocados
+igual. Las diferencias son tres y explican por qué uno amplifica y el otro
+decide: el comparador NO lleva la resistencia de realimentación RFB, usa
+multiplicadores m=2, 3 y 4 donde el amplificador va a m=1, y su etapa de
+salida es de 30 µm y 15 µm contra 4 µm y 1 µm.
+
+Traducido: al comparador no le importa la linealidad, le importa empujar el
+raíl. Por eso su slew rate es una rampa recta de 6.3 V/µs y el del
+amplificador ni siquiera existe como tal.
 
 DIAPOSITIVA 22 · COMP
 ---------------------
@@ -242,34 +246,18 @@ El Bode del comparador en lazo abierto. Se enseña porque un comparador con
 poco margen se convierte en un oscilador cuando la entrada se queda cerca del
 punto de disparo.
 
-DIAPOSITIVA 24 · COMP
----------------------
-El esquemático interno del comparador, que faltaba. Y lo primero que hay que
-decir es que el bloque de la izquierda no se parece al del amplificador: ES el
-del amplificador. Mismo fichero, bias.sym, instanciado por los dos.
-
-El par diferencial también es la misma topología, 36 transistores colocados
-igual. Las diferencias son tres y explican por qué uno amplifica y el otro
-decide: el comparador NO lleva la resistencia de realimentación RFB, usa
-multiplicadores m=2, 3 y 4 donde el amplificador va a m=1, y su etapa de
-salida es de 30 µm y 15 µm contra 4 µm y 1 µm.
-
-Traducido: al comparador no le importa la linealidad, le importa empujar el
-raíl. Por eso su slew rate es una rampa recta de 6.3 V/µs y el del
-amplificador ni siquiera existe como tal.
-
-DIAPOSITIVA 25 · DECODER
+DIAPOSITIVA 24 · DECODER
 ------------------------
 DECODER: qué hace y cuánto cuesta, en la misma diapositiva. El texto de la
 izquierda está en pantalla; basta señalar el titular en negrita y pasar a la
 tabla.
 
-DIAPOSITIVA 26 · DECODER
+DIAPOSITIVA 25 · DECODER
 ------------------------
 El esquemático de DECODER y su layout, uno al lado del otro, con las
 dimensiones medidas debajo.
 
-DIAPOSITIVA 27 · DECODER
+DIAPOSITIVA 26 · DECODER
 ------------------------
 Arriba las tres comparaciones que entran, debajo las tres salidas. Esquemático
 y layout dan la misma decisión en todo el recorrido.
@@ -277,7 +265,7 @@ y layout dan la misma decisión en todo el recorrido.
 El consumo, en microvatios. Es lógica: solo gasta cuando conmuta, y los picos
 coinciden exactamente con los cambios de decisión de la figura anterior.
 
-DIAPOSITIVA 28 · BANCO DEL GRADIENTE · MÉTODO
+DIAPOSITIVA 27 · BANCO DEL GRADIENTE · MÉTODO
 ---------------------------------------------
 Explicados los tres subbloques, el resultado del bloque de sensado.
 
@@ -288,12 +276,12 @@ El estímulo tiene truco: los tres campos van a 120°, suman cero y el vector
 solo cambia de dirección, nunca de tamaño. Así, barriendo de 0 a 360°, cada
 eje debería ganar un sector de exactamente 120°.
 
-DIAPOSITIVA 29 · BANCO DEL GRADIENTE · MÉTODO
+DIAPOSITIVA 28 · BANCO DEL GRADIENTE · MÉTODO
 ---------------------------------------------
 El banco montado: los tres puentes a un lado y las cuatro cadenas colgando de
 los mismos nodos, cada una con su fuente separada — se ven las cuatro.
 
-DIAPOSITIVA 30 · TRAZABILIDAD DEL SENSADO
+DIAPOSITIVA 29 · TRAZABILIDAD DEL SENSADO
 -----------------------------------------
 La sub-sección de trazabilidad del sensado, que es lo que faltaba: hasta aquí
 se enseñaba el resultado del bloque, no cómo llega la señal hasta él.
@@ -306,7 +294,7 @@ simular.
 Y solo con el amplificador lineal, el que va en el chip: G2 contra G4, que es
 el mismo amplificador dibujado de dos maneras.
 
-DIAPOSITIVA 31 · RESULTADO DEL BLOQUE · SENSADO DE GRADIENTE
+DIAPOSITIVA 30 · RESULTADO DEL BLOQUE · SENSADO DE GRADIENTE
 ------------------------------------------------------------
 Aquí está el bloque entero en una sola hoja, que es como se pidió. Una COLUMNA
 es un eje y una FILA es una etapa, así que un eje se sigue de arriba abajo sin
@@ -329,7 +317,7 @@ DE DÓNDE SALE:  reportes/figuras/grid_lineal.png, de la corrida de
                 cuelgan de los MISMOS seis nodos de sensor, así que la
                 comparación no arrastra diferencia de estímulo.
 
-DIAPOSITIVA 32 · RESULTADO DEL BLOQUE · SENSADO DE GRADIENTE
+DIAPOSITIVA 31 · RESULTADO DEL BLOQUE · SENSADO DE GRADIENTE
 ------------------------------------------------------------
 La misma hoja con el campo que da una AMR de verdad, dR/R del 2 %. La
 diferencia con la anterior es la única variable: aquí el amplificador SATURA,
@@ -346,7 +334,7 @@ DE DÓNDE SALE:  reportes/figuras/grid_saturado.png, de la corrida de
                 cuelgan de los MISMOS seis nodos de sensor, así que la
                 comparación no arrastra diferencia de estímulo.
 
-DIAPOSITIVA 33 · RESULTADO DEL BLOQUE · SENSADO DE GRADIENTE
+DIAPOSITIVA 32 · RESULTADO DEL BLOQUE · SENSADO DE GRADIENTE
 ------------------------------------------------------------
 Esta diapositiva y la siguiente contestan una pregunta distinta a todo lo
 anterior, y conviene decirlo antes de enseñarla. Hasta aquí el campo GIRABA
@@ -370,7 +358,7 @@ DE DÓNDE SALE:  reportes/figuras/field_1_chain.png, de la corrida de
                 cuelgan de los MISMOS seis nodos de sensor, así que la
                 comparación no arrastra diferencia de estímulo.
 
-DIAPOSITIVA 34 · RESULTADO DEL BLOQUE · SENSADO DE GRADIENTE
+DIAPOSITIVA 33 · RESULTADO DEL BLOQUE · SENSADO DE GRADIENTE
 ------------------------------------------------------------
 La misma pregunta, en el extremo bajo y con su propia escala. Ésta es la que
 da el número que importa: el campo MÍNIMO que el chip puede resolver.
@@ -392,7 +380,7 @@ DE DÓNDE SALE:  reportes/figuras/field_2_fine.png, de la corrida de
                 cuelgan de los MISMOS seis nodos de sensor, así que la
                 comparación no arrastra diferencia de estímulo.
 
-DIAPOSITIVA 35 · RESULTADO DEL BLOQUE · SENSADO DE GRADIENTE
+DIAPOSITIVA 34 · RESULTADO DEL BLOQUE · SENSADO DE GRADIENTE
 ------------------------------------------------------------
 El consumo de la cadena a lo largo del mismo barrido. Sube al pasar por la
 zona activa y se aplana cuando el amplificador satura.
@@ -404,7 +392,7 @@ DE DÓNDE SALE:  reportes/figuras/field_3_power.png, de la corrida de
                 cuelgan de los MISMOS seis nodos de sensor, así que la
                 comparación no arrastra diferencia de estímulo.
 
-DIAPOSITIVA 36 · RESULTADO DEL BLOQUE · SENSADO DE GRADIENTE
+DIAPOSITIVA 35 · RESULTADO DEL BLOQUE · SENSADO DE GRADIENTE
 ------------------------------------------------------------
 ANTES DE LEER LAS BARRAS, de qué es el porcentaje. Aquí el barrido sigue
 subiendo el campo MUCHO después de que el amplificador sature, a propósito,
@@ -447,7 +435,7 @@ DE DÓNDE SALE:  reportes/figuras/oct_sensado.png, de la corrida de
                 cuelgan de los MISMOS seis nodos de sensor, así que la
                 comparación no arrastra diferencia de estímulo.
 
-DIAPOSITIVA 37 · RESULTADO DEL BLOQUE · SENSADO DE GRADIENTE
+DIAPOSITIVA 36 · RESULTADO DEL BLOQUE · SENSADO DE GRADIENTE
 ------------------------------------------------------------
 Y ahora sí, la vista condensada de la decisión, que va aquí y no antes porque
 hasta este punto el comparador ya está explicado. Las salidas de los
@@ -466,7 +454,7 @@ DE DÓNDE SALE:  reportes/figuras/trace_7_decision.png, de la corrida de
                 cuelgan de los MISMOS seis nodos de sensor, así que la
                 comparación no arrastra diferencia de estímulo.
 
-DIAPOSITIVA 38 · RESULTADO DEL BLOQUE · SENSADO DE GRADIENTE
+DIAPOSITIVA 37 · RESULTADO DEL BLOQUE · SENSADO DE GRADIENTE
 ------------------------------------------------------------
 Y el número. Arriba, el eje decodificado contra el ideal — que es el eje
 MENOR, no el mayor: está en la tabla de verdad del decodificador, X = XY·XZ.
@@ -487,7 +475,7 @@ DE DÓNDE SALE:  reportes/figuras/trace_6_errors.png, de la corrida de
                 cuelgan de los MISMOS seis nodos de sensor, así que la
                 comparación no arrastra diferencia de estímulo.
 
-DIAPOSITIVA 39 · POR QUÉ UNOS CASOS FALLAN Y OTROS NO
+DIAPOSITIVA 38 · POR QUÉ UNOS CASOS FALLAN Y OTROS NO
 -----------------------------------------------------
 Ésta contesta la pregunta que deja la figura anterior: por qué los octantes
 con más signos negativos salen peor. Y la respuesta no es que el chip trate
@@ -517,7 +505,7 @@ DE DÓNDE SALE:  los 24 ficheros oct_*.txt de
                 bloque OCTANT CASES del .control de test_GRADIENT.sch, corrido
                 con XSCHEM/TEST_TOTAL/run_gradient.sh el 2026-09-07.
 
-DIAPOSITIVA 40 · GRADIENT2, TODO LO MEDIDO
+DIAPOSITIVA 39 · GRADIENT2, TODO LO MEDIDO
 ------------------------------------------
 Y todo lo medido en el bloque, junto. Hasta ahora estaba repartido entre cinco
 diapositivas y no había dónde mirar «cuánto da GRADIENT2».
@@ -544,7 +532,7 @@ DE DÓNDE SALE:  cada fila trae su guion en la última columna, y los cinco leen
                 2026-09-07, que deja datos/fino.csv y datos/ancho.csv más los
                 oct_*.txt y lim_*.txt de simulation/test_GRADIENT.sch/.
 
-DIAPOSITIVA 41 · DÓNDE SE ROMPE, Y BAJO QUÉ CONDICIÓN
+DIAPOSITIVA 40 · DÓNDE SE ROMPE, Y BAJO QUÉ CONDICIÓN
 -----------------------------------------------------
 Y como la tabla anterior deja una condición señalada, el paso siguiente es un
 banco hecho para llevar ESA condición al límite y ninguna otra. Doce corridas
@@ -576,24 +564,24 @@ DE DÓNDE SALE:  los 12 ficheros lim_*.txt de
                 del .control de test_GRADIENT.sch, que se añadió el 2026-09-07
                 para esta pregunta.
 
-DIAPOSITIVA 42 · BLOQUE 2 · WEIGHT
+DIAPOSITIVA 41 · BLOQUE 2 · WEIGHT
 ----------------------------------
 El diagrama interno de WEIGHT: por dónde entra cada señal y qué sale. Se
 recorre con el dedo de izquierda a derecha; los números vienen en la
 diapositiva siguiente.
 
-DIAPOSITIVA 43 · WEIGHT
+DIAPOSITIVA 42 · WEIGHT
 -----------------------
 WEIGHT: qué hace y cuánto cuesta, en la misma diapositiva. El texto de la
 izquierda está en pantalla; basta señalar el titular en negrita y pasar a la
 tabla.
 
-DIAPOSITIVA 44 · WEIGHT
+DIAPOSITIVA 43 · WEIGHT
 -----------------------
 El esquemático de WEIGHT y su layout, uno al lado del otro, con las
 dimensiones medidas debajo.
 
-DIAPOSITIVA 45 · WEIGHT
+DIAPOSITIVA 44 · WEIGHT
 -----------------------
 Las cuatro entradas arriba, el nodo de suma WE en medio y las salidas abajo.
 WE es lo que sale al pad analógico del eje: es el punto de prueba X, Y o Z del
@@ -609,29 +597,34 @@ propio dato — sumas ponderadas distintas (3, 5, 6, 9, 10, 12 bajo una lectura
 1-2-4-8) caen todas en el mismo WE, y las cuatro corrientes de rama son los
 mismos 170 µA.
 
-DIAPOSITIVA 46 · WEIGHT
+DIAPOSITIVA 45 · WEIGHT
 -----------------------
 Las corrientes de las cuatro ramas, arriba el esquemático y abajo el layout.
 Se miden de forma distinta a propósito — en el esquemático con fuentes de 0 V,
 en el layout pidiendo la corriente de drenador de cada transistor de cola — y
 aun así coinciden.
 
-DIAPOSITIVA 47 · BLOQUE 3 · COMP_OUT
+DIAPOSITIVA 46 · BLOQUE 3 · COMP_OUT
 ------------------------------------
 El diagrama interno de COMP_OUT: por dónde entra cada señal y qué sale. Se
 recorre con el dedo de izquierda a derecha; los números vienen en la
 diapositiva siguiente.
 
-DIAPOSITIVA 48 · COMP_OUT
+DIAPOSITIVA 47 · COMP_OUT
 -------------------------
 COMP_OUT: qué hace y cuánto cuesta, en la misma diapositiva. El texto de la
 izquierda está en pantalla; basta señalar el titular en negrita y pasar a la
 tabla.
 
-DIAPOSITIVA 49 · COMP_OUT
+DIAPOSITIVA 48 · COMP_OUT
 -------------------------
 El esquemático de COMP_OUT y su layout, uno al lado del otro, con las
 dimensiones medidas debajo.
+
+DIAPOSITIVA 49 · INV_1
+----------------------
+El inversor, que es el único subbloque de la etapa de salida. Tres de éstos en
+cadena son COMP_OUT.
 
 DIAPOSITIVA 50 · COMP_OUT
 -------------------------
@@ -645,12 +638,7 @@ quince esquinas de 4.5–5.5 V y 0–85 °C sin excepción. Eso es lo que consig
 la quinta rama del WEIGHT, la que va siempre encendida: sin ella harían falta
 3 de 4, que con cuatro cadenas y tres ejes es una mayoría difícil de reunir.
 
-DIAPOSITIVA 51 · INV_1
-----------------------
-El inversor, que es el único subbloque de la etapa de salida. Tres de éstos en
-cadena son COMP_OUT.
-
-DIAPOSITIVA 52 · ESD_CDM · PROTECCIÓN SECUNDARIA
+DIAPOSITIVA 51 · ESD_CDM · PROTECCIÓN SECUNDARIA
 ------------------------------------------------
 La protección secundaria. No está en la cadena de señal, pero sí en el área de
 usuario y hay once instancias, una por pad analógico.
@@ -662,16 +650,28 @@ la nuestra ocupa la cuarta parte, unos 52 000 µm² de área recuperados.
 Y que aquí es donde se fusionaron las nwells para pasar el DRC en los dos
 modos de conectividad.
 
-DIAPOSITIVA 53 · ESD_CDM
+DIAPOSITIVA 52 · ESD_CDM
 ------------------------
 ESD_CDM: su esquemático y su layout. Aquí el esquemático ES el bloque de
 código —la hoja no dibuja componentes— porque el circuito se escribió tal cual
 lo publican los organizadores, dispositivo por dispositivo.
 
-DIAPOSITIVA 54 · 03 RESULTADOS TOTALES  [SECCIÓN]
+DIAPOSITIVA 53 · 03 RESULTADOS TOTALES  [SECCIÓN]
 -------------------------------------------------
 Separador. Explicados todos los bloques, los resultados del sistema completo.
 Todos son comparaciones de layout contra esquemático.
+
+DIAPOSITIVA 54 · GRADIENT_NAV2_V3
+---------------------------------
+El navegador que se fabrica, como esquemático y como layout. 460.9 × 387.0 µm,
+que son 0.178 mm².
+
+Los dos son de la MISMA versión, la v3. Conviene decirlo porque hasta hace
+poco esta diapositiva enseñaba el esquemático de la anterior al lado de este
+layout.
+
+No hay que leer el esquemático durante la charla: está para dar la escala real
+de lo integrado, y para que se vea que las celdas son las mismas.
 
 DIAPOSITIVA 55 · BANCO DEL NAVEGADOR · MÉTODO
 ---------------------------------------------

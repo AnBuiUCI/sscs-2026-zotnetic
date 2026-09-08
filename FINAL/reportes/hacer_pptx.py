@@ -307,8 +307,15 @@ def _una_vez(clave: str) -> bool:
     return nuevo
 
 
-def sub_bloque(prs, G, T, es, clave):
-    """One sub-block: what it does and its numbers, its drawing, its curves."""
+def sub_bloque(prs, G, T, es, clave, tras_esquema=None):
+    """One sub-block: what it does and its numbers, its drawing, its curves.
+
+    `tras_esquema` se llama justo DESPUES de la diapositiva de esquematico y
+    layout y antes de las curvas. Ese es el sitio donde el usuario coloco el
+    "por dentro" del comparador al ordenar el mazo a mano, y tiene razon: la
+    pregunta que deja el esquematico del bloque es de que esta hecho, no cuanto
+    mide. Con las curvas ya vistas, volver al dibujo interno rompe el hilo.
+    """
     B = BLOQUES[clave]
     epi = B["epi_es"] if es else B["epi_en"]
 
@@ -340,6 +347,9 @@ def sub_bloque(prs, G, T, es, clave):
                 "se simuló está además dibujado, y que lo dibujado es lo que "
                 "se midió. Los cinco bloques van así; no lo repito en cada "
                 "uno."] if _una_vez("par") else []))
+
+    if tras_esquema is not None:
+        tras_esquema()
 
     #  TWO PER SLIDE. The user merged these by hand and asked for it to stay:
     #  a slide per curve is a slide that says one thing, and most of these
@@ -470,23 +480,6 @@ def construir(T: dict, salida: Path) -> None:
              "eje recoge ese eje de las CUATRO cadenas. Por eso son cuatro "
              "sensados y tres pesos, y no cuatro y cuatro.")
 
-    #  EL ESQUEMATICO Y EL LAYOUT DEL MISMO TOP. Aqui estaba el esquematico de
-    #  `GRADIENT_NAV2` al lado del layout de la v3: dos versiones distintas en
-    #  la misma diapositiva, y con el titulo de la que ya no se fabrica.
-    if hay("sch_GRADIENT_NAV2_V3") or hay("layout_GRADIENT_NAV2_V3"):
-        d, y = E.contenido(prs, "GRADIENT_NAV2_V3", T["nav_int_e"])
-        dos_figuras(prs, d, y, hay("sch_GRADIENT_NAV2_V3"),
-                    hay("layout_GRADIENT_NAV2_V3"), "schematic",
-                    pie_layout("layout_GRADIENT_NAV2_V3"))
-        G.di("El navegador que se fabrica, como esquemático y como layout. "
-             "460.9 × 387.0 µm, que son 0.178 mm².",
-             "Los dos son de la MISMA versión, la v3. Conviene decirlo porque "
-             "hasta hace poco esta diapositiva enseñaba el esquemático de la "
-             "anterior al lado de este layout.",
-             "No hay que leer el esquemático durante la charla: está para dar "
-             "la escala real de lo integrado, y para que se vea que las celdas "
-             "son las mismas.")
-
     #  --- como se reparte la alimentacion dentro del bloque -------------------
     #  Es lo ultimo que se rehizo y no estaba contado en ninguna diapositiva:
     #  la tabla de verificacion lo resumia en una fila.
@@ -535,54 +528,58 @@ def construir(T: dict, salida: Path) -> None:
         G.di("El esquemático del bloque de sensado, para quien quiera seguir "
              "las conexiones del diagrama anterior una por una.")
 
-    for clave in ORDEN_GRADIENT2:
-        sub_bloque(prs, G, T, es, clave)
-        #  OPAM_LIN is the only sub-block with sub-blocks of its own: a bias
-        #  generator and the differential pair. Shown right after it, because
-        #  "what is the amplifier made of" is the next question the slide
-        #  before raises.
-        if clave == "OPAM_LIN" and (hay("sch_bias") or hay("sch_sub_diff")):
-            d, y = E.contenido(prs, "OPAM_LIN",
-                               "Por dentro: el generador de polarización y el "
-                               "par diferencial." if es else
-                               "Inside: the bias generator and the differential "
-                               "pair.")
-            dos_figuras(prs, d, y, hay("sch_bias"), hay("sch_sub_diff"),
-                        "bias generator", "differential pair (sub_diff_2_LIN)")
-            G.di("De qué está hecho el amplificador: un generador de "
-                 "polarización y el par diferencial. Son sus dos únicos "
-                 "subbloques.",
-                 "El de la izquierda fija las corrientes de cola; el de la "
-                 "derecha es el que ve la señal del puente. Toda la linealidad "
-                 "y todo el ruido de la diapositiva anterior salen del "
-                 "derecho.")
+    #  EL "POR DENTRO" DE CADA BLOQUE VA JUSTO TRAS SU ESQUEMATICO, no despues
+    #  de sus curvas. Es el orden que el usuario puso a mano al revisar el mazo,
+    #  y es el bueno: la pregunta que deja el esquematico de un bloque es de que
+    #  esta hecho. Con las curvas ya vistas, volver al dibujo interno corta el
+    #  hilo. Antes iban al final del bloque porque se añadieron despues.
+    def _dentro_opam():
+        d, y = E.contenido(prs, "OPAM_LIN",
+                           "Por dentro: el generador de polarización y el "
+                           "par diferencial." if es else
+                           "Inside: the bias generator and the differential "
+                           "pair.")
+        dos_figuras(prs, d, y, hay("sch_bias"), hay("sch_sub_diff"),
+                    "bias generator", "differential pair (sub_diff_2_LIN)")
+        G.di("De qué está hecho el amplificador: un generador de "
+             "polarización y el par diferencial. Son sus dos únicos "
+             "subbloques.",
+             "El de la izquierda fija las corrientes de cola; el de la "
+             "derecha es el que ve la señal del puente. Toda la linealidad "
+             "y todo el ruido de la diapositiva anterior salen del "
+             "derecho.")
+
+    def _dentro_comp():
         #  And the comparator's own pair, because it is the same circuit with
         #  two changes and showing them side by side is the clearest way to
         #  say what separates an amplifier from a comparator.
-        if clave == "COMP" and hay("sch_sub_diff_comp"):
-            d, y = E.contenido(prs, "COMP",
-                               "Por dentro: el MISMO generador de polarización "
-                               "y su propio par diferencial." if es else
-                               "Inside: the SAME bias generator and its own "
-                               "differential pair.")
-            dos_figuras(prs, d, y, hay("sch_bias"), hay("sch_sub_diff_comp"),
-                        "bias generator (the same cell as OPAM_LIN's)",
-                        "differential pair (sub_diff)")
-            G.di("El esquemático interno del comparador, que faltaba. Y lo "
-                 "primero que hay que decir es que el bloque de la izquierda "
-                 "no se parece al del amplificador: ES el del amplificador. "
-                 "Mismo fichero, bias.sym, instanciado por los dos.",
-                 "El par diferencial también es la misma topología, 36 "
-                 "transistores colocados igual. Las diferencias son tres y "
-                 "explican por qué uno amplifica y el otro decide: el "
-                 "comparador NO lleva la resistencia de realimentación RFB, "
-                 "usa multiplicadores m=2, 3 y 4 donde el amplificador va a "
-                 "m=1, y su etapa de salida es de 30 µm y 15 µm contra 4 µm y "
-                 "1 µm.",
-                 "Traducido: al comparador no le importa la linealidad, le "
-                 "importa empujar el raíl. Por eso su slew rate es una rampa "
-                 "recta de 6.3 V/µs y el del amplificador ni siquiera existe "
-                 "como tal.")
+        d, y = E.contenido(prs, "COMP",
+                           "Por dentro: el MISMO generador de polarización "
+                           "y su propio par diferencial." if es else
+                           "Inside: the SAME bias generator and its own "
+                           "differential pair.")
+        dos_figuras(prs, d, y, hay("sch_bias"), hay("sch_sub_diff_comp"),
+                    "bias generator (the same cell as OPAM_LIN's)",
+                    "differential pair (sub_diff)")
+        G.di("El esquemático interno del comparador, que faltaba. Y lo "
+             "primero que hay que decir es que el bloque de la izquierda "
+             "no se parece al del amplificador: ES el del amplificador. "
+             "Mismo fichero, bias.sym, instanciado por los dos.",
+             "El par diferencial también es la misma topología, 36 "
+             "transistores colocados igual. Las diferencias son tres y "
+             "explican por qué uno amplifica y el otro decide: el "
+             "comparador NO lleva la resistencia de realimentación RFB, "
+             "usa multiplicadores m=2, 3 y 4 donde el amplificador va a "
+             "m=1, y su etapa de salida es de 30 µm y 15 µm contra 4 µm y "
+             "1 µm.",
+             "Traducido: al comparador no le importa la linealidad, le "
+             "importa empujar el raíl. Por eso su slew rate es una rampa "
+             "recta de 6.3 V/µs y el del amplificador ni siquiera existe "
+             "como tal.")
+
+    DENTRO = {"OPAM_LIN": _dentro_opam, "COMP": _dentro_comp}
+    for clave in ORDEN_GRADIENT2:
+        sub_bloque(prs, G, T, es, clave, DENTRO.get(clave))
 
     #  --- block 1's own result: the rotating gradient.
     d, y = E.contenido(prs, T["grad_t"], T["grad_e"])
@@ -717,6 +714,21 @@ def construir(T: dict, salida: Path) -> None:
 
 
     #  --- blocks 2 and 3.
+    #  INV_1 VA ANTES DE LOS RESULTADOS DE COMP_OUT, no despues. Mismo criterio
+    #  que el "por dentro" de los otros bloques, y es donde lo puso el usuario:
+    #  el inversor es de que esta hecha la etapa de salida, y esa pregunta va
+    #  pegada al bloque, no detras de sus curvas.
+    def _dentro_cout():
+        f = hay("sch_INV_1")
+        if not f:
+            return
+        d, y = E.contenido(prs, "INV_1",
+                           "El subbloque de COMP_OUT: el inversor." if es
+                           else "COMP_OUT's sub-block: the inverter.")
+        E.figura(d, prs, f, y, pie="XSCHEM/WEIGTH/INV_1.sch")
+        G.di("El inversor, que es el único subbloque de la etapa de salida. "
+             "Tres de éstos en cadena son COMP_OUT.")
+
     for clave, titulo, epi in ((("WEIGHT"), T["wei_t"], T["wei_e"]),
                                (("COMP_OUT"), T["cout_t"], T["cout_e"])):
         diag = hay(f"diag_{clave}")
@@ -732,15 +744,8 @@ def construir(T: dict, salida: Path) -> None:
         else:
             E.texto(d, prs, y, BLOQUES[clave]["desc_es" if es else "desc_en"])
             G.di(f"El bloque {clave}, en palabras.")
-        sub_bloque(prs, G, T, es, clave)
-
-    if (f := hay("sch_INV_1")):
-        d, y = E.contenido(prs, "INV_1",
-                           "El subbloque de COMP_OUT: el inversor." if es
-                           else "COMP_OUT's sub-block: the inverter.")
-        E.figura(d, prs, f, y, pie="XSCHEM/WEIGTH/INV_1.sch")
-        G.di("El inversor, que es el único subbloque de la etapa de salida. "
-             "Tres de éstos en cadena son COMP_OUT.")
+        sub_bloque(prs, G, T, es, clave,
+                   _dentro_cout if clave == "COMP_OUT" else None)
 
     #  --- the support block, outside the chain.
     d, y = E.contenido(prs, T["esd_t"], T["esd_e"])
@@ -766,6 +771,23 @@ def construir(T: dict, salida: Path) -> None:
     E.seccion(prs, 3, T["s3"], T["s3_b"])
     G.di("Separador. Explicados todos los bloques, los resultados del sistema "
          "completo. Todos son comparaciones de layout contra esquemático.")
+
+    #  EL ESQUEMATICO Y EL LAYOUT DEL MISMO TOP. Aqui estaba el esquematico de
+    #  `GRADIENT_NAV2` al lado del layout de la v3: dos versiones distintas en
+    #  la misma diapositiva, y con el titulo de la que ya no se fabrica.
+    if hay("sch_GRADIENT_NAV2_V3") or hay("layout_GRADIENT_NAV2_V3"):
+        d, y = E.contenido(prs, "GRADIENT_NAV2_V3", T["nav_int_e"])
+        dos_figuras(prs, d, y, hay("sch_GRADIENT_NAV2_V3"),
+                    hay("layout_GRADIENT_NAV2_V3"), "schematic",
+                    pie_layout("layout_GRADIENT_NAV2_V3"))
+        G.di("El navegador que se fabrica, como esquemático y como layout. "
+             "460.9 × 387.0 µm, que son 0.178 mm².",
+             "Los dos son de la MISMA versión, la v3. Conviene decirlo porque "
+             "hasta hace poco esta diapositiva enseñaba el esquemático de la "
+             "anterior al lado de este layout.",
+             "No hay que leer el esquemático durante la charla: está para dar "
+             "la escala real de lo integrado, y para que se vea que las celdas "
+             "son las mismas.")
 
     if (f := hay("tb_NAV3")):
         d, y = E.contenido(prs, T["nav_t"], T["nav_e"])
