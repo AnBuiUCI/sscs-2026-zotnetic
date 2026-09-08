@@ -43,7 +43,7 @@ Measured against the cell it replaces: gain 103.3 vs 103.4 V/V, INL 0.10 vs
 the OPAMt this family is not allowed to exceed. Over 27 corners of process,
 temperature and supply: gain 50.1 to 189.4 against 47.5 to 188.0, INL never
 worse than 0.68 % against 3.10 %, phase margin never under 73.8 deg against
-75.3. The INL is better in every single corner.} -100 -1870 0 0 0.4 0.4 {}
+75.3. The INL is better in every single corner.} 1530 -2350 0 0 0.4 0.4 {}
 N -580 -460 -560 -460 {
 lab=VDD}
 N -400 -460 -380 -460 {
@@ -145,7 +145,7 @@ lab=VDD}
 N 420 -520 420 -450 {
 lab=VDD}
 N 400 -490 400 -480 {
-lab=#net16}
+lab=G_OUT_P}
 N 340 -370 420 -370 {
 lab=VSS}
 N 420 -370 420 -300 {
@@ -173,13 +173,13 @@ lab=VDD}
 N 570 -670 570 -650 {
 lab=VDD}
 N 570 -590 570 -550 {
-lab=#net17}
+lab=#net16}
 N 550 -520 570 -520 {
 lab=VDD}
 N 550 -620 550 -520 {
 lab=VDD}
 N 570 -490 570 -480 {
-lab=#net18}
+lab=#net17}
 N 550 -450 570 -450 {
 lab=VDD}
 N 550 -520 550 -450 {
@@ -191,7 +191,7 @@ lab=VSS}
 N 550 -200 570 -200 {
 lab=VSS}
 N 570 -270 570 -230 {
-lab=#net19}
+lab=#net18}
 N 570 -170 570 -150 {
 lab=VSS}
 N 610 -200 610 -160 {
@@ -205,7 +205,7 @@ lab=VDD}
 N 720 -670 720 -650 {
 lab=VDD}
 N 720 -590 720 -550 {
-lab=#net20}
+lab=#net19}
 N 700 -520 720 -520 {
 lab=VDD}
 N 700 -620 700 -520 {
@@ -217,11 +217,11 @@ lab=VSS}
 N 700 -200 720 -200 {
 lab=VSS}
 N 720 -270 720 -230 {
-lab=#net21}
+lab=#net20}
 N 720 -170 720 -150 {
 lab=VSS}
 N 720 -340 720 -330 {
-lab=#net22}
+lab=#net21}
 N 700 -370 720 -370 {
 lab=VSS}
 N 700 -370 700 -300 {
@@ -237,7 +237,7 @@ lab=#net1}
 N -400 -520 -380 -520 {
 lab=VDD}
 N -380 -590 -380 -550 {
-lab=#net23}
+lab=#net22}
 N -340 -580 -340 -520 {
 lab=#net6}
 N -10 -300 10 -300 {
@@ -245,7 +245,7 @@ lab=VSS}
 N -10 -200 10 -200 {
 lab=VSS}
 N 10 -270 10 -230 {
-lab=#net24}
+lab=#net23}
 N 10 -170 10 -150 {
 lab=VSS}
 N 50 -200 50 -160 {
@@ -257,17 +257,17 @@ lab=VSS}
 N 610 -580 610 -520 {
 lab=#net6}
 N 610 -620 630 -620 {
-lab=#net18}
+lab=#net17}
 N 630 -620 630 -490 {
-lab=#net18}
+lab=#net17}
 N 570 -490 630 -490 {
-lab=#net18}
+lab=#net17}
 N 610 -440 610 -420 {
-lab=#net25}
+lab=#net24}
 N 570 -420 610 -420 {
-lab=#net25}
+lab=#net24}
 N 570 -420 570 -330 {
-lab=#net25}
+lab=#net24}
 N 760 -660 760 -620 {
 lab=#net1}
 N 760 -580 760 -520 {
@@ -277,11 +277,11 @@ lab=#net4}
 N 760 -300 760 -240 {
 lab=#net4}
 N 760 -200 780 -200 {
-lab=#net22}
+lab=#net21}
 N 780 -330 780 -200 {
-lab=#net22}
+lab=#net21}
 N 720 -330 780 -330 {
-lab=#net22}
+lab=#net21}
 N 760 -380 760 -370 {
 lab=#net15}
 N 720 -400 760 -400 {
@@ -295,7 +295,7 @@ lab=#net6}
 N 360 -580 360 -520 {
 lab=#net6}
 N 200 -450 360 -450 {
-lab=#net25}
+lab=#net24}
 N 160 -420 160 -330 {
 lab=#net14}
 N 220 -340 220 -330 {
@@ -303,23 +303,23 @@ lab=#net14}
 N 160 -330 220 -330 {
 lab=#net14}
 N 340 -340 340 -330 {
-lab=#net26}
+lab=#net25}
 N 340 -330 400 -330 {
-lab=#net26}
+lab=#net25}
 N 140 -370 220 -370 {
 lab=VSS}
 N 140 -370 140 -300 {
 lab=VSS}
 N 400 -420 400 -330 {
-lab=#net26}
+lab=#net25}
 N 220 -480 220 -400 {
 lab=#net13}
 N 160 -480 220 -480 {
 lab=#net13}
 N 340 -480 340 -400 {
-lab=#net16}
+lab=G_OUT_P}
 N 340 -480 400 -480 {
-lab=#net16}
+lab=G_OUT_P}
 N 610 -580 760 -580 {
 lab=#net6}
 N 50 -160 610 -160 {
@@ -327,9 +327,9 @@ lab=#net3}
 N 610 -240 760 -240 {
 lab=#net4}
 N 360 -440 610 -440 {
-lab=#net25}
+lab=#net24}
 N 360 -450 360 -440 {
-lab=#net25}
+lab=#net24}
 N 300 -380 760 -380 {
 lab=#net15}
 N 300 -380 300 -370 {
@@ -353,25 +353,25 @@ lab=#net13}
 N 890 -670 910 -670 {
 lab=VDD}
 N 830 -490 850 -490 {
-lab=#net16}
+lab=G_OUT_P}
 N 830 -690 830 -490 {
-lab=#net16}
+lab=G_OUT_P}
 N 460 -690 830 -690 {
-lab=#net16}
+lab=G_OUT_P}
 N 460 -690 460 -490 {
-lab=#net16}
+lab=G_OUT_P}
 N 400 -490 460 -490 {
-lab=#net16}
+lab=G_OUT_P}
 N 830 -330 850 -330 {
-lab=#net26}
+lab=#net25}
 N 830 -330 830 -130 {
-lab=#net26}
+lab=#net25}
 N 460 -130 830 -130 {
-lab=#net26}
+lab=#net25}
 N 460 -330 460 -130 {
-lab=#net26}
+lab=#net25}
 N 400 -330 460 -330 {
-lab=#net26}
+lab=#net25}
 N 400 -250 800 -250 {
 lab=#net9}
 N 800 -410 800 -390 {
@@ -489,7 +489,7 @@ lab=#net6}
 N 200 -580 360 -580 {
 lab=#net6}
 N 610 -450 610 -440 {
-lab=#net25}
+lab=#net24}
 N 760 -400 760 -380 {
 lab=#net15}
 N 50 -240 200 -240 {
@@ -525,7 +525,7 @@ lab=VSS}
 N -910 -200 -890 -200 {
 lab=VSS}
 N -890 -250 -890 -230 {
-lab=#net27}
+lab=#net26}
 N -890 -170 -890 -150 {
 lab=VSS}
 N -890 -670 -890 -650 {
@@ -537,7 +537,7 @@ lab=VDD}
 N -910 -620 -910 -540 {
 lab=VDD}
 N -890 -590 -890 -570 {
-lab=#net28}
+lab=#net27}
 N -850 -580 -850 -540 {
 lab=#net6}
 N -850 -660 -850 -620 {
@@ -551,7 +551,7 @@ lab=VDD}
 N -1070 -620 -1070 -540 {
 lab=VDD}
 N -1050 -590 -1050 -570 {
-lab=#net29}
+lab=#net28}
 N -1010 -580 -1010 -540 {
 lab=#net6}
 N -1010 -660 -1010 -620 {
@@ -605,7 +605,7 @@ lab=VDD}
 N -1250 -620 -1250 -540 {
 lab=VDD}
 N -1230 -590 -1230 -570 {
-lab=#net30}
+lab=#net29}
 N -1190 -580 -1190 -540 {
 lab=#net6}
 N -1190 -660 -1190 -620 {

@@ -45,6 +45,34 @@ for nombre in ("reporte_zotnetic_ES.pptx", "reporte_zotnetic_EN.pptx"):
     for l in leaks[:6]: print("   español en el EN:", l)
     malo += len(desb) + len(leaks)
 
+#  QUE FIGURA LLEVA CADA DIAPOSITIVA, sobre el PPTX GENERADO y no sobre el
+#  guion que lo genera. Un `hay("oct_nav2")` donde iba `oct_nav3` no rompe
+#  nada: la diapositiva sale, con titulo correcto, con su narracion, y
+#  enseñando el mapa de la version anterior. Ya paso una vez -- el cambio se
+#  hizo y se perdio en una reescritura del fichero-- y solo se vio abriendo el
+#  PowerPoint. Esto lo caza sin abrirlo.
+import hashlib
+FIG = AQUI / "figuras"
+por_hash = {hashlib.md5(f.read_bytes()).hexdigest(): f.stem
+            for f in FIG.glob("*.png")}
+#: subtitulo de la diapositiva -> figura que TIENE que llevar.
+ESPERADO = {
+    "all eight sign combinations of the gradient": "oct_nav3",
+    "the same sweep, with the earlier port order": "oct_nav2",
+}
+for nombre in ("reporte_zotnetic_ES.pptx", "reporte_zotnetic_EN.pptx"):
+    prs = Presentation(AQUI / nombre)
+    for i, s in enumerate(prs.slides, 1):
+        subs = [sh.text_frame.text.strip() for sh in s.shapes
+                if sh.has_text_frame and sh.text_frame.text.strip()]
+        figs = [por_hash.get(hashlib.md5(sh.image.blob).hexdigest())
+                for sh in s.shapes if sh.shape_type == 13]
+        for sub in subs:
+            if sub in ESPERADO and ESPERADO[sub] not in figs:
+                print(f"{nombre}: diapositiva {i} «{sub[:44]}» lleva {figs} "
+                      f"y tiene que llevar {ESPERADO[sub]}")
+                malo += 1
+
 # figuras referenciadas que no existen, y figuras huerfanas
 src = (AQUI / "hacer_pptx.py").read_text() + (AQUI / "bloques.py").read_text()
 usadas = set(re.findall(r'"([A-Za-z][A-Za-z0-9_]+)"', src))

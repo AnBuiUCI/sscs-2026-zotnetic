@@ -860,10 +860,17 @@ def construir(T: dict, salida: Path) -> None:
          "decodificador contesta QUÉ EJE, no hacia qué lado. Resolver el "
          "sentido pide una comparación más, que es la que añade GRADIENT_NAV3 "
          "y este die no lleva.")
-    if (f := hay("oct_nav2")):
+    #  LOS OCTANTES DE LA VERSION QUE SE FABRICA. Este `hay()` decia
+    #  `oct_nav2` y enseñaba el mapa del reparto ANTERIOR -- 76.2 %-- como si
+    #  fuera el del chip. El cambio a `oct_nav3` se hizo una vez y se perdio en
+    #  una reescritura posterior de este fichero, asi que ahora hay una
+    #  comprobacion que lo caza: `verificar.py` mira el pptx GENERADO y falla
+    #  si esta diapositiva no lleva `oct_nav3`.
+    if (f := hay("oct_nav3")):
         d, y = E.contenido(prs, T["res_lay_t"],
                            "all eight sign combinations of the gradient")
-        E.figura(d, prs, f, y, pie="run_nav2_geo.sh — sphere sweep")
+        E.figura(d, prs, f, y, pie="XSCHEM_v3/run_nav3_geo.sh — sphere sweep, "
+                                   "the version that ships")
         G.de("XSCHEM_v3/datos_geo_v3/por_barrido/*.csv, 39 barridos de la "
              "esfera, leídos por reportes/figuras_octantes.py. Los produce "
              "XSCHEM_v3/run_nav3_geo.sh sobre test_NAV3_geo.sch, que instancia "
