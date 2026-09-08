@@ -12,7 +12,10 @@ these get used for.
 Every number quoted below is traceable:
   * source test        XSCHEM/TEST_TOTAL/datos_fuente/fuente.csv
   * geometry sweep     XSCHEM/TEST_TOTAL/datos_geo/resumen.csv
-  * layout vs schematic XSCHEM/TEST_TOTAL/datos_nav2/fino_nav2.csv (721 points)
+  * layout vs schematic XSCHEM_v3/datos_nav3/fino_nav2.csv (721 points)
+                       -- the version that ships; the earlier top's sweep is
+                       still at XSCHEM/TEST_TOTAL/datos_nav2/ and is only
+                       quoted as the before of a comparison
   * DRC / LVS          openroad/out/drc_*/  and  layouts_v2/*/lvs/RESUMEN.txt
 """
 
@@ -143,12 +146,12 @@ ES = {
 
     "res_lay_e": "721 puntos de 0 a 360°. La naranja discontinua es el layout extraído con parásitos.",
     "res_lay": [
-        ("Las doce salidas de cadena coinciden en el 99.7 % del barrido.", True),
-        "Los cuatro bloques GRADIENT2 del layout, extraídos con parásitos RC, deciden lo mismo que los del esquemático. Toda la cadena analógica —amplificador, comparador, decodificador— reproduce el esquemático.",
-        ("Las seis salidas digitales, en el 99.5 % (X e Y) y el 98.9 % (Z).", True),
-        "Entre 2 y 4 grados de desacuerdo sobre 360, y caen donde tienen que caer: en las fronteras entre sectores, que es exactamente donde la decisión está en el filo y el offset del layout decide.",
-        ("Desviación en el nodo del contador: 38.8 mV rms.", True),
-        "Consumo: 75.32 mW el esquemático, 74.15 mW el layout. Los parásitos RC no mueven el punto de trabajo de forma apreciable.",
+        ("Las seis salidas digitales coinciden en el 99.58 % del barrido.", True),
+        "1.5 grados de desacuerdo sobre 360, y caen donde tienen que caer: en las fronteras entre sectores, que es exactamente donde la decisión está en el filo y el offset del layout decide. Los cuatro bloques GRADIENT2 del layout, extraídos con parásitos RC, deciden lo mismo que los del esquemático.",
+        ("Los tres ejes al mismo nivel: 99.72 % cada uno.", True),
+        "En la versión anterior eran 99.45 % en X e Y y 98.89 % en Z — Z iba por detrás. Con el reparto de puertos de la v3 los tres empatan, y el desacuerdo baja de 2–4 grados a 1.5.",
+        ("Desviación peor caso en el nodo del contador: 693.8 mV.", True),
+        "Consumo: 74.85 mW el esquemático, 74.82 mW el layout. Tres centésimas de diferencia: los parásitos RC no mueven el punto de trabajo de forma apreciable.",
     ],
 
     "res_src_t": "RESULTADO · ¿APUNTA A LA FUENTE?",
@@ -238,7 +241,7 @@ ES = {
         "hacia dónde, y quien mueve es el puente.",
     ],
 
-    "nav_int_t": "GRADIENT_NAV2 POR DENTRO",
+    "nav_int_t": "GRADIENT_NAV2_V3 POR DENTRO",
     "nav_int_e": "4 × GRADIENT2  →  3 × WEIGHT  →  3 × COMP_OUT.",
 
     "g2_t": "BLOQUE 1 · SENSADO DE GRADIENTE",
@@ -421,12 +424,12 @@ EN = {
 
     "res_lay_e": "721 points from 0 to 360°. The dashed orange is the layout extracted with parasitics.",
     "res_lay": [
-        ("The twelve chain outputs agree on 99.7 % of the sweep.", True),
+        ("The six digital outputs agree on 99.58 % of the sweep.", True),
         "The layout's four GRADIENT2 blocks, extracted with RC parasitics, decide what the schematic's do. The whole analogue chain - amplifier, comparator, decoder - reproduces the schematic.",
-        ("The six digital outputs, on 99.5 % (X and Y) and 98.9 % (Z).", True),
-        "Between 2 and 4 degrees of disagreement out of 360, and they fall where they should: on the sector boundaries, which is exactly where the decision is on a knife edge and the layout's offset settles it.",
-        ("Deviation at the counter node: 38.8 mV rms.", True),
-        "Power: 75.32 mW schematic, 74.15 mW layout. The RC parasitics do not move the operating point appreciably.",
+        ("All three axes level: 99.72 % each.", True),
+        "In the earlier version they were 99.45 % on X and Y and 98.89 % on Z - Z lagged. With the v3 port order the three come level, and the disagreement drops from 2-4 degrees to 1.5, all of it on the sector boundaries where the decision is on a knife edge.",
+        ("Worst-case deviation at the counter node: 693.8 mV.", True),
+        "Power: 74.85 mW schematic, 74.82 mW layout. Three hundredths apart: the RC parasitics do not move the operating point appreciably.",
     ],
 
     "res_src_t": "RESULT · DOES IT POINT AT THE SOURCE?",
@@ -516,7 +519,7 @@ EN = {
         "which way, and the bridge is what moves.",
     ],
 
-    "nav_int_t": "GRADIENT_NAV2 INSIDE",
+    "nav_int_t": "GRADIENT_NAV2_V3 INSIDE",
     "nav_int_e": "4 × GRADIENT2  →  3 × WEIGHT  →  3 × COMP_OUT.",
 
     "g2_t": "BLOCK 1 · GRADIENT SENSING",

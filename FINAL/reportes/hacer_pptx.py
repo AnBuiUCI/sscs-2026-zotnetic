@@ -842,7 +842,7 @@ def construir(T: dict, salida: Path) -> None:
     if (f := hay("esq_vs_layout_salidas")):
         d, y = E.contenido(prs, T["res_lay_t"], T["res_lay_e"])
         E.figura(d, prs, f, y, alto_max=E.Inches(3.0),
-                 pie="datos_nav2/fino_nav2.csv")
+                 pie="XSCHEM_v3/datos_nav3/fino_nav2.csv")
         E.texto(d, prs, y + E.Inches(3.2), T["res_lay"][:1], tam=13)
         G.di("El resultado en una imagen: las tres salidas de eje, las dos "
              "versiones superpuestas.",
@@ -857,18 +857,20 @@ def construir(T: dict, salida: Path) -> None:
          "la reconstrucción cableada con el reparto de sensores viejo y estaba "
          "comparando un cableado contra otro. Arreglado eso y refrescados los "
          "netlists extraídos, éstos son los números de verdad.",
-         "Las doce salidas de cadena coinciden en el 99.7 % y las seis "
-         "digitales en el 99.5 % (X e Y) y el 98.9 % (Z). Entre dos y cuatro "
-         "grados de desacuerdo sobre 360.",
+         "Las seis salidas digitales coinciden en el 99.58 % del barrido, "
+         "con 1.5 grados de desacuerdo sobre 360, y los tres ejes al mismo "
+         "nivel: 99.72 % cada uno. En la versión anterior Z iba por detrás "
+         "—98.89 % contra 99.45 en X e Y— y con el reparto de puertos de la v3 "
+         "los tres empatan.",
          "Y dónde caen esos grados importa: en las fronteras entre sectores. "
          "Ahí las dos entradas del comparador están casi iguales y quien "
          "decide es el offset, que en el layout es mayor. Fuera de las "
          "fronteras las dos versiones no discrepan en ningún punto.",
-         "Abajo, lo que queda al restar una versión de la otra: 75.32 frente a "
-         "75.29 mW. Los parásitos RC cuestan tres centésimas de milivatio, que "
-         "sobre 75 mW no es nada.",
+         "Abajo, lo que queda al restar una versión de la otra: 74.85 mW "
+         "frente a 74.82, tres centésimas. Los parásitos RC no mueven el punto "
+         "de trabajo.",
          "Este número es más fuerte que un LVS: el LVS dice que las conexiones "
-         "coinciden, esto dice que el comportamiento coincide.")
+         "coinciden, esto dice que el COMPORTAMIENTO coincide.")
 
     #  --- how the decision is built across the whole chip.
     for stem, pie, *notas in (
@@ -882,14 +884,16 @@ def construir(T: dict, salida: Path) -> None:
         ("total_2_outputs", "the six pins that leave the die",
          "Y las seis salidas que salen del chip, cada par con su gemela "
           "negada — que es literalmente su negado, no el otro sentido.",
-         "Coinciden en el 99.5 % en X e Y y el 98.9 % en Z. El contador "
-          "analógico de debajo se desvía 38.8 mV rms entre las dos versiones, "
-          "que es una décima de escalón: no basta para cambiar la cuenta salvo "
-          "justo en las fronteras."),
+         "Coinciden en el 99.72 % los tres, que es la otra cosa que arregla "
+          "el reparto de puertos de la v3: antes Z se quedaba en 98.89 % "
+          "mientras X e Y iban al 99.45. El contador analógico de debajo baja "
+          "339.9 mV por voto en X e Y y 546.5 mV en Z, y el peor caso de "
+          "desviación entre las dos versiones son 693.8 mV — no basta para "
+          "cambiar la cuenta salvo justo en las fronteras."),
     ):
         if (f := hay(stem)):
             d, y = E.contenido(prs, T["res_lay_t"], pie)
-            E.figura(d, prs, f, y, pie="datos_nav2/fino_nav2.csv")
+            E.figura(d, prs, f, y, pie="XSCHEM_v3/datos_nav3/fino_nav2.csv")
             G.di(*notas)
 
     #  --- what the six pins actually say, and the octant sweep that tests it.
@@ -952,7 +956,11 @@ def construir(T: dict, salida: Path) -> None:
     #  says is exactly wrong.
     for stem, pie, *notas in (
         ("chain_1_octantes",
-         "every GRADIENT2, every octant, twice",
+         "every GRADIENT2, every octant, twice — the EARLIER port order",
+         "Aviso antes de leerla: estas dos diapositivas son del reparto de "
+          "puertos ANTERIOR, no del que se fabrica. Están aquí porque son el "
+          "diagnóstico que llevó a la v3 — enseñan dónde se perdía el acierto, "
+          "y sin ellas el cambio de reparto parece un capricho.",
          "Aquí está el bloque de sensado por dentro del navegador: las cuatro "
           "cadenas contra los ocho octantes. Los dos paneles son la misma "
           "medida hecha contra dos referencias distintas, y la diferencia entre "
@@ -974,7 +982,7 @@ def construir(T: dict, salida: Path) -> None:
           "gradiente más fuerte: es la saturación del amplificador asomando, el "
           "mismo techo de dR/R = 1.4 % de la sección anterior."),
         ("chain_2_propagacion",
-         "how one wrong chain out of four reaches the output",
+         "how one wrong chain out of four reaches the output — EARLIER order",
          "Y ésta contesta la pregunta que deja la anterior: si cada cadena "
           "acierta el 90.9 %, ¿por qué el chip entero se queda en 76.2 %?",
          "Porque no hay redundancia. A la izquierda, cuántas cadenas se "
@@ -1143,11 +1151,12 @@ def construir(T: dict, salida: Path) -> None:
              "31 celdas.",
              "Y aquí sale una ventaja que no buscábamos: la v3 no solo acierta "
              "más, aguanta mejor el layout. Las seis salidas coinciden en el "
-             "99.72 % contra el 99.45 y 98.89 % de la versión del die, y el "
+             "99.72 % contra el 99.45 y 98.89 % del reparto ANTERIOR, y el "
              "desacuerdo baja de 2–4 grados a 1.",
              "El panel de la derecha dice por qué. El contador de la v3 "
              "recorre de 1.22 a 2.58 V —los cinco escalones, porque aparecen "
-             "los 3-0-0— mientras que el del die vive entre 1.81 y 2.58, o sea "
+             "los 3-0-0— mientras que el del reparto anterior vivía entre 1.81 "
+             "y 2.58, o sea "
              "en dos. Con más margen de voto, un offset del dibujo tiene que "
              "ser mucho mayor para cambiar la decisión.")
     if (f := hay("chain_3_v3")):
