@@ -493,6 +493,10 @@ def construir(T: dict, salida: Path) -> None:
     d, y = E.contenido(prs, T["pdn_t"], T["pdn_e"])
     E.tabla(d, prs, y, T["pdn_tab"], T["pdn_filas"], ancho=E.Inches(9.6))
     E.texto(d, prs, y + E.Inches(3.3), [T["pdn_pie"]], tam=13)
+    G.de("openroad/scripts/check_current_density.py sobre "
+         "out_v2_GRADIENT_NAV2_V3/GRADIENT_NAV2_V3_routed.def, pedido a 31 mA. "
+         "Los límites los lee del tech-LEF del PDK "
+         "(DCCURRENTDENSITY AVERAGE), no están escritos en el guion.")
     G.di("Cómo se reparte la alimentación dentro del bloque, que es lo último "
          "que se rehízo.",
          "Las filas de macros van ESPEJADAS: una sí y una no se voltean, así "
@@ -611,12 +615,23 @@ def construir(T: dict, salida: Path) -> None:
             d, y = E.contenido(prs, T["res_g2_t"], pie)
             E.figura(d, prs, f, y, pie="run_gradient.sh — G2 schematic vs G4 layout")
             G.di(*notas)
+            G.de(f"reportes/figuras/{stem}.png, de la corrida de "
+                 f"XSCHEM/TEST_TOTAL/run_gradient.sh del 2026-09-07 — "
+                 f"datos/fino.csv y datos/ancho.csv, más lo que el .control "
+                 f"deja en simulation/test_GRADIENT.sch/. Las cuatro cadenas "
+                 f"del banco cuelgan de los MISMOS seis nodos de sensor, así "
+                 f"que la comparación no arrastra diferencia de estímulo.")
 
     #  --- y POR QUE unos casos fallan y otros no, que la figura por octante no
     #  dice. Va inmediatamente detras de ella a proposito.
     d, y = E.contenido(prs, T["cond_t"], T["cond_e"])
     E.tabla(d, prs, y, T["cond_tab"], T["cond_filas"], ancho=E.Inches(10.6))
     E.texto(d, prs, y + E.Inches(2.7), [T["cond_pie"]], tam=12.5)
+    G.de("los 24 ficheros oct_*.txt de "
+         "XSCHEM/TEST_TOTAL/simulation/test_GRADIENT.sch/, agrupados por "
+         "reportes/figuras_octantes.py::cargar_sensado(). Los produce el "
+         "bloque OCTANT CASES del .control de test_GRADIENT.sch, corrido con "
+         "XSCHEM/TEST_TOTAL/run_gradient.sh el 2026-09-07.")
     G.di("Ésta contesta la pregunta que deja la figura anterior: por qué los "
          "octantes con más signos negativos salen peor. Y la respuesta no es "
          "que el chip trate distinto a un signo que a otro.",
@@ -643,6 +658,10 @@ def construir(T: dict, salida: Path) -> None:
     d, y = E.contenido(prs, T["g2res_t"], T["g2res_e"])
     E.tabla(d, prs, y, T["g2res_tab"], T["g2res_filas"], ancho=E.Inches(11.0))
     E.texto(d, prs, y + E.Inches(4.1), [T["g2res_pie"]], tam=12)
+    G.de("cada fila trae su guion en la última columna, y los cinco leen la "
+         "MISMA corrida: XSCHEM/TEST_TOTAL/run_gradient.sh del 2026-09-07, "
+         "que deja datos/fino.csv y datos/ancho.csv más los oct_*.txt y "
+         "lim_*.txt de simulation/test_GRADIENT.sch/.")
     G.di("Y todo lo medido en el bloque, junto. Hasta ahora estaba repartido "
          "entre cinco diapositivas y no había dónde mirar «cuánto da "
          "GRADIENT2».",
@@ -668,6 +687,11 @@ def construir(T: dict, salida: Path) -> None:
                  pie="test_GRADIENT.sch, bloque LIMIT CASES — 12 corridas")
         E.texto(d, prs, y + E.Inches(4.0), [T["lim_pie"]], tam=11.5)
 
+        G.de("los 12 ficheros lim_*.txt de "
+             "XSCHEM/TEST_TOTAL/simulation/test_GRADIENT.sch/, dibujados por "
+             "reportes/figuras_limite.py. Los produce el bloque LIMIT CASES "
+             "del .control de test_GRADIENT.sch, que se añadió el 2026-09-07 "
+             "para esta pregunta.")
         G.di("Y como la tabla anterior deja una condición señalada, el paso "
              "siguiente es un banco hecho para llevar ESA condición al límite "
              "y ninguna otra. Doce corridas nuevas en el mismo esquemático.",
@@ -816,6 +840,11 @@ def construir(T: dict, salida: Path) -> None:
             d, y = E.contenido(prs, T["res_lay_t"], pie)
             E.figura(d, prs, f, y, pie="XSCHEM_v3/datos_nav3/fino_nav2.csv")
             G.di(*notas)
+            G.de("XSCHEM_v3/datos_nav3/fino_nav2.csv, 721 puntos de 0 a 360°, "
+                 "dibujado por reportes/figuras_decision.py. Lo produce "
+                 "XSCHEM_v3/run_nav3.sh sobre test_NAV3.sch, que cuelga el "
+                 "navegador del esquemático y el reconstruido desde el layout "
+                 "extraído con parásitos RC de los mismos ocho nodos.")
 
     #  --- what the six pins actually say, and the octant sweep that tests it.
     d, y = E.contenido(prs, T["res_lay_t"], T["salida_e"])
@@ -835,6 +864,11 @@ def construir(T: dict, salida: Path) -> None:
         d, y = E.contenido(prs, T["res_lay_t"],
                            "all eight sign combinations of the gradient")
         E.figura(d, prs, f, y, pie="run_nav2_geo.sh — sphere sweep")
+        G.de("XSCHEM_v3/datos_geo_v3/por_barrido/*.csv, 39 barridos de la "
+             "esfera, leídos por reportes/figuras_octantes.py. Los produce "
+             "XSCHEM_v3/run_nav3_geo.sh sobre test_NAV3_geo.sch, que instancia "
+             "LAS DOS versiones sobre el mismo estímulo: las columnas con "
+             "sufijo v son la v3 y las de sufijo t el reparto anterior.")
         G.di("Los casos de prueba por octante en el navegador completo, que es "
              "lo que pediste: el gradiente recorriendo la esfera entera, no un "
              "plano, de modo que las ocho combinaciones de signo de X, Y y Z "
@@ -922,12 +956,19 @@ def construir(T: dict, salida: Path) -> None:
         if (f := hay(stem)):
             d, y = E.contenido(prs, T["res_lay_t"], pie)
             E.figura(d, prs, f, y, pie="run_nav2_geo.sh — sphere sweep, "
-                                       "schematic tops only")
+                                       "the EARLIER port order")
             G.di(*notas)
+            G.de("XSCHEM/TEST_TOTAL/datos_geo/por_barrido/*.csv — el barrido "
+                 "del reparto ANTERIOR, a propósito: estas dos son el "
+                 "diagnóstico de por qué aquel se quedaba en 76.2 %, y un "
+                 "diagnóstico hay que medirlo sobre lo que diagnostica. "
+                 "Dibujado por reportes/figuras_cadenas.py.")
 
     #  --- geometry.
     d, y = E.contenido(prs, T["geo_t"], T["geo_e"])
     E.texto(d, prs, y, T["geo"], tam=13)
+    G.de("XSCHEM/TEST_TOTAL/datos_geo/resumen.csv, seis cajas, producido por "
+         "XSCHEM/TEST_TOTAL/run_nav2_geo.sh.")
     G.di("El banco de geometría: los cuatro sensores en los vértices del "
          "tetraedro de una caja, y seis cajas distintas.",
          "Mide la resolución —el gradiente más pequeño con 95 % de acierto, que "
@@ -1011,6 +1052,10 @@ def construir(T: dict, salida: Path) -> None:
     d, y = E.contenido(prs, T["verif_t"], T["verif_e"])
     E.tabla(d, prs, y, T["verif_tab"], verificacion(es), ancho=E.Inches(9.6))
     E.texto(d, prs, y + E.Inches(3.5), [T["verif_pie"]], tam=13)
+    G.de("openroad/out/drc_B26_A_FILLED4/ (63 tablas), "
+         "out_integration/lvs_netgen_B26_A.rpt y la salida de "
+         "scripts/check_integration.py. Todo archivado con su sha en "
+         "integration/gds/2026-09-08_01/NOTAS.txt.")
     G.di("La verificación, toda sobre B26_A_filled4.gds, el fichero que se "
          "sube, no sobre una versión anterior.",
          "El LVS casa único sobre 1442 dispositivos y 894 nets, con el "
@@ -1066,6 +1111,9 @@ def construir(T: dict, salida: Path) -> None:
                                            "layout")
         E.figura(d, prs, f, y, alto_max=E.Inches(3.6),
                  pie="XSCHEM_v3/test_NAV3.sch — same extracted cells, v3 routing")
+        G.de("XSCHEM_v3/datos_nav3/fino_nav2.csv contra "
+             "XSCHEM/TEST_TOTAL/datos_nav2/fino_nav2.csv, los dos de 721 "
+             "puntos, dibujados por reportes/figuras_cadenas.py.")
         G.di("La v3 contra su propio layout, con las celdas extraídas con "
              "parásitos RC. El verificador de grafo confirma que el navegador "
              "reconstruido ES el mismo circuito que el esquemático de la v3, "
@@ -1084,6 +1132,9 @@ def construir(T: dict, salida: Path) -> None:
         d, y = E.contenido(prs, T["v3_t"], T["v3_e"])
         E.figura(d, prs, f, y, alto_max=E.Inches(3.6),
                  pie="XSCHEM_v3 — same sphere sweep, both wirings side by side")
+        G.de("XSCHEM_v3/datos_geo_v3/, el mismo barrido de la esfera con las "
+             "dos versiones colgadas de los mismos ocho nodos: columnas de "
+             "sufijo t el reparto anterior, de sufijo v la v3.")
         G.di("De dónde sale la mejora, que se ve directamente en el análisis "
              "de las cadenas.",
              "El bloque de sensado acierta el 99.7 % de lo que recibe, pero el "
@@ -1117,6 +1168,9 @@ def construir(T: dict, salida: Path) -> None:
 
     G.suelta()
     n = len(prs.slides._sldIdLst)
+    #  Las notas ANTES de guardar, o se escriben sobre un objeto que ya esta
+    #  en disco y el fichero sale sin ninguna.
+    G.notas()
     prs.save(str(salida))
     print(f"  {salida.name}   {n} diapositivas")
     G.escribir(salida.with_suffix(".txt"), n)

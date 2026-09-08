@@ -53,9 +53,13 @@ MARGEN = Inches(0.62)
 OBSERVADOR = None
 
 
-def _nace(tipo: str, titulo: str) -> None:
+def _nace(tipo: str, titulo: str, diapo=None) -> None:
+    #: Se le pasa TAMBIEN la diapositiva, para que quien escuche pueda dejarle
+    #: la narracion en su panel de notas. Antes solo iba el titulo y el guion
+    #: acababa unicamente en el `.txt` de al lado: quien presenta desde el
+    #: PowerPoint no tenia nada delante.
     if OBSERVADOR is not None:
-        OBSERVADOR(tipo, titulo)
+        OBSERVADOR(tipo, titulo, diapo)
 
 
 def titulo_ancho(texto: str) -> str:
@@ -117,7 +121,7 @@ def fondo_azul(diapo, prs) -> None:
 
 def portada(prs, titulo, subtitulo, lineas) -> None:
     diapo = prs.slides.add_slide(prs.slide_layouts[6])
-    _nace("portada", titulo)
+    _nace("portada", titulo, diapo)
     fondo_azul(diapo, prs)
     m = _caja(diapo, MARGEN, Inches(2.15), prs.slide_width - 2 * MARGEN, Inches(1.5))
     _parrafo(m, titulo_ancho(titulo), 46, BLANCO, FUENTE_TITULO, True,
@@ -135,7 +139,7 @@ def portada(prs, titulo, subtitulo, lineas) -> None:
 def seccion(prs, numero, titulo, bajada="") -> None:
     """A navy divider. Its job is to let the reader breathe between blocks."""
     diapo = prs.slides.add_slide(prs.slide_layouts[6])
-    _nace("seccion", f"{numero:02d} {titulo}")
+    _nace("seccion", f"{numero:02d} {titulo}", diapo)
     fondo_azul(diapo, prs)
     m = _caja(diapo, MARGEN * 2, Inches(2.7), prs.slide_width - 4 * MARGEN, Inches(0.8))
     _parrafo(m, f"{numero:02d}", 30, AMBAR, FUENTE_TITULO, True,
@@ -174,7 +178,7 @@ def _titulo_blanco(diapo, prs, titulo, epigrafe=""):
 def contenido(prs, titulo, epigrafe="") -> tuple:
     """White slide: title, rule, and the area below it left to the caller."""
     diapo = prs.slides.add_slide(prs.slide_layouts[6])
-    _nace("contenido", titulo)
+    _nace("contenido", titulo, diapo)
     y = _titulo_blanco(diapo, prs, titulo, epigrafe)
     return diapo, y
 

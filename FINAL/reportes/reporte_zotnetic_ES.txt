@@ -121,6 +121,11 @@ que medirlos aparte.
 Y la columna de la derecha es el peor corte de cada eje, no el del centro: un
 límite que depende de dónde se mire no es un límite.
 
+DE DÓNDE SALE:  openroad/scripts/check_current_density.py sobre
+                out_v2_GRADIENT_NAV2_V3/GRADIENT_NAV2_V3_routed.def, pedido a
+                31 mA. Los límites los lee del tech-LEF del PDK
+                (DCCURRENTDENSITY AVERAGE), no están escritos en el guion.
+
 DIAPOSITIVA 11 · BLOQUE 1 · SENSADO DE GRADIENTE
 ------------------------------------------------
 El primero de los tres bloques: el sensado de gradiente.
@@ -317,6 +322,13 @@ Y un aviso de lectura honesto: los comparadores no son uno por eje. Hay tres y
 comparan PARES — XY, XZ, YZ. Poner uno debajo de cada columna es una decisión
 de maquetación, no que XY sea «el comparador de X».
 
+DE DÓNDE SALE:  reportes/figuras/grid_lineal.png, de la corrida de
+                XSCHEM/TEST_TOTAL/run_gradient.sh del 2026-09-07 —
+                datos/fino.csv y datos/ancho.csv, más lo que el .control deja
+                en simulation/test_GRADIENT.sch/. Las cuatro cadenas del banco
+                cuelgan de los MISMOS seis nodos de sensor, así que la
+                comparación no arrastra diferencia de estímulo.
+
 DIAPOSITIVA 32 · RESULTADO DEL BLOQUE · SENSADO DE GRADIENTE
 ------------------------------------------------------------
 La misma hoja con el campo que da una AMR de verdad, dR/R del 2 %. La
@@ -326,6 +338,13 @@ y se ve recortado contra los dos raíles en toda la fila tercera.
 Lo importante es lo que pasa debajo: las dos últimas filas son idénticas a las
 de la hoja anterior. Saturar no rompe la decisión, porque para decidir hace
 falta el CRUCE, no el pico. El chip no mide cuánto, ordena.
+
+DE DÓNDE SALE:  reportes/figuras/grid_saturado.png, de la corrida de
+                XSCHEM/TEST_TOTAL/run_gradient.sh del 2026-09-07 —
+                datos/fino.csv y datos/ancho.csv, más lo que el .control deja
+                en simulation/test_GRADIENT.sch/. Las cuatro cadenas del banco
+                cuelgan de los MISMOS seis nodos de sensor, así que la
+                comparación no arrastra diferencia de estímulo.
 
 DIAPOSITIVA 33 · RESULTADO DEL BLOQUE · SENSADO DE GRADIENTE
 ------------------------------------------------------------
@@ -344,6 +363,13 @@ Se lee de arriba abajo como la rejilla: los puentes son lineales en el campo
 por construcción, el amplificador es lineal hasta que satura, y abajo se ve a
 partir de qué campo la decisión se asienta y ya no cambia.
 
+DE DÓNDE SALE:  reportes/figuras/field_1_chain.png, de la corrida de
+                XSCHEM/TEST_TOTAL/run_gradient.sh del 2026-09-07 —
+                datos/fino.csv y datos/ancho.csv, más lo que el .control deja
+                en simulation/test_GRADIENT.sch/. Las cuatro cadenas del banco
+                cuelgan de los MISMOS seis nodos de sensor, así que la
+                comparación no arrastra diferencia de estímulo.
+
 DIAPOSITIVA 34 · RESULTADO DEL BLOQUE · SENSADO DE GRADIENTE
 ------------------------------------------------------------
 La misma pregunta, en el extremo bajo y con su propia escala. Ésta es la que
@@ -359,10 +385,24 @@ Lo que le da crédito al número es que el banco de geometría llega al mismo
 suelo por otro camino, midiendo resolución. Dos experimentos independientes y
 el mismo límite.
 
+DE DÓNDE SALE:  reportes/figuras/field_2_fine.png, de la corrida de
+                XSCHEM/TEST_TOTAL/run_gradient.sh del 2026-09-07 —
+                datos/fino.csv y datos/ancho.csv, más lo que el .control deja
+                en simulation/test_GRADIENT.sch/. Las cuatro cadenas del banco
+                cuelgan de los MISMOS seis nodos de sensor, así que la
+                comparación no arrastra diferencia de estímulo.
+
 DIAPOSITIVA 35 · RESULTADO DEL BLOQUE · SENSADO DE GRADIENTE
 ------------------------------------------------------------
 El consumo de la cadena a lo largo del mismo barrido. Sube al pasar por la
 zona activa y se aplana cuando el amplificador satura.
+
+DE DÓNDE SALE:  reportes/figuras/field_3_power.png, de la corrida de
+                XSCHEM/TEST_TOTAL/run_gradient.sh del 2026-09-07 —
+                datos/fino.csv y datos/ancho.csv, más lo que el .control deja
+                en simulation/test_GRADIENT.sch/. Las cuatro cadenas del banco
+                cuelgan de los MISMOS seis nodos de sensor, así que la
+                comparación no arrastra diferencia de estímulo.
 
 DIAPOSITIVA 36 · RESULTADO DEL BLOQUE · SENSADO DE GRADIENTE
 ------------------------------------------------------------
@@ -400,6 +440,13 @@ Esa diferencia entre los dos es su offset. No es un límite de ruido, es de
 recorrido — con 103 V/V de ganancia y 5 V de raíl, 1.4 % de dR/R ya son 70 mV
 a la entrada y la salida no da más de sí.
 
+DE DÓNDE SALE:  reportes/figuras/oct_sensado.png, de la corrida de
+                XSCHEM/TEST_TOTAL/run_gradient.sh del 2026-09-07 —
+                datos/fino.csv y datos/ancho.csv, más lo que el .control deja
+                en simulation/test_GRADIENT.sch/. Las cuatro cadenas del banco
+                cuelgan de los MISMOS seis nodos de sensor, así que la
+                comparación no arrastra diferencia de estímulo.
+
 DIAPOSITIVA 37 · RESULTADO DEL BLOQUE · SENSADO DE GRADIENTE
 ------------------------------------------------------------
 Y ahora sí, la vista condensada de la decisión, que va aquí y no antes porque
@@ -411,6 +458,13 @@ esquemático, discontinuo el layout.
 El número: el eje decodificado es el correcto en el 95.4 % del barrido con el
 esquemático y el 93.3 % con el layout, sin un solo punto indeciso. Lo que se
 pierde está todo en las fronteras entre sectores.
+
+DE DÓNDE SALE:  reportes/figuras/trace_7_decision.png, de la corrida de
+                XSCHEM/TEST_TOTAL/run_gradient.sh del 2026-09-07 —
+                datos/fino.csv y datos/ancho.csv, más lo que el .control deja
+                en simulation/test_GRADIENT.sch/. Las cuatro cadenas del banco
+                cuelgan de los MISMOS seis nodos de sensor, así que la
+                comparación no arrastra diferencia de estímulo.
 
 DIAPOSITIVA 38 · RESULTADO DEL BLOQUE · SENSADO DE GRADIENTE
 ------------------------------------------------------------
@@ -425,6 +479,13 @@ grados y medio de desacuerdo sobre 360.
 Y conviene decir de dónde sale ese 4-6 % que falta: no está repartido, está
 entero en las tres fronteras de sector. En medio de un sector las dos
 versiones no fallan nunca.
+
+DE DÓNDE SALE:  reportes/figuras/trace_6_errors.png, de la corrida de
+                XSCHEM/TEST_TOTAL/run_gradient.sh del 2026-09-07 —
+                datos/fino.csv y datos/ancho.csv, más lo que el .control deja
+                en simulation/test_GRADIENT.sch/. Las cuatro cadenas del banco
+                cuelgan de los MISMOS seis nodos de sensor, así que la
+                comparación no arrastra diferencia de estímulo.
 
 DIAPOSITIVA 39 · POR QUÉ UNOS CASOS FALLAN Y OTROS NO
 -----------------------------------------------------
@@ -450,6 +511,12 @@ del 2 % o más, salvo en esa esquina, donde se queda en 1.38 %. El «94.8 %» es
 la media de un test que mete nueve de sus veinticuatro casos en la esquina
 mala: se mueve cambiando el reparto de casos, sin tocar el chip.
 
+DE DÓNDE SALE:  los 24 ficheros oct_*.txt de
+                XSCHEM/TEST_TOTAL/simulation/test_GRADIENT.sch/, agrupados por
+                reportes/figuras_octantes.py::cargar_sensado(). Los produce el
+                bloque OCTANT CASES del .control de test_GRADIENT.sch, corrido
+                con XSCHEM/TEST_TOTAL/run_gradient.sh el 2026-09-07.
+
 DIAPOSITIVA 40 · GRADIENT2, TODO LO MEDIDO
 ------------------------------------------
 Y todo lo medido en el bloque, junto. Hasta ahora estaba repartido entre cinco
@@ -471,6 +538,11 @@ queda en 1.38.
 Todo es de la corrida del 7 de septiembre. Los datos del banco se rehicieron
 ese día al añadirle los casos de límite, así que las figuras de esta sección
 son de esa misma tanda y no de una anterior.
+
+DE DÓNDE SALE:  cada fila trae su guion en la última columna, y los cinco leen
+                la MISMA corrida: XSCHEM/TEST_TOTAL/run_gradient.sh del
+                2026-09-07, que deja datos/fino.csv y datos/ancho.csv más los
+                oct_*.txt y lim_*.txt de simulation/test_GRADIENT.sch/.
 
 DIAPOSITIVA 41 · DÓNDE SE ROMPE, Y BAJO QUÉ CONDICIÓN
 -----------------------------------------------------
@@ -497,6 +569,12 @@ decide bien mientras el par que compite no vaya los dos hacia abajo estando a
 fondo de escala. Y el arreglo no es del decodificador, es subir la salida en
 reposo del amplificador hacia el centro del raíl — hoy desperdicia 3.5 V de
 recorrido por un lado y se queda sin margen por el otro.
+
+DE DÓNDE SALE:  los 12 ficheros lim_*.txt de
+                XSCHEM/TEST_TOTAL/simulation/test_GRADIENT.sch/, dibujados por
+                reportes/figuras_limite.py. Los produce el bloque LIMIT CASES
+                del .control de test_GRADIENT.sch, que se añadió el 2026-09-07
+                para esta pregunta.
 
 DIAPOSITIVA 42 · BLOQUE 2 · WEIGHT
 ----------------------------------
@@ -654,6 +732,12 @@ ninguna diapositiva: por cada eje, cuántas de las cuatro cadenas votan
 Las dos van juntas a propósito: el contador debe ser una imagen fiel de un
 entero, y lo es: un escalón limpio por voto en los tres ejes.
 
+DE DÓNDE SALE:  XSCHEM_v3/datos_nav3/fino_nav2.csv, 721 puntos de 0 a 360°,
+                dibujado por reportes/figuras_decision.py. Lo produce
+                XSCHEM_v3/run_nav3.sh sobre test_NAV3.sch, que cuelga el
+                navegador del esquemático y el reconstruido desde el layout
+                extraído con parásitos RC de los mismos ocho nodos.
+
 DIAPOSITIVA 60 · RESULTADO · LAYOUT CONTRA ESQUEMÁTICO
 ------------------------------------------------------
 Y las seis salidas que salen del chip, cada par con su gemela negada — que es
@@ -664,6 +748,12 @@ de puertos de la v3: antes Z se quedaba en 98.89 % mientras X e Y iban al
 99.45. El contador analógico de debajo baja 339.9 mV por voto en X e Y y 546.5
 mV en Z, y el peor caso de desviación entre las dos versiones son 693.8 mV —
 no basta para cambiar la cuenta salvo justo en las fronteras.
+
+DE DÓNDE SALE:  XSCHEM_v3/datos_nav3/fino_nav2.csv, 721 puntos de 0 a 360°,
+                dibujado por reportes/figuras_decision.py. Lo produce
+                XSCHEM_v3/run_nav3.sh sobre test_NAV3.sch, que cuelga el
+                navegador del esquemático y el reconstruido desde el layout
+                extraído con parásitos RC de los mismos ocho nodos.
 
 DIAPOSITIVA 61 · RESULTADO · LAYOUT CONTRA ESQUEMÁTICO
 ------------------------------------------------------
@@ -703,6 +793,13 @@ propósito cerca del límite. Separadas: 65.1 % con el gradiente a 5 veces el
 desajuste de sensor, 78.2 % a 11 veces y 85.3 % a 47 veces. No es una
 constante del chip, es dónde se le pone a medir. Las dos diapositivas
 siguientes lo desmontan.
+
+DE DÓNDE SALE:  XSCHEM_v3/datos_geo_v3/por_barrido/*.csv, 39 barridos de la
+                esfera, leídos por reportes/figuras_octantes.py. Los produce
+                XSCHEM_v3/run_nav3_geo.sh sobre test_NAV3_geo.sch, que
+                instancia LAS DOS versiones sobre el mismo estímulo: las
+                columnas con sufijo v son la v3 y las de sufijo t el reparto
+                anterior.
 
 DIAPOSITIVA 63 · RESULTADO · LAYOUT CONTRA ESQUEMÁTICO
 ------------------------------------------------------
@@ -745,6 +842,12 @@ La única excepción de circuito es la cadena 2 al 96 %, y solo con el gradiente
 más fuerte: es la saturación del amplificador asomando, el mismo techo de dR/R
 = 1.4 % de la sección anterior.
 
+DE DÓNDE SALE:  XSCHEM/TEST_TOTAL/datos_geo/por_barrido/*.csv — el barrido del
+                reparto ANTERIOR, a propósito: estas dos son el diagnóstico de
+                por qué aquel se quedaba en 76.2 %, y un diagnóstico hay que
+                medirlo sobre lo que diagnostica. Dibujado por
+                reportes/figuras_cadenas.py.
+
 DIAPOSITIVA 65 · RESULTADO · LAYOUT CONTRA ESQUEMÁTICO
 ------------------------------------------------------
 Y ésta contesta la pregunta que deja la anterior: si cada cadena acierta el
@@ -764,6 +867,12 @@ La conclusión para el diseño: el sitio donde ganar precisión no es el bloque
 de sensado, que ya está al 99.7 %. Es calibrar los sensores, o pesar cada voto
 por su margen en lugar de contarlos todos igual.
 
+DE DÓNDE SALE:  XSCHEM/TEST_TOTAL/datos_geo/por_barrido/*.csv — el barrido del
+                reparto ANTERIOR, a propósito: estas dos son el diagnóstico de
+                por qué aquel se quedaba en 76.2 %, y un diagnóstico hay que
+                medirlo sobre lo que diagnostica. Dibujado por
+                reportes/figuras_cadenas.py.
+
 DIAPOSITIVA 66 · BANCO DE GEOMETRÍA · MÉTODO
 --------------------------------------------
 El banco de geometría: los cuatro sensores en los vértices del tetraedro de
@@ -775,6 +884,9 @@ X-Y, y el fondo.
 
 El criterio del 95 % se eligió para no depender de ninguna definición
 prestada: es un número que sale del propio experimento.
+
+DE DÓNDE SALE:  XSCHEM/TEST_TOTAL/datos_geo/resumen.csv, seis cajas, producido
+                por XSCHEM/TEST_TOTAL/run_nav2_geo.sh.
 
 DIAPOSITIVA 67 · BANCO DE GEOMETRÍA · MÉTODO
 --------------------------------------------
@@ -913,6 +1025,11 @@ es el PEOR corte de cada eje, no el del centro. Antes se cortaba el die por la
 mitad del lado mayor, que sobre un die rectangular no es el centro de ningún
 eje, y ese corte caía en un sitio afortunado.
 
+DE DÓNDE SALE:  openroad/out/drc_B26_A_FILLED4/ (63 tablas),
+                out_integration/lvs_netgen_B26_A.rpt y la salida de
+                scripts/check_integration.py. Todo archivado con su sha en
+                integration/gds/2026-09-08_01/NOTAS.txt.
+
 DIAPOSITIVA 82 · 05 CONCLUSIONES  [SECCIÓN]
 -------------------------------------------
 Separador. Lo esperado contra lo medido, incluido lo que no cerró.
@@ -970,6 +1087,10 @@ El panel de la derecha dice por qué. El contador de la v3 recorre de 1.22 a
 reparto anterior vivía entre 1.81 y 2.58, o sea en dos. Con más margen de
 voto, un offset del dibujo tiene que ser mucho mayor para cambiar la decisión.
 
+DE DÓNDE SALE:  XSCHEM_v3/datos_nav3/fino_nav2.csv contra
+                XSCHEM/TEST_TOTAL/datos_nav2/fino_nav2.csv, los dos de 721
+                puntos, dibujados por reportes/figuras_cadenas.py.
+
 DIAPOSITIVA 87 · LA MEJORA, YA DENTRO DEL DIE
 ---------------------------------------------
 De dónde sale la mejora, que se ve directamente en el análisis de las cadenas.
@@ -992,6 +1113,10 @@ decían. No cambia ninguna celda, solo el ruteo de los pads de sensor.
 Está en XSCHEM_v3, y desde el 7 de septiembre es el núcleo del GDS que se
 entrega: B26_A_filled4.gds. Se repitieron DRC y LVS del bloque y del área
 integrada, y los dos salen limpios.
+
+DE DÓNDE SALE:  XSCHEM_v3/datos_geo_v3/, el mismo barrido de la esfera con las
+                dos versiones colgadas de los mismos ocho nodos: columnas de
+                sufijo t el reparto anterior, de sufijo v la v3.
 
 DIAPOSITIVA 88 · 06 ESTADO  [SECCIÓN]
 -------------------------------------
