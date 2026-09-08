@@ -77,6 +77,47 @@ GEOMETRIA = [
     ("3000 × 500", "92.7 %", "94.4 %"),
 ]
 
+#: LOS 24 CASOS DE OCTANTE, AGRUPADOS POR LA CONDICION QUE LOS DISTINGUE.
+#:
+#: La figura por octante enseña ocho barras desiguales y deja al lector
+#: suponiendo que el chip trata distinto a un signo que a otro. No es eso. El
+#: decodificador saca el MENOR, y "el menor" cae en la señal mas pequeña cuando
+#: los tres sentidos son positivos y en la MAS GRANDE cuando son negativos.
+#: Como saturar depende del tamaño y no del signo, los octantes negativos le
+#: piden al comparador que resuelva justo el par que se pega antes al rail.
+#: Agrupados por esa condicion los 24 casos se ordenan solos, y cuatro de las
+#: cinco filas salen al 100 %.
+#:
+#: Medido con `figuras_octantes.cargar_sensado()` sobre los `oct_*.txt`.
+#: "Alcance" es el dR/R hasta donde no falla ni una vez; el barrido acaba en
+#: 2.00 %, asi que "> 2.00" quiere decir que no llego a fallar.
+CONDICIONES = [
+    ("a raíles opuestos, el mayor a 0.6", "6", "100 %", "100 %", "> 2.00 %"),
+    ("a raíles opuestos, el mayor a 1.0", "3", "100 %", "100 %", "> 2.00 %"),
+    ("los dos hacia ARRIBA, el mayor a 0.6", "3", "100 %", "100 %", "> 2.00 %"),
+    ("los dos hacia ABAJO, el mayor a 0.6", "3", "100 %", "100 %", "> 2.00 %"),
+    ("los dos hacia ABAJO, el mayor a 1.0", "9", "86.2 %", "83.6 %", "1.38 / 1.26 %"),
+]
+
+#: EL BANCO DEL LIMITE, del bloque `LIMIT CASES` de `test_GRADIENT.sch` y
+#: medido por `figuras_limite.py`. Tres familias que sólo se diferencian en una
+#: cosa cada vez, para que la causa quede aislada sin suponer nada:
+#:
+#:   A  par ABAJO,  fondo de escala    c = (-1.0, -1.0+d, +0.3)
+#:   B  par ABAJO,  media escala       c = (-0.5, -0.5+d, +1.0)
+#:   C  par ARRIBA, media escala       c = (+0.5, +0.5+d, +1.0)
+#:
+#: "> 2.00" es el final del barrido: no llego a fallar.
+LIMITE = [
+    ("A — par ABAJO, fondo de escala", "0.05", "0.62 %", "0.50 %"),
+    ("A — par ABAJO, fondo de escala", "0.40", "1.38 %", "1.26 %"),
+    ("B — par ABAJO, media escala", "0.05", "1.60 %", "1.36 %"),
+    ("B — par ABAJO, media escala", "0.10", "> 2.00 %", "1.78 %"),
+    ("B — par ABAJO, media escala", "0.20", "> 2.00 %", "> 2.00 %"),
+    ("C — par ARRIBA, media escala", "0.05", "> 2.00 %", "> 2.00 %"),
+    ("C — par ARRIBA, media escala", "0.40", "> 2.00 %", "> 2.00 %"),
+]
+
 #: The sensing block traced stage by stage, from figuras_trazabilidad.py.
 #: Replaces the old `grad_*` figures, which drew all four chains and so put the
 #: discarded 98 dB amplifier on the slide next to the one that ships.
@@ -603,6 +644,82 @@ def construir(T: dict, salida: Path) -> None:
             d, y = E.contenido(prs, T["res_g2_t"], pie)
             E.figura(d, prs, f, y, pie="run_gradient.sh — G2 schematic vs G4 layout")
             G.di(*notas)
+
+    #  --- y POR QUE unos casos fallan y otros no, que la figura por octante no
+    #  dice. Va inmediatamente detras de ella a proposito.
+    d, y = E.contenido(prs, T["cond_t"], T["cond_e"])
+    E.tabla(d, prs, y, T["cond_tab"], CONDICIONES, ancho=E.Inches(10.6))
+    E.texto(d, prs, y + E.Inches(2.7), [T["cond_pie"]], tam=12.5)
+    G.di("Ésta contesta la pregunta que deja la figura anterior: por qué los "
+         "octantes con más signos negativos salen peor. Y la respuesta no es "
+         "que el chip trate distinto a un signo que a otro.",
+         "El decodificador saca el MENOR de los tres. Con los tres sentidos "
+         "positivos el menor es la señal MÁS PEQUEÑA; con los tres negativos "
+         "es la MÁS GRANDE. Saturar depende del tamaño, no del signo. Así que "
+         "en los octantes negativos la decisión recae justo sobre el par que "
+         "se pega antes al raíl.",
+         "Agrupados por esa condición los 24 casos se ordenan solos: cuatro de "
+         "las cinco filas aciertan el 100 % y no fallan en todo el barrido. "
+         "Sólo cae una, y necesita las DOS condiciones a la vez — los dos "
+         "candidatos hacia abajo Y el mayor a fondo de escala. Con una sola de "
+         "las dos, acierta siempre.",
+         "El porqué está en el pie, y está medido: el amplificador reposa en "
+         "0.72 V, con 4.24 V de recorrido hacia arriba y 0.68 hacia abajo. "
+         "Seis veces menos.",
+         "Y de aquí sale la cifra que se defiende sola: el bloque decide bien "
+         "hasta dR/R del 2 % o más, salvo en esa esquina, donde se queda en "
+         "1.38 %. El «94.8 %» es la media de un test que mete nueve de sus "
+         "veinticuatro casos en la esquina mala: se mueve cambiando el reparto "
+         "de casos, sin tocar el chip.")
+
+    #  --- y el banco hecho a proposito para llevar esa esquina al limite.
+    if (f := hay("lim_sensado")):
+        d, y = E.contenido(prs, T["lim_t"], T["lim_e"])
+        E.figura(d, prs, f, y, alto_max=E.Inches(3.9),
+                 pie="test_GRADIENT.sch, bloque LIMIT CASES — 12 corridas")
+        E.texto(d, prs, y + E.Inches(4.0), [T["lim_pie"]], tam=11.5)
+
+        G.di("Y como la tabla anterior deja una condición señalada, el paso "
+             "siguiente es un banco hecho para llevar ESA condición al límite "
+             "y ninguna otra. Doce corridas nuevas en el mismo esquemático.",
+             "El experimento está montado para que las tres familias sólo se "
+             "diferencien en lo que se quiere medir. Mismo margen entre los "
+             "dos que compiten, y la tercera lectura aparcada a fondo de "
+             "escala donde no puede competir. La respuesta correcta es siempre "
+             "X, así que una salida distinta es un fallo y no hay nada que "
+             "interpretar.",
+             "A contra B cambia sólo el TAMAÑO del par, con los dos yendo "
+             "hacia abajo. B contra C cambia sólo el RAÍL, a igual tamaño. Con "
+             "esas dos comparaciones la causa queda aislada sin suponer nada.",
+             "El panel de la derecha es la prueba directa: las dos salidas que "
+             "compiten, en el caso más apretado de cada familia. Las de abajo "
+             "se juntan y se pegan al suelo; las de arriba siguen separadas "
+             "cuando el barrido se acaba.",
+             "Lo que esto deja dicho es una condición de uso, no un "
+             "porcentaje: el bloque decide bien mientras el par que compite no "
+             "vaya los dos hacia abajo estando a fondo de escala. Y el arreglo "
+             "no es del decodificador, es subir la salida en reposo del "
+             "amplificador hacia el centro del raíl — hoy desperdicia 3.5 V de "
+             "recorrido por un lado y se queda sin margen por el otro.")
+
+        #  Y la misma medida en numeros, porque de la figura se lee la
+        #  tendencia y de la tabla el limite exacto.
+        d, y = E.contenido(prs, T["lim_t"], T["lim2_e"])
+        E.tabla(d, prs, y, T["lim_tab"], LIMITE, ancho=E.Inches(10.2))
+        E.texto(d, prs, y + E.Inches(3.4), [T["lim2_pie"]], tam=12.5)
+        G.di("Los mismos doce casos en números, que es donde se lee el límite "
+             "exacto.",
+             "Fíjate en las dos comparaciones que monta el banco. B contra C, "
+             "mismo tamaño y sólo cambia el raíl: hacia arriba no falla NUNCA, "
+             "ni con el margen más apretado; hacia abajo falla en cuanto el "
+             "margen baja de 0.20. El raíl solo ya lo explica.",
+             "Y A contra B, mismo raíl y sólo cambia el tamaño: con el mismo "
+             "margen de 0.40, a media escala no falla en todo el barrido y a "
+             "fondo de escala se queda en 1.38 %. Las dos condiciones son "
+             "necesarias, ninguna sobra.",
+             "La columna del layout va sistemáticamente unas doce centésimas "
+             "por debajo del esquemático. Eso es su offset, y es el mismo "
+             "número que sale en las otras medidas del bloque.")
 
     #  --- blocks 2 and 3.
     for clave, titulo, epi in ((("WEIGHT"), T["wei_t"], T["wei_e"]),

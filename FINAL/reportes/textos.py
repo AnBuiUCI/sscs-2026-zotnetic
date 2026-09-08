@@ -162,6 +162,19 @@ ES = {
     "res_geo_tab": ["Caja Lxy × Lz [µm]", "Gradiente bajo", "Gradiente alto"],
     "res_geo_pie": "Con gradiente alto la caja de 1000 × 1000 llega al 97.8 %. Achatar la caja (Lz 500) siempre cuesta acierto, porque el eje z queda peor resuelto que x-y.",
 
+    "lim_t": "DÓNDE SE ROMPE, Y BAJO QUÉ CONDICIÓN",
+    "lim_e": "Un banco hecho para llevar al límite ese fallo, y sólo ese.",
+    "lim_pie": "Tres familias con el MISMO margen entre los dos que compiten y la tercera lectura aparcada donde no compite: A par abajo a fondo de escala, B par abajo a media, C par arriba a media. A contra B separa el raíl del tamaño; B contra C separa los dos raíles a igual tamaño.",
+
+    "lim2_e": "Los mismos doce casos en números: el margen que aguanta cada condición.",
+    "lim_tab": ["Familia — condición", "Margen d", "Esquemático", "Layout"],
+    "lim2_pie": "B contra C, mismo tamaño y sólo cambia el raíl: hacia arriba no falla nunca; hacia abajo falla en cuanto el margen baja de 0.20. A contra B, mismo raíl y sólo cambia el tamaño: con el mismo margen de 0.40, a media escala no falla y a fondo de escala se queda en 1.38 %. Hacen falta las dos.",
+
+    "cond_t": "POR QUÉ UNOS CASOS FALLAN Y OTROS NO",
+    "cond_e": "Los mismos 24 casos, agrupados por la condición que los distingue.",
+    "cond_tab": ["Los dos que compiten por ser el menor", "Casos", "Esquemático", "Layout", "Alcance"],
+    "cond_pie": "El amplificador reposa en 0.72 V: tiene 4.24 V de recorrido hacia arriba y sólo 0.68 hacia abajo. Por eso hace falta que se cumplan LAS DOS condiciones —hacia abajo Y a fondo de escala— para que falle; con una sola, acierta siempre.",
+
     "pdn_t": "LA ALIMENTACIÓN DEL BLOQUE",
     "pdn_e": "Dimensionada al doble del pico medido: 31 mA contra 15.50 mA.",
     "pdn_tab": ["Conductor", "Sección", "Capacidad"],
@@ -421,6 +434,19 @@ EN = {
     "res_geo_e": "Accuracy on the direction, by box and gradient level.",
     "res_geo_tab": ["Box Lxy × Lz [µm]", "Low gradient", "High gradient"],
     "res_geo_pie": "At high gradient the 1000 × 1000 box reaches 97.8 %. Flattening the box (Lz 500) always costs accuracy, because the z axis ends up worse resolved than x-y.",
+
+    "lim_t": "WHERE IT BREAKS, AND UNDER WHICH CONDITION",
+    "lim_e": "A bench built to push that one failure to its limit, and nothing else.",
+    "lim_pie": "Three families with the SAME margin between the two contenders and the third reading parked where it cannot compete: A pair down at full scale, B pair down at half, C pair up at half. A against B separates the rail from the size; B against C separates the two rails at equal size.",
+
+    "lim2_e": "The same twelve cases in numbers: the margin each condition survives.",
+    "lim_tab": ["Family — condition", "Margin d", "Schematic", "Layout"],
+    "lim2_pie": "B against C, same size and only the rail changes: heading up it never fails; heading down it fails as soon as the margin drops below 0.20. A against B, same rail and only the size changes: at the same 0.40 margin, half scale never fails and full scale stops at 1.38 %. Both conditions are needed.",
+
+    "cond_t": "WHY SOME CASES FAIL AND OTHERS DO NOT",
+    "cond_e": "The same 24 cases, grouped by the condition that tells them apart.",
+    "cond_tab": ["The two contending for smallest", "Cases", "Schematic", "Layout", "Reach"],
+    "cond_pie": "The amplifier rests at 0.72 V: 4.24 V of room upward and only 0.68 downward. That is why BOTH conditions have to hold — heading down AND at full scale — for it to fail; with either one alone it is always right.",
 
     "pdn_t": "THE BLOCK'S POWER DISTRIBUTION",
     "pdn_e": "Sized for double the measured peak: 31 mA against 15.50 mA.",

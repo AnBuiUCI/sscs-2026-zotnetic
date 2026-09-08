@@ -439,6 +439,155 @@ wrdata oct_24.txt v(cx) v(cy) v(cz) v(S1P) v(S1N) v(S2P) v(S2N) v(S3P) v(S3N)
 + v(X2) v(Y2) v(Z2)
 + v(SX4) v(SY4) v(SZ4) v(XY4) v(XZ4) v(YZ4)
 + v(X4) v(Y4) v(Z4)
+* --------------------------------------------------------------------------
+* LIMIT CASES. The octant block above says the block is 94.8 % correct and
+* leaves it there. That number is the average of a test where NINE of its
+* twenty-four cases sit in the same corner, so it moves when the case list
+* moves and says nothing about the circuit. This block measures the corner.
+*
+* WHAT THE CORNER IS. The decoder puts out the SMALLEST reading, so two of the
+* three contend for it and the answer holds only while the amplifier still
+* separates those two. Measured on the octant runs, the amplifier rests at
+* 0.72 V with 4.24 V of room upward and 0.68 V downward -- SIX TIMES less --
+* so a contending pair heading DOWN pins against its rail six times sooner
+* than the same pair heading up. That, and not the sign of the octant, is what
+* the 94.8 % is made of.
+*
+* Three families, same margin d between the two contenders, the third reading
+* parked where it cannot compete:
+*
+*   A  pair DOWN, full scale   c = (-1.0, -1.0+d, +0.3)   expected X
+*   B  pair DOWN, half scale   c = (-0.5, -0.5+d, +1.0)   expected X
+*   C  pair UP,   half scale   c = (+0.5, +0.5+d, +1.0)   expected X
+*
+* A against B separates the RAIL from the SIZE. B against C separates the two
+* rails at equal size, which is the six-to-one asymmetry on its own. Four
+* margins each: twelve runs, and the answer is always X, so a flipped output
+* is a failure and nothing else.
+*
+* Files are `lim_NN.txt` and NOT `oct_NN.txt` on purpose: `figuras_octantes.py`
+* globs `oct_*.txt`, and a file of a different meaning landing in that glob
+* would be read as a ninth octant and would quietly move a published number.
+* limit 01: family A, d = 0.05, pair down at 1.0  ->  expected X
+alter Vcx = -1.0
+alter Vcy = -0.95
+alter Vcz = 0.3
+dc Vamp 200u 0.02 200u
+wrdata lim_01.txt v(cx) v(cy) v(cz) v(S1P) v(S1N) v(S2P) v(S2N) v(S3P) v(S3N)
++ v(x3.SX) v(x3.SY) v(x3.SZ) v(x3.net1) v(x3.net2) v(x3.net3)
++ v(X2) v(Y2) v(Z2)
++ v(SX4) v(SY4) v(SZ4) v(XY4) v(XZ4) v(YZ4)
++ v(X4) v(Y4) v(Z4)
+* limit 02: family A, d = 0.10, pair down at 1.0  ->  expected X
+alter Vcx = -1.0
+alter Vcy = -0.90
+alter Vcz = 0.3
+dc Vamp 200u 0.02 200u
+wrdata lim_02.txt v(cx) v(cy) v(cz) v(S1P) v(S1N) v(S2P) v(S2N) v(S3P) v(S3N)
++ v(x3.SX) v(x3.SY) v(x3.SZ) v(x3.net1) v(x3.net2) v(x3.net3)
++ v(X2) v(Y2) v(Z2)
++ v(SX4) v(SY4) v(SZ4) v(XY4) v(XZ4) v(YZ4)
++ v(X4) v(Y4) v(Z4)
+* limit 03: family A, d = 0.20, pair down at 1.0  ->  expected X
+alter Vcx = -1.0
+alter Vcy = -0.80
+alter Vcz = 0.3
+dc Vamp 200u 0.02 200u
+wrdata lim_03.txt v(cx) v(cy) v(cz) v(S1P) v(S1N) v(S2P) v(S2N) v(S3P) v(S3N)
++ v(x3.SX) v(x3.SY) v(x3.SZ) v(x3.net1) v(x3.net2) v(x3.net3)
++ v(X2) v(Y2) v(Z2)
++ v(SX4) v(SY4) v(SZ4) v(XY4) v(XZ4) v(YZ4)
++ v(X4) v(Y4) v(Z4)
+* limit 04: family A, d = 0.40, pair down at 1.0  ->  expected X
+alter Vcx = -1.0
+alter Vcy = -0.60
+alter Vcz = 0.3
+dc Vamp 200u 0.02 200u
+wrdata lim_04.txt v(cx) v(cy) v(cz) v(S1P) v(S1N) v(S2P) v(S2N) v(S3P) v(S3N)
++ v(x3.SX) v(x3.SY) v(x3.SZ) v(x3.net1) v(x3.net2) v(x3.net3)
++ v(X2) v(Y2) v(Z2)
++ v(SX4) v(SY4) v(SZ4) v(XY4) v(XZ4) v(YZ4)
++ v(X4) v(Y4) v(Z4)
+* limit 05: family B, d = 0.05, pair down at 0.5  ->  expected X
+alter Vcx = -0.5
+alter Vcy = -0.45
+alter Vcz = 1.0
+dc Vamp 200u 0.02 200u
+wrdata lim_05.txt v(cx) v(cy) v(cz) v(S1P) v(S1N) v(S2P) v(S2N) v(S3P) v(S3N)
++ v(x3.SX) v(x3.SY) v(x3.SZ) v(x3.net1) v(x3.net2) v(x3.net3)
++ v(X2) v(Y2) v(Z2)
++ v(SX4) v(SY4) v(SZ4) v(XY4) v(XZ4) v(YZ4)
++ v(X4) v(Y4) v(Z4)
+* limit 06: family B, d = 0.10, pair down at 0.5  ->  expected X
+alter Vcx = -0.5
+alter Vcy = -0.40
+alter Vcz = 1.0
+dc Vamp 200u 0.02 200u
+wrdata lim_06.txt v(cx) v(cy) v(cz) v(S1P) v(S1N) v(S2P) v(S2N) v(S3P) v(S3N)
++ v(x3.SX) v(x3.SY) v(x3.SZ) v(x3.net1) v(x3.net2) v(x3.net3)
++ v(X2) v(Y2) v(Z2)
++ v(SX4) v(SY4) v(SZ4) v(XY4) v(XZ4) v(YZ4)
++ v(X4) v(Y4) v(Z4)
+* limit 07: family B, d = 0.20, pair down at 0.5  ->  expected X
+alter Vcx = -0.5
+alter Vcy = -0.30
+alter Vcz = 1.0
+dc Vamp 200u 0.02 200u
+wrdata lim_07.txt v(cx) v(cy) v(cz) v(S1P) v(S1N) v(S2P) v(S2N) v(S3P) v(S3N)
++ v(x3.SX) v(x3.SY) v(x3.SZ) v(x3.net1) v(x3.net2) v(x3.net3)
++ v(X2) v(Y2) v(Z2)
++ v(SX4) v(SY4) v(SZ4) v(XY4) v(XZ4) v(YZ4)
++ v(X4) v(Y4) v(Z4)
+* limit 08: family B, d = 0.40, pair down at 0.5  ->  expected X
+alter Vcx = -0.5
+alter Vcy = -0.10
+alter Vcz = 1.0
+dc Vamp 200u 0.02 200u
+wrdata lim_08.txt v(cx) v(cy) v(cz) v(S1P) v(S1N) v(S2P) v(S2N) v(S3P) v(S3N)
++ v(x3.SX) v(x3.SY) v(x3.SZ) v(x3.net1) v(x3.net2) v(x3.net3)
++ v(X2) v(Y2) v(Z2)
++ v(SX4) v(SY4) v(SZ4) v(XY4) v(XZ4) v(YZ4)
++ v(X4) v(Y4) v(Z4)
+* limit 09: family C, d = 0.05, pair up at 0.5  ->  expected X
+alter Vcx = 0.5
+alter Vcy = 0.55
+alter Vcz = 1.0
+dc Vamp 200u 0.02 200u
+wrdata lim_09.txt v(cx) v(cy) v(cz) v(S1P) v(S1N) v(S2P) v(S2N) v(S3P) v(S3N)
++ v(x3.SX) v(x3.SY) v(x3.SZ) v(x3.net1) v(x3.net2) v(x3.net3)
++ v(X2) v(Y2) v(Z2)
++ v(SX4) v(SY4) v(SZ4) v(XY4) v(XZ4) v(YZ4)
++ v(X4) v(Y4) v(Z4)
+* limit 10: family C, d = 0.10, pair up at 0.5  ->  expected X
+alter Vcx = 0.5
+alter Vcy = 0.60
+alter Vcz = 1.0
+dc Vamp 200u 0.02 200u
+wrdata lim_10.txt v(cx) v(cy) v(cz) v(S1P) v(S1N) v(S2P) v(S2N) v(S3P) v(S3N)
++ v(x3.SX) v(x3.SY) v(x3.SZ) v(x3.net1) v(x3.net2) v(x3.net3)
++ v(X2) v(Y2) v(Z2)
++ v(SX4) v(SY4) v(SZ4) v(XY4) v(XZ4) v(YZ4)
++ v(X4) v(Y4) v(Z4)
+* limit 11: family C, d = 0.20, pair up at 0.5  ->  expected X
+alter Vcx = 0.5
+alter Vcy = 0.70
+alter Vcz = 1.0
+dc Vamp 200u 0.02 200u
+wrdata lim_11.txt v(cx) v(cy) v(cz) v(S1P) v(S1N) v(S2P) v(S2N) v(S3P) v(S3N)
++ v(x3.SX) v(x3.SY) v(x3.SZ) v(x3.net1) v(x3.net2) v(x3.net3)
++ v(X2) v(Y2) v(Z2)
++ v(SX4) v(SY4) v(SZ4) v(XY4) v(XZ4) v(YZ4)
++ v(X4) v(Y4) v(Z4)
+* limit 12: family C, d = 0.40, pair up at 0.5  ->  expected X
+alter Vcx = 0.5
+alter Vcy = 0.90
+alter Vcz = 1.0
+dc Vamp 200u 0.02 200u
+wrdata lim_12.txt v(cx) v(cy) v(cz) v(S1P) v(S1N) v(S2P) v(S2N) v(S3P) v(S3N)
++ v(x3.SX) v(x3.SY) v(x3.SZ) v(x3.net1) v(x3.net2) v(x3.net3)
++ v(X2) v(Y2) v(Z2)
++ v(SX4) v(SY4) v(SZ4) v(XY4) v(XZ4) v(YZ4)
++ v(X4) v(Y4) v(Z4)
 alter Vsel = 0
 .endc
 "}
