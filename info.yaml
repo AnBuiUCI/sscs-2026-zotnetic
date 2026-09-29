@@ -1,14 +1,3 @@
-# ==============================================================================
-#  CAREFUL: THE PADRING IN openroad/padframe/ PREDATES THIS FILE.
-#
-#  B26_A.def, attached by the organisers to issue #58 on 2026-08-23, was built
-#  from the previous list, which had VSS third and VDD fourth. This one puts VSS
-#  first and VDD last, so THE PADRING HAS TO BE REGENERATED before the slot
-#  assignment in that DEF means anything.
-#
-#  openroad/scripts/padframe_def.py notices and says so.
-# ==============================================================================
-
 # ----- ------ ----- ----- ------ ----- ----- ------ -----
 # Chipathon 2026: Project configuration
 # LICENSE: Apache License Version 2.0
@@ -28,6 +17,10 @@ project:
   discord: "teareverie"                   # Optional: Discord username (for support / communication)
   description: "Four magnetoresistive bridges resolve the gradient of the field magnitude"
   lvs_config: "lvs_config.json"
+  gf_def_ready: true            # data ready for def generation with global foundries' pad frame
+  ws_def_ready: true            # data ready for def generation with wafer space pad frame
+  drc_ready: true               # data ready for integration and DRC
+  lvs_ready: true               # data ready for integrated LVS
 
 # ======================================================
 # Pin definitions
@@ -99,7 +92,8 @@ project:
 #
 #   * XP XN YP YN ZP ZN are DIGITAL. They come out of the inverter behind the
 #     decision comparator and swing rail to rail, so they take a digital pad.
-#     Declared `bidirectional`; `secondary_esd` does not apply to them.
+#     Declared `bidirectional`, every control pin driven from the user area
+#     (B26_A.v): <name>_OUT, _OE, _IE, _CS, _SL, _PU, _PD, _PDRV0, _PDRV1.
 #   * X Y Z are genuinely ANALOGUE: each is the weight block's vote counter, and
 #     it lives between 1.814 V (three chains voting) and 3.035 V (none).
 #   * S1P..S4N are the eight bridge nodes.
@@ -112,7 +106,9 @@ project:
 # output-enable and this block has no such port. These six are permanent
 # outputs, so the enable should be tied to "always driving".
 #
-# SECONDARY ESD. The analogue pads carry HBM diodes only (gf180mcu_fd_io 4.5),
+# SECONDARY ESD. Not declared per pin: the current format ignores the
+# `secondary_esd` flag on analogue pads, and ours is in the user area anyway.
+# The analogue pads carry HBM diodes only (gf180mcu_fd_io 4.5),
 # so a CDM network -- series poly resistor plus diodes -- sits on each analogue
 # pin. It lives in the USER AREA next to the pad it protects, NOT inside
 # GRADIENT_NAV2: the path pad -> clamp -> gate is what the clamp is for, and
@@ -157,49 +153,38 @@ pins:
   # --- the seventeen signal pins, in the order the padring already uses --------
   - name: S4P            # sensor 4, positive leg of the bridge
     io_type: analog
-    secondary_esd: true
   - name: S4N            # sensor 4, negative leg
     io_type: analog
-    secondary_esd: true
   - name: Z              # Z vote counter, analogue test point
     io_type: analog
-    secondary_esd: true
   - name: ZN             # Z decision, negated
     io_type: bidirectional
   - name: ZP             # Z decision
     io_type: bidirectional
   - name: Y
     io_type: analog
-    secondary_esd: true
   - name: YN
     io_type: bidirectional
   - name: YP
     io_type: bidirectional
   - name: X
     io_type: analog
-    secondary_esd: true
   - name: XN
     io_type: bidirectional
   - name: XP
     io_type: bidirectional
   - name: S1N            # sensor 1, negative leg
     io_type: analog
-    secondary_esd: true
   - name: S1P
     io_type: analog
-    secondary_esd: true
   - name: S3P            # sensor 3
     io_type: analog
-    secondary_esd: true
   - name: S3N
     io_type: analog
-    secondary_esd: true
   - name: S2N            # sensor 2
     io_type: analog
-    secondary_esd: true
   - name: S2P
     io_type: analog
-    secondary_esd: true
 
   # --- and power closes it -----------------------------------------------------
   - name: VDD            # 6 V supply
