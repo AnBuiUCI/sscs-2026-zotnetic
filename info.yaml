@@ -6,8 +6,8 @@ project:
   lvs_config: "lvs_config.json"
   gf_def_ready: true
   ws_def_ready: true
-  drc_ready: true
-  lvs_ready: true
+  drc_ready: false
+  lvs_ready: false
 
 pins:
   - name: VSS
@@ -16,21 +16,9 @@ pins:
     io_type: analog
   - name: S4N
     io_type: analog
-  - name: Z
-    io_type: analog
-  - name: ZN
-    io_type: bidirectional
   - name: ZP
     io_type: bidirectional
-  - name: Y
-    io_type: analog
-  - name: YN
-    io_type: bidirectional
   - name: YP
-    io_type: bidirectional
-  - name: X
-    io_type: analog
-  - name: XN
     io_type: bidirectional
   - name: XP
     io_type: bidirectional
