@@ -1,9 +1,11 @@
 # Export control form: draft answers for review
 
-`Export_Control_GF_Rev8.2.docx` is GLOBALFOUNDRIES' export-control questionnaire,
+`Export_Control_GF_Rev8.2.pdf` is GLOBALFOUNDRIES' export-control questionnaire
+(the `.docx` next to it is the editable source it was exported from),
 required by the SSCS Chipathon organizers before the **11 November 2026**
 reservation deadline of the January GF shuttle. It is linked from `info.yaml`
-(`project.export_control`).
+(`project.export_control`). PDF is accepted: several teams the organizers
+already confirmed (A63, C01, D03) submitted theirs as PDF.
 
 **Status: DRAFT, NOT SIGNED.** The answers were pre-filled by the team from the
 technical facts of the design. Legal classifications (ECCN, jurisdiction) and

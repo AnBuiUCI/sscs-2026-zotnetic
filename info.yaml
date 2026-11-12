@@ -8,7 +8,7 @@ project:
   ws_def_ready: true
   drc_ready: false
   lvs_ready: false
-  export_control: "documents/Export_Control_GF_Rev8.2.docx"
+  export_control: "documents/Export_Control_GF_Rev8.2.pdf"
 
 pins:
   - name: VSS
