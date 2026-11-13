@@ -31,13 +31,15 @@ three digital pins.
   its output carries no information about the source.
 * **Reading the pins:** `XP` = source opposite S1, `YP` = opposite S4,
   `ZP` = opposite S3. They name a *sector*, not an axis in space.
+  `XN` `YN` `ZN` are their complements; `X` `Y` `Z` bring the vote sums out
+  as analog test points.
 
 | Item | Value |
 |---|---|
-| Top cell / GDS | `B26_A` · `FINAL/openroad/out_integration/B26_A_filled4.gds` (19-pin version; the 13-pin one is integrated once the organizers issue its pad frame) |
+| Top cell / GDS | `B26_A` · `FINAL/openroad/out_integration/B26_A_filled4.gds` |
 | Navigator core | `GRADIENT_NAV2_V3`, 460.9 × 387.0 µm |
 | Supply / power | 5.0 V · ~74 mW |
-| Pins | 13: S1P…S4N (8 analog, each with its own CDM clamp), XP YP ZP (digital), VDD, VSS |
+| Pins | 19: S1P…S4N (8 analog sensor inputs), X Y Z (3 analog test points), XP XN YP YN ZP ZN (6 digital outputs), VDD, VSS |
 | Pin list | [`info.yaml`](info.yaml) · export control: [`documents/`](documents/) |
 
 <img src="FINAL/reportes/figuras/layout_GRADIENT_NAV2_V3.png" width="420">
@@ -69,10 +71,9 @@ and the six output pins). The analysis scripts next to each bench
 | <img src="FINAL/reportes/figuras/apunta_esfera.png" width="520"> | <img src="FINAL/reportes/figuras/apunta_distancia.png" width="420"> |
 | Pin raised over the whole sphere vs. a perfect chip: **97.1 %** agreement at 0.29 T/m, 87.0 % at 31 mT/m | Right sector vs. magnet distance: **95.7 %** at 3 mm, 89.6 % at 12 mm, never undecided |
 
-Physical verification: `B26_A_filled4` (19 pins) is DRC clean on the 63-table
-KLayout deck and LVS clean (netgen, *"Circuits match uniquely"*). The 13-pin
-trial integration is clean on the sign-off deck in both connectivity modes,
-on density, and on LVS after fill.
+Physical verification: `B26_A_filled4` is DRC clean on the GF180MCU KLayout
+sign-off deck (deep mode, with and without connectivity) and LVS clean
+(netgen, *"Circuits match uniquely"*).
 
 ### Reproducing a sweep
 
